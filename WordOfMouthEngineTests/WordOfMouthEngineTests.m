@@ -1,6 +1,6 @@
 //
-//  WordOfMotuhEngineTests.m
-//  WordOfMotuhEngineTests
+//  WordOfMouthEngineTests.m
+//  WordOfMouthEngineTests
 //
 //  Created by Bijit Halder on 11/8/13.
 //  Copyright (c) 2013 Bijit Halder. All rights reserved.
@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface WordOfMotuhEngineTests : XCTestCase
+@interface WordOfMouthEngineTests : XCTestCase
 
 @end
 
-@implementation WordOfMotuhEngineTests
+@implementation WordOfMouthEngineTests
 
 - (void)setUp
 {
