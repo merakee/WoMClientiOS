@@ -191,8 +191,7 @@
 				1114A807182D8B3300089669 /* Images.xcassets */,
 				1114A7FC182D8B3300089669 /* Supporting Files */,
 			);
-			name = WordOfMouthEngine;
-			path = WordOfMotuhEngine;
+			path = WordOfMouthEngine;
 			sourceTree = "<group>";
 		};
 		1114A7FC182D8B3300089669 /* Supporting Files */ = {
@@ -213,8 +212,7 @@
 				1114A81A182D8B3400089669 /* WordOfMouthEngineTests.m */,
 				1114A815182D8B3400089669 /* Supporting Files */,
 			);
-			name = WordOfMouthEngineTests;
-			path = WordOfMotuhEngineTests;
+			path = WordOfMouthEngineTests;
 			sourceTree = "<group>";
 		};
 		1114A815182D8B3400089669 /* Supporting Files */ = {
