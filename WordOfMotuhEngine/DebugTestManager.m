@@ -1,0 +1,44 @@
+//
+//  DebugTestManager.m
+//  WordOfMotuhEngine
+//
+//  Created by Bijit Halder on 11/9/13.
+//  Copyright (c) 2013 Bijit Halder. All rights reserved.
+//
+
+#import "DebugTestManager.h"
+
+
+#import "ApiManager.h"
+
+@implementation DebugTestManager
+
+
+#pragma mark -  Public method
++ (void)runDebugTests{
+    [self testApiManager];
+    
+}
+
+
+#pragma mark -  individual test methods
++ (void)testApiManager{
+    ApiManager  *apiManager=[ApiManager sharedApiManager];
+    
+    NSLog(@"%@",[ApiManager getStringForPath:@"rumors/"]);
+    // get list of rumors
+    [apiManager GET:[ApiManager getStringForPath:@"rumors/"]
+         parameters:nil
+            success:^(NSURLSessionDataTask *task, id responseObject){
+                // NSLog(@"%@",responseObject);
+                //NSLog(@"%@",[responseObject class]);
+                for(NSDictionary *rumor in responseObject){
+                    NSLog(@"%@",[rumor objectForKey:@"text"]);
+                }
+            }
+            failure:^(NSURLSessionDataTask *task, NSError *error){
+                NSLog(@"%@",error);
+            }];
+    
+}
+@end
