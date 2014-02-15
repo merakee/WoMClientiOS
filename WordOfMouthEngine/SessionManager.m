@@ -10,4 +10,11 @@
 
 @implementation SessionManager
 
+
+
+#pragma mark - User Session methods
++ (BOOL) isUserLoggedIn{
+    return YES;
+}
+
 @end

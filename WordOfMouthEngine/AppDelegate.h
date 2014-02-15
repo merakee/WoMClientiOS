@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@class LogInViewController;
+@class CoreFunctionViewController;
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+    LogInViewController                 *logInViewController;
+    CoreFunctionViewController          *coreFunctionViewController;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 

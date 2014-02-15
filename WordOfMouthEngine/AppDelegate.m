@@ -7,6 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "SessionManager.h"
+#import "LogInViewController.h"
+#import "CoreFunctionViewController.h"
+
 #import "DebugTestManager.h"
 
 @implementation AppDelegate
@@ -15,7 +19,10 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+    
+    // view controllers
+    [self setViewController];
+    //self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
     // run debug test ********
@@ -50,5 +57,25 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+#pragma mark - View Set up methods
+- (void)setViewController {
+    // check if user is logged in
+    if([SessionManager isUserLoggedIn]==YES ){
+        // show core functions
+                if(coreFunctionViewController==nil) {
+                    coreFunctionViewController =[[CoreFunctionViewController alloc] init];
+                }
+        self.window.rootViewController=coreFunctionViewController;
+    }
+    else{
+        // show log in view
+        if(logInViewController==nil) {
+            logInViewController =[[LogInViewController alloc] init];
+        }
+        self.window.rootViewController=logInViewController;
+    }
+}
+
 
 @end

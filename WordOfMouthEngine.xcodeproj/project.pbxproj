@@ -50,6 +50,9 @@
 		116EE32A18ADA0F800C66D86 /* AppGraphicsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32918ADA0F800C66D86 /* AppGraphicsManager.m */; };
 		116EE32D18ADA10B00C66D86 /* AppAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32C18ADA10B00C66D86 /* AppAudioManager.m */; };
 		116EE33018ADA1AC00C66D86 /* AppAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32F18ADA1AC00C66D86 /* AppAnimationManager.m */; };
+		116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE33318ADB58500C66D86 /* CommonUtility.m */; };
+		11CB8FC318B00B2900396418 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC218B00B2900396418 /* LogInViewController.m */; };
+		11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC718B00BB200396418 /* CoreFunctionViewController.m */; };
 		11D1B6F0183AB0690022AF62 /* ApiManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1B6EF183AB0690022AF62 /* ApiManagerTests.m */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +122,15 @@
 		116EE32C18ADA10B00C66D86 /* AppAudioManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppAudioManager.m; sourceTree = "<group>"; };
 		116EE32E18ADA1AC00C66D86 /* AppAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppAnimationManager.h; sourceTree = "<group>"; };
 		116EE32F18ADA1AC00C66D86 /* AppAnimationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppAnimationManager.m; sourceTree = "<group>"; };
+		116EE33118ADB58500C66D86 /* CommonResourceDefintions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonResourceDefintions.h; sourceTree = "<group>"; };
+		116EE33218ADB58500C66D86 /* CommonUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtility.h; sourceTree = "<group>"; };
+		116EE33318ADB58500C66D86 /* CommonUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtility.m; sourceTree = "<group>"; };
+		116EE33418ADB58500C66D86 /* CoreSizeDefintions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreSizeDefintions.h; sourceTree = "<group>"; };
+		116EE33518ADB58500C66D86 /* LocalMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMacros.h; sourceTree = "<group>"; };
+		11CB8FC118B00B2900396418 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
+		11CB8FC218B00B2900396418 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
+		11CB8FC618B00BB200396418 /* CoreFunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreFunctionViewController.h; sourceTree = "<group>"; };
+		11CB8FC718B00BB200396418 /* CoreFunctionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreFunctionViewController.m; sourceTree = "<group>"; };
 		11D1B6EF183AB0690022AF62 /* ApiManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiManagerTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -262,6 +274,8 @@
 		1114A826182D8D4A00089669 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				11CB8FC518B00B5500396418 /* CoreFunctionVC */,
+				11CB8FC418B00B3300396418 /* LogInVC */,
 				116EE31A18AD4B1200C66D86 /* AppUI */,
 			);
 			name = View;
@@ -295,6 +309,11 @@
 		1114A82A182D8D7E00089669 /* CommonUtility */ = {
 			isa = PBXGroup;
 			children = (
+				116EE33118ADB58500C66D86 /* CommonResourceDefintions.h */,
+				116EE33218ADB58500C66D86 /* CommonUtility.h */,
+				116EE33318ADB58500C66D86 /* CommonUtility.m */,
+				116EE33418ADB58500C66D86 /* CoreSizeDefintions.h */,
+				116EE33518ADB58500C66D86 /* LocalMacros.h */,
 			);
 			name = CommonUtility;
 			sourceTree = "<group>";
@@ -366,6 +385,24 @@
 				116EE32318ADA09D00C66D86 /* UserInfoManager.m */,
 			);
 			name = UserInfo;
+			sourceTree = "<group>";
+		};
+		11CB8FC418B00B3300396418 /* LogInVC */ = {
+			isa = PBXGroup;
+			children = (
+				11CB8FC118B00B2900396418 /* LogInViewController.h */,
+				11CB8FC218B00B2900396418 /* LogInViewController.m */,
+			);
+			name = LogInVC;
+			sourceTree = "<group>";
+		};
+		11CB8FC518B00B5500396418 /* CoreFunctionVC */ = {
+			isa = PBXGroup;
+			children = (
+				11CB8FC618B00BB200396418 /* CoreFunctionViewController.h */,
+				11CB8FC718B00BB200396418 /* CoreFunctionViewController.m */,
+			);
+			name = CoreFunctionVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -470,6 +507,7 @@
 				116EE32118ADA08D00C66D86 /* ContentManager.m in Sources */,
 				1114A84B182D8E3C00089669 /* AFURLRequestSerialization.m in Sources */,
 				1114A849182D8E3C00089669 /* AFURLConnectionOperation.m in Sources */,
+				116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */,
 				1114A847182D8E3C00089669 /* AFSecurityPolicy.m in Sources */,
 				1114A83F182D8E3C00089669 /* AFHTTPRequestOperation.m in Sources */,
 				111E5975182ECA8F00B7FD49 /* DebugTestManager.m in Sources */,
@@ -480,8 +518,10 @@
 				1114A843182D8E3C00089669 /* AFHTTPSessionManager.m in Sources */,
 				111E5970182EC53F00B7FD49 /* ApiManager.m in Sources */,
 				1114A841182D8E3C00089669 /* AFHTTPRequestOperationManager.m in Sources */,
+				11CB8FC318B00B2900396418 /* LogInViewController.m in Sources */,
 				116EE32418ADA09D00C66D86 /* UserInfoManager.m in Sources */,
 				1114A845182D8E3C00089669 /* AFNetworkReachabilityManager.m in Sources */,
+				11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */,
 				1114A802182D8B3300089669 /* main.m in Sources */,
 				116EE32A18ADA0F800C66D86 /* AppGraphicsManager.m in Sources */,
 			);
@@ -616,8 +656,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WordOfMotuhEngine/WordOfMouthEngine-Prefix.pch";
-				INFOPLIST_FILE = "WordOfMotuhEngine/WordOfMouthEngine-Info.plist";
+				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
+				INFOPLIST_FILE = "WordOfMouthEngine/WordOfMouthEngine-Info.plist";
 				PRODUCT_NAME = WordOfMouthEngine;
 				WRAPPER_EXTENSION = app;
 			};
@@ -629,8 +669,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WordOfMotuhEngine/WordOfMouthEngine-Prefix.pch";
-				INFOPLIST_FILE = "WordOfMotuhEngine/WordOfMouthEngine-Info.plist";
+				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
+				INFOPLIST_FILE = "WordOfMouthEngine/WordOfMouthEngine-Info.plist";
 				PRODUCT_NAME = WordOfMouthEngine;
 				WRAPPER_EXTENSION = app;
 			};
@@ -640,7 +680,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMotuhEngine.app/WordOfMotuhEngine";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMotuhEngine.app/WordOfMouthEngine";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

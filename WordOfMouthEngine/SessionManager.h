@@ -10,4 +10,10 @@
 
 @interface SessionManager : NSObject
 
+
+#pragma mark - User Session methods
++ (BOOL) isUserLoggedIn;
+
+
+
 @end
