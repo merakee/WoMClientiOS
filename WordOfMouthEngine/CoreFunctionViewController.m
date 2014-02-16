@@ -7,32 +7,99 @@
 //
 
 #import "CoreFunctionViewController.h"
+#import "CoreFunctionViewHelper.h"
+#import "AppUIManager.h"
 
-@interface CoreFunctionViewController ()
+#import "ContentViewController.h"
+#import "HistoryViewController.h"
+#import "ProfileViewController.h"
+#import "SettingsViewController.h"
 
-@end
 
 @implementation CoreFunctionViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+#pragma mark -  View Life cycle Methods
+
+// Implement loadView to create a view hierarchy programmatically, without using a nib.
+- (void)loadView {
+    [super loadView];
+    // view customization code
+    [self setView];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    // Do any additional setup after loading the view.
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+}
+
+// Implement viewWillAppear method for setting up the display
+- (void)viewWillAppear:(BOOL)animated {
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+}
+
+- (BOOL)shouldAutorotate{
+    return  YES;
+}
+- (NSUInteger)supportedInterfaceOrientations{
+    return [AppUIManager getSupportedOrentation];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Tababr Delegate methods
+- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed {
+    
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+    
+}
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    return YES;
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController willBeginCustomizingViewControllers:(NSArray *)viewControllers {
+    
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController willEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed {
+    
+}
+
+
+#pragma mark -  Local Methods Implememtation
+- (void)setView {
+    // content view
+    contentViewController =[[ContentViewController alloc] init];
+    // history view
+    historyViewController =[[HistoryViewController alloc] init];
+    // profile view
+    profileViewController =[[ProfileViewController alloc] init];
+    // settings view
+    settingsViewController =[[SettingsViewController alloc] init];
+    
+    // set tabs: create tabbar view controller
+    NSMutableArray *viewControllersArray =[[NSMutableArray alloc] init];
+    [viewControllersArray insertObject:contentViewController atIndex:kCFVTabbarIndexContent];
+    [viewControllersArray insertObject:historyViewController atIndex:kCFVTabbarIndexHistory];
+    [viewControllersArray insertObject:profileViewController atIndex:kCFVTabbarIndexProfile];
+    [viewControllersArray insertObject:settingsViewController atIndex:kCFVTabbarIndexSettings];
+    [self setViewControllers:viewControllersArray animated:YES];
 }
 
 @end

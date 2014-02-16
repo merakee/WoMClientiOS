@@ -1,5 +1,5 @@
 //
-//  LogInViewController.h
+//  HistoryViewController.h
 //  WordOfMouthEngine
 //
 //  Created by Bijit Halder on 2/15/14.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LogInViewController : UIViewController{
+@interface HistoryViewController : UITableViewController{
     
 }
 

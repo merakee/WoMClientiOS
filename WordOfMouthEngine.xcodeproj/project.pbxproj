@@ -53,6 +53,15 @@
 		116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE33318ADB58500C66D86 /* CommonUtility.m */; };
 		11CB8FC318B00B2900396418 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC218B00B2900396418 /* LogInViewController.m */; };
 		11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC718B00BB200396418 /* CoreFunctionViewController.m */; };
+		11CB8FCF18B0469000396418 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FCE18B0469000396418 /* ContentViewController.m */; };
+		11CB8FD218B046C400396418 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FD118B046C400396418 /* HistoryViewController.m */; };
+		11CB8FD518B0473500396418 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FD418B0473500396418 /* ProfileViewController.m */; };
+		11CB8FD818B0476A00396418 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FD718B0476A00396418 /* SettingsViewController.m */; };
+		11CB8FDB18B049B700396418 /* CoreFunctionViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FDA18B049B700396418 /* CoreFunctionViewHelper.m */; };
+		11CB8FE518B053CA00396418 /* Contact.png in Resources */ = {isa = PBXBuildFile; fileRef = 11CB8FE118B053CA00396418 /* Contact.png */; };
+		11CB8FE618B053CA00396418 /* Contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11CB8FE218B053CA00396418 /* Contact@2x.png */; };
+		11CB8FE718B053CA00396418 /* Favorites.png in Resources */ = {isa = PBXBuildFile; fileRef = 11CB8FE318B053CA00396418 /* Favorites.png */; };
+		11CB8FE818B053CA00396418 /* Favorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11CB8FE418B053CA00396418 /* Favorites@2x.png */; };
 		11D1B6F0183AB0690022AF62 /* ApiManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1B6EF183AB0690022AF62 /* ApiManagerTests.m */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +140,21 @@
 		11CB8FC218B00B2900396418 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		11CB8FC618B00BB200396418 /* CoreFunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreFunctionViewController.h; sourceTree = "<group>"; };
 		11CB8FC718B00BB200396418 /* CoreFunctionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreFunctionViewController.m; sourceTree = "<group>"; };
+		11CB8FCD18B0469000396418 /* ContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewController.h; sourceTree = "<group>"; };
+		11CB8FCE18B0469000396418 /* ContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentViewController.m; sourceTree = "<group>"; };
+		11CB8FD018B046C400396418 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		11CB8FD118B046C400396418 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		11CB8FD318B0473500396418 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		11CB8FD418B0473500396418 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		11CB8FD618B0476A00396418 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		11CB8FD718B0476A00396418 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		11CB8FD918B049B700396418 /* CoreFunctionViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreFunctionViewHelper.h; sourceTree = "<group>"; };
+		11CB8FDA18B049B700396418 /* CoreFunctionViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreFunctionViewHelper.m; sourceTree = "<group>"; };
+		11CB8FDC18B04EFE00396418 /* AppUIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUIConstants.h; sourceTree = "<group>"; };
+		11CB8FE118B053CA00396418 /* Contact.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Contact.png; sourceTree = "<group>"; };
+		11CB8FE218B053CA00396418 /* Contact@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Contact@2x.png"; sourceTree = "<group>"; };
+		11CB8FE318B053CA00396418 /* Favorites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Favorites.png; sourceTree = "<group>"; };
+		11CB8FE418B053CA00396418 /* Favorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Favorites@2x.png"; sourceTree = "<group>"; };
 		11D1B6EF183AB0690022AF62 /* ApiManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiManagerTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -302,6 +326,7 @@
 		1114A829182D8D7100089669 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				11CB8FDF18B053B400396418 /* Graphics */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -374,6 +399,7 @@
 				116EE32C18ADA10B00C66D86 /* AppAudioManager.m */,
 				116EE32E18ADA1AC00C66D86 /* AppAnimationManager.h */,
 				116EE32F18ADA1AC00C66D86 /* AppAnimationManager.m */,
+				11CB8FDC18B04EFE00396418 /* AppUIConstants.h */,
 			);
 			name = AppUI;
 			sourceTree = "<group>";
@@ -399,10 +425,71 @@
 		11CB8FC518B00B5500396418 /* CoreFunctionVC */ = {
 			isa = PBXGroup;
 			children = (
+				11CB8FCC18B0432400396418 /* SettingsVC */,
+				11CB8FCB18B0431A00396418 /* ProfileVC */,
+				11CB8FCA18B0431200396418 /* HistoryVC */,
+				11CB8FC918B0430700396418 /* ContentVC */,
 				11CB8FC618B00BB200396418 /* CoreFunctionViewController.h */,
 				11CB8FC718B00BB200396418 /* CoreFunctionViewController.m */,
+				11CB8FD918B049B700396418 /* CoreFunctionViewHelper.h */,
+				11CB8FDA18B049B700396418 /* CoreFunctionViewHelper.m */,
 			);
 			name = CoreFunctionVC;
+			sourceTree = "<group>";
+		};
+		11CB8FC918B0430700396418 /* ContentVC */ = {
+			isa = PBXGroup;
+			children = (
+				11CB8FCD18B0469000396418 /* ContentViewController.h */,
+				11CB8FCE18B0469000396418 /* ContentViewController.m */,
+			);
+			name = ContentVC;
+			sourceTree = "<group>";
+		};
+		11CB8FCA18B0431200396418 /* HistoryVC */ = {
+			isa = PBXGroup;
+			children = (
+				11CB8FD018B046C400396418 /* HistoryViewController.h */,
+				11CB8FD118B046C400396418 /* HistoryViewController.m */,
+			);
+			name = HistoryVC;
+			sourceTree = "<group>";
+		};
+		11CB8FCB18B0431A00396418 /* ProfileVC */ = {
+			isa = PBXGroup;
+			children = (
+				11CB8FD318B0473500396418 /* ProfileViewController.h */,
+				11CB8FD418B0473500396418 /* ProfileViewController.m */,
+			);
+			name = ProfileVC;
+			sourceTree = "<group>";
+		};
+		11CB8FCC18B0432400396418 /* SettingsVC */ = {
+			isa = PBXGroup;
+			children = (
+				11CB8FD618B0476A00396418 /* SettingsViewController.h */,
+				11CB8FD718B0476A00396418 /* SettingsViewController.m */,
+			);
+			name = SettingsVC;
+			sourceTree = "<group>";
+		};
+		11CB8FDF18B053B400396418 /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				11CB8FE018B053BB00396418 /* TabbarIcons */,
+			);
+			name = Graphics;
+			sourceTree = "<group>";
+		};
+		11CB8FE018B053BB00396418 /* TabbarIcons */ = {
+			isa = PBXGroup;
+			children = (
+				11CB8FE118B053CA00396418 /* Contact.png */,
+				11CB8FE218B053CA00396418 /* Contact@2x.png */,
+				11CB8FE318B053CA00396418 /* Favorites.png */,
+				11CB8FE418B053CA00396418 /* Favorites@2x.png */,
+			);
+			name = TabbarIcons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -480,8 +567,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11CB8FE718B053CA00396418 /* Favorites.png in Resources */,
+				11CB8FE518B053CA00396418 /* Contact.png in Resources */,
 				1114A800182D8B3300089669 /* InfoPlist.strings in Resources */,
 				1114A808182D8B3300089669 /* Images.xcassets in Resources */,
+				11CB8FE818B053CA00396418 /* Favorites@2x.png in Resources */,
+				11CB8FE618B053CA00396418 /* Contact@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -519,11 +610,16 @@
 				111E5970182EC53F00B7FD49 /* ApiManager.m in Sources */,
 				1114A841182D8E3C00089669 /* AFHTTPRequestOperationManager.m in Sources */,
 				11CB8FC318B00B2900396418 /* LogInViewController.m in Sources */,
+				11CB8FD518B0473500396418 /* ProfileViewController.m in Sources */,
+				11CB8FD218B046C400396418 /* HistoryViewController.m in Sources */,
 				116EE32418ADA09D00C66D86 /* UserInfoManager.m in Sources */,
 				1114A845182D8E3C00089669 /* AFNetworkReachabilityManager.m in Sources */,
+				11CB8FCF18B0469000396418 /* ContentViewController.m in Sources */,
 				11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */,
 				1114A802182D8B3300089669 /* main.m in Sources */,
 				116EE32A18ADA0F800C66D86 /* AppGraphicsManager.m in Sources */,
+				11CB8FDB18B049B700396418 /* CoreFunctionViewHelper.m in Sources */,
+				11CB8FD818B0476A00396418 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

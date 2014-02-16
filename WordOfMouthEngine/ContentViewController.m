@@ -1,15 +1,31 @@
 //
-//  LogInViewController.m
+//  ContentViewController.m
 //  WordOfMouthEngine
 //
 //  Created by Bijit Halder on 2/15/14.
 //  Copyright (c) 2014 Bijit Halder. All rights reserved.
 //
 
-#import "LogInViewController.h"
+#import "ContentViewController.h"
 #import "AppUIManager.h"
 
-@implementation LogInViewController
+@implementation ContentViewController
+
+- (id)init
+{
+    if (self = [super init]) {
+        // set tab bar
+        self.tabBarItem = [[UITabBarItem alloc]
+                           initWithTitle:@"WoM"
+                           image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageContent]
+                           tag:kCFVTabbarIndexContent];
+        
+        // set color
+        //[CommonViewElementManager setTableViewBackGroundColor:self.tableView];
+        
+    }
+    return self;
+}
 
 #pragma mark -  View Life cycle Methods
 
@@ -55,6 +71,7 @@
 
 #pragma mark -  Local Methods Implememtation
 - (void)setView {
+
 }
 
 @end

@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AppUIConstants.h"
 
 @interface AppUIManager : NSObject
+
+#pragma mark -  Layout methods
++(NSUInteger) getSupportedOrentation;
 
 @end

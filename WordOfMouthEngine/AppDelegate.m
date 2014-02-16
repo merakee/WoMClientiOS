@@ -26,7 +26,7 @@
     [self.window makeKeyAndVisible];
     
     // run debug test ********
-    [DebugTestManager runDebugTests];
+    //[DebugTestManager runDebugTests];
     
     return YES;
 }
@@ -58,7 +58,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-#pragma mark - View Set up methods
+#pragma mark - Root View Controller Set up methods
 - (void)setViewController {
     // check if user is logged in
     if([SessionManager isUserLoggedIn]==YES ){

@@ -1,15 +1,13 @@
 //
-//  LogInViewController.h
+//  CoreFunctionViewHelper.h
 //  WordOfMouthEngine
 //
 //  Created by Bijit Halder on 2/15/14.
 //  Copyright (c) 2014 Bijit Halder. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-@interface LogInViewController : UIViewController{
-    
-}
+@interface CoreFunctionViewHelper : NSObject
 
 @end

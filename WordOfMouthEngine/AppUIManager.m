@@ -10,4 +10,9 @@
 
 @implementation AppUIManager
 
+
+#pragma mark -  Layout methods
++(NSUInteger) getSupportedOrentation{
+    return UIInterfaceOrientationMaskPortrait |  UIInterfaceOrientationMaskPortraitUpsideDown;
+}
 @end

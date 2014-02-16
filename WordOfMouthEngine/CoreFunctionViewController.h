@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+@class ContentViewController;
+@class HistoryViewController;
+@class ProfileViewController;
+@class SettingsViewController;
 
-@interface CoreFunctionViewController : UITabBarController
+@interface CoreFunctionViewController : UITabBarController<UITabBarDelegate>{
+    ContentViewController           *contentViewController;
+    HistoryViewController           *historyViewController;
+    ProfileViewController           *profileViewController;
+    SettingsViewController          *settingsViewController;
+}
 
 @end
