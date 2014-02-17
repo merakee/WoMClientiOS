@@ -7,13 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UserInfo.h"
 
-@interface SessionManager : NSObject
+@interface SessionManager : NSObject{
+    
+}
 
+@property UserInfo      *currentUser;
 
 #pragma mark - User Session methods
 + (BOOL) isUserLoggedIn;
-
-
++ (UserInfo *)currentUser;
 
 @end

@@ -10,4 +10,15 @@
 
 @implementation ContentManager
 
+
+#pragma mark - Content methods
++ (ContentInfo *)getContent{
+    
+    ContentInfo *ci  =[[ContentInfo alloc] initWithBody:@"This is default content body. This will hold the test for the content"
+                                               authorId:1000
+                                              timeStamp:@"default time stamp"
+                                            spreadCount:500];
+    
+    return ci;
+}
 @end

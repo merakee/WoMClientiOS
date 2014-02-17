@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ContentInfo.h"
 
 @interface ContentManager : NSObject
 
+#pragma mark - Content methods
++ (ContentInfo *)getContent;
 @end

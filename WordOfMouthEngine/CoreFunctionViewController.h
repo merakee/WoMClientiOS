@@ -13,6 +13,8 @@
 @class SettingsViewController;
 
 @interface CoreFunctionViewController : UITabBarController<UITabBarDelegate>{
+    
+    UINavigationController          *contentViewNavigationController;
     ContentViewController           *contentViewController;
     HistoryViewController           *historyViewController;
     ProfileViewController           *profileViewController;

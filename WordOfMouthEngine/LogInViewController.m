@@ -34,10 +34,12 @@
 
 // Implement viewWillAppear method for setting up the display
 - (void)viewWillAppear:(BOOL)animated {
+            [super viewWillAppear:animated];
     
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+            [super viewWillDisappear:animated];
 }
 
 - (BOOL)shouldAutorotate{

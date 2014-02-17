@@ -1,29 +1,19 @@
 //
-//  ContentViewController.m
+//  AddContentViewController.m
 //  WordOfMouthEngine
 //
 //  Created by Bijit Halder on 2/15/14.
 //  Copyright (c) 2014 Bijit Halder. All rights reserved.
 //
 
-#import "ContentViewController.h"
-#import "AppUIManager.h"
 #import "AddContentViewController.h"
+#import "AppUIManager.h"
 
-@implementation ContentViewController
+@implementation AddContentViewController
 
 - (id)init
 {
     if (self = [super init]) {
-        // set tab bar
-       /* self.navigationController.tabBarItem = [[UITabBarItem alloc]
-                           initWithTitle:@"WoM"
-                           image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageContent]
-                           tag:kCFVTabbarIndexContent];
-        */
-        
-        // set color
-        //[CommonViewElementManager setTableViewBackGroundColor:self.tableView];
         
     }
     return self;
@@ -49,17 +39,21 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
-
 // Implement viewWillAppear method for setting up the display
 - (void)viewWillAppear:(BOOL)animated {
-        [super viewWillAppear:animated];
- 
+    [super viewWillAppear:animated];
+    
+    // hide tabbar
+    //[self setHidesBottomBarWhenPushed:YES];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-        [super viewWillDisappear:animated];
+    [super viewWillDisappear:animated];
     
 }
+ 
+
 - (BOOL)shouldAutorotate{
     return  YES;
 }
@@ -78,37 +72,35 @@
     // set navigation bar
     [self setNavigationBar];
 }
+
 - (void)setNavigationBar {
     // set up navigation bar
-    self.navigationItem.title = @"User name";
+    self.navigationItem.title = @"Compose";
     
     // right navigation button
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-                                             initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
+                                              initWithTitle:@"Post"
+                                              style:UIBarButtonItemStyleDone
                                               target:self
-                                              action:@selector(goToAddContentView:)];
+                                              action:@selector(postContent:)];
     
-    
-    // set up back button for the child view
-    /* self.navigationItem.backBarButtonItem =  [[UIBarButtonItem alloc]
+    self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc]
                                               initWithTitle:@"Cancel"
                                               style:UIBarButtonItemStyleDone
-                                              target:nil
-                                              action:nil];
-     */
+                                              target:self
+                                              action:@selector(goBack:)];
     
-
 }
 
 
 #pragma mark - Button Action Methods
-- (void)goToAddContentView:(id)sender {
-    // set add content view
-    AddContentViewController *acvc =[[AddContentViewController alloc] init];
-    acvc.hidesBottomBarWhenPushed=YES;
-    
-    [self.navigationController pushViewController:acvc animated:YES];
+- (void)postContent:(id)sender {
+    // post content and add to history
 }
 
+- (void)goBack:(id)sender {
+    // go back
+    [self.navigationController popViewControllerAnimated:NO];
+}
 
 @end

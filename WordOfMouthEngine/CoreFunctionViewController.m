@@ -41,10 +41,12 @@
 
 // Implement viewWillAppear method for setting up the display
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+        [super viewWillDisappear:animated];
 }
 
 - (BOOL)shouldAutorotate{
@@ -86,6 +88,14 @@
 - (void)setView {
     // content view
     contentViewController =[[ContentViewController alloc] init];
+    contentViewNavigationController = [[UINavigationController alloc]
+                                        initWithRootViewController:contentViewController];
+    // set tab bar
+    contentViewNavigationController.tabBarItem = [[UITabBarItem alloc]
+                       initWithTitle:@"WoM"
+                       image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageContent]
+                       tag:kCFVTabbarIndexContent];
+    
     // history view
     historyViewController =[[HistoryViewController alloc] init];
     // profile view
@@ -95,7 +105,7 @@
     
     // set tabs: create tabbar view controller
     NSMutableArray *viewControllersArray =[[NSMutableArray alloc] init];
-    [viewControllersArray insertObject:contentViewController atIndex:kCFVTabbarIndexContent];
+    [viewControllersArray insertObject:contentViewNavigationController atIndex:kCFVTabbarIndexContent];
     [viewControllersArray insertObject:historyViewController atIndex:kCFVTabbarIndexHistory];
     [viewControllersArray insertObject:profileViewController atIndex:kCFVTabbarIndexProfile];
     [viewControllersArray insertObject:settingsViewController atIndex:kCFVTabbarIndexSettings];
