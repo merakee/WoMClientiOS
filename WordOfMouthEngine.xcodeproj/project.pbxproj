@@ -57,7 +57,7 @@
 		11CB8FD218B046C400396418 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FD118B046C400396418 /* HistoryViewController.m */; };
 		11CB8FD518B0473500396418 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FD418B0473500396418 /* ProfileViewController.m */; };
 		11CB8FD818B0476A00396418 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FD718B0476A00396418 /* SettingsViewController.m */; };
-		11CB8FDB18B049B700396418 /* CoreFunctionViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FDA18B049B700396418 /* CoreFunctionViewHelper.m */; };
+		11CB8FDB18B049B700396418 /* ContentViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FDA18B049B700396418 /* ContentViewHelper.m */; };
 		11CB8FE518B053CA00396418 /* Contact.png in Resources */ = {isa = PBXBuildFile; fileRef = 11CB8FE118B053CA00396418 /* Contact.png */; };
 		11CB8FE618B053CA00396418 /* Contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11CB8FE218B053CA00396418 /* Contact@2x.png */; };
 		11CB8FE718B053CA00396418 /* Favorites.png in Resources */ = {isa = PBXBuildFile; fileRef = 11CB8FE318B053CA00396418 /* Favorites.png */; };
@@ -65,7 +65,8 @@
 		11CB8FEB18B0886600396418 /* ContentInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FEA18B0886600396418 /* ContentInfo.m */; };
 		11CB8FEE18B08C7100396418 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FEC18B08C7100396418 /* UserInfo.m */; };
 		11D1B6F0183AB0690022AF62 /* ApiManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1B6EF183AB0690022AF62 /* ApiManagerTests.m */; };
-		11FD6CED18B18C75007D318E /* AddContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEB18B18C75007D318E /* AddContentViewController.m */; };
+		11FD6CED18B18C75007D318E /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEB18B18C75007D318E /* ComposeViewController.m */; };
+		11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,8 +152,8 @@
 		11CB8FD418B0473500396418 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		11CB8FD618B0476A00396418 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		11CB8FD718B0476A00396418 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		11CB8FD918B049B700396418 /* CoreFunctionViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreFunctionViewHelper.h; sourceTree = "<group>"; };
-		11CB8FDA18B049B700396418 /* CoreFunctionViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreFunctionViewHelper.m; sourceTree = "<group>"; };
+		11CB8FD918B049B700396418 /* ContentViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewHelper.h; sourceTree = "<group>"; };
+		11CB8FDA18B049B700396418 /* ContentViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentViewHelper.m; sourceTree = "<group>"; };
 		11CB8FDC18B04EFE00396418 /* AppUIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUIConstants.h; sourceTree = "<group>"; };
 		11CB8FE118B053CA00396418 /* Contact.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Contact.png; sourceTree = "<group>"; };
 		11CB8FE218B053CA00396418 /* Contact@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Contact@2x.png"; sourceTree = "<group>"; };
@@ -163,8 +164,10 @@
 		11CB8FEC18B08C7100396418 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		11CB8FED18B08C7100396418 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		11D1B6EF183AB0690022AF62 /* ApiManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiManagerTests.m; sourceTree = "<group>"; };
-		11FD6CEB18B18C75007D318E /* AddContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentViewController.m; sourceTree = "<group>"; };
-		11FD6CEC18B18C75007D318E /* AddContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentViewController.h; sourceTree = "<group>"; };
+		11FD6CEB18B18C75007D318E /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
+		11FD6CEC18B18C75007D318E /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
+		11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewHelper.m; sourceTree = "<group>"; };
+		11FD6CEF18B3DCB9007D318E /* ComposeViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewHelper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -438,15 +441,13 @@
 		11CB8FC518B00B5500396418 /* CoreFunctionVC */ = {
 			isa = PBXGroup;
 			children = (
-				11FD6CEA18B18C32007D318E /* AddContentVC */,
+				11FD6CEA18B18C32007D318E /* ComposeVC */,
 				11CB8FCC18B0432400396418 /* SettingsVC */,
 				11CB8FCB18B0431A00396418 /* ProfileVC */,
 				11CB8FCA18B0431200396418 /* HistoryVC */,
 				11CB8FC918B0430700396418 /* ContentVC */,
 				11CB8FC618B00BB200396418 /* CoreFunctionViewController.h */,
 				11CB8FC718B00BB200396418 /* CoreFunctionViewController.m */,
-				11CB8FD918B049B700396418 /* CoreFunctionViewHelper.h */,
-				11CB8FDA18B049B700396418 /* CoreFunctionViewHelper.m */,
 			);
 			name = CoreFunctionVC;
 			sourceTree = "<group>";
@@ -454,6 +455,8 @@
 		11CB8FC918B0430700396418 /* ContentVC */ = {
 			isa = PBXGroup;
 			children = (
+				11CB8FD918B049B700396418 /* ContentViewHelper.h */,
+				11CB8FDA18B049B700396418 /* ContentViewHelper.m */,
 				11CB8FCD18B0469000396418 /* ContentViewController.h */,
 				11CB8FCE18B0469000396418 /* ContentViewController.m */,
 			);
@@ -506,13 +509,15 @@
 			name = TabbarIcons;
 			sourceTree = "<group>";
 		};
-		11FD6CEA18B18C32007D318E /* AddContentVC */ = {
+		11FD6CEA18B18C32007D318E /* ComposeVC */ = {
 			isa = PBXGroup;
 			children = (
-				11FD6CEB18B18C75007D318E /* AddContentViewController.m */,
-				11FD6CEC18B18C75007D318E /* AddContentViewController.h */,
+				11FD6CEB18B18C75007D318E /* ComposeViewController.m */,
+				11FD6CEC18B18C75007D318E /* ComposeViewController.h */,
+				11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */,
+				11FD6CEF18B3DCB9007D318E /* ComposeViewHelper.h */,
 			);
-			name = AddContentVC;
+			name = ComposeVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -564,9 +569,6 @@
 				TargetAttributes = {
 					1114A7F1182D8B3300089669 = {
 						DevelopmentTeam = E2FCZXHQZ9;
-					};
-					1114A80C182D8B3400089669 = {
-						TestTargetID = 1114A7F1182D8B3300089669;
 					};
 				};
 			};
@@ -633,6 +635,7 @@
 				111E597D18309A6700B7FD49 /* ApiUser.m in Sources */,
 				1114A84F182D8E3C00089669 /* AFURLSessionManager.m in Sources */,
 				1114A84D182D8E3C00089669 /* AFURLResponseSerialization.m in Sources */,
+				11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */,
 				1114A806182D8B3300089669 /* AppDelegate.m in Sources */,
 				1114A843182D8E3C00089669 /* AFHTTPSessionManager.m in Sources */,
 				111E5970182EC53F00B7FD49 /* ApiManager.m in Sources */,
@@ -641,13 +644,13 @@
 				11CB8FD518B0473500396418 /* ProfileViewController.m in Sources */,
 				11CB8FD218B046C400396418 /* HistoryViewController.m in Sources */,
 				116EE32418ADA09D00C66D86 /* UserInfoManager.m in Sources */,
-				11FD6CED18B18C75007D318E /* AddContentViewController.m in Sources */,
+				11FD6CED18B18C75007D318E /* ComposeViewController.m in Sources */,
 				1114A845182D8E3C00089669 /* AFNetworkReachabilityManager.m in Sources */,
 				11CB8FCF18B0469000396418 /* ContentViewController.m in Sources */,
 				11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */,
 				1114A802182D8B3300089669 /* main.m in Sources */,
 				116EE32A18ADA0F800C66D86 /* AppGraphicsManager.m in Sources */,
-				11CB8FDB18B049B700396418 /* CoreFunctionViewHelper.m in Sources */,
+				11CB8FDB18B049B700396418 /* ContentViewHelper.m in Sources */,
 				11CB8FD818B0476A00396418 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -780,13 +783,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Bijit Halder (L25J5ASAZZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Bijit Halder (L25J5ASAZZ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngine/WordOfMouthEngine-Info.plist";
 				PRODUCT_NAME = WordOfMouthEngine;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "B15F30B7-ECA8-4E1B-8EC2-17EF5E1EA153";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -797,13 +800,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Indriam Inc. (E2FCZXHQZ9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Indriam Inc. (E2FCZXHQZ9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngine/WordOfMouthEngine-Info.plist";
 				PRODUCT_NAME = WordOfMouthEngine;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "FDBC992C-F438-4776-9F1C-E850CB5CDD80";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -813,21 +816,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMotuhEngine.app/WordOfMouthEngine";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Bijit Halder (L25J5ASAZZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Bijit Halder (L25J5ASAZZ)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WordOfMotuhEngine/WordOfMotuhEngine-Prefix.pch";
+				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "WordOfMotuhEngineTests/WordOfMouthEngineTests-Info.plist";
+				INFOPLIST_FILE = "WordOfMouthEngineTests/WordOfMouthEngineTests-Info.plist";
 				PRODUCT_NAME = WordOfMouthEngineTests;
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				PROVISIONING_PROFILE = "B15F30B7-ECA8-4E1B-8EC2-17EF5E1EA153";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -836,17 +840,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMotuhEngine.app/WordOfMotuhEngine";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Indriam Inc. (E2FCZXHQZ9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Indriam Inc. (E2FCZXHQZ9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WordOfMotuhEngine/WordOfMotuhEngine-Prefix.pch";
-				INFOPLIST_FILE = "WordOfMotuhEngineTests/WordOfMouthEngineTests-Info.plist";
+				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
+				INFOPLIST_FILE = "WordOfMouthEngineTests/WordOfMouthEngineTests-Info.plist";
 				PRODUCT_NAME = WordOfMouthEngineTests;
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				PROVISIONING_PROFILE = "FDBC992C-F438-4776-9F1C-E850CB5CDD80";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

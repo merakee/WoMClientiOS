@@ -32,7 +32,7 @@
 #pragma mark - Utility Methods
 +(void)printRewardInfo:(UserInfo *)ui {
     DBLog(@"User info:--------------------");
-    DBLog(@"Id: %d",ui.userId);
+    DBLog(@"Id: %d",(int)ui.userId);
     DBLog(@"Name: %@",ui.userName);
     DBLog(@"Email: %@",ui.userEmail);
 }

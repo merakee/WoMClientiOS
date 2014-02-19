@@ -9,8 +9,27 @@
 #import <Foundation/Foundation.h>
 #import "ContentInfo.h"
 
-@interface ContentManager : NSObject
 
+@protocol ContentManagerDelegate <NSObject>
+@required
+-(void)contentPostedSuccessfully;
+@optional
+
+@end
+
+
+@interface ContentManager : NSObject{
+
+}
+
+@property (assign, nonatomic) id <ContentManagerDelegate>  delegate;
+
+#pragma mark -  instance Methods
+- (void)postContent:(ContentInfo *)ci;
+    
 #pragma mark - Content methods
 + (ContentInfo *)getContent;
++ (void)killContent:(ContentInfo *)ci;
++ (void)spreadContent:(ContentInfo *)ci;
+
 @end

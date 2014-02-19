@@ -115,8 +115,8 @@
 + (int)pickRandom:(int)maxInt;
 + (int)pickRandomFrom:(int)minLimit to:(int)maxLimit;
 + (BOOL)findRandomIndices:(int *)array withSize:(int)arraySize forMaxInd:(int)maxInd;
-+(BOOL)generateChoiceVec:(int *)choices ofSize:(int)vecSize withMax:(int)maxVal min:(int)minVal correctVal:(int)correctVal andIndex:(int *)index;
-+(BOOL)generateRandomVec:(int *)choices ofSize:(int)vecSize withMax:(int)maxVal min:(int)minVal excludingVal:(int)correctVal;
+//+(BOOL)generateChoiceVec:(int *)choices ofSize:(int)vecSize withMax:(int)maxVal min:(int)minVal correctVal:(int)correctVal andIndex:(int *)index;
+//+(BOOL)generateRandomVec:(int *)choices ofSize:(int)vecSize withMax:(int)maxVal min:(int)minVal excludingVal:(int)correctVal;
 
 #pragma mark -  File Manager Methods with file path
 + (BOOL)createDir:(NSString *)dir;

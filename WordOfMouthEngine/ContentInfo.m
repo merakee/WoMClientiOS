@@ -36,9 +36,9 @@
 +(void)printRewardInfo:(ContentInfo *)ci {
     DBLog(@"Content info:--------------------");
     DBLog(@"Body: %@",ci.contentBody);
-    DBLog(@"Author Id: %d",ci.authorId);
+    DBLog(@"Author Id: %d",(int)ci.authorId);
     DBLog(@"Time Stamp: %@",ci.timeStamp);
-    DBLog(@"Spread Count: %d",ci.spreadCount);
+    DBLog(@"Spread Count: %d",(int)ci.spreadCount);
 }
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "CoreFunctionViewController.h"
-#import "CoreFunctionViewHelper.h"
+//#import "CoreFunctionViewHelper.h"
 #import "AppUIManager.h"
 
 #import "ContentViewController.h"
@@ -92,9 +92,9 @@
                                         initWithRootViewController:contentViewController];
     // set tab bar
     contentViewNavigationController.tabBarItem = [[UITabBarItem alloc]
-                       initWithTitle:@"WoM"
-                       image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageContent]
-                       tag:kCFVTabbarIndexContent];
+                                            initWithTitle:@"WoM"
+                                            image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageContent]
+                                            tag:kCFVTabbarIndexContent];
     
     // history view
     historyViewController =[[HistoryViewController alloc] init];

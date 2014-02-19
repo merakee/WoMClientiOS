@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ContentManager.h"
 
-@interface AddContentViewController : UIViewController{
+
+@interface ComposeViewController : UIViewController<ContentManagerDelegate>{
+    UITextView         *composeTextView;
     
+    ContentManager     *contentManager;
 }
 
 @end

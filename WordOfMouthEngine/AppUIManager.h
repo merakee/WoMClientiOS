@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "AppUIConstants.h"
+#import "CommonUtility.h"
+#import "CommonResourceDefintions.h"
 
 @interface AppUIManager : NSObject
 

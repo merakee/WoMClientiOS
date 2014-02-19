@@ -660,6 +660,7 @@
     return isSuccessful;
 }
 
+/*
 +(BOOL)generateChoiceVec:(int *)choices ofSize:(int)vecSize withMax:(int)maxVal min:(int)minVal correctVal:(int)correctVal andIndex:(int *)index {
     int range = maxVal-minVal+1;
     if((range)<vecSize || vecSize<1) {
@@ -712,13 +713,13 @@
     [CommonUtility removeInt:correctVal fromArray:tvec withSize:range];
     
     // fill chioces array
-    for(int ind=0; ind<vecSize; ind++) {
-        choices[ind]=tvec[ind];
+    for(int ind=0; ind <vecSize; ind++) {
+        choices[ind] = tvec[ind];
     }
     // no error
     return YES;
 }
-
+*/
 
 
 #pragma mark -  File Manager Methods
