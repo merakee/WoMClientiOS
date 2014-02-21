@@ -112,12 +112,12 @@
                                               target:self
                                               action:@selector(postContent:)];
     
-    self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc]
+    /* self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc]
                                               initWithTitle:@"Cancel"
                                               style:UIBarButtonItemStyleDone
                                               target:self
                                               action:@selector(goBack:)];
-    
+    */
 }
 
 #pragma mark -  Local Methods Implememtation

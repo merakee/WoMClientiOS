@@ -8,7 +8,7 @@
 
 #import "CoreFunctionViewController.h"
 //#import "CoreFunctionViewHelper.h"
-#import "AppUIManager.h"
+
 
 #import "ContentViewController.h"
 #import "HistoryViewController.h"

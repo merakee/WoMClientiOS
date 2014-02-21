@@ -53,6 +53,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    // set up navigation bar
+    self.navigationItem.title = [SessionManager currentUser].userName;
+    
     // update content
     [self updateContent];
 }
@@ -140,8 +143,6 @@
 }
 
 - (void)setNavigationBar {
-    // set up navigation bar
-    self.navigationItem.title = [SessionManager currentUser].userName;
     
     // right navigation button
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
@@ -151,14 +152,11 @@
     
     
     // set up back button for the child view
-    /* self.navigationItem.backBarButtonItem =  [[UIBarButtonItem alloc]
+    self.navigationItem.backBarButtonItem =  [[UIBarButtonItem alloc]
      initWithTitle:@"Cancel"
-     style:UIBarButtonItemStyleDone
+     style:UIBarButtonItemStylePlain
      target:nil
      action:nil];
-     */
-    
-    
 }
 
 

@@ -20,6 +20,8 @@ typedef enum {
     kCFVTabbarIndexSettings
 } CFVTabbarIndex;
 
+
+// App Images
 #define kAUCCoreFunctionTabbarImageContent     @"TabbarImageContent.png"
 #define kAUCCoreFunctionTabbarImageHistory     @"Favorites.png"
 #define kAUCCoreFunctionTabbarImageProfile     @"Contact.png"

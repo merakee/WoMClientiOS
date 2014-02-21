@@ -9,14 +9,43 @@
 #import <Foundation/Foundation.h>
 #import "UserInfo.h"
 
+#define kAppErrorDomainSession  @"SessionErrorDomain"
+
+typedef enum {
+    kSessionErrorNone=0,
+    kSessionErrorInvalidSignIn,
+    kSessionErrorInvalidId,
+    kSessionErrorInvalidPassword,
+} kSessionErrorCode;
+
+
+@protocol SessionManagerDelegate <NSObject>
+@required
+
+@optional
+- (void)loggedInFailedWithErrors:(NSError *)error;
+- (void)loggedInSuccessfullyWithUser:(UserInfo *)user;
+- (void)loggedOutSuccessfully;
+@end
+
+
 @interface SessionManager : NSObject{
     
 }
 
+@property (assign, nonatomic) id <SessionManagerDelegate>  delegate;
+
 @property UserInfo      *currentUser;
 
+
+#pragma mark -  Singleton method
++ (SessionManager *) sharedSessionManager;
+
 #pragma mark - User Session methods
-+ (BOOL) isUserLoggedIn;
 + (UserInfo *)currentUser;
+- (BOOL) isUserLoggedIn;
+- (void)SignInUserWithId:(NSString *)userid andPassword:(NSString *)password;
+- (void)SignInAsGuest;
+- (void)logOut;
 
 @end

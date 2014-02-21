@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppUIManager.h"
+
 @class ContentViewController;
 @class HistoryViewController;
 @class ProfileViewController;

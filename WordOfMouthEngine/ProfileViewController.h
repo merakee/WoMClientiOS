@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SessionManager.h"
 
-@interface ProfileViewController : UITableViewController{
+@interface ProfileViewController : UITableViewController<SessionManagerDelegate>{
     
 }
 

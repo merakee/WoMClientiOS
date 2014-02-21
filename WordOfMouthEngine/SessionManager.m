@@ -7,45 +7,116 @@
 //
 
 #import "SessionManager.h"
+#import "CommonUtility.h"
+
 
 @implementation SessionManager
 
+@synthesize delegate;
 @synthesize currentUser;
 
+static SessionManager *sharedSessionManager=nil;
 
 #pragma mark - Init Methods
 - (id)init{
     if(self = [super init]) {
         // initialization code
-        self.currentUser = [self setUser];
+        [self setAllDefaults];
         
     }
     return self;
 }
 
-- (UserInfo *)setUser{
-    if (false){
-        
-    }else{
-        return [self defaultUser];
-    }
-
+- (void)setAllDefaults {
+    self.currentUser = nil;
+    self.delegate=nil;
 }
 
+
+#pragma mark -  Singleton method
++ (SessionManager *) sharedSessionManager {
+    if (sharedSessionManager != nil) {
+        return sharedSessionManager;
+    }
+    
+    sharedSessionManager= [[SessionManager alloc] init];
+    return sharedSessionManager;
+}
+
+#pragma mark - User Methods
 - (UserInfo *)defaultUser{
     return [ [UserInfo alloc]
             initWithId: 0
-            name: @"User Name"
-            email:@"user@online.com"];
+            name: @"Anonymous"
+            email:@"onone@online.com"];
     
 }
 
-
 #pragma mark - User Session methods
-+ (BOOL) isUserLoggedIn{
++ (UserInfo *)currentUser{
+    return [SessionManager sharedSessionManager].currentUser;
+}
+- (BOOL) isUserLoggedIn{
+    return !(self.currentUser == nil);
+}
+- (void)SignInAsGuest{
+    self.currentUser =[self defaultUser];
+    [self SignInUserWithId:currentUser.userName andPassword:nil];
+}
+- (void)SignInUserWithId:(NSString *)userid andPassword:(NSString *)password{
+    // reset current user
+    self.currentUser = nil;
+    
+    
+    // check user credential
+    if([self  isValidUserId:userid andPassword:password]){
+        self.currentUser = [[UserInfo alloc] init];
+        self.currentUser.userName = userid;
+        // notify delegate
+        if ([self.delegate respondsToSelector:@selector(loggedInSuccessfullyWithUser:)]) {
+            [self.delegate loggedInSuccessfullyWithUser:self.currentUser];
+        }
+    }
+    else{
+        // log in error
+        NSError *error =[CommonUtility getErrorWithDomain:kAppErrorDomainSession
+                                                     code:kSessionErrorInvalidSignIn
+                                              description:@"Invalid id/password"
+                                                   reason:@"User id password not found"
+                                               suggestion:@"Please entry valid id and password"];
+        // notify delegate
+        if ([self.delegate respondsToSelector:@selector(loggedInFailedWithErrors:)]) {
+            [self.delegate loggedInFailedWithErrors:error];
+        }
+    }
+    
+}
+- (void)logOut{
+    // reset current user
+    self.currentUser = nil;
+    
+    // notify delegate
+    if ([self.delegate respondsToSelector:@selector(loggedOutSuccessfully)]) {
+        [self.delegate loggedOutSuccessfully];
+    }
+}
+
+
+#pragma mark - User Credential validation methods
+- (BOOL)isValidUserId:(NSString *)userid andPassword:(NSString *)password{
+    
+    // check id
+    if(![@[@"Ahmet",@"User1",@"User2",@"User3",@"Anonymous"] containsObject:userid]){
+        return NO;
+    }
+    // check pass word
+    if (!([userid isEqualToString:@"Anonymous"]||[password isEqualToString:@"1234"])){
+        return NO;
+    }
+    
     return YES;
 }
-+ (UserInfo *) currentUser{
-    return [[SessionManager alloc] init].currentUser;
-}
+
+
+
 @end

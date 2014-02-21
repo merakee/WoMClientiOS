@@ -8,8 +8,10 @@
 
 #import "AppDelegate.h"
 #import "SessionManager.h"
-#import "LogInViewController.h"
+#import "SignInViewController.h"
 #import "CoreFunctionViewController.h"
+
+#import "SessionManager.h"
 
 #import "DebugTestManager.h"
 
@@ -20,6 +22,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
+    // set session manager
+    appSessionManager = [SessionManager sharedSessionManager];
     // view controllers
     [self setViewController];
     //self.window.backgroundColor = [UIColor whiteColor];
@@ -39,7 +43,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
@@ -61,21 +65,36 @@
 #pragma mark - Root View Controller Set up methods
 - (void)setViewController {
     // check if user is logged in
-    if([SessionManager isUserLoggedIn]==YES ){
-        // show core functions
-                if(coreFunctionViewController==nil) {
-                    coreFunctionViewController =[[CoreFunctionViewController alloc] init];
-                }
-        self.window.rootViewController=coreFunctionViewController;
+    if([appSessionManager isUserLoggedIn]==YES ){
+        [self setCoreFunctionViewAsRootView];
     }
     else{
-        // show log in view
-        if(logInViewController==nil) {
-            logInViewController =[[LogInViewController alloc] init];
-        }
-        self.window.rootViewController=logInViewController;
+        [self setSignInViewAsRootView];
     }
 }
 
+- (void)setSignInViewAsRootView{
+    // show log in view
+    if(signInNavigationController==nil){
+        signInNavigationController =[[UINavigationController alloc] init];
+    }
+    if(signInViewController==nil) {
+        signInViewController =[[SignInViewController alloc] init];
+    }
+    // set root view controller
+    [signInNavigationController setViewControllers:@[signInViewController]];
+    
+    self.window.rootViewController=signInNavigationController;
+}
+- (void)setCoreFunctionViewAsRootView{
+    // show core functions
+    if(coreFunctionViewController==nil) {
+        coreFunctionViewController =[[CoreFunctionViewController alloc] init];
+    }
+    // select defalt tab
+    coreFunctionViewController.selectedIndex = kCFVTabbarIndexContent;
+    
+    self.window.rootViewController=coreFunctionViewController;
+}
 
 @end

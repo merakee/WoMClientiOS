@@ -1311,6 +1311,25 @@
     return nil;
 }
 
+#pragma mark - NSError Generation method
++ (NSError *)getErrorWithDomain:(NSString *)domain
+                           code:(NSInteger)code
+                    description:(NSString *)description
+                         reason:(NSString *)reason
+                     suggestion:(NSString *)suggestion{
+    
+    NSDictionary *userInfo = @{
+                               NSLocalizedDescriptionKey: NSLocalizedString(description, nil),
+                               NSLocalizedFailureReasonErrorKey: NSLocalizedString(reason, nil),
+                               NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(suggestion, nil)
+                               };
+    NSError *error = [NSError errorWithDomain:domain
+                                         code:code
+                                     userInfo:userInfo];
+    
+    return error;
+}
+
 #pragma mark - image methods
 + (NSData *)getJPGImageDataForImage:(UIImage *)image withQuality:(float)compression {
     return UIImageJPEGRepresentation (image,compression);

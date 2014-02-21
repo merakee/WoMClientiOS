@@ -8,14 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
-@class LogInViewController;
+@class SignInViewController;
 @class CoreFunctionViewController;
+@class SessionManager;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
-    LogInViewController                 *logInViewController;
+    UINavigationController              *signInNavigationController;
+    SignInViewController                 *signInViewController;
     CoreFunctionViewController          *coreFunctionViewController;
+    
+    // Session manager
+    SessionManager                      *appSessionManager;
 }
 
 @property (strong, nonatomic) UIWindow *window;
 
+
+# pragma mark - App Delegate methods
+- (void)setSignInViewAsRootView;
+- (void)setCoreFunctionViewAsRootView;
 @end

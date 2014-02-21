@@ -43,6 +43,13 @@
 		111E5976182ECA8F00B7FD49 /* DebugTestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 111E5974182ECA8F00B7FD49 /* DebugTestManager.m */; };
 		111E597D18309A6700B7FD49 /* ApiUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 111E597C18309A6700B7FD49 /* ApiUser.m */; };
 		111E597E18309A6700B7FD49 /* ApiUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 111E597C18309A6700B7FD49 /* ApiUser.m */; };
+		1131DA6718B5584300EFDB34 /* SignInViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA6518B5584300EFDB34 /* SignInViewHelper.m */; };
+		1131DA6B18B55AFE00EFDB34 /* SocialSignin_Google.png in Resources */ = {isa = PBXBuildFile; fileRef = 1131DA6918B55AFE00EFDB34 /* SocialSignin_Google.png */; };
+		1131DA6C18B55AFE00EFDB34 /* SocialSignin_Facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 1131DA6A18B55AFE00EFDB34 /* SocialSignin_Facebook.png */; };
+		1131DA6E18B55B0700EFDB34 /* SocialSignin_Twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 1131DA6D18B55B0700EFDB34 /* SocialSignin_Twitter.png */; };
+		1131DA7018B55B1300EFDB34 /* SocialSignin_Email.png in Resources */ = {isa = PBXBuildFile; fileRef = 1131DA6F18B55B1300EFDB34 /* SocialSignin_Email.png */; };
+		1131DA7618B5657C00EFDB34 /* EmailSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7218B5657C00EFDB34 /* EmailSignInViewController.m */; };
+		1131DA7718B5657C00EFDB34 /* EmailSignInViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7318B5657C00EFDB34 /* EmailSignInViewHelper.m */; };
 		116EE31E18ADA07500C66D86 /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE31D18ADA07500C66D86 /* SessionManager.m */; };
 		116EE32118ADA08D00C66D86 /* ContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32018ADA08D00C66D86 /* ContentManager.m */; };
 		116EE32418ADA09D00C66D86 /* UserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32318ADA09D00C66D86 /* UserInfoManager.m */; };
@@ -51,7 +58,8 @@
 		116EE32D18ADA10B00C66D86 /* AppAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32C18ADA10B00C66D86 /* AppAudioManager.m */; };
 		116EE33018ADA1AC00C66D86 /* AppAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32F18ADA1AC00C66D86 /* AppAnimationManager.m */; };
 		116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE33318ADB58500C66D86 /* CommonUtility.m */; };
-		11CB8FC318B00B2900396418 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC218B00B2900396418 /* LogInViewController.m */; };
+		11720F5118B6A83500124C9F /* ProfileViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11720F4F18B6A83500124C9F /* ProfileViewHelper.m */; };
+		11CB8FC318B00B2900396418 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC218B00B2900396418 /* SignInViewController.m */; };
 		11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC718B00BB200396418 /* CoreFunctionViewController.m */; };
 		11CB8FCF18B0469000396418 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FCE18B0469000396418 /* ContentViewController.m */; };
 		11CB8FD218B046C400396418 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FD118B046C400396418 /* HistoryViewController.m */; };
@@ -121,6 +129,16 @@
 		111E5974182ECA8F00B7FD49 /* DebugTestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugTestManager.m; sourceTree = "<group>"; };
 		111E597B18309A6700B7FD49 /* ApiUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiUser.h; sourceTree = "<group>"; };
 		111E597C18309A6700B7FD49 /* ApiUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiUser.m; sourceTree = "<group>"; };
+		1131DA6518B5584300EFDB34 /* SignInViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewHelper.m; sourceTree = "<group>"; };
+		1131DA6618B5584300EFDB34 /* SignInViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewHelper.h; sourceTree = "<group>"; };
+		1131DA6918B55AFE00EFDB34 /* SocialSignin_Google.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialSignin_Google.png; sourceTree = "<group>"; };
+		1131DA6A18B55AFE00EFDB34 /* SocialSignin_Facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialSignin_Facebook.png; sourceTree = "<group>"; };
+		1131DA6D18B55B0700EFDB34 /* SocialSignin_Twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialSignin_Twitter.png; sourceTree = "<group>"; };
+		1131DA6F18B55B1300EFDB34 /* SocialSignin_Email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialSignin_Email.png; sourceTree = "<group>"; };
+		1131DA7218B5657C00EFDB34 /* EmailSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailSignInViewController.m; sourceTree = "<group>"; };
+		1131DA7318B5657C00EFDB34 /* EmailSignInViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailSignInViewHelper.m; sourceTree = "<group>"; };
+		1131DA7418B5657C00EFDB34 /* EmailSignInViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailSignInViewHelper.h; sourceTree = "<group>"; };
+		1131DA7518B5657C00EFDB34 /* EmailSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailSignInViewController.h; sourceTree = "<group>"; };
 		116EE31C18ADA07500C66D86 /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
 		116EE31D18ADA07500C66D86 /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionManager.m; sourceTree = "<group>"; };
 		116EE31F18ADA08D00C66D86 /* ContentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentManager.h; sourceTree = "<group>"; };
@@ -140,8 +158,10 @@
 		116EE33318ADB58500C66D86 /* CommonUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtility.m; sourceTree = "<group>"; };
 		116EE33418ADB58500C66D86 /* CoreSizeDefintions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreSizeDefintions.h; sourceTree = "<group>"; };
 		116EE33518ADB58500C66D86 /* LocalMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMacros.h; sourceTree = "<group>"; };
-		11CB8FC118B00B2900396418 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
-		11CB8FC218B00B2900396418 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
+		11720F4F18B6A83500124C9F /* ProfileViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewHelper.m; sourceTree = "<group>"; };
+		11720F5018B6A83500124C9F /* ProfileViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewHelper.h; sourceTree = "<group>"; };
+		11CB8FC118B00B2900396418 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
+		11CB8FC218B00B2900396418 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		11CB8FC618B00BB200396418 /* CoreFunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreFunctionViewController.h; sourceTree = "<group>"; };
 		11CB8FC718B00BB200396418 /* CoreFunctionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreFunctionViewController.m; sourceTree = "<group>"; };
 		11CB8FCD18B0469000396418 /* ContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewController.h; sourceTree = "<group>"; };
@@ -311,7 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				11CB8FC518B00B5500396418 /* CoreFunctionVC */,
-				11CB8FC418B00B3300396418 /* LogInVC */,
+				11CB8FC418B00B3300396418 /* SignInVC */,
 				116EE31A18AD4B1200C66D86 /* AppUI */,
 			);
 			name = View;
@@ -375,6 +395,28 @@
 			name = DebugTest;
 			sourceTree = "<group>";
 		};
+		1131DA6818B55AF100EFDB34 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				1131DA6F18B55B1300EFDB34 /* SocialSignin_Email.png */,
+				1131DA6D18B55B0700EFDB34 /* SocialSignin_Twitter.png */,
+				1131DA6918B55AFE00EFDB34 /* SocialSignin_Google.png */,
+				1131DA6A18B55AFE00EFDB34 /* SocialSignin_Facebook.png */,
+			);
+			name = Buttons;
+			sourceTree = "<group>";
+		};
+		1131DA7118B5654200EFDB34 /* EmailLogIn */ = {
+			isa = PBXGroup;
+			children = (
+				1131DA7518B5657C00EFDB34 /* EmailSignInViewController.h */,
+				1131DA7218B5657C00EFDB34 /* EmailSignInViewController.m */,
+				1131DA7418B5657C00EFDB34 /* EmailSignInViewHelper.h */,
+				1131DA7318B5657C00EFDB34 /* EmailSignInViewHelper.m */,
+			);
+			name = EmailLogIn;
+			sourceTree = "<group>";
+		};
 		116EE31718AD4ADD00C66D86 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -429,13 +471,16 @@
 			name = UserInfo;
 			sourceTree = "<group>";
 		};
-		11CB8FC418B00B3300396418 /* LogInVC */ = {
+		11CB8FC418B00B3300396418 /* SignInVC */ = {
 			isa = PBXGroup;
 			children = (
-				11CB8FC118B00B2900396418 /* LogInViewController.h */,
-				11CB8FC218B00B2900396418 /* LogInViewController.m */,
+				1131DA7118B5654200EFDB34 /* EmailLogIn */,
+				11CB8FC118B00B2900396418 /* SignInViewController.h */,
+				11CB8FC218B00B2900396418 /* SignInViewController.m */,
+				1131DA6618B5584300EFDB34 /* SignInViewHelper.h */,
+				1131DA6518B5584300EFDB34 /* SignInViewHelper.m */,
 			);
-			name = LogInVC;
+			name = SignInVC;
 			sourceTree = "<group>";
 		};
 		11CB8FC518B00B5500396418 /* CoreFunctionVC */ = {
@@ -477,6 +522,8 @@
 			children = (
 				11CB8FD318B0473500396418 /* ProfileViewController.h */,
 				11CB8FD418B0473500396418 /* ProfileViewController.m */,
+				11720F4F18B6A83500124C9F /* ProfileViewHelper.m */,
+				11720F5018B6A83500124C9F /* ProfileViewHelper.h */,
 			);
 			name = ProfileVC;
 			sourceTree = "<group>";
@@ -493,6 +540,7 @@
 		11CB8FDF18B053B400396418 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				1131DA6818B55AF100EFDB34 /* Buttons */,
 				11CB8FE018B053BB00396418 /* TabbarIcons */,
 			);
 			name = Graphics;
@@ -570,6 +618,9 @@
 					1114A7F1182D8B3300089669 = {
 						DevelopmentTeam = E2FCZXHQZ9;
 					};
+					1114A80C182D8B3400089669 = {
+						TestTargetID = 1114A7F1182D8B3300089669;
+					};
 				};
 			};
 			buildConfigurationList = 1114A7ED182D8B3300089669 /* Build configuration list for PBXProject "WordOfMouthEngine" */;
@@ -595,12 +646,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1131DA6C18B55AFE00EFDB34 /* SocialSignin_Facebook.png in Resources */,
 				11CB8FE718B053CA00396418 /* Favorites.png in Resources */,
 				11CB8FE518B053CA00396418 /* Contact.png in Resources */,
 				1114A800182D8B3300089669 /* InfoPlist.strings in Resources */,
 				1114A808182D8B3300089669 /* Images.xcassets in Resources */,
 				11CB8FE818B053CA00396418 /* Favorites@2x.png in Resources */,
+				1131DA6E18B55B0700EFDB34 /* SocialSignin_Twitter.png in Resources */,
+				1131DA7018B55B1300EFDB34 /* SocialSignin_Email.png in Resources */,
 				11CB8FE618B053CA00396418 /* Contact@2x.png in Resources */,
+				1131DA6B18B55AFE00EFDB34 /* SocialSignin_Google.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,19 +683,21 @@
 				11CB8FEB18B0886600396418 /* ContentInfo.m in Sources */,
 				1114A84B182D8E3C00089669 /* AFURLRequestSerialization.m in Sources */,
 				1114A849182D8E3C00089669 /* AFURLConnectionOperation.m in Sources */,
+				1131DA7718B5657C00EFDB34 /* EmailSignInViewHelper.m in Sources */,
 				116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */,
 				1114A847182D8E3C00089669 /* AFSecurityPolicy.m in Sources */,
 				1114A83F182D8E3C00089669 /* AFHTTPRequestOperation.m in Sources */,
 				111E5975182ECA8F00B7FD49 /* DebugTestManager.m in Sources */,
 				111E597D18309A6700B7FD49 /* ApiUser.m in Sources */,
 				1114A84F182D8E3C00089669 /* AFURLSessionManager.m in Sources */,
+				11720F5118B6A83500124C9F /* ProfileViewHelper.m in Sources */,
 				1114A84D182D8E3C00089669 /* AFURLResponseSerialization.m in Sources */,
 				11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */,
 				1114A806182D8B3300089669 /* AppDelegate.m in Sources */,
 				1114A843182D8E3C00089669 /* AFHTTPSessionManager.m in Sources */,
 				111E5970182EC53F00B7FD49 /* ApiManager.m in Sources */,
 				1114A841182D8E3C00089669 /* AFHTTPRequestOperationManager.m in Sources */,
-				11CB8FC318B00B2900396418 /* LogInViewController.m in Sources */,
+				11CB8FC318B00B2900396418 /* SignInViewController.m in Sources */,
 				11CB8FD518B0473500396418 /* ProfileViewController.m in Sources */,
 				11CB8FD218B046C400396418 /* HistoryViewController.m in Sources */,
 				116EE32418ADA09D00C66D86 /* UserInfoManager.m in Sources */,
@@ -649,8 +706,10 @@
 				11CB8FCF18B0469000396418 /* ContentViewController.m in Sources */,
 				11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */,
 				1114A802182D8B3300089669 /* main.m in Sources */,
+				1131DA7618B5657C00EFDB34 /* EmailSignInViewController.m in Sources */,
 				116EE32A18ADA0F800C66D86 /* AppGraphicsManager.m in Sources */,
 				11CB8FDB18B049B700396418 /* ContentViewHelper.m in Sources */,
+				1131DA6718B5584300EFDB34 /* SignInViewHelper.m in Sources */,
 				11CB8FD818B0476A00396418 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -783,13 +842,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Bijit Halder (L25J5ASAZZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Bijit Halder (L25J5ASAZZ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngine/WordOfMouthEngine-Info.plist";
 				PRODUCT_NAME = WordOfMouthEngine;
-				PROVISIONING_PROFILE = "B15F30B7-ECA8-4E1B-8EC2-17EF5E1EA153";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -800,13 +859,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Indriam Inc. (E2FCZXHQZ9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Indriam Inc. (E2FCZXHQZ9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngine/WordOfMouthEngine-Info.plist";
 				PRODUCT_NAME = WordOfMouthEngine;
-				PROVISIONING_PROFILE = "FDBC992C-F438-4776-9F1C-E850CB5CDD80";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -816,6 +875,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMouthEngine.app/WordOfMouthEngine";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Bijit Halder (L25J5ASAZZ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Bijit Halder (L25J5ASAZZ)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -831,7 +891,8 @@
 				);
 				INFOPLIST_FILE = "WordOfMouthEngineTests/WordOfMouthEngineTests-Info.plist";
 				PRODUCT_NAME = WordOfMouthEngineTests;
-				PROVISIONING_PROFILE = "B15F30B7-ECA8-4E1B-8EC2-17EF5E1EA153";
+				PROVISIONING_PROFILE = "490CF8BD-8895-4FF7-BED0-715A33E57FEF";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -840,6 +901,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMouthEngine.app/WordOfMouthEngine";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Indriam Inc. (E2FCZXHQZ9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Indriam Inc. (E2FCZXHQZ9)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -851,7 +913,8 @@
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngineTests/WordOfMouthEngineTests-Info.plist";
 				PRODUCT_NAME = WordOfMouthEngineTests;
-				PROVISIONING_PROFILE = "FDBC992C-F438-4776-9F1C-E850CB5CDD80";
+				PROVISIONING_PROFILE = "97A555A0-AAA6-4831-8AFA-A042FFD7CF7D";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

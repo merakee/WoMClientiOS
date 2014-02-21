@@ -231,6 +231,14 @@
 + (NSString *)getTimerTextFromSecs:(float)secs;
 + (NSString *)getTimeInWordForTime:(NSString *)timeString;
 
+#pragma mark - NSError Generation method
++ (NSError *)getErrorWithDomain:(NSString *)domain
+                           code:(NSInteger)code
+                    description:(NSString *)description
+                         reason:(NSString *)reason
+                     suggestion:(NSString *)suggestion;
+
+
 #pragma mark - image methods
 + (NSData *)getJPGImageDataForImage:(UIImage *)image withQuality:(float)compression;
 +(UIImage *)getImageFromView:(UIView *)view;
