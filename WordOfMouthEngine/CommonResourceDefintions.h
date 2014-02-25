@@ -11,7 +11,7 @@
    -----------------------------*/
 // app states
 typedef enum {
-    kCRDAppStateLogIn,
+    kCRDAppStateSignIn,
     kCRDAppStateViewContent
 } CRDAppState;
 

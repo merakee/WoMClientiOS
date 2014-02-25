@@ -19,13 +19,19 @@ typedef enum {
 } kSessionErrorCode;
 
 
-@protocol SessionManagerDelegate <NSObject>
+@protocol SessionManagerSignInDelegate <NSObject>
 @required
-
+- (void)signedInFailedWithErrors:(NSError *)error;
+- (void)signedInSuccessfullyWithUser:(UserInfo *)user;
 @optional
-- (void)loggedInFailedWithErrors:(NSError *)error;
-- (void)loggedInSuccessfullyWithUser:(UserInfo *)user;
-- (void)loggedOutSuccessfully;
+@end
+
+@protocol SessionManagerSignOutDelegate <NSObject>
+@required
+- (void)signedOutSuccessfully;
+@optional
+
+
 @end
 
 
@@ -33,7 +39,8 @@ typedef enum {
     
 }
 
-@property (assign, nonatomic) id <SessionManagerDelegate>  delegate;
+@property (assign, nonatomic) id <SessionManagerSignInDelegate>  delegateSignIn;
+@property (assign, nonatomic) id <SessionManagerSignOutDelegate>  delegateSignOut;
 
 @property UserInfo      *currentUser;
 
@@ -43,9 +50,9 @@ typedef enum {
 
 #pragma mark - User Session methods
 + (UserInfo *)currentUser;
-- (BOOL) isUserLoggedIn;
+- (BOOL) isUsersignedIn;
 - (void)SignInUserWithId:(NSString *)userid andPassword:(NSString *)password;
 - (void)SignInAsGuest;
-- (void)logOut;
+- (void)signOut;
 
 @end

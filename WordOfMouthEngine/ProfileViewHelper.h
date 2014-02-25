@@ -26,7 +26,7 @@ static const int kPVHLabelHeight = 36;
 + (UILabel *)getTextLabelForIndexPath:(NSIndexPath *)indexPath;
     
 #pragma mark -  View Helper Methods: Buttons
-+ (UIButton *)getButtonForIndexPath:(NSIndexPath *)indexPath;
++ (UIButton *)getButton;
 
 
 @end

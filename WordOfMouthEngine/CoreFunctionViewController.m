@@ -11,9 +11,10 @@
 
 
 #import "ContentViewController.h"
-#import "HistoryViewController.h"
+#import "ComposeViewController.h"
+//#import "HistoryViewController.h"
 #import "ProfileViewController.h"
-#import "SettingsViewController.h"
+//#import "SettingsViewController.h"
 
 
 @implementation CoreFunctionViewController
@@ -88,27 +89,40 @@
 - (void)setView {
     // content view
     contentViewController =[[ContentViewController alloc] init];
-    contentViewNavigationController = [[UINavigationController alloc]
-                                        initWithRootViewController:contentViewController];
+    //contentViewNavigationController = [[UINavigationController alloc]
+    //                                   initWithRootViewController:contentViewController];
     // set tab bar
-    contentViewNavigationController.tabBarItem = [[UITabBarItem alloc]
-                                            initWithTitle:@"WoM"
-                                            image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageContent]
-                                            tag:kCFVTabbarIndexContent];
+    //contentViewNavigationController.tabBarItem = [[UITabBarItem alloc]
+    //                                       initWithTitle:@"WoM"
+    //                                      image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageContent]
+    //                                       tag:kCFVTabbarIndexContent];
+    
+    // compose view
+    composeViewController =[[ComposeViewController alloc] init];
+    
+    composeViewNavigationController = [[UINavigationController alloc]
+                                       initWithRootViewController:composeViewController];
+    // set tab bar
+    composeViewNavigationController.tabBarItem = [[UITabBarItem alloc]
+                                                  initWithTitle:@"Compose"
+                                                  image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageCompose]
+                                                  tag:kCFVTabbarIndexCompose];
+    
     
     // history view
-    historyViewController =[[HistoryViewController alloc] init];
+    //historyViewController =[[HistoryViewController alloc] init];
     // profile view
     profileViewController =[[ProfileViewController alloc] init];
     // settings view
-    settingsViewController =[[SettingsViewController alloc] init];
+    //settingsViewController =[[SettingsViewController alloc] init];
     
     // set tabs: create tabbar view controller
     NSMutableArray *viewControllersArray =[[NSMutableArray alloc] init];
-    [viewControllersArray insertObject:contentViewNavigationController atIndex:kCFVTabbarIndexContent];
-    [viewControllersArray insertObject:historyViewController atIndex:kCFVTabbarIndexHistory];
+    [viewControllersArray insertObject:contentViewController atIndex:kCFVTabbarIndexContent];
+    [viewControllersArray insertObject:composeViewNavigationController atIndex:kCFVTabbarIndexCompose];
+    //[viewControllersArray insertObject:historyViewController atIndex:kCFVTabbarIndexHistory];
     [viewControllersArray insertObject:profileViewController atIndex:kCFVTabbarIndexProfile];
-    [viewControllersArray insertObject:settingsViewController atIndex:kCFVTabbarIndexSettings];
+    //[viewControllersArray insertObject:settingsViewController atIndex:kCFVTabbarIndexSettings];
     [self setViewControllers:viewControllersArray animated:YES];
 }
 

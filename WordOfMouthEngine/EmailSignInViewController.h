@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SessionManager.h"
 
-@interface EmailSignInViewController : UIViewController<UITextFieldDelegate,SessionManagerDelegate>{
+@interface EmailSignInViewController : UIViewController<UITextFieldDelegate,SessionManagerSignInDelegate>{
     UITextField        *emailField;
     UITextField        *passwordField;
     UIButton           *SignInButton;

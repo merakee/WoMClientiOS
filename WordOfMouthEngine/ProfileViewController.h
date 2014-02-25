@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "SessionManager.h"
 
-@interface ProfileViewController : UITableViewController<SessionManagerDelegate>{
+@interface ProfileViewController : UITableViewController<SessionManagerSignOutDelegate>{
+    NSArray        *profileInfo;
     
 }
 

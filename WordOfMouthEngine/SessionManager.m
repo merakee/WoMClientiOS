@@ -12,7 +12,8 @@
 
 @implementation SessionManager
 
-@synthesize delegate;
+@synthesize delegateSignIn;
+@synthesize delegateSignOut;
 @synthesize currentUser;
 
 static SessionManager *sharedSessionManager=nil;
@@ -29,7 +30,8 @@ static SessionManager *sharedSessionManager=nil;
 
 - (void)setAllDefaults {
     self.currentUser = nil;
-    self.delegate=nil;
+    self.delegateSignIn=nil;
+    self.delegateSignOut=nil;
 }
 
 
@@ -56,7 +58,7 @@ static SessionManager *sharedSessionManager=nil;
 + (UserInfo *)currentUser{
     return [SessionManager sharedSessionManager].currentUser;
 }
-- (BOOL) isUserLoggedIn{
+- (BOOL) isUsersignedIn{
     return !(self.currentUser == nil);
 }
 - (void)SignInAsGuest{
@@ -73,8 +75,8 @@ static SessionManager *sharedSessionManager=nil;
         self.currentUser = [[UserInfo alloc] init];
         self.currentUser.userName = userid;
         // notify delegate
-        if ([self.delegate respondsToSelector:@selector(loggedInSuccessfullyWithUser:)]) {
-            [self.delegate loggedInSuccessfullyWithUser:self.currentUser];
+        if ([self.delegateSignIn respondsToSelector:@selector(signedInSuccessfullyWithUser:)]) {
+            [self.delegateSignIn signedInSuccessfullyWithUser:self.currentUser];
         }
     }
     else{
@@ -85,19 +87,19 @@ static SessionManager *sharedSessionManager=nil;
                                                    reason:@"User id password not found"
                                                suggestion:@"Please entry valid id and password"];
         // notify delegate
-        if ([self.delegate respondsToSelector:@selector(loggedInFailedWithErrors:)]) {
-            [self.delegate loggedInFailedWithErrors:error];
+        if ([self.delegateSignIn respondsToSelector:@selector(signedInFailedWithErrors:)]) {
+            [self.delegateSignIn signedInFailedWithErrors:error];
         }
     }
     
 }
-- (void)logOut{
+- (void)signOut{
     // reset current user
     self.currentUser = nil;
     
     // notify delegate
-    if ([self.delegate respondsToSelector:@selector(loggedOutSuccessfully)]) {
-        [self.delegate loggedOutSuccessfully];
+    if ([self.delegateSignOut respondsToSelector:@selector(signedOutSuccessfully)]) {
+        [self.delegateSignOut signedOutSuccessfully];
     }
 }
 

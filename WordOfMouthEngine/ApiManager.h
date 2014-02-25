@@ -24,7 +24,7 @@
 #pragma mark -  Utility Methods
 + (NSString *)getStringForPath:(NSString *)pathString;
 + (ApiUser *)currentUser;
-+ (BOOL)isUserLoggedIn;
++ (BOOL)isUsersignedIn;
 - (void)setCurrentUser;
 
 @end

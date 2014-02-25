@@ -10,17 +10,20 @@
 #import "AppUIManager.h"
 
 @class ContentViewController;
-@class HistoryViewController;
+@class ComposeViewController;
+//@class HistoryViewController;
 @class ProfileViewController;
-@class SettingsViewController;
+//@class SettingsViewController;
 
 @interface CoreFunctionViewController : UITabBarController<UITabBarDelegate>{
     
-    UINavigationController          *contentViewNavigationController;
+    //UINavigationController          *contentViewNavigationController;
     ContentViewController           *contentViewController;
-    HistoryViewController           *historyViewController;
+    UINavigationController          *composeViewNavigationController;
+    ComposeViewController           *composeViewController;
+    //HistoryViewController           *historyViewController;
     ProfileViewController           *profileViewController;
-    SettingsViewController          *settingsViewController;
+    //SettingsViewController          *settingsViewController;
 }
 
 @end

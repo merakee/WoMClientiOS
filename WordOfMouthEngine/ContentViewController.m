@@ -18,6 +18,11 @@
 {
     if (self = [super init]) {
         
+        self.tabBarItem = [[UITabBarItem alloc]
+                           initWithTitle:@"WoM"
+                           image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageContent]
+                           tag:kCFVTabbarIndexContent];
+        
         // set color
         //[CommonViewElementManager setTableViewBackGroundColor:self.tableView];
         
@@ -85,12 +90,12 @@
 }
 
 
-#pragma mark -  View Design 
+#pragma mark -  View Design
 - (void)setView {
     // set view
     self.view.backgroundColor =[UIColor whiteColor];
     // set navigation bar
-    [self setNavigationBar];
+    //[self setNavigationBar];
     
     // set textview
     contentTextView =[[UITextView alloc] init];
@@ -119,27 +124,27 @@
     
     // buttons
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[killButton(spreadButton)]-12-[spreadButton]-|"
-                                             options:0 metrics:nil views:viewsDictionary]];
+                                                                      options:0 metrics:nil views:viewsDictionary]];
     // Center
-   /*
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:killButton
-                                                          attribute:NSLayoutAttributeCenterX
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeCenterX
-                                                         multiplier:1.0
-                                                           constant:-46]];
-    */
+    /*
+     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:killButton
+     attribute:NSLayoutAttributeCenterX
+     relatedBy:NSLayoutRelationEqual
+     toItem:self.view
+     attribute:NSLayoutAttributeCenterX
+     multiplier:1.0
+     constant:-46]];
+     */
     [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[killButton(30)]-60-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadButton(30)]-60-|"
-                                                                                 options:0 metrics:nil views:viewsDictionary]];
+                                                                                    options:0 metrics:nil views:viewsDictionary]];
     
     // text view
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[contentTextView(>=100)]-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-76-[contentTextView]-10-[killButton]"
-                                                                   options:0 metrics:nil views:viewsDictionary]];
+                                                                      options:0 metrics:nil views:viewsDictionary]];
 }
 
 - (void)setNavigationBar {
@@ -153,10 +158,10 @@
     
     // set up back button for the child view
     self.navigationItem.backBarButtonItem =  [[UIBarButtonItem alloc]
-     initWithTitle:@"Cancel"
-     style:UIBarButtonItemStylePlain
-     target:nil
-     action:nil];
+                                              initWithTitle:@"Cancel"
+                                              style:UIBarButtonItemStylePlain
+                                              target:nil
+                                              action:nil];
 }
 
 

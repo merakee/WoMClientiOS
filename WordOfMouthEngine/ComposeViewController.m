@@ -15,6 +15,11 @@
 - (id)init
 {
     if (self = [super init]) {
+        // set tab bar
+        // self.tabBarItem = [[UITabBarItem alloc]
+        //                   initWithTitle:@"Post"
+        //                  image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageCompose]
+        //                 tag:kCFVTabbarIndexCompose];
         
         // init conent manager
         contentManager = [[ContentManager alloc] init];
@@ -112,12 +117,12 @@
                                               target:self
                                               action:@selector(postContent:)];
     
-    /* self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc]
+    self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc]
                                               initWithTitle:@"Cancel"
                                               style:UIBarButtonItemStyleDone
                                               target:self
-                                              action:@selector(goBack:)];
-    */
+                                              action:@selector(cancelPost:)];
+    //action:@selector(goBack:)];
 }
 
 #pragma mark -  Local Methods Implememtation
@@ -125,24 +130,12 @@
 - (void)clearTextView{
     composeTextView.text=@"";
 }
-
-- (BOOL)isPostValid{
-    return ([composeTextView.text length]>5);
-}
 #pragma mark - Button Action Methods
 - (void)postContent:(id)sender {
-    // check post
-    if([self isPostValid]){
-        // post content and add to history
-        ContentInfo *ci =[[ContentInfo alloc] init];
-        ci.contentBody = composeTextView.text;
-        [contentManager postContent:ci];
-        return;
-    }
-    
-    // if invalid
-    [CommonUtility displayAlertWithTitle:@"Invalid Post" message:@"Post is too short. Please add more to post." delegate:self];
-
+    // attempt to post content
+    ContentInfo *ci =[[ContentInfo alloc] init];
+    ci.contentBody = [CommonUtility trimString:composeTextView.text];
+    [contentManager postContent:ci];
 }
 
 - (void)goBack:(id)sender {
@@ -150,15 +143,30 @@
     [self.navigationController popViewControllerAnimated:NO];
 }
 
+- (void)cancelPost:(id)sender {
+    // clear post
+    [self clearTextView];
+    // go back to content view
+    self.tabBarController.selectedIndex = kCFVTabbarIndexContent;
+}
+
 
 # pragma mark - Content Manager Delegate methods
 - (void)contentPostedSuccessfully{
     //DBLog(@"Post successful...");
-    [CommonUtility displayActionSheetWithTitle:@"Post successful. Do you want to post another?"
-                                  cancelButton:@"Yes"
-                             destructiveButton:@"No"
-                                 customButtons:nil
-                                      delegate:self];
+    [CommonUtility displayAlertWithTitle:@"Post successful" message:@"Your content was posted." delegate:self];
+    //[CommonUtility displayActionSheetWithTitle:@"Post successful. Do you want to post another?"
+    //                            cancelButton:@"Yes"
+    //                        destructiveButton:@"No"
+    //                           customButtons:nil
+    //                                delegate:self];
+    
+    // clear post
+    [self clearTextView];
+}
+
+- (void)contentPostFailedWithError:(NSError *)error{
+    [CommonUtility displayAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:self];
 }
 
 #pragma mark - Action sheet delegate method

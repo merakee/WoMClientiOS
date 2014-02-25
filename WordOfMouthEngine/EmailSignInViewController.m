@@ -148,13 +148,13 @@
 #pragma mark - Button Action Methods
 - (void)SignInButtonPressed:(id)sender {
     // set up session manager
-    [SessionManager sharedSessionManager].delegate = self;
+    [SessionManager sharedSessionManager].delegateSignIn = self;
     [[SessionManager sharedSessionManager] SignInUserWithId:emailField.text andPassword:passwordField.text];
 }
 
 - (void)signInAsGuestButtonPressed:(id)sender {
     // set up session manager
-    [SessionManager sharedSessionManager].delegate = self;
+    [SessionManager sharedSessionManager].delegateSignIn = self;
     [[SessionManager sharedSessionManager] SignInAsGuest];
 }
 
@@ -163,10 +163,10 @@
 }
 
 #pragma mark - Session Manager delegate protocal method
-- (void)loggedInFailedWithErrors:(NSError *)error{
+- (void)signedInFailedWithErrors:(NSError *)error{
      [CommonUtility displayAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:self];
 }
-- (void)loggedInSuccessfullyWithUser:(UserInfo *)user{
+- (void)signedInSuccessfullyWithUser:(UserInfo *)user{
     // switch to content view
     [(AppDelegate *)[UIApplication sharedApplication].delegate setCoreFunctionViewAsRootView];
 

@@ -64,8 +64,8 @@
 
 #pragma mark - Root View Controller Set up methods
 - (void)setViewController {
-    // check if user is logged in
-    if([appSessionManager isUserLoggedIn]==YES ){
+    // check if user is signed in
+    if([appSessionManager isUsersignedIn]==YES ){
         [self setCoreFunctionViewAsRootView];
     }
     else{
@@ -74,7 +74,7 @@
 }
 
 - (void)setSignInViewAsRootView{
-    // show log in view
+    // show sign in view
     if(signInNavigationController==nil){
         signInNavigationController =[[UINavigationController alloc] init];
     }

@@ -37,6 +37,12 @@
 		1114A84E182D8E3C00089669 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 1114A83C182D8E3C00089669 /* AFURLResponseSerialization.m */; };
 		1114A84F182D8E3C00089669 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1114A83E182D8E3C00089669 /* AFURLSessionManager.m */; };
 		1114A850182D8E3C00089669 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1114A83E182D8E3C00089669 /* AFURLSessionManager.m */; };
+		111B758718B7F4FD00B10716 /* TabBarIconContact.png in Resources */ = {isa = PBXBuildFile; fileRef = 111B758118B7F4FD00B10716 /* TabBarIconContact.png */; };
+		111B758818B7F4FD00B10716 /* TabBarIconContact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 111B758218B7F4FD00B10716 /* TabBarIconContact@2x.png */; };
+		111B758918B7F4FD00B10716 /* TabBarIconFavorites.png in Resources */ = {isa = PBXBuildFile; fileRef = 111B758318B7F4FD00B10716 /* TabBarIconFavorites.png */; };
+		111B758A18B7F4FD00B10716 /* TabBarIconFavorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 111B758418B7F4FD00B10716 /* TabBarIconFavorites@2x.png */; };
+		111B758B18B7F4FD00B10716 /* TabBarIconNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 111B758518B7F4FD00B10716 /* TabBarIconNew.png */; };
+		111B758C18B7F4FD00B10716 /* TabBarIconNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 111B758618B7F4FD00B10716 /* TabBarIconNew@2x.png */; };
 		111E5970182EC53F00B7FD49 /* ApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 111E596F182EC53F00B7FD49 /* ApiManager.m */; };
 		111E5971182EC53F00B7FD49 /* ApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 111E596F182EC53F00B7FD49 /* ApiManager.m */; };
 		111E5975182ECA8F00B7FD49 /* DebugTestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 111E5974182ECA8F00B7FD49 /* DebugTestManager.m */; };
@@ -66,10 +72,6 @@
 		11CB8FD518B0473500396418 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FD418B0473500396418 /* ProfileViewController.m */; };
 		11CB8FD818B0476A00396418 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FD718B0476A00396418 /* SettingsViewController.m */; };
 		11CB8FDB18B049B700396418 /* ContentViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FDA18B049B700396418 /* ContentViewHelper.m */; };
-		11CB8FE518B053CA00396418 /* Contact.png in Resources */ = {isa = PBXBuildFile; fileRef = 11CB8FE118B053CA00396418 /* Contact.png */; };
-		11CB8FE618B053CA00396418 /* Contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11CB8FE218B053CA00396418 /* Contact@2x.png */; };
-		11CB8FE718B053CA00396418 /* Favorites.png in Resources */ = {isa = PBXBuildFile; fileRef = 11CB8FE318B053CA00396418 /* Favorites.png */; };
-		11CB8FE818B053CA00396418 /* Favorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11CB8FE418B053CA00396418 /* Favorites@2x.png */; };
 		11CB8FEB18B0886600396418 /* ContentInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FEA18B0886600396418 /* ContentInfo.m */; };
 		11CB8FEE18B08C7100396418 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FEC18B08C7100396418 /* UserInfo.m */; };
 		11D1B6F0183AB0690022AF62 /* ApiManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1B6EF183AB0690022AF62 /* ApiManagerTests.m */; };
@@ -123,6 +125,12 @@
 		1114A83C182D8E3C00089669 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		1114A83D182D8E3C00089669 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		1114A83E182D8E3C00089669 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		111B758118B7F4FD00B10716 /* TabBarIconContact.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarIconContact.png; sourceTree = "<group>"; };
+		111B758218B7F4FD00B10716 /* TabBarIconContact@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarIconContact@2x.png"; sourceTree = "<group>"; };
+		111B758318B7F4FD00B10716 /* TabBarIconFavorites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarIconFavorites.png; sourceTree = "<group>"; };
+		111B758418B7F4FD00B10716 /* TabBarIconFavorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarIconFavorites@2x.png"; sourceTree = "<group>"; };
+		111B758518B7F4FD00B10716 /* TabBarIconNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarIconNew.png; sourceTree = "<group>"; };
+		111B758618B7F4FD00B10716 /* TabBarIconNew@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarIconNew@2x.png"; sourceTree = "<group>"; };
 		111E596E182EC53F00B7FD49 /* ApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiManager.h; sourceTree = "<group>"; };
 		111E596F182EC53F00B7FD49 /* ApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiManager.m; sourceTree = "<group>"; };
 		111E5973182ECA8F00B7FD49 /* DebugTestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugTestManager.h; sourceTree = "<group>"; };
@@ -175,10 +183,6 @@
 		11CB8FD918B049B700396418 /* ContentViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewHelper.h; sourceTree = "<group>"; };
 		11CB8FDA18B049B700396418 /* ContentViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentViewHelper.m; sourceTree = "<group>"; };
 		11CB8FDC18B04EFE00396418 /* AppUIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUIConstants.h; sourceTree = "<group>"; };
-		11CB8FE118B053CA00396418 /* Contact.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Contact.png; sourceTree = "<group>"; };
-		11CB8FE218B053CA00396418 /* Contact@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Contact@2x.png"; sourceTree = "<group>"; };
-		11CB8FE318B053CA00396418 /* Favorites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Favorites.png; sourceTree = "<group>"; };
-		11CB8FE418B053CA00396418 /* Favorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Favorites@2x.png"; sourceTree = "<group>"; };
 		11CB8FE918B0886600396418 /* ContentInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentInfo.h; sourceTree = "<group>"; };
 		11CB8FEA18B0886600396418 /* ContentInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentInfo.m; sourceTree = "<group>"; };
 		11CB8FEC18B08C7100396418 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
@@ -549,10 +553,12 @@
 		11CB8FE018B053BB00396418 /* TabbarIcons */ = {
 			isa = PBXGroup;
 			children = (
-				11CB8FE118B053CA00396418 /* Contact.png */,
-				11CB8FE218B053CA00396418 /* Contact@2x.png */,
-				11CB8FE318B053CA00396418 /* Favorites.png */,
-				11CB8FE418B053CA00396418 /* Favorites@2x.png */,
+				111B758118B7F4FD00B10716 /* TabBarIconContact.png */,
+				111B758218B7F4FD00B10716 /* TabBarIconContact@2x.png */,
+				111B758318B7F4FD00B10716 /* TabBarIconFavorites.png */,
+				111B758418B7F4FD00B10716 /* TabBarIconFavorites@2x.png */,
+				111B758518B7F4FD00B10716 /* TabBarIconNew.png */,
+				111B758618B7F4FD00B10716 /* TabBarIconNew@2x.png */,
 			);
 			name = TabbarIcons;
 			sourceTree = "<group>";
@@ -646,15 +652,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				111B758C18B7F4FD00B10716 /* TabBarIconNew@2x.png in Resources */,
 				1131DA6C18B55AFE00EFDB34 /* SocialSignin_Facebook.png in Resources */,
-				11CB8FE718B053CA00396418 /* Favorites.png in Resources */,
-				11CB8FE518B053CA00396418 /* Contact.png in Resources */,
+				111B758918B7F4FD00B10716 /* TabBarIconFavorites.png in Resources */,
 				1114A800182D8B3300089669 /* InfoPlist.strings in Resources */,
+				111B758A18B7F4FD00B10716 /* TabBarIconFavorites@2x.png in Resources */,
 				1114A808182D8B3300089669 /* Images.xcassets in Resources */,
-				11CB8FE818B053CA00396418 /* Favorites@2x.png in Resources */,
 				1131DA6E18B55B0700EFDB34 /* SocialSignin_Twitter.png in Resources */,
 				1131DA7018B55B1300EFDB34 /* SocialSignin_Email.png in Resources */,
-				11CB8FE618B053CA00396418 /* Contact@2x.png in Resources */,
+				111B758718B7F4FD00B10716 /* TabBarIconContact.png in Resources */,
+				111B758818B7F4FD00B10716 /* TabBarIconContact@2x.png in Resources */,
+				111B758B18B7F4FD00B10716 /* TabBarIconNew.png in Resources */,
 				1131DA6B18B55AFE00EFDB34 /* SocialSignin_Google.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -64,7 +64,7 @@ static ApiUser *currentUser=nil;
     return currentUser;
 }
 
-+ (BOOL)isUserLoggedIn{
++ (BOOL)isUsersignedIn{
     return NO;
 }
 

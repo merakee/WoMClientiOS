@@ -25,6 +25,9 @@
                            image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageProfile]
                            tag:kCFVTabbarIndexProfile];
         
+        // set up info list
+        [self setAllInfo];
+        
         // set color
         //[CommonViewElementManager setTableViewBackGroundColor:self.tableView];
         
@@ -88,57 +91,83 @@
 {
     //#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 1;
+    return [profileInfo count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 6;
+    return [[[profileInfo objectAtIndex:section] objectForKey:@"rows" ] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifierText = @"TextCell";
+    static NSString *CellIdentifierButton = @"ButtonCell";
+    // cell type
+    BOOL isButton =([[[profileInfo objectAtIndex:indexPath.section] objectForKey:@"header"] isEqualToString:@"System"]) &&
+    ([[[[profileInfo objectAtIndex:indexPath.section] objectForKey:@"rows"] objectAtIndex:indexPath.row ] isEqualToString:@"Sign Out"]);
     
-    // Configure the cell...
-    UILabel *textLabel;
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        // cell design
-        //[self setCellProperties:cell forIndexPath:indexPath];
+    // button type cell
+    if(isButton){
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifierButton];
         
-        // button
-        UIButton *button = [ProfileViewHelper getButtonForIndexPath:indexPath];
-        if(button!=nil) {
+        // Configure the cell...
+        UIButton *button;
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifierButton];
+            // cell design
+            //[self setCellProperties:cell forIndexPath:indexPath];
+            button = [ProfileViewHelper getButton];
             [button  addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [cell.contentView addSubview:button];
             // add lay out constraints
             NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(button);
             // buttons
-            [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[button]-|"
-                                                                              options:0 metrics:nil views:viewsDictionary]];
-            [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[button]|"
-                                                                                   options:0 metrics:nil views:viewsDictionary]];
+            [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-30-[button]-30-|"
+                                                                                     options:0 metrics:nil views:viewsDictionary]];
+            [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[button]-5-|"
+                                                                                     options:0 metrics:nil views:viewsDictionary]];
+            
+            
             
         }
-        // title
-        textLabel =[ProfileViewHelper getTextLabelForIndexPath:indexPath];
-        if(textLabel!=nil) {
-            [cell.contentView addSubview:textLabel];
-            // add lay out constraints
-            NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(textLabel);
-            // buttons
-            [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[textLabel]-|"
-                                                                                     options:0 metrics:nil views:viewsDictionary]];
-            [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[textLabel]|"
-                                                                                     options:0 metrics:nil views:viewsDictionary]];
+        else{
+            button = (UIButton *)[cell.contentView viewWithTag:kPVHCellViewTagsButton];
         }
+        
+        [button setTitle:[[[profileInfo objectAtIndex:indexPath.section] objectForKey:@"rows"] objectAtIndex:indexPath.row ]
+                forState:UIControlStateNormal];
+        
+        return cell;
+    }
+    
+    // text type cell
+    
+    // Configure the cell...
+    UILabel *textLabel;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifierText];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifierText];
+        // cell design
+        //[self setCellProperties:cell forIndexPath:indexPath];
+        textLabel =[ProfileViewHelper getTextLabelForIndexPath:indexPath];
+        //if(textLabel!=nil) {
+        [cell.contentView addSubview:textLabel];
+        // add lay out constraints
+        NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(textLabel);
+        // buttons
+        [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[textLabel]-|"
+                                                                                 options:0 metrics:nil views:viewsDictionary]];
+        [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[textLabel]|"
+                                                                                 options:0 metrics:nil views:viewsDictionary]];
+        
     }
     else{
+        
         textLabel = (UILabel *)[cell.contentView viewWithTag:kPVHCellViewTagsLabel];
     }
     // add text
@@ -172,7 +201,7 @@
 
 #pragma mark -  Table view delegate
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"User Profile - To be implemented";
+    return [[profileInfo objectAtIndex:section] objectForKey:@"header"];
 }
 
 /*
@@ -226,37 +255,54 @@
  
  */
 
-#pragma mark - Local Uitilty Methods
-- (NSString *)getTextForIndexPath:(NSIndexPath *)indexPath {
-    
-    if(indexPath.section==0&&indexPath.row==0) {
-        // min questions
-        return [NSString stringWithFormat:@"%@ %@",@"User id:",[SessionManager currentUser].userName];
-    }
-    
-    
-    // default
-    return @"--";
-}
-
 #pragma mark - Button Actions
 - (void)buttonPressed:(id)sender{
     // get indexpath
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[[sender superview] superview] superview]];
-    // section 0 ---------------
-    if(indexPath.section==0&&indexPath.row==4) {
+    ///NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[[sender superview] superview] superview]];
+    // sign out button
+    if([[(UIButton *)sender currentTitle] isEqualToString:@"Sign Out"]) {
         // log out
-        [SessionManager sharedSessionManager].delegate=self;
-        [[SessionManager sharedSessionManager] logOut];
+        [SessionManager sharedSessionManager].delegateSignOut=self;
+        [[SessionManager sharedSessionManager] signOut];
         return;
     }
-    
 }
 
 #pragma mark - Session Manager delegate methods
-- (void)loggedOutSuccessfully{
+- (void)signedOutSuccessfully{
     // go to sign in view
     [(AppDelegate *)[UIApplication sharedApplication].delegate  setSignInViewAsRootView];
+}
+
+
+#pragma mark - Local Uitilty Methods
+- (NSString *)getTextForIndexPath:(NSIndexPath *)indexPath {
+    NSString *text = [[[profileInfo objectAtIndex:indexPath.section] objectForKey:@"rows"] objectAtIndex:indexPath.row];
+    
+    if(indexPath.section==0&&indexPath.row==0) {
+        // min questions
+        return [NSString stringWithFormat:@"%@: %@",text,[SessionManager currentUser].userName];
+    }
+    
+    // default
+    return [NSString stringWithFormat:@"%@: __",text];
+}
+-(void)setAllInfo {
+    // profile info
+    profileInfo = [[NSArray alloc] initWithObjects:
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"Profile",@"header",
+                    @[@"User Id",@"User Name", @"User Image",@"User email"],@"rows",
+                    nil],
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"Performance",@"header",
+                    @[@"Total Spread Score",@"Spread Efficiency", @"Total Posts",@"Total Spread Count",@"Total Kill Count"],@"rows",
+                    nil],
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"Settings",@"header",
+                    @[@"Category",@"Other Settings"],@"rows",
+                    nil],
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"System",@"header",
+                    @[@"Sign Out",@"Others"],@"rows",
+                    nil],
+                   nil];
 }
 
 

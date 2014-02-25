@@ -14,9 +14,9 @@
 #pragma mark - Text label mathods
 + (UILabel *)getTextLabelForIndexPath:(NSIndexPath *)indexPath{
     // no label
-    if(indexPath.section==0&&indexPath.row==4) {
-        return nil;
-    }
+    //if(indexPath.section==0&&indexPath.row==4) {
+    //   return nil;
+    //}
     UILabel *textLabel= [[UILabel alloc] init];
     textLabel.tag = kPVHCellViewTagsLabel;
     [textLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -30,21 +30,21 @@
 
 
 #pragma mark -  View Helper Methods: Buttons
-+ (UIButton *)getButtonForIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.section==0&&indexPath.row==4) {
-        // log out button
-        UIButton *button  = [UIButton buttonWithType:UIButtonTypeSystem];
-        button.tag=kPVHCellViewTagsButton;
-        button.backgroundColor = [UIColor redColor];
-        // set button properties
-        //button.frame = CGRectMake(1000,200,80,30);
-        // for auto layout
-        [button setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [button setTitle:@"Sign Out" forState:UIControlStateNormal];
-        return button;
-    }
++ (UIButton *)getButton{
+    //if(indexPath.section==0&&indexPath.row==4) {
+    // log out button
+    UIButton *button  = [UIButton buttonWithType:UIButtonTypeSystem];
+    button.tag=kPVHCellViewTagsButton;
+    button.backgroundColor = [UIColor redColor];
+    // set button properties
+    //button.frame = CGRectMake(1000,200,80,30);
+    // for auto layout
+    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
+    //[button setTitle:@"Sign Out" forState:UIControlStateNormal];
+    return button;
+    // }
     
-    return nil;
+    //return nil;
 }
 
 @end

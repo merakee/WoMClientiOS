@@ -32,10 +32,16 @@
     // do things to post content
     [self setUpContentWithInfo:ci];
     
-    // post content
-    
-    // let delegate know it is done
-    [self notifySuccessfulPost];
+    // check validity
+    NSError *error=[self isPostValid:ci];
+    if(error==nil){
+        // post content
+        // let delegate know it is done
+        [self notifySuccessfulPost];
+    }
+    else{
+        [self notifyFailedPostWithError:error];
+    }
 }
 
 - (void)setUpContentWithInfo:(ContentInfo *)ci{
@@ -47,6 +53,12 @@
         [self.delegate contentPostedSuccessfully];
     }
 }
+- (void)notifyFailedPostWithError:(NSError *)error{
+    if ([self.delegate respondsToSelector:@selector(contentPostFailedWithError:)]) {
+        [self.delegate contentPostFailedWithError:error];
+    }
+}
+
 
 
 #pragma mark - Content methods
@@ -67,5 +79,41 @@
 + (void)spreadContent:(ContentInfo *)ci{
     // mark content for this user as spread
 }
+
+#pragma mark - Post content method
+- (NSError *)isPostValid:(ContentInfo *)ci{
+    // if empty body
+    if([CommonUtility isEmptyString:ci.contentBody]){
+        NSError *error =[CommonUtility getErrorWithDomain:kAppErrorDomainContent
+                                                     code:kContentErrorPostEmpty
+                                              description:@"Empty Post"
+                                                   reason:@"Content body is empty"
+                                               suggestion:@"Enter text and post"];
+        return error;
+    }
+    // too short
+    if([ci.contentBody length]<kContentPostLengthMin){
+        NSError *error =[CommonUtility getErrorWithDomain:kAppErrorDomainContent
+                                                     code:kContentErrorPostTooShort
+                                              description:@"Post too short"
+                                                   reason:@"Content body is too short"
+                                               suggestion:@"Enter more text and post"];
+        return error;
+    }
+    
+    // too long
+    if([ci.contentBody length]>kContentPostLengthMax){
+        NSError *error =[CommonUtility getErrorWithDomain:kAppErrorDomainContent
+                                                     code:kContentErrorPostTooLong
+                                              description:@"Post too long"
+                                                   reason:@"Content body is too long"
+                                               suggestion:@"Shorten text and post"];
+        return error;
+    }
+    
+    // default : no error
+    return nil;
+}
+
 
 @end
