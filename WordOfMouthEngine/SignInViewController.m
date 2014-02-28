@@ -9,6 +9,7 @@
 #import "SignInViewController.h"
 #import "SignInViewHelper.h"
 #import "EmailSignInViewController.h"
+#import "AppDelegate.h"
 
 @implementation SignInViewController
 
@@ -63,7 +64,7 @@
 #pragma mark -  Local Methods Implememtation
 - (void)setView {
     // set view
-    self.view.backgroundColor =[UIColor whiteColor];
+    [SignInViewHelper setView:self.view];
     
     // set navigation bar
     [self setNavigationBar];
@@ -88,7 +89,15 @@
     [emailButton addTarget:self action:@selector(emailButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:emailButton];
     
+    // set buttons
+    signInAsGuestButton = [SignInViewHelper getSignInAsGuestButton];
+    [signInAsGuestButton addTarget:self action:@selector(signInAsGuestButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:signInAsGuestButton];
     
+    
+    // set app logo view
+    appLogoView = [AppUIManager getAppLogoView];
+    [self.view addSubview:appLogoView];
     
     // layout
     [self layoutView];
@@ -96,18 +105,34 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(googleButton,facebookButton,twitterButton,emailButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(appLogoView,googleButton,facebookButton,twitterButton,emailButton,signInAsGuestButton);
     
     // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[googleButton(50)]-12-[facebookButton(googleButton)]-12-[twitterButton(googleButton)]-50-[emailButton(googleButton)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[appLogoView(50)]-20-[googleButton(42)]-12-[facebookButton(googleButton)]-12-[twitterButton(googleButton)]-75-[emailButton(googleButton)]-24-[signInAsGuestButton(googleButton)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    // Center horizontally
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[appLogoView(50)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:appLogoView
+                                                          attribute:NSLayoutAttributeCenterX
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeCenterX
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+    
+    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[googleButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[facebookButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[twitterButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[emailButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[signInAsGuestButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
 }
 
 - (void)setNavigationBar {
+    // app settings
+    [AppUIManager setNavbar:self.navigationController.navigationBar];
+    
     // set up navigation bar
     self.navigationItem.title = @"Sign In";
     
@@ -148,5 +173,20 @@
     [self.navigationController pushViewController:emlivc animated:NO];
 }
 
+- (void)signInAsGuestButtonPressed:(id)sender {
+    // set up session manager
+    [SessionManager sharedSessionManager].delegateSignIn = self;
+    [[SessionManager sharedSessionManager] SignInAsGuest];
+}
+
+#pragma mark - Session Manager delegate protocal method
+- (void)signedInFailedWithErrors:(NSError *)error{
+    [CommonUtility displayAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:self];
+}
+- (void)signedInSuccessfullyWithUser:(UserInfo *)user{
+    // switch to content view
+    [(AppDelegate *)[UIApplication sharedApplication].delegate setCoreFunctionViewAsRootView];
+    
+}
 
 @end

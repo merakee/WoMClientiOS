@@ -63,7 +63,8 @@
 #pragma mark -  Local Methods Implememtation
 - (void)setView {
     // set view
-    self.view.backgroundColor =[UIColor whiteColor];
+    [EmailSignInViewHelper setView:self.view];
+    
     // set navigation bar
     [self setNavigationBar];
     
@@ -77,17 +78,12 @@
     signUpButton = [EmailSignInViewHelper getSignUpButton];
     [signUpButton addTarget:self action:@selector(signUpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signUpButton];
-
-    // set buttons
-    signInAsGuestButton = [EmailSignInViewHelper getSignInAsGuestButton];
-    [signInAsGuestButton addTarget:self action:@selector(signInAsGuestButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:signInAsGuestButton];
     
     //text Fileds
     emailField =[[UITextField alloc] init];
     [EmailSignInViewHelper setEmailTextFiled:emailField withDelegate:self];
     [self.view addSubview:emailField];
-
+    
     passwordField =[[UITextField alloc] init];
     [EmailSignInViewHelper setPasswordTextFiled:passwordField withDelegate:self];
     [self.view addSubview:passwordField];
@@ -99,15 +95,15 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,SignInButton,signUpButton,signInAsGuestButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,SignInButton,signUpButton);
     
     // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[emailField(36)]-12-[passwordField(emailField)]-24-[SignInButton(emailField)]-80-[signUpButton(emailField)]-40-[signInAsGuestButton(emailField)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[emailField(36)]-12-[passwordField(emailField)]-24-[SignInButton(emailField)]-80-[signUpButton(emailField)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[emailField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[passwordField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[SignInButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[signUpButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-            [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[signInAsGuestButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[passwordField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[SignInButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[signUpButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
     
 }
 
@@ -152,24 +148,18 @@
     [[SessionManager sharedSessionManager] SignInUserWithId:emailField.text andPassword:passwordField.text];
 }
 
-- (void)signInAsGuestButtonPressed:(id)sender {
-    // set up session manager
-    [SessionManager sharedSessionManager].delegateSignIn = self;
-    [[SessionManager sharedSessionManager] SignInAsGuest];
-}
-
 - (void)signUpButtonPressed:(id)sender {
-            [CommonUtility displayAlertWithTitle:@"Not Active" message:@"Please sign in with guest account" delegate:self];
+    [CommonUtility displayAlertWithTitle:@"Not Active" message:@"Please sign in with guest account" delegate:self];
 }
 
 #pragma mark - Session Manager delegate protocal method
 - (void)signedInFailedWithErrors:(NSError *)error{
-     [CommonUtility displayAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:self];
+    [CommonUtility displayAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:self];
 }
 - (void)signedInSuccessfullyWithUser:(UserInfo *)user{
     // switch to content view
     [(AppDelegate *)[UIApplication sharedApplication].delegate setCoreFunctionViewAsRootView];
-
+    
 }
 
 

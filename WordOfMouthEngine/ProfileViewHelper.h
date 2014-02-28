@@ -22,6 +22,14 @@ static const int kPVHLabelHeight = 36;
 
 @interface ProfileViewHelper : NSObject
 
+
+#pragma mark -  View Helper Methods: Views
++ (void)setView:(UIView *)view;
+
+#pragma mark - Table view
++ (void)setTableView:(UITableView *)tableView;
++ (void)setCellProperties:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath;
+
 #pragma mark - Text label mathods
 + (UILabel *)getTextLabelForIndexPath:(NSIndexPath *)indexPath;
     

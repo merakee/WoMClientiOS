@@ -13,10 +13,11 @@
 
 
 #pragma mark -  View Helper Methods: Views
++ (void)setView:(UIView *)view;
 
 
 #pragma mark -  View Helper Methods: TextViews
-+ (void)setContentTextView:(UITextView *)tv withDelegate:(id)delegate;
++ (void)setContentTextView:(UITextView *)textView withDelegate:(id)delegate;
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getSpreadButton;

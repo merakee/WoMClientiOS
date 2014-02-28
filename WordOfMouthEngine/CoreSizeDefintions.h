@@ -17,65 +17,65 @@
 static const CGSize kCSScreenSizePortraitiPhone5 = {640,1136};
 static const CGSize kCSScreenSizePortraitiPhone4 = {640,960};
 static const CGSize kCSScreenSizePortraitiPhone = {320,480};
-static const CGSize kCSScreenSizePortraitiPhoneiPadRetina = {1536,2048};
-static const CGSize kCSScreenSizePortraitiPhoneiPadMini = {768,1024};
-static const CGSize kCSScreenSizePortraitiPhoneiPadMinRetina = {1536,2048};
-static const CGSize kCSScreenSizePortraitiPhoneiPad = {768,1024};
+static const CGSize kCSScreenSizePortraitiPadRetina = {1536,2048};
+static const CGSize kCSScreenSizePortraitiPadMini = {768,1024};
+static const CGSize kCSScreenSizePortraitiPadMinRetina = {1536,2048};
+static const CGSize kCSScreenSizePortraitiPad = {768,1024};
 
 // Display resolution in PPI
 static const int kCSScreenResolutioniPhone5 = 326;
 static const int kCSScreenResolutioniPhone4 = 326;
 static const int kCSScreenResolutioniPhone = 163;
-static const int kCSScreenResolutioniPhoneiPadRetina = 264;
-static const int kCSScreenResolutioniPhoneiPadMini = 163;
-static const int kCSScreenResolutioniPhoneiPadMinRetina = 326;
-static const int kCSScreenResolutioniPhoneiPad = 132;
+static const int kCSScreenResolutioniPadRetina = 264;
+static const int kCSScreenResolutioniPadMini = 163;
+static const int kCSScreenResolutioniPadMinRetina = 326;
+static const int kCSScreenResolutioniPad = 132;
 
 // Appp icon sizes
 static const CGSize kCSAppIconSizeiPhone5 = {120,120};
 static const CGSize kCSAppIconSizeiPhone4 = {120,120};
-static const CGSize kCSAppIconSizeiPhoneiPadRetina = {152,152};
-static const CGSize kCSAppIconSizeiPhoneiPadMini = {76,76};
-static const CGSize kCSAppIconSizeiPhoneiPad = {76,76};
+static const CGSize kCSAppIconSizeiPadRetina = {152,152};
+static const CGSize kCSAppIconSizeiPadMini = {76,76};
+static const CGSize kCSAppIconSizeiPad = {76,76};
 
 static const CGSize kCSAppStoreIconSizeiPhone5 = {1024,1024};
 static const CGSize kCSAppStoreIconSizeiPhone4 = {1024,1024};
-static const CGSize kCSAppStoreIconSizeiPhoneiPadRetina = {1024,1024};
-static const CGSize kCSAppStoreIconSizeiPhoneiPadMini = {512,512};
-static const CGSize kCSAppStoreIconSizeiPhoneiPad = {512,512};
+static const CGSize kCSAppStoreIconSizeiPadRetina = {1024,1024};
+static const CGSize kCSAppStoreIconSizeiPadMini = {512,512};
+static const CGSize kCSAppStoreIconSizeiPad = {512,512};
 
 static const CGSize kCSSpotlightIconSizeiPhone5 = {80,80};
 static const CGSize kCSSpotlightIconSizeiPhone4 = {80,80};
-static const CGSize kCSSpotlightIconSizeiPhoneiPadRetina = {80,80};
-static const CGSize kCSSpotlightIconSizeiPhoneiPadMini = {40,40};
-static const CGSize kCSSpotlightIconSizeiPhoneiPad = {40,40};
+static const CGSize kCSSpotlightIconSizeiPadRetina = {80,80};
+static const CGSize kCSSpotlightIconSizeiPadMini = {40,40};
+static const CGSize kCSSpotlightIconSizeiPad = {40,40};
 
 static const CGSize kCSSettingsIconSizeiPhone5 = {58,58};
 static const CGSize kCSSettingsIconSizeiPhone4 = {58,58};
-static const CGSize kCSSettingsIconSizeiPhoneiPadRetina = {58,58};
-static const CGSize kCSSettingsIconSizeiPhoneiPadMini = {29,29};
-static const CGSize kCSSettingsIconSizeiPhoneiPad = {29,29};
+static const CGSize kCSSettingsIconSizeiPadRetina = {58,58};
+static const CGSize kCSSettingsIconSizeiPadMini = {29,29};
+static const CGSize kCSSettingsIconSizeiPad = {29,29};
 
 // bar heights
 static const int kCSStatusBarHeightiPhone5 = 40;
 static const int kCSStatusBarHeightiPhone4 = 40;
-static const int kCSStatusBarHeightiPhoneiPadRetina = 40;
-static const int kCSStatusBarHeightiPhoneiPadMini = 20;
-static const int kCSStatusBarHeightiPhoneiPad = 20;
+static const int kCSStatusBarHeightiPadRetina = 40;
+static const int kCSStatusBarHeightiPadMini = 20;
+static const int kCSStatusBarHeightiPad = 20;
 
 static const int kCSNavigationBarHeightiPhone5 = 88;
 static const int kCSNavigationBarHeightiPhone4 = 88;
 static const int kCSNavigationBarHeightiPhone5Landscape = 64;
 static const int kCSNavigationBarHeightiPhone4Landscape = 64;
-static const int kCSNavigationBarHeightiPhoneiPadRetina = 88;
-static const int kCSNavigationBarHeightiPhoneiPadMini = 44;
-static const int kCSNavigationBarHeightiPhoneiPad = 44;
+static const int kCSNavigationBarHeightiPadRetina = 88;
+static const int kCSNavigationBarHeightiPadMini = 44;
+static const int kCSNavigationBarHeightiPad = 44;
 
 static const int kCSTabBarHeightiPhone5 = 98;
 static const int kCSTabBarHeightiPhone4 = 98;
-static const int kCSTabBarHeightiPhoneiPadRetina = 112;
-static const int kCSTabBarHeightiPhoneiPadMini = 56;
-static const int kCSTabBarHeightiPhoneiPad = 56;
+static const int kCSTabBarHeightiPadRetina = 112;
+static const int kCSTabBarHeightiPadMini = 56;
+static const int kCSTabBarHeightiPad = 56;
 
 // bar icon sizes
 /*

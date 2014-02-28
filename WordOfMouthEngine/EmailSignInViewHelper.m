@@ -13,18 +13,29 @@
 
 
 #pragma mark -  View Helper Methods: Views
++ (void)setView:(UIView *)view{
+    // set app defaults
+    [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
+    
+    // set custom textview properties
+    
+}
 
 #pragma mark -  View Helper Methods: TextField
 + (void)setEmailTextFiled:(UITextField *)textField withDelegate:(id)delegate{
+    // set app defaults
+    [AppUIManager setTextField:textField ofType:kAUCPriorityTypePrimary];
+    
+    // cutom settings
     // set textField properties
-    textField.backgroundColor = [UIColor whiteColor];
-    textField.borderStyle= UITextBorderStyleLine;
-        textField.placeholder = @"Email/Id";
+    //textField.backgroundColor = [UIColor whiteColor];
+    //textField.borderStyle= UITextBorderStyleLine;
+    textField.placeholder = @"Email/Id";
     
     // textField.text=@"";
     //textField.attributedText =
     //textField.font = [UIFont fontWithName:kSIVTextFontName size:kSIVNameTextFontSize];
-    textField.textColor =[UIColor darkGrayColor];//[UIColor colorWithHue:kCRDPrimaryHue saturation:0.0 brightness:1.0 alpha:1.0];
+    //textField.textColor =[UIColor darkGrayColor];//[UIColor colorWithHue:kCRDPrimaryHue saturation:0.0 brightness:1.0 alpha:1.0];
     
     textField.secureTextEntry = NO;
     textField.delegate=delegate;
@@ -49,14 +60,18 @@
     [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
 }
 + (void)setPasswordTextFiled:(UITextField *)textField withDelegate:(id)delegate{
+    // set app defaults
+    [AppUIManager setTextField:textField ofType:kAUCPriorityTypePrimary];
+    
+    // cutom settings
     // set textField properties
-    textField.backgroundColor = [UIColor whiteColor];
-    textField.borderStyle= UITextBorderStyleLine;
+    //textField.backgroundColor = [UIColor whiteColor];
+    //textField.borderStyle= UITextBorderStyleLine;
     textField.placeholder = @"Password";
     // textField.text=@"";
     //textField.attributedText =
     //textField.font = [UIFont fontWithName:kSIVTextFontName size:kSIVNameTextFontSize];
-    textField.textColor =[UIColor darkGrayColor];//[UIColor colorWithHue:kCRDPrimaryHue saturation:0.0 brightness:1.0 alpha:1.0];
+    //textField.textColor =[UIColor darkGrayColor];//[UIColor colorWithHue:kCRDPrimaryHue saturation:0.0 brightness:1.0 alpha:1.0];
     
     textField.secureTextEntry = YES;
     textField.delegate=delegate;
@@ -85,44 +100,12 @@
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getSignInButton{
-    UIButton *button  = [UIButton buttonWithType:UIButtonTypeCustom];
-    // set image
-    //[button setImage:[UIImage imageNamed:kLIVCGoogleButtonImage] forState:UIControlStateNormal];
-    [button setTitle:@"Sign In" forState:UIControlStateNormal];
-    button.backgroundColor = [UIColor greenColor];
-    // set button properties
-    //button.frame = CGRectMake(20,200,160,90);
-    // for auto layout
-    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
-    return button;
-}
-+ (UIButton *)getSignInAsGuestButton{
-    UIButton *button  = [UIButton buttonWithType:UIButtonTypeCustom];
-    // set image
-    //[button setImage:[UIImage imageNamed:kLIVCGoogleButtonImage] forState:UIControlStateNormal];
-    [button setTitle:@"Sign In As Guest" forState:UIControlStateNormal];
-    button.backgroundColor = [UIColor blueColor];
-    // set button properties
-    //button.frame = CGRectMake(20,200,160,90);
-    // for auto layout
-    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
-    return button;
+    return [AppUIManager setButtonWithTitle:@"Sign in" ofType:kAUCPriorityTypePrimary];
 }
 
+
 + (UIButton *)getSignUpButton{
-    UIButton *button  = [UIButton buttonWithType:UIButtonTypeCustom];
-    // set image
-    //[button setImage:[UIImage imageNamed:kLIVCGoogleButtonImage] forState:UIControlStateNormal];
-    [button setTitle:@"Sign Up" forState:UIControlStateNormal];
-    button.backgroundColor = [UIColor lightGrayColor];
-    // set button properties
-    //button.frame = CGRectMake(20,200,160,90);
-    // for auto layout
-    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
-    return button;
+    return [AppUIManager setButtonWithTitle:@"Sign up" ofType:kAUCPriorityTypeSecondary];
 }
 
 @end

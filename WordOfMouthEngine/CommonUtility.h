@@ -197,9 +197,12 @@
 + (UIColor *)getColor:(UIColor *)color withOpacity:(float)opacity;
 + (UIColor *)getColor:(UIColor *)color withScaledOpacity:(float)scale;
 + (UIColor *)getColor:(UIColor *)color withBrightness:(float)brightness;
-+ (UIColor *)getColor:(UIColor *)color withScaledBrightness:(float)brightness;
-+ (UIColor *)getColor:(UIColor *)color withStaturation:(float)staturation;
-+ (UIColor *)getColor:(UIColor *)color withScaledStaturation:(float)scale;
++ (UIColor *)getColor:(UIColor *)color withScaledBrightness:(float)scale;
++ (UIColor *)getColor:(UIColor *)color withSaturation:(float)saturation;
++ (UIColor *)getColor:(UIColor *)color withScaledSaturation:(float)scale;
++ (UIColor *)getColor:(UIColor *)color withBrightness:(float)brightness andSaturation:(float)saturation;
++ (UIColor *)getColor:(UIColor *)color withScaledBrightness:(float)bscale andScaledSaturation:(float)sscale;
+
 + (UIColor *)getColor:(UIColor *)color withHue:(float)hue;
 + (UIColor *)mixColor:(UIColor *)color1 withColor:(UIColor *)color2;
 + (UIColor *)getColorWithRandomHue;

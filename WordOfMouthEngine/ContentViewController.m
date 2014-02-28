@@ -93,7 +93,8 @@
 #pragma mark -  View Design
 - (void)setView {
     // set view
-    self.view.backgroundColor =[UIColor whiteColor];
+    [ContentViewHelper  setView:self.view];
+    
     // set navigation bar
     //[self setNavigationBar];
     
@@ -135,15 +136,15 @@
      multiplier:1.0
      constant:-46]];
      */
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[killButton(30)]-60-|"
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[killButton(30)]-10-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadButton(30)]-60-|"
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadButton(30)]-10-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     
     // text view
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[contentTextView(>=100)]-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-76-[contentTextView]-10-[killButton]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-42-[contentTextView]-10-[killButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
 }
 

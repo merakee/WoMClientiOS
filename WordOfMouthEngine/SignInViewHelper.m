@@ -13,60 +13,28 @@
 
 
 #pragma mark -  View Helper Methods: Views
-
-
-
++ (void)setView:(UIView *)view{
+    // set app defaults
+    [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
+    
+    // set custom view properties
+    
+}
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getGoogleButton{
-    UIButton *button  = [UIButton buttonWithType:UIButtonTypeCustom];
-    // set image
-    [button setImage:[UIImage imageNamed:kLIVCGoogleButtonImage] forState:UIControlStateNormal];
-    //[button setTitle:@"Google+" forState:UIControlStateNormal];
-    //button.backgroundColor = [UIColor greenColor];
-    // set button properties
-    //button.frame = CGRectMake(20,200,160,90);
-    // for auto layout
-    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
-    return button;
+    return [AppUIManager setButtonWithTitle:@"Sign in with Google" ofType:kAUCPriorityTypeSecondary];
 }
-+ (UIButton *)getFacebookButton{    UIButton *button  = [UIButton buttonWithType:UIButtonTypeCustom];
-    // set image
-    [button setImage:[UIImage imageNamed:kLIVCFacebookButtonImage] forState:UIControlStateNormal];
-    //[button setTitle:@"Google+" forState:UIControlStateNormal];
-    //button.backgroundColor = [UIColor greenColor];
-    // set button properties
-    //button.frame = CGRectMake(20,200,160,90);
-    // for auto layout
-    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
-    return button;
++ (UIButton *)getFacebookButton{
+    return [AppUIManager setButtonWithTitle:@"Sign in with Facebook" ofType:kAUCPriorityTypeSecondary];
 }
 
 + (UIButton *)getTwitterButton{
-    UIButton *button  = [UIButton buttonWithType:UIButtonTypeCustom];
-    // set image
-    [button setImage:[UIImage imageNamed:kLIVCTwitterButtonImage] forState:UIControlStateNormal];
-    //[button setTitle:@"Google+" forState:UIControlStateNormal];
-    //button.backgroundColor = [UIColor greenColor];
-    // set button properties
-    //button.frame = CGRectMake(20,200,160,90);
-    // for auto layout
-    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
-    return button;
+    return [AppUIManager setButtonWithTitle:@"Sign in with Twitter" ofType:kAUCPriorityTypeSecondary];
 }
 + (UIButton *)getEmailButton{
-    UIButton *button  = [UIButton buttonWithType:UIButtonTypeCustom];
-    // set image
-    [button setImage:[UIImage imageNamed:kLIVCEmailButtonImage] forState:UIControlStateNormal];
-    //[button setTitle:@"Google+" forState:UIControlStateNormal];
-    //button.backgroundColor = [UIColor greenColor];
-    // set button properties
-    //button.frame = CGRectMake(20,200,160,90);
-    // for auto layout
-    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
-    return button;
+    return [AppUIManager setButtonWithTitle:@"Sign in with WoM" ofType:kAUCPriorityTypePrimary];
+}
++ (UIButton *)getSignInAsGuestButton{
+    return [AppUIManager setButtonWithTitle:@"Sign in as Guest" ofType:kAUCPriorityTypeSecondary];
 }
 @end

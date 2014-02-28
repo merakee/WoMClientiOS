@@ -32,6 +32,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
 }
 
 - (void)viewDidUnload
@@ -87,6 +88,8 @@
 
 #pragma mark -  Local Methods Implememtation
 - (void)setView {
+    // set tap bar
+    [self setTapBar];
     // content view
     contentViewController =[[ContentViewController alloc] init];
     //contentViewNavigationController = [[UINavigationController alloc]
@@ -108,6 +111,10 @@
                                                   image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageCompose]
                                                   tag:kCFVTabbarIndexCompose];
     
+    [AppUIManager setNavbar:composeViewController.navigationController.navigationBar];
+    
+    composeViewController.hidesBottomBarWhenPushed=YES;
+    
     
     // history view
     //historyViewController =[[HistoryViewController alloc] init];
@@ -126,4 +133,10 @@
     [self setViewControllers:viewControllersArray animated:YES];
 }
 
+- (void)setTapBar{
+    // App default settings
+    [AppUIManager setTabbar:self.tabBar];
+    // customs settings
+    
+}
 @end

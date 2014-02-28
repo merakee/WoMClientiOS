@@ -16,22 +16,30 @@
 #pragma mark -  Layout methods
 +(NSUInteger) getSupportedOrentation;
 
+#pragma mark - Appwide settings
++(UIStatusBarStyle)getStatusBarStyle;
 
 #pragma mark - Color merhods
 + (UIColor *)getColorOfType:(AUCColorType)colorType;
-+ (UIColor *)getColorOfType:(AUCColorType)colorType andBrightness:(AUCColorBrightness)colorBrightness;
++ (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness;
++ (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness andSaturation:(AUCColorScale)colorSaturation;
 
 #pragma mark - view elements methods:  UIview
 + (void)setUIView:(UIView *)view;
 + (void)setUIView:(UIView *)view ofType:(AUCPriorityType)pType;
+
+#pragma mark - view elements methods:  UIButton
++ (void)setUIButton:(UIButton *)button;
++ (void)setUIButton:(UIButton *)button ofType:(AUCPriorityType)pType;
++ (UIButton *)setButtonWithTitle:(NSString *)text ofType:(AUCPriorityType)pType;
 
 #pragma mark - view elements methods:  UITextView
 + (void)setTextView:(UITextView *)textView;
 + (void)setTextView:(UITextView *)textView ofType:(AUCPriorityType)pType;
 
 #pragma mark - view elements methods: UITextFeild
-+ (void)setTextField:(UITextField *)textFeild;
-+ (void)setTextField:(UITextField *)textFeild ofType:(AUCPriorityType)pType;
++ (void)setTextField:(UITextField *)textField;
++ (void)setTextField:(UITextField *)textField ofType:(AUCPriorityType)pType;
 
 #pragma mark - view elements methods:  UILabel
 + (void)setUILabel:(UILabel *)label;
@@ -52,5 +60,8 @@
 + (void)setTableCell:(UITableViewCell *)tableViewCell;
 + (void)setTableView:(UITableView *)tableView ofType:(AUCPriorityType)pType;
 + (void)setTableCell:(UITableViewCell *)tableViewCell ofType:(AUCPriorityType)pType;
+
+#pragma mark - view elements methods:  App logo 
++ (UIImageView *)getAppLogoView;
 
 @end

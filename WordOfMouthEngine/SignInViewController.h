@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SessionManager.h"
 
-@interface SignInViewController : UIViewController{
+@interface SignInViewController : UIViewController<SessionManagerSignInDelegate>{
     UIButton           *googleButton;
     UIButton           *facebookButton;
     UIButton           *twitterButton;
     UIButton           *emailButton;
+    UIButton           *signInAsGuestButton;
+    
+    UIImageView        *appLogoView;
 }
 
 @end

@@ -13,6 +13,7 @@
 
 
 #pragma mark -  View Helper Methods: Views
++ (void)setView:(UIView *)view;
 
 
 #pragma mark -  View Helper Methods: TextViews

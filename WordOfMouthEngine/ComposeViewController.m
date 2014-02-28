@@ -41,6 +41,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     // display key board
     [composeTextView becomeFirstResponder];
 }
@@ -81,7 +82,7 @@
 #pragma mark -  Local View Methods Implememtation
 - (void)setView {
     // set view
-    self.view.backgroundColor =[UIColor whiteColor];
+    [ComposeViewHelper setView:self.view];
     
     // set navigation bar
     [self setNavigationBar];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1107342D18BDBF8B008C941A /* AppUIAppearanceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1107342C18BDBF8B008C941A /* AppUIAppearanceManager.m */; };
 		1114A7F6182D8B3300089669 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1114A7F5182D8B3300089669 /* Foundation.framework */; };
 		1114A7F8182D8B3300089669 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1114A7F7182D8B3300089669 /* CoreGraphics.framework */; };
 		1114A7FA182D8B3300089669 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1114A7F9182D8B3300089669 /* UIKit.framework */; };
@@ -65,6 +66,7 @@
 		116EE33018ADA1AC00C66D86 /* AppAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32F18ADA1AC00C66D86 /* AppAnimationManager.m */; };
 		116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE33318ADB58500C66D86 /* CommonUtility.m */; };
 		11720F5118B6A83500124C9F /* ProfileViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11720F4F18B6A83500124C9F /* ProfileViewHelper.m */; };
+		11810B6918C0025600C5246C /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 11810B6818C0025600C5246C /* AppIcon.png */; };
 		11CB8FC318B00B2900396418 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC218B00B2900396418 /* SignInViewController.m */; };
 		11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC718B00BB200396418 /* CoreFunctionViewController.m */; };
 		11CB8FCF18B0469000396418 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FCE18B0469000396418 /* ContentViewController.m */; };
@@ -90,6 +92,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1107342B18BDBF8B008C941A /* AppUIAppearanceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUIAppearanceManager.h; sourceTree = "<group>"; };
+		1107342C18BDBF8B008C941A /* AppUIAppearanceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUIAppearanceManager.m; sourceTree = "<group>"; };
 		1114A7F2182D8B3300089669 /* WordOfMouthEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordOfMouthEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1114A7F5182D8B3300089669 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1114A7F7182D8B3300089669 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -168,6 +172,7 @@
 		116EE33518ADB58500C66D86 /* LocalMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMacros.h; sourceTree = "<group>"; };
 		11720F4F18B6A83500124C9F /* ProfileViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewHelper.m; sourceTree = "<group>"; };
 		11720F5018B6A83500124C9F /* ProfileViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewHelper.h; sourceTree = "<group>"; };
+		11810B6818C0025600C5246C /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
 		11CB8FC118B00B2900396418 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		11CB8FC218B00B2900396418 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		11CB8FC618B00BB200396418 /* CoreFunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreFunctionViewController.h; sourceTree = "<group>"; };
@@ -462,6 +467,8 @@
 				116EE32E18ADA1AC00C66D86 /* AppAnimationManager.h */,
 				116EE32F18ADA1AC00C66D86 /* AppAnimationManager.m */,
 				11CB8FDC18B04EFE00396418 /* AppUIConstants.h */,
+				1107342B18BDBF8B008C941A /* AppUIAppearanceManager.h */,
+				1107342C18BDBF8B008C941A /* AppUIAppearanceManager.m */,
 			);
 			name = AppUI;
 			sourceTree = "<group>";
@@ -473,6 +480,14 @@
 				116EE32318ADA09D00C66D86 /* UserInfoManager.m */,
 			);
 			name = UserInfo;
+			sourceTree = "<group>";
+		};
+		11810B6718C0024900C5246C /* AppLogo */ = {
+			isa = PBXGroup;
+			children = (
+				11810B6818C0025600C5246C /* AppIcon.png */,
+			);
+			name = AppLogo;
 			sourceTree = "<group>";
 		};
 		11CB8FC418B00B3300396418 /* SignInVC */ = {
@@ -544,6 +559,7 @@
 		11CB8FDF18B053B400396418 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				11810B6718C0024900C5246C /* AppLogo */,
 				1131DA6818B55AF100EFDB34 /* Buttons */,
 				11CB8FE018B053BB00396418 /* TabbarIcons */,
 			);
@@ -652,6 +668,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11810B6918C0025600C5246C /* AppIcon.png in Resources */,
 				111B758C18B7F4FD00B10716 /* TabBarIconNew@2x.png in Resources */,
 				1131DA6C18B55AFE00EFDB34 /* SocialSignin_Facebook.png in Resources */,
 				111B758918B7F4FD00B10716 /* TabBarIconFavorites.png in Resources */,
@@ -719,6 +736,7 @@
 				11CB8FDB18B049B700396418 /* ContentViewHelper.m in Sources */,
 				1131DA6718B5584300EFDB34 /* SignInViewHelper.m in Sources */,
 				11CB8FD818B0476A00396418 /* SettingsViewController.m in Sources */,
+				1107342D18BDBF8B008C941A /* AppUIAppearanceManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

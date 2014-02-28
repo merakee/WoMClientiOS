@@ -44,7 +44,7 @@
 - (void)loadView {
     [super loadView];
     // view customization code
-    // [self setView];
+    [self setView];
 }
 
 - (void)viewDidLoad
@@ -178,24 +178,13 @@
 }
 
 #pragma mark -  Local view methods
-- (void)setCellProperties:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
-    // auto layout
-    [cell setTranslatesAutoresizingMaskIntoConstraints:NO];
+- (void)setView{
+    // set view
+    //[ProfileViewHelper  setView:self.view];
     
+    // set table view
+    [ProfileViewHelper setTableView:self.tableView];
     
-    // add accessory button
-    //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-    
-    // Add background image
-    //UIImage *image = [UIImage imageNamed:kSLVTableCellBackgroundImage];
-    //UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    //imageView.contentMode = UIViewContentModeScaleToFill;
-    //cell.frame = [CommonUtility  offSetRect:kIVTableCellFrame byX:45 byY:0];
-    //cell.frame = kIVTableCellFrame;
-    //cell.backgroundView = [InfoViewHelper getBackgroundViewWithMode:kCVEMTableCellModeNormal];
-    //cell.selectedBackgroundView =  [InfoViewHelper getBackgroundViewWithMode:kCVEMTableCellModeSelected];
-    //cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 }
 
 

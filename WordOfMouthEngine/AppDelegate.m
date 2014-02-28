@@ -10,6 +10,7 @@
 #import "SessionManager.h"
 #import "SignInViewController.h"
 #import "CoreFunctionViewController.h"
+#import "AppUIAppearanceManager.h"
 
 #import "SessionManager.h"
 
@@ -24,6 +25,10 @@
     
     // set session manager
     appSessionManager = [SessionManager sharedSessionManager];
+    
+    // set App wide appreance
+    [AppUIAppearanceManager setAppAppearance];
+    
     // view controllers
     [self setViewController];
     //self.window.backgroundColor = [UIColor whiteColor];

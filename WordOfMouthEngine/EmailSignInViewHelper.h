@@ -13,7 +13,7 @@
 
 
 #pragma mark -  View Helper Methods: Views
-
++ (void)setView:(UIView *)view;
 
 #pragma mark -  View Helper Methods: TextField
 + (void)setEmailTextFiled:(UITextField *)textField withDelegate:(id)delegate;
@@ -21,6 +21,5 @@
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getSignInButton;
-+ (UIButton *)getSignInAsGuestButton;
 + (UIButton *)getSignUpButton;
 @end

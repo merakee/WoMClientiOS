@@ -19,11 +19,12 @@
 
 
 #pragma mark -  View Helper Methods: Views
-
++ (void)setView:(UIView *)view;
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getGoogleButton;
 + (UIButton *)getFacebookButton;
 + (UIButton *)getTwitterButton;
 + (UIButton *)getEmailButton;
++ (UIButton *)getSignInAsGuestButton;
 @end

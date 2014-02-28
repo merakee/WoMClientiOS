@@ -44,51 +44,30 @@
  */
 
 // color definitions
-const static float kAUCHuePrimary = 0.0/360.0;
-const static float kAUCHueSecondary = 0.0/360.0;
-const static float kAUCHueTertiary = 0.0/360.0;
+//const static float kAUCHuePrimary = 36.0/360.0; // 42, 136, 216
+const static float kAUCHuePrimary = 25.0/360.0; // 42, 136, 216
+const static float kAUCHueSecondary = 192.0/360.0;//kAUCHuePrimary+0.5-24.0/360.0;
+const static float kAUCHueTertiary = 136.0/360.0;//kAUCHuePrimary+0.5+45.0/360.0;
+const static float kAUCHueGray = 200.0/360.0;
 
-const static float kAUCColorPrimary[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorPrimaryLighter[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorPrimaryDarker[4] = {0.0,0.0,0.0,0.0};
+const static float kAUCColorPrimary[4] = {kAUCHuePrimary,0.8,1.0,1.0};
+const static float kAUCColorSecondary[4] = {kAUCHueSecondary,1.0,1.0,1.0};
+const static float kAUCColorTertiary[4] = {kAUCHueTertiary,1.0,0.8,1.0};
 
-const static float kAUCColorSecondary[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorSecondaryLighter[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorSecondaryDarker[4] = {0.0,0.0,0.0,0.0};
+const static float kAUCColorGray[4] = {kAUCHueGray,0.1,0.9,1.0};
 
-const static float kAUCColorTertiary[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorTertiaryLighter[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorTertiaryDarker[4] = {0.0,0.0,0.0,0.0};
+const static float kAUCColorBackground[4] = {kAUCHueGray,0.03,0.95,1.0};
 
-const static float kAUCColorGray[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorGrayLighter[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorGrayDarker[4] = {0.0,0.0,0.0,0.0};
+const static float kAUCColorTint[4] = {kAUCHuePrimary,0.0,1.0,1.0};//{kAUCHuePrimary,0.8,1.0,1.0};
+const static float kAUCColorTintSelected[4] = {kAUCHuePrimary,1.0,0.7,1.0};//{kAUCHueSecondary,1.0,1.0,1.0};
+const static float kAUCColorTintUnselected[4] = {kAUCHuePrimary,0.8,1.0,1.0};//{kAUCHuePrimary,0.0,1.0,1.0};
 
-const static float kAUCColorBackground[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorBackgroundLighter[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorBackgroundDarker[4] = {0.0,0.0,0.0,0.0};
+const static float kAUCColorTextPrimary[4] = {kAUCHuePrimary,1.0,0.7,1.0};
+const static float kAUCColorTextPrimaryLight[4] = {kAUCHuePrimary,0.0,1.0,1.0};
+const static float kAUCColorTextSecondary[4] = {kAUCHueSecondary,1.0,1.0,1.0};
+const static float kAUCColorTextTertiary[4] = {kAUCHueTertiary,1.0,1.0,1.0};
 
-const static float kAUCColorTint[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorTintLighter[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorTintDarker[4] = {0.0,0.0,0.0,0.0};
-
-const static float kAUCColorText[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorTextLighter[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorTextDarker[4] = {0.0,0.0,0.0,0.0};
-
-const static float kAUCColorTextSecondary[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorTextSecondaryLighter[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorTextSecondaryDarker[4] = {0.0,0.0,0.0,0.0};
-
-const static float kAUCColorTextTertiary[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorTextTertiaryLighter[4] = {0.0,0.0,0.0,0.0};
-const static float kAUCColorTextTertiaryDarker[4] = {0.0,0.0,0.0,0.0};
-
-
-const static float kAUCColorBrightnessNormalScale=1.0;
-const static float kAUCColorBrightnessLighterScale=1.2;
-const static float kAUCColorBrightnessDarkerScale=0.8;
-
+const static float kAUCColorScaleFactor=0.2;
 
 //----------------------------------
 // Typography
@@ -99,15 +78,18 @@ const static float kAUCColorBrightnessDarkerScale=0.8;
  NSString *constkAUCFontFamilyTertiary = @"";
  */
 
-#define kAUCFontFamilyPrimary  @""
-#define kAUCFontFamilySecondary  @""
-#define kAUCFontFamilyTertiary  @""
+#define kAUCFontFamilyPrimary  @"HelveticaNeue-Light"
+#define kAUCFontFamilySecondary  @"HelveticaNeue-Light"
+#define kAUCFontFamilyTertiary  @"HelveticaNeue-Light"
 
 // Text font size
-const static int kAUCFontSizePrimary = 28;
-const static int kAUCFontSizeSecondary = 16;
-const static int kAUCFontSizeTertiary = 10;
+const static CGFloat kAUCFontSizePrimary = 16.0;
+const static CGFloat kAUCFontSizeSecondary = 12.0;
+const static CGFloat kAUCFontSizeTertiary = 8.0;
 
+// Other style
+const static float kAUCRectCornerRadius = 4.0;
+const static float kAUCRectBorderWidth = 1.0;
 
 //----------------------------------
 // App Images
@@ -125,6 +107,10 @@ const static int kAUCFontSizeTertiary = 10;
 #define kAUCCoreFunctionTabbarImageProfile    @"TabbarIconContact.png"
 #define kAUCCoreFunctionTabbarImageSettings   @"TabbarIconSettings.png"
 
+// app logo
+#define kAUCAppLogoImage   @"AppIcon.png"
+const static float kAUCAppLogoDefaultSize = 64.0;
+
 //----------------------------------
 // Enums
 // color types
@@ -135,16 +121,23 @@ typedef enum {
     kAUCColorTypeGray,
     kAUCColorTypeBackground,
     kAUCColorTypeTint,
-    kAUCColorTypeText,
+    kAUCColorTypeTintSelected,
+    kAUCColorTypeTintUnselected,
+    kAUCColorTypeTextPrimary,
+    kAUCColorTypeTextPrimaryLight,
     kAUCColorTypeTextSecondary,
     kAUCColorTypeTextTertiary
 } AUCColorType;
 
 typedef enum {
-    kAUCColorBrightnessNormal=0,
-    kAUCColorBrightnessLighter,
-    kAUCColorBrightnessDarker
-} AUCColorBrightness;
+    kAUCColorScaleNormal=0,
+    kAUCColorScaleLight,
+    kAUCColorScaleDark,
+    kAUCColorScaleLighter,
+    kAUCColorScaleDarker,
+    kAUCColorScaleLightest,
+    kAUCColorScaleDarkest
+} AUCColorScale;
 
 typedef enum {
     kAUCPriorityTypePrimary=0,
