@@ -62,7 +62,7 @@ const static float kAUCColorTint[4] = {kAUCHuePrimary,0.0,1.0,1.0};//{kAUCHuePri
 const static float kAUCColorTintSelected[4] = {kAUCHuePrimary,1.0,0.7,1.0};//{kAUCHueSecondary,1.0,1.0,1.0};
 const static float kAUCColorTintUnselected[4] = {kAUCHuePrimary,0.8,1.0,1.0};//{kAUCHuePrimary,0.0,1.0,1.0};
 
-const static float kAUCColorTextPrimary[4] = {kAUCHuePrimary,1.0,0.7,1.0};
+const static float kAUCColorTextPrimary[4] = {kAUCHuePrimary,1.0,0.3,1.0};
 const static float kAUCColorTextPrimaryLight[4] = {kAUCHuePrimary,0.0,1.0,1.0};
 const static float kAUCColorTextSecondary[4] = {kAUCHueSecondary,1.0,1.0,1.0};
 const static float kAUCColorTextTertiary[4] = {kAUCHueTertiary,1.0,1.0,1.0};

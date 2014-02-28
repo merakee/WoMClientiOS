@@ -16,6 +16,11 @@
     UIButton           *spreadButton;
     UIButton           *killButton;
     
+    UIImageView         *userImage;
+    UILabel             *spreadCount;
+    UILabel             *timeCount;
+    
+    
     ContentInfo        *contentInfo;
 }
 

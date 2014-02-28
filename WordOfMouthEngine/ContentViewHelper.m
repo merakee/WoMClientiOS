@@ -21,8 +21,18 @@
     
 }
 
+#pragma mark - View Helper Methods: Image Views
++ (UIImageView *)getUserImageView{
+    UIImageView *iv =[[UIImageView alloc] init];
+    // set app defaults
+    [AppUIManager setImageView:iv];
+    
+    return iv;
+}
+
 #pragma mark -  View Helper Methods: TextViews
-+ (void)setContentTextView:(UITextView *)textView withDelegate:(id)delegate{
++ (UITextView *)getContentTextViewWithDelegate:(id)delegate{
+    UITextView *textView =[[UITextView alloc] init];
     // set app defaults
     [AppUIManager setTextView:textView ofType:kAUCPriorityTypePrimary];
     
@@ -55,44 +65,33 @@
     
     textView.delegate=delegate;
     
-    // for auto layout
-    [textView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
+    return textView;
 }
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getSpreadButton{
-    UIButton *button  = [UIButton buttonWithType:UIButtonTypeSystem];
-    // set app defaults
-    [AppUIManager setUIButton:button ofType:kAUCPriorityTypePrimary];
-    
-    // cutom settings
-    button.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeTertiary];
-    //button.layer.borderColor = [AppUIManager getColorOfType:kAUCColorTypeSecondary].CGColor;
-    
-    // set button properties
-    //button.frame = CGRectMake(20,200,160,90);
-    // for auto layout
-    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [button setTitle:@"spread" forState:UIControlStateNormal];
-    
-    return button;
+    return [AppUIManager setButtonWithTitle:@"spread" ofType:kAUCPriorityTypeTertiary];
 }
 + (UIButton *)getKillButton{
-    UIButton *button  = [UIButton buttonWithType:UIButtonTypeSystem];
-    // set app defaults
-    [AppUIManager setUIButton:button ofType:kAUCPriorityTypePrimary];
-    
-    // cutom settings
+    UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" ofType:kAUCPriorityTypeTertiary];
+        // cutom settings
     button.backgroundColor = [UIColor redColor];
-    //button.layer.borderColor = [UIColor redColor].CGColor;
-    // set button properties
-    //button.frame = CGRectMake(1000,200,80,30);
-    // for auto layout
-    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [button setTitle:@"kill" forState:UIControlStateNormal];
-    
     return button;
 }
 
+#pragma mark - Text label mathods
++ (UILabel *)getTextLabelForSpreadCount{
+    UILabel *textLabel= [[UILabel alloc] init];
+    // set app defaults
+    [AppUIManager setUILabel:textLabel ofType:kAUCPriorityTypePrimary];
+    
+    return textLabel;
+}
++ (UILabel *)getTextLabelForTimeCount{
+    UILabel *textLabel= [[UILabel alloc] init];
+    // set app defaults
+    [AppUIManager setUILabel:textLabel ofType:kAUCPriorityTypeSecondary];
+    
+    return textLabel;
+}
 @end

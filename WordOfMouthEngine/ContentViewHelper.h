@@ -15,11 +15,18 @@
 #pragma mark -  View Helper Methods: Views
 + (void)setView:(UIView *)view;
 
+#pragma mark - View Helper Methods: Image Views
++ (UIImageView *)getUserImageView;
 
 #pragma mark -  View Helper Methods: TextViews
-+ (void)setContentTextView:(UITextView *)textView withDelegate:(id)delegate;
++ (UITextView *)getContentTextViewWithDelegate:(id)delegate;
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getSpreadButton;
 + (UIButton *)getKillButton;
+
+#pragma mark - Text label mathods
++ (UILabel *)getTextLabelForSpreadCount;
++ (UILabel *)getTextLabelForTimeCount;
+
 @end

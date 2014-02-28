@@ -67,8 +67,8 @@
     NSString  *body =[NSString stringWithFormat:@"This is default content body (id %d). This will hold the text for the content. Here is a link google.com. And here is more text",[CommonUtility pickRandom:30000]];
     ContentInfo *ci  =[[ContentInfo alloc] initWithBody:body
                                                authorId:1000
-                                              timeStamp:@"default time stamp"
-                                            spreadCount:500];
+                                              timeStamp:[NSString stringWithFormat:@"%d",[CommonUtility pickRandom:100]]
+                                            spreadCount:[CommonUtility pickRandom:10000]];
     
     return ci;
 }

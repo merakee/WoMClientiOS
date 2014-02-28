@@ -143,6 +143,17 @@
     [view.layer insertSublayer:gradient atIndex:1];
 }
 
+#pragma mark - view elements methods:  UIImageView
++ (void)setImageView:(UIImageView *)iv{
+    iv.backgroundColor  =[AppUIManager getColorOfType:kAUCColorTypeGray withBrightness:kAUCColorScaleLighter];
+    
+    // rounder cover
+    [AppUIManager setRoundedCornerToImageView:iv];
+    // for auto layout
+    [iv setTranslatesAutoresizingMaskIntoConstraints:NO];
+}
+
+
 #pragma mark - view elements methods:  UIButton
 + (void)setUIButton:(UIButton *)button{
     [AppUIManager setUIButton:button  ofType:kAUCPriorityTypePrimary];
@@ -286,6 +297,9 @@
     
     // rounded corner
     [AppUIManager setRoundedCorner:textView];
+    
+    // for auto layout
+    [textView setTranslatesAutoresizingMaskIntoConstraints:NO];
 }
 #pragma mark - view elements methods: UITextFeild
 + (void)setTextField:(UITextField *)textField{
@@ -339,7 +353,46 @@
 }
 
 + (void)setUILabel:(UILabel *)label ofType:(AUCPriorityType)pType{
+    // set label properties
+    // colors and fonts
+    switch (pType) {
+        case kAUCPriorityTypeSecondary:
+            label.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeSecondary];
+            label.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeSecondary];
+            label.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextPrimaryLight];
+            // add border
+            //[AppUIManager setBorder:label withColor:[AppUIManager getColorOfType:kAUCColorTypeSecondary]];
+            break;
+        case kAUCPriorityTypeTertiary:
+            label.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeTertiary];
+            label.font = [UIFont fontWithName:kAUCFontFamilyTertiary size:kAUCFontSizeTertiary];
+            label.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextPrimaryLight];
+            // add border
+            //[AppUIManager setBorder:label withColor:[AppUIManager getColorOfType:kAUCColorTypeTertiary]];
+            break;
+        default:
+            label.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypePrimary];
+            label.font = [UIFont fontWithName:kAUCFontFamilyPrimary size:kAUCFontSizePrimary];
+            label.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextPrimaryLight];
+            // add border
+            //[AppUIManager setBorder:label withColor:[AppUIManager getColorOfType:kAUCColorTypePrimary]];
+            break;
+    }
     
+    //label.backgroundColor = [UIColor clearColor];
+    // palce holder text color
+    //label.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"place holder" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    label.textAlignment = NSTextAlignmentCenter;
+    // others
+    //label.borderStyle  property
+    //background  property
+    // disabledBackground  property
+    
+    // rounded corner
+    [AppUIManager setRoundedCorner:label];
+    
+    // for auto layout
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
 }
 #pragma mark - view elements methods:  Navbar
 + (void)setNavbar:(UINavigationBar *)navbar{
@@ -424,13 +477,26 @@
     [caLayer setCornerRadius:kAUCRectCornerRadius];
 }
 + (void)setCircularCropToImageView:(UIImageView *)iv{
-    // rounded corner
-    // Get the Layer of any view
-    CALayer *caLayer = [iv layer];
-    [caLayer setMasksToBounds:YES];
-    // corner size
-    float cRadius = fmaxf(iv.frame.size.height,iv.frame.size.width)/3.0;
-    [caLayer setCornerRadius:cRadius];
+    // create shape layer for circle we'll draw on top of image (the boundary of the circle)
+    CAShapeLayer *circleLayer = [CAShapeLayer layer];
+    circleLayer.lineWidth = 1.0;
+    circleLayer.fillColor = [[UIColor whiteColor] CGColor];
+    circleLayer.strokeColor = [[UIColor whiteColor] CGColor];
+    
+    iv.layer.mask=circleLayer;
+    
+    [CommonUtility  printPoint:iv.center];
+    NSLog(@"%f",fminf(iv.frame.size.height,iv.frame.size.width)/2.0-circleLayer.lineWidth);
+    // create circle path
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path addArcWithCenter:iv.center
+                    radius:fminf(iv.frame.size.height,iv.frame.size.width)/2.0-circleLayer.lineWidth
+                startAngle:0.0
+                  endAngle:M_PI * 2.0
+                 clockwise:YES];
+    circleLayer.path = [path CGPath];
+
+
 }
 + (void)setBorder:(id)view withColor:(UIColor *)color{
     ((UIView *)view).layer.borderWidth = kAUCRectBorderWidth;
@@ -447,14 +513,8 @@
 #pragma mark - view elements methods:  App logo
 + (UIImageView *)getAppLogoView{
     UIImageView *iv =[[UIImageView alloc] initWithImage:[UIImage imageNamed:kAUCAppLogoImage]];
-    //iv.size = CGSizeMake(logoSize,logoSize);
-    
-    // rounder corner
-    [AppUIManager setRoundedCornerToImageView:iv];
-    //[AppUIManager setCircularCropToImageView:iv];
-    // for auto layout
-    [iv setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
+    // defautl setting
+    [AppUIManager setImageView:iv];
     return iv;
 }
 

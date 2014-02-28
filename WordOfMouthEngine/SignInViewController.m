@@ -21,6 +21,13 @@
     [super loadView];
     // view customization code
     [self setView];
+    
+}
+- (void) viewDidLayoutSubviews {
+    
+    // add circular crop to image view
+    // [AppUIManager setCircularCropToImageView:appLogoView];
+    
 }
 
 - (void)viewDidLoad
@@ -101,6 +108,8 @@
     
     // layout
     [self layoutView];
+    
+
 }
 
 - (void)layoutView{

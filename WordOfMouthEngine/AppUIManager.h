@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 #import "AppUIConstants.h"
 #import "CommonUtility.h"
 #import "CommonResourceDefintions.h"
@@ -24,9 +25,15 @@
 + (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness;
 + (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness andSaturation:(AUCColorScale)colorSaturation;
 
-#pragma mark - view elements methods:  UIview
+#pragma mark - view elements methods:  UIView
 + (void)setUIView:(UIView *)view;
 + (void)setUIView:(UIView *)view ofType:(AUCPriorityType)pType;
+
+#pragma mark - view elements methods:  UIImageView
++ (void)setImageView:(UIImageView *)iv;
++ (void)setRoundedCornerToImageView:(UIImageView *)iv;
++ (void)setCircularCropToImageView:(UIImageView *)iv;
+    
 
 #pragma mark - view elements methods:  UIButton
 + (void)setUIButton:(UIButton *)button;

@@ -87,6 +87,9 @@
     // update content
     contentInfo = [ContentManager getContent];
     contentTextView.text = contentInfo.contentBody;
+    // update counts
+    spreadCount.text = [NSString stringWithFormat:@"%d", contentInfo.spreadCount];
+    timeCount.text = contentInfo.timeStamp;
 }
 
 
@@ -99,8 +102,7 @@
     //[self setNavigationBar];
     
     // set textview
-    contentTextView =[[UITextView alloc] init];
-    [ContentViewHelper setContentTextView:contentTextView withDelegate:self];
+    contentTextView = [ContentViewHelper getContentTextViewWithDelegate:self];
     [self.view addSubview:contentTextView];
     
     // set buttons
@@ -112,6 +114,13 @@
     [self.view addSubview:killButton];
     
     // set Textlabels
+    spreadCount = [ContentViewHelper getTextLabelForSpreadCount];
+    timeCount = [ContentViewHelper getTextLabelForTimeCount];
+    [self.view addSubview:spreadCount];
+    [self.view addSubview:timeCount];
+    // image view
+    userImage = [ContentViewHelper getUserImageView];
+    [self.view addSubview:userImage];
     
     
     // layout
@@ -121,7 +130,27 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(spreadButton,killButton,contentTextView);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(userImage, spreadCount,timeCount,contentTextView, spreadButton,killButton);
+    
+    // top row : user image and labels
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[userImage(40)]-20-[spreadCount(>=100)]-20-[timeCount(40)]-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[userImage(40)]"
+                                                                                    options:0 metrics:nil views:viewsDictionary]];
+
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[spreadCount(40)]"
+                                                                                    options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[timeCount(40)]"
+                                                                                    options:0 metrics:nil views:viewsDictionary]];
+    
+    
+    // text view
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[contentTextView(>=100)]-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadCount]-[contentTextView]-10-[killButton]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
     
     // buttons
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[killButton(spreadButton)]-12-[spreadButton]-|"
@@ -141,11 +170,10 @@
     [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadButton(30)]-10-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     
-    // text view
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[contentTextView(>=100)]-|"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-42-[contentTextView]-10-[killButton]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    
+    
+    
 }
 
 - (void)setNavigationBar {
