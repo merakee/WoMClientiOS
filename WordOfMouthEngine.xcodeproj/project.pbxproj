@@ -68,6 +68,7 @@
 		11720F5118B6A83500124C9F /* ProfileViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11720F4F18B6A83500124C9F /* ProfileViewHelper.m */; };
 		11810B6918C0025600C5246C /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 11810B6818C0025600C5246C /* AppIcon.png */; };
 		11810B6A18C10DD800C5246C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1114A7F7182D8B3300089669 /* CoreGraphics.framework */; };
+		11810B6D18C1246100C5246C /* UserImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 11810B6C18C1246100C5246C /* UserImage.png */; };
 		11CB8FC318B00B2900396418 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC218B00B2900396418 /* SignInViewController.m */; };
 		11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC718B00BB200396418 /* CoreFunctionViewController.m */; };
 		11CB8FCF18B0469000396418 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FCE18B0469000396418 /* ContentViewController.m */; };
@@ -174,6 +175,7 @@
 		11720F4F18B6A83500124C9F /* ProfileViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewHelper.m; sourceTree = "<group>"; };
 		11720F5018B6A83500124C9F /* ProfileViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewHelper.h; sourceTree = "<group>"; };
 		11810B6818C0025600C5246C /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
+		11810B6C18C1246100C5246C /* UserImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserImage.png; sourceTree = "<group>"; };
 		11CB8FC118B00B2900396418 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		11CB8FC218B00B2900396418 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		11CB8FC618B00BB200396418 /* CoreFunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreFunctionViewController.h; sourceTree = "<group>"; };
@@ -492,6 +494,14 @@
 			name = AppLogo;
 			sourceTree = "<group>";
 		};
+		11810B6B18C1245800C5246C /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				11810B6C18C1246100C5246C /* UserImage.png */,
+			);
+			name = Misc;
+			sourceTree = "<group>";
+		};
 		11CB8FC418B00B3300396418 /* SignInVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -561,6 +571,7 @@
 		11CB8FDF18B053B400396418 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				11810B6B18C1245800C5246C /* Misc */,
 				11810B6718C0024900C5246C /* AppLogo */,
 				1131DA6818B55AF100EFDB34 /* Buttons */,
 				11CB8FE018B053BB00396418 /* TabbarIcons */,
@@ -676,6 +687,7 @@
 				111B758918B7F4FD00B10716 /* TabBarIconFavorites.png in Resources */,
 				1114A800182D8B3300089669 /* InfoPlist.strings in Resources */,
 				111B758A18B7F4FD00B10716 /* TabBarIconFavorites@2x.png in Resources */,
+				11810B6D18C1246100C5246C /* UserImage.png in Resources */,
 				1114A808182D8B3300089669 /* Images.xcassets in Resources */,
 				1131DA6E18B55B0700EFDB34 /* SocialSignin_Twitter.png in Resources */,
 				1131DA7018B55B1300EFDB34 /* SocialSignin_Email.png in Resources */,

@@ -14,6 +14,7 @@
 
 #pragma mark -  View Helper Methods: Views
 + (void)setView:(UIView *)view;
++ (UIView *)getTextBackGroundView;
 
 #pragma mark - View Helper Methods: Image Views
 + (UIImageView *)getUserImageView;

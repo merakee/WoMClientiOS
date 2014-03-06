@@ -39,10 +39,12 @@
 + (void)setUIButton:(UIButton *)button;
 + (void)setUIButton:(UIButton *)button ofType:(AUCPriorityType)pType;
 + (UIButton *)setButtonWithTitle:(NSString *)text ofType:(AUCPriorityType)pType;
++ (UIButton *)setButtonWithTitle:(NSString *)text andColor:(UIColor *)bColor;
 
 #pragma mark - view elements methods:  UITextView
 + (void)setTextView:(UITextView *)textView;
 + (void)setTextView:(UITextView *)textView ofType:(AUCPriorityType)pType;
++ (void)verticallyAlignTextView:(UITextView *)textView;
 
 #pragma mark - view elements methods: UITextFeild
 + (void)setTextField:(UITextField *)textField;
@@ -70,5 +72,9 @@
 
 #pragma mark - view elements methods:  App logo 
 + (UIImageView *)getAppLogoView;
+
+#pragma mark - Utility methods
++ (void)setBorder:(id)view withColor:(UIColor *)color;
++ (CGSize)getSizeForText:(NSString *)text sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size;
 
 @end

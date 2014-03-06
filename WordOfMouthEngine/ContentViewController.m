@@ -42,6 +42,12 @@
     contentInfo =[[ContentInfo  alloc] init];
 }
 
+- (void) viewDidLayoutSubviews {
+    
+    
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -61,10 +67,15 @@
     // set up navigation bar
     self.navigationItem.title = [SessionManager currentUser].userName;
     
-    // update content
-    [self updateContent];
+    userImage.image = [UIImage imageNamed:@"UserImage.png"];
+    
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    // update content
+    [self updateContent];
+    
+}
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
@@ -87,11 +98,15 @@
     // update content
     contentInfo = [ContentManager getContent];
     contentTextView.text = contentInfo.contentBody;
+    //NSAttributedString *str = [[NSAttributedString alloc] initWithString:contentInfo.contentBody];
+    //contentTextView.attributedText =str ;
+    // center virtically
+    [AppUIManager  verticallyAlignTextView:contentTextView];
+    
     // update counts
-    spreadCount.text = [NSString stringWithFormat:@"%d", contentInfo.spreadCount];
+    spreadCount.text = [NSString stringWithFormat:@"%ld", (long)contentInfo.spreadCount];
     timeCount.text = contentInfo.timeStamp;
 }
-
 
 #pragma mark -  View Design
 - (void)setView {
@@ -102,8 +117,10 @@
     //[self setNavigationBar];
     
     // set textview
+    textBackGround = [ContentViewHelper getTextBackGroundView];
+    [self.view addSubview:textBackGround];
     contentTextView = [ContentViewHelper getContentTextViewWithDelegate:self];
-    [self.view addSubview:contentTextView];
+    [textBackGround addSubview:contentTextView];
     
     // set buttons
     spreadButton = [ContentViewHelper getSpreadButton];
@@ -126,30 +143,51 @@
     // layout
     [self layoutView];
     
+    // scroll adjustment
+    //self.automaticallyAdjustsScrollViewInsets = NO;
+    
 }
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(userImage, spreadCount,timeCount,contentTextView, spreadButton,killButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(userImage, spreadCount,timeCount,contentTextView, spreadButton,killButton,textBackGround);
     
     // top row : user image and labels
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[userImage(40)]-20-[spreadCount(>=100)]-20-[timeCount(40)]-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[userImage(36)]-34-[spreadCount(>=100)]-20-[timeCount(50)]-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[userImage(40)]"
-                                                                                    options:0 metrics:nil views:viewsDictionary]];
-
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[spreadCount(40)]"
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[userImage(36)]"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[timeCount(40)]"
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[spreadCount(36)]"
+                                                                                    options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[timeCount(36)]"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     
     
     // text view
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[contentTextView(>=100)]-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[textBackGround(>=100)]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadCount]-[contentTextView]-10-[killButton]"
+     
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[contentTextView(>=100)]-|"
+                                                                     options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadCount]-[textBackGround]-10-[killButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
+    
+    /*[self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentTextView
+                                                           attribute:NSLayoutAttributeCenterY
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:textBackGround
+                                                           attribute:NSLayoutAttributeCenterY
+                                                          multiplier:1.0
+                                                            constant:0.0]];
+    */
+    
+    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[contentTextView(>=100)]-|"
+    //                                                                 options:0 metrics:nil views:viewsDictionary]];
+
     
     
     // buttons

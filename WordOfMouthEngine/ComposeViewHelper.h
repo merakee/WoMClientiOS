@@ -17,7 +17,7 @@
 
 
 #pragma mark -  View Helper Methods: TextViews
-+ (void)setContentTextView:(UITextView *)textView withDelegate:(id)delegate;
++ (UITextView *)getComposeTextViewWithDelegate:(id)delegate;
 
 #pragma mark -  View Helper Methods: Buttons
 

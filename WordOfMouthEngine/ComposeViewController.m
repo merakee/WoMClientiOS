@@ -9,7 +9,6 @@
 #import "ComposeViewController.h"
 #import "ComposeViewHelper.h"
 
-
 @implementation ComposeViewController
 
 - (id)init
@@ -88,13 +87,16 @@
     [self setNavigationBar];
     
     // set TextView
-    composeTextView =[[UITextView alloc] init];
-    [ComposeViewHelper setContentTextView:composeTextView withDelegate:self];
+    composeTextView = [ComposeViewHelper getComposeTextViewWithDelegate:self];
+
     [self.view addSubview:composeTextView];
     
     
     // layout
     [self layoutView];
+    
+    // scroll adjustment
+    //self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 - (void)layoutView{

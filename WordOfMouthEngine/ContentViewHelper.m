@@ -20,6 +20,13 @@
     // set custom textview properties
     
 }
++ (UIView *)getTextBackGroundView{
+    UIView *textBackGround = [[UIView alloc] init];
+    textBackGround.backgroundColor =[UIColor whiteColor];
+    [textBackGround setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    return textBackGround;
+}
 
 #pragma mark - View Helper Methods: Image Views
 + (UIImageView *)getUserImageView{
@@ -48,7 +55,7 @@
     textView.selectable = YES;
     textView.allowsEditingTextAttributes = NO;
     textView.dataDetectorTypes = UIDataDetectorTypeAll ;
-    textView.textAlignment = NSTextAlignmentCenter;
+    //textView.textAlignment = NSTextAlignmentCenter;
     //textView.typingAttributes =
     // textView.linkTextAttributes =
     //textView.textContainerInset =
@@ -73,9 +80,12 @@
     return [AppUIManager setButtonWithTitle:@"spread" ofType:kAUCPriorityTypeTertiary];
 }
 + (UIButton *)getKillButton{
-    UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" ofType:kAUCPriorityTypeTertiary];
-        // cutom settings
-    button.backgroundColor = [UIColor redColor];
+    //UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" ofType:kAUCPriorityTypeTertiary];
+    UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" andColor:[UIColor redColor]];
+    
+    // cutom settings
+    //button.backgroundColor = [UIColor redColor];
+    
     return button;
 }
 

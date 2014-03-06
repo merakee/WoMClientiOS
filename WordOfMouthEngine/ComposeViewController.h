@@ -10,7 +10,7 @@
 #import "ContentManager.h"
 
 
-@interface ComposeViewController : UIViewController<ContentManagerDelegate>{
+@interface ComposeViewController : UIViewController<UITextViewDelegate, ContentManagerDelegate>{
     UITextView         *composeTextView;
     
     ContentManager     *contentManager;

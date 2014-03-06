@@ -69,24 +69,12 @@
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getButton{
-    //if(indexPath.section==0&&indexPath.row==4) {
-    // log out button
-    UIButton *button  = [UIButton buttonWithType:UIButtonTypeSystem];
+    UIButton *button  = [AppUIManager setButtonWithTitle:@"Sign out" andColor:[UIColor redColor]];
     
-    // set app defaults
-    [AppUIManager setUIButton:button ofType:kAUCPriorityTypePrimary];
-    
+    // custom settings
     button.tag=kPVHCellViewTagsButton;
-    button.backgroundColor = [UIColor redColor];
-    // set button properties
-    //button.frame = CGRectMake(1000,200,80,30);
-    // for auto layout
-    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
-    //[button setTitle:@"Sign Out" forState:UIControlStateNormal];
+
     return button;
-    // }
-    
-    //return nil;
 }
 
 @end

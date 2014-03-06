@@ -45,13 +45,15 @@
 
 // color definitions
 //const static float kAUCHuePrimary = 36.0/360.0; // 42, 136, 216
-const static float kAUCHuePrimary = 25.0/360.0; // 42, 136, 216
-const static float kAUCHueSecondary = 192.0/360.0;//kAUCHuePrimary+0.5-24.0/360.0;
+//const static float kAUCHuePrimary = 25.0/360.0; // 42, 136, 216, 25 orange
+const static float kAUCHuePrimary = 200.0/360.0;
+const static float kAUCHueSecondary = 200.0/360.0;// 192 - kAUCHuePrimary+0.5-24.0/360.0;
 const static float kAUCHueTertiary = 136.0/360.0;//kAUCHuePrimary+0.5+45.0/360.0;
 const static float kAUCHueGray = 200.0/360.0;
 
+//const static float kAUCColorPrimary[4] = {kAUCHuePrimary,0.8,1.0,1.0};
 const static float kAUCColorPrimary[4] = {kAUCHuePrimary,0.8,1.0,1.0};
-const static float kAUCColorSecondary[4] = {kAUCHueSecondary,1.0,1.0,1.0};
+const static float kAUCColorSecondary[4] = {kAUCHueSecondary,0.8,1.0,1.0};
 const static float kAUCColorTertiary[4] = {kAUCHueTertiary,1.0,0.8,1.0};
 
 const static float kAUCColorGray[4] = {kAUCHueGray,0.1,0.9,1.0};

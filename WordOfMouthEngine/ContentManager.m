@@ -64,7 +64,7 @@
 #pragma mark - Content methods
 + (ContentInfo *)getContent{
     
-    NSString  *body =[NSString stringWithFormat:@"This is default content body (id %d). This will hold the text for the content. Here is a link google.com. And here is more text",[CommonUtility pickRandom:30000]];
+    NSString  *body =[ContentManager getRandomString];
     ContentInfo *ci  =[[ContentInfo alloc] initWithBody:body
                                                authorId:1000
                                               timeStamp:[NSString stringWithFormat:@"%d",[CommonUtility pickRandom:100]]
@@ -72,7 +72,13 @@
     
     return ci;
 }
-
++ (NSString *)getRandomString{
+   NSString *string = [NSString stringWithFormat:@"This is default content body (id %d). is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",[CommonUtility pickRandom:30000]];
+    
+    
+    
+    return [string substringWithRange:NSMakeRange(0,16+[CommonUtility pickRandom:500])];
+}
 + (void)killContent:(ContentInfo *)ci{
     // mark content for this user as killed
 }

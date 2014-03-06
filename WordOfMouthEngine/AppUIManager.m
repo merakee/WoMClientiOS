@@ -32,7 +32,7 @@
 }
 
 + (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness andSaturation:(AUCColorScale)colorSaturation{
-    UIColor *color = [UIColor whiteColor];
+    UIColor *color;// = [UIColor whiteColor];
     
     switch (colorType) {
         case kAUCColorTypePrimary:
@@ -46,6 +46,7 @@
             break;
         case kAUCColorTypeGray:
             color=[CommonUtility getColorFromHSBACVec:kAUCColorGray];
+            break;
         case kAUCColorTypeBackground:
             color=[CommonUtility getColorFromHSBACVec:kAUCColorBackground];
             break;
@@ -145,7 +146,7 @@
 
 #pragma mark - view elements methods:  UIImageView
 + (void)setImageView:(UIImageView *)iv{
-    iv.backgroundColor  =[AppUIManager getColorOfType:kAUCColorTypeGray withBrightness:kAUCColorScaleLighter];
+    iv.backgroundColor  =[AppUIManager getColorOfType:kAUCColorTypeGray withBrightness:kAUCColorScaleDark];
     
     // rounder cover
     [AppUIManager setRoundedCornerToImageView:iv];
@@ -160,8 +161,8 @@
 }
 + (void)setUIButton:(UIButton *)button ofType:(AUCPriorityType)pType{
     // colors and fonts
-    //[AppUIManager setClearButton:button ofType:pType];
-    [AppUIManager setSolidButton:button ofType:pType];
+    [AppUIManager setClearButton:button ofType:pType];
+    //[AppUIManager setSolidButton:button ofType:pType];
     
     // set button properties
     // titleLabel  property
@@ -208,7 +209,7 @@
 }
 + (void)setClearButton:(UIButton *)button ofType:(AUCPriorityType)pType{
     // colors and fonts
-    button.backgroundColor = [UIColor whiteColor];
+    button.backgroundColor = [UIColor clearColor];
     switch (pType) {
         case kAUCPriorityTypeSecondary:
             [button setTitleColor:[AppUIManager getColorOfType:kAUCColorTypeSecondary] forState:UIControlStateNormal];
@@ -237,6 +238,19 @@
     
     return button;
 }
++ (UIButton *)setButtonWithTitle:(NSString *)text andColor:(UIColor *)bColor{
+    UIButton *button  = [UIButton buttonWithType:UIButtonTypeCustom];
+    // set app defaults
+    [AppUIManager setUIButton:button];
+    
+    // cumtom
+    [button setTitleColor:bColor forState:UIControlStateNormal];
+    [AppUIManager setBorder:button withColor:bColor];
+    [button setTitle:text forState:UIControlStateNormal];
+    
+    return button;
+}
+
 
 #pragma mark - view elements methods:  UITextView
 + (void)setTextView:(UITextView *)textView{
@@ -283,6 +297,7 @@
     //textView.typingAttributes =
     // textView.linkTextAttributes =
     //textView.textContainerInset =
+    //[textView sizeToFit];
     
     // text shadow: use layer property (UIView)
     //textView.layer.shadowColor = [HEXCOLOR (kCRDShadowWhiteColor) CGColor];
@@ -301,6 +316,14 @@
     // for auto layout
     [textView setTranslatesAutoresizingMaskIntoConstraints:NO];
 }
++ (void)verticallyAlignTextView:(UITextView *)textView{
+    CGSize size =[AppUIManager getSizeForText:textView.text  sizeWithFont:textView.font constrainedToSize:textView.frame.size];
+    CGRect  nFrame =textView.frame;
+    nFrame.size.height = size.height+30;
+    nFrame.origin.y = (textView.superview.frame.size.height-nFrame.size.height)/2.0;
+    textView.frame = nFrame;
+}
+
 #pragma mark - view elements methods: UITextFeild
 + (void)setTextField:(UITextField *)textField{
     [AppUIManager setTextField:textField ofType:kAUCPriorityTypePrimary];
@@ -344,9 +367,10 @@
     
     // rounded corner
     [AppUIManager setRoundedCorner:textField];
-
+    
     
 }
+
 #pragma mark - view elements methods:  UILabel
 + (void)setUILabel:(UILabel *)label{
     [AppUIManager setUILabel:label ofType:kAUCPriorityTypePrimary];
@@ -495,8 +519,8 @@
                   endAngle:M_PI * 2.0
                  clockwise:YES];
     circleLayer.path = [path CGPath];
-
-
+    
+    
 }
 + (void)setBorder:(id)view withColor:(UIColor *)color{
     ((UIView *)view).layer.borderWidth = kAUCRectBorderWidth;
@@ -508,6 +532,13 @@
     }
 }
 
++ (CGSize)getSizeForText:(NSString *)text sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size{
+    CGRect frame = [text boundingRectWithSize:size
+                                      options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
+                                   attributes:@{NSFontAttributeName:font}
+                                      context:nil];
+    return frame.size;
+}
 
 
 #pragma mark - view elements methods:  App logo

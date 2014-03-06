@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "ContentManager.h"
 
-@interface ContentViewController : UIViewController<UITextViewDelegate>{
+@interface ContentViewController : UIViewController{
     UITextView         *contentTextView;
+    UIView             *textBackGround;
     UILabel            *contentSpreadCount;
     UILabel             *authorID;
     UIButton           *spreadButton;
