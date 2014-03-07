@@ -7,7 +7,6 @@
 //
 
 #import "ContentViewController.h"
-#import "ContentViewHelper.h"
 #import "AppUIManager.h"
 #import "ComposeViewController.h"
 #import "SessionManager.h"
@@ -102,10 +101,12 @@
     //contentTextView.attributedText =str ;
     // center virtically
     [AppUIManager  verticallyAlignTextView:contentTextView];
+    //[self.view  updateConstraintsIfNeeded];
     
     // update counts
     spreadCount.text = [NSString stringWithFormat:@"%ld", (long)contentInfo.spreadCount];
-    timeCount.text = contentInfo.timeStamp;
+    ///timeCount.text = contentInfo.timeStamp;
+    [self resetContentTimer];
 }
 
 #pragma mark -  View Design
@@ -130,11 +131,12 @@
     [self.view addSubview:spreadButton];
     [self.view addSubview:killButton];
     
-    // set Textlabels
+    // set Textlabels and progress view
     spreadCount = [ContentViewHelper getTextLabelForSpreadCount];
-    timeCount = [ContentViewHelper getTextLabelForTimeCount];
     [self.view addSubview:spreadCount];
-    [self.view addSubview:timeCount];
+    progressCounter =[ContentViewHelper getCounterViewWithDelegate:self];
+    [self.view addSubview:progressCounter];
+    
     // image view
     userImage = [ContentViewHelper getUserImageView];
     [self.view addSubview:userImage];
@@ -150,44 +152,50 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(userImage, spreadCount,timeCount,contentTextView, spreadButton,killButton,textBackGround);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(userImage, spreadCount,contentTextView, spreadButton,killButton,textBackGround,progressCounter);
     
     // top row : user image and labels
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[userImage(36)]-34-[spreadCount(>=100)]-20-[timeCount(50)]-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[userImage(36)]-34-[spreadCount(>=100)]-20-[progressCounter(36)]-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
+    
     [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[userImage(36)]"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[spreadCount(36)]"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[timeCount(36)]"
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[progressCounter(36)]"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
+    
+    //[self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[progressClock(36)]"
+    //                                                                           options:0 metrics:nil views:viewsDictionary]];
+    
     
     
     // text view
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[textBackGround(>=100)]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-     
+    
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[contentTextView(>=100)]-|"
-                                                                     options:0 metrics:nil views:viewsDictionary]];
+                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadCount]-[textBackGround]-10-[killButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
-    /*[self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentTextView
-                                                           attribute:NSLayoutAttributeCenterY
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:textBackGround
-                                                           attribute:NSLayoutAttributeCenterY
-                                                          multiplier:1.0
-                                                            constant:0.0]];
-    */
+    /*
+     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentTextView
+     attribute:NSLayoutAttributeCenterY
+     relatedBy:NSLayoutRelationEqual
+     toItem:textBackGround
+     attribute:NSLayoutAttributeCenterY
+     multiplier:1.0
+     constant:0.0]];
+     */
     
     //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[contentTextView(>=100)]-|"
     //                                                                 options:0 metrics:nil views:viewsDictionary]];
-
+    
     
     
     // buttons
@@ -203,6 +211,7 @@
      multiplier:1.0
      constant:-46]];
      */
+    
     [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[killButton(30)]-10-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadButton(30)]-10-|"
@@ -249,6 +258,56 @@
 - (void) killButtonPressed:(id)sender {
     [ContentManager killContent:contentInfo];
     [self updateContent];
+}
+
+#pragma mark -  Progress view methods
+- (void)updateProgressViewWithValue:(CGFloat)value{
+    //[progressClock setProgress:value animated:YES];
+}
+
+#pragma mark - Timer Methods
+- (void)onTimerTask:(NSTimer *)timer {
+    // update reminaing time
+    timeRemaining -=1.0;
+    if(timeRemaining>=0){
+        [self updateProgressViewWithValue:timeRemaining];
+    }
+    
+    if(timeRemaining<=0){
+        // stop the clock
+        [self setTimerOff:progressTimer];
+    }
+}
+
+- (void)setTimerOn {
+    progressTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(onTimerTask:) userInfo:nil repeats:YES];
+}
+
+- (void)resetTimerCount {
+    
+}
+- (void)setTimerOff:(NSTimer *)timer {
+    if([timer isValid]) {
+        [timer invalidate];
+    }
+    timer = nil;
+}
+- (void)resetContentTimer{
+    [progressCounter stop];
+    [progressCounter startWithSeconds:kAUCAppContentTimerMax];
+}
+
+#pragma mark - CircleCounterViewDelegate methods
+- (void)counterDownFinished:(CVCircleCounterView *)circleView {
+    //update content
+    [self updateContent];
+}
+
+- (void)counter:(CVCircleCounterView *)circleView updatedWithValue:(float)timeInSeconds{
+    //if(timeInSeconds<=kAUCAppContentTimerWarning){
+        //circleView.circleColor = [UIColor redColor];
+        //circleView.numberColor = [UIColor redColor];
+        // }
 }
 
 @end

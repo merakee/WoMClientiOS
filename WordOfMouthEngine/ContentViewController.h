@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ContentManager.h"
+#import "ContentViewHelper.h"
 
-@interface ContentViewController : UIViewController{
+@interface ContentViewController : UIViewController <CVCircleCounterViewDelegate>{
     UITextView         *contentTextView;
     UIView             *textBackGround;
     UILabel            *contentSpreadCount;
@@ -19,7 +20,11 @@
     
     UIImageView         *userImage;
     UILabel             *spreadCount;
-    UILabel             *timeCount;
+    
+    // CVCircularProgressView      *progressClock;
+    CVCircleCounterView         *progressCounter;
+    NSTimer                     *progressTimer;
+    float                       timeRemaining;
     
     
     ContentInfo        *contentInfo;

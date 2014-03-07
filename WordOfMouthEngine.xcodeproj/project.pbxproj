@@ -69,6 +69,10 @@
 		11810B6918C0025600C5246C /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 11810B6818C0025600C5246C /* AppIcon.png */; };
 		11810B6A18C10DD800C5246C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1114A7F7182D8B3300089669 /* CoreGraphics.framework */; };
 		11810B6D18C1246100C5246C /* UserImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 11810B6C18C1246100C5246C /* UserImage.png */; };
+		11810B7218C937D000C5246C /* CVCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7118C937D000C5246C /* CVCircularProgressView.m */; };
+		11810B7518C9386F00C5246C /* CVCircularProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7418C9386F00C5246C /* CVCircularProgressLayer.m */; };
+		11810B7918C9407F00C5246C /* CVCircleCounterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7818C9407F00C5246C /* CVCircleCounterView.m */; };
+		11810B7C18C9419100C5246C /* CVCircleDownCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7B18C9419100C5246C /* CVCircleDownCounter.m */; };
 		11CB8FC318B00B2900396418 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC218B00B2900396418 /* SignInViewController.m */; };
 		11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC718B00BB200396418 /* CoreFunctionViewController.m */; };
 		11CB8FCF18B0469000396418 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FCE18B0469000396418 /* ContentViewController.m */; };
@@ -176,6 +180,14 @@
 		11720F5018B6A83500124C9F /* ProfileViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewHelper.h; sourceTree = "<group>"; };
 		11810B6818C0025600C5246C /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
 		11810B6C18C1246100C5246C /* UserImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserImage.png; sourceTree = "<group>"; };
+		11810B7018C937D000C5246C /* CVCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVCircularProgressView.h; sourceTree = "<group>"; };
+		11810B7118C937D000C5246C /* CVCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVCircularProgressView.m; sourceTree = "<group>"; };
+		11810B7318C9386F00C5246C /* CVCircularProgressLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVCircularProgressLayer.h; sourceTree = "<group>"; };
+		11810B7418C9386F00C5246C /* CVCircularProgressLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVCircularProgressLayer.m; sourceTree = "<group>"; };
+		11810B7718C9407F00C5246C /* CVCircleCounterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVCircleCounterView.h; sourceTree = "<group>"; };
+		11810B7818C9407F00C5246C /* CVCircleCounterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVCircleCounterView.m; sourceTree = "<group>"; };
+		11810B7A18C9419100C5246C /* CVCircleDownCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVCircleDownCounter.h; sourceTree = "<group>"; };
+		11810B7B18C9419100C5246C /* CVCircleDownCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVCircleDownCounter.m; sourceTree = "<group>"; };
 		11CB8FC118B00B2900396418 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		11CB8FC218B00B2900396418 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		11CB8FC618B00BB200396418 /* CoreFunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreFunctionViewController.h; sourceTree = "<group>"; };
@@ -343,6 +355,7 @@
 		1114A826182D8D4A00089669 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				11810B6E18C9379800C5246C /* CustomView */,
 				11CB8FC518B00B5500396418 /* CoreFunctionVC */,
 				11CB8FC418B00B3300396418 /* SignInVC */,
 				116EE31A18AD4B1200C66D86 /* AppUI */,
@@ -500,6 +513,37 @@
 				11810B6C18C1246100C5246C /* UserImage.png */,
 			);
 			name = Misc;
+			sourceTree = "<group>";
+		};
+		11810B6E18C9379800C5246C /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				11810B7618C9405300C5246C /* CircularCounter */,
+				11810B6F18C9379F00C5246C /* CircularProgress */,
+			);
+			name = CustomView;
+			sourceTree = "<group>";
+		};
+		11810B6F18C9379F00C5246C /* CircularProgress */ = {
+			isa = PBXGroup;
+			children = (
+				11810B7018C937D000C5246C /* CVCircularProgressView.h */,
+				11810B7118C937D000C5246C /* CVCircularProgressView.m */,
+				11810B7318C9386F00C5246C /* CVCircularProgressLayer.h */,
+				11810B7418C9386F00C5246C /* CVCircularProgressLayer.m */,
+			);
+			name = CircularProgress;
+			sourceTree = "<group>";
+		};
+		11810B7618C9405300C5246C /* CircularCounter */ = {
+			isa = PBXGroup;
+			children = (
+				11810B7718C9407F00C5246C /* CVCircleCounterView.h */,
+				11810B7818C9407F00C5246C /* CVCircleCounterView.m */,
+				11810B7A18C9419100C5246C /* CVCircleDownCounter.h */,
+				11810B7B18C9419100C5246C /* CVCircleDownCounter.m */,
+			);
+			name = CircularCounter;
 			sourceTree = "<group>";
 		};
 		11CB8FC418B00B3300396418 /* SignInVC */ = {
@@ -722,6 +766,7 @@
 				11CB8FEB18B0886600396418 /* ContentInfo.m in Sources */,
 				1114A84B182D8E3C00089669 /* AFURLRequestSerialization.m in Sources */,
 				1114A849182D8E3C00089669 /* AFURLConnectionOperation.m in Sources */,
+				11810B7518C9386F00C5246C /* CVCircularProgressLayer.m in Sources */,
 				1131DA7718B5657C00EFDB34 /* EmailSignInViewHelper.m in Sources */,
 				116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */,
 				1114A847182D8E3C00089669 /* AFSecurityPolicy.m in Sources */,
@@ -738,18 +783,21 @@
 				1114A841182D8E3C00089669 /* AFHTTPRequestOperationManager.m in Sources */,
 				11CB8FC318B00B2900396418 /* SignInViewController.m in Sources */,
 				11CB8FD518B0473500396418 /* ProfileViewController.m in Sources */,
+				11810B7C18C9419100C5246C /* CVCircleDownCounter.m in Sources */,
 				11CB8FD218B046C400396418 /* HistoryViewController.m in Sources */,
 				116EE32418ADA09D00C66D86 /* UserInfoManager.m in Sources */,
 				11FD6CED18B18C75007D318E /* ComposeViewController.m in Sources */,
 				1114A845182D8E3C00089669 /* AFNetworkReachabilityManager.m in Sources */,
 				11CB8FCF18B0469000396418 /* ContentViewController.m in Sources */,
 				11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */,
+				11810B7218C937D000C5246C /* CVCircularProgressView.m in Sources */,
 				1114A802182D8B3300089669 /* main.m in Sources */,
 				1131DA7618B5657C00EFDB34 /* EmailSignInViewController.m in Sources */,
 				116EE32A18ADA0F800C66D86 /* AppGraphicsManager.m in Sources */,
 				11CB8FDB18B049B700396418 /* ContentViewHelper.m in Sources */,
 				1131DA6718B5584300EFDB34 /* SignInViewHelper.m in Sources */,
 				11CB8FD818B0476A00396418 /* SettingsViewController.m in Sources */,
+				11810B7918C9407F00C5246C /* CVCircleCounterView.m in Sources */,
 				1107342D18BDBF8B008C941A /* AppUIAppearanceManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

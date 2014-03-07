@@ -104,4 +104,27 @@
     
     return textLabel;
 }
+
+#pragma mark -  View Helper Methods: ProgressViewb
++ (CVCircleCounterView *)getCounterViewWithDelegate:(id)delegate{
+    CVCircleCounterView *circleView = [[CVCircleCounterView alloc] init];
+    circleView.delegate = delegate;
+    
+    // custom look
+    circleView.numberColor = [AppUIManager getColorOfType:kAUCColorTypePrimary]; //< Black, By Default
+    circleView.numberFont = [UIFont fontWithName:kAUCFontFamilyPrimary size:kAUCFontSizePrimary]; //< Courier-Bold 20, By Default
+    
+    circleView.circleColor = [AppUIManager getColorOfType:kAUCColorTypePrimary]; //< Black, By Default
+    circleView.circleDoneColor = [UIColor redColor]; //< Black, By Default
+    circleView.circleBorderWidth = 1.0; //< 6 pixels, By Default
+    circleView.circleTimeInterval = kAUCAppContentTimerMax;
+    circleView.backgroundColor =[UIColor clearColor];
+    
+    //circleView.circleIncre=YES;
+    
+    // Auto layout
+    [circleView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    return circleView;
+}
 @end

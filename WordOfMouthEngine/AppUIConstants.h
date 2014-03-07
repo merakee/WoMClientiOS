@@ -157,4 +157,7 @@ typedef enum {
     kCFVTabbarIndexSettings
 } CFVTabbarIndex;
 
-
+//-----------------
+// App constants
+const static float kAUCAppContentTimerMax = 60.0;
+const static float kAUCAppContentTimerWarning = 5.0;

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AppUIManager.h"
+#import "CVCircleDownCounter.h"
 
 @interface ContentViewHelper : NSObject
 
@@ -30,4 +31,6 @@
 + (UILabel *)getTextLabelForSpreadCount;
 + (UILabel *)getTextLabelForTimeCount;
 
+#pragma mark -  View Helper Methods: ProgressView
++ (CVCircleCounterView *)getCounterViewWithDelegate:(id)delegate;
 @end
