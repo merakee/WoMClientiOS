@@ -57,7 +57,6 @@
 		1131DA7018B55B1300EFDB34 /* SocialSignin_Email.png in Resources */ = {isa = PBXBuildFile; fileRef = 1131DA6F18B55B1300EFDB34 /* SocialSignin_Email.png */; };
 		1131DA7618B5657C00EFDB34 /* EmailSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7218B5657C00EFDB34 /* EmailSignInViewController.m */; };
 		1131DA7718B5657C00EFDB34 /* EmailSignInViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7318B5657C00EFDB34 /* EmailSignInViewHelper.m */; };
-		116EE31E18ADA07500C66D86 /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE31D18ADA07500C66D86 /* SessionManager.m */; };
 		116EE32118ADA08D00C66D86 /* ContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32018ADA08D00C66D86 /* ContentManager.m */; };
 		116EE32418ADA09D00C66D86 /* UserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32318ADA09D00C66D86 /* UserInfoManager.m */; };
 		116EE32718ADA0E100C66D86 /* AppUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32618ADA0E100C66D86 /* AppUIManager.m */; };
@@ -73,6 +72,13 @@
 		11810B7518C9386F00C5246C /* CVCircularProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7418C9386F00C5246C /* CVCircularProgressLayer.m */; };
 		11810B7918C9407F00C5246C /* CVCircleCounterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7818C9407F00C5246C /* CVCircleCounterView.m */; };
 		11810B7C18C9419100C5246C /* CVCircleDownCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7B18C9419100C5246C /* CVCircleDownCounter.m */; };
+		11CAB42F18CA685E00FE05FD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 11CAB42E18CA685E00FE05FD /* libsqlite3.dylib */; };
+		11CAB43018CA6C4600FE05FD /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE31D18ADA07500C66D86 /* SessionManager.m */; };
+		11CAB43318CA6C8E00FE05FD /* SQLiteAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CAB43218CA6C8E00FE05FD /* SQLiteAPI.m */; };
+		11CAB43418CA6D0700FE05FD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 11CAB42E18CA685E00FE05FD /* libsqlite3.dylib */; };
+		11CAB43718CA711C00FE05FD /* LocalContentDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CAB43618CA711C00FE05FD /* LocalContentDatabase.m */; };
+		11CAB43D18CA944900FE05FD /* LocalContent_DB_ori.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 11CAB43C18CA944900FE05FD /* LocalContent_DB_ori.sqlite */; };
+		11CAB43F18CBCB6000FE05FD /* LocalContent_DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 11CAB43E18CBCB6000FE05FD /* LocalContent_DB.sqlite */; };
 		11CB8FC318B00B2900396418 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC218B00B2900396418 /* SignInViewController.m */; };
 		11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC718B00BB200396418 /* CoreFunctionViewController.m */; };
 		11CB8FCF18B0469000396418 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FCE18B0469000396418 /* ContentViewController.m */; };
@@ -188,6 +194,13 @@
 		11810B7818C9407F00C5246C /* CVCircleCounterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVCircleCounterView.m; sourceTree = "<group>"; };
 		11810B7A18C9419100C5246C /* CVCircleDownCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVCircleDownCounter.h; sourceTree = "<group>"; };
 		11810B7B18C9419100C5246C /* CVCircleDownCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVCircleDownCounter.m; sourceTree = "<group>"; };
+		11CAB42E18CA685E00FE05FD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		11CAB43118CA6C8E00FE05FD /* SQLiteAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLiteAPI.h; sourceTree = "<group>"; };
+		11CAB43218CA6C8E00FE05FD /* SQLiteAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLiteAPI.m; sourceTree = "<group>"; };
+		11CAB43518CA711C00FE05FD /* LocalContentDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalContentDatabase.h; sourceTree = "<group>"; };
+		11CAB43618CA711C00FE05FD /* LocalContentDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalContentDatabase.m; sourceTree = "<group>"; };
+		11CAB43C18CA944900FE05FD /* LocalContent_DB_ori.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = LocalContent_DB_ori.sqlite; sourceTree = "<group>"; };
+		11CAB43E18CBCB6000FE05FD /* LocalContent_DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = LocalContent_DB.sqlite; sourceTree = "<group>"; };
 		11CB8FC118B00B2900396418 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		11CB8FC218B00B2900396418 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		11CB8FC618B00BB200396418 /* CoreFunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreFunctionViewController.h; sourceTree = "<group>"; };
@@ -221,6 +234,7 @@
 			files = (
 				1114A7F8182D8B3300089669 /* CoreGraphics.framework in Frameworks */,
 				1114A7FA182D8B3300089669 /* UIKit.framework in Frameworks */,
+				11CAB43418CA6D0700FE05FD /* libsqlite3.dylib in Frameworks */,
 				1114A7F6182D8B3300089669 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,6 +243,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11CAB42F18CA685E00FE05FD /* libsqlite3.dylib in Frameworks */,
 				11810B6A18C10DD800C5246C /* CoreGraphics.framework in Frameworks */,
 				1114A80F182D8B3400089669 /* XCTest.framework in Frameworks */,
 				1114A811182D8B3400089669 /* UIKit.framework in Frameworks */,
@@ -261,6 +276,7 @@
 		1114A7F4182D8B3300089669 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				11CAB42E18CA685E00FE05FD /* libsqlite3.dylib */,
 				1114A7F5182D8B3300089669 /* Foundation.framework */,
 				1114A7F7182D8B3300089669 /* CoreGraphics.framework */,
 				1114A7F9182D8B3300089669 /* UIKit.framework */,
@@ -366,10 +382,9 @@
 		1114A827182D8D5300089669 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				11CB8FEA18B0886600396418 /* ContentInfo.m */,
-				11CB8FE918B0886600396418 /* ContentInfo.h */,
-				11CB8FEC18B08C7100396418 /* UserInfo.m */,
-				11CB8FED18B08C7100396418 /* UserInfo.h */,
+				11B67DC618CA5DB800F6E04B /* SQliteAPI */,
+				11B67DC418CA5CEE00F6E04B /* Content */,
+				11B67DC518CA5CF800F6E04B /* User */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -546,6 +561,37 @@
 			name = CircularCounter;
 			sourceTree = "<group>";
 		};
+		11B67DC418CA5CEE00F6E04B /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				11CAB43E18CBCB6000FE05FD /* LocalContent_DB.sqlite */,
+				11CAB43C18CA944900FE05FD /* LocalContent_DB_ori.sqlite */,
+				11CAB43518CA711C00FE05FD /* LocalContentDatabase.h */,
+				11CAB43618CA711C00FE05FD /* LocalContentDatabase.m */,
+				11CB8FEA18B0886600396418 /* ContentInfo.m */,
+				11CB8FE918B0886600396418 /* ContentInfo.h */,
+			);
+			name = Content;
+			sourceTree = "<group>";
+		};
+		11B67DC518CA5CF800F6E04B /* User */ = {
+			isa = PBXGroup;
+			children = (
+				11CB8FEC18B08C7100396418 /* UserInfo.m */,
+				11CB8FED18B08C7100396418 /* UserInfo.h */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		11B67DC618CA5DB800F6E04B /* SQliteAPI */ = {
+			isa = PBXGroup;
+			children = (
+				11CAB43118CA6C8E00FE05FD /* SQLiteAPI.h */,
+				11CAB43218CA6C8E00FE05FD /* SQLiteAPI.m */,
+			);
+			name = SQliteAPI;
+			sourceTree = "<group>";
+		};
 		11CB8FC418B00B3300396418 /* SignInVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -691,7 +737,7 @@
 		1114A7EA182D8B3300089669 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Bijit Halder";
 				TargetAttributes = {
 					1114A7F1182D8B3300089669 = {
@@ -726,6 +772,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11810B6918C0025600C5246C /* AppIcon.png in Resources */,
+				11CAB43F18CBCB6000FE05FD /* LocalContent_DB.sqlite in Resources */,
 				111B758C18B7F4FD00B10716 /* TabBarIconNew@2x.png in Resources */,
 				1131DA6C18B55AFE00EFDB34 /* SocialSignin_Facebook.png in Resources */,
 				111B758918B7F4FD00B10716 /* TabBarIconFavorites.png in Resources */,
@@ -735,6 +782,7 @@
 				1114A808182D8B3300089669 /* Images.xcassets in Resources */,
 				1131DA6E18B55B0700EFDB34 /* SocialSignin_Twitter.png in Resources */,
 				1131DA7018B55B1300EFDB34 /* SocialSignin_Email.png in Resources */,
+				11CAB43D18CA944900FE05FD /* LocalContent_DB_ori.sqlite in Resources */,
 				111B758718B7F4FD00B10716 /* TabBarIconContact.png in Resources */,
 				111B758818B7F4FD00B10716 /* TabBarIconContact@2x.png in Resources */,
 				111B758B18B7F4FD00B10716 /* TabBarIconNew.png in Resources */,
@@ -757,7 +805,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				116EE31E18ADA07500C66D86 /* SessionManager.m in Sources */,
+				11CAB43318CA6C8E00FE05FD /* SQLiteAPI.m in Sources */,
+				11CAB43018CA6C4600FE05FD /* SessionManager.m in Sources */,
 				116EE32718ADA0E100C66D86 /* AppUIManager.m in Sources */,
 				11CB8FEE18B08C7100396418 /* UserInfo.m in Sources */,
 				116EE33018ADA1AC00C66D86 /* AppAnimationManager.m in Sources */,
@@ -768,6 +817,7 @@
 				1114A849182D8E3C00089669 /* AFURLConnectionOperation.m in Sources */,
 				11810B7518C9386F00C5246C /* CVCircularProgressLayer.m in Sources */,
 				1131DA7718B5657C00EFDB34 /* EmailSignInViewHelper.m in Sources */,
+				11CAB43718CA711C00FE05FD /* LocalContentDatabase.m in Sources */,
 				116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */,
 				1114A847182D8E3C00089669 /* AFSecurityPolicy.m in Sources */,
 				1114A83F182D8E3C00089669 /* AFHTTPRequestOperation.m in Sources */,
@@ -857,7 +907,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -896,7 +945,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -935,9 +983,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngine/WordOfMouthEngine-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = WordOfMouthEngine;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "armv7 arm64 arvm7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -952,9 +1002,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngine/WordOfMouthEngine-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = WordOfMouthEngine;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "armv7 arm64 arvm7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -962,7 +1014,6 @@
 		1114A822182D8B3400089669 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMouthEngine.app/WordOfMouthEngine";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Bijit Halder (L25J5ASAZZ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Bijit Halder (L25J5ASAZZ)";
@@ -978,9 +1029,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "WordOfMouthEngineTests/WordOfMouthEngineTests-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = WordOfMouthEngineTests;
 				PROVISIONING_PROFILE = "490CF8BD-8895-4FF7-BED0-715A33E57FEF";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				VALID_ARCHS = "armv7 arm64 armv7s";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -988,7 +1041,6 @@
 		1114A823182D8B3400089669 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMouthEngine.app/WordOfMouthEngine";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Indriam Inc. (E2FCZXHQZ9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Indriam Inc. (E2FCZXHQZ9)";
@@ -1000,9 +1052,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngineTests/WordOfMouthEngineTests-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = WordOfMouthEngineTests;
 				PROVISIONING_PROFILE = "97A555A0-AAA6-4831-8AFA-A042FFD7CF7D";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				VALID_ARCHS = "armv7 arm64 armv7s";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

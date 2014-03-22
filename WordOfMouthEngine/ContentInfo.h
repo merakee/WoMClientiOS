@@ -13,18 +13,28 @@
     
 }
 
+@property NSInteger contentId;
 @property NSString *contentBody;
 @property NSInteger authorId;
+@property NSInteger categoryId;
 @property NSString *timeStamp;
+@property NSInteger totalSpread;
 @property NSInteger spreadCount;
+@property NSInteger killCount;
+@property NSInteger noResponseCount;
 
 #pragma mark - Init Methods
-- (id)initWithBody:(NSString *)contentBody_
-          authorId:(NSInteger )authorId_
-         timeStamp:(NSString *)timeStamp_
-       spreadCount:(NSInteger )spreadCount_;
+- (id)initWithContentId:(NSInteger)contentId_
+                   body:(NSString *)contentBody_
+               authorId:(NSInteger )authorId_
+             categoryId:(NSInteger )categoryId_
+              timeStamp:(NSString *)timeStamp_
+            totalSpread:(NSInteger )totalSpread_
+            spreadCount:(NSInteger )spreadCount_
+              killCount:(NSInteger )killCount_
+        noResponseCount:(NSInteger )noResponseCount_;
 
 #pragma mark - Utility Methods
-+(void)printRewardInfo:(ContentInfo  *)ci;
++(void)printContentInfo:(ContentInfo  *)ci;
 
 @end

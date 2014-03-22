@@ -37,6 +37,8 @@
     // view customization code
     [self setView];
     
+    // init content manager
+    contentManager = [[ContentManager alloc] init];
     // init conent
     contentInfo =[[ContentInfo  alloc] init];
 }
@@ -95,7 +97,7 @@
 #pragma mark -  Content Display method
 - (void)updateContent{
     // update content
-    contentInfo = [ContentManager getContent];
+    contentInfo = [contentManager getContent];
     contentTextView.text = contentInfo.contentBody;
     //NSAttributedString *str = [[NSAttributedString alloc] initWithString:contentInfo.contentBody];
     //contentTextView.attributedText =str ;
@@ -104,7 +106,7 @@
     //[self.view  updateConstraintsIfNeeded];
     
     // update counts
-    spreadCount.text = [NSString stringWithFormat:@"%ld", (long)contentInfo.spreadCount];
+    spreadCount.text = [NSString stringWithFormat:@"%ld", (long)contentInfo.totalSpread];
     ///timeCount.text = contentInfo.timeStamp;
     [self resetContentTimer];
 }

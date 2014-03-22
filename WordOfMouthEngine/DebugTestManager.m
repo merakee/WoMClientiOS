@@ -10,14 +10,15 @@
 
 
 #import "ApiManager.h"
+#import "LocalContentDatabase.h"
 
 @implementation DebugTestManager
 
 
 #pragma mark -  Public method
 + (void)runDebugTests{
-    [self testApiManager];
-    
+    //[self testApiManager];
+    //[self testLocalContentDatabase];
 }
 
 
@@ -40,5 +41,9 @@
                 NSLog(@"%@",error);
             }];
     
+}
+
++ (void)testLocalContentDatabase{
+    [LocalContentDatabase test];
 }
 @end

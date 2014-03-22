@@ -27,6 +27,7 @@
     float                       timeRemaining;
     
     
+    ContentManager     *contentManager;
     ContentInfo        *contentInfo;
 }
 

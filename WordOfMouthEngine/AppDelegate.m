@@ -35,7 +35,7 @@
     [self.window makeKeyAndVisible];
     
     // run debug test ********
-    //[DebugTestManager runDebugTests];
+    [DebugTestManager runDebugTests];
     
     return YES;
 }
