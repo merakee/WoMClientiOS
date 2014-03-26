@@ -18,7 +18,15 @@ typedef enum {
     kContentErrorPostTooShort,
     kContentErrorPostTooLong,
     kContentErrorPostInvalid,
-} kContentErrorCode;
+} ACMContentErrorCode;
+
+typedef enum {
+    kContentCetegoryOther=0,
+    kContentCetegoryNews,
+    kContentCetegoryGossip,
+    kContentCetegorySecret,
+    kContentCetegoryLocal,
+} ACMContentCategory;
 
 static const int kContentPostLengthMin = 5;
 static const int kContentPostLengthMax = 500;

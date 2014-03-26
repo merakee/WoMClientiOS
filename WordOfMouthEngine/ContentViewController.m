@@ -98,6 +98,9 @@
 - (void)updateContent{
     // update content
     contentInfo = [contentManager getContent];
+    // change category color
+    [ContentViewHelper updateTextBackGroundView:textBackGround forCategory:(ACMContentCategory)contentInfo.categoryId];
+    
     contentTextView.text = contentInfo.contentBody;
     //NSAttributedString *str = [[NSAttributedString alloc] initWithString:contentInfo.contentBody];
     //contentTextView.attributedText =str ;

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AppUIManager.h"
 #import "CVCircleDownCounter.h"
+#import "ContentManager.h"
 
 @interface ContentViewHelper : NSObject
 
@@ -16,6 +17,7 @@
 #pragma mark -  View Helper Methods: Views
 + (void)setView:(UIView *)view;
 + (UIView *)getTextBackGroundView;
++ (void)updateTextBackGroundView:(UIView *)view forCategory:(ACMContentCategory)category;
 
 #pragma mark - View Helper Methods: Image Views
 + (UIImageView *)getUserImageView;
