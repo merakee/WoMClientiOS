@@ -28,26 +28,7 @@
     return textBackGround;
 }
 + (void)updateTextBackGroundView:(UIView *)view forCategory:(ACMContentCategory)category{
-    UIColor *color;
-    switch (category) {
-        case kContentCetegoryNews:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentNews];
-            break;
-        case kContentCetegoryGossip:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentGossip];
-            break;
-        case kContentCetegorySecret:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentSecret];
-            break;
-        case kContentCetegoryLocal:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentLocal];
-            break;
-        default:
-            color=[UIColor whiteColor];
-            break;
-    }
-    
-    view.backgroundColor = color;
+    view.backgroundColor = [AppUIManager getContentColorForCategory:category];
 }
 
 #pragma mark - View Helper Methods: Image Views

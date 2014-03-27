@@ -117,6 +117,49 @@
     
     return scaleFactor;
 }
+
++ (UIColor *)getContentTextColorForCategory:(ACMContentCategory)category andState:(UIControlState)state{
+    UIColor *color =[AppUIManager getContentColorForCategory:category];
+    
+    float bscaleFactor=1.0, sscaleFactor=1.0;
+    // change brightness and saturation for text
+    if(state==UIControlStateSelected){
+        bscaleFactor=[AppUIManager getValueForColorScaleFactor:kAUCColorScaleDarker];
+        sscaleFactor=[AppUIManager getValueForColorScaleFactor:kAUCColorScaleLightest];
+    }
+    else{
+        bscaleFactor=[AppUIManager getValueForColorScaleFactor:kAUCColorScaleDark];
+        sscaleFactor=[AppUIManager getValueForColorScaleFactor:kAUCColorScaleLightest];
+    }
+    color  = [CommonUtility getColor:color withScaledBrightness:bscaleFactor andScaledSaturation:sscaleFactor];
+    
+    return color;
+}
+
++ (UIColor *)getContentColorForCategory:(ACMContentCategory)category{
+    UIColor *color;
+    switch (category) {
+        case kContentCategoryNews:
+            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentNews];
+            break;
+        case kContentCategoryGossip:
+            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentGossip];
+            break;
+        case kContentCategorySecret:
+            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentSecret];
+            break;
+        case kContentCategoryLocal:
+            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentLocal];
+            break;
+        default:
+            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentOther];
+            break;
+    }
+    
+    
+    return color;
+}
+
 #pragma mark - view elements methods:  UIview
 + (void)setUIView:(UIView *)view{
     [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
@@ -251,7 +294,12 @@
     return button;
 }
 
-
+#pragma mark - view elements methods:  UISegmentedControl
++ (void)setUISegmentedControl:(UISegmentedControl *)sControl{
+    
+    // for auto layout
+    [sControl setTranslatesAutoresizingMaskIntoConstraints:NO];
+}
 #pragma mark - view elements methods:  UITextView
 + (void)setTextView:(UITextView *)textView{
     [AppUIManager setTextView:textView ofType:kAUCPriorityTypePrimary];

@@ -54,6 +54,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    // clear category selection
+    [self updateViewForCategory:kContentCategoryOther];
+    
     // hide tabbar
     //[self setHidesBottomBarWhenPushed:YES];
     
@@ -86,9 +89,14 @@
     // set navigation bar
     [self setNavigationBar];
     
+    // set Category control
+    categoryControl = [ComposeViewHelper getCategoryControl];
+    [categoryControl addTarget:self action:@selector(selectedCategoryChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:categoryControl];
+    
     // set TextView
     composeTextView = [ComposeViewHelper getComposeTextViewWithDelegate:self];
-
+    
     [self.view addSubview:composeTextView];
     
     
@@ -101,11 +109,13 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(composeTextView);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
     // text filed
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[composeTextView(>=100)]-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[composeTextView(>=100)]-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-76-[composeTextView]-218-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[categoryControl(>=100)]-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-68-[categoryControl]-8-[composeTextView]-218-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
 }
 
@@ -128,6 +138,10 @@
     //action:@selector(goBack:)];
 }
 
+- (void)updateViewForCategory:(ACMContentCategory)category{
+    [ComposeViewHelper updateCategoryControl:categoryControl forCategory:category];
+    composeTextView.backgroundColor =[AppUIManager getContentColorForCategory:category];
+}
 #pragma mark -  Local Methods Implememtation
 
 - (void)clearTextView{
@@ -138,9 +152,15 @@
     // attempt to post content
     ContentInfo *ci =[[ContentInfo alloc] init];
     ci.contentBody = [CommonUtility trimString:composeTextView.text];
+    if(categoryControl.selectedSegmentIndex==UISegmentedControlNoSegment){
+        ci.categoryId = kContentCategoryOther;
+    }
+    else{
+        ci.categoryId = categoryControl.selectedSegmentIndex+1;
+    }
+    
     [contentManager postContent:ci];
 }
-
 - (void)goBack:(id)sender {
     // go back
     [self.navigationController popViewControllerAnimated:NO];
@@ -153,6 +173,12 @@
     self.tabBarController.selectedIndex = kCFVTabbarIndexContent;
 }
 
+#pragma mark - control events methods
+- (void)selectedCategoryChanged:(id)sender{
+    // update colors
+    ACMContentCategory category = (ACMContentCategory) [(UISegmentedControl *)sender selectedSegmentIndex]+1;
+    [self updateViewForCategory:category];
+}
 
 # pragma mark - Content Manager Delegate methods
 - (void)contentPostedSuccessfully{

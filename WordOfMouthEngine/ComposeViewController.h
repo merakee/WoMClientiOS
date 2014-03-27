@@ -11,6 +11,7 @@
 
 
 @interface ComposeViewController : UIViewController<UITextViewDelegate, ContentManagerDelegate>{
+    UISegmentedControl *categoryControl;
     UITextView         *composeTextView;
     
     ContentManager     *contentManager;

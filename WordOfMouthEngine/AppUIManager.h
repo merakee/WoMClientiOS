@@ -11,6 +11,7 @@
 #import "AppUIConstants.h"
 #import "CommonUtility.h"
 #import "CommonResourceDefintions.h"
+#import "AppConstants.h"
 
 @interface AppUIManager : NSObject
 
@@ -24,6 +25,10 @@
 + (UIColor *)getColorOfType:(AUCColorType)colorType;
 + (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness;
 + (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness andSaturation:(AUCColorScale)colorSaturation;
+
++ (UIColor *)getContentColorForCategory:(ACMContentCategory)category;
++ (UIColor *)getContentTextColorForCategory:(ACMContentCategory)category andState:(UIControlState)state;
+
 
 #pragma mark - view elements methods:  UIView
 + (void)setUIView:(UIView *)view;
@@ -40,6 +45,9 @@
 + (void)setUIButton:(UIButton *)button ofType:(AUCPriorityType)pType;
 + (UIButton *)setButtonWithTitle:(NSString *)text ofType:(AUCPriorityType)pType;
 + (UIButton *)setButtonWithTitle:(NSString *)text andColor:(UIColor *)bColor;
+
+#pragma mark - view elements methods:  UISegmentedControl
++ (void)setUISegmentedControl:(UISegmentedControl *)sControl;
 
 #pragma mark - view elements methods:  UITextView
 + (void)setTextView:(UITextView *)textView;

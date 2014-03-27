@@ -15,10 +15,14 @@
 #pragma mark -  View Helper Methods: Views
 + (void)setView:(UIView *)view;
 
+#pragma mark -  View Helper Methods: Segmented control
++ (UISegmentedControl *)getCategoryControl;
++ (void)updateCategoryControl:(UISegmentedControl *)sControl forCategory:(ACMContentCategory)category;
+
+#pragma mark -  View Helper Methods: Buttons
 
 #pragma mark -  View Helper Methods: TextViews
 + (UITextView *)getComposeTextViewWithDelegate:(id)delegate;
 
-#pragma mark -  View Helper Methods: Buttons
 
 @end

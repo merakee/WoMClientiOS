@@ -7,6 +7,7 @@
 //
 
 #import "ComposeViewHelper.h"
+#import "ContentManager.h"
 
 @implementation ComposeViewHelper
 
@@ -21,6 +22,33 @@
     
 }
 
+#pragma mark -  View Helper Methods: Segmented control
++ (UISegmentedControl *)getCategoryControl{
+    UISegmentedControl *sControl = [[UISegmentedControl alloc] initWithItems:[ContentManager getActiveCategoryList]];
+    // set app defaults
+    [AppUIManager setUISegmentedControl:sControl];
+    
+    // set custom  properties
+    [ComposeViewHelper  updateCategoryControl:sControl forCategory:kContentCategoryOther];
+    return sControl;
+}
++ (void)updateCategoryControl:(UISegmentedControl *)sControl forCategory:(ACMContentCategory)category{
+    
+    if(category==kContentCategoryOther){
+        sControl.selectedSegmentIndex=-1;
+    }
+    
+    sControl.tintColor = [AppUIManager getContentColorForCategory:category];
+    // selected
+    [sControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
+                                                  [AppUIManager getContentTextColorForCategory:category andState:UIControlStateSelected]}
+                                   forState:UIControlStateSelected];
+    // normal
+    [sControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
+                                                  [AppUIManager getContentTextColorForCategory:category andState:UIControlStateNormal]}
+                                   forState:UIControlStateNormal];
+    
+}
 #pragma mark -  View Helper Methods: TextViews
 + (UITextView *)getComposeTextViewWithDelegate:(id)delegate{
     UITextView *textView =[[UITextView alloc] init];

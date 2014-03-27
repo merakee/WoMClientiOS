@@ -67,7 +67,7 @@
     return [localContentDatabase getContent];
 }
 + (NSString *)getRandomString{
-   NSString *string = [NSString stringWithFormat:@"This is default content body (id %d). is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",[CommonUtility pickRandom:30000]];
+    NSString *string = [NSString stringWithFormat:@"This is default content body (id %d). is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",[CommonUtility pickRandom:30000]];
     
     
     
@@ -110,10 +110,42 @@
                                                suggestion:@"Shorten text and post"];
         return error;
     }
+
+    // invalid category
+    if((ci.categoryId<1)||((ci.categoryId>[[ContentManager getActiveCategoryList] count]))){
+        NSError *error =[CommonUtility getErrorWithDomain:kAppErrorDomainContent
+                                                     code:kContentErrorInvalidCategory
+                                              description:@"Invalid Category"
+                                                   reason:@"Category id invalid"
+                                               suggestion:@"Please select a category"];
+        return error;
+    }
     
     // default : no error
     return nil;
 }
 
+
+#pragma mark - Utility methods
++ (NSArray *)getActiveCategoryList{
+    return @[@"News",@"Gossip",@"Secret",@"Local"];
+}
++ (NSString *)getCategoryTextForId:(ACMContentCategory)category{
+    NSArray *cArray = [ContentManager getActiveCategoryList];
+    if((category<1)||category>[cArray count]){
+        return @"Other";
+    }
+    return [cArray objectAtIndex:category-1];
+}
+
++ (ACMContentCategory)getCategoryIDForText:(NSString *)categoryText{
+    NSArray *cArray = [ContentManager getActiveCategoryList];
+    NSUInteger index= [cArray indexOfObject:[CommonUtility trimString:categoryText]];
+    if(index==NSNotFound){
+        return kContentCategoryOther;
+    }
+    
+    return (ACMContentCategory) index+1;
+}
 
 @end

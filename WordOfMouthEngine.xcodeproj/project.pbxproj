@@ -57,7 +57,7 @@
 		1131DA7018B55B1300EFDB34 /* SocialSignin_Email.png in Resources */ = {isa = PBXBuildFile; fileRef = 1131DA6F18B55B1300EFDB34 /* SocialSignin_Email.png */; };
 		1131DA7618B5657C00EFDB34 /* EmailSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7218B5657C00EFDB34 /* EmailSignInViewController.m */; };
 		1131DA7718B5657C00EFDB34 /* EmailSignInViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7318B5657C00EFDB34 /* EmailSignInViewHelper.m */; };
-		116D500218E36B7E00579F37 /* LocalContent_DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 116D500118E36B7E00579F37 /* LocalContent_DB.sqlite */; };
+		116D500518E3997A00579F37 /* LocalContent_FZ_DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 116D500418E3997A00579F37 /* LocalContent_FZ_DB.sqlite */; };
 		116EE32118ADA08D00C66D86 /* ContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32018ADA08D00C66D86 /* ContentManager.m */; };
 		116EE32418ADA09D00C66D86 /* UserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32318ADA09D00C66D86 /* UserInfoManager.m */; };
 		116EE32718ADA0E100C66D86 /* AppUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32618ADA0E100C66D86 /* AppUIManager.m */; };
@@ -73,6 +73,7 @@
 		11810B7518C9386F00C5246C /* CVCircularProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7418C9386F00C5246C /* CVCircularProgressLayer.m */; };
 		11810B7918C9407F00C5246C /* CVCircleCounterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7818C9407F00C5246C /* CVCircleCounterView.m */; };
 		11810B7C18C9419100C5246C /* CVCircleDownCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7B18C9419100C5246C /* CVCircleDownCounter.m */; };
+		11B68B6318E3BB0200AE9197 /* LocalContent_DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 11B68B6218E3BA8600AE9197 /* LocalContent_DB.sqlite */; };
 		11CAB42F18CA685E00FE05FD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 11CAB42E18CA685E00FE05FD /* libsqlite3.dylib */; };
 		11CAB43018CA6C4600FE05FD /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE31D18ADA07500C66D86 /* SessionManager.m */; };
 		11CAB43318CA6C8E00FE05FD /* SQLiteAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CAB43218CA6C8E00FE05FD /* SQLiteAPI.m */; };
@@ -163,7 +164,8 @@
 		1131DA7318B5657C00EFDB34 /* EmailSignInViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailSignInViewHelper.m; sourceTree = "<group>"; };
 		1131DA7418B5657C00EFDB34 /* EmailSignInViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailSignInViewHelper.h; sourceTree = "<group>"; };
 		1131DA7518B5657C00EFDB34 /* EmailSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailSignInViewController.h; sourceTree = "<group>"; };
-		116D500118E36B7E00579F37 /* LocalContent_DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = LocalContent_DB.sqlite; sourceTree = "<group>"; };
+		116D500318E38FA200579F37 /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
+		116D500418E3997A00579F37 /* LocalContent_FZ_DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = LocalContent_FZ_DB.sqlite; sourceTree = "<group>"; };
 		116EE31C18ADA07500C66D86 /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
 		116EE31D18ADA07500C66D86 /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionManager.m; sourceTree = "<group>"; };
 		116EE31F18ADA08D00C66D86 /* ContentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentManager.h; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 		11810B7818C9407F00C5246C /* CVCircleCounterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVCircleCounterView.m; sourceTree = "<group>"; };
 		11810B7A18C9419100C5246C /* CVCircleDownCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVCircleDownCounter.h; sourceTree = "<group>"; };
 		11810B7B18C9419100C5246C /* CVCircleDownCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVCircleDownCounter.m; sourceTree = "<group>"; };
+		11B68B6218E3BA8600AE9197 /* LocalContent_DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = LocalContent_DB.sqlite; sourceTree = "<group>"; };
 		11CAB42E18CA685E00FE05FD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		11CAB43118CA6C8E00FE05FD /* SQLiteAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLiteAPI.h; sourceTree = "<group>"; };
 		11CAB43218CA6C8E00FE05FD /* SQLiteAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLiteAPI.m; sourceTree = "<group>"; };
@@ -412,6 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				116EE33118ADB58500C66D86 /* CommonResourceDefintions.h */,
+				116D500318E38FA200579F37 /* AppConstants.h */,
 				116EE33218ADB58500C66D86 /* CommonUtility.h */,
 				116EE33318ADB58500C66D86 /* CommonUtility.m */,
 				116EE33418ADB58500C66D86 /* CoreSizeDefintions.h */,
@@ -564,9 +568,10 @@
 		11B67DC418CA5CEE00F6E04B /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				11B68B6218E3BA8600AE9197 /* LocalContent_DB.sqlite */,
+				116D500418E3997A00579F37 /* LocalContent_FZ_DB.sqlite */,
 				11CAB43C18CA944900FE05FD /* LocalContent_DB_ori.sqlite */,
 				11CAB43518CA711C00FE05FD /* LocalContentDatabase.h */,
-				116D500118E36B7E00579F37 /* LocalContent_DB.sqlite */,
 				11CAB43618CA711C00FE05FD /* LocalContentDatabase.m */,
 				11CB8FEA18B0886600396418 /* ContentInfo.m */,
 				11CB8FE918B0886600396418 /* ContentInfo.h */,
@@ -771,10 +776,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11B68B6318E3BB0200AE9197 /* LocalContent_DB.sqlite in Resources */,
 				11810B6918C0025600C5246C /* AppIcon.png in Resources */,
-				116D500218E36B7E00579F37 /* LocalContent_DB.sqlite in Resources */,
 				111B758C18B7F4FD00B10716 /* TabBarIconNew@2x.png in Resources */,
 				1131DA6C18B55AFE00EFDB34 /* SocialSignin_Facebook.png in Resources */,
+				116D500518E3997A00579F37 /* LocalContent_FZ_DB.sqlite in Resources */,
 				111B758918B7F4FD00B10716 /* TabBarIconFavorites.png in Resources */,
 				1114A800182D8B3300089669 /* InfoPlist.strings in Resources */,
 				111B758A18B7F4FD00B10716 /* TabBarIconFavorites@2x.png in Resources */,

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ContentInfo.h"
 #import "LocalContentDatabase.h"
+#import "AppConstants.h"
 
 #define kAppErrorDomainContent  @"ContentErrorDomain"
 
@@ -17,16 +18,9 @@ typedef enum {
     kContentErrorPostEmpty,
     kContentErrorPostTooShort,
     kContentErrorPostTooLong,
+    kContentErrorInvalidCategory,
     kContentErrorPostInvalid,
 } ACMContentErrorCode;
-
-typedef enum {
-    kContentCetegoryOther=0,
-    kContentCetegoryNews,
-    kContentCetegoryGossip,
-    kContentCetegorySecret,
-    kContentCetegoryLocal,
-} ACMContentCategory;
 
 static const int kContentPostLengthMin = 5;
 static const int kContentPostLengthMax = 500;
@@ -55,4 +49,8 @@ static const int kContentPostLengthMax = 500;
 + (void)killContent:(ContentInfo *)ci;
 + (void)spreadContent:(ContentInfo *)ci;
 
+#pragma mark - Utility methods
++ (NSArray *)getActiveCategoryList;
++ (NSString *)getCategoryTextForId:(ACMContentCategory)category;
++ (ACMContentCategory)getCategoryIDForText:(NSString *)categoryText;
 @end
