@@ -66,7 +66,6 @@
 		116EE33018ADA1AC00C66D86 /* AppAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32F18ADA1AC00C66D86 /* AppAnimationManager.m */; };
 		116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE33318ADB58500C66D86 /* CommonUtility.m */; };
 		11720F5118B6A83500124C9F /* ProfileViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11720F4F18B6A83500124C9F /* ProfileViewHelper.m */; };
-		11810B6918C0025600C5246C /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 11810B6818C0025600C5246C /* AppIcon.png */; };
 		11810B6A18C10DD800C5246C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1114A7F7182D8B3300089669 /* CoreGraphics.framework */; };
 		11810B6D18C1246100C5246C /* UserImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 11810B6C18C1246100C5246C /* UserImage.png */; };
 		11810B7218C937D000C5246C /* CVCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7118C937D000C5246C /* CVCircularProgressView.m */; };
@@ -74,6 +73,7 @@
 		11810B7918C9407F00C5246C /* CVCircleCounterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7818C9407F00C5246C /* CVCircleCounterView.m */; };
 		11810B7C18C9419100C5246C /* CVCircleDownCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7B18C9419100C5246C /* CVCircleDownCounter.m */; };
 		11B68B6318E3BB0200AE9197 /* LocalContent_DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 11B68B6218E3BA8600AE9197 /* LocalContent_DB.sqlite */; };
+		11B68B6518E53CDE00AE9197 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B68B6418E53CDE00AE9197 /* AppIcon.png */; };
 		11CAB42F18CA685E00FE05FD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 11CAB42E18CA685E00FE05FD /* libsqlite3.dylib */; };
 		11CAB43018CA6C4600FE05FD /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE31D18ADA07500C66D86 /* SessionManager.m */; };
 		11CAB43318CA6C8E00FE05FD /* SQLiteAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CAB43218CA6C8E00FE05FD /* SQLiteAPI.m */; };
@@ -187,7 +187,6 @@
 		116EE33518ADB58500C66D86 /* LocalMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMacros.h; sourceTree = "<group>"; };
 		11720F4F18B6A83500124C9F /* ProfileViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewHelper.m; sourceTree = "<group>"; };
 		11720F5018B6A83500124C9F /* ProfileViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewHelper.h; sourceTree = "<group>"; };
-		11810B6818C0025600C5246C /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
 		11810B6C18C1246100C5246C /* UserImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserImage.png; sourceTree = "<group>"; };
 		11810B7018C937D000C5246C /* CVCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVCircularProgressView.h; sourceTree = "<group>"; };
 		11810B7118C937D000C5246C /* CVCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVCircularProgressView.m; sourceTree = "<group>"; };
@@ -198,6 +197,7 @@
 		11810B7A18C9419100C5246C /* CVCircleDownCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVCircleDownCounter.h; sourceTree = "<group>"; };
 		11810B7B18C9419100C5246C /* CVCircleDownCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVCircleDownCounter.m; sourceTree = "<group>"; };
 		11B68B6218E3BA8600AE9197 /* LocalContent_DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = LocalContent_DB.sqlite; sourceTree = "<group>"; };
+		11B68B6418E53CDE00AE9197 /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
 		11CAB42E18CA685E00FE05FD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		11CAB43118CA6C8E00FE05FD /* SQLiteAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLiteAPI.h; sourceTree = "<group>"; };
 		11CAB43218CA6C8E00FE05FD /* SQLiteAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLiteAPI.m; sourceTree = "<group>"; };
@@ -521,7 +521,7 @@
 		11810B6718C0024900C5246C /* AppLogo */ = {
 			isa = PBXGroup;
 			children = (
-				11810B6818C0025600C5246C /* AppIcon.png */,
+				11B68B6418E53CDE00AE9197 /* AppIcon.png */,
 			);
 			name = AppLogo;
 			sourceTree = "<group>";
@@ -777,7 +777,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				11B68B6318E3BB0200AE9197 /* LocalContent_DB.sqlite in Resources */,
-				11810B6918C0025600C5246C /* AppIcon.png in Resources */,
 				111B758C18B7F4FD00B10716 /* TabBarIconNew@2x.png in Resources */,
 				1131DA6C18B55AFE00EFDB34 /* SocialSignin_Facebook.png in Resources */,
 				116D500518E3997A00579F37 /* LocalContent_FZ_DB.sqlite in Resources */,
@@ -792,6 +791,7 @@
 				111B758718B7F4FD00B10716 /* TabBarIconContact.png in Resources */,
 				111B758818B7F4FD00B10716 /* TabBarIconContact@2x.png in Resources */,
 				111B758B18B7F4FD00B10716 /* TabBarIconNew.png in Resources */,
+				11B68B6518E53CDE00AE9197 /* AppIcon.png in Resources */,
 				1131DA6B18B55AFE00EFDB34 /* SocialSignin_Google.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -925,7 +925,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Bijit Halder (DQN8JJT5B5)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -943,6 +943,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "7586A9CB-89EA-4F69-9F93-1B1C3356DD86";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -963,7 +964,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Merakee LLC (8387E25V96)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -974,6 +975,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PROVISIONING_PROFILE = "70DFFC65-E638-452B-9CE8-CC1F54AE9664";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
