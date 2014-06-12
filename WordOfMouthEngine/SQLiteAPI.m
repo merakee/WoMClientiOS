@@ -117,7 +117,7 @@ static sqlite3_stmt *delete_statement =nil;
     if(databaseOpen==YES) {
         
         // crate table statement for different tables names
-        NSString *tempString =[[NSString alloc] initWithFormat:@"INSERT INTO %@ values(%@,'%@',%@,'%@')",tableName,[dataArrayIn objectAtIndex:0],[dataArrayIn objectAtIndex:1],[dataArrayIn objectAtIndex:2],[dataArrayIn objectAtIndex:3]];
+        NSString *tempString =[[NSString alloc] initWithFormat:@"INSERT INTO %@ values(%@,'%@',%@,'%@')",tableName,dataArrayIn[0],dataArrayIn[1],dataArrayIn[2],dataArrayIn[3]];
         // crate table statement
         const char *sqlquery = [tempString cStringUsingEncoding:NSUTF8StringEncoding];
         //[tempString release];
@@ -316,7 +316,7 @@ static sqlite3_stmt *delete_statement =nil;
     else {
         // For database in the document directory: files created by the application
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *documentsDirectory = paths[0];
         return [documentsDirectory stringByAppendingPathComponent:filename];
     }
 }

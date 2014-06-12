@@ -98,7 +98,7 @@
 {
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return [[[profileInfo objectAtIndex:section] objectForKey:@"rows" ] count];
+    return [profileInfo[section][@"rows"] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -106,8 +106,8 @@
     static NSString *CellIdentifierText = @"TextCell";
     static NSString *CellIdentifierButton = @"ButtonCell";
     // cell type
-    BOOL isButton =([[[profileInfo objectAtIndex:indexPath.section] objectForKey:@"header"] isEqualToString:@"System"]) &&
-    ([[[[profileInfo objectAtIndex:indexPath.section] objectForKey:@"rows"] objectAtIndex:indexPath.row ] isEqualToString:@"Sign Out"]);
+    BOOL isButton =([profileInfo[indexPath.section][@"header"] isEqualToString:@"System"]) &&
+    ([profileInfo[indexPath.section][@"rows"][indexPath.row] isEqualToString:@"Sign Out"]);
     
     // button type cell
     if(isButton){
@@ -138,7 +138,7 @@
             button = (UIButton *)[cell.contentView viewWithTag:kPVHCellViewTagsButton];
         }
         
-        [button setTitle:[[[profileInfo objectAtIndex:indexPath.section] objectForKey:@"rows"] objectAtIndex:indexPath.row ]
+        [button setTitle:profileInfo[indexPath.section][@"rows"][indexPath.row]
                 forState:UIControlStateNormal];
         
         return cell;
@@ -190,7 +190,7 @@
 
 #pragma mark -  Table view delegate
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [[profileInfo objectAtIndex:section] objectForKey:@"header"];
+    return profileInfo[section][@"header"];
 }
 
 /*
@@ -266,7 +266,7 @@
 
 #pragma mark - Local Uitilty Methods
 - (NSString *)getTextForIndexPath:(NSIndexPath *)indexPath {
-    NSString *text = [[[profileInfo objectAtIndex:indexPath.section] objectForKey:@"rows"] objectAtIndex:indexPath.row];
+    NSString *text = profileInfo[indexPath.section][@"rows"][indexPath.row];
     
     if(indexPath.section==0&&indexPath.row==0) {
         // min questions
@@ -278,20 +278,14 @@
 }
 -(void)setAllInfo {
     // profile info
-    profileInfo = [[NSArray alloc] initWithObjects:
-                   [NSDictionary dictionaryWithObjectsAndKeys:@"Profile",@"header",
-                    @[@"User Id",@"User Name", @"User Image",@"User email"],@"rows",
-                    nil],
-                   [NSDictionary dictionaryWithObjectsAndKeys:@"Performance",@"header",
-                    @[@"Total Spread Score",@"Spread Efficiency", @"Total Posts",@"Total Spread Count",@"Total Kill Count"],@"rows",
-                    nil],
-                   [NSDictionary dictionaryWithObjectsAndKeys:@"Settings",@"header",
-                    @[@"Category",@"Other Settings"],@"rows",
-                    nil],
-                   [NSDictionary dictionaryWithObjectsAndKeys:@"System",@"header",
-                    @[@"Sign Out",@"Others"],@"rows",
-                    nil],
-                   nil];
+    profileInfo = @[@{@"header": @"Profile",
+                    @"rows": @[@"User Id",@"User Name", @"User Image",@"User email"]},
+                   @{@"header": @"Performance",
+                    @"rows": @[@"Total Spread Score",@"Spread Efficiency", @"Total Posts",@"Total Spread Count",@"Total Kill Count"]},
+                   @{@"header": @"Settings",
+                    @"rows": @[@"Category",@"Other Settings"]},
+                   @{@"header": @"System",
+                    @"rows": @[@"Sign Out",@"Others"]}];
 }
 
 

@@ -135,7 +135,7 @@
     if((category<1)||category>[cArray count]){
         return @"Other";
     }
-    return [cArray objectAtIndex:category-1];
+    return cArray[category-1];
 }
 
 + (ACMContentCategory)getCategoryIDForText:(NSString *)categoryText{

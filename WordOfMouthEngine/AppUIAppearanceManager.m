@@ -100,7 +100,7 @@
     // UINavigationBar.h:@property(nonatomic,copy) NSDictionary *titleTextAttributes NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
     
     // set color of unselected text to white
-    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppUIManager getColorOfType:kAUCColorTypeTintUnselected], NSForegroundColorAttributeName, nil]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [AppUIManager getColorOfType:kAUCColorTypeTintUnselected]}];
     
     // UINavigationBar.h:- (void)setTitleVerticalPositionAdjustment:(CGFloat)adjustment forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
     // UINavigationBar.h:- (CGFloat)titleVerticalPositionAdjustmentForBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
@@ -191,9 +191,9 @@
     // UITabBarItem.h:- (UIOffset)titlePositionAdjustment NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
     
     // set color of unselected text to white
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppUIManager getColorOfType:kAUCColorTypeTintUnselected], NSForegroundColorAttributeName, nil]  forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [AppUIManager getColorOfType:kAUCColorTypeTintUnselected]}  forState:UIControlStateNormal];
     // set color of unselected text to white
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppUIManager getColorOfType:kAUCColorTypeTintSelected], NSForegroundColorAttributeName, nil]  forState:UIControlStateSelected];
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [AppUIManager getColorOfType:kAUCColorTypeTintSelected]}  forState:UIControlStateSelected];
 }
 + (void)setUITableView{
     // UITableView.h:@property (nonatomic)          UIEdgeInsets                separatorInset NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR; // allows customization of the frame of cell separators

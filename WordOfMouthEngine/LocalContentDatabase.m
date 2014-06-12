@@ -46,7 +46,7 @@
         return @"";
     }
     else{
-        return [dataArrayOut objectAtIndex:0];
+        return dataArrayOut[0];
     }
 }
 
@@ -56,15 +56,15 @@
     if([results count]<vcount) {
         return nil;
     }
-    ContentInfo *ci =[[ContentInfo alloc] initWithContentId:[[results objectAtIndex:0] intValue]
-                                                       body:[results objectAtIndex:1]
-                                                   authorId:[[results objectAtIndex:2] intValue]
-                                                 categoryId:[[results objectAtIndex:3] intValue]
+    ContentInfo *ci =[[ContentInfo alloc] initWithContentId:[results[0] intValue]
+                                                       body:results[1]
+                                                   authorId:[results[2] intValue]
+                                                 categoryId:[results[3] intValue]
                                                   timeStamp:@""
-                                                totalSpread:[[results objectAtIndex:4] intValue]
-                                                spreadCount:[[results objectAtIndex:5] intValue]
-                                                  killCount:[[results objectAtIndex:6] intValue]
-                                            noResponseCount:[[results objectAtIndex:7] intValue]];
+                                                totalSpread:[results[4] intValue]
+                                                spreadCount:[results[5] intValue]
+                                                  killCount:[results[6] intValue]
+                                            noResponseCount:[results[7] intValue]];
     return ci;
 }
 

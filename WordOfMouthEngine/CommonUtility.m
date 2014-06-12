@@ -158,11 +158,11 @@
 }
 
 + (NSString *)getAppVersion {
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    return [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"];
 }
 
 + (NSString *)getAppName {
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+    return [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
 }
 
 +(NSString *)getAppInfo {
@@ -441,11 +441,11 @@
     if(asize==0) {
         return NSNotFound;
     }
-    float maxVal = [[fArray objectAtIndex:0] floatValue];
+    float maxVal = [fArray[0] floatValue];
     float cVal;
     
     for(int ind=1; ind<[fArray count]; ind++) {
-        cVal = [[fArray objectAtIndex:ind] floatValue];
+        cVal = [fArray[ind] floatValue];
         if(maxVal < cVal) {
             maxVal = cVal;
         }
@@ -458,11 +458,11 @@
     if(asize==0) {
         return NSNotFound;
     }
-    float minVal = [[fArray objectAtIndex:0] floatValue];
+    float minVal = [fArray[0] floatValue];
     float cVal;
     
     for(int ind=1; ind<[fArray count]; ind++) {
-        cVal = [[fArray objectAtIndex:ind] floatValue];
+        cVal = [fArray[ind] floatValue];
         if(minVal > cVal) {
             minVal = cVal;
         }
@@ -474,7 +474,7 @@
 + (NSArray *)getArrayWithIntFrom:(NSInteger)lLim to:(NSInteger)uLim {
     NSMutableArray *mArray =[[NSMutableArray alloc] init];
     for(int ind=(int)lLim; ind<=uLim; ind++) {
-        [mArray addObject:[NSNumber numberWithInt:ind]];
+        [mArray addObject:@(ind)];
     }
     
     return (NSArray *)mArray;
@@ -579,7 +579,7 @@
     int ocind = *cind;
     NSMutableArray *marray=[[NSMutableArray alloc] init];
     for(int ind = 0; ind<asize; ind++) {
-        [marray addObject:[array objectAtIndex:rindex[ind]]];
+        [marray addObject:array[rindex[ind]]];
         if(rindex[ind]==ocind) {
             *cind=ind;
         }
@@ -769,7 +769,7 @@
     NSFileManager *fm = [NSFileManager defaultManager];
     NSURL *url =[NSURL fileURLWithPath:path isDirectory:YES];
     return [fm contentsOfDirectoryAtURL:url
-             includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLNameKey,nil]
+             includingPropertiesForKeys:@[NSURLNameKey]
                                 options:NSDirectoryEnumerationSkipsSubdirectoryDescendants
                                   error:nil];
 }
@@ -777,7 +777,7 @@
     NSFileManager *fm = [NSFileManager defaultManager];
     NSURL *url =[NSURL fileURLWithPath:path isDirectory:YES];
     return [fm contentsOfDirectoryAtURL:url
-             includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLCreationDateKey,nil]
+             includingPropertiesForKeys:@[NSURLCreationDateKey]
                                 options:NSDirectoryEnumerationSkipsSubdirectoryDescendants
                                   error:nil];
 }
@@ -785,7 +785,7 @@
     NSFileManager *fm = [NSFileManager defaultManager];
     NSURL *url =[NSURL fileURLWithPath:path isDirectory:YES];
     return [fm contentsOfDirectoryAtURL:url
-             includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLContentModificationDateKey,nil]
+             includingPropertiesForKeys:@[NSURLContentModificationDateKey]
                                 options:NSDirectoryEnumerationSkipsSubdirectoryDescendants
                                   error:nil];
 }
@@ -897,18 +897,18 @@
     
     int index = [CommonUtility  pickRandom:(int)[fArray count]];
     // get array for the picked family
-    NSArray *fontArray = [[NSArray alloc] initWithArray:[UIFont fontNamesForFamilyName:[fArray objectAtIndex:index]]];
+    NSArray *fontArray = [[NSArray alloc] initWithArray:[UIFont fontNamesForFamilyName:fArray[index]]];
     // select a font
     index = [CommonUtility  pickRandom:(int)[fontArray count]];
     // return the selected font
-    return [fontArray objectAtIndex:index];
+    return fontArray[index];
 }
 #pragma mark - Number methods
 +(NSString *)wordsForInt:(NSInteger)val {
-    return [CommonUtility wordsForNumber:[NSNumber numberWithInt:(int)val]];
+    return [CommonUtility wordsForNumber:@((int)val)];
 }
 +(NSString *)wordsForFloat:(float)val {
-    return [CommonUtility wordsForNumber:[NSNumber numberWithFloat:val]];
+    return [CommonUtility wordsForNumber:@(val)];
 }
 +(NSString *)wordsForNumber:(NSNumber *)val {
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
@@ -1328,13 +1328,13 @@
         return nil;
     }
     if(valCount==1) {
-        int hourval = [[[timeString componentsSeparatedByString:@":"] objectAtIndex:0] intValue];
+        int hourval = [[timeString componentsSeparatedByString:@":"][0] intValue];
         return [NSString stringWithFormat:@"%@ 0'clock",[CommonUtility wordsForInt:hourval]];
     }
     
     if(valCount>=2) {
-        int hourval = [[[timeString componentsSeparatedByString:@":"] objectAtIndex:0] intValue];
-        int minval = [[[timeString componentsSeparatedByString:@":"] objectAtIndex:1] intValue];
+        int hourval = [[timeString componentsSeparatedByString:@":"][0] intValue];
+        int minval = [[timeString componentsSeparatedByString:@":"][1] intValue];
         return [NSString stringWithFormat:@"%@ %@",[CommonUtility wordsForInt:hourval],(minval==0) ? @"o'clock":[CommonUtility  wordsForInt:minval]];
     }
     

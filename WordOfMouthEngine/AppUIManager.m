@@ -176,14 +176,12 @@
 + (void)addColorGradient:(UIView *)view{
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = view.bounds;
-    gradient.colors = [NSArray arrayWithObjects:
-                       (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleLightest] CGColor],
+    gradient.colors = @[(id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleLightest] CGColor],
                        // (id)[[AppUIManager getColorOfType:kAUCColorTypePrimary withBrightness:kAUCColorScaleLightest
                        //                   andSaturation:kAUCColorScaleDarkest] CGColor],
                        (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleLight
                                            andSaturation:kAUCColorScaleDark] CGColor],
-                       (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleLightest] CGColor],
-                       nil];
+                       (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleLightest] CGColor]];
     [view.layer insertSublayer:gradient atIndex:1];
 }
 

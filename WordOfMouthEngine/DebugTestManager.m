@@ -34,7 +34,7 @@
                 // NSLog(@"%@",responseObject);
                 //NSLog(@"%@",[responseObject class]);
                 for(NSDictionary *rumor in responseObject){
-                    NSLog(@"%@",[rumor objectForKey:@"text"]);
+                    NSLog(@"%@",rumor[@"text"]);
                 }
             }
             failure:^(NSURLSessionDataTask *task, NSError *error){
