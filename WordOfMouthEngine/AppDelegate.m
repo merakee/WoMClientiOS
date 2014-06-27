@@ -11,6 +11,7 @@
 #import "SignInViewController.h"
 #import "CoreFunctionViewController.h"
 #import "AppUIAppearanceManager.h"
+#import "AFNetworkActivityIndicatorManager.h"
 
 #import "SessionManager.h"
 
@@ -33,6 +34,9 @@
     [self setViewController];
     //self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    // set Network Activity indicator
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
     // run debug test ********
     [DebugTestManager runDebugTests];
