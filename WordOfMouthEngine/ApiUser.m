@@ -10,19 +10,19 @@
 
 @implementation ApiUser
 
-@synthesize  userId;
-@synthesize  name;
+@synthesize  userTypeId;
 @synthesize  email;
+@synthesize  authenticationToken;
 
 #pragma mark - Init Methods
-- (id)initWithId:(int)userId_
-                   name:(NSString *)name_
-                  email:(NSString *)email_ {
+- (ApiUser *)initWithTypeId:(int)userTypeId_
+                      email:(NSString *)email_
+        authenticationToken:(NSString *)authenticationToken_ {
     if (self = [super init]) {
         // initialization code
-        self.userId = userId_;
-        self.name = name_;
+        self.userTypeId = [NSNumber numberWithInt:userTypeId_];
         self.email=email_;
+        self.authenticationToken = authenticationToken_;
     }
     return self;
 }

@@ -13,7 +13,7 @@
 #import "AppUIAppearanceManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
 
-#import "SessionManager.h"
+#import "ApiManager.h"
 
 #import "DebugTestManager.h"
 
@@ -24,8 +24,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    // set session manager
-    appSessionManager = [SessionManager sharedSessionManager];
+    // API and Network set up- set it before views
+    [self setApiManagerAndNetwork];
     
     // set App wide appreance
     [AppUIAppearanceManager setAppAppearance];
@@ -72,9 +72,17 @@
 }
 
 #pragma mark - Root View Controller Set up methods
+- (void)setApiManagerAndNetwork{
+    // set api manager
+    sharedApiManager = [ApiManager sharedApiManager];
+    // start reachability manager
+    [sharedApiManager.reachabilityManager startMonitoring];
+    // set Network Activity indicator
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+}
 - (void)setViewController {
     // check if user is signed in
-    if([appSessionManager isUsersignedIn]==YES ){
+    if([sharedApiManager.apiUserManager isUsersignedIn]==YES ){
         [self setCoreFunctionViewAsRootView];
     }
     else{

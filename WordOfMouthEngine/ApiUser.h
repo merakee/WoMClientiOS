@@ -10,15 +10,15 @@
 
 @interface ApiUser : NSObject
 
-@property int userId;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *email;
+@property  NSNumber *userTypeId;
+@property  NSString *email;
+@property  NSString *authenticationToken;
 
 
 #pragma mark - Init Methods
-- (id)initWithId:(int)userId_
-                   name:(NSString *)name_
-                  email:(NSString *)email_;
+- (ApiUser *)initWithTypeId:(int)userTypeId_
+                   email:(NSString *)email_
+                  authenticationToken:(NSString *)authenticationToken_;
 
 #pragma mark - Utility methods
 

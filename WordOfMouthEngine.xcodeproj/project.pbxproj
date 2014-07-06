@@ -47,6 +47,7 @@
 		116EE32D18ADA10B00C66D86 /* AppAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32C18ADA10B00C66D86 /* AppAudioManager.m */; };
 		116EE33018ADA1AC00C66D86 /* AppAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32F18ADA1AC00C66D86 /* AppAnimationManager.m */; };
 		116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE33318ADB58500C66D86 /* CommonUtility.m */; };
+		1171CABF196917DF00B40A0E /* ApiUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CABE196917DF00B40A0E /* ApiUserManager.m */; };
 		11720F5118B6A83500124C9F /* ProfileViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11720F4F18B6A83500124C9F /* ProfileViewHelper.m */; };
 		117D9285194B86E200FD6EDD /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 117D9273194B86E100FD6EDD /* AFHTTPRequestOperation.m */; };
 		117D9286194B86E200FD6EDD /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 117D9273194B86E100FD6EDD /* AFHTTPRequestOperation.m */; };
@@ -182,6 +183,8 @@
 		116EE33318ADB58500C66D86 /* CommonUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtility.m; sourceTree = "<group>"; };
 		116EE33418ADB58500C66D86 /* CoreSizeDefintions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreSizeDefintions.h; sourceTree = "<group>"; };
 		116EE33518ADB58500C66D86 /* LocalMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMacros.h; sourceTree = "<group>"; };
+		1171CABD196917DF00B40A0E /* ApiUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiUserManager.h; sourceTree = "<group>"; };
+		1171CABE196917DF00B40A0E /* ApiUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiUserManager.m; sourceTree = "<group>"; };
 		11720F4F18B6A83500124C9F /* ProfileViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewHelper.m; sourceTree = "<group>"; };
 		11720F5018B6A83500124C9F /* ProfileViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewHelper.h; sourceTree = "<group>"; };
 		117D9272194B86E100FD6EDD /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -477,6 +480,8 @@
 				111E596F182EC53F00B7FD49 /* ApiManager.m */,
 				111E597B18309A6700B7FD49 /* ApiUser.h */,
 				111E597C18309A6700B7FD49 /* ApiUser.m */,
+				1171CABD196917DF00B40A0E /* ApiUserManager.h */,
+				1171CABE196917DF00B40A0E /* ApiUserManager.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -892,6 +897,7 @@
 				117D92AB194B86E700FD6EDD /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				11720F5118B6A83500124C9F /* ProfileViewHelper.m in Sources */,
 				11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */,
+				1171CABF196917DF00B40A0E /* ApiUserManager.m in Sources */,
 				117D928F194B86E200FD6EDD /* AFURLConnectionOperation.m in Sources */,
 				1114A806182D8B3300089669 /* AppDelegate.m in Sources */,
 				111E5970182EC53F00B7FD49 /* ApiManager.m in Sources */,

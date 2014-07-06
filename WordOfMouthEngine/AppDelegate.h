@@ -10,15 +10,15 @@
 
 @class SignInViewController;
 @class CoreFunctionViewController;
-@class SessionManager;
+@class ApiManager;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     UINavigationController              *signInNavigationController;
     SignInViewController                 *signInViewController;
     CoreFunctionViewController          *coreFunctionViewController;
     
-    // Session manager
-    SessionManager                      *appSessionManager;
+    // API Manager manager
+    ApiManager                      *sharedApiManager;
 }
 
 @property (strong, nonatomic) UIWindow *window;
