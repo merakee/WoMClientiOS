@@ -10,16 +10,19 @@
 
 @interface ApiUser : NSObject
 
-@property  NSNumber *userTypeId;
-@property  NSString *email;
-@property  NSString *authenticationToken;
+@property   NSNumber *userTypeId;
+@property   NSString *email;
+@property   NSString *authenticationToken;
+@property   NSNumber *signedIn;
 
 
 #pragma mark - Init Methods
-- (ApiUser *)initWithTypeId:(int)userTypeId_
+- (ApiUser *)initWithTypeId:(NSNumber *)userTypeId_
                    email:(NSString *)email_
-                  authenticationToken:(NSString *)authenticationToken_;
+                  authenticationToken:(NSString *)authenticationToken_
+                   signedIn:(NSNumber *)signedIn_;
 
-#pragma mark - Utility methods
+#pragma mark - Utility Methods
++(void)printApiUser:(ApiUser  *)user;
 
 @end

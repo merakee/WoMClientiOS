@@ -17,9 +17,11 @@ typedef enum {
     kSQLErrorCodeCannotPrepareStatement,
     kSQLErrorCodeCannotCompleteStatement,
     kSQLErrorCodeCannotInsertData,
+    kSQLErrorCodeCannotInsertEmptyData,
     kSQLErrorCodeCannotUpdateData,
     kSQLErrorCodeCannotDeleteData,
-    kSQLErrorCodeDatabaseNotOpen,
+    kSQLErrorCodeDatabaseNotOpen
+
 } SQLErrorCode;
 
 typedef enum {
@@ -42,9 +44,9 @@ typedef enum {
 
 #pragma mark -  DataBase Methods
 - (int)getLastRowId:(NSString *)tableName;
-- (SQLErrorCode)insertData:(NSArray *)dataArrayIn inTable:(NSString *)tableName;
+//- (SQLErrorCode)insertData:(NSArray *)dataArrayIn inTable:(NSString *)tableName;
 - (SQLErrorCode)deleteDataInTable:(NSString *)tableName atRow:(int)rowId;
-- (SQLErrorCode)updateColumn:(NSString *)columnName withValue:(NSString *)columeValue inTable:(NSString *)tableName atRow:(int)rowId;
+//- (SQLErrorCode)updateColumn:(NSString *)columnName withValue:(NSString *)columeValue inTable:(NSString *)tableName atRow:(int)rowId;
 - (NSInteger)getTableSize:(NSString *)tableName;
 - (SQLErrorCode)executeCommand:(NSString *)commandString;
 - (NSArray *)executeGetCommand:(NSString *)commandString withDataArraySize:(int)dataArraySize;

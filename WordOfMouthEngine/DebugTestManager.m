@@ -11,6 +11,7 @@
 
 #import "ApiManager.h"
 #import "LocalContentDatabase.h"
+#import "UserInfoDatabase.h"
 
 @implementation DebugTestManager
 
@@ -19,10 +20,15 @@
 + (void)runDebugTests{
     //[self testApiManager];
     //[self testLocalContentDatabase];
+    [self testUserInfoDatabase];
 }
 
 
 #pragma mark -  individual test methods
++ (void)testUserInfoDatabase{
+    [UserInfoDatabase test];
+}
+
 + (void)testApiManager{
     ApiManager  *apiManager=[ApiManager sharedApiManager];
     

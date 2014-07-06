@@ -112,14 +112,23 @@ static sqlite3_stmt *delete_statement =nil;
 
 
 - (SQLErrorCode)insertData:(NSArray *)dataArrayIn inTable:(NSString *)tableName {
+    if(dataArrayIn==nil || [dataArrayIn count]==0){
+        return kSQLErrorCodeCannotInsertEmptyData;
+    }
+    
     databaseError = kSQLErrorCodeNone;
     // open data base
     if(databaseOpen==YES) {
         
         // crate table statement for different tables names
-        NSString *tempString =[[NSString alloc] initWithFormat:@"INSERT INTO %@ values(%@,'%@',%@,'%@')",tableName,dataArrayIn[0],dataArrayIn[1],dataArrayIn[2],dataArrayIn[3]];
+        NSMutableString *tempString =[[NSMutableString alloc] initWithFormat:@"INSERT INTO %@ values('%@'", tableName,dataArrayIn[0]];
+        for (int ind=1;ind<[dataArrayIn count];ind++){
+            [tempString appendString:[NSString stringWithFormat:@", '%@'",dataArrayIn[ind]]];
+        }
+        [tempString appendString:@")"];
+        
         // crate table statement
-        const char *sqlquery = [tempString cStringUsingEncoding:NSUTF8StringEncoding];
+        const char *sqlquery = [(NSString *)tempString cStringUsingEncoding:NSUTF8StringEncoding];
         //[tempString release];
         
         if (sqlite3_prepare_v2(sqlite_connection, sqlquery, -1, &insert_statement, NULL) == SQLITE_OK) {
@@ -132,7 +141,7 @@ static sqlite3_stmt *delete_statement =nil;
             }
             else {
                 databaseError = kSQLErrorCodeCannotInsertData;                // cannot insert
-                                                  // NSPLog(@"Can't insert data in datase: error %s",sqlite3_errmsg(sqlite_connection));
+                                                                              // NSPLog(@"Can't insert data in datase: error %s",sqlite3_errmsg(sqlite_connection));
             }
         }
         else{
@@ -160,7 +169,7 @@ static sqlite3_stmt *delete_statement =nil;
                 databaseError = kSQLErrorCodeNone;
             }else {
                 databaseError = kSQLErrorCodeCannotUpdateData;                // cannot update
-                                                  // NSPLog(@"Can't update data in datase: error %s",sqlite3_errmsg(sqlite_connection));
+                                                                              // NSPLog(@"Can't update data in datase: error %s",sqlite3_errmsg(sqlite_connection));
             }
             
         }
@@ -192,7 +201,7 @@ static sqlite3_stmt *delete_statement =nil;
                 databaseError = kSQLErrorCodeNone;
             }else {
                 databaseError = kSQLErrorCodeCannotDeleteData;                // cannot delete
-                                                  // NSPLog(@"Can't delete data from datase: error %s",sqlite3_errmsg(sqlite_connection));
+                                                                              // NSPLog(@"Can't delete data from datase: error %s",sqlite3_errmsg(sqlite_connection));
             }
         }
         else{
@@ -283,13 +292,13 @@ static sqlite3_stmt *delete_statement =nil;
             // cannot open database
             [self closeDataBase];
             databaseError = kSQLErrorCodeCannotOpenDatabase;            // cannot open data base
-                                          // NSPLog(@"A: Can't open %@ database: %s",pathForDB, sqlite3_errmsg(sqlite_connection));
+                                                                        // NSPLog(@"A: Can't open %@ database: %s",pathForDB, sqlite3_errmsg(sqlite_connection));
             didOpen = NO;
         }
     }
     else {
         databaseError = kSQLErrorCodeCannotOpenDatabaseFile;        // cannot open data base file
-                                  // NSPLog(@"A: Can't find file: %@",pathForDB);
+                                                                    // NSPLog(@"A: Can't find file: %@",pathForDB);
         didOpen = NO;
     }
     
@@ -301,7 +310,7 @@ static sqlite3_stmt *delete_statement =nil;
     BOOL didClose =YES;
     if (sqlite3_close(sqlite_connection) != SQLITE_OK) {
         databaseError = kSQLErrorCodeCannotCloseDatabase;         // failed to close
-                                   // NSPLog(@"Error: failed to close database with message '%s'.", sqlite3_errmsg(sqlite_connection));
+                                                                  // NSPLog(@"Error: failed to close database with message '%s'.", sqlite3_errmsg(sqlite_connection));
         didClose = NO;
     }
     return didClose;

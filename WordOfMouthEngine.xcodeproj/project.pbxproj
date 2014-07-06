@@ -48,6 +48,8 @@
 		116EE33018ADA1AC00C66D86 /* AppAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32F18ADA1AC00C66D86 /* AppAnimationManager.m */; };
 		116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE33318ADB58500C66D86 /* CommonUtility.m */; };
 		1171CABF196917DF00B40A0E /* ApiUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CABE196917DF00B40A0E /* ApiUserManager.m */; };
+		1171CAC21969E30500B40A0E /* UserInfoDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CAC01969E30400B40A0E /* UserInfoDatabase.m */; };
+		1171CAC31969E30500B40A0E /* UserInfoDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CAC01969E30400B40A0E /* UserInfoDatabase.m */; };
 		11720F5118B6A83500124C9F /* ProfileViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11720F4F18B6A83500124C9F /* ProfileViewHelper.m */; };
 		117D9285194B86E200FD6EDD /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 117D9273194B86E100FD6EDD /* AFHTTPRequestOperation.m */; };
 		117D9286194B86E200FD6EDD /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 117D9273194B86E100FD6EDD /* AFHTTPRequestOperation.m */; };
@@ -185,6 +187,8 @@
 		116EE33518ADB58500C66D86 /* LocalMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMacros.h; sourceTree = "<group>"; };
 		1171CABD196917DF00B40A0E /* ApiUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiUserManager.h; sourceTree = "<group>"; };
 		1171CABE196917DF00B40A0E /* ApiUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiUserManager.m; sourceTree = "<group>"; };
+		1171CAC01969E30400B40A0E /* UserInfoDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoDatabase.m; sourceTree = "<group>"; };
+		1171CAC11969E30500B40A0E /* UserInfoDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoDatabase.h; sourceTree = "<group>"; };
 		11720F4F18B6A83500124C9F /* ProfileViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewHelper.m; sourceTree = "<group>"; };
 		11720F5018B6A83500124C9F /* ProfileViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewHelper.h; sourceTree = "<group>"; };
 		117D9272194B86E100FD6EDD /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -478,8 +482,6 @@
 			children = (
 				111E596E182EC53F00B7FD49 /* ApiManager.h */,
 				111E596F182EC53F00B7FD49 /* ApiManager.m */,
-				111E597B18309A6700B7FD49 /* ApiUser.h */,
-				111E597C18309A6700B7FD49 /* ApiUser.m */,
 				1171CABD196917DF00B40A0E /* ApiUserManager.h */,
 				1171CABE196917DF00B40A0E /* ApiUserManager.m */,
 			);
@@ -645,6 +647,10 @@
 		11B67DC518CA5CF800F6E04B /* User */ = {
 			isa = PBXGroup;
 			children = (
+				111E597B18309A6700B7FD49 /* ApiUser.h */,
+				111E597C18309A6700B7FD49 /* ApiUser.m */,
+				1171CAC01969E30400B40A0E /* UserInfoDatabase.m */,
+				1171CAC11969E30500B40A0E /* UserInfoDatabase.h */,
 				11CB8FEC18B08C7100396418 /* UserInfo.m */,
 				11CB8FED18B08C7100396418 /* UserInfo.h */,
 			);
@@ -887,6 +893,7 @@
 				116EE32D18ADA10B00C66D86 /* AppAudioManager.m in Sources */,
 				117D9293194B86E200FD6EDD /* AFURLResponseSerialization.m in Sources */,
 				116EE32118ADA08D00C66D86 /* ContentManager.m in Sources */,
+				1171CAC21969E30500B40A0E /* UserInfoDatabase.m in Sources */,
 				11CB8FEB18B0886600396418 /* ContentInfo.m in Sources */,
 				11810B7518C9386F00C5246C /* CVCircularProgressLayer.m in Sources */,
 				1131DA7718B5657C00EFDB34 /* EmailSignInViewHelper.m in Sources */,
@@ -954,6 +961,7 @@
 				11D1B6F0183AB0690022AF62 /* ApiManagerTests.m in Sources */,
 				111E5971182EC53F00B7FD49 /* ApiManager.m in Sources */,
 				117D928A194B86E200FD6EDD /* AFHTTPSessionManager.m in Sources */,
+				1171CAC31969E30500B40A0E /* UserInfoDatabase.m in Sources */,
 				117D92AC194B86E700FD6EDD /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				117D92AA194B86E700FD6EDD /* AFNetworkActivityIndicatorManager.m in Sources */,
 			);
