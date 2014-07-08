@@ -209,13 +209,13 @@
     }
     
     
-    // test anomymous regular user
-    //if([uid getAnonymousUser]!=nil){
-    //    DBLog(@"Error: User must be nil");
-    //}
-    //else{
-    //     DBLog(@"%d...",count++);
-    //}
+    // test anomymous regular user    
+    if([uid getAnonymousUser]!=nil){
+        DBLog(@"Error: User must be nil");
+    }
+    else{
+        DBLog(@"%d...",count++);
+    }
     
     ApiUser *auser= [[ApiUser alloc] initWithTypeId:@1
                                               email:@"anon@example.com"
@@ -243,16 +243,16 @@
         DBLog(@"%d...",count++);
     }
     
-    //if([uid deleteUserInfo]){
-    //  DBLog(@"Error:User should not be deleted");
-    //  [ApiUser printApiUser:user];
-    //}
-    //else{
-    //    DBLog(@"%d...",count++);
-    // }
+    if(![uid deleteAnonymousUserInfo]){
+      DBLog(@"Error:User should not be deleted");
+      [ApiUser printApiUser:user];
+    }
+    else{
+        DBLog(@"%d...",count++);
+     }
     
-    if([uid getAnonymousUser]==nil){
-        DBLog(@"Error: User must not be nil");
+    if(!([uid getAnonymousUser]==nil)){
+        DBLog(@"Error: User must be nil");
     }
     else{
         DBLog(@"%d...",count++);

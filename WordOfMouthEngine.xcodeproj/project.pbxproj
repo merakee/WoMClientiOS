@@ -47,6 +47,7 @@
 		116EE32D18ADA10B00C66D86 /* AppAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32C18ADA10B00C66D86 /* AppAudioManager.m */; };
 		116EE33018ADA1AC00C66D86 /* AppAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32F18ADA1AC00C66D86 /* AppAnimationManager.m */; };
 		116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE33318ADB58500C66D86 /* CommonUtility.m */; };
+		1170EB01196B83A600802D4D /* UserInfoDatabaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1170EB00196B83A600802D4D /* UserInfoDatabaseTests.m */; };
 		1171CABF196917DF00B40A0E /* ApiUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CABE196917DF00B40A0E /* ApiUserManager.m */; };
 		1171CAC21969E30500B40A0E /* UserInfoDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CAC01969E30400B40A0E /* UserInfoDatabase.m */; };
 		1171CAC31969E30500B40A0E /* UserInfoDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CAC01969E30400B40A0E /* UserInfoDatabase.m */; };
@@ -185,6 +186,7 @@
 		116EE33318ADB58500C66D86 /* CommonUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtility.m; sourceTree = "<group>"; };
 		116EE33418ADB58500C66D86 /* CoreSizeDefintions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreSizeDefintions.h; sourceTree = "<group>"; };
 		116EE33518ADB58500C66D86 /* LocalMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMacros.h; sourceTree = "<group>"; };
+		1170EB00196B83A600802D4D /* UserInfoDatabaseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoDatabaseTests.m; sourceTree = "<group>"; };
 		1171CABD196917DF00B40A0E /* ApiUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiUserManager.h; sourceTree = "<group>"; };
 		1171CABE196917DF00B40A0E /* ApiUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiUserManager.m; sourceTree = "<group>"; };
 		1171CAC01969E30400B40A0E /* UserInfoDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoDatabase.m; sourceTree = "<group>"; };
@@ -361,6 +363,8 @@
 		1114A814182D8B3400089669 /* WordOfMouthEngineTests */ = {
 			isa = PBXGroup;
 			children = (
+				1170EAFE196B835F00802D4D /* Controllers */,
+				1170EAFD196B835700802D4D /* Models */,
 				11D1B6EF183AB0690022AF62 /* ApiManagerTests.m */,
 				1114A81A182D8B3400089669 /* WordOfMouthEngineTests.m */,
 				1114A815182D8B3400089669 /* Supporting Files */,
@@ -531,6 +535,29 @@
 				116EE32318ADA09D00C66D86 /* UserInfoManager.m */,
 			);
 			name = UserInfo;
+			sourceTree = "<group>";
+		};
+		1170EAFD196B835700802D4D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1170EAFF196B837D00802D4D /* User */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		1170EAFE196B835F00802D4D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		1170EAFF196B837D00802D4D /* User */ = {
+			isa = PBXGroup;
+			children = (
+				1170EB00196B83A600802D4D /* UserInfoDatabaseTests.m */,
+			);
+			name = User;
 			sourceTree = "<group>";
 		};
 		117D9271194B86E100FD6EDD /* AFNetworking */ = {
@@ -954,6 +981,7 @@
 				1114A81B182D8B3400089669 /* WordOfMouthEngineTests.m in Sources */,
 				117D92B2194B86E700FD6EDD /* UIImageView+AFNetworking.m in Sources */,
 				111E597E18309A6700B7FD49 /* ApiUser.m in Sources */,
+				1170EB01196B83A600802D4D /* UserInfoDatabaseTests.m in Sources */,
 				117D92AE194B86E700FD6EDD /* UIAlertView+AFNetworking.m in Sources */,
 				117D9288194B86E200FD6EDD /* AFHTTPRequestOperationManager.m in Sources */,
 				117D928E194B86E200FD6EDD /* AFSecurityPolicy.m in Sources */,
