@@ -183,6 +183,7 @@
 }
 
 - (void)signInAsGuestButtonPressed:(id)sender {
+    [ApiManager sharedApiManager].delegate=self;
     if([[ApiManager sharedApiManager] signInUserWithUserTypeId:1 email:nil andPassword:nil]){
         [self signInAnonymusUserSuccessfully];
     }
@@ -199,6 +200,7 @@
 // user sign in;
 -(void)apiManagerSigningUpAnonymousUser{
     // show indicator for singing up process
+    NSLog(@"Signing in anonymous user");
 }
 - (void)signInAnonymusUserSuccessfully{
     // switch to content view

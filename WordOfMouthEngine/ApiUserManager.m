@@ -74,4 +74,24 @@
         self.currentUser=nil;
     }
 }
+
+#pragma mark -  Utility Methods
+- (BOOL)saveUserInfo:(ApiUser *)user{
+    if(user.userTypeId.intValue ==1){
+        if([[[UserInfoDatabase alloc] init] saveAnonymousUserInfo:user]){
+            self.currentUser=user;
+            return true;
+        }
+        return false;
+    }
+    if (user.userTypeId.intValue ==2){
+        if([[[UserInfoDatabase alloc] init] saveUserInfo:user]){
+            self.currentUser=user;
+            return true;
+        }
+        return false;
+    }
+    
+    return false;
+}
 @end

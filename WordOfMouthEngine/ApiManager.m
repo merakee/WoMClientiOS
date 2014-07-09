@@ -7,6 +7,7 @@
 //
 
 #import "ApiManager.h"
+#import "CommonUtility.h"
 
 @implementation ApiManager
 
@@ -15,7 +16,8 @@
 
 #pragma mark -  Init Methods
 - (id)init {
-    NSURL *baseURL = [NSURL URLWithString:kAMAPI_HOST_PATH relativeToURL:[NSURL URLWithString:kAMAPI_BASE_PATH]];
+    //NSURL *baseURL = [NSURL URLWithString:kAMAPI_BASE_PATH relativeToURL:[NSURL URLWithString:kAMAPI_HOST_PATH ]];
+    NSURL *baseURL =[NSURL URLWithString:kAMAPI_HOST_PATH ];
     
     if (self = [super initWithBaseURL:baseURL]) {
         // set up ApiManager
@@ -37,20 +39,26 @@
     //networkReachable = self.reachabilityManager.isReachable;
     
     //__weak typeof(self) weakSelf = self;
-    //    [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-    //                switch (status) {
-    //                    case AFNetworkReachabilityStatusReachableViaWWAN:
-    //                    case AFNetworkReachabilityStatusReachableViaWiFi:
-    //                        //[operationQueue setSuspended:NO];
-    //                        networkReachable = YES;
-    //                        break;
-    //                    case AFNetworkReachabilityStatusNotReachable:
-    //                    default:
-    //                        //[operationQueue setSuspended:YES];
-    //                        networkReachable = NO;
-    //                        break;
-    //                }
-    //            }];
+    [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+                NSLog(@"Network Reachable: WWAN");
+                break;
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                NSLog(@"Network Reachable: WiFi");
+                //[operationQueue setSuspended:NO];
+                //networkReachable = YES;
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+                NSLog(@"Network Not Reachable ");
+                break;
+            default:
+                NSLog(@"Network Reachable: default");
+                //[operationQueue setSuspended:YES];
+                //networkReachable = NO;
+                break;
+        }
+    }];
     
     // set api user manager
     self.apiUserManager =[[ApiUserManager alloc] init];
@@ -71,7 +79,8 @@
 
 #pragma mark -  Utility Methods
 + (NSString *)getStringForPath:(NSString *)pathString{
-    return [[kAMAPI_HOST_PATH stringByAppendingPathComponent:kAMAPI_BASE_PATH] stringByAppendingPathComponent:pathString];
+    //return [[kAMAPI_HOST_PATH stringByAppendingPathComponent:kAMAPI_BASE_PATH] stringByAppendingPathComponent:pathString];
+    return [kAMAPI_HOST_PATH  stringByAppendingPathComponent:pathString];
 }
 
 #pragma mark - Utility Methods: Network Reachability
@@ -99,7 +108,22 @@
         [self POST:kAMAPI_SIGNUP_PATH parameters:[self userSignUpParamsWithUserTypeId:userTypeId email:email password:password  andPasswordConfirmation:passwordConfirmation]
            success:^(NSURLSessionDataTask *task, id responseObject) {
                if ([self.delegate respondsToSelector:@selector(apiManagerDidSignUpUser:)]) {
-                   [self.delegate apiManagerDidSignUpUser:responseObject];
+                   // save the user info
+                   if([self.apiUserManager saveUserInfo:[self getUserFromDictionary:responseObject]]){
+                       [self.delegate apiManagerDidSignUpUser:responseObject];
+                   }
+                   else{
+                       if ([self.delegate respondsToSelector:@selector(apiManagerUserSignUpFailedWithError:)]) {
+                           NSError *error =[CommonUtility getErrorWithDomain:kAppErrorDomainSession
+                                                                        code:kAPIManagerErrorInvalidSignUp
+                                                                 description:@"Could not sign up"
+                                                                      reason:@"Invalid response from API"
+                                                                  suggestion:@"Please try again"];
+                           
+                           [self.delegate apiManagerUserSignUpFailedWithError:error];
+                       }
+                   }
+                   
                }}
            failure:^(NSURLSessionDataTask *task, NSError *error) {
                if ([self.delegate respondsToSelector:@selector(apiManagerUserSignUpFailedWithError:)]) {
@@ -109,10 +133,11 @@
     return isReachable;
 }
 - (BOOL)signUpAnonynousUser{
-    [self signUpUserWithUserTypeId:1 email:nil password:nil  andPasswordConfirmation:nil];
     if ([self.delegate respondsToSelector:@selector(apiManagerSigningUpAnonymousUser)]) {
         [self.delegate apiManagerSigningUpAnonymousUser];
     }
+    [self signUpUserWithUserTypeId:1 email:nil password:nil  andPasswordConfirmation:nil];
+    
     return false;
 }
 
@@ -125,11 +150,15 @@
     if(isReachable){
         [self POST:kAMAPI_SIGNIN_PATH parameters:[self userSignInParamsWithEmail:email andPassword:password]
            success:^(NSURLSessionDataTask *task, id responseObject) {
+               NSLog(@"%@",responseObject);
                if ([self.delegate respondsToSelector:@selector(apiManagerDidSignInUser:)]) {
                    [self.delegate apiManagerDidSignInUser:responseObject];
+                   
                }}
            failure:^(NSURLSessionDataTask *task, NSError *error) {
+               NSLog(@"%@",error);
                if ([self.delegate respondsToSelector:@selector(apiManagerUserSignInFailedWithError:)]) {
+                   
                    [self.delegate apiManagerUserSignInFailedWithError:error];
                }}];
     }
@@ -250,11 +279,26 @@
                      @"authentication_token":self.apiUserManager.currentUser.authenticationToken}};
 }
 -(NSDictionary *)userSignInParamsWithEmail:(NSString *)email andPassword:(NSString *)password{
+    if (email==nil){
+        email=@"";
+    }
+    if(password==nil){
+        password=@"";
+    }
     return @{@"user":@{
                      @"email":email,
                      @"password":password}};
 }
 -(NSDictionary *)userSignUpParamsWithUserTypeId:(int)userTypeId email:(NSString *)email password:(NSString *)password andPasswordConfirmation:(NSString *)passwordConfirmation{
+    if (email==nil){
+        email=@"";
+    }
+    if(password==nil){
+        password=@"";
+    }
+    if(passwordConfirmation==nil){
+        passwordConfirmation=@"";
+    }
     return @{@"user":@{
                      @"user_type_id": [NSNumber numberWithInt:userTypeId],
                      @"email":email,
@@ -276,5 +320,10 @@
     [dictionaryWithUserAuth addEntriesFromDictionary:[self userAuthenticationParams]];
     return (NSDictionary *)dictionaryWithUserAuth;
 }
-
+- (ApiUser *)getUserFromDictionary:(NSDictionary *)userInfo{
+    return [[ApiUser alloc] initWithTypeId:userInfo[@"user"][@"user_type_id"]
+                                     email:userInfo[@"user"][@"email"]
+                       authenticationToken:userInfo[@"user"][@"authentication_key"]
+                                  signedIn:@YES];
+}
 @end

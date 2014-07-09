@@ -78,7 +78,7 @@
     // set api manager
     sharedApiManager = [ApiManager sharedApiManager];
     // start reachability manager
-    [sharedApiManager.reachabilityManager startMonitoring];
+    //[sharedApiManager.reachabilityManager startMonitoring];
     // set Network Activity indicator
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 }

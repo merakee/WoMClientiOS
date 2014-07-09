@@ -9,14 +9,24 @@
 #import "AFHTTPSessionManager.h"
 #import "ApiUserManager.h"
 
-static NSString *kAMAPI_HOST_PATH  =   @"http://localhost:3000/";
-static NSString *kAMAPI_BASE_PATH =   @"api/v0/";
+static NSString *kAMAPI_HOST_PATH  =   @"http://localhost:3000/api/v0";
+//static NSString *kAMAPI_BASE_PATH =   @"api/v0";
 static NSString *kAMAPI_SIGNUP_PATH  =   @"sign_up";
 static NSString *kAMAPI_SIGNIN_PATH  =   @"sign_in";
 static NSString *kAMAPI_SIGNOUT_PATH  =   @"sign_out";
 static NSString *kAMAPI_PROFILE_PATH  =   @"profile";
 static NSString *kAMAPI_CONTENT_PATH  =   @"contents";
 static NSString *kAMAPI_RESPONSE_PATH  =   @"user_responses";
+
+// Error
+static NSString *kAppErrorDomainSession =  @"APIErrorDomain";
+
+typedef enum {
+    kAPIManagerErrorNone=0,
+    kAPIManagerErrorInvalidSignUp,
+    kAPIManagerErrorInvalidSingIn,
+    kSAPIManagerErrorInvalidPassword,
+} kAPIManagerErrorCode;
 
 
 @protocol ApiManagerDelegate;

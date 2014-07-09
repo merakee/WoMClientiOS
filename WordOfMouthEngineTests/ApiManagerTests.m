@@ -43,6 +43,15 @@
 }
 
 - (void)testApiManagerBasics{
+    BOOL nr =[[ApiManager sharedApiManager] isNetworkReachable];
+    NSLog(@"Is Network Reachable?: %d",nr);
+    
+    while (nr==false) {
+        [NSThread sleepForTimeInterval:1];
+        nr =[[ApiManager sharedApiManager] isNetworkReachable];
+        NSLog(@"Is Network Reachable?: %d",nr);
+    }
+    
     XCTAssertNotNil(apiManager,@"Shared manger should not be nil");
     XCTAssertEqual(apiManager, [ApiManager sharedApiManager], @"Must be singleton");
 }
