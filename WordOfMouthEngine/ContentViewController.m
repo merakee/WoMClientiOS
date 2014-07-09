@@ -9,7 +9,7 @@
 #import "ContentViewController.h"
 #import "AppUIManager.h"
 #import "ComposeViewController.h"
-#import "SessionManager.h"
+#import "ApiManager.h"
 
 @implementation ContentViewController
 
@@ -66,7 +66,7 @@
     [super viewWillAppear:animated];
     
     // set up navigation bar
-    self.navigationItem.title = [SessionManager currentUser].userName;
+    self.navigationItem.title = [[ApiManager sharedApiManager] currentUser].email;
     
     userImage.image = [UIImage imageNamed:@"UserImage.png"];
     

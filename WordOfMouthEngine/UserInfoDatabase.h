@@ -45,7 +45,6 @@ static int kUDLocalUserInfoDatabaseMaxArraySize = 20;
 - (BOOL)deleteUserInfo;
 - (ApiUser *)getAnonymousUser;
 - (BOOL)saveAnonymousUserInfo:(ApiUser *)user;
-- (BOOL)deleteAnonymousUserInfo;
 
 #pragma mark -  Test Code
 + (void)test;

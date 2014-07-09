@@ -20,7 +20,7 @@
 + (void)runDebugTests{
     //[self testApiManager];
     //[self testLocalContentDatabase];
-    [self testUserInfoDatabase];
+    //[self testUserInfoDatabase];
 }
 
 

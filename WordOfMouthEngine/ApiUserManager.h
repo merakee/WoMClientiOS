@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ApiUser.h"
+#import "UserInfoDatabase.h"
 
 @interface ApiUserManager : NSObject{
     
@@ -16,10 +17,11 @@
 @property ApiUser      *currentUser;
 
 #pragma mark - User Session methods
-- (BOOL) isUsersignedIn;
-- (void)SignInUserWithId:(NSString *)userid andPassword:(NSString *)password;
-- (void)SignInAsGuest;
-- (void)signOut;
+- (BOOL) isUserSignedIn;
+- (BOOL) signInUser:(ApiUser *)user;
+- (BOOL) signInAnonymousUser;
+- (BOOL) signOutUser;
+- (void) resetAnonymousUser;
 
 #pragma mark -  Utility Methods
 

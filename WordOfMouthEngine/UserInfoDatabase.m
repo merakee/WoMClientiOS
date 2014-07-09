@@ -60,7 +60,9 @@
 - (BOOL)deleteUserInfo{
     // delete all data
     self.command = [[NSString alloc] initWithFormat:@"DELETE FROM %@", kUDSQLUserTable];
-    return [sqlite executeCommand:self.command]==0;
+    BOOL isSucessful= [sqlite executeCommand:self.command]==0;
+    self.command = @"VACUUM";
+    return isSucessful &&[sqlite executeCommand:self.command]==0;
 }
 - (ApiUser *)getAnonymousUser{
     int vcount = 4;
@@ -74,7 +76,7 @@
         return false;
     }
     // delete all other anonymous users
-    [self deleteUserInfo];
+    [self deleteAnonymousUserInfo];
     
     // insert user info
     self.command = [[NSString alloc] initWithFormat:@"INSERT INTO %@ (user_type_id, email, authentication_token, signed_in) VALUES ('%d','%@','%@','%d') ", kUDSQLAnonymousUserTable,[user.userTypeId intValue],user.email,user.authenticationToken,[user.signedIn boolValue]?1:0];
@@ -83,7 +85,9 @@
 - (BOOL)deleteAnonymousUserInfo{
     // delete all data
     self.command = [[NSString alloc] initWithFormat:@"DELETE FROM %@", kUDSQLAnonymousUserTable];
-    return [sqlite executeCommand:self.command]==0;
+    BOOL isSucessful= [sqlite executeCommand:self.command]==0;
+    self.command = @"VACUUM";
+    return isSucessful &&[sqlite executeCommand:self.command]==0;
 }
 
 
@@ -161,12 +165,6 @@
     UserInfoDatabase *uid =[[UserInfoDatabase alloc] init];
     
     // test regular user
-    if([uid getUser]!=nil){
-        DBLog(@"Error: User must be nil");
-    }
-    else{
-        DBLog(@"%d...",count++);
-    }
     ApiUser *user= [[ApiUser alloc] initWithTypeId:@2
                                              email:@"user@example.com"
                                authenticationToken:@"dfsr543jdfs9uhffaf4R"
@@ -209,14 +207,7 @@
     }
     
     
-    // test anomymous regular user    
-    if([uid getAnonymousUser]!=nil){
-        DBLog(@"Error: User must be nil");
-    }
-    else{
-        DBLog(@"%d...",count++);
-    }
-    
+    // test anomymous regular user
     ApiUser *auser= [[ApiUser alloc] initWithTypeId:@1
                                               email:@"anon@example.com"
                                 authenticationToken:@"dfsr543jdfs9uhffaf4R"
@@ -242,22 +233,6 @@
     else{
         DBLog(@"%d...",count++);
     }
-    
-    if(![uid deleteAnonymousUserInfo]){
-      DBLog(@"Error:User should not be deleted");
-      [ApiUser printApiUser:user];
-    }
-    else{
-        DBLog(@"%d...",count++);
-     }
-    
-    if(!([uid getAnonymousUser]==nil)){
-        DBLog(@"Error: User must be nil");
-    }
-    else{
-        DBLog(@"%d...",count++);
-    }
-    
     
     DBLog(@"Test results---------------------------------End");
 }

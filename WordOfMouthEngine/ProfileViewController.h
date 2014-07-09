@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SessionManager.h"
+#import "ApiManager.h"
 
-@interface ProfileViewController : UITableViewController<SessionManagerSignOutDelegate>{
+@interface ProfileViewController : UITableViewController<ApiManagerDelegate>{
     NSArray        *profileInfo;
     
 }

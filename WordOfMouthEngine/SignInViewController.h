@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SessionManager.h"
+#import "ApiManager.h"
 
-@interface SignInViewController : UIViewController<SessionManagerSignInDelegate>{
+@interface SignInViewController : UIViewController<ApiManagerDelegate>{
     UIButton           *googleButton;
     UIButton           *facebookButton;
     UIButton           *twitterButton;

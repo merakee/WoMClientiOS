@@ -16,9 +16,9 @@
 #pragma mark -  Init Methods
 - (id)init {
     NSURL *baseURL = [NSURL URLWithString:kAMAPI_HOST_PATH relativeToURL:[NSURL URLWithString:kAMAPI_BASE_PATH]];
-
+    
     if (self = [super initWithBaseURL:baseURL]) {
-            // set up ApiManager
+        // set up ApiManager
         [self setAllDefaults];
     }
     return self;
@@ -37,20 +37,20 @@
     //networkReachable = self.reachabilityManager.isReachable;
     
     //__weak typeof(self) weakSelf = self;
-//    [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-//                switch (status) {
-//                    case AFNetworkReachabilityStatusReachableViaWWAN:
-//                    case AFNetworkReachabilityStatusReachableViaWiFi:
-//                        //[operationQueue setSuspended:NO];
-//                        networkReachable = YES;
-//                        break;
-//                    case AFNetworkReachabilityStatusNotReachable:
-//                    default:
-//                        //[operationQueue setSuspended:YES];
-//                        networkReachable = NO;
-//                        break;
-//                }
-//            }];
+    //    [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+    //                switch (status) {
+    //                    case AFNetworkReachabilityStatusReachableViaWWAN:
+    //                    case AFNetworkReachabilityStatusReachableViaWiFi:
+    //                        //[operationQueue setSuspended:NO];
+    //                        networkReachable = YES;
+    //                        break;
+    //                    case AFNetworkReachabilityStatusNotReachable:
+    //                    default:
+    //                        //[operationQueue setSuspended:YES];
+    //                        networkReachable = NO;
+    //                        break;
+    //                }
+    //            }];
     
     // set api user manager
     self.apiUserManager =[[ApiUserManager alloc] init];
@@ -73,65 +73,54 @@
 + (NSString *)getStringForPath:(NSString *)pathString{
     return [[kAMAPI_HOST_PATH stringByAppendingPathComponent:kAMAPI_BASE_PATH] stringByAppendingPathComponent:pathString];
 }
+
 #pragma mark - Utility Methods: Network Reachability
 -(BOOL)isNetworkReachable{
     return self.reachabilityManager.isReachable;
 }
 
-
-#pragma mark -  Utility Methods: JSON Request
--(NSDictionary *)userAuthenticationParams{
-    return @{@"user":@{
-                     @"user_type_id": self.apiUserManager.currentUser.userTypeId,
-                     @"email":self.apiUserManager.currentUser.email,
-                     @"authentication_token":self.apiUserManager.currentUser.authenticationToken}};
+#pragma mark - Utility Methods: Life Cycle
+-(void)performEnteredBackgroundActions{
+    // reset anonymous user
+    [self.apiUserManager  resetAnonymousUser];
 }
--(NSDictionary *)userSignInParamsWithEmail:(NSString *)email andPassword:(NSString *)password{
-    return @{@"user":@{
-                     @"email":email,
-                     @"password":password}};
+#pragma mark -  Utility Methods - Users
+- (BOOL)isUserSignedIn{
+    return [self.apiUserManager isUserSignedIn];
 }
--(NSDictionary *)userSignUpParamsWithUserTypeId:(int)userTypeId email:(NSString *)email password:(NSString *)password andPasswordConfirmation:(NSString *)passwordConfirmation{
-    return @{@"user":@{
-                     @"user_type_id": [NSNumber numberWithInt:userTypeId],
-                     @"email":email,
-                     @"password":password,
-                     @"password_confirmation":passwordConfirmation}};
+- (ApiUser *)currentUser{
+    return self.apiUserManager.currentUser;
 }
--(NSDictionary *)contentParamsWithCategoryId:(int)categoryId andtext:(NSString *)text{
-    return [self addUserAuthToDictionary:@{@"content":@{
-                     @"content_category_id": [NSNumber numberWithInt:categoryId],
-                     @"text":text}}];
-}
--(NSDictionary *)responseParamsWithContentId:(int)contentId andResponse:(NSNumber *)response{
-    return [self addUserAuthToDictionary:@{@"content":@{
-                                                   @"content_id": [NSNumber numberWithInt:contentId],
-                                                   @"response":response}}];
-}
--(NSDictionary *)addUserAuthToDictionary:(NSDictionary *)infoDictionary{
-    NSMutableDictionary *dictionaryWithUserAuth = [[NSMutableDictionary alloc] initWithDictionary:infoDictionary];
-    [dictionaryWithUserAuth addEntriesFromDictionary:[self userAuthenticationParams]];
-    return (NSDictionary *)dictionaryWithUserAuth;
-}
-
 
 #pragma mark -  API Calls: User Session
-- (BOOL)signUpUserWithWithUserTypeId:(int)userTypeId email:(NSString *)email password:(NSString *)password andPasswordConfirmation:(NSString *)passwordConfirmation{
+- (BOOL)signUpUserWithUserTypeId:(int)userTypeId email:(NSString *)email password:(NSString *)password andPasswordConfirmation:(NSString *)passwordConfirmation{
     BOOL isReachable = [self isNetworkReachable];
     if(isReachable){
         [self POST:kAMAPI_SIGNUP_PATH parameters:[self userSignUpParamsWithUserTypeId:userTypeId email:email password:password  andPasswordConfirmation:passwordConfirmation]
-          success:^(NSURLSessionDataTask *task, id responseObject) {
-              if ([self.delegate respondsToSelector:@selector(apiManagerDidSignUpUser:)]) {
-                [self.delegate apiManagerDidSignUpUser:responseObject];
-            }}
-          failure:^(NSURLSessionDataTask *task, NSError *error) {
-            if ([self.delegate respondsToSelector:@selector(apiManagerUserSignInFailedWithError:)]) {
-                [self.delegate apiManagerUserSignUpFailedWithError:error];
-            }}];
+           success:^(NSURLSessionDataTask *task, id responseObject) {
+               if ([self.delegate respondsToSelector:@selector(apiManagerDidSignUpUser:)]) {
+                   [self.delegate apiManagerDidSignUpUser:responseObject];
+               }}
+           failure:^(NSURLSessionDataTask *task, NSError *error) {
+               if ([self.delegate respondsToSelector:@selector(apiManagerUserSignUpFailedWithError:)]) {
+                   [self.delegate apiManagerUserSignUpFailedWithError:error];
+               }}];
     }
     return isReachable;
 }
-- (BOOL)signInUserWithWithEmail:(NSString *)email andPassword:(NSString *)password{
+- (BOOL)signUpAnonynousUser{
+    [self signUpUserWithUserTypeId:1 email:nil password:nil  andPasswordConfirmation:nil];
+    if ([self.delegate respondsToSelector:@selector(apiManagerSigningUpAnonymousUser)]) {
+        [self.delegate apiManagerSigningUpAnonymousUser];
+    }
+    return false;
+}
+
+- (BOOL)signInUserWithUserTypeId:(int)userTypeId email:(NSString *)email andPassword:(NSString *)password{
+    if (userTypeId==1){
+        return [self signInAnonymousUser];
+    }
+    
     BOOL isReachable = [self isNetworkReachable];
     if(isReachable){
         [self POST:kAMAPI_SIGNIN_PATH parameters:[self userSignInParamsWithEmail:email andPassword:password]
@@ -146,18 +135,27 @@
     }
     return isReachable;
 }
+- (BOOL)signInAnonymousUser{
+    BOOL isSignedIn= [self.apiUserManager signInAnonymousUser];
+    if(isSignedIn){
+        return isSignedIn;
+    }
+    // sign up anonymous user
+    return [self signUpAnonynousUser];
+}
+
 - (BOOL)signOutUser{
     BOOL isReachable = [self isNetworkReachable];
     if(isReachable){
         [self DELETE:kAMAPI_SIGNOUT_PATH parameters:[self userAuthenticationParams]
-           success:^(NSURLSessionDataTask *task, id responseObject) {
-               if ([self.delegate respondsToSelector:@selector(apiManagerDidSignOutUser:)]) {
-                   [self.delegate apiManagerDidSignOutUser:responseObject];
-               }}
-           failure:^(NSURLSessionDataTask *task, NSError *error) {
-               if ([self.delegate respondsToSelector:@selector(apiManagerUserSignOutFailedWithError:)]) {
-                   [self.delegate apiManagerUserSignOutFailedWithError:error];
-               }}];
+             success:^(NSURLSessionDataTask *task, id responseObject) {
+                 if ([self.delegate respondsToSelector:@selector(apiManagerDidSignOutUser:)]) {
+                     [self.delegate apiManagerDidSignOutUser:responseObject];
+                 }}
+             failure:^(NSURLSessionDataTask *task, NSError *error) {
+                 if ([self.delegate respondsToSelector:@selector(apiManagerUserSignOutFailedWithError:)]) {
+                     [self.delegate apiManagerUserSignOutFailedWithError:error];
+                 }}];
     }
     return isReachable;
 }
@@ -167,14 +165,14 @@
     BOOL isReachable = [self isNetworkReachable];
     if(isReachable){
         [self GET:kAMAPI_PROFILE_PATH parameters:[self userAuthenticationParams]
-           success:^(NSURLSessionDataTask *task, id responseObject) {
-               if ([self.delegate respondsToSelector:@selector(apiManagerDidGetUserProfile:)]) {
-                   [self.delegate apiManagerDidGetUserProfile:responseObject];
-               }}
-           failure:^(NSURLSessionDataTask *task, NSError *error) {
-               if ([self.delegate respondsToSelector:@selector(apiManagerGetUserProfileFailedWithError:)]) {
-                   [self.delegate apiManagerGetUserProfileFailedWithError:error];
-               }}];
+          success:^(NSURLSessionDataTask *task, id responseObject) {
+              if ([self.delegate respondsToSelector:@selector(apiManagerDidGetUserProfile:)]) {
+                  [self.delegate apiManagerDidGetUserProfile:responseObject];
+              }}
+          failure:^(NSURLSessionDataTask *task, NSError *error) {
+              if ([self.delegate respondsToSelector:@selector(apiManagerGetUserProfileFailedWithError:)]) {
+                  [self.delegate apiManagerGetUserProfileFailedWithError:error];
+              }}];
     }
     return isReachable;
 }
@@ -183,14 +181,14 @@
     BOOL isReachable = [self isNetworkReachable];
     if(isReachable){
         [self PUT:kAMAPI_PROFILE_PATH parameters:[self userAuthenticationParams]
-           success:^(NSURLSessionDataTask *task, id responseObject) {
-               if ([self.delegate respondsToSelector:@selector(apiManagerDidUpdateUserProfile:)]) {
-                   [self.delegate apiManagerDidUpdateUserProfile:responseObject];
-               }}
-           failure:^(NSURLSessionDataTask *task, NSError *error) {
-               if ([self.delegate respondsToSelector:@selector(apiManagerUpdateUserProfileFailedWithError:)]) {
-                   [self.delegate apiManagerUpdateUserProfileFailedWithError:error];
-               }}];
+          success:^(NSURLSessionDataTask *task, id responseObject) {
+              if ([self.delegate respondsToSelector:@selector(apiManagerDidUpdateUserProfile:)]) {
+                  [self.delegate apiManagerDidUpdateUserProfile:responseObject];
+              }}
+          failure:^(NSURLSessionDataTask *task, NSError *error) {
+              if ([self.delegate respondsToSelector:@selector(apiManagerUpdateUserProfileFailedWithError:)]) {
+                  [self.delegate apiManagerUpdateUserProfileFailedWithError:error];
+              }}];
     }
     return isReachable;
 }
@@ -200,14 +198,14 @@
     BOOL isReachable = [self isNetworkReachable];
     if(isReachable){
         [self GET:kAMAPI_CONTENT_PATH parameters:[self userAuthenticationParams]
-           success:^(NSURLSessionDataTask *task, id responseObject) {
-               if ([self.delegate respondsToSelector:@selector(apiManagerDidGetContent:)]) {
-                   [self.delegate apiManagerDidGetContent:responseObject];
-               }}
-           failure:^(NSURLSessionDataTask *task, NSError *error) {
-               if ([self.delegate respondsToSelector:@selector(apiManagerGetContentFailedWithError:)]) {
-                   [self.delegate apiManagerGetContentFailedWithError:error];
-               }}];
+          success:^(NSURLSessionDataTask *task, id responseObject) {
+              if ([self.delegate respondsToSelector:@selector(apiManagerDidGetContent:)]) {
+                  [self.delegate apiManagerDidGetContent:responseObject];
+              }}
+          failure:^(NSURLSessionDataTask *task, NSError *error) {
+              if ([self.delegate respondsToSelector:@selector(apiManagerGetContentFailedWithError:)]) {
+                  [self.delegate apiManagerGetContentFailedWithError:error];
+              }}];
     }
     return isReachable;
 }
@@ -242,6 +240,41 @@
                }}];
     }
     return isReachable;
+}
+
+#pragma mark -  Utility Methods: JSON Request
+-(NSDictionary *)userAuthenticationParams{
+    return @{@"user":@{
+                     @"user_type_id": self.apiUserManager.currentUser.userTypeId,
+                     @"email":self.apiUserManager.currentUser.email,
+                     @"authentication_token":self.apiUserManager.currentUser.authenticationToken}};
+}
+-(NSDictionary *)userSignInParamsWithEmail:(NSString *)email andPassword:(NSString *)password{
+    return @{@"user":@{
+                     @"email":email,
+                     @"password":password}};
+}
+-(NSDictionary *)userSignUpParamsWithUserTypeId:(int)userTypeId email:(NSString *)email password:(NSString *)password andPasswordConfirmation:(NSString *)passwordConfirmation{
+    return @{@"user":@{
+                     @"user_type_id": [NSNumber numberWithInt:userTypeId],
+                     @"email":email,
+                     @"password":password,
+                     @"password_confirmation":passwordConfirmation}};
+}
+-(NSDictionary *)contentParamsWithCategoryId:(int)categoryId andtext:(NSString *)text{
+    return [self addUserAuthToDictionary:@{@"content":@{
+                                                   @"content_category_id": [NSNumber numberWithInt:categoryId],
+                                                   @"text":text}}];
+}
+-(NSDictionary *)responseParamsWithContentId:(int)contentId andResponse:(NSNumber *)response{
+    return [self addUserAuthToDictionary:@{@"content":@{
+                                                   @"content_id": [NSNumber numberWithInt:contentId],
+                                                   @"response":response}}];
+}
+-(NSDictionary *)addUserAuthToDictionary:(NSDictionary *)infoDictionary{
+    NSMutableDictionary *dictionaryWithUserAuth = [[NSMutableDictionary alloc] initWithDictionary:infoDictionary];
+    [dictionaryWithUserAuth addEntriesFromDictionary:[self userAuthenticationParams]];
+    return (NSDictionary *)dictionaryWithUserAuth;
 }
 
 @end

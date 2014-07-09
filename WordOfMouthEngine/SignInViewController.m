@@ -183,16 +183,24 @@
 }
 
 - (void)signInAsGuestButtonPressed:(id)sender {
-    // set up session manager
-    [SessionManager sharedSessionManager].delegateSignIn = self;
-    [[SessionManager sharedSessionManager] SignInAsGuest];
+    if([[ApiManager sharedApiManager] signInUserWithUserTypeId:1 email:nil andPassword:nil]){
+        [self signInAnonymusUserSuccessfully];
+    }
 }
 
-#pragma mark - Session Manager delegate protocal method
-- (void)signedInFailedWithErrors:(NSError *)error{
+#pragma mark - Api Manager delegate protocal method
+// user sign up
+-(void)apiManagerDidSignUpUser:(id)responseObject{
+            [self signInAnonymusUserSuccessfully];
+}
+-(void)apiManagerUserSignUpFailedWithError:(NSError *)error{
     [CommonUtility displayAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:self];
 }
-- (void)signedInSuccessfullyWithUser:(UserInfo *)user{
+// user sign in;
+-(void)apiManagerSigningUpAnonymousUser{
+    // show indicator for singing up process
+}
+- (void)signInAnonymusUserSuccessfully{
     // switch to content view
     [(AppDelegate *)[UIApplication sharedApplication].delegate setCoreFunctionViewAsRootView];
     

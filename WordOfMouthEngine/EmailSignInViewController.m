@@ -144,8 +144,8 @@
 #pragma mark - Button Action Methods
 - (void)SignInButtonPressed:(id)sender {
     // set up session manager
-    [SessionManager sharedSessionManager].delegateSignIn = self;
-    [[SessionManager sharedSessionManager] SignInUserWithId:emailField.text andPassword:passwordField.text];
+    [ApiManager sharedApiManager].delegate= self;
+    [[ApiManager sharedApiManager] signInUserWithUserTypeId:2 email:emailField.text andPassword:passwordField.text];
 }
 
 - (void)signUpButtonPressed:(id)sender {
@@ -153,10 +153,10 @@
 }
 
 #pragma mark - Session Manager delegate protocal method
-- (void)signedInFailedWithErrors:(NSError *)error{
+- (void)apiManagerUserSignUpFailedWithError:(NSError *)error{
     [CommonUtility displayAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:self];
 }
-- (void)signedInSuccessfullyWithUser:(UserInfo *)user{
+- (void)apiManagerDidSignUpUser:(id)responseObject{
     // switch to content view
     [(AppDelegate *)[UIApplication sharedApplication].delegate setCoreFunctionViewAsRootView];
     

@@ -37,16 +37,14 @@
 }
 
 - (void)tearDown{
-        [uid deleteUserInfo];
-    [uid deleteAnonymousUserInfo];
+    [uid deleteUserInfo];
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
-
+    
 }
 
 - (void)testUserActions{
     // test regular user
-    XCTAssertNil([uid getUser],@"There should be no user");
     XCTAssertTrue([uid saveUserInfo:user],@"User should be saved");
     
     ApiUser *user1=[uid getUser];
@@ -62,8 +60,6 @@
 
 - (void)testAnonymouUserActions{
     // test anonhhmous user
-    ApiUser *u1=[uid getAnonymousUser];
-    XCTAssertNil(u1,@"There should be no user %@",u1);
     XCTAssertTrue([uid saveAnonymousUserInfo:auser],@"User should be saved");
     
     ApiUser *auser1=[uid getAnonymousUser];
@@ -71,6 +67,28 @@
     XCTAssertEqualObjects(auser.email, auser1.email, @"Saved User email %@ should be same as retrived User email %@",auser.email, auser1.email);
     XCTAssertEqualObjects(auser.authenticationToken,auser1.authenticationToken, @"Saved User email %@ should be same as retrived User email %@",auser.authenticationToken,auser1.authenticationToken);
     XCTAssertEqual(auser.signedIn.boolValue,auser1.signedIn.boolValue,@"Saved User typeid %d should be same as retrived User usertypeid %d",auser.signedIn.boolValue,auser1.signedIn.boolValue);
+}
+- (void)testDecoulingOfUsers{
+    // test regular user
+    XCTAssertTrue([uid saveUserInfo:user],@"User should be saved");
+    // test anonhhmous user
+    XCTAssertTrue([uid saveAnonymousUserInfo:auser],@"User should be saved");
+    // see regular user
+    XCTAssertTrue([uid getUser], @"User should still be there");
+    // delete regular user
+    XCTAssertTrue([uid deleteUserInfo], @"User should able to delete");
+    // see regular user
+    XCTAssertFalse([uid getUser], @"User should not be there");
+    // see anon user
+    XCTAssertTrue([uid getAnonymousUser], @"User should still be there");
+    // test regular user
+    XCTAssertTrue([uid saveUserInfo:user],@"User should be saved");
+    // save anaon user
+    XCTAssertTrue([uid saveAnonymousUserInfo:auser],@"User should be saved");
+    // see regular user
+    XCTAssertTrue([uid getUser], @"User should be there");
+    // see anon user
+    XCTAssertTrue([uid getAnonymousUser], @"User should still be there");
 }
 
 @end

@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SessionManager.h"
+#import "ApiManager.h"
 
-@interface EmailSignInViewController : UIViewController<UITextFieldDelegate,SessionManagerSignInDelegate>{
+@interface EmailSignInViewController : UIViewController<UITextFieldDelegate,ApiManagerDelegate>{
     UITextField        *emailField;
     UITextField        *passwordField;
     UIButton           *SignInButton;

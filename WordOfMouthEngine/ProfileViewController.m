@@ -251,8 +251,8 @@
     // sign out button
     if([[(UIButton *)sender currentTitle] isEqualToString:@"Sign Out"]) {
         // log out
-        [SessionManager sharedSessionManager].delegateSignOut=self;
-        [[SessionManager sharedSessionManager] signOut];
+        [ApiManager sharedApiManager].delegate=self;
+        [[ApiManager sharedApiManager] signOutUser];
         return;
     }
 }
@@ -270,7 +270,7 @@
     
     if(indexPath.section==0&&indexPath.row==0) {
         // min questions
-        return [NSString stringWithFormat:@"%@: %@",text,[SessionManager currentUser].userName];
+        return [NSString stringWithFormat:@"%@: %@",text,[[ApiManager sharedApiManager] currentUser].email];
     }
     
     // default

@@ -30,9 +30,6 @@ static NSString *kAMAPI_RESPONSE_PATH  =   @"user_responses";
 #pragma mark - API User Manager
 @property ApiUserManager    *apiUserManager;
 
-#pragma mark - Network Reachability
--(BOOL)isNetworkReachable;
-
 #pragma mark -  Singleton method
 + (ApiManager *) sharedApiManager;
 
@@ -41,12 +38,22 @@ static NSString *kAMAPI_RESPONSE_PATH  =   @"user_responses";
 #pragma mark -  Utility Methods
 + (NSString *)getStringForPath:(NSString *)pathString;
 
+#pragma mark - Utility Methods: Network Reachability
+-(BOOL)isNetworkReachable;
+
+#pragma mark - Utility Methods: Life Cycle
+-(void)performEnteredBackgroundActions;
+
+
+#pragma mark -  Utility Methods - Users
+- (BOOL)isUserSignedIn;
+- (ApiUser *)currentUser;
 
 #pragma mark -  API Calls: User Session
-- (BOOL)signUpUserWithWithUserTypeId:(int)userTypeId email:(NSString *)email
+- (BOOL)signUpUserWithUserTypeId:(int)userTypeId email:(NSString *)email
                             password:(NSString *)password
              andPasswordConfirmation:(NSString *)passwordConfirmation;
-- (BOOL)signInUserWithWithEmail:(NSString *)email andPassword:(NSString *)password;
+- (BOOL)signInUserWithUserTypeId:(int)userTypeId email:(NSString *)email andPassword:(NSString *)password;
 - (BOOL)signOutUser;
 
 #pragma mark -  API Calls: User Profile
@@ -71,6 +78,7 @@ static NSString *kAMAPI_RESPONSE_PATH  =   @"user_responses";
 // user sign in
 -(void)apiManagerDidSignInUser:(id)responseObject;
 -(void)apiManagerUserSignInFailedWithError:(NSError *)error;
+-(void)apiManagerSigningUpAnonymousUser;
 // user sign out
 -(void)apiManagerDidSignOutUser:(id)responseObject;
 -(void)apiManagerUserSignOutFailedWithError:(NSError *)error;
