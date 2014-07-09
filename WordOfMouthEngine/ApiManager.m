@@ -8,6 +8,7 @@
 
 #import "ApiManager.h"
 #import "CommonUtility.h"
+#import "JSONResponseSerializerWithData.h"
 
 @implementation ApiManager
 
@@ -33,6 +34,7 @@
     // defaults  AFHTTPSerializer (Req) and AFJSONResponseSerializer (Res)
     self.requestSerializer = [AFJSONRequestSerializer serializer];
     //self.responseSerializer = [AFJSONResponseSerializer serializer];
+    self.responseSerializer = [JSONResponseSerializerWithData serializer];
     
     // rechability monitoring
     [self.reachabilityManager startMonitoring];
@@ -107,9 +109,11 @@
     if(isReachable){
         [self POST:kAMAPI_SIGNUP_PATH parameters:[self userSignUpParamsWithUserTypeId:userTypeId email:email password:password  andPasswordConfirmation:passwordConfirmation]
            success:^(NSURLSessionDataTask *task, id responseObject) {
+               NSLog(@"Response : %@",responseObject);
+               
                if ([self.delegate respondsToSelector:@selector(apiManagerDidSignUpUser:)]) {
                    // save the user info
-                   if([self.apiUserManager saveUserInfo:[self getUserFromDictionary:responseObject]]){
+                   if(true||[self.apiUserManager saveUserInfo:[self getUserFromDictionary:responseObject]]){
                        [self.delegate apiManagerDidSignUpUser:responseObject];
                    }
                    else{
@@ -124,11 +128,17 @@
                        }
                    }
                    
-               }}
+               }
+           }
            failure:^(NSURLSessionDataTask *task, NSError *error) {
+               NSLog(@"Localized Error: %@",[error  localizedDescription]);
+               NSLog(@"User Info: %@",[error  userInfo][JSONResponseSerializerWithDataKey]);
+               
                if ([self.delegate respondsToSelector:@selector(apiManagerUserSignUpFailedWithError:)]) {
                    [self.delegate apiManagerUserSignUpFailedWithError:error];
-               }}];
+               }
+           }
+         ];
     }
     return isReachable;
 }
@@ -136,7 +146,7 @@
     if ([self.delegate respondsToSelector:@selector(apiManagerSigningUpAnonymousUser)]) {
         [self.delegate apiManagerSigningUpAnonymousUser];
     }
-    [self signUpUserWithUserTypeId:1 email:nil password:nil  andPasswordConfirmation:nil];
+    [self signUpUserWithUserTypeId:kAPIUserTypeAnonymous  email:nil password:nil  andPasswordConfirmation:nil];
     
     return false;
 }
@@ -326,4 +336,16 @@
                        authenticationToken:userInfo[@"user"][@"authentication_key"]
                                   signedIn:@YES];
 }
+
+
+#pragma mark -  Test Code
++ (void)test {
+    BOOL isSuccessful =[[ApiManager sharedApiManager] signUpUserWithUserTypeId:kAPIUserTypeWom
+                                                      email:nil
+                                                   password:nil
+                                    andPasswordConfirmation:nil];
+    NSLog(@"Is sucessful: %d",isSuccessful);
+
+}
+
 @end

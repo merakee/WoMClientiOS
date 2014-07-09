@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    kAPIUserTypeAnonymous=1,
+    kAPIUserTypeWom,
+    kAPIUserTypeFacebook,
+    kAPIUserTypeTwitter,
+    kAPIUserTypeGooglePlus,
+    kAPIUserTypeOthers,
+} kAPIUserType;
+
 @interface ApiUser : NSObject
 
 @property   NSNumber *userTypeId;
@@ -18,8 +27,8 @@
 
 #pragma mark - Init Methods
 - (ApiUser *)initWithTypeId:(NSNumber *)userTypeId_
-                   email:(NSString *)email_
-                  authenticationToken:(NSString *)authenticationToken_
+                      email:(NSString *)email_
+        authenticationToken:(NSString *)authenticationToken_
                    signedIn:(NSNumber *)signedIn_;
 
 #pragma mark - Utility Methods

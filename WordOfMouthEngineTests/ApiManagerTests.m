@@ -43,24 +43,23 @@
 }
 
 - (void)testApiManagerBasics{
-    BOOL nr =[[ApiManager sharedApiManager] isNetworkReachable];
-    NSLog(@"Is Network Reachable?: %d",nr);
-    
-    while (nr==false) {
-        [NSThread sleepForTimeInterval:1];
-        nr =[[ApiManager sharedApiManager] isNetworkReachable];
-        NSLog(@"Is Network Reachable?: %d",nr);
-    }
-    
     XCTAssertNotNil(apiManager,@"Shared manger should not be nil");
     XCTAssertEqual(apiManager, [ApiManager sharedApiManager], @"Must be singleton");
+}
+
+- (void)testApiManagerSignupProcess{
+    BOOL isSuccessful =[apiManager signUpUserWithUserTypeId:kAPIUserTypeAnonymous
+                                                      email:nil
+                                                   password:nil
+                                    andPasswordConfirmation:nil];
+    XCTAssertTrue(isSuccessful,@"Should be sucessful");
 }
 - (void)testApiManagerSignInAnonymousUser{
     XCTAssertFalse([apiManager isUserSignedIn], @"User shoud not be signed in");
     
     // anonymous user
     [uid saveAnonymousUserInfo:auser];
-    XCTAssertTrue([apiManager signInUserWithUserTypeId:1 email:nil andPassword:nil], @"Should be able to sign in user");
+    XCTAssertTrue([apiManager signInUserWithUserTypeId:kAPIUserTypeAnonymous email:nil andPassword:nil], @"Should be able to sign in user");
     XCTAssertEqual([apiManager currentUser].userTypeId.integerValue, auser.userTypeId.integerValue);
     XCTAssertEqualObjects([apiManager currentUser].email, auser.email);
     XCTAssertEqualObjects([apiManager currentUser].authenticationToken, auser.authenticationToken);

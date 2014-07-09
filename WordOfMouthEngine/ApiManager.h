@@ -9,14 +9,14 @@
 #import "AFHTTPSessionManager.h"
 #import "ApiUserManager.h"
 
-static NSString *kAMAPI_HOST_PATH  =   @"http://localhost:3000/api/v0";
-//static NSString *kAMAPI_BASE_PATH =   @"api/v0";
-static NSString *kAMAPI_SIGNUP_PATH  =   @"sign_up";
-static NSString *kAMAPI_SIGNIN_PATH  =   @"sign_in";
-static NSString *kAMAPI_SIGNOUT_PATH  =   @"sign_out";
-static NSString *kAMAPI_PROFILE_PATH  =   @"profile";
-static NSString *kAMAPI_CONTENT_PATH  =   @"contents";
-static NSString *kAMAPI_RESPONSE_PATH  =   @"user_responses";
+static NSString *kAMAPI_HOST_PATH   =   @"http://localhost:3000/api/v0";
+//static NSString *kAMAPI_BASE_PATH   =   @"api/v0";
+static NSString *kAMAPI_SIGNUP_PATH   =   @"sign_up";
+static NSString *kAMAPI_SIGNIN_PATH   =   @"sign_in";
+static NSString *kAMAPI_SIGNOUT_PATH  =  @"sign_out";
+static NSString *kAMAPI_PROFILE_PATH  =  @"profile";
+static NSString *kAMAPI_CONTENT_PATH  =  @"contents";
+static NSString *kAMAPI_RESPONSE_PATH =  @"user_responses";
 
 // Error
 static NSString *kAppErrorDomainSession =  @"APIErrorDomain";
@@ -61,8 +61,8 @@ typedef enum {
 
 #pragma mark -  API Calls: User Session
 - (BOOL)signUpUserWithUserTypeId:(int)userTypeId email:(NSString *)email
-                            password:(NSString *)password
-             andPasswordConfirmation:(NSString *)passwordConfirmation;
+                        password:(NSString *)password
+         andPasswordConfirmation:(NSString *)passwordConfirmation;
 - (BOOL)signInUserWithUserTypeId:(int)userTypeId email:(NSString *)email andPassword:(NSString *)password;
 - (BOOL)signOutUser;
 
@@ -76,6 +76,9 @@ typedef enum {
 
 #pragma mark -  API Calls: Response
 - (BOOL)postContentWithContentId:(int)contentId andResponse:(NSNumber *)response;
+
+#pragma mark -  Test Code
++ (void)test;
 
 @end
 

@@ -145,7 +145,7 @@
 - (void)SignInButtonPressed:(id)sender {
     // set up session manager
     [ApiManager sharedApiManager].delegate= self;
-    [[ApiManager sharedApiManager] signInUserWithUserTypeId:2 email:emailField.text andPassword:passwordField.text];
+    [[ApiManager sharedApiManager] signInUserWithUserTypeId:kAPIUserTypeWom email:emailField.text andPassword:passwordField.text];
 }
 
 - (void)signUpButtonPressed:(id)sender {

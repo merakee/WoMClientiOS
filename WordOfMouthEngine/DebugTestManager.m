@@ -12,6 +12,7 @@
 #import "ApiManager.h"
 #import "LocalContentDatabase.h"
 #import "UserInfoDatabase.h"
+#import "ApiManager.h"
 
 @implementation DebugTestManager
 
@@ -21,6 +22,7 @@
     //[self testApiManager];
     //[self testLocalContentDatabase];
     //[self testUserInfoDatabase];
+    [self testApiManager];
 }
 
 
@@ -30,23 +32,10 @@
 }
 
 + (void)testApiManager{
-    ApiManager  *apiManager=[ApiManager sharedApiManager];
-    
-    NSLog(@"%@",[ApiManager getStringForPath:@"rumors/"]);
-    // get list of rumors
-    [apiManager GET:[ApiManager getStringForPath:@"rumors/"]
-         parameters:nil
-            success:^(NSURLSessionDataTask *task, id responseObject){
-                // NSLog(@"%@",responseObject);
-                //NSLog(@"%@",[responseObject class]);
-                for(NSDictionary *rumor in responseObject){
-                    NSLog(@"%@",rumor[@"text"]);
-                }
-            }
-            failure:^(NSURLSessionDataTask *task, NSError *error){
-                NSLog(@"%@",error);
-            }];
-    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
+        //code to be executed on the main queue after delay
+        [ApiManager test];
+    });
 }
 
 + (void)testLocalContentDatabase{

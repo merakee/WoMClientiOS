@@ -49,6 +49,7 @@
 		116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE33318ADB58500C66D86 /* CommonUtility.m */; };
 		1170EB01196B83A600802D4D /* UserInfoDatabaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1170EB00196B83A600802D4D /* UserInfoDatabaseTests.m */; };
 		1170EB04196C70B700802D4D /* ApiUserManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1170EB03196C70B700802D4D /* ApiUserManagerTests.m */; };
+		1170EB0A196DCAF600802D4D /* JSONResponseSerializerWithData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1170EB09196DCAF600802D4D /* JSONResponseSerializerWithData.m */; };
 		1171CABF196917DF00B40A0E /* ApiUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CABE196917DF00B40A0E /* ApiUserManager.m */; };
 		1171CAC21969E30500B40A0E /* UserInfoDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CAC01969E30400B40A0E /* UserInfoDatabase.m */; };
 		1171CAC31969E30500B40A0E /* UserInfoDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CAC01969E30400B40A0E /* UserInfoDatabase.m */; };
@@ -189,6 +190,8 @@
 		116EE33518ADB58500C66D86 /* LocalMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMacros.h; sourceTree = "<group>"; };
 		1170EB00196B83A600802D4D /* UserInfoDatabaseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoDatabaseTests.m; sourceTree = "<group>"; };
 		1170EB03196C70B700802D4D /* ApiUserManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiUserManagerTests.m; sourceTree = "<group>"; };
+		1170EB08196DCAF600802D4D /* JSONResponseSerializerWithData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONResponseSerializerWithData.h; sourceTree = "<group>"; };
+		1170EB09196DCAF600802D4D /* JSONResponseSerializerWithData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONResponseSerializerWithData.m; sourceTree = "<group>"; };
 		1171CABD196917DF00B40A0E /* ApiUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiUserManager.h; sourceTree = "<group>"; };
 		1171CABE196917DF00B40A0E /* ApiUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiUserManager.m; sourceTree = "<group>"; };
 		1171CAC01969E30400B40A0E /* UserInfoDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoDatabase.m; sourceTree = "<group>"; };
@@ -489,6 +492,8 @@
 				111E596F182EC53F00B7FD49 /* ApiManager.m */,
 				1171CABD196917DF00B40A0E /* ApiUserManager.h */,
 				1171CABE196917DF00B40A0E /* ApiUserManager.m */,
+				1170EB08196DCAF600802D4D /* JSONResponseSerializerWithData.h */,
+				1170EB09196DCAF600802D4D /* JSONResponseSerializerWithData.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -935,6 +940,7 @@
 				11CB8FEB18B0886600396418 /* ContentInfo.m in Sources */,
 				11810B7518C9386F00C5246C /* CVCircularProgressLayer.m in Sources */,
 				1131DA7718B5657C00EFDB34 /* EmailSignInViewHelper.m in Sources */,
+				1170EB0A196DCAF600802D4D /* JSONResponseSerializerWithData.m in Sources */,
 				11CAB43718CA711C00FE05FD /* LocalContentDatabase.m in Sources */,
 				116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */,
 				111E5975182ECA8F00B7FD49 /* DebugTestManager.m in Sources */,
