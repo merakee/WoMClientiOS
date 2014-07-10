@@ -19,8 +19,7 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
@@ -34,9 +33,6 @@
     [self setViewController];
     //self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    
-    // set Network Activity indicator
-    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
     // run debug test ********
     [DebugTestManager runDebugTests];
@@ -61,6 +57,9 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    if(![sharedApiManager isUserSignedIn]){
+        [self  setSignInViewAsRootView];
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

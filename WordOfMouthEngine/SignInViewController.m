@@ -185,14 +185,14 @@
 - (void)signInAsGuestButtonPressed:(id)sender {
     [ApiManager sharedApiManager].delegate=self;
     if([[ApiManager sharedApiManager] signInUserWithUserTypeId:kAPIUserTypeAnonymous email:nil andPassword:nil]){
-        [self signInAnonymusUserSuccessfully];
+        [self actionsForSuccessfulAnonymusUserSignIn];
     }
 }
 
 #pragma mark - Api Manager delegate protocal method
 // user sign up
 -(void)apiManagerDidSignUpUser:(id)responseObject{
-            [self signInAnonymusUserSuccessfully];
+            [self actionsForSuccessfulAnonymusUserSignIn];
 }
 -(void)apiManagerUserSignUpFailedWithError:(NSError *)error{
     [CommonUtility displayAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:self];
@@ -200,9 +200,9 @@
 // user sign in;
 -(void)apiManagerSigningUpAnonymousUser{
     // show indicator for signing up process
-    NSLog(@"Signing in anonymous user");
+    NSLog(@"Signing up anonymous user");
 }
-- (void)signInAnonymusUserSuccessfully{
+- (void)actionsForSuccessfulAnonymusUserSignIn{
     // switch to content view
     [(AppDelegate *)[UIApplication sharedApplication].delegate setCoreFunctionViewAsRootView];
     

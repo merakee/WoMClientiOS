@@ -75,7 +75,7 @@ typedef enum {
 - (BOOL)postContentWithCategoryId:(int)categoryId andtext:(NSString *)text;
 
 #pragma mark -  API Calls: Response
-- (BOOL)postContentWithContentId:(int)contentId andResponse:(NSNumber *)response;
+- (BOOL)postResponseWithContentId:(int)contentId andResponse:(NSNumber *)response;
 
 #pragma mark -  Test Code
 + (void)test;
