@@ -21,6 +21,9 @@ static NSString *kAMAPI_RESPONSE_PATH =  @"user_responses";
 // Error
 static NSString *kAppErrorDomainSession =  @"APIErrorDomain";
 
+/*!
+ *  APIManager error codes
+ */
 typedef enum {
     kAPIManagerErrorNone=0,
     kAPIManagerErrorInvalidSignUp,
@@ -35,12 +38,23 @@ typedef enum {
 }
 
 # pragma mark - delegate
+/*!
+ *  ApiManagerDelegate
+ */
 @property (nonatomic, weak) id<ApiManagerDelegate>delegate;
 
 #pragma mark - API User Manager
+/*!
+ *  ApiUserManager
+ */
 @property ApiUserManager    *apiUserManager;
 
 #pragma mark -  Singleton method
+/*!
+ *  Generates singleton instance of ApiManager.
+ *  @return An singleton instance of ApiManager.
+ */
+
 + (ApiManager *) sharedApiManager;
 
 #pragma mark -  HTTP CURD methods
@@ -49,17 +63,40 @@ typedef enum {
 + (NSString *)getStringForPath:(NSString *)pathString;
 
 #pragma mark - Utility Methods: Network Reachability
+/*!
+ *  Check to see if the Network is reachable.
+ *  @return BOOL value indicating netword reachability.
+ */
 -(BOOL)isNetworkReachable;
 
 #pragma mark - Utility Methods: Life Cycle
+/*!
+ *  Tasks after entering backgound.
+ */
 -(void)performEnteredBackgroundActions;
 
 
 #pragma mark -  Utility Methods - Users
+/*!
+ *  Cheaks to see if there is a current user or current user is nil.
+ *  @return BOOL value indicating if user is signed in.
+ */
 - (BOOL)isUserSignedIn;
+/*!
+ *  Returns current user. May be nil.
+ *  @return an instance of current user.
+ */
 - (ApiUser *)currentUser;
 
 #pragma mark -  API Calls: User Session
+/*!
+ *  API call to sign up user with user paramers.
+ *  @param userTypeId           An integer
+ *  @param email                NSString
+ *  @param password             NSString
+ *  @param passwordConfirmation NSString
+ *  @return A boolean value of success or failure. 
+ */
 - (BOOL)signUpUserWithUserTypeId:(int)userTypeId email:(NSString *)email
                         password:(NSString *)password
          andPasswordConfirmation:(NSString *)passwordConfirmation;
