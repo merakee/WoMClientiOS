@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ApiManager.h"
 
-@interface EmailSignInViewController : UIViewController<UITextFieldDelegate,ApiManagerDelegate>{
+@interface EmailSignInViewController : UIViewController<UITextFieldDelegate>{
     UITextField        *emailField;
     UITextField        *passwordField;
     UIButton           *SignInButton;

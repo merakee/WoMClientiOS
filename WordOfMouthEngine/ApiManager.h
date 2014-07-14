@@ -8,8 +8,10 @@
 
 #import "AFHTTPSessionManager.h"
 #import "ApiUserManager.h"
+#import "ApiContentManager.h"
 
-static NSString *kAMAPI_HOST_PATH   =   @"http://localhost:3000/api/v0";
+//static NSString *kAMAPI_HOST_PATH   =   @"http://localhost:3000/api/v0";
+static NSString *kAMAPI_HOST_PATH   =   @"http://wom-backend-master-env-aqha24usrc.elasticbeanstalk.com/api/v0";
 //static NSString *kAMAPI_BASE_PATH   =   @"api/v0";
 static NSString *kAMAPI_SIGNUP_PATH   =   @"sign_up";
 static NSString *kAMAPI_SIGNIN_PATH   =   @"sign_in";
@@ -18,31 +20,9 @@ static NSString *kAMAPI_PROFILE_PATH  =  @"profile";
 static NSString *kAMAPI_CONTENT_PATH  =  @"contents";
 static NSString *kAMAPI_RESPONSE_PATH =  @"user_responses";
 
-// Error
-static NSString *kAppErrorDomainSession =  @"APIErrorDomain";
-
-/*!
- *  APIManager error codes
- */
-typedef enum {
-    kAPIManagerErrorNone=0,
-    kAPIManagerErrorInvalidSignUp,
-    kAPIManagerErrorInvalidSingIn,
-    kSAPIManagerErrorInvalidPassword,
-} kAPIManagerErrorCode;
-
-
-@protocol ApiManagerDelegate;
 
 @interface ApiManager : AFHTTPSessionManager{
 }
-
-# pragma mark - delegate
-/*!
- *  ApiManagerDelegate
- */
-@property (nonatomic, weak) id<ApiManagerDelegate>delegate;
-
 #pragma mark - API User Manager
 /*!
  *  ApiUserManager
@@ -64,7 +44,7 @@ typedef enum {
 
 #pragma mark - Utility Methods: Network Reachability
 /*!
- *  Check to see if the Network is reachable.
+ *  Checks to see if the Network is reachable.
  *  @return BOOL value indicating netword reachability.
  */
 -(BOOL)isNetworkReachable;
@@ -78,7 +58,7 @@ typedef enum {
 
 #pragma mark -  Utility Methods - Users
 /*!
- *  Cheaks to see if there is a current user or current user is nil.
+ *  Checks to see if there is a current user or current user is nil.
  *  @return BOOL value indicating if user is signed in.
  */
 - (BOOL)isUserSignedIn;
@@ -92,57 +72,58 @@ typedef enum {
 /*!
  *  API call to sign up user with user paramers.
  *  @param userTypeId           An integer
- *  @param email                NSString
- *  @param password             NSString
- *  @param passwordConfirmation NSString
- *  @return A boolean value of success or failure. 
+ *  @param email                NSString containing user email
+ *  @param password             NSString containing password
+ *  @param passwordConfirmation NSString containing password confirmation
+ *  @return A boolean value of success or failure.
  */
-- (BOOL)signUpUserWithUserTypeId:(int)userTypeId email:(NSString *)email
+- (void)signUpUserWithUserTypeId:(int)userTypeId email:(NSString *)email
                         password:(NSString *)password
-         andPasswordConfirmation:(NSString *)passwordConfirmation;
-- (BOOL)signInUserWithUserTypeId:(int)userTypeId email:(NSString *)email andPassword:(NSString *)password;
-- (BOOL)signOutUser;
+            passwordConfirmation:(NSString *)passwordConfirmation
+                         success:(void (^)())success
+                         failure:(void (^)(NSError *error))failure;
+/*!
+ *  API call to sign in user with user paramers.
+ *  @param userTypeId           An integer
+ *  @param email                NSString containing user email
+ *  @param password             NSString containing the password
+ *  @return A boolean value of success or failure.
+ */
+- (void)signInUserWithUserTypeId:(int)userTypeId
+                           email:(NSString *)email
+                        password:(NSString *)password
+                         success:(void (^)())success
+                         failure:(void (^)(NSError *error))failure;
+/*!
+ *  API call to sign in user with user paramers. The current signed user is signed out.
+ *  @return A boolean value of success or failure.
+ */
+- (void)signOutUserSuccess:(void (^)())success
+                   failure:(void (^)(NSError *error))failure;
 
 #pragma mark -  API Calls: User Profile
-- (BOOL)getUserProfile;
-- (BOOL)updateUserProfile;
+- (void)getUserProfileSuccess:(void (^)())success
+                      failure:(void (^)(NSError *error))failure;
+- (void)updateUserProfileSuccess:(void (^)())success
+                         failure:(void (^)(NSError *error))failure;
 
 #pragma mark -  API Calls: Content
-- (BOOL)getContent;
-- (BOOL)postContentWithCategoryId:(int)categoryId andtext:(NSString *)text;
+- (void)getContentSuccess:(ContentInfo * (^)())success
+                  failure:(void (^)(NSError *error))failure;
+- (void)postContentWithCategoryId:(int)categoryId
+                             text:(NSString *)text
+                          success:(void (^)())success
+                          failure:(void (^)(NSError *error))failure;
+
 
 #pragma mark -  API Calls: Response
-- (BOOL)postResponseWithContentId:(int)contentId andResponse:(NSNumber *)response;
+- (void)postResponseWithContentId:(int)contentId
+                         response:(NSNumber *)response
+                          success:(void (^)())success
+                          failure:(void (^)(NSError *error))failure;
+
 
 #pragma mark -  Test Code
 + (void)test;
 
-@end
-
-@protocol ApiManagerDelegate <NSObject>
-@required
-@optional
-// user sign up
--(void)apiManagerDidSignUpUser:(id)responseObject;
--(void)apiManagerUserSignUpFailedWithError:(NSError *)error;
-// user sign in
--(void)apiManagerDidSignInUser:(id)responseObject;
--(void)apiManagerUserSignInFailedWithError:(NSError *)error;
--(void)apiManagerSigningUpAnonymousUser;
-// user sign out
--(void)apiManagerDidSignOutUser:(id)responseObject;
--(void)apiManagerUserSignOutFailedWithError:(NSError *)error;
-// user profile
--(void)apiManagerDidGetUserProfile:(id)responseObject;
--(void)apiManagerGetUserProfileFailedWithError:(NSError *)error;
--(void)apiManagerDidUpdateUserProfile:(id)responseObject;
--(void)apiManagerUpdateUserProfileFailedWithError:(NSError *)error;
-// content
--(void)apiManagerDidGetContent:(id)responseObject;
--(void)apiManagerGetContentFailedWithError:(NSError *)error;
--(void)apiManagerDidPostContent:(id)responseObject;
--(void)apiManagerPostContentFailedWithError:(NSError *)error;
-// response
--(void)apiManagerDidPostResponse:(id)responseObject;
--(void)apiManagerPostResponseFailedWithError:(NSError *)error;
 @end

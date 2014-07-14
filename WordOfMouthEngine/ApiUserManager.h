@@ -24,5 +24,5 @@
 - (void) resetAnonymousUser;
 
 #pragma mark -  Utility Methods
-- (BOOL)saveUserInfo:(ApiUser*)user;
+- (BOOL)signInAndSaveUserInfo:(ApiUser*)user;
 @end

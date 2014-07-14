@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ApiManager.h"
 
-@interface ProfileViewController : UITableViewController<ApiManagerDelegate>{
+@interface ProfileViewController : UITableViewController{
     NSArray        *profileInfo;
     
 }

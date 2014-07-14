@@ -109,7 +109,7 @@
     // layout
     [self layoutView];
     
-
+    
 }
 
 - (void)layoutView{
@@ -183,16 +183,20 @@
 }
 
 - (void)signInAsGuestButtonPressed:(id)sender {
-    [ApiManager sharedApiManager].delegate=self;
-    if([[ApiManager sharedApiManager] signInUserWithUserTypeId:kAPIUserTypeAnonymous email:nil andPassword:nil]){
-        [self actionsForSuccessfulAnonymusUserSignIn];
-    }
+    [[ApiManager sharedApiManager] signInUserWithUserTypeId:kAPIUserTypeAnonymous
+                                                      email:nil
+                                                   password:nil
+                                                    success:^(void){
+                                                        [self actionsForSuccessfulAnonymusUserSignIn];
+                                                    }failure:^(NSError * error){
+                                                        
+                                                    }];
 }
 
 #pragma mark - Api Manager delegate protocal method
 // user sign up
 -(void)apiManagerDidSignUpUser:(id)responseObject{
-            [self actionsForSuccessfulAnonymusUserSignIn];
+    [self actionsForSuccessfulAnonymusUserSignIn];
 }
 -(void)apiManagerUserSignUpFailedWithError:(NSError *)error{
     [CommonUtility displayAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:self];

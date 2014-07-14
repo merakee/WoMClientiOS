@@ -1,0 +1,47 @@
+//
+//  ApiErrorManager.h
+//  WordOfMouthEngine
+//
+//  Created by Bijit Halder on 7/11/14.
+//  Copyright (c) 2014 Bijit Halder. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+/*!
+ *  APIManager error codes
+ */
+typedef enum {
+    kAPIManagerErrorNone=0,
+    kAPIManagerErrorInvalidSignUp,
+    kAPIManagerErrorInvalidSingIn,
+    kSAPIManagerErrorInvalidPassword,
+} kAPIManagerErrorCode;
+// Error
+static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
+
+
+@interface ApiErrorManager : NSObject
+
+#pragma mark - Error Handling methods - Core
++ (NSError *)getErrorForInvalidApiResponse;
+
+#pragma mark - Error Handling methods - Session and Registration
++ (NSError *)getErrorForSignInSaveUser;
++ (NSError *)processSignUpError:(NSError *)error;
++ (NSError *)processSignInError:(NSError *)error;
++ (NSError *)processSignOutError:(NSError *)error;
+
+#pragma mark - Error Handling methods - Content
++ (NSError *)processGetContentError:(NSError *)error;
++ (NSError *)processPostContentError:(NSError *)error;
+
+#pragma mark - Error Handling methods - Response
++ (NSError *)processPostResponseError:(NSError *)error;
+
+
+#pragma mark - Error Handling methods - User Info
++ (NSError *)processGetProfileError:(NSError *)error;
++ (NSError *)processUpdateProfileError:(NSError *)error;
+
+@end

@@ -251,8 +251,12 @@
     // sign out button
     if([[(UIButton *)sender currentTitle] isEqualToString:@"Sign Out"]) {
         // log out
-        [ApiManager sharedApiManager].delegate=self;
-        [[ApiManager sharedApiManager] signOutUser];
+        [[ApiManager sharedApiManager] signOutUserSuccess:^(void){
+            
+        }failure:^(NSError * error){
+            
+        }];
+        
         return;
     }
 }
@@ -279,13 +283,13 @@
 -(void)setAllInfo {
     // profile info
     profileInfo = @[@{@"header": @"Profile",
-                    @"rows": @[@"User Id",@"User Name", @"User Image",@"User email"]},
-                   @{@"header": @"Performance",
-                    @"rows": @[@"Total Spread Score",@"Spread Efficiency", @"Total Posts",@"Total Spread Count",@"Total Kill Count"]},
-                   @{@"header": @"Settings",
-                    @"rows": @[@"Category",@"Other Settings"]},
-                   @{@"header": @"System",
-                    @"rows": @[@"Sign Out",@"Others"]}];
+                      @"rows": @[@"User Id",@"User Name", @"User Image",@"User email"]},
+                    @{@"header": @"Performance",
+                      @"rows": @[@"Total Spread Score",@"Spread Efficiency", @"Total Posts",@"Total Spread Count",@"Total Kill Count"]},
+                    @{@"header": @"Settings",
+                      @"rows": @[@"Category",@"Other Settings"]},
+                    @{@"header": @"System",
+                      @"rows": @[@"Sign Out",@"Others"]}];
 }
 
 

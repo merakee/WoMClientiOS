@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ApiManager.h"
 
-@interface SignInViewController : UIViewController<ApiManagerDelegate>{
+@interface SignInViewController : UIViewController{
     UIButton           *googleButton;
     UIButton           *facebookButton;
     UIButton           *twitterButton;

@@ -144,8 +144,15 @@
 #pragma mark - Button Action Methods
 - (void)SignInButtonPressed:(id)sender {
     // set up session manager
-    [ApiManager sharedApiManager].delegate= self;
-    [[ApiManager sharedApiManager] signInUserWithUserTypeId:kAPIUserTypeWom email:emailField.text andPassword:passwordField.text];
+    [[ApiManager sharedApiManager] signInUserWithUserTypeId:kAPIUserTypeWom
+                                                      email:emailField.text
+                                                   password:passwordField.text
+                                                    success:^(void){
+                                                        
+                                                    }
+                                                    failure:^(NSError * error){
+                                                        
+                                                    }];
 }
 
 - (void)signUpButtonPressed:(id)sender {

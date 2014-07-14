@@ -76,22 +76,16 @@
 }
 
 #pragma mark -  Utility Methods
-- (BOOL)saveUserInfo:(ApiUser *)user{
+- (BOOL)signInAndSaveUserInfo:(ApiUser*)user{
+    BOOL didSave = false;
     if(user.userTypeId.intValue ==1){
-        if([[[UserInfoDatabase alloc] init] saveAnonymousUserInfo:user]){
-            self.currentUser=user;
-            return true;
-        }
-        return false;
+        didSave = [[[UserInfoDatabase alloc] init] saveAnonymousUserInfo:user];
     }
-    if (user.userTypeId.intValue ==2){
-        if([[[UserInfoDatabase alloc] init] saveUserInfo:user]){
-            self.currentUser=user;
-            return true;
-        }
-        return false;
+    else if (user.userTypeId.intValue ==2){
+        didSave = [[[UserInfoDatabase alloc] init] saveUserInfo:user];
     }
     
-    return false;
+    self.currentUser=user;
+    return didSave;
 }
 @end
