@@ -37,12 +37,20 @@
 		1131DA6C18B55AFE00EFDB34 /* SocialSignin_Facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 1131DA6A18B55AFE00EFDB34 /* SocialSignin_Facebook.png */; };
 		1131DA6E18B55B0700EFDB34 /* SocialSignin_Twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 1131DA6D18B55B0700EFDB34 /* SocialSignin_Twitter.png */; };
 		1131DA7018B55B1300EFDB34 /* SocialSignin_Email.png in Resources */ = {isa = PBXBuildFile; fileRef = 1131DA6F18B55B1300EFDB34 /* SocialSignin_Email.png */; };
-		1131DA7618B5657C00EFDB34 /* EmailSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7218B5657C00EFDB34 /* EmailSignInViewController.m */; };
-		1131DA7718B5657C00EFDB34 /* EmailSignInViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7318B5657C00EFDB34 /* EmailSignInViewHelper.m */; };
+		1131DA7618B5657C00EFDB34 /* WomSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7218B5657C00EFDB34 /* WomSignInViewController.m */; };
+		1131DA7718B5657C00EFDB34 /* WomSignInViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7318B5657C00EFDB34 /* WomSignInViewHelper.m */; };
 		115F1B9E197492D9002262F5 /* ApiRequestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 115F1B9D197492D9002262F5 /* ApiRequestHelper.m */; };
 		115F1B9F197492D9002262F5 /* ApiRequestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 115F1B9D197492D9002262F5 /* ApiRequestHelper.m */; };
 		1166AD7A1974BEBA0010BFEA /* ApiContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD791974BEBA0010BFEA /* ApiContentManager.m */; };
 		1166AD7B1974BEBA0010BFEA /* ApiContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD791974BEBA0010BFEA /* ApiContentManager.m */; };
+		1166AD7E19759ED30010BFEA /* ApiValidationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD7D19759ED30010BFEA /* ApiValidationManager.m */; };
+		1166AD7F19759ED30010BFEA /* ApiValidationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD7D19759ED30010BFEA /* ApiValidationManager.m */; };
+		1166AD811975AD4C0010BFEA /* ApiValidationManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD801975AD4C0010BFEA /* ApiValidationManagerTests.m */; };
+		1166AD831975D79C0010BFEA /* ApiManagerValidationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD821975D79C0010BFEA /* ApiManagerValidationTests.m */; };
+		1166AD871975EC640010BFEA /* WomSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD861975EC640010BFEA /* WomSignUpViewController.m */; };
+		1166AD881975EC640010BFEA /* WomSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD861975EC640010BFEA /* WomSignUpViewController.m */; };
+		1166AD8B1975ECDB0010BFEA /* WomSignUpViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD8A1975ECDB0010BFEA /* WomSignUpViewHelper.m */; };
+		1166AD8C1975ECDB0010BFEA /* WomSignUpViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD8A1975ECDB0010BFEA /* WomSignUpViewHelper.m */; };
 		116D500518E3997A00579F37 /* LocalContent_FZ_DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 116D500418E3997A00579F37 /* LocalContent_FZ_DB.sqlite */; };
 		116EE32118ADA08D00C66D86 /* ContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32018ADA08D00C66D86 /* ContentManager.m */; };
 		116EE32418ADA09D00C66D86 /* UserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32318ADA09D00C66D86 /* UserInfoManager.m */; };
@@ -169,14 +177,23 @@
 		1131DA6A18B55AFE00EFDB34 /* SocialSignin_Facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialSignin_Facebook.png; sourceTree = "<group>"; };
 		1131DA6D18B55B0700EFDB34 /* SocialSignin_Twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialSignin_Twitter.png; sourceTree = "<group>"; };
 		1131DA6F18B55B1300EFDB34 /* SocialSignin_Email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialSignin_Email.png; sourceTree = "<group>"; };
-		1131DA7218B5657C00EFDB34 /* EmailSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EmailSignInViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		1131DA7318B5657C00EFDB34 /* EmailSignInViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EmailSignInViewHelper.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		1131DA7418B5657C00EFDB34 /* EmailSignInViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EmailSignInViewHelper.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1131DA7518B5657C00EFDB34 /* EmailSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailSignInViewController.h; sourceTree = "<group>"; };
+		1131DA7218B5657C00EFDB34 /* WomSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WomSignInViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		1131DA7318B5657C00EFDB34 /* WomSignInViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WomSignInViewHelper.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		1131DA7418B5657C00EFDB34 /* WomSignInViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = WomSignInViewHelper.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		1131DA7518B5657C00EFDB34 /* WomSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WomSignInViewController.h; sourceTree = "<group>"; };
 		115F1B9C197492D9002262F5 /* ApiRequestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiRequestHelper.h; sourceTree = "<group>"; };
 		115F1B9D197492D9002262F5 /* ApiRequestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiRequestHelper.m; sourceTree = "<group>"; };
 		1166AD781974BEBA0010BFEA /* ApiContentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiContentManager.h; sourceTree = "<group>"; };
 		1166AD791974BEBA0010BFEA /* ApiContentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiContentManager.m; sourceTree = "<group>"; };
+		1166AD7C19759ED30010BFEA /* ApiValidationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiValidationManager.h; sourceTree = "<group>"; };
+		1166AD7D19759ED30010BFEA /* ApiValidationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiValidationManager.m; sourceTree = "<group>"; };
+		1166AD801975AD4C0010BFEA /* ApiValidationManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiValidationManagerTests.m; sourceTree = "<group>"; };
+		1166AD821975D79C0010BFEA /* ApiManagerValidationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiManagerValidationTests.m; sourceTree = "<group>"; };
+		1166AD841975D85F0010BFEA /* AsynTextHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AsynTextHelper.h; sourceTree = "<group>"; };
+		1166AD851975EC640010BFEA /* WomSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WomSignUpViewController.h; sourceTree = "<group>"; };
+		1166AD861975EC640010BFEA /* WomSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WomSignUpViewController.m; sourceTree = "<group>"; };
+		1166AD891975ECDB0010BFEA /* WomSignUpViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WomSignUpViewHelper.h; sourceTree = "<group>"; };
+		1166AD8A1975ECDB0010BFEA /* WomSignUpViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WomSignUpViewHelper.m; sourceTree = "<group>"; };
 		116D500318E38FA200579F37 /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
 		116D500418E3997A00579F37 /* LocalContent_FZ_DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = LocalContent_FZ_DB.sqlite; sourceTree = "<group>"; };
 		116EE31C18ADA07500C66D86 /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
@@ -486,15 +503,19 @@
 			name = Buttons;
 			sourceTree = "<group>";
 		};
-		1131DA7118B5654200EFDB34 /* EmailLogIn */ = {
+		1131DA7118B5654200EFDB34 /* WomUserSignIn */ = {
 			isa = PBXGroup;
 			children = (
-				1131DA7518B5657C00EFDB34 /* EmailSignInViewController.h */,
-				1131DA7218B5657C00EFDB34 /* EmailSignInViewController.m */,
-				1131DA7418B5657C00EFDB34 /* EmailSignInViewHelper.h */,
-				1131DA7318B5657C00EFDB34 /* EmailSignInViewHelper.m */,
+				1166AD851975EC640010BFEA /* WomSignUpViewController.h */,
+				1166AD861975EC640010BFEA /* WomSignUpViewController.m */,
+				1131DA7518B5657C00EFDB34 /* WomSignInViewController.h */,
+				1131DA7218B5657C00EFDB34 /* WomSignInViewController.m */,
+				1166AD891975ECDB0010BFEA /* WomSignUpViewHelper.h */,
+				1166AD8A1975ECDB0010BFEA /* WomSignUpViewHelper.m */,
+				1131DA7418B5657C00EFDB34 /* WomSignInViewHelper.h */,
+				1131DA7318B5657C00EFDB34 /* WomSignInViewHelper.m */,
 			);
-			name = EmailLogIn;
+			name = WomUserSignIn;
 			sourceTree = "<group>";
 		};
 		116EE31718AD4ADD00C66D86 /* API */ = {
@@ -512,6 +533,8 @@
 				115F1B9D197492D9002262F5 /* ApiRequestHelper.m */,
 				1166AD781974BEBA0010BFEA /* ApiContentManager.h */,
 				1166AD791974BEBA0010BFEA /* ApiContentManager.m */,
+				1166AD7C19759ED30010BFEA /* ApiValidationManager.h */,
+				1166AD7D19759ED30010BFEA /* ApiValidationManager.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -588,8 +611,11 @@
 		1170EB02196C708C00802D4D /* API */ = {
 			isa = PBXGroup;
 			children = (
+				1166AD821975D79C0010BFEA /* ApiManagerValidationTests.m */,
 				11D1B6EF183AB0690022AF62 /* ApiManagerTests.m */,
 				1170EB03196C70B700802D4D /* ApiUserManagerTests.m */,
+				1166AD801975AD4C0010BFEA /* ApiValidationManagerTests.m */,
+				1166AD841975D85F0010BFEA /* AsynTextHelper.h */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -730,7 +756,7 @@
 		11CB8FC418B00B3300396418 /* SignInVC */ = {
 			isa = PBXGroup;
 			children = (
-				1131DA7118B5654200EFDB34 /* EmailLogIn */,
+				1131DA7118B5654200EFDB34 /* WomUserSignIn */,
 				11CB8FC118B00B2900396418 /* SignInViewController.h */,
 				11CB8FC218B00B2900396418 /* SignInViewController.m */,
 				1131DA6618B5584300EFDB34 /* SignInViewHelper.h */,
@@ -949,6 +975,7 @@
 				11CAB43018CA6C4600FE05FD /* SessionManager.m in Sources */,
 				116EE32718ADA0E100C66D86 /* AppUIManager.m in Sources */,
 				11CB8FEE18B08C7100396418 /* UserInfo.m in Sources */,
+				1166AD7E19759ED30010BFEA /* ApiValidationManager.m in Sources */,
 				117D92B7194B86E700FD6EDD /* UIWebView+AFNetworking.m in Sources */,
 				116EE33018ADA1AC00C66D86 /* AppAnimationManager.m in Sources */,
 				116EE32D18ADA10B00C66D86 /* AppAudioManager.m in Sources */,
@@ -957,7 +984,7 @@
 				1171CAC21969E30500B40A0E /* UserInfoDatabase.m in Sources */,
 				11CB8FEB18B0886600396418 /* ContentInfo.m in Sources */,
 				11810B7518C9386F00C5246C /* CVCircularProgressLayer.m in Sources */,
-				1131DA7718B5657C00EFDB34 /* EmailSignInViewHelper.m in Sources */,
+				1131DA7718B5657C00EFDB34 /* WomSignInViewHelper.m in Sources */,
 				1170EB0A196DCAF600802D4D /* JSONResponseSerializerWithData.m in Sources */,
 				11CAB43718CA711C00FE05FD /* LocalContentDatabase.m in Sources */,
 				116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */,
@@ -965,6 +992,7 @@
 				111E597D18309A6700B7FD49 /* ApiUser.m in Sources */,
 				117D92AB194B86E700FD6EDD /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				11720F5118B6A83500124C9F /* ProfileViewHelper.m in Sources */,
+				1166AD871975EC640010BFEA /* WomSignUpViewController.m in Sources */,
 				11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */,
 				1171CABF196917DF00B40A0E /* ApiUserManager.m in Sources */,
 				117D928F194B86E200FD6EDD /* AFURLConnectionOperation.m in Sources */,
@@ -973,6 +1001,7 @@
 				111E5970182EC53F00B7FD49 /* ApiManager.m in Sources */,
 				11CB8FC318B00B2900396418 /* SignInViewController.m in Sources */,
 				11CB8FD518B0473500396418 /* ProfileViewController.m in Sources */,
+				1166AD8B1975ECDB0010BFEA /* WomSignUpViewHelper.m in Sources */,
 				11810B7C18C9419100C5246C /* CVCircleDownCounter.m in Sources */,
 				11CB8FD218B046C400396418 /* HistoryViewController.m in Sources */,
 				116EE32418ADA09D00C66D86 /* UserInfoManager.m in Sources */,
@@ -982,7 +1011,7 @@
 				11810B7218C937D000C5246C /* CVCircularProgressView.m in Sources */,
 				117D92B1194B86E700FD6EDD /* UIImageView+AFNetworking.m in Sources */,
 				1114A802182D8B3300089669 /* main.m in Sources */,
-				1131DA7618B5657C00EFDB34 /* EmailSignInViewController.m in Sources */,
+				1131DA7618B5657C00EFDB34 /* WomSignInViewController.m in Sources */,
 				117D9291194B86E200FD6EDD /* AFURLRequestSerialization.m in Sources */,
 				115F1B9E197492D9002262F5 /* ApiRequestHelper.m in Sources */,
 				116EE32A18ADA0F800C66D86 /* AppGraphicsManager.m in Sources */,
@@ -1009,8 +1038,10 @@
 				1170EB04196C70B700802D4D /* ApiUserManagerTests.m in Sources */,
 				117D9290194B86E200FD6EDD /* AFURLConnectionOperation.m in Sources */,
 				117D9286194B86E200FD6EDD /* AFHTTPRequestOperation.m in Sources */,
+				1166AD8C1975ECDB0010BFEA /* WomSignUpViewHelper.m in Sources */,
 				117D92B0194B86E700FD6EDD /* UIButton+AFNetworking.m in Sources */,
 				117D928C194B86E200FD6EDD /* AFNetworkReachabilityManager.m in Sources */,
+				1166AD881975EC640010BFEA /* WomSignUpViewController.m in Sources */,
 				117D92B4194B86E700FD6EDD /* UIProgressView+AFNetworking.m in Sources */,
 				117D9296194B86E200FD6EDD /* AFURLSessionManager.m in Sources */,
 				115F1B9F197492D9002262F5 /* ApiRequestHelper.m in Sources */,
@@ -1023,6 +1054,7 @@
 				1166AD7B1974BEBA0010BFEA /* ApiContentManager.m in Sources */,
 				111E597E18309A6700B7FD49 /* ApiUser.m in Sources */,
 				1170EB01196B83A600802D4D /* UserInfoDatabaseTests.m in Sources */,
+				1166AD7F19759ED30010BFEA /* ApiValidationManager.m in Sources */,
 				117D92AE194B86E700FD6EDD /* UIAlertView+AFNetworking.m in Sources */,
 				117D9288194B86E200FD6EDD /* AFHTTPRequestOperationManager.m in Sources */,
 				11B755BF19708BA000410604 /* ApiErrorManager.m in Sources */,
@@ -1034,6 +1066,8 @@
 				1171CAC31969E30500B40A0E /* UserInfoDatabase.m in Sources */,
 				117D92AC194B86E700FD6EDD /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				117D92AA194B86E700FD6EDD /* AFNetworkActivityIndicatorManager.m in Sources */,
+				1166AD831975D79C0010BFEA /* ApiManagerValidationTests.m in Sources */,
+				1166AD811975AD4C0010BFEA /* ApiValidationManagerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

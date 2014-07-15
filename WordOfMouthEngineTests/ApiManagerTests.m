@@ -8,22 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "ApiManager.h"
-// Set the flag for a block completion handler
-#define StartAsyncBlock() __block BOOL waitingForAsyncBlock = YES
-
-// Set the flag to stop the loop
-#define StopAsyncBlock() waitingForAsyncBlock = NO
-
-// Wait and loop until flag is set
-#define WaitUntilAsyncBlockCompletes() WaitWhile(waitingForAsyncBlock)
-
-// Macro - Wait for condition to be NO/false in blocks and asynchronous calls
-#define WaitWhile(condition)\
-do {\
-while(condition) {\
-[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];\
-}\
-} while(0)
+#import "AsynTextHelper.h"
 
 @interface ApiManagerTests : XCTestCase{
     ApiManager *apiManager;

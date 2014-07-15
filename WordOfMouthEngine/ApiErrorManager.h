@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ApiErrorManager.h"
 
 /*!
  *  APIManager error codes
@@ -19,6 +20,7 @@ typedef enum {
     kAPIManagerErrorInvalidPassword,
     kAPIManagerErrorInternal,
     kAPIManagerErrorApi,
+    kAPIManagerErrorValidation,
 } kAPIManagerErrorCode;
 // Error
 static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
@@ -27,6 +29,12 @@ static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
 @interface ApiErrorManager : NSObject
 
 #pragma mark - Error Handling methods - Core
+#pragma mark - Error Handling methods - Core
++ (NSError *)getErrorWithDomain:(NSString *)domain
+                           code:(NSInteger)code
+                    description:(NSString *)description
+                         reason:(NSString *)reason
+                     suggestion:(NSString *)suggestion;
 + (NSError *)getErrorForInvalidApiResponse;
 + (NSError *)getErrorForInternalError;
 
@@ -48,4 +56,6 @@ static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
 + (NSError *)processGetProfileError:(NSError *)error;
 + (NSError *)processUpdateProfileError:(NSError *)error;
 
+#pragma mark - Error Handling methods - Display Method
++ (void)displayAlertWithError:(NSError *)error withDelegate:(id)delegate;
 @end

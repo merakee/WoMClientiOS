@@ -9,6 +9,15 @@
 #import <Foundation/Foundation.h>
 
 
+typedef enum {
+    kAPIContentCategoryRumor=1,
+    kAPIContentCategorySecret,
+    kAPIContentCategoryLocalInfo,
+    kAPIContentCategoryNews,
+    kAPIContentCategoryOther
+} kAPIContentCategory;
+
+
 @interface ContentInfo : NSObject{
     
 }

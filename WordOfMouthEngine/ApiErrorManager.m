@@ -8,6 +8,7 @@
 
 #import "ApiErrorManager.h"
 #import "JSONResponseSerializerWithData.h"
+#import "CommonUtility.h"
 
 @implementation ApiErrorManager
 
@@ -151,5 +152,13 @@
                                     suggestion:@"Please try again"];
 }
 
+
+#pragma mark - Error Handling methods - Display Method
++ (void)displayAlertWithError:(NSError *)error withDelegate:(id)delegate{
+    [CommonUtility displayAlertWithTitle:error.localizedDescription
+                                 message:[[error.localizedFailureReason stringByAppendingString:@"\n"]
+                                          stringByAppendingString:error.localizedRecoverySuggestion]
+                                delegate:delegate];
+}
 
 @end

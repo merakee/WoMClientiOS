@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AppUIManager.h"
 
-@interface EmailSignInViewHelper : NSObject
+@interface WomSignUpViewHelper : NSObject
 
 
 #pragma mark -  View Helper Methods: Views
@@ -18,8 +18,8 @@
 #pragma mark -  View Helper Methods: TextField
 + (void)setEmailTextFiled:(UITextField *)textField withDelegate:(id)delegate;
 + (void)setPasswordTextFiled:(UITextField *)textField withDelegate:(id)delegate;
++ (void)setPasswordConfirmationTextFiled:(UITextField *)textField withDelegate:(id)delegate;
 
 #pragma mark -  View Helper Methods: Buttons
-+ (UIButton *)getSignInButton;
 + (UIButton *)getSignUpButton;
 @end

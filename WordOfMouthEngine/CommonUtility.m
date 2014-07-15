@@ -330,7 +330,7 @@
                           message:msg
                           delegate:delegate
                           cancelButtonTitle:nil
-                          otherButtonTitles:@"Ok",nil];
+                          otherButtonTitles:@"ok",nil];
     // show alert
     [alert show];
     

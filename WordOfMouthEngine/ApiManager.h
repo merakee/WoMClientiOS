@@ -9,6 +9,9 @@
 #import "AFHTTPSessionManager.h"
 #import "ApiUserManager.h"
 #import "ApiContentManager.h"
+#import "ApiValidationManager.h"
+#import "ApiErrorManager.h"
+
 
 //static NSString *kAMAPI_HOST_PATH   =   @"http://localhost:3000/api/v0";
 static NSString *kAMAPI_HOST_PATH   =   @"http://wom-backend-master-env-j6e54favqn.elasticbeanstalk.com/api/v0";

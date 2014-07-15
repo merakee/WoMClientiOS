@@ -1,17 +1,17 @@
 //
-//  EmailSignInViewController.m
+//  WomSignUpViewController.m
 //  WordOfMouthEngine
 //
 //  Created by Bijit Halder on 2/15/14.
 //  Copyright (c) 2014 Bijit Halder. All rights reserved.
 //
 
-#import "EmailSignInViewController.h"
-#import "EmailSignInViewHelper.h"
+#import "WomSignUpViewController.h"
+#import "WomSignUpViewHelper.h"
 #import "AppDelegate.h"
 
 
-@implementation EmailSignInViewController
+@implementation WomSignUpViewController
 
 #pragma mark -  View Life cycle Methods
 
@@ -63,30 +63,29 @@
 #pragma mark -  Local Methods Implememtation
 - (void)setView {
     // set view
-    [EmailSignInViewHelper setView:self.view];
+    [WomSignUpViewHelper setView:self.view];
     
     // set navigation bar
     [self setNavigationBar];
     
-    
     // set buttons
-    SignInButton = [EmailSignInViewHelper getSignInButton];
-    [SignInButton addTarget:self action:@selector(SignInButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:SignInButton];
-    
-    // set buttons
-    signUpButton = [EmailSignInViewHelper getSignUpButton];
+    signUpButton = [WomSignUpViewHelper getSignUpButton];
     [signUpButton addTarget:self action:@selector(signUpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signUpButton];
     
     //text Fileds
     emailField =[[UITextField alloc] init];
-    [EmailSignInViewHelper setEmailTextFiled:emailField withDelegate:self];
+    [WomSignUpViewHelper setEmailTextFiled:emailField withDelegate:self];
     [self.view addSubview:emailField];
     
     passwordField =[[UITextField alloc] init];
-    [EmailSignInViewHelper setPasswordTextFiled:passwordField withDelegate:self];
+    [WomSignUpViewHelper setPasswordTextFiled:passwordField withDelegate:self];
     [self.view addSubview:passwordField];
+    
+    
+    passwordConfirmationField =[[UITextField alloc] init];
+    [WomSignUpViewHelper setPasswordConfirmationTextFiled:passwordConfirmationField withDelegate:self];
+    [self.view addSubview:passwordConfirmationField];
     
     
     // layout
@@ -95,13 +94,13 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,SignInButton,signUpButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,passwordConfirmationField,signUpButton);
     
     // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[emailField(36)]-12-[passwordField(emailField)]-24-[SignInButton(emailField)]-80-[signUpButton(emailField)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[emailField(36)]-12-[passwordField(emailField)]-12-[passwordConfirmationField(emailField)]-80-[signUpButton(emailField)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[emailField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[passwordField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[SignInButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[passwordConfirmationField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[signUpButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     
@@ -109,7 +108,7 @@
 
 - (void)setNavigationBar {
     // set up navigation bar
-    self.navigationItem.title = @"WoM Sign In";
+    self.navigationItem.title = @"WoM Sign Up";
     
     // right navigation button
     /*self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
@@ -142,31 +141,22 @@
 
 
 #pragma mark - Button Action Methods
-- (void)SignInButtonPressed:(id)sender {
-    // set up session manager
-    [[ApiManager sharedApiManager] signInUserWithUserTypeId:kAPIUserTypeWom
+- (void)signUpButtonPressed:(id)sender {
+    [[ApiManager sharedApiManager] signUpUserWithUserTypeId:kAPIUserTypeWom
                                                       email:emailField.text
                                                    password:passwordField.text
+                                       passwordConfirmation:passwordConfirmationField.text
                                                     success:^(void){
-                                                        
-                                                    }
-                                                    failure:^(NSError * error){
-                                                        
+                                                        [self actionsForSuccessfulUserSignUp];
+                                                    }failure:^(NSError * error){
+                                                        [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                     }];
 }
 
-- (void)signUpButtonPressed:(id)sender {
-    [CommonUtility displayAlertWithTitle:@"Not Active" message:@"Please sign in with guest account" delegate:self];
-}
-
-#pragma mark - Session Manager delegate protocal method
-- (void)apiManagerUserSignUpFailedWithError:(NSError *)error{
-    [CommonUtility displayAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:self];
-}
-- (void)apiManagerDidSignUpUser:(id)responseObject{
+#pragma mark - Api Manager Post actions methods
+- (void)actionsForSuccessfulUserSignUp{
     // switch to content view
     [(AppDelegate *)[UIApplication sharedApplication].delegate setCoreFunctionViewAsRootView];
-    
 }
 
 

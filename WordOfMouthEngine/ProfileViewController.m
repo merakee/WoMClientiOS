@@ -252,9 +252,9 @@
     if([[(UIButton *)sender currentTitle] isEqualToString:@"Sign Out"]) {
         // log out
         [[ApiManager sharedApiManager] signOutUserSuccess:^(void){
-            
+            [self signedOutSuccessfully];
         }failure:^(NSError * error){
-            
+            [ApiErrorManager displayAlertWithError:error withDelegate:self];
         }];
         
         return;

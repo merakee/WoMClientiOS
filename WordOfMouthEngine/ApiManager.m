@@ -9,8 +9,8 @@
 #import "ApiManager.h"
 #import "CommonUtility.h"
 #import "JSONResponseSerializerWithData.h"
-#import "ApiErrorManager.h"
 #import "ApiRequestHelper.h"
+
 
 @implementation ApiManager
 
@@ -118,11 +118,24 @@
 
 #pragma mark -  API Calls: User Session - Sign up
 - (void)signUpUserWithUserTypeId:(int)userTypeId
-                           email:(NSString *)email
-                        password:(NSString *)password
-            passwordConfirmation:(NSString *)passwordConfirmation
+                           email:(NSString *)email_
+                        password:(NSString *)password_
+            passwordConfirmation:(NSString *)passwordConfirmation_
                          success:(void (^)())success
                          failure:(void (^)(NSError *error))failure{
+    // process and validate
+    NSString * email = [CommonUtility trimString:email_];
+    NSString * password = [CommonUtility trimString:password_];
+    NSString * passwordConfirmation = [CommonUtility trimString:passwordConfirmation_];
+    NSError *verror =[ApiValidationManager validateSignUpWithUserTypeId:userTypeId
+                                                                  email:email
+                                                               password:password
+                                                   passwordConfirmation:passwordConfirmation];
+    if(verror){
+        failure(verror);
+        return;
+    }
+    
     // Sign up
     [self POST:kAMAPI_SIGNUP_PATH parameters:[ApiRequestHelper userSignUpParamsWithUserTypeId:userTypeId email:email password:password  andPasswordConfirmation:passwordConfirmation]
        success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -149,15 +162,43 @@
 
 #pragma mark -  API Calls: User Session - Sign In
 - (void)signInUserWithUserTypeId:(int)userTypeId
-                           email:(NSString *)email
-                        password:(NSString *)password
+                           email:(NSString *)email_
+                        password:(NSString *)password_
                          success:(void (^)())success
                          failure:(void (^)(NSError *error))failure{
+    
     // check to see if there is exiciting anonymou user. If yes, singin with that user
-    if ((userTypeId==kAPIUserTypeAnonymous)&& ([self.apiUserManager signInAnonymousUser])){
-        success();
+    if (userTypeId==kAPIUserTypeAnonymous){
+        if([self.apiUserManager signInAnonymousUser]){
+            success();
+        }
+        else{
+            [self signUpUserWithUserTypeId:userTypeId
+                                     email:nil
+                                  password:nil
+                      passwordConfirmation:nil
+                                   success:^(){
+                                       success();
+                                   }
+                                   failure:^(NSError *error){
+                                       failure(error);
+                                   }];
+        }
+        return;
     }
     
+    // process and validate
+    NSString * email = [CommonUtility trimString:email_];
+    NSString * password = [CommonUtility trimString:password_];
+    NSError *verror =[ApiValidationManager validateSignInWithUserTypeId:userTypeId
+                                                                  email:email
+                                                               password:password];
+    if(verror){
+        failure(verror);
+        return;
+    }
+    
+    // post vlidation
     [self POST:kAMAPI_SIGNIN_PATH parameters:[ApiRequestHelper userSignInParamsWithEmail:email andPassword:password]
        success:^(NSURLSessionDataTask *task, id responseObject) {
            NSError *error =  [self actionsForSuccessfulSignInWithResponse:responseObject];
@@ -285,10 +326,19 @@
 }
 
 - (void)postContentWithCategoryId:(int)categoryId
-                             text:(NSString *)text
+                             text:(NSString *)text_
                           success:(void (^)())success
                           failure:(void (^)(NSError *error))failure{
     
+    // process and validate
+    NSString * text = [CommonUtility trimString:text_];
+    NSError *verror =[ApiValidationManager validatePostCotentWithCategoryId:categoryId text:text];
+    if(verror){
+        failure(verror);
+        return;
+    }
+    
+    // post vlidation
     
     [self POST:kAMAPI_SIGNUP_PATH parameters:[ApiRequestHelper contentParamsWithUser:self.apiUserManager.currentUser categoryId:categoryId andtext:text]
        success:^(NSURLSessionDataTask *task, id responseObject) {

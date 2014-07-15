@@ -8,7 +8,7 @@
 
 #import "SignInViewController.h"
 #import "SignInViewHelper.h"
-#import "EmailSignInViewController.h"
+#import "WomSignInViewController.h"
 #import "AppDelegate.h"
 
 @implementation SignInViewController
@@ -177,9 +177,9 @@
     [CommonUtility displayAlertWithTitle:@"Not Active" message:@"Please sign in with email" delegate:self];
 }
 - (void)emailButtonPressed:(id)sender {
-    // push email view controller
-    EmailSignInViewController *emlivc =[[EmailSignInViewController   alloc] init];
-    [self.navigationController pushViewController:emlivc animated:NO];
+    // push wom Sign in controller
+    WomSignInViewController *womsivc =[[WomSignInViewController   alloc] init];
+    [self.navigationController pushViewController:womsivc animated:NO];
 }
 
 - (void)signInAsGuestButtonPressed:(id)sender {
@@ -189,27 +189,14 @@
                                                     success:^(void){
                                                         [self actionsForSuccessfulAnonymusUserSignIn];
                                                     }failure:^(NSError * error){
-                                                        
+                                                        [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                     }];
 }
 
-#pragma mark - Api Manager delegate protocal method
-// user sign up
--(void)apiManagerDidSignUpUser:(id)responseObject{
-    [self actionsForSuccessfulAnonymusUserSignIn];
-}
--(void)apiManagerUserSignUpFailedWithError:(NSError *)error{
-    [CommonUtility displayAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:self];
-}
-// user sign in;
--(void)apiManagerSigningUpAnonymousUser{
-    // show indicator for signing up process
-    NSLog(@"Signing up anonymous user");
-}
+#pragma mark - Api Manager Post actions methods
 - (void)actionsForSuccessfulAnonymusUserSignIn{
     // switch to content view
     [(AppDelegate *)[UIApplication sharedApplication].delegate setCoreFunctionViewAsRootView];
-    
 }
 
 @end
