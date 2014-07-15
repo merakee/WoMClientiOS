@@ -11,7 +11,7 @@
 #import "ApiContentManager.h"
 
 //static NSString *kAMAPI_HOST_PATH   =   @"http://localhost:3000/api/v0";
-static NSString *kAMAPI_HOST_PATH   =   @"http://wom-backend-master-env-aqha24usrc.elasticbeanstalk.com/api/v0";
+static NSString *kAMAPI_HOST_PATH   =   @"http://wom-backend-master-env-j6e54favqn.elasticbeanstalk.com/api/v0";
 //static NSString *kAMAPI_BASE_PATH   =   @"api/v0";
 static NSString *kAMAPI_SIGNUP_PATH   =   @"sign_up";
 static NSString *kAMAPI_SIGNIN_PATH   =   @"sign_in";

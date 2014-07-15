@@ -29,7 +29,10 @@
             //			userInfo[JSONResponseSerializerWithDataKey] = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 			// userInfo[JSONResponseSerializerWithDataKey] = data;
             NSError *error;
-            userInfo[JSONResponseSerializerWithDataKey] = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            NSDictionary *uInfo =[NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            if(!error){
+                userInfo[JSONResponseSerializerWithDataKey] = uInfo;
+            }
 		}
 		NSError *newError = [NSError errorWithDomain:(*error).domain code:(*error).code userInfo:userInfo];
 		(*error) = newError;

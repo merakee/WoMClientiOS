@@ -28,7 +28,6 @@ while(condition) {\
 @interface ApiManagerTests : XCTestCase{
     ApiManager *apiManager;
     ApiUser *user, *auser;
-    UserInfoDatabase *uid;
 }
 
 @end
@@ -39,21 +38,16 @@ while(condition) {\
 {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    user= [[ApiUser alloc] initWithTypeId:@2
+    user= [[ApiUser alloc] initWithTypeId:[NSNumber numberWithInt:kAPIUserTypeWom]
                                     email:@"user@example.com"
-                      authenticationToken:@"dfsr543jdfs9uhffaf4R"
+                      authenticationToken:nil
                                  signedIn:@YES];
-    auser= [[ApiUser alloc] initWithTypeId:@1
-                                     email:@"huest@example.com"
-                       authenticationToken:@"dfsr543jdfs9sfsdfaf4R"
-                                  signedIn:@YES];
-    uid = [[UserInfoDatabase  alloc] init];
     apiManager=[ApiManager sharedApiManager];
 }
 
 - (void)tearDown
 {
-    apiManager.apiUserManager.currentUser=nil;
+    //apiManager.apiUserManager.currentUser=nil;
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
@@ -63,9 +57,10 @@ while(condition) {\
     XCTAssertEqualObjects(apiManager, [ApiManager sharedApiManager],@"Must be singleton");
 }
 
-- (void)testApiManagerSignupProcess{
-    StartAsyncBlock();
+- (void)testApiManagerSignUpAnonymousProcess{
+    XCTAssertFalse([apiManager isUserSignedIn], @"User should not be signed in");
     
+    StartAsyncBlock();
     [apiManager signUpUserWithUserTypeId:kAPIUserTypeAnonymous
                                    email:nil
                                 password:nil
@@ -74,19 +69,46 @@ while(condition) {\
                                      StopAsyncBlock();
                                  }
                                  failure:^(NSError *error){
-                                     StopAsyncBlock();
                                      XCTFail(@"Must be sucessful");
+                                     NSLog(@"Error: %@",error);
+                                     StopAsyncBlock();
                                  }];
     
     // Run the Wait loop
     WaitUntilAsyncBlockCompletes();
     
-}
-- (void)testApiManagerSignInAnonymousUser{
-    XCTAssertFalse([apiManager isUserSignedIn], @"User shoud not be signed in");
     
-    // anonymous user
-    [uid saveAnonymousUserInfo:auser];
+    XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
+    XCTAssertEqual([apiManager currentUser].userTypeId.integerValue, kAPIUserTypeAnonymous, @"Current user must be an anomynous user");
+    apiManager.apiUserManager.currentUser=nil;
+}
+- (void)testApiManagerSignUpProcess{
+    XCTAssertFalse([apiManager isUserSignedIn], @"User should not be signed in");
+    
+    StartAsyncBlock();
+    [apiManager signUpUserWithUserTypeId:user.userTypeId.integerValue
+                                   email:user.email
+                                password:@"password"
+                    passwordConfirmation:@"password"
+                                 success:^(){
+                                     XCTAssert([apiManager isUserSignedIn], @"User should  be signed in");
+                                     XCTAssertEqual([apiManager currentUser].userTypeId.integerValue, user.userTypeId.integerValue);
+                                     XCTAssertEqualObjects([apiManager currentUser].email, user.email);
+                                     StopAsyncBlock();
+                                 }
+                                 failure:^(NSError *error){
+                                     XCTAssertEqualObjects(@"Email has already been taken",error.localizedFailureReason);
+                                     NSLog(@"Error: %@",error);
+                                     StopAsyncBlock();
+                                 }];
+    
+    // Run the Wait loop
+    WaitUntilAsyncBlockCompletes();
+}
+
+
+- (void)testApiManagerSignInAnonymousUser{
+    XCTAssertFalse([apiManager isUserSignedIn], @"User should not be signed in");
     
     StartAsyncBlock();
     [apiManager signInUserWithUserTypeId:kAPIUserTypeAnonymous
@@ -97,45 +119,74 @@ while(condition) {\
                                  }
                                  failure:^(NSError *error){
                                      StopAsyncBlock();
+                                     NSLog(@"Error: %@",error);
                                      XCTFail(@"Must be sucessful");
                                  }];
     
     // Run the Wait loop
     WaitUntilAsyncBlockCompletes();
     
-    XCTAssertEqual([apiManager currentUser].userTypeId.integerValue, auser.userTypeId.integerValue);
-    XCTAssertEqualObjects([apiManager currentUser].email, auser.email);
-    XCTAssertEqualObjects([apiManager currentUser].authenticationToken, auser.authenticationToken);
-    XCTAssertEqualObjects([apiManager currentUser].signedIn, auser.signedIn);
+    XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
+    XCTAssertEqual([apiManager currentUser].userTypeId.integerValue, kAPIUserTypeAnonymous);
     
     [apiManager performEnteredBackgroundActions];
-    XCTAssertFalse([apiManager isUserSignedIn], @"User shoud not be signed in");
+    XCTAssertFalse([apiManager isUserSignedIn], @"User should not be signed in");
 }
 
 - (void)testApiManagerSignInUser{
-    XCTAssertFalse([apiManager isUserSignedIn], @"User shoud not be signed in");
+    XCTAssertFalse([apiManager isUserSignedIn], @"User should not be signed in");
     
     //  user
-    [uid saveUserInfo:user];
-    XCTAssertTrue([apiManager isUserSignedIn], @"User shoud  be signed in");
+    StartAsyncBlock();
+    [apiManager signInUserWithUserTypeId:user.userTypeId.integerValue
+                                   email:user.email
+                                password:@"password"
+                                 success:^(){
+                                     StopAsyncBlock();
+                                 }
+                                 failure:^(NSError *error){
+                                     StopAsyncBlock();
+                                     NSLog(@"Error: %@",error);
+                                     XCTFail(@"Must be sucessful");
+                                 }];
+    
+    // Run the Wait loop
+    WaitUntilAsyncBlockCompletes();
+    
+    XCTAssert([apiManager isUserSignedIn], @"User should  be signed in");
     XCTAssertEqual([apiManager currentUser].userTypeId.integerValue, user.userTypeId.integerValue);
     XCTAssertEqualObjects([apiManager currentUser].email, user.email);
-    XCTAssertEqualObjects([apiManager currentUser].authenticationToken, user.authenticationToken);
-    XCTAssertEqualObjects([apiManager currentUser].signedIn, auser.signedIn);
     
     [apiManager performEnteredBackgroundActions];
-    XCTAssertTrue([apiManager isUserSignedIn], @"User shoud be signed in");
+    XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
     
     [apiManager performEnteredBackgroundActions];
     apiManager.apiUserManager.currentUser=nil;
-    XCTAssertTrue([apiManager isUserSignedIn], @"User shoud be signed in");
+    XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
     
     [apiManager performEnteredBackgroundActions];
-    [uid deleteUserInfo];
-    XCTAssertTrue([apiManager isUserSignedIn], @"User shoud be signed in");
+    XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
+}
+
+- (void)testApiManagerSignOutUser{
+    XCTAssertTrue([apiManager isUserSignedIn], @"User should be signed in");
     
-    apiManager.apiUserManager.currentUser=nil;
-    XCTAssertFalse([apiManager isUserSignedIn], @"User shoud not be signed in");
+    //  user
+    StartAsyncBlock();
+    
+    [apiManager
+     signOutUserSuccess:^(){
+         StopAsyncBlock();
+     }
+     failure:^(NSError *error){
+         StopAsyncBlock();
+         NSLog(@"Error: %@",error);
+         XCTFail(@"Must be sucessful");
+     }];
+    
+    // Run the Wait loop
+    WaitUntilAsyncBlockCompletes();
+    XCTAssertFalse([apiManager isUserSignedIn], @"User should not be signed in");
 }
 
 

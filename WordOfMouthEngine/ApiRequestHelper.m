@@ -29,6 +29,10 @@
                      @"password":password}};
 }
 +(NSDictionary *)userAuthenticationParams:(ApiUser *)user{
+    if(!user){return @{};}
+    if(user.userTypeId==nil){user.userTypeId=[NSNumber numberWithInt:kAPIUserTypeOthers];}
+    if (user.email==nil){user.email=@"";}
+    if(user.authenticationToken==nil){user.authenticationToken=@"";}
     return @{@"user":@{
                      @"user_type_id": user.userTypeId,
                      @"email":user.email,
@@ -52,7 +56,7 @@
 + (ApiUser *)getUserFromDictionary:(NSDictionary *)userInfo{
     return [[ApiUser alloc] initWithTypeId:userInfo[@"user"][@"user_type_id"]
                                      email:userInfo[@"user"][@"email"]
-                       authenticationToken:userInfo[@"user"][@"authentication_key"]
+                       authenticationToken:userInfo[@"user"][@"authentication_token"]
                                   signedIn:@YES];
 }
 

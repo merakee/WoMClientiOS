@@ -36,6 +36,41 @@
                                         reason:@"Invalid Api Response"
                                     suggestion:@"Please try again."];
 }
++ (NSError *)getErrorForInternalError{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorInvalidSignUp
+                                   description:@"Something Went Wrong"
+                                        reason:@"Internal Error in the iOS client"
+                                    suggestion:@"Please try again."];
+}
++ (NSString *)getErrorReasonFromError:(NSError *)error{
+    NSDictionary *edic=nil;
+    NSString *reason=@"";
+    if(error&&[error  userInfo]&&[error  userInfo][JSONResponseSerializerWithDataKey]){
+        edic = [error  userInfo][JSONResponseSerializerWithDataKey][@"message"];
+    }
+    
+    if(edic){
+        if([edic isKindOfClass:[NSDictionary class]]){
+            NSMutableString *eString = [[NSMutableString alloc] init];
+            for(NSString * key in edic){
+                [eString appendString:[key capitalizedString]];
+                if([edic[key] count]>=1){
+                    [eString appendFormat:@" %@\n", edic[key][0]];
+                }
+            }
+            // drop the last
+            reason = [eString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        }
+        if([edic isKindOfClass:[NSString class]]){
+            reason = (NSString *)edic;
+        }
+    }
+    else{
+        reason = error.localizedDescription;
+    }
+    return  reason;
+}
 
 #pragma mark - Error Handling methods - Session and Registration
 + (NSError *)getErrorForSignInSaveUser{
@@ -47,44 +82,73 @@
 }
 
 + (NSError *)processSignUpError:(NSError *)error{
-    NSLog(@"Localized Error: %@",[error  localizedDescription]);
-    NSLog(@"User Info: %@",[error  userInfo][JSONResponseSerializerWithDataKey]);
-    
-    return error;
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorInvalidSignUp
+                                   description:@"Sign Up Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
 }
 + (NSError *)processSignInError:(NSError *)error{
-    return error;
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorInvalidSignIn
+                                   description:@"Sign In Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
 }
 
 + (NSError *)processSignOutError:(NSError *)error{
-    return error;
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorInvalidSignOut
+                                   description:@"Sign Out Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
 }
 
 
 #pragma mark - Error Handling methods - Content
 + (NSError *)processGetContentError:(NSError *)error{
-    return error;
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Get Content Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
 }
 
 + (NSError *)processPostContentError:(NSError *)error{
-    return error;
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Post Content Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
 }
 
 
 #pragma mark - Error Handling methods - Response
 + (NSError *)processPostResponseError:(NSError *)error{
-    return error;
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Post Response Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
 }
 
 
 
 #pragma mark - Error Handling methods - User Info
 + (NSError *)processGetProfileError:(NSError *)error{
-    return error;
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Get Profile Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
 }
 
 + (NSError *)processUpdateProfileError:(NSError *)error{
-    return error;
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Get Profile Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
 }
 
 

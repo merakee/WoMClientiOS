@@ -140,9 +140,8 @@
 }
 
 - (NSError *)actionsForSuccessfulSignUpWithResponse:(id)responseObject{
-    NSLog(@"Response : %@",responseObject);
     // sign in user and save user info
-    return [self actionsForSuccessfulSignUpWithResponse:responseObject];
+    return [self actionsForSuccessfulSignInWithResponse:responseObject];
 }
 - (NSError *)actionsForFailedSignUpWithError:(NSError *)error{
     return [ApiErrorManager processSignUpError:error];
@@ -174,7 +173,6 @@
        }];
 }
 - (NSError *)actionsForSuccessfulSignInWithResponse:(id)responseObject{
-    NSLog(@"Response : %@",responseObject);
     NSError *error=nil;
     
     // save the user info
@@ -199,15 +197,24 @@
                    failure:(void (^)(NSError *error))failure{
     [self DELETE:kAMAPI_SIGNOUT_PATH parameters:[ApiRequestHelper userAuthenticationParams:self.apiUserManager.currentUser]
          success:^(NSURLSessionDataTask *task, id responseObject) {
-             [self actionsForSuccessfulSignOutWithResponse:responseObject];
-             success();
+             NSError *error = [self actionsForSuccessfulSignOutWithResponse:responseObject];
+             if(error){
+                 failure(error);
+             }
+             else{
+                 success();
+             }
          }
          failure:^(NSURLSessionDataTask *task, NSError *error) {
              failure([self actionsForFailedSignOutWithError:error]);
          }];
 }
-- (void)actionsForSuccessfulSignOutWithResponse:(id)responseObject{
-    
+- (NSError *)actionsForSuccessfulSignOutWithResponse:(id)responseObject{
+    NSError *error=nil;
+    if(![self.apiUserManager signOutUser]){
+        error =  [ApiErrorManager getErrorForInternalError];
+    }
+    return error;
 }
 - (NSError *)actionsForFailedSignOutWithError:(NSError *)error{
     return [ApiErrorManager processSignOutError:error];
@@ -257,7 +264,7 @@
 
 
 #pragma mark -  API Calls: Content
-- (void)getContentSuccess:(void (^)())success
+- (void)getContentSuccess:(ContentInfo *(^)())success
                   failure:(void (^)(NSError *error))failure{
     
     [self GET:kAMAPI_CONTENT_PATH parameters:[ApiRequestHelper userAuthenticationParams:self.apiUserManager.currentUser]

@@ -14,8 +14,11 @@
 typedef enum {
     kAPIManagerErrorNone=0,
     kAPIManagerErrorInvalidSignUp,
-    kAPIManagerErrorInvalidSingIn,
-    kSAPIManagerErrorInvalidPassword,
+    kAPIManagerErrorInvalidSignIn,
+    kAPIManagerErrorInvalidSignOut,
+    kAPIManagerErrorInvalidPassword,
+    kAPIManagerErrorInternal,
+    kAPIManagerErrorApi,
 } kAPIManagerErrorCode;
 // Error
 static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
@@ -25,6 +28,7 @@ static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
 
 #pragma mark - Error Handling methods - Core
 + (NSError *)getErrorForInvalidApiResponse;
++ (NSError *)getErrorForInternalError;
 
 #pragma mark - Error Handling methods - Session and Registration
 + (NSError *)getErrorForSignInSaveUser;

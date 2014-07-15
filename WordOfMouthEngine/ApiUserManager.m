@@ -61,7 +61,8 @@
 
 - (BOOL)signOutUser{
     if(self.currentUser && self.currentUser.userTypeId.integerValue==1){
-        return false;
+        [self resetAnonymousUser];
+        return true;
     }
     if([[[UserInfoDatabase alloc] init] deleteUserInfo]){
         self.currentUser=nil;
