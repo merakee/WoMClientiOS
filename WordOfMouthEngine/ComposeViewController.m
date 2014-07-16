@@ -150,13 +150,13 @@
 #pragma mark - Button Action Methods
 - (void)postContent:(id)sender {
     // attempt to post content
-    ContentInfo *ci =[[ContentInfo alloc] init];
-    ci.contentBody = [CommonUtility trimString:composeTextView.text];
+    ApiContent *ci =[[ApiContent alloc] init];
+    ci.contentText = [CommonUtility trimString:composeTextView.text];
     if(categoryControl.selectedSegmentIndex==UISegmentedControlNoSegment){
         ci.categoryId = kContentCategoryOther;
     }
     else{
-        ci.categoryId = categoryControl.selectedSegmentIndex+1;
+        ci.categoryId = [NSNumber numberWithInt:categoryControl.selectedSegmentIndex+1];
     }
     
     [contentManager postContent:ci];

@@ -307,7 +307,7 @@
     StartAsyncBlock();
     [apiManager postContentWithCategoryId:kAPIContentCategoryOther
                                      text:@"Local news"
-                                 success:^(){
+                                 success:^(ApiContent * content){
                                      XCTAssert(@"Must not be sucessful");
                                      StopAsyncBlock();
                                  }
@@ -327,7 +327,7 @@
     StartAsyncBlock();
     [apiManager postContentWithCategoryId:kAPIContentCategoryRumor
                                      text:@"L"
-                                  success:^(){
+                                  success:^(ApiContent * content){
                                       XCTAssert(@"Must not be sucessful");
                                       StopAsyncBlock();
                                   }
@@ -347,7 +347,7 @@
     StartAsyncBlock();
     [apiManager postContentWithCategoryId:kAPIContentCategorySecret
                                      text:@"AWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elasticc Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elastic"
-                                  success:^(){
+                                  success:^(ApiContent * content){
                                       XCTAssert(@"Must not be sucessful");
                                       StopAsyncBlock();
                                   }

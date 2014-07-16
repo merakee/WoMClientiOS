@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ApiUser.h"
-#import "UserInfoDatabase.h"
+#import "ApiUserDatabase.h"
 
 @interface ApiUserManager : NSObject{
     

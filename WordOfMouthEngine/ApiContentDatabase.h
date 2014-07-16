@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SQLiteAPI.h"
-#import "ContentInfo.h"
+#import "ApiContent.h"
 
 /*===========================================
    User Info DataBase
@@ -27,7 +27,7 @@
 #define kSQLContentTable @"content_table"
 #define kSQLCategoryTable @"category_table"
 
-@interface LocalContentDatabase : NSObject {
+@interface ApiContentDatabase : NSObject {
     SQLiteAPI                  *sqlite;
 
 
@@ -40,7 +40,7 @@
 
 
 #pragma mark - content methods
-- (ContentInfo *)getContent;
+- (ApiContent *)getContent;
 - (NSString *)getCategoryTextForId:(int)categoryId;
 
 #pragma mark -  Test Code

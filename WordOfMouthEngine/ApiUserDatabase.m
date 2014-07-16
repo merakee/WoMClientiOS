@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Indriam Inc. All rights reserved.
 //
 
-#import "UserInfoDatabase.h"
+#import "ApiUserDatabase.h"
 #import "LocalMacros.h"
 
-@implementation UserInfoDatabase
+@implementation ApiUserDatabase
 @synthesize isDatabaseOpen;
 @synthesize command;
 
@@ -40,9 +40,9 @@
 
 #pragma mark - user info methods
 - (ApiUser *)getUser{
-    int vcount = 4;
+    int vcount = 5;
     // get user info
-    self.command = [[NSString alloc] initWithFormat:@"SELECT user_type_id, email, authentication_token, signed_in FROM %@ LIMIT 1", kUDSQLUserTable];
+    self.command = [[NSString alloc] initWithFormat:@"SELECT user_id, user_type_id, email, authentication_token, signed_in FROM %@ LIMIT 1", kUDSQLUserTable];
     NSArray *results =[NSArray arrayWithArray:[sqlite executeGetCommand:self.command withDataArraySize:vcount]];
     return [self convertArrayToUser:results];
 }
@@ -53,7 +53,7 @@
     // delete all other users
     [self deleteUserInfo];
     // insert user info
-    self.command = [[NSString alloc] initWithFormat:@"INSERT INTO %@ (user_type_id, email, authentication_token, signed_in) VALUES ('%d','%@','%@','%d') ", kUDSQLUserTable,[user.userTypeId intValue],user.email,user.authenticationToken,[user.signedIn boolValue]?1:0];
+    self.command = [[NSString alloc] initWithFormat:@"INSERT INTO %@ (user_id, user_type_id, email, authentication_token, signed_in) VALUES ('%d', '%d','%@','%@','%d') ", kUDSQLUserTable,[user.userId intValue],[user.userTypeId intValue],user.email,user.authenticationToken,[user.signedIn boolValue]?1:0];
     return [sqlite executeCommand:self.command]==0;
 }
 
@@ -65,9 +65,9 @@
     return isSucessful &&[sqlite executeCommand:self.command]==0;
 }
 - (ApiUser *)getAnonymousUser{
-    int vcount = 4;
+    int vcount = 5;
     // get user info
-    self.command = [[NSString alloc] initWithFormat:@"SELECT user_type_id, email, authentication_token, signed_in FROM %@ LIMIT 1", kUDSQLAnonymousUserTable];
+    self.command = [[NSString alloc] initWithFormat:@"SELECT user_id, user_type_id, email, authentication_token, signed_in FROM %@ LIMIT 1", kUDSQLAnonymousUserTable];
     NSArray *results =[NSArray arrayWithArray:[sqlite executeGetCommand:self.command withDataArraySize:vcount]];
     return [self convertArrayToUser:results];
 }
@@ -79,7 +79,7 @@
     [self deleteAnonymousUserInfo];
     
     // insert user info
-    self.command = [[NSString alloc] initWithFormat:@"INSERT INTO %@ (user_type_id, email, authentication_token, signed_in) VALUES ('%d','%@','%@','%d') ", kUDSQLAnonymousUserTable,[user.userTypeId intValue],user.email,user.authenticationToken,[user.signedIn boolValue]?1:0];
+    self.command = [[NSString alloc] initWithFormat:@"INSERT INTO %@ (user_id, user_type_id, email, authentication_token, signed_in) VALUES ('%d', '%d','%@','%@','%d') ", kUDSQLAnonymousUserTable,[user.userId intValue],[user.userTypeId intValue],user.email,user.authenticationToken,[user.signedIn boolValue]?1:0];
     return [sqlite executeCommand:self.command]==0;
 }
 - (BOOL)deleteAnonymousUserInfo{
@@ -93,16 +93,17 @@
 
 #pragma mark - Utility Methods
 - (ApiUser *)convertArrayToUser:(NSArray *)results {
-    int vcount = 4;
+    int vcount = 5;
     if([results count]<vcount) {
         return nil;
     }
     
     
-    ApiUser *user =[[ApiUser alloc] initWithTypeId:results[0]
-                                             email:results[1]
-                               authenticationToken:results[2]
-                                          signedIn:[NSNumber numberWithBool:[results[3] intValue]==1]];
+    ApiUser *user =[[ApiUser alloc] initWithUserId:results[0]
+                                        userTypeId:results[1]
+                                             email:results[2]
+                               authenticationToken:results[3]
+                                          signedIn:[NSNumber numberWithBool:[results[4] intValue]==1]];
     return user;
 }
 
@@ -135,6 +136,7 @@
 
 - (BOOL)createUserTable{
     self.command = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ ("
+                    " user_id INTEGER NOT NULL, "
                     " user_type_id INTEGER NOT NULL, "
                     " email TEXT NOT NULL, "
                     " authentication_token TEXT, "
@@ -147,6 +149,7 @@
 
 - (BOOL)createAnonymousUserTable{
     self.command = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ ("
+                    " user_id INTEGER NOT NULL, "
                     " user_type_id INTEGER NOT NULL, "
                     " email TEXT NOT NULL, "
                     " authentication_token TEXT, "
@@ -162,10 +165,11 @@
 + (void)test {
     DBLog(@"Test results---------------------------------Start");
     int count=1;
-    UserInfoDatabase *uid =[[UserInfoDatabase alloc] init];
+    ApiUserDatabase *uid =[[ApiUserDatabase alloc] init];
     
     // test regular user
-    ApiUser *user= [[ApiUser alloc] initWithTypeId:@2
+    ApiUser *user= [[ApiUser alloc] initWithUserId:nil
+                                        userTypeId:@2
                                              email:@"user@example.com"
                                authenticationToken:@"dfsr543jdfs9uhffaf4R"
                                           signedIn:@YES];
@@ -208,7 +212,8 @@
     
     
     // test anomymous regular user
-    ApiUser *auser= [[ApiUser alloc] initWithTypeId:@1
+    ApiUser *auser= [[ApiUser alloc] initWithUserId:nil
+                                         userTypeId:@1
                                               email:@"anon@example.com"
                                 authenticationToken:@"dfsr543jdfs9uhffaf4R"
                                            signedIn:@YES];

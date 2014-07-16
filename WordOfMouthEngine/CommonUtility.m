@@ -1431,6 +1431,17 @@
     }
 }
 
+
+#pragma mark - Random text, numbers and others
+- (NSString *)getRandStringLength:(int)len{
+    static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    NSMutableString *randomString = [NSMutableString stringWithCapacity: len];
+    for (int i=0; i<len; i++) {
+        [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random() % [letters length]]];
+    }
+    return randomString;
+}
+
 #pragma mark - C Functions
 double deg2rad (double degrees) {
     return degrees * M_PI/180;

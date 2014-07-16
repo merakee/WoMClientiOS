@@ -219,7 +219,8 @@
     // save the user info
     // get user info
     ApiUser *user = [ApiRequestHelper getUserFromDictionary:responseObject];
-    if(!user){
+    
+    if(![ApiUser isValidUser:user]){
         error =  [ApiErrorManager getErrorForInvalidApiResponse];
         return error;
     }
@@ -305,7 +306,7 @@
 
 
 #pragma mark -  API Calls: Content
-- (void)getContentSuccess:(ContentInfo *(^)())success
+- (void)getContentSuccess:(ApiContent *(^)())success
                   failure:(void (^)(NSError *error))failure{
     
     [self GET:kAMAPI_CONTENT_PATH parameters:[ApiRequestHelper userAuthenticationParams:self.apiUserManager.currentUser]
@@ -327,7 +328,7 @@
 
 - (void)postContentWithCategoryId:(int)categoryId
                              text:(NSString *)text_
-                          success:(void (^)())success
+                          success:(void (^)(ApiContent * content))success
                           failure:(void (^)(NSError *error))failure{
     
     // process and validate
@@ -339,18 +340,37 @@
     }
     
     // post vlidation
+    // NSLog();
     
-    [self POST:kAMAPI_SIGNUP_PATH parameters:[ApiRequestHelper contentParamsWithUser:self.apiUserManager.currentUser categoryId:categoryId andtext:text]
+    [self POST:kAMAPI_CONTENT_PATH parameters:[ApiRequestHelper contentParamsWithUser:self.apiUserManager.currentUser categoryId:categoryId andtext:text]
        success:^(NSURLSessionDataTask *task, id responseObject) {
-           [self actionsForSuccessfulPostContentWithResponse:responseObject];
-           success();
+           NSError *error;
+           ApiContent * content = [self actionsForSuccessfulPostContentWithResponse:responseObject andError:&error];
+           if(error){
+               failure(error);
+           }
+           else{
+           success(content);
+           }
        }
        failure:^(NSURLSessionDataTask *task, NSError *error) {
+           NSLog(@"AM-------------ERROR: %@",error);
            failure([self actionsForFailedPostContentWithError:error]);
        }];
 }
-- (void)actionsForSuccessfulPostContentWithResponse:(id)responseObject{
+- (ApiContent *)actionsForSuccessfulPostContentWithResponse:(id)responseObject andError:(NSError **)error{
+    // get content info
+    ApiContent *content = [ApiRequestHelper getContentFromDictionary:responseObject];
     
+    // check validity of the content
+    if(![ApiContent isValidContent:content]){
+        if(error){
+            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
+        }
+        return nil;
+    }
+    
+    return content;
 }
 - (NSError *)actionsForFailedPostContentWithError:(NSError *)error{
     return [ApiErrorManager processPostContentError:error];

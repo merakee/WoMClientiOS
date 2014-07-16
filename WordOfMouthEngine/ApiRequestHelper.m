@@ -53,11 +53,44 @@
     [dictionaryWithUserAuth addEntriesFromDictionary:[ApiRequestHelper userAuthenticationParams:user]];
     return (NSDictionary *)dictionaryWithUserAuth;
 }
-+ (ApiUser *)getUserFromDictionary:(NSDictionary *)userInfo{
-    return [[ApiUser alloc] initWithTypeId:userInfo[@"user"][@"user_type_id"]
-                                     email:userInfo[@"user"][@"email"]
-                       authenticationToken:userInfo[@"user"][@"authentication_token"]
+
+#pragma mark - user info from response
++ (ApiUser *)getUserFromDictionary:(NSDictionary *)userDic{
+//    if([userDic[@"user"][@"id"] isKindOfClass:[NSString class]]){
+//        userDic[@"user"][@"id"] = [ApiRequestHelper getNumberFromString: userDic[@"user"][@"id"]];
+//    }
+    
+    return [[ApiUser alloc] initWithUserId:userDic[@"user"][@"id"]
+                                    userTypeId:userDic[@"user"][@"user_type_id"]
+                                     email:userDic[@"user"][@"email"]
+                       authenticationToken:userDic[@"user"][@"authentication_token"]
                                   signedIn:@YES];
 }
 
+#pragma mark - content info from response
++ (ApiContent *)getContentFromDictionary:(NSDictionary *)contentDic{
+//    if([contentDic[@"content"][@"id"] isKindOfClass:[NSString class]]){
+//        contentDic[@"content"][@"id"] = [ApiRequestHelper getNumberFromString: contentDic[@"content"][@"id"]];
+//    }
+//    if([contentDic[@"content"][@"user_id"] isKindOfClass:[NSString class]]){
+//        contentDic[@"content"][@"user_id"] = [ApiRequestHelper getNumberFromString: contentDic[@"content"][@"user_id"]];
+//    }
+    
+    return [[ApiContent alloc] initWithContentId:contentDic[@"content"][@"id"]
+                                             text:contentDic[@"content"][@"text"]
+                                         userId:contentDic[@"content"][@"user_id"]
+                                       categoryId:contentDic[@"content"][@"content_category_id"]
+                                        timeStamp:contentDic[@"content"][@"created_at"]
+                                      totalSpread:contentDic[@"content"][@"total_spread"]
+                                      spreadCount:contentDic[@"content"][@"spread_count"]
+                                        killCount:contentDic[@"content"][@"kill_count"]
+                                  noResponseCount:contentDic[@"content"][@"no_response_count"]];
+}
+
+#pragma mark - Object convertion
++ (NSNumber *)getNumberFromString:(NSString *)string{
+    NSNumberFormatter *nf =[[NSNumberFormatter alloc] init];
+    [nf setNumberStyle:NSNumberFormatterNoStyle];
+    return [nf numberFromString:string];
+}
 @end

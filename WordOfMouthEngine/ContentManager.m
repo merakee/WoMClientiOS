@@ -25,11 +25,11 @@
 
 - (void)setAllDefaults {
     self.delegate=nil;
-    localContentDatabase = [[LocalContentDatabase alloc] init];
+    localContentDatabase = [[ApiContentDatabase alloc] init];
 }
 
 #pragma mark -  instance Methods
-- (void)postContent:(ContentInfo *)ci{
+- (void)postContent:(ApiContent *)ci{
     // do things to post content
     [self setUpContentWithInfo:ci];
     
@@ -45,7 +45,7 @@
     }
 }
 
-- (void)setUpContentWithInfo:(ContentInfo *)ci{
+- (void)setUpContentWithInfo:(ApiContent *)ci{
     
 }
 #pragma mark - Delegate method
@@ -63,7 +63,7 @@
 
 
 #pragma mark - Content methods
-- (ContentInfo *)getContent{
+- (ApiContent *)getContent{
     return [localContentDatabase getContent];
 }
 + (NSString *)getRandomString{
@@ -73,17 +73,17 @@
     
     return [string substringWithRange:NSMakeRange(0,16+[CommonUtility pickRandom:500])];
 }
-+ (void)killContent:(ContentInfo *)ci{
++ (void)killContent:(ApiContent *)ci{
     // mark content for this user as killed
 }
-+ (void)spreadContent:(ContentInfo *)ci{
++ (void)spreadContent:(ApiContent *)ci{
     // mark content for this user as spread
 }
 
 #pragma mark - Post content method
-- (NSError *)isPostValid:(ContentInfo *)ci{
+- (NSError *)isPostValid:(ApiContent *)ci{
     // if empty body
-    if([CommonUtility isEmptyString:ci.contentBody]){
+    if([CommonUtility isEmptyString:ci.contentText]){
         NSError *error =[CommonUtility getErrorWithDomain:kAppErrorDomainContent
                                                      code:kContentErrorPostEmpty
                                               description:@"Empty Post"
@@ -92,7 +92,7 @@
         return error;
     }
     // too short
-    if([ci.contentBody length]<kContentPostLengthMin){
+    if([ci.contentText length]<kContentPostLengthMin){
         NSError *error =[CommonUtility getErrorWithDomain:kAppErrorDomainContent
                                                      code:kContentErrorPostTooShort
                                               description:@"Post too short"
@@ -102,7 +102,7 @@
     }
     
     // too long
-    if([ci.contentBody length]>kContentPostLengthMax){
+    if([ci.contentText length]>kContentPostLengthMax){
         NSError *error =[CommonUtility getErrorWithDomain:kAppErrorDomainContent
                                                      code:kContentErrorPostTooLong
                                               description:@"Post too long"
@@ -112,7 +112,7 @@
     }
 
     // invalid category
-    if((ci.categoryId<1)||((ci.categoryId>[[ContentManager getActiveCategoryList] count]))){
+    if((ci.categoryId.intValue<1)||((ci.categoryId.intValue>[[ContentManager getActiveCategoryList] count]))){
         NSError *error =[CommonUtility getErrorWithDomain:kAppErrorDomainContent
                                                      code:kContentErrorInvalidCategory
                                               description:@"Invalid Category"

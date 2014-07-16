@@ -29,7 +29,7 @@
 
 - (void)setCurrentUser{
     self.currentUser = [[ApiUser alloc] init];
-    self.currentUser = [[[UserInfoDatabase alloc] init] getUser];
+    self.currentUser = [[[ApiUserDatabase alloc] init] getUser];
 }
 #pragma mark - Utility Methods
 - (BOOL) isUserSignedIn{
@@ -43,7 +43,7 @@
 }
 
 - (BOOL) signInAnonymousUser{
-    ApiUser *user =[[[UserInfoDatabase alloc] init] getAnonymousUser];
+    ApiUser *user =[[[ApiUserDatabase alloc] init] getAnonymousUser];
     if(user){
         self.currentUser=user;
         return true;
@@ -52,7 +52,7 @@
 }
 
 - (BOOL) signInUser:(ApiUser *)user{
-    if([[[UserInfoDatabase alloc] init] saveUserInfo:user]){
+    if([[[ApiUserDatabase alloc] init] saveUserInfo:user]){
         self.currentUser=user;
         return true;
     }
@@ -60,18 +60,18 @@
 }
 
 - (BOOL)signOutUser{
-    if(self.currentUser && self.currentUser.userTypeId.integerValue==1){
+    if(self.currentUser && self.currentUser.userTypeId.integerValue==kAPIUserTypeAnonymous){
         [self resetAnonymousUser];
         return true;
     }
-    if([[[UserInfoDatabase alloc] init] deleteUserInfo]){
+    if([[[ApiUserDatabase alloc] init] deleteUserInfo]){
         self.currentUser=nil;
         return true;
     }
     return false;
 }
 - (void) resetAnonymousUser{
-    if(self.currentUser.userTypeId.integerValue==1){
+    if(self.currentUser.userTypeId.integerValue==kAPIUserTypeAnonymous){
         self.currentUser=nil;
     }
 }
@@ -80,10 +80,10 @@
 - (BOOL)signInAndSaveUserInfo:(ApiUser*)user{
     BOOL didSave = false;
     if(user.userTypeId.intValue ==1){
-        didSave = [[[UserInfoDatabase alloc] init] saveAnonymousUserInfo:user];
+        didSave = [[[ApiUserDatabase alloc] init] saveAnonymousUserInfo:user];
     }
     else if (user.userTypeId.intValue ==2){
-        didSave = [[[UserInfoDatabase alloc] init] saveUserInfo:user];
+        didSave = [[[ApiUserDatabase alloc] init] saveUserInfo:user];
     }
     
     self.currentUser=user;

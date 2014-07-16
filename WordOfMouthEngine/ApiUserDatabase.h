@@ -27,7 +27,7 @@ static int kUDLocalUserInfoDatabaseMaxArraySize = 20;
 #define kUDSQLUserTable @"user_table"
 #define kUDSQLAnonymousUserTable @"anonymous_user_table"
 
-@interface UserInfoDatabase : NSObject {
+@interface ApiUserDatabase : NSObject {
     SQLiteAPI                  *sqlite;
 
 
@@ -45,6 +45,7 @@ static int kUDLocalUserInfoDatabaseMaxArraySize = 20;
 - (BOOL)deleteUserInfo;
 - (ApiUser *)getAnonymousUser;
 - (BOOL)saveAnonymousUserInfo:(ApiUser *)user;
+- (BOOL)deleteAnonymousUserInfo;
 
 #pragma mark -  Test Code
 + (void)test;
@@ -53,6 +54,7 @@ static int kUDLocalUserInfoDatabaseMaxArraySize = 20;
 
 /*
  CREATE TABLE user_table (
+ user_id INTEGER NOT NULL,
  user_type_id INTEGER NOT NULL,
  email TEXT NOT NULL,
  authentication_token TEXT,

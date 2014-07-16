@@ -12,7 +12,7 @@
 @interface ApiUserManagerTests : XCTestCase{
     ApiUserManager      *aum;
     ApiUser *user, *auser;
-    UserInfoDatabase *uid;
+    ApiUserDatabase *uid;
 }
 
 @end
@@ -22,15 +22,17 @@
 - (void)setUp{
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    user= [[ApiUser alloc] initWithTypeId:@2
+    user= [[ApiUser alloc] initWithUserId:nil
+                                   userTypeId:@2
                                     email:@"user@example.com"
                       authenticationToken:@"dfsr543jdfs9uhffaf4R"
                                  signedIn:@YES];
-    auser= [[ApiUser alloc] initWithTypeId:@1
+    auser= [[ApiUser alloc] initWithUserId:nil
+                                userTypeId:@1
                                      email:@"huest@example.com"
                        authenticationToken:@"dfsr543jdfs9sfsdfaf4R"
                                   signedIn:@YES];
-    uid = [[UserInfoDatabase  alloc] init];
+    uid = [[ApiUserDatabase  alloc] init];
 }
 
 - (void)tearDown{
@@ -50,7 +52,7 @@
     XCTAssertNil(aum.currentUser,"Current User must be nil");
     XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");
     aum.currentUser = user;
-    XCTAssertTrue([aum isUserSignedIn],"User should be singed in");
+    XCTAssert([aum isUserSignedIn],"User should be singed in");
     aum.currentUser.signedIn=@NO;
     XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");
     aum.currentUser.signedIn=@YES;
@@ -64,7 +66,7 @@
     aum.currentUser.email=nil;
     XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");
     aum.currentUser.email=@"dfasdh";
-    XCTAssertTrue([aum isUserSignedIn],"User should be singed in");
+    XCTAssert([aum isUserSignedIn],"User should be singed in");
 }
 
 - (void)testApiUserManagerWithSignedInUser{
@@ -73,7 +75,7 @@
     aum =[[ApiUserManager alloc] init];
     // check if the user is nil
     XCTAssertNotNil(aum.currentUser,"Current User must not be nil");
-    XCTAssertTrue([aum isUserSignedIn],"User should be singed in");
+    XCTAssert([aum isUserSignedIn],"User should be singed in");
     XCTAssertEqual(aum.currentUser.userTypeId.integerValue, user.userTypeId.integerValue);
     XCTAssertEqualObjects(aum.currentUser.email, user.email);
     XCTAssertEqualObjects(aum.currentUser.authenticationToken, user.authenticationToken);
@@ -95,17 +97,17 @@
     // check if the user is nil
     XCTAssertNil(aum.currentUser,"Current User must be nil");
     // sign in user
-    XCTAssertTrue([aum signInUser:user], @"Should be able to sign in user");
+    XCTAssert([aum signInUser:user], @"Should be able to sign in user");
     // check if the user is nil
     XCTAssertNotNil(aum.currentUser,"Current User must not be nil");
-    XCTAssertTrue([aum isUserSignedIn],"User should be singed in");
+    XCTAssert([aum isUserSignedIn],"User should be singed in");
     XCTAssertEqual(aum.currentUser.userTypeId.integerValue, user.userTypeId.integerValue);
     XCTAssertEqualObjects(aum.currentUser.email, user.email);
     XCTAssertEqualObjects(aum.currentUser.authenticationToken, user.authenticationToken);
     XCTAssertEqualObjects(aum.currentUser.signedIn, user.signedIn);
     
     
-    XCTAssertTrue([aum signOutUser], @"Should be able to sign out user");
+    XCTAssert([aum signOutUser], @"Should be able to sign out user");
     // check if the user is nil
     XCTAssertNil(aum.currentUser,"Current User must be nil");
     XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");
@@ -117,31 +119,31 @@
     // check if the user is nil
     XCTAssertNil(aum.currentUser,"Current User must be nil");
     // sign in user
-    XCTAssertTrue([aum signInAnonymousUser], @"Should be able to sign in user");
+    XCTAssert([aum signInAnonymousUser], @"Should be able to sign in user");
     // check if the user is nil
     XCTAssertNotNil(aum.currentUser,"Current User must not be nil");
-    XCTAssertTrue([aum isUserSignedIn],"User should be singed in");
+    XCTAssert([aum isUserSignedIn],"User should be singed in");
     XCTAssertEqual(aum.currentUser.userTypeId.integerValue, auser.userTypeId.integerValue);
     XCTAssertEqualObjects(aum.currentUser.email, auser.email);
     XCTAssertEqualObjects(aum.currentUser.authenticationToken, auser.authenticationToken);
     XCTAssertEqualObjects(aum.currentUser.signedIn, auser.signedIn);
     
     
-    XCTAssertFalse([aum signOutUser], @"Should not be able to sign out user");
+    XCTAssert([aum signOutUser], @"Should be able to sign out user");
     // check if the user is nil
-    XCTAssertNotNil(aum.currentUser,"Current User must not be nil");
-    XCTAssertTrue([aum isUserSignedIn],"User should be singed in");
+    XCTAssertNil(aum.currentUser,"Current User must be nil");
+    XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");
     
     // sign in user
-    XCTAssertTrue([aum signInUser:user], @"Should be able to sign in user");
+    XCTAssert([aum signInUser:user], @"Should be able to sign in user");
     // check if the user is nil
     XCTAssertNotNil(aum.currentUser,"Current User must not be nil");
-    XCTAssertTrue([aum isUserSignedIn],"User should be singed in");
+    XCTAssert([aum isUserSignedIn],"User should be singed in");
     XCTAssertEqual(aum.currentUser.userTypeId.integerValue, user.userTypeId.integerValue);
     XCTAssertEqualObjects(aum.currentUser.email, user.email);
     XCTAssertEqualObjects(aum.currentUser.authenticationToken, user.authenticationToken);
     XCTAssertEqualObjects(aum.currentUser.signedIn, user.signedIn);
-    XCTAssertTrue([aum signOutUser], @"Should be able to sign out user");
+    XCTAssert([aum signOutUser], @"Should be able to sign out user");
     // check if the user is nil
     XCTAssertNil(aum.currentUser,"Current User must be nil");
     XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");

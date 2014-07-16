@@ -10,8 +10,8 @@
 
 
 #import "ApiManager.h"
-#import "LocalContentDatabase.h"
-#import "UserInfoDatabase.h"
+#import "ApiContentDatabase.h"
+#import "ApiUserDatabase.h"
 #import "ApiManager.h"
 
 @implementation DebugTestManager
@@ -21,14 +21,14 @@
 + (void)runDebugTests{
     //[self testApiManager];
     //[self testLocalContentDatabase];
-    //[self testUserInfoDatabase];
-    [self testApiManager];
+    //[self testApiUserDatabase];
+    //[self testApiManager];
 }
 
 
 #pragma mark -  individual test methods
-+ (void)testUserInfoDatabase{
-    [UserInfoDatabase test];
++ (void)testApiUserDatabase{
+    [ApiUserDatabase test];
 }
 
 + (void)testApiManager{
@@ -39,6 +39,6 @@
 }
 
 + (void)testLocalContentDatabase{
-    [LocalContentDatabase test];
+    [ApiContentDatabase test];
 }
 @end

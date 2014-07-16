@@ -112,6 +112,11 @@
 + (int)removeInt:(int)number fromArray:(int *)arrayName withSize:(int)arraySize;
 + (void)randomizeArray:(int *)array withSize:(int)arraySize;
 + (NSArray *)randomizeNSArray:(NSArray *)array withCorrectIndex:(int *)cind;
+/*!
+ *  Returns a random integers between 0 and maxInt-1
+ *  @param maxInt The upper limit on range of values returned
+ *  @return A random Integer between 0 andmaxInt-1: [0, maxInt-1]
+ */
 + (int)pickRandom:(int)maxInt;
 + (int)pickRandomFrom:(int)minLimit to:(int)maxLimit;
 + (BOOL)findRandomIndices:(int *)array withSize:(int)arraySize forMaxInd:(int)maxInd;
@@ -260,6 +265,9 @@
 #pragma mark -  Vector print methods
 + (void)printIntVec:(int *)vec ofSize:(int)size;
 + (void)printFloatVec:(float *)vec ofSize:(int)size;
+
+#pragma mark - Random text, numbers and others
+- (NSString *)getRandStringLength:(int)len;
 
 #pragma mark - C Functions
 double deg2rad (double degrees);

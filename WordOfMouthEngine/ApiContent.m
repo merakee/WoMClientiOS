@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Bijit Halder. All rights reserved.
 //
 
-#import "ContentInfo.h"
+#import "ApiContent.h"
 #import "LocalMacros.h"
 
-@implementation ContentInfo
+@implementation ApiContent
 
 @synthesize contentId;
-@synthesize contentBody;
-@synthesize authorId;
+@synthesize contentText;
+@synthesize userId;
 @synthesize categoryId;
 @synthesize timeStamp;
 @synthesize totalSpread;
@@ -23,20 +23,20 @@
 
 
 #pragma mark - Init Methods
-- (id)initWithContentId:(NSInteger)contentId_
-                   body:(NSString *)contentBody_
-               authorId:(NSInteger )authorId_
-             categoryId:(NSInteger )categoryId_
+- (id)initWithContentId:(NSNumber *)contentId_
+                   text:(NSString *)contentText_
+               userId:(NSNumber * )userId_
+             categoryId:(NSNumber * )categoryId_
               timeStamp:(NSString *)timeStamp_
-            totalSpread:(NSInteger )totalSpread_
-            spreadCount:(NSInteger )spreadCount_
-              killCount:(NSInteger )killCount_
-        noResponseCount:(NSInteger )noResponseCount_{
+            totalSpread:(NSNumber * )totalSpread_
+            spreadCount:(NSNumber * )spreadCount_
+              killCount:(NSNumber * )killCount_
+        noResponseCount:(NSNumber * )noResponseCount_{
     if(self = [super init]) {
         // initialization code
         self.contentId = contentId_;
-        self.contentBody = contentBody_;
-        self.authorId = authorId_;
+        self.contentText = contentText_;
+        self.userId = userId_;
         self.categoryId = categoryId_;
         self.timeStamp = timeStamp_;
         self.totalSpread = totalSpread_;
@@ -49,11 +49,17 @@
 }
 
 #pragma mark - Utility Methods
-+(void)printContentInfo:(ContentInfo *)ci {
++(BOOL)isValidContent:(ApiContent *)content{
+    return (content.contentId&&(content.contentId.intValue>0)
+            &&content.categoryId&&(content.categoryId.intValue>=1)&&(content.categoryId.intValue<=4)
+            &&content.contentText&&content.userId);
+}
+
++(void)printContentInfo:(ApiContent *)ci {
     DBLog(@"Content info:--------------------");
     DBLog(@"Content Id: %ld",(long)ci.contentId);
-    DBLog(@"Body: %@",ci.contentBody);
-    DBLog(@"Author Id: %ld",(long)ci.authorId);
+    DBLog(@"Text: %@",ci.contentText);
+    DBLog(@"Author Id: %ld",(long)ci.userId);
     DBLog(@"Category Id: %ld",(long)ci.categoryId);
     DBLog(@"Time Stamp: %@",ci.timeStamp);
     DBLog(@"Total Spread: %ld",(long)ci.totalSpread);

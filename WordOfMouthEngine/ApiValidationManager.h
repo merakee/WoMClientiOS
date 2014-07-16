@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ApiUser.h"
-#import "ContentInfo.h"
+#import "ApiContent.h"
 #import "ApiErrorManager.h"
 
 static const int kAPIValidationPasswordMinLentgh = 8;

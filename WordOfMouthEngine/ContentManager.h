@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ContentInfo.h"
-#import "LocalContentDatabase.h"
+#import "ApiContent.h"
+#import "ApiContentDatabase.h"
 #import "AppConstants.h"
 
 #define kAppErrorDomainContent  @"ContentErrorDomain"
@@ -36,18 +36,18 @@ static const int kContentPostLengthMax = 500;
 
 
 @interface ContentManager : NSObject{
-    LocalContentDatabase  *localContentDatabase;
+    ApiContentDatabase  *localContentDatabase;
 }
 
 @property (assign, nonatomic) id <ContentManagerDelegate>  delegate;
 
 #pragma mark -  instance Methods
-- (void)postContent:(ContentInfo *)ci;
+- (void)postContent:(ApiContent *)ci;
 
 #pragma mark - Content methods
-- (ContentInfo *)getContent;
-+ (void)killContent:(ContentInfo *)ci;
-+ (void)spreadContent:(ContentInfo *)ci;
+- (ApiContent *)getContent;
++ (void)killContent:(ApiContent *)ci;
++ (void)spreadContent:(ApiContent *)ci;
 
 #pragma mark - Utility methods
 + (NSArray *)getActiveCategoryList;

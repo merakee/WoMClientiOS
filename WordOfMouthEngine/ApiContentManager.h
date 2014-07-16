@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ContentInfo.h"
+#import "ApiContent.h"
 
 @interface ApiContentManager : NSObject
 

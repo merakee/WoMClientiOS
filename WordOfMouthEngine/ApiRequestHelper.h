@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ApiUser.h"
+#import "ApiContent.h"
 
 @interface ApiRequestHelper : NSObject
 
@@ -18,4 +19,25 @@
 +(NSDictionary *)contentParamsWithUser:(ApiUser *)user categoryId:(int)categoryId andtext:(NSString *)text;
 +(NSDictionary *)responseParamsWith:(ApiUser *)user contentId:(int)contentId andResponse:(NSNumber *)response;
 +(NSDictionary *)addUserAuth:(ApiUser *)user toDictionary:(NSDictionary *)infoDictionary;
-+ (ApiUser *)getUserFromDictionary:(NSDictionary *)userInfo;@end
+
+
+#pragma mark - user info from response
+/*!
+ *  Converts Json Dictionary to ApiUser Object
+ *  @param userDic User Dictionary containing User information
+ *  @return Returns ApiUser Object with values from userDic
+ *  @discussion Assings noResponseCount to nil since API does not return the value 
+ */
++ (ApiUser *)getUserFromDictionary:(NSDictionary *)userDic;
+
+
+#pragma mark - content info from response
+/*!
+ *  Converts Json Dictionary to ApiConent Object
+ *  @param contentDic Content Dictionary containing content information
+ *  @return Returns ApiContent Object with values from contentDic. 
+ *  @
+ */
++ (ApiContent *)getContentFromDictionary:(NSDictionary *)contentDic;
+
+@end

@@ -40,7 +40,7 @@
     // init content manager
     contentManager = [[ContentManager alloc] init];
     // init conent
-    contentInfo =[[ContentInfo  alloc] init];
+    contentInfo =[[ApiContent  alloc] init];
 }
 
 - (void) viewDidLayoutSubviews {
@@ -101,8 +101,8 @@
     // change category color
     [ContentViewHelper updateTextBackGroundView:textBackGround forCategory:(ACMContentCategory)contentInfo.categoryId];
     
-    contentTextView.text = contentInfo.contentBody;
-    //NSAttributedString *str = [[NSAttributedString alloc] initWithString:contentInfo.contentBody];
+    contentTextView.text = contentInfo.contentText;
+    //NSAttributedString *str = [[NSAttributedString alloc] initWithString:contentInfo.contentText];
     //contentTextView.attributedText =str ;
     // center virtically
     [AppUIManager  verticallyAlignTextView:contentTextView];

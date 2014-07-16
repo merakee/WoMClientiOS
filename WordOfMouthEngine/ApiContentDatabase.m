@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Indriam Inc. All rights reserved.
 //
 
-#import "LocalContentDatabase.h"
+#import "ApiContentDatabase.h"
 #import "LocalMacros.h"
 
-@implementation LocalContentDatabase
+@implementation ApiContentDatabase
 @synthesize isDatabaseOpen;
 @synthesize command;
 
@@ -30,7 +30,7 @@
 
 
 #pragma mark - content methods
-- (ContentInfo *)getContent{
+- (ApiContent *)getContent{
     int vcount = 8;
     // get info
     self.command = [[NSString alloc] initWithFormat:@"SELECT rowid, content_text, author_id, category_id, total_spread,  spread_count, kill_count, noresponse_count FROM %@ ORDER BY RANDOM() LIMIT 1", kSQLContentTable];
@@ -51,30 +51,30 @@
 }
 
 #pragma mark - Utility Methods
-- (ContentInfo *)convertArrayToContentInfo:(NSArray *)results {
+- (ApiContent *)convertArrayToContentInfo:(NSArray *)results {
     int vcount = 8;
     if([results count]<vcount) {
         return nil;
     }
-    ContentInfo *ci =[[ContentInfo alloc] initWithContentId:[results[0] intValue]
-                                                       body:results[1]
-                                                   authorId:[results[2] intValue]
-                                                 categoryId:[results[3] intValue]
+    ApiContent *ci =[[ApiContent alloc] initWithContentId:results[0]
+                                                       text:results[1]
+                                                   userId:results[2]
+                                                 categoryId:results[3]
                                                   timeStamp:@""
-                                                totalSpread:[results[4] intValue]
-                                                spreadCount:[results[5] intValue]
-                                                  killCount:[results[6] intValue]
-                                            noResponseCount:[results[7] intValue]];
+                                                totalSpread:results[4]
+                                                spreadCount:results[5]
+                                                  killCount:results[6]
+                                            noResponseCount:results[7]];
     return ci;
 }
 
 #pragma mark -  Test Code
 + (void)test {
     DBLog(@"Test results---------------------------------Start");
-    LocalContentDatabase *lcd =[[LocalContentDatabase alloc] init];
-    [ContentInfo printContentInfo:[lcd getContent]];
-    [ContentInfo printContentInfo:[lcd getContent]];
-    [ContentInfo printContentInfo:[lcd getContent]];
+    ApiContentDatabase *lcd =[[ApiContentDatabase alloc] init];
+    [ApiContent printContentInfo:[lcd getContent]];
+    [ApiContent printContentInfo:[lcd getContent]];
+    [ApiContent printContentInfo:[lcd getContent]];
     DBLog(@"%@",[lcd getCategoryTextForId:1]);
     DBLog(@"%@",[lcd getCategoryTextForId:2]);
     DBLog(@"%@",[lcd getCategoryTextForId:3]);
