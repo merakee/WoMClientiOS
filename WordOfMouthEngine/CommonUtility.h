@@ -163,6 +163,12 @@
 +(NSString *)wordsForInt:(NSInteger)val;
 +(NSString *)wordsForFloat:(float)val;
 +(NSString *)wordsForNumber:(NSNumber *)val;
+/*!
+ *  Converts NSString to NSNumber using NSNumberFormatter with no style
+ *  @param string The NSString containing the Number
+ *  @return An NSNumber with the value
+ */
++ (NSNumber *)getNumberFromString:(NSString *)string;
 
 #pragma mark - Size and Shape methods
 + (CGRect)scaleRect:(CGRect)rect byScale:(float)scale;

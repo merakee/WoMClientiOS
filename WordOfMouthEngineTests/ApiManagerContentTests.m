@@ -33,16 +33,18 @@
 
 - (void)tearDown
 {
-    apiManager.apiUserManager.currentUser=nil;
+    //apiManager.apiUserManager.currentUser=nil;
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
-- (void)testApiManagerSignUpAnonymousUserFirstTimeForConent{
+- (void)testApiManagerSignUpAnonymousUserFirstTimeForContent{
     //XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
     
-    // delete anonymous user
+    // delete all user
     XCTAssert([[[ApiUserDatabase alloc] init] deleteAnonymousUserInfo],@"Delete anonymous user info should be successful");
+    XCTAssert([[[ApiUserDatabase alloc] init] deleteUserInfo],@"Delete  user info should be successful");
+    apiManager.apiUserManager.currentUser =nil;
     
     StartAsyncBlock();
     [apiManager signUpUserWithUserTypeId:kAPIUserTypeAnonymous
@@ -64,7 +66,6 @@
     
     XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
     XCTAssertEqual([apiManager currentUser].userTypeId.integerValue, kAPIUserTypeAnonymous, @"Current user must be an anomynous user");
-    apiManager.apiUserManager.currentUser=nil;
 }
 
 #pragma mark - Content
@@ -73,19 +74,15 @@
     int cid = [CommonUtility pickRandom:4]+1;
     NSString *text =[PlaceHolderFactory sentencesWithNumber:2];
     ApiUser *currentUser =apiManager.apiUserManager.currentUser;
-    XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
-    
-    NSLog(@"Calss................: %@",currentUser.userId.class);
     //  user
     StartAsyncBlock();
     
     [apiManager     postContentWithCategoryId:cid
                                          text:text
                                       success:^(ApiContent * content){
-                                          XCTAssertEqual(content.categoryId.intValue, cid);
+                                          XCTAssertEqual(content.categoryId.integerValue, cid);
                                           XCTAssertEqualObjects(content.contentText,text);
-                                          NSLog(@"Calss: %@",content.userId.class);
-                                          XCTAssertEqualObjects(content.userId,currentUser.userId);
+                                          XCTAssertEqual(content.userId.integerValue,currentUser.userId.integerValue);
                                           StopAsyncBlock();
                                       }
                                       failure:^(NSError *error){
@@ -99,6 +96,30 @@
     
     // delete anonymous user
     //XCTAssert([[[ApiUserDatabase alloc] init] deleteAnonymousUserInfo],@"Delete anonymous user info should be successful");
+}
+
+
+- (void)testApiManagerGetContent{
+    XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
+    //  user
+    StartAsyncBlock();
+    [apiManager     getContentSuccess:^(NSArray *contentArray){
+        XCTAssert([contentArray count]==20,@"There must be 20 contents");
+        StopAsyncBlock();
+    }
+                              failure:^(NSError *error){
+                                  StopAsyncBlock();
+                                  NSLog(@"Error: %@",error);
+                                  XCTFail(@"Must be sucessful");
+                              }];
+    
+    // Run the Wait loop
+    WaitUntilAsyncBlockCompletes();
+    
+    // delete all user
+    //XCTAssert([[[ApiUserDatabase alloc] init] deleteAnonymousUserInfo],@"Delete anonymous user info should be successful");
+    //XCTAssert([[[ApiUserDatabase alloc] init] deleteUserInfo],@"Delete  user info should be successful");
+    //apiManager.apiUserManager.currentUser =nil;
 }
 
 #pragma mark - Response

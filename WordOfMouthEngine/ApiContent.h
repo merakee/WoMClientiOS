@@ -26,6 +26,7 @@ typedef enum {
 @property NSString *contentText;
 @property NSNumber * userId;
 @property NSNumber * categoryId;
+@property NSString *photoToken;
 @property NSString *timeStamp;
 @property NSNumber * totalSpread;
 @property NSNumber * spreadCount;
@@ -37,6 +38,7 @@ typedef enum {
                    text:(NSString *)contentText_
                userId:(NSNumber * )userId_
              categoryId:(NSNumber * )categoryId_
+              photoToken:(NSString *)photoToken_
               timeStamp:(NSString *)timeStamp_
             totalSpread:(NSNumber * )totalSpread_
             spreadCount:(NSNumber * )spreadCount_
@@ -48,7 +50,7 @@ typedef enum {
  *  Valdiates existence of content properties: contentId, categoryId, text, and userId
  *  @param content An ApiContent Object
  *  @return BOOL value indicating validity of the content object
- *  @discussion To be valid contentId must be a positive ineger (>=1) and contentTypeId must be between 1 and 4: [1 4]
+ *  @discussion To be valid contentId must be a positive integer (>=1) and contentTypeId must be between 1 and 4: [1 4]
  */
 +(BOOL)isValidContent:(ApiContent *)content;
 /*!

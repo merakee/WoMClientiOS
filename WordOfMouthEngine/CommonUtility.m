@@ -915,6 +915,11 @@
     [numberFormatter setNumberStyle:NSNumberFormatterSpellOutStyle];
     return [numberFormatter stringFromNumber:val];
 }
++ (NSNumber *)getNumberFromString:(NSString *)string{
+    NSNumberFormatter *nf =[[NSNumberFormatter alloc] init];
+    [nf setNumberStyle:NSNumberFormatterNoStyle];
+    return [nf numberFromString:string];
+}
 
 #pragma mark - Size and Shape methods
 + (CGRect)scaleRect:(CGRect)rect byScale:(float)scale {

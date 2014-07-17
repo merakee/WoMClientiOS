@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ApiUser.h"
 #import "ApiContent.h"
+#import "ApiUserResponse.h"
 
 @interface ApiRequestHelper : NSObject
 
@@ -33,11 +34,26 @@
 
 #pragma mark - content info from response
 /*!
+ *  Converts get content response object and retures array of contents. Even for single content it retunrs an array. It returns an empty array if there is not content and retunrs nil 
+ *  if there is error - missing and invalid values in the response object
+ *  @return An NSArray of ApiContent objects 
+ */
++ (NSArray *)getContentArrayFromDictionary:(NSDictionary *)contentsDic;
+
+/*!
  *  Converts Json Dictionary to ApiConent Object
- *  @param contentDic Content Dictionary containing content information
+ *  @param contentDic Dictionary containing content information
  *  @return Returns ApiContent Object with values from contentDic. 
  *  @
  */
 + (ApiContent *)getContentFromDictionary:(NSDictionary *)contentDic;
 
+#pragma mark - content info from response
+/*!
+ *  Converts Json Dictionary to UserResponse Object
+ *  @param UserResponseDic Dictionary containing User Response information
+ *  @return Returns ApiUserResponse Object with values from cUserResponseDic.
+ *  @
+ */
++ (ApiUserResponse *)getUserResponseFromDictionary:(NSDictionary *)userResponseDic;
 @end

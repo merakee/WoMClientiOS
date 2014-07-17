@@ -15,6 +15,7 @@
 @synthesize contentText;
 @synthesize userId;
 @synthesize categoryId;
+@synthesize photoToken;
 @synthesize timeStamp;
 @synthesize totalSpread;
 @synthesize spreadCount;
@@ -25,8 +26,9 @@
 #pragma mark - Init Methods
 - (id)initWithContentId:(NSNumber *)contentId_
                    text:(NSString *)contentText_
-               userId:(NSNumber * )userId_
+                 userId:(NSNumber * )userId_
              categoryId:(NSNumber * )categoryId_
+             photoToken:(NSString *)photoToken_
               timeStamp:(NSString *)timeStamp_
             totalSpread:(NSNumber * )totalSpread_
             spreadCount:(NSNumber * )spreadCount_
@@ -38,6 +40,7 @@
         self.contentText = contentText_;
         self.userId = userId_;
         self.categoryId = categoryId_;
+        self.photoToken = photoToken_;
         self.timeStamp = timeStamp_;
         self.totalSpread = totalSpread_;
         self.spreadCount = spreadCount_;
@@ -55,17 +58,18 @@
             &&content.contentText&&content.userId);
 }
 
-+(void)printContentInfo:(ApiContent *)ci {
++(void)printContentInfo:(ApiContent *)content {
     DBLog(@"Content info:--------------------");
-    DBLog(@"Content Id: %ld",(long)ci.contentId);
-    DBLog(@"Text: %@",ci.contentText);
-    DBLog(@"Author Id: %ld",(long)ci.userId);
-    DBLog(@"Category Id: %ld",(long)ci.categoryId);
-    DBLog(@"Time Stamp: %@",ci.timeStamp);
-    DBLog(@"Total Spread: %ld",(long)ci.totalSpread);
-    DBLog(@"Spread Count: %ld",(long)ci.spreadCount);
-    DBLog(@"Kill Count: %ld",(long)ci.killCount);
-    DBLog(@"No Response Count: %ld",(long)ci.noResponseCount);
+    DBLog(@"Content Id: %ld",(long)content.contentId.integerValue);
+    DBLog(@"Text: %@",content.contentText);
+    DBLog(@"Author Id: %ld",(long)content.userId.integerValue);
+    DBLog(@"Category Id: %ld",(long)content.categoryId.integerValue);
+    DBLog(@"Photo Token: %@",content.photoToken);
+    DBLog(@"Time Stamp: %@",content.timeStamp);
+    DBLog(@"Total Spread: %ld",(long)content.totalSpread.integerValue);
+    DBLog(@"Spread Count: %ld",(long)content.spreadCount.integerValue);
+    DBLog(@"Kill Count: %ld",(long)content.killCount.integerValue);
+    DBLog(@"No Response Count: %ld",(long)content.noResponseCount.integerValue);
 }
 
 @end

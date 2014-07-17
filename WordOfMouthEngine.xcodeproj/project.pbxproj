@@ -25,6 +25,8 @@
 		111B758A18B7F4FD00B10716 /* TabBarIconFavorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 111B758418B7F4FD00B10716 /* TabBarIconFavorites@2x.png */; };
 		111B758B18B7F4FD00B10716 /* TabBarIconNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 111B758518B7F4FD00B10716 /* TabBarIconNew.png */; };
 		111B758C18B7F4FD00B10716 /* TabBarIconNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 111B758618B7F4FD00B10716 /* TabBarIconNew@2x.png */; };
+		111C65A319777D530073D605 /* ApiUserResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 111C65A219777D530073D605 /* ApiUserResponse.m */; };
+		111C65A419777D530073D605 /* ApiUserResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 111C65A219777D530073D605 /* ApiUserResponse.m */; };
 		111E5970182EC53F00B7FD49 /* ApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 111E596F182EC53F00B7FD49 /* ApiManager.m */; };
 		111E5971182EC53F00B7FD49 /* ApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 111E596F182EC53F00B7FD49 /* ApiManager.m */; };
 		111E5975182ECA8F00B7FD49 /* DebugTestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 111E5974182ECA8F00B7FD49 /* DebugTestManager.m */; };
@@ -39,6 +41,7 @@
 		1131DA7018B55B1300EFDB34 /* SocialSignin_Email.png in Resources */ = {isa = PBXBuildFile; fileRef = 1131DA6F18B55B1300EFDB34 /* SocialSignin_Email.png */; };
 		1131DA7618B5657C00EFDB34 /* WomSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7218B5657C00EFDB34 /* WomSignInViewController.m */; };
 		1131DA7718B5657C00EFDB34 /* WomSignInViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7318B5657C00EFDB34 /* WomSignInViewHelper.m */; };
+		1139704719778CD9001EFF9C /* ApiRequestHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139704619778CD9001EFF9C /* ApiRequestHelperTests.m */; };
 		115F1B9E197492D9002262F5 /* ApiRequestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 115F1B9D197492D9002262F5 /* ApiRequestHelper.m */; };
 		115F1B9F197492D9002262F5 /* ApiRequestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 115F1B9D197492D9002262F5 /* ApiRequestHelper.m */; };
 		1166AD7A1974BEBA0010BFEA /* ApiContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD791974BEBA0010BFEA /* ApiContentManager.m */; };
@@ -165,6 +168,8 @@
 		111B758418B7F4FD00B10716 /* TabBarIconFavorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarIconFavorites@2x.png"; sourceTree = "<group>"; };
 		111B758518B7F4FD00B10716 /* TabBarIconNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarIconNew.png; sourceTree = "<group>"; };
 		111B758618B7F4FD00B10716 /* TabBarIconNew@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarIconNew@2x.png"; sourceTree = "<group>"; };
+		111C65A119777D530073D605 /* ApiUserResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiUserResponse.h; sourceTree = "<group>"; };
+		111C65A219777D530073D605 /* ApiUserResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiUserResponse.m; sourceTree = "<group>"; };
 		111E596E182EC53F00B7FD49 /* ApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiManager.h; sourceTree = "<group>"; };
 		111E596F182EC53F00B7FD49 /* ApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ApiManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		111E5973182ECA8F00B7FD49 /* DebugTestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugTestManager.h; sourceTree = "<group>"; };
@@ -182,6 +187,7 @@
 		1131DA7318B5657C00EFDB34 /* WomSignInViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WomSignInViewHelper.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1131DA7418B5657C00EFDB34 /* WomSignInViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = WomSignInViewHelper.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1131DA7518B5657C00EFDB34 /* WomSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WomSignInViewController.h; sourceTree = "<group>"; };
+		1139704619778CD9001EFF9C /* ApiRequestHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiRequestHelperTests.m; sourceTree = "<group>"; };
 		115F1B9C197492D9002262F5 /* ApiRequestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiRequestHelper.h; sourceTree = "<group>"; };
 		115F1B9D197492D9002262F5 /* ApiRequestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiRequestHelper.m; sourceTree = "<group>"; };
 		1166AD781974BEBA0010BFEA /* ApiContentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiContentManager.h; sourceTree = "<group>"; };
@@ -437,6 +443,7 @@
 		1114A827182D8D5300089669 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				111C659F19777CF80073D605 /* UserResponse */,
 				11B67DC618CA5DB800F6E04B /* SQliteAPI */,
 				11B67DC418CA5CEE00F6E04B /* Content */,
 				11B67DC518CA5CF800F6E04B /* User */,
@@ -482,6 +489,15 @@
 			children = (
 			);
 			name = Config;
+			sourceTree = "<group>";
+		};
+		111C659F19777CF80073D605 /* UserResponse */ = {
+			isa = PBXGroup;
+			children = (
+				111C65A119777D530073D605 /* ApiUserResponse.h */,
+				111C65A219777D530073D605 /* ApiUserResponse.m */,
+			);
+			name = UserResponse;
 			sourceTree = "<group>";
 		};
 		111E5972182ECA6300B7FD49 /* DebugTest */ = {
@@ -627,6 +643,7 @@
 				1170EB03196C70B700802D4D /* ApiUserManagerTests.m */,
 				1166AD801975AD4C0010BFEA /* ApiValidationManagerTests.m */,
 				1166AD841975D85F0010BFEA /* AsynTextHelper.h */,
+				1139704619778CD9001EFF9C /* ApiRequestHelperTests.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -978,6 +995,7 @@
 			files = (
 				117D9285194B86E200FD6EDD /* AFHTTPRequestOperation.m in Sources */,
 				117D928B194B86E200FD6EDD /* AFNetworkReachabilityManager.m in Sources */,
+				111C65A319777D530073D605 /* ApiUserResponse.m in Sources */,
 				117D9289194B86E200FD6EDD /* AFHTTPSessionManager.m in Sources */,
 				11CAB43318CA6C8E00FE05FD /* SQLiteAPI.m in Sources */,
 				117D92B3194B86E700FD6EDD /* UIProgressView+AFNetworking.m in Sources */,
@@ -1052,6 +1070,8 @@
 				117D928C194B86E200FD6EDD /* AFNetworkReachabilityManager.m in Sources */,
 				1166AD881975EC640010BFEA /* WomSignUpViewController.m in Sources */,
 				117D92B4194B86E700FD6EDD /* UIProgressView+AFNetworking.m in Sources */,
+				1139704719778CD9001EFF9C /* ApiRequestHelperTests.m in Sources */,
+				111C65A419777D530073D605 /* ApiUserResponse.m in Sources */,
 				117D9296194B86E200FD6EDD /* AFURLSessionManager.m in Sources */,
 				115F1B9F197492D9002262F5 /* ApiRequestHelper.m in Sources */,
 				117D9292194B86E200FD6EDD /* AFURLRequestSerialization.m in Sources */,

@@ -57,14 +57,15 @@
         return nil;
     }
     ApiContent *ci =[[ApiContent alloc] initWithContentId:results[0]
-                                                       text:results[1]
+                                                     text:results[1]
                                                    userId:results[2]
-                                                 categoryId:results[3]
-                                                  timeStamp:@""
-                                                totalSpread:results[4]
-                                                spreadCount:results[5]
-                                                  killCount:results[6]
-                                            noResponseCount:results[7]];
+                                               categoryId:results[3]
+                                               photoToken:@""
+                                                timeStamp:@""
+                                              totalSpread:results[4]
+                                              spreadCount:results[5]
+                                                killCount:results[6]
+                                          noResponseCount:results[7]];
     return ci;
 }
 

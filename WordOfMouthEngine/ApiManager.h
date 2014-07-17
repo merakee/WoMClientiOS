@@ -11,6 +11,7 @@
 #import "ApiContentManager.h"
 #import "ApiValidationManager.h"
 #import "ApiErrorManager.h"
+#import "ApiRequestHelper.h"
 
 
 static NSString *kAMAPI_HOST_PATH   =   @"http://localhost:3000/api/v0";
@@ -98,21 +99,43 @@ static NSString *kAMAPI_RESPONSE_PATH =  @"user_responses";
                          success:(void (^)())success
                          failure:(void (^)(NSError *error))failure;
 /*!
- *  API call to sign in user with user paramers. The current signed user is signed out.
+ *  API call to sign out user with user paramers. The current signed user is signed out.
  *  @return A boolean value of success or failure.
  */
 - (void)signOutUserSuccess:(void (^)())success
                    failure:(void (^)(NSError *error))failure;
 
 #pragma mark -  API Calls: User Profile
+/*!
+ *  Gets User Profile information.
+ *  @param success <#success description#>
+ *  @param failure <#failure description#>
+ */
 - (void)getUserProfileSuccess:(void (^)())success
                       failure:(void (^)(NSError *error))failure;
+/*!
+ *  <#Description#>
+ *  @param success <#success description#>
+ *  @param failure <#failure description#>
+ */
 - (void)updateUserProfileSuccess:(void (^)())success
                          failure:(void (^)(NSError *error))failure;
 
 #pragma mark -  API Calls: Content
-- (void)getContentSuccess:(ApiContent * (^)())success
+/*!
+ *  Gets contents for signed in user.
+ *  @param success Returns an array of contents contentArray
+ *  @param failure Returns error
+ */
+- (void)getContentSuccess:(void (^)(NSArray * contentArray))success
                   failure:(void (^)(NSError *error))failure;
+/*!
+ *  Posts content
+ *  @param categoryId An Int for content category id (must be between 1 and 4 for valid category)
+ *  @param text       NSString containing the text
+ *  @param success    Returns apiContent object with all relevant parameter
+ *  @param failure    Returns error
+ */
 - (void)postContentWithCategoryId:(int)categoryId
                              text:(NSString *)text
                           success:(void (^)(ApiContent * content))success
@@ -120,9 +143,16 @@ static NSString *kAMAPI_RESPONSE_PATH =  @"user_responses";
 
 
 #pragma mark -  API Calls: Response
+/*!
+ *  Posts response for user of viewd content
+ *  @param contentId An Int for content Id
+ *  @param response  NSNumber containing the boolean value (spread => yes, kill => No, no response => nil)
+ *  @param success   <#success description#>
+ *  @param failure   <#failure description#>
+ */
 - (void)postResponseWithContentId:(int)contentId
                          response:(NSNumber *)response
-                          success:(void (^)())success
+                          success:(void (^)(ApiUserResponse *userResponse))success
                           failure:(void (^)(NSError *error))failure;
 
 

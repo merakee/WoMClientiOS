@@ -272,6 +272,10 @@
     // Run the Wait loop
     WaitUntilAsyncBlockCompletes();
     XCTAssertFalse([apiManager isUserSignedIn], @"User should not be signed in");
+    
+    // delete all info
+    [[[ApiUserDatabase alloc] init] deleteAnonymousUserInfo];
+    [[[ApiUserDatabase alloc] init] deleteUserInfo];    
 }
 
 

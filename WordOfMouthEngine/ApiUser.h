@@ -38,7 +38,7 @@ typedef enum {
  *  Valdiates existence of user properties: userid, userTypeId, email, and authenticationToken
  *  @param user An ApiUser Object
  *  @return BOOL value indicating validity of the user object
- *  @discussion To be valid userId must be a positive ineger (>=1) and userTypeId must be between 1 and 2: [1 2]
+ *  @discussion To be valid userId must be a positive integer (>=1) and userTypeId must be between 1 and 2: [1 2]
  */
 +(BOOL)isValidUser:(ApiUser *)user;
 /*!
