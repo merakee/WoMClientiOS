@@ -8,6 +8,7 @@
 
 #import "ComposeViewController.h"
 #import "ComposeViewHelper.h"
+#import "ApiManager.h"
 
 @implementation ComposeViewController
 
@@ -19,10 +20,7 @@
         //                   initWithTitle:@"Post"
         //                  image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageCompose]
         //                 tag:kCFVTabbarIndexCompose];
-        
-        // init conent manager
-        contentManager = [[ContentManager alloc] init];
-        contentManager.delegate = self;
+
     }
     return self;
 }
@@ -100,6 +98,10 @@
     [self.view addSubview:composeTextView];
     
     
+    //activity indicator view
+    activityIndicator =[[UIActivityIndicatorView alloc] init];
+    [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
+    
     // layout
     [self layoutView];
     
@@ -145,7 +147,7 @@
 #pragma mark -  Local Methods Implememtation
 
 - (void)clearTextView{
-    composeTextView.text=@"";
+    composeTextView.text=nil;
 }
 #pragma mark - Button Action Methods
 - (void)postContent:(id)sender {
@@ -159,8 +161,26 @@
         ci.categoryId = [NSNumber numberWithInt:categoryControl.selectedSegmentIndex+1];
     }
     
-    [contentManager postContent:ci];
+    [[ApiManager sharedApiManager] postContentWithCategoryId:ci.categoryId.integerValue
+                                                        text:ci.contentText
+                                                     success:^(ApiContent * content){
+                                                        [self actionsForSuccessfulPostContent];
+                                                    }failure:^(NSError * error){
+                                                        [ApiErrorManager displayAlertWithError:error withDelegate:self];
+                                                    }];
+    
 }
+
+#pragma mark - Api Manager Post actions methods
+- (void)actionsForSuccessfulPostContent{
+    //clear content
+    [self clearTextView];
+    // display sucess
+    [CommonUtility displayAlertWithTitle:@"Post Successful"
+                                 message:@"Your content was posted sucessfully!" delegate:self];
+   
+}
+
 - (void)goBack:(id)sender {
     // go back
     [self.navigationController popViewControllerAnimated:NO];
@@ -178,24 +198,6 @@
     // update colors
     ACMContentCategory category = (ACMContentCategory) [(UISegmentedControl *)sender selectedSegmentIndex]+1;
     [self updateViewForCategory:category];
-}
-
-# pragma mark - Content Manager Delegate methods
-- (void)contentPostedSuccessfully{
-    //DBLog(@"Post successful...");
-    [CommonUtility displayAlertWithTitle:@"Post successful" message:@"Your content was posted." delegate:self];
-    //[CommonUtility displayActionSheetWithTitle:@"Post successful. Do you want to post another?"
-    //                            cancelButton:@"Yes"
-    //                        destructiveButton:@"No"
-    //                           customButtons:nil
-    //                                delegate:self];
-    
-    // clear post
-    [self clearTextView];
-}
-
-- (void)contentPostFailedWithError:(NSError *)error{
-    [CommonUtility displayAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:self];
 }
 
 #pragma mark - Action sheet delegate method

@@ -12,6 +12,8 @@
 @interface ProfileViewController : UITableViewController{
     NSArray        *profileInfo;
     
+    UIActivityIndicatorView *activityIndicator;
+    
 }
 
 @end

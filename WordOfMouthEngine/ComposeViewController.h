@@ -7,14 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ContentManager.h"
-
-
-@interface ComposeViewController : UIViewController<UITextViewDelegate, ContentManagerDelegate>{
+@interface ComposeViewController : UIViewController<UITextViewDelegate>{
     UISegmentedControl *categoryControl;
     UITextView         *composeTextView;
     
-    ContentManager     *contentManager;
+    UIActivityIndicatorView *activityIndicator;
 }
 
 @end

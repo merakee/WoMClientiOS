@@ -185,6 +185,9 @@
     // set table view
     [ProfileViewHelper setTableView:self.tableView];
     
+    //activity indicator view
+    activityIndicator =[[UIActivityIndicatorView alloc] init];
+    [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
 }
 
 

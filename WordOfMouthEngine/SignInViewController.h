@@ -15,6 +15,7 @@
     UIButton           *twitterButton;
     UIButton           *emailButton;
     UIButton           *signInAsGuestButton;
+    UIActivityIndicatorView *activityIndicator;
     
     UIImageView        *appLogoView;
 }

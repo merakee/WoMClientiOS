@@ -14,7 +14,7 @@
     UITextField        *passwordField;
     UITextField        *passwordConfirmationField;
     UIButton           *signUpButton;
-
+    UIActivityIndicatorView *activityIndicator;
 }
 
 @end

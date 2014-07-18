@@ -89,6 +89,10 @@
     [WomSignInViewHelper setPasswordTextFiled:passwordField withDelegate:self];
     [self.view addSubview:passwordField];
     
+    //activity indicator view
+    activityIndicator =[[UIActivityIndicatorView alloc] init];
+    [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
+    
     
     // layout
     [self layoutView];

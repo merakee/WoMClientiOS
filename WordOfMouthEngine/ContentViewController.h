@@ -21,6 +21,7 @@
     UIImageView         *userImage;
     UILabel             *spreadCount;
     
+    UIActivityIndicatorView *activityIndicator;
     // CVCircularProgressView      *progressClock;
     CVCircleCounterView         *progressCounter;
     NSTimer                     *progressTimer;

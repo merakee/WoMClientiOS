@@ -87,6 +87,9 @@
     [WomSignUpViewHelper setPasswordConfirmationTextFiled:passwordConfirmationField withDelegate:self];
     [self.view addSubview:passwordConfirmationField];
     
+    //activity indicator view
+    activityIndicator =[[UIActivityIndicatorView alloc] init];
+    [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
     
     // layout
     [self layoutView];
@@ -151,6 +154,7 @@
                                                     }failure:^(NSError * error){
                                                         [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                     }];
+    
 }
 
 #pragma mark - Api Manager Post actions methods

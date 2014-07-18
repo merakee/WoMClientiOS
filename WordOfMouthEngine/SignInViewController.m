@@ -101,26 +101,28 @@
     [signInAsGuestButton addTarget:self action:@selector(signInAsGuestButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signInAsGuestButton];
     
-    
     // set app logo view
     appLogoView = [AppUIManager getAppLogoView];
     [self.view addSubview:appLogoView];
     
+    //activity indicator view
+    activityIndicator =[[UIActivityIndicatorView alloc] init];
+    [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
+    
     // layout
     [self layoutView];
-    
-    
 }
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(appLogoView,googleButton,facebookButton,twitterButton,emailButton,signInAsGuestButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(appLogoView,googleButton,facebookButton,twitterButton,emailButton,signInAsGuestButton,activityIndicator);
     
     // buttons
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[appLogoView(50)]-20-[googleButton(42)]-12-[facebookButton(googleButton)]-12-[twitterButton(googleButton)]-75-[emailButton(googleButton)]-24-[signInAsGuestButton(googleButton)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     // Center horizontally
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[appLogoView(50)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[appLogoView(50)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:appLogoView
                                                           attribute:NSLayoutAttributeCenterX
                                                           relatedBy:NSLayoutRelationEqual
@@ -130,14 +132,18 @@
                                                            constant:0.0]];
     
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[googleButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[facebookButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[twitterButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[emailButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[signInAsGuestButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[googleButton]-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[facebookButton]-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[twitterButton]-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[emailButton]-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[signInAsGuestButton]-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
     
 }
-
 - (void)setNavigationBar {
     // app settings
     [AppUIManager setNavbar:self.navigationController.navigationBar];
@@ -183,12 +189,15 @@
 }
 
 - (void)signInAsGuestButtonPressed:(id)sender {
+    [activityIndicator startAnimating];
     [[ApiManager sharedApiManager] signInUserWithUserTypeId:kAPIUserTypeAnonymous
                                                       email:nil
                                                    password:nil
                                                     success:^(void){
+                                                            [activityIndicator stopAnimating];
                                                         [self actionsForSuccessfulAnonymusUserSignIn];
                                                     }failure:^(NSError * error){
+                                                            [activityIndicator stopAnimating];
                                                         [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                     }];
 }

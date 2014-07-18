@@ -146,6 +146,9 @@
     userImage = [ContentViewHelper getUserImageView];
     [self.view addSubview:userImage];
     
+    //activity indicator view
+    activityIndicator =[[UIActivityIndicatorView alloc] init];
+    [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
     
     // layout
     [self layoutView];

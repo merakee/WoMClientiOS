@@ -177,11 +177,11 @@
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = view.bounds;
     gradient.colors = @[(id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleLightest] CGColor],
-                       // (id)[[AppUIManager getColorOfType:kAUCColorTypePrimary withBrightness:kAUCColorScaleLightest
-                       //                   andSaturation:kAUCColorScaleDarkest] CGColor],
-                       (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleLight
-                                           andSaturation:kAUCColorScaleDark] CGColor],
-                       (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleLightest] CGColor]];
+                        // (id)[[AppUIManager getColorOfType:kAUCColorTypePrimary withBrightness:kAUCColorScaleLightest
+                        //                   andSaturation:kAUCColorScaleDarkest] CGColor],
+                        (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleLight
+                                            andSaturation:kAUCColorScaleDark] CGColor],
+                        (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleLightest] CGColor]];
     [view.layer insertSublayer:gradient atIndex:1];
 }
 
@@ -533,6 +533,29 @@
     
 }
 
+#pragma mark - view elements methods:  Activity Indicator
++ (void)addActivityIndicator:(UIActivityIndicatorView *)activityIndicator toView:(UIView *)view{
+    [activityIndicator setTranslatesAutoresizingMaskIntoConstraints:NO];
+    activityIndicator.hidesWhenStopped=YES;
+    activityIndicator.activityIndicatorViewStyle  = UIActivityIndicatorViewStyleGray;
+    [view addSubview:activityIndicator];
+    
+    // layout: in the center
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:activityIndicator
+                                                     attribute:NSLayoutAttributeCenterY
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:view
+                                                     attribute:NSLayoutAttributeCenterY
+                                                    multiplier:1.0
+                                                      constant:0.0]];
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:activityIndicator
+                                                     attribute:NSLayoutAttributeCenterX
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:view
+                                                     attribute:NSLayoutAttributeCenterX
+                                                    multiplier:1.0
+                                                      constant:0.0]];
+}
 
 #pragma mark - Utility methods
 + (void)setRoundedCorner:(id)view{

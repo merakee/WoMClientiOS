@@ -78,6 +78,10 @@
 + (void)setTableView:(UITableView *)tableView ofType:(AUCPriorityType)pType;
 + (void)setTableCell:(UITableViewCell *)tableViewCell ofType:(AUCPriorityType)pType;
 
+#pragma mark - view elements methods:  Activity Indicator
++ (void)addActivityIndicator:(UIActivityIndicatorView *)activityIndicator toView:(UIView *)view;
+
+
 #pragma mark - view elements methods:  App logo 
 + (UIImageView *)getAppLogoView;
 
