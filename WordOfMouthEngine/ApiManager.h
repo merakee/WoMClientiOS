@@ -71,6 +71,11 @@ static NSString *kAMAPI_RESPONSE_PATH =  @"user_responses";
  *  @return an instance of current user.
  */
 - (ApiUser *)currentUser;
+/*!
+ *  Checks to see if current user is anonymous
+ *  @return BOOL value: yes if current user is anonymous user and no other wise
+ */
+- (BOOL)isAnonymousUser;
 
 #pragma mark -  API Calls: User Session
 /*!

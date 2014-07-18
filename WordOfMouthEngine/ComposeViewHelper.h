@@ -17,7 +17,7 @@
 
 #pragma mark -  View Helper Methods: Segmented control
 + (UISegmentedControl *)getCategoryControl;
-+ (void)updateCategoryControl:(UISegmentedControl *)sControl forCategory:(ACMContentCategory)category;
++ (void)updateCategoryControl:(UISegmentedControl *)sControl forCategory:(kAPIContentCategory)category;
 
 #pragma mark -  View Helper Methods: Buttons
 

@@ -20,7 +20,7 @@
         //                   initWithTitle:@"Post"
         //                  image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageCompose]
         //                 tag:kCFVTabbarIndexCompose];
-
+        
     }
     return self;
 }
@@ -53,7 +53,7 @@
     [super viewWillAppear:animated];
     
     // clear category selection
-    [self updateViewForCategory:kContentCategoryOther];
+    [self updateViewForCategory:kAPIContentCategoryOther];
     
     // hide tabbar
     //[self setHidesBottomBarWhenPushed:YES];
@@ -140,7 +140,7 @@
     //action:@selector(goBack:)];
 }
 
-- (void)updateViewForCategory:(ACMContentCategory)category{
+- (void)updateViewForCategory:(kAPIContentCategory)category{
     [ComposeViewHelper updateCategoryControl:categoryControl forCategory:category];
     composeTextView.backgroundColor =[AppUIManager getContentColorForCategory:category];
 }
@@ -155,19 +155,26 @@
     ApiContent *ci =[[ApiContent alloc] init];
     ci.contentText = [CommonUtility trimString:composeTextView.text];
     if(categoryControl.selectedSegmentIndex==UISegmentedControlNoSegment){
-        ci.categoryId = kContentCategoryOther;
+        ci.categoryId = [NSNumber numberWithInteger: kAPIContentCategoryOther];
     }
     else{
-        ci.categoryId = [NSNumber numberWithInt:categoryControl.selectedSegmentIndex+1];
+        ci.categoryId = [NSNumber numberWithInteger:categoryControl.selectedSegmentIndex+1];
     }
     
+    // post content
+    [activityIndicator startAnimating];
+    
+    // post content user
+    [activityIndicator startAnimating];
     [[ApiManager sharedApiManager] postContentWithCategoryId:ci.categoryId.integerValue
                                                         text:ci.contentText
                                                      success:^(ApiContent * content){
-                                                        [self actionsForSuccessfulPostContent];
-                                                    }failure:^(NSError * error){
-                                                        [ApiErrorManager displayAlertWithError:error withDelegate:self];
-                                                    }];
+                                                         [activityIndicator stopAnimating];
+                                                         [self actionsForSuccessfulPostContent];
+                                                     }failure:^(NSError * error){
+                                                         [activityIndicator stopAnimating];
+                                                         [ApiErrorManager displayAlertWithError:error withDelegate:self];
+                                                     }];
     
 }
 
@@ -178,7 +185,7 @@
     // display sucess
     [CommonUtility displayAlertWithTitle:@"Post Successful"
                                  message:@"Your content was posted sucessfully!" delegate:self];
-   
+    
 }
 
 - (void)goBack:(id)sender {
@@ -196,7 +203,7 @@
 #pragma mark - control events methods
 - (void)selectedCategoryChanged:(id)sender{
     // update colors
-    ACMContentCategory category = (ACMContentCategory) [(UISegmentedControl *)sender selectedSegmentIndex]+1;
+    kAPIContentCategory category = (kAPIContentCategory) [(UISegmentedControl *)sender selectedSegmentIndex]+1;
     [self updateViewForCategory:category];
 }
 

@@ -189,15 +189,16 @@
 }
 
 - (void)signInAsGuestButtonPressed:(id)sender {
+    // sign in anonymous user
     [activityIndicator startAnimating];
     [[ApiManager sharedApiManager] signInUserWithUserTypeId:kAPIUserTypeAnonymous
                                                       email:nil
                                                    password:nil
                                                     success:^(void){
-                                                            [activityIndicator stopAnimating];
+                                                        [activityIndicator stopAnimating];
                                                         [self actionsForSuccessfulAnonymusUserSignIn];
                                                     }failure:^(NSError * error){
-                                                            [activityIndicator stopAnimating];
+                                                        [activityIndicator stopAnimating];
                                                         [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                     }];
 }

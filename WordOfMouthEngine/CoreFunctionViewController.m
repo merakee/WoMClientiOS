@@ -15,7 +15,8 @@
 //#import "HistoryViewController.h"
 #import "ProfileViewController.h"
 //#import "SettingsViewController.h"
-
+#import "ApiManager.h"
+#import "AppDelegate.h"
 
 @implementation CoreFunctionViewController
 
@@ -48,7 +49,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-        [super viewWillDisappear:animated];
+    [super viewWillDisappear:animated];
 }
 
 - (BOOL)shouldAutorotate{
@@ -64,17 +65,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Tababr Delegate methods
+#pragma mark - Tabbar Delegate methods
 - (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed {
     
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    return YES;
+    // check to see if it porfile view for anonymous user
+    
+    return [self isAnonymousUserForProfileView:viewController];
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController willBeginCustomizingViewControllers:(NSArray *)viewControllers {
@@ -84,7 +86,6 @@
 - (void)tabBarController:(UITabBarController *)tabBarController willEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed {
     
 }
-
 
 #pragma mark -  Local Methods Implememtation
 - (void)setView {
@@ -131,6 +132,9 @@
     [viewControllersArray insertObject:profileViewController atIndex:kCFVTabbarIndexProfile];
     //[viewControllersArray insertObject:settingsViewController atIndex:kCFVTabbarIndexSettings];
     [self setViewControllers:viewControllersArray animated:YES];
+    
+    // set delegate
+    self.delegate =self;
 }
 
 - (void)setTapBar{
@@ -138,5 +142,46 @@
     [AppUIManager setTabbar:self.tabBar];
     // customs settings
     
+}
+
+#pragma mark - check for profile view for anonymou user
+- (BOOL)isAnonymousUserForProfileView:(UIViewController *)viewController {
+    BOOL isNotPermitted= [[ApiManager sharedApiManager] isAnonymousUser] && [viewController isKindOfClass:[ProfileViewController class]];
+    if(isNotPermitted){
+        [ApiErrorManager displayAlertForAnonymousUserCannotHaveProfileWithDelegate:self];
+    }
+    return !isNotPermitted;
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    // Can separate views by title [is necessary with tag]
+    //Button actions using delegate
+    int customButtonStartIndex = (alertView.cancelButtonIndex>=0)?1:0;
+    int totalCustomButtons = alertView.numberOfButtons - customButtonStartIndex;
+    
+    // NSPLogBLog(@"bIndeX: %d cIndex:%d",buttonIndex,customButtonStartIndex);
+    
+    // check if cancelButton Pressed
+    if(alertView.cancelButtonIndex==buttonIndex){
+        // NSPLogBLog(@"Action for C Button");
+    }
+    else{
+        for(int ind=0;ind<totalCustomButtons;ind++){
+            if(customButtonStartIndex+ind==buttonIndex){
+                // action for custom button
+                // NSPLogBLog(@"Action for Button %d",ind+customButtonStartIndex);
+                [self actionForButtonWithIndex:ind];
+            }
+        }
+    }
+}
+- (void)actionForButtonWithIndex:(int)index{
+    if(index==0){
+        // sign out and go to sign up view
+        [[ApiManager sharedApiManager] apiUserManager].currentUser=nil;
+        //go to signup view
+        // go to sign in view
+        [(AppDelegate *)[UIApplication sharedApplication].delegate  setSignInViewAsRootView];
+    }
 }
 @end

@@ -57,7 +57,7 @@
 		1166AD901976F5C90010BFEA /* PlaceHolderFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD8F1976F5C90010BFEA /* PlaceHolderFactory.m */; };
 		1166AD911976F5C90010BFEA /* PlaceHolderFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD8F1976F5C90010BFEA /* PlaceHolderFactory.m */; };
 		116D500518E3997A00579F37 /* LocalContent_FZ_DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 116D500418E3997A00579F37 /* LocalContent_FZ_DB.sqlite */; };
-		116EE32118ADA08D00C66D86 /* ContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32018ADA08D00C66D86 /* ContentManager.m */; };
+		116EE32118ADA08D00C66D86 /* ContentManagerOLd.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32018ADA08D00C66D86 /* ContentManagerOLd.m */; };
 		116EE32718ADA0E100C66D86 /* AppUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32618ADA0E100C66D86 /* AppUIManager.m */; };
 		116EE32A18ADA0F800C66D86 /* AppGraphicsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32918ADA0F800C66D86 /* AppGraphicsManager.m */; };
 		116EE32D18ADA10B00C66D86 /* AppAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32C18ADA10B00C66D86 /* AppAudioManager.m */; };
@@ -129,6 +129,8 @@
 		11CB8FDB18B049B700396418 /* ContentViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FDA18B049B700396418 /* ContentViewHelper.m */; };
 		11CB8FEB18B0886600396418 /* ApiContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FEA18B0886600396418 /* ApiContent.m */; };
 		11D1B6F0183AB0690022AF62 /* ApiManagerUserSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1B6EF183AB0690022AF62 /* ApiManagerUserSessionTests.m */; };
+		11F1C98D1979AB6C006DA90D /* ContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F1C98C1979AB6C006DA90D /* ContentManager.m */; };
+		11F1C98E1979AB6C006DA90D /* ContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F1C98C1979AB6C006DA90D /* ContentManager.m */; };
 		11F269C6197848700051FA38 /* TestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F269C5197848700051FA38 /* TestHelper.m */; };
 		11FD6CED18B18C75007D318E /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEB18B18C75007D318E /* ComposeViewController.m */; };
 		11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */; };
@@ -207,8 +209,8 @@
 		116D500418E3997A00579F37 /* LocalContent_FZ_DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = LocalContent_FZ_DB.sqlite; sourceTree = "<group>"; };
 		116EE31C18ADA07500C66D86 /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
 		116EE31D18ADA07500C66D86 /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SessionManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		116EE31F18ADA08D00C66D86 /* ContentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentManager.h; sourceTree = "<group>"; };
-		116EE32018ADA08D00C66D86 /* ContentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentManager.m; sourceTree = "<group>"; };
+		116EE31F18ADA08D00C66D86 /* ContentManagerOLd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentManagerOLd.h; sourceTree = "<group>"; };
+		116EE32018ADA08D00C66D86 /* ContentManagerOLd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentManagerOLd.m; sourceTree = "<group>"; };
 		116EE32518ADA0E100C66D86 /* AppUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppUIManager.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		116EE32618ADA0E100C66D86 /* AppUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppUIManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		116EE32818ADA0F800C66D86 /* AppGraphicsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppGraphicsManager.h; sourceTree = "<group>"; };
@@ -305,6 +307,8 @@
 		11CB8FE918B0886600396418 /* ApiContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ApiContent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		11CB8FEA18B0886600396418 /* ApiContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiContent.m; sourceTree = "<group>"; };
 		11D1B6EF183AB0690022AF62 /* ApiManagerUserSessionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiManagerUserSessionTests.m; sourceTree = "<group>"; };
+		11F1C98B1979AB6C006DA90D /* ContentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentManager.h; sourceTree = "<group>"; };
+		11F1C98C1979AB6C006DA90D /* ContentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentManager.m; sourceTree = "<group>"; };
 		11F269C4197848700051FA38 /* TestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHelper.h; sourceTree = "<group>"; };
 		11F269C5197848700051FA38 /* TestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestHelper.m; sourceTree = "<group>"; };
 		11FD6CEB18B18C75007D318E /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ComposeViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -577,8 +581,10 @@
 		116EE31918AD4B0000C66D86 /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				116EE31F18ADA08D00C66D86 /* ContentManager.h */,
-				116EE32018ADA08D00C66D86 /* ContentManager.m */,
+				11F1C98B1979AB6C006DA90D /* ContentManager.h */,
+				11F1C98C1979AB6C006DA90D /* ContentManager.m */,
+				116EE31F18ADA08D00C66D86 /* ContentManagerOLd.h */,
+				116EE32018ADA08D00C66D86 /* ContentManagerOLd.m */,
 			);
 			name = Content;
 			sourceTree = "<group>";
@@ -1014,7 +1020,7 @@
 				116EE33018ADA1AC00C66D86 /* AppAnimationManager.m in Sources */,
 				116EE32D18ADA10B00C66D86 /* AppAudioManager.m in Sources */,
 				117D9293194B86E200FD6EDD /* AFURLResponseSerialization.m in Sources */,
-				116EE32118ADA08D00C66D86 /* ContentManager.m in Sources */,
+				116EE32118ADA08D00C66D86 /* ContentManagerOLd.m in Sources */,
 				1171CAC21969E30500B40A0E /* ApiUserDatabase.m in Sources */,
 				11CB8FEB18B0886600396418 /* ApiContent.m in Sources */,
 				11810B7518C9386F00C5246C /* CVCircularProgressLayer.m in Sources */,
@@ -1030,6 +1036,7 @@
 				11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */,
 				1171CABF196917DF00B40A0E /* ApiUserManager.m in Sources */,
 				117D928F194B86E200FD6EDD /* AFURLConnectionOperation.m in Sources */,
+				11F1C98D1979AB6C006DA90D /* ContentManager.m in Sources */,
 				11B755BE19708BA000410604 /* ApiErrorManager.m in Sources */,
 				1114A806182D8B3300089669 /* AppDelegate.m in Sources */,
 				111E5970182EC53F00B7FD49 /* ApiManager.m in Sources */,
@@ -1098,6 +1105,7 @@
 				117D928E194B86E200FD6EDD /* AFSecurityPolicy.m in Sources */,
 				117D92B8194B86E700FD6EDD /* UIWebView+AFNetworking.m in Sources */,
 				11D1B6F0183AB0690022AF62 /* ApiManagerUserSessionTests.m in Sources */,
+				11F1C98E1979AB6C006DA90D /* ContentManager.m in Sources */,
 				111E5971182EC53F00B7FD49 /* ApiManager.m in Sources */,
 				117D928A194B86E200FD6EDD /* AFHTTPSessionManager.m in Sources */,
 				1171CAC31969E30500B40A0E /* ApiUserDatabase.m in Sources */,

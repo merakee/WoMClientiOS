@@ -64,7 +64,7 @@
        categoryId != kAPIContentCategorySecret &&
        categoryId != kAPIContentCategoryLocalInfo &&
        categoryId != kAPIContentCategoryNews){
-        return @"Unknown Content Type";
+        return @"Please select a content type.";
     }
     return nil;
 }

@@ -70,9 +70,9 @@ const static float kAUCColorTextSecondary[4] = {kAUCHueSecondary,1.0,1.0,1.0};
 const static float kAUCColorTextTertiary[4] = {kAUCHueTertiary,1.0,1.0,1.0};
 
 const static float kAUCColorContentNews[4] = {200.0/360.0,0.2,1.0,1.0};
-const static float kAUCColorContentGossip[4] = {280.0/360.0,0.2,1.0,1.0};
 const static float kAUCColorContentSecret[4] = {32.0,0.2,1.0,1.0};
-const static float kAUCColorContentLocal[4] = {110.0/360.0,0.2,1.0,1.0};
+const static float kAUCColorContentRumor[4] = {280.0/360.0,0.2,1.0,1.0};
+const static float kAUCColorContentLocalInfo[4] = {110.0/360.0,0.2,1.0,1.0};
 const static float kAUCColorContentOther[4] = {0.0/360.0,0.0,1.0,1.0};
 
 const static float kAUCColorScaleFactor=0.2;

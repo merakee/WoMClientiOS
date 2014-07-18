@@ -148,14 +148,17 @@
 
 #pragma mark - Button Action Methods
 - (void)SignInButtonPressed:(id)sender {
-    // set up session manager
+    // sign in user
+    [activityIndicator startAnimating];
     [[ApiManager sharedApiManager] signInUserWithUserTypeId:kAPIUserTypeWom
                                                       email:emailField.text
                                                    password:passwordField.text
                                                     success:^(void){
+                                                        [activityIndicator stopAnimating];
                                                         [self actionsForSuccessfulUserSignIn];
                                                     }
                                                     failure:^(NSError * error){
+                                                        [activityIndicator stopAnimating];
                                                         [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                     }];
 }

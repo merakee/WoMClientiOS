@@ -21,7 +21,8 @@ typedef enum {
     kAPIManagerErrorInternal,
     kAPIManagerErrorApi,
     kAPIManagerErrorValidation,
-    kAPIManagerErrorInvalidParameters
+    kAPIManagerErrorInvalidParameters,
+    kAPIManagerErrorInvalidChoice,
 } kAPIManagerErrorCode;
 
 // Error domain
@@ -40,9 +41,10 @@ static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
 + (NSError *)getErrorForInvalidApiResponse;
 + (NSError *)getErrorForInternalError;
 + (NSError *)getErrorForInvalidParameters;
++ (NSError *)getErrorForSignInSaveUser;
 
 #pragma mark - Error Handling methods - Session and Registration
-+ (NSError *)getErrorForSignInSaveUser;
+
 + (NSError *)processSignUpError:(NSError *)error;
 + (NSError *)processSignInError:(NSError *)error;
 + (NSError *)processSignOutError:(NSError *)error;
@@ -61,4 +63,5 @@ static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
 
 #pragma mark - Error Handling methods - Display Method
 + (void)displayAlertWithError:(NSError *)error withDelegate:(id)delegate;
++ (void)displayAlertForAnonymousUserCannotHaveProfileWithDelegate:(id)delegate;
 @end

@@ -15,7 +15,7 @@
 @class ProfileViewController;
 //@class SettingsViewController;
 
-@interface CoreFunctionViewController : UITabBarController<UITabBarDelegate>{
+@interface CoreFunctionViewController : UITabBarController<UITabBarDelegate,UITabBarControllerDelegate>{
     
     //UINavigationController          *contentViewNavigationController;
     ContentViewController           *contentViewController;

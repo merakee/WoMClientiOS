@@ -12,6 +12,7 @@
 #import "CommonUtility.h"
 #import "CommonResourceDefintions.h"
 #import "AppConstants.h"
+#import "ApiContent.h"
 
 @interface AppUIManager : NSObject
 
@@ -26,8 +27,8 @@
 + (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness;
 + (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness andSaturation:(AUCColorScale)colorSaturation;
 
-+ (UIColor *)getContentColorForCategory:(ACMContentCategory)category;
-+ (UIColor *)getContentTextColorForCategory:(ACMContentCategory)category andState:(UIControlState)state;
++ (UIColor *)getContentColorForCategory:(kAPIContentCategory)category;
++ (UIColor *)getContentTextColorForCategory:(kAPIContentCategory)category andState:(UIControlState)state;
 
 
 #pragma mark - view elements methods:  UIView

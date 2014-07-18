@@ -29,7 +29,7 @@
     
     
     ContentManager     *contentManager;
-    ApiContent        *contentInfo;
+    ApiContent        *currentContent;
 }
 
 @end

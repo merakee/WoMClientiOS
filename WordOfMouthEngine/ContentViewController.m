@@ -40,7 +40,7 @@
     // init content manager
     contentManager = [[ContentManager alloc] init];
     // init conent
-    contentInfo =[[ApiContent  alloc] init];
+    currentContent =[[ApiContent  alloc] init];
 }
 
 - (void) viewDidLayoutSubviews {
@@ -97,20 +97,31 @@
 #pragma mark -  Content Display method
 - (void)updateContent{
     // update content
-    contentInfo = [contentManager getContent];
-    // change category color
-    [ContentViewHelper updateTextBackGroundView:textBackGround forCategory:(ACMContentCategory)contentInfo.categoryId];
+    [contentManager getContentWithActivityIndicator:activityIndicator
+                                            success:^(ApiContent *content) {
+                                                currentContent=content;
+                                                [self updateViewWithNewContent];
+                                            }
+                                            failure:^(ApiContent *content) {
+                                                currentContent= content;
+                                                [self updateViewWithNewContent];
+                                            }];
     
-    contentTextView.text = contentInfo.contentText;
-    //NSAttributedString *str = [[NSAttributedString alloc] initWithString:contentInfo.contentText];
+}
+- (void)updateViewWithNewContent{
+    // change category color
+    [ContentViewHelper updateTextBackGroundView:textBackGround forCategory:(kAPIContentCategory)currentContent.categoryId];
+    
+    contentTextView.text = currentContent.contentText;
+    //NSAttributedString *str = [[NSAttributedString alloc] initWithString:currentContent.contentText];
     //contentTextView.attributedText =str ;
     // center virtically
     [AppUIManager  verticallyAlignTextView:contentTextView];
     //[self.view  updateConstraintsIfNeeded];
     
     // update counts
-    spreadCount.text = [NSString stringWithFormat:@"%ld", (long)contentInfo.totalSpread];
-    ///timeCount.text = contentInfo.timeStamp;
+    spreadCount.text = [NSString stringWithFormat:@"%ld", (long)currentContent.totalSpread.integerValue];
+    ///timeCount.text = currentContent.timeStamp;
     [self resetContentTimer];
 }
 
@@ -259,12 +270,43 @@
 }
 
 - (void) spreadButtonPressed:(id)sender {
-    [ContentManager spreadContent:contentInfo];
-    [self updateContent];
+    [self postResponse:true];
     
 }
 - (void) killButtonPressed:(id)sender {
-    [ContentManager killContent:contentInfo];
+    [self postResponse:false];
+}
+
+#pragma mark - Post Response Method
+- (void)postResponse:(BOOL)response{
+    // check for empty content condition: do not post response
+    if(currentContent.categoryId==kAPIContentCategoryEmpty){
+        [self updateContent];
+        return;
+    }
+    
+    DBLog(@"Content id: %d",currentContent.contentId.integerValue);
+    // post content
+    [activityIndicator startAnimating];
+    
+    // post content user
+    [activityIndicator startAnimating];
+    [[ApiManager sharedApiManager] postResponseWithContentId:currentContent.contentId.integerValue
+                                                    response:[NSNumber numberWithBool:response]
+                                                     success:^(ApiUserResponse *response){
+                                                         [activityIndicator stopAnimating];
+                                                         [self actionsForSuccessfulPostResponse];
+                                                     }failure:^(NSError * error){
+                                                         [activityIndicator stopAnimating];
+                                                         //[ApiErrorManager displayAlertWithError:error withDelegate:self];
+                                                         // do not show any error just assume sucess
+                                                         [self actionsForSuccessfulPostResponse];
+                                                     }];
+    
+}
+
+#pragma mark - Api Manager Post actions methods
+- (void)actionsForSuccessfulPostResponse{
     [self updateContent];
 }
 
@@ -313,9 +355,9 @@
 
 - (void)counter:(CVCircleCounterView *)circleView updatedWithValue:(float)timeInSeconds{
     //if(timeInSeconds<=kAUCAppContentTimerWarning){
-        //circleView.circleColor = [UIColor redColor];
-        //circleView.numberColor = [UIColor redColor];
-        // }
+    //circleView.circleColor = [UIColor redColor];
+    //circleView.numberColor = [UIColor redColor];
+    // }
 }
 
 @end

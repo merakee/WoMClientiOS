@@ -27,7 +27,7 @@
     
     return textBackGround;
 }
-+ (void)updateTextBackGroundView:(UIView *)view forCategory:(ACMContentCategory)category{
++ (void)updateTextBackGroundView:(UIView *)view forCategory:(kAPIContentCategory)category{
     view.backgroundColor = [AppUIManager getContentColorForCategory:category];
 }
 

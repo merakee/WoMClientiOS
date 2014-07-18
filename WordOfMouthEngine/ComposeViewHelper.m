@@ -29,12 +29,12 @@
     [AppUIManager setUISegmentedControl:sControl];
     
     // set custom  properties
-    [ComposeViewHelper  updateCategoryControl:sControl forCategory:kContentCategoryOther];
+    [ComposeViewHelper  updateCategoryControl:sControl forCategory:kAPIContentCategoryOther];
     return sControl;
 }
-+ (void)updateCategoryControl:(UISegmentedControl *)sControl forCategory:(ACMContentCategory)category{
++ (void)updateCategoryControl:(UISegmentedControl *)sControl forCategory:(kAPIContentCategory)category{
     
-    if(category==kContentCategoryOther){
+    if(category==kAPIContentCategoryOther){
         sControl.selectedSegmentIndex=-1;
     }
     

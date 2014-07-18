@@ -10,6 +10,7 @@
 
 
 typedef enum {
+    kAPIContentCategoryEmpty=0,
     kAPIContentCategoryNews=1,
     kAPIContentCategorySecret=2,
     kAPIContentCategoryRumor=3,
@@ -46,6 +47,11 @@ typedef enum {
         noResponseCount:(NSNumber * )noResponseCount_;
 
 #pragma mark - Utility Methods
+/*!
+ *  Generates an content with empty notice and EmptyContent category
+ *  @return An APiContent Object
+ */
++ (ApiContent *)getEmptyContentNotice;
 /*!
  *  Valdiates existence of content properties: contentId, categoryId, text, and userId
  *  @param content An ApiContent Object

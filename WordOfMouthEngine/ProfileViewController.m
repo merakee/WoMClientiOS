@@ -186,8 +186,8 @@
     [ProfileViewHelper setTableView:self.tableView];
     
     //activity indicator view
-    activityIndicator =[[UIActivityIndicatorView alloc] init];
-    [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
+    //activityIndicator =[[UIActivityIndicatorView alloc] init];
+    //[AppUIManager addActivityIndicator:activityIndicator toView:self.view];
 }
 
 
@@ -251,12 +251,16 @@
 - (void)buttonPressed:(id)sender{
     // get indexpath
     ///NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[[sender superview] superview] superview]];
-    // sign out button
+   
+    // sign out user
+    [activityIndicator startAnimating];
     if([[(UIButton *)sender currentTitle] isEqualToString:@"Sign Out"]) {
         // log out
         [[ApiManager sharedApiManager] signOutUserSuccess:^(void){
+            [activityIndicator stopAnimating];
             [self signedOutSuccessfully];
         }failure:^(NSError * error){
+            [activityIndicator stopAnimating];
             [ApiErrorManager displayAlertWithError:error withDelegate:self];
         }];
         

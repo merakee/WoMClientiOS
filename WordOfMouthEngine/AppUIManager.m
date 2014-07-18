@@ -118,7 +118,7 @@
     return scaleFactor;
 }
 
-+ (UIColor *)getContentTextColorForCategory:(ACMContentCategory)category andState:(UIControlState)state{
++ (UIColor *)getContentTextColorForCategory:(kAPIContentCategory)category andState:(UIControlState)state{
     UIColor *color =[AppUIManager getContentColorForCategory:category];
     
     float bscaleFactor=1.0, sscaleFactor=1.0;
@@ -136,20 +136,20 @@
     return color;
 }
 
-+ (UIColor *)getContentColorForCategory:(ACMContentCategory)category{
++ (UIColor *)getContentColorForCategory:(kAPIContentCategory)category{
     UIColor *color;
     switch (category) {
-        case kContentCategoryNews:
+        case kAPIContentCategoryNews:
             color=[CommonUtility getColorFromHSBACVec:kAUCColorContentNews];
             break;
-        case kContentCategoryGossip:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentGossip];
-            break;
-        case kContentCategorySecret:
+        case kAPIContentCategorySecret:
             color=[CommonUtility getColorFromHSBACVec:kAUCColorContentSecret];
             break;
-        case kContentCategoryLocal:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentLocal];
+        case kAPIContentCategoryRumor:
+            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentRumor];
+            break;
+        case kAPIContentCategoryLocalInfo:
+            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentLocalInfo];
             break;
         default:
             color=[CommonUtility getColorFromHSBACVec:kAUCColorContentOther];

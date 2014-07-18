@@ -10,20 +10,12 @@
 /* ---------------------
  App
  ---------------------*/
-
+// Error domain
+static NSString *kAppErrorDomainApp =  @"AppErrorDomainApp";
 
 /* ---------------------
  Controllers
  ---------------------*/
-
-// Content Manager
-typedef enum {
-    kContentCategoryOther=0,
-    kContentCategoryNews,
-    kContentCategoryGossip,
-    kContentCategorySecret,
-    kContentCategoryLocal,
-} ACMContentCategory;
 
 
 

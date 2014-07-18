@@ -312,7 +312,7 @@
                                      StopAsyncBlock();
                                  }
                                  failure:^(NSError *error){
-                                     XCTAssertEqualObjects(error.localizedFailureReason,@"Unknown Content Type");
+                                     XCTAssertEqualObjects(error.localizedFailureReason,@"Please select a content type.");
                                      XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
                                      XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
                                      StopAsyncBlock();

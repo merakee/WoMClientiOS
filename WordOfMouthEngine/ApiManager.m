@@ -50,26 +50,26 @@
     //networkReachable = self.reachabilityManager.isReachable;
     //__weak typeof(self) weakSelf = self;
     
-    [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-                NSLog(@"Network Reachable: WWAN");
-                break;
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-                NSLog(@"Network Reachable ---: WiFi");
-                //[operationQueue setSuspended:NO];
-                //networkReachable = YES;
-                break;
-            case AFNetworkReachabilityStatusNotReachable:
-                NSLog(@"Network Not Reachable ");
-                break;
-            default:
-                NSLog(@"Network Reachable: default");
-                //[operationQueue setSuspended:YES];
-                //networkReachable = NO;
-                break;
-        }
-    }];
+//    [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+//        switch (status) {
+//            case AFNetworkReachabilityStatusReachableViaWWAN:
+//                NSLog(@"Network Reachable: WWAN");
+//                break;
+//            case AFNetworkReachabilityStatusReachableViaWiFi:
+//                NSLog(@"Network Reachable ---: WiFi");
+//                //[operationQueue setSuspended:NO];
+//                //networkReachable = YES;
+//                break;
+//            case AFNetworkReachabilityStatusNotReachable:
+//                NSLog(@"Network Not Reachable ");
+//                break;
+//            default:
+//                NSLog(@"Network Reachable: default");
+//                //[operationQueue setSuspended:YES];
+//                //networkReachable = NO;
+//                break;
+//        }
+//    }];
 }
 
 #pragma mark -  Singleton method
@@ -116,6 +116,9 @@
     return self.apiUserManager.currentUser;
 }
 
+- (BOOL)isAnonymousUser{
+        return self.apiUserManager.currentUser.userTypeId.integerValue == kAPIUserTypeAnonymous;
+}
 #pragma mark -  API Calls: User Session - Sign up
 - (void)signUpUserWithUserTypeId:(int)userTypeId
                            email:(NSString *)email_
@@ -435,6 +438,7 @@
     return userResponse;
 }
 - (NSError *)actionsForFailedPostResonseWithError:(NSError *)error{
+    //DBLog(@"Post Response Error: %@",error);
     return [ApiErrorManager processPostResponseError:error];
 }
 

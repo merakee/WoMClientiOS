@@ -145,13 +145,17 @@
 
 #pragma mark - Button Action Methods
 - (void)signUpButtonPressed:(id)sender {
+    // sign up user
+    [activityIndicator startAnimating];
     [[ApiManager sharedApiManager] signUpUserWithUserTypeId:kAPIUserTypeWom
                                                       email:emailField.text
                                                    password:passwordField.text
                                        passwordConfirmation:passwordConfirmationField.text
                                                     success:^(void){
+                                                        [activityIndicator stopAnimating];
                                                         [self actionsForSuccessfulUserSignUp];
                                                     }failure:^(NSError * error){
+                                                        [activityIndicator stopAnimating];
                                                         [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                     }];
     

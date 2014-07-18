@@ -52,6 +52,19 @@
 }
 
 #pragma mark - Utility Methods
++ (ApiContent *)getEmptyContentNotice{
+    return [[ApiContent alloc] initWithContentId:@0
+                                            text:@"Sorry! There is no content right now. Wait or press any button to refresh"
+                                          userId:@0
+                                      categoryId:[NSNumber numberWithInteger:kAPIContentCategoryEmpty]
+                                      photoToken:@""
+                                       timeStamp:@""
+                                     totalSpread:@0
+                                     spreadCount:@0
+                                       killCount:@0
+                                 noResponseCount:@0];
+}
+
 +(BOOL)isValidContent:(ApiContent *)content{
     return (content.contentId&&(content.contentId.intValue>0)
             &&content.categoryId&&(content.categoryId.intValue>=1)&&(content.categoryId.intValue<=4)

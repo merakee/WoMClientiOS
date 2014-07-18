@@ -51,6 +51,16 @@
                                         reason:@"Internal Error in the iOS client"
                                     suggestion:@"Please try again."];
 }
+
++ (NSError *)getErrorForSignInSaveUser{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorInvalidSignUp
+                                   description:@"Internal Error"
+                                        reason:@"Failed to save user in DB"
+                                    suggestion:@"Please let us know if this happens again"];
+}
+
+#pragma mark - Error Unitilty methods
 + (NSString *)getErrorReasonFromError:(NSError *)error{
     NSDictionary *edic=nil;
     NSString *reason=@"";
@@ -81,14 +91,6 @@
 }
 
 #pragma mark - Error Handling methods - Session and Registration
-+ (NSError *)getErrorForSignInSaveUser{
-    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
-                                          code:kAPIManagerErrorInvalidSignUp
-                                   description:@"Internal Error"
-                                        reason:@"Failed to save user in DB"
-                                    suggestion:@"Please let us know if this happens again"];
-}
-
 + (NSError *)processSignUpError:(NSError *)error{
     return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
                                           code:kAPIManagerErrorInvalidSignUp
@@ -167,5 +169,11 @@
                                           stringByAppendingString:error.localizedRecoverySuggestion]
                                 delegate:delegate];
 }
-
++ (void)displayAlertForAnonymousUserCannotHaveProfileWithDelegate:(id)delegate{
+    [CommonUtility displayAlertViewWithTitle:@"No Profile for Guest User"
+                                     message:@"Please sign in to see profile."
+                                cancelButton:@"cancel"
+                               customButtons:[NSArray arrayWithObjects:@"sign in",nil]
+                                    delegate:delegate];
+}
 @end
