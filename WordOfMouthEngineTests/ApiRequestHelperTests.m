@@ -30,6 +30,7 @@
 }
 
 
+#pragma mark - api content
 - (void)testApiRequestHelperGetContantArray{
     NSDictionary *cDic = nil;
     NSArray *array =[ApiRequestHelper getContentArrayFromDictionary:cDic];
@@ -110,4 +111,25 @@
     }
 }
 
+
+#pragma mark - user response
+- (void)testApiRequestHelperGetUserResponseFromDictionary{
+    for(int ind=0;ind<200;ind++){
+        NSDictionary *rDic = [self createReponseDictionary];
+        ApiUserResponse *response = [ApiRequestHelper getUserResponseFromDictionary:rDic];
+        [self checkMatchBetweenRepsonseObject:response andDictionary:rDic[@"user_response"]];
+     }
+}
+
+- (NSDictionary *)createReponseDictionary{
+    return @{@"user_response": @{@"user_id":[NSNumber numberWithInt:[CommonUtility  pickRandom:1000]+1],
+                                 @"content_id":[NSNumber numberWithInt:[CommonUtility  pickRandom:2000]+1],
+                                 @"response":[NSNumber numberWithBool:([CommonUtility pickRandom:2]>0)]}};
+}
+
+- (void)checkMatchBetweenRepsonseObject:(ApiUserResponse *)response andDictionary:(NSDictionary *)rDic{
+    XCTAssert(response.userId==rDic[@"user_id"], @"Must be the same");
+    XCTAssert(response.contentId==rDic[@"content_id"], @"Must be the same");
+    XCTAssert(response.userResponse==rDic[@"response"], @"Must be the same");
+}
 @end

@@ -41,6 +41,7 @@
     user=nil;
     auser=nil;
     [uid deleteUserInfo];
+    [uid deleteAnonymousUserInfo];
     [super tearDown];
     
 }

@@ -44,6 +44,13 @@
                                         reason:@"Internal Error in the iOS client"
                                     suggestion:@"Please try again."];
 }
++ (NSError *)getErrorForInvalidParameters{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorInvalidParameters
+                                   description:@"Invalid Parameters"
+                                        reason:@"Internal Error in the iOS client"
+                                    suggestion:@"Please try again."];
+}
 + (NSString *)getErrorReasonFromError:(NSError *)error{
     NSDictionary *edic=nil;
     NSString *reason=@"";

@@ -9,9 +9,9 @@
 #import <XCTest/XCTest.h>
 #import "ApiManager.h"
 #import "AsynTextHelper.h"
-#import "ApiUserDatabase.h"
 #import "PlaceHolderFactory.h"
 #import "CommonUtility.h"
+#import "TestHelper.h"
 
 @interface ApiManagerContentTests : XCTestCase{
     ApiManager *apiManager;
@@ -27,8 +27,8 @@
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     apiManager=[ApiManager sharedApiManager];
-    // sign in user with database
-    apiManager.apiUserManager.currentUser = [[[ApiUserDatabase alloc] init] getAnonymousUser];
+    // sign in user
+    [TestHelper signInAnonymousUser];
 }
 
 - (void)tearDown
@@ -36,93 +36,110 @@
     //apiManager.apiUserManager.currentUser=nil;
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+    //[TestHelper signOutAnonymousUser];
+    [TestHelper signOutAndDeleteAnonymousUser];
 }
 
-- (void)testApiManagerSignUpAnonymousUserFirstTimeForContent{
-    //XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
-    
-    // delete all user
-    XCTAssert([[[ApiUserDatabase alloc] init] deleteAnonymousUserInfo],@"Delete anonymous user info should be successful");
-    XCTAssert([[[ApiUserDatabase alloc] init] deleteUserInfo],@"Delete  user info should be successful");
-    apiManager.apiUserManager.currentUser =nil;
-    
-    StartAsyncBlock();
-    [apiManager signUpUserWithUserTypeId:kAPIUserTypeAnonymous
-                                   email:nil
-                                password:nil
-                    passwordConfirmation:nil
-                                 success:^(){
-                                     StopAsyncBlock();
-                                 }
-                                 failure:^(NSError *error){
-                                     XCTFail(@"Must be sucessful");
-                                     NSLog(@"Error: %@",error);
-                                     StopAsyncBlock();
-                                 }];
-    
-    // Run the Wait loop
-    WaitUntilAsyncBlockCompletes();
-    
-    
-    XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
-    XCTAssertEqual([apiManager currentUser].userTypeId.integerValue, kAPIUserTypeAnonymous, @"Current user must be an anomynous user");
-}
-
-#pragma mark - Content
+#pragma mark - Post Content
 - (void)testApiManagerPostContent{
     XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
-    int cid = [CommonUtility pickRandom:4]+1;
-    NSString *text =[PlaceHolderFactory sentencesWithNumber:2];
-    ApiUser *currentUser =apiManager.apiUserManager.currentUser;
-    //  user
-    StartAsyncBlock();
-    
-    [apiManager     postContentWithCategoryId:cid
-                                         text:text
-                                      success:^(ApiContent * content){
-                                          XCTAssertEqual(content.categoryId.integerValue, cid);
-                                          XCTAssertEqualObjects(content.contentText,text);
-                                          XCTAssertEqual(content.userId.integerValue,currentUser.userId.integerValue);
-                                          StopAsyncBlock();
-                                      }
-                                      failure:^(NSError *error){
-                                          StopAsyncBlock();
-                                          NSLog(@"Error: %@",error);
-                                          XCTFail(@"Must be sucessful");
-                                      }];
-    
-    // Run the Wait loop
-    WaitUntilAsyncBlockCompletes();
-    
-    // delete anonymous user
-    //XCTAssert([[[ApiUserDatabase alloc] init] deleteAnonymousUserInfo],@"Delete anonymous user info should be successful");
+    // post 100 items
+    for(int ind=0;ind<100;ind++){
+        int cid = [CommonUtility pickRandom:4]+1;
+        NSString *text =[PlaceHolderFactory sentencesWithNumber:2];
+        ApiUser *currentUser =apiManager.apiUserManager.currentUser;
+        
+        StartAsyncBlock();
+        [apiManager     postContentWithCategoryId:cid
+                                             text:text
+                                          success:^(ApiContent * content){
+                                              XCTAssertEqual(content.categoryId.integerValue, cid);
+                                              XCTAssertEqualObjects(content.contentText,text);
+                                              XCTAssertEqual(content.userId.integerValue,currentUser.userId.integerValue);
+                                              StopAsyncBlock();
+                                          }
+                                          failure:^(NSError *error){
+                                              StopAsyncBlock();
+                                              NSLog(@"Error: %@",error);
+                                              XCTFail(@"Must be sucessful");
+                                          }];
+        
+        // Run the Wait loop
+        WaitUntilAsyncBlockCompletes();
+    }
 }
 
-
+#pragma mark - Get Content
 - (void)testApiManagerGetContent{
-    XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
-    //  user
-    StartAsyncBlock();
-    [apiManager     getContentSuccess:^(NSArray *contentArray){
-        XCTAssert([contentArray count]==20,@"There must be 20 contents");
-        StopAsyncBlock();
+    // get 100 items
+    for(int ind=0;ind<100;ind++){
+        XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
+        //  user
+        StartAsyncBlock();
+        [apiManager     getContentSuccess:^(NSArray *contentArray){
+            XCTAssert([contentArray count]==20,@"There must be 20 contents");
+            StopAsyncBlock();
+        }
+                                  failure:^(NSError *error){
+                                      StopAsyncBlock();
+                                      NSLog(@"Error: %@",error);
+                                      XCTFail(@"Must be sucessful");
+                                  }];
+        
+        // Run the Wait loop
+        WaitUntilAsyncBlockCompletes();
     }
-                              failure:^(NSError *error){
-                                  StopAsyncBlock();
-                                  NSLog(@"Error: %@",error);
-                                  XCTFail(@"Must be sucessful");
-                              }];
-    
-    // Run the Wait loop
-    WaitUntilAsyncBlockCompletes();
-    
-    // delete all user
-    //XCTAssert([[[ApiUserDatabase alloc] init] deleteAnonymousUserInfo],@"Delete anonymous user info should be successful");
-    //XCTAssert([[[ApiUserDatabase alloc] init] deleteUserInfo],@"Delete  user info should be successful");
-    //apiManager.apiUserManager.currentUser =nil;
+}
+
+- (void)checkValidityOfContentArray:(NSArray *)array{
+    for(int ind =0; ind<[array count];ind++){
+        [self checkValidityOfContent:array[ind]];
+    }
+}
+
+- (BOOL)checkValidityOfContent:(ApiContent *)content{
+    XCTAssert(content.contentId && content.contentId.integerValue>1,@"Must be postive integer");
+    XCTAssert(content.categoryId &&content.categoryId.integerValue>=kAPIContentCategoryNews
+              &&content.categoryId.integerValue<=kAPIContentCategoryLocalInfo,@"Must be a valid category");
+    XCTAssert(content.userId&&content.userId.integerValue>1,@"Must be postive integer");
+    XCTAssert(content.contentText&&[content.contentText length]>kAPIValidationContentMinLentgh && [content.contentText length]<kAPIValidationContentMinLentgh,@"Must be of valid length");
+    XCTAssertNotNil(content.photoToken,@"Must not be nil");
+    XCTAssertNotNil(content.timeStamp,@"Must not be nil");
+    XCTAssertNotNil(content.totalSpread,@"Must not be nil");
+    XCTAssertNotNil(content.spreadCount,@"Must not be nil");
+    XCTAssertNotNil(content.killCount,@"Must not be nil");
+    XCTAssertNotNil(content.noResponseCount,@"Must not be nil");
 }
 
 #pragma mark - Response
-
+- (void)testApiManagerPostResponse{
+    XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
+    XCTAssert([TestHelper createContentsWithCount:100],@"Must be able to create contents");
+    // post 100 items
+    for(int ind=0;ind<100;ind++){
+        //int contentId =[CommonUtility pickRandom:100]+1;
+        int contentId =ind+1;
+        NSNumber *response= [NSNumber numberWithBool:[CommonUtility pickRandom:2]>0];
+        ApiUser *currentUser =apiManager.apiUserManager.currentUser;
+        
+        StartAsyncBlock();
+        [apiManager     postResponseWithContentId:contentId
+                                         response:response
+                                          success:^(ApiUserResponse *userResponse){
+                                              XCTAssertEqual(userResponse.contentId.integerValue, contentId);
+                                              XCTAssertEqual(userResponse.userResponse,response);
+                                              XCTAssertEqual(userResponse.userId.integerValue,currentUser.userId.integerValue);
+                                              StopAsyncBlock();
+                                          }
+                                          failure:^(NSError *error){
+                                              StopAsyncBlock();
+                                              NSLog(@"Error: %@",error);
+                                              XCTFail(@"Must be sucessful");
+                                          }];
+        
+        // Run the Wait loop
+        WaitUntilAsyncBlockCompletes();
+    }
+}
 
 @end

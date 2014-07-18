@@ -397,8 +397,13 @@
                           success:(void (^)(ApiUserResponse *userResponse))success
                           failure:(void (^)(NSError *error))failure{
     
+    // fail if response is empty
+    if(!response){
+        failure([ApiErrorManager getErrorForInvalidParameters]);
+        return;
+    }
     
-    [self POST:kAMAPI_SIGNUP_PATH parameters:[ApiRequestHelper responseParamsWith:self.apiUserManager.currentUser contentId:contentId andResponse:response]
+    [self POST:kAMAPI_RESPONSE_PATH parameters:[ApiRequestHelper responseParamsWith:self.apiUserManager.currentUser contentId:contentId andResponse:response]
        success:^(NSURLSessionDataTask *task, id responseObject) {
            NSError *error;
            ApiUserResponse *userResponse = [self actionsForSuccessfulPostResponseWithResponse:responseObject withError:&error];

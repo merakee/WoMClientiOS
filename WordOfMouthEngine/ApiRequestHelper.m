@@ -44,7 +44,8 @@
                                                          @"text":text}}];
 }
 +(NSDictionary *)responseParamsWith:(ApiUser *)user contentId:(int)contentId andResponse:(NSNumber *)response{
-    return [self addUserAuth:user  toDictionary:@{@"content":@{
+    if (!response){return @{};}
+    return [self addUserAuth:user  toDictionary:@{@"user_response":@{
                                                           @"content_id": [NSNumber numberWithInt:contentId],
                                                           @"response":response}}];
 }
