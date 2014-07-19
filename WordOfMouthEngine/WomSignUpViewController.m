@@ -135,7 +135,7 @@
 
 #pragma mark - TextField Delegate Protocal
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if ((textField == emailField) || (textField == passwordField) ){
+    if ((textField == emailField) || (textField == passwordField) || (textField == passwordConfirmationField)){
         [textField resignFirstResponder];
         return NO;
     }
