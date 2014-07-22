@@ -20,15 +20,20 @@
     // set custom textview properties
     
 }
-+ (UIView *)getTextBackGroundView{
-    UIView *textBackGround = [[UIView alloc] init];
-    textBackGround.backgroundColor =[UIColor whiteColor];
-    [textBackGround setTranslatesAutoresizingMaskIntoConstraints:NO];
++ (UIImageView *)getContentBackGroundView{
+    UIImageView *contentBackGround = [[UIImageView alloc] init];
+    contentBackGround.backgroundColor =[AppUIManager getContentColorForCategory:1];
+    contentBackGround.contentMode = UIViewContentModeScaleAspectFill;
+    [contentBackGround setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    return textBackGround;
+    return contentBackGround;
 }
-+ (void)updateTextBackGroundView:(UIView *)view forCategory:(kAPIContentCategory)category{
-    view.backgroundColor = [AppUIManager getContentColorForCategory:category];
++ (void)setImageForContentBackGroudView:(UIImageView *)imageView{
+    NSString *fileName =[[@"bg" stringByAppendingFormat:@"%d",[CommonUtility pickRandom:4]+1] stringByAppendingString:@".jpg"];
+    imageView.image =[UIImage imageNamed:fileName];
+}
++ (void)updateContentBackGroundView:(UIView *)view forCategory:(kAPIContentCategory)category{
+    //view.backgroundColor = [AppUIManager getContentColorForCategory:category];
 }
 
 #pragma mark - View Helper Methods: Image Views
@@ -48,7 +53,8 @@
     
     // set custom textview properties
     //textView.frame = [CommonUtility shrinkRect:kSIVNameFrame byXPoints:10 yPoints:40];  //kSIVNameFrame;
-    textView.backgroundColor = [UIColor clearColor];
+    //textView.backgroundColor = [UIColor clearColor];
+    textView.backgroundColor = [UIColor  colorWithWhite:1.0 alpha:.8];
     
     //textView.backgroundColor = [UIColor lightGrayColor];
     // textView.text=@"";
@@ -58,7 +64,8 @@
     textView.editable = NO;
     textView.selectable = YES;
     textView.allowsEditingTextAttributes = NO;
-    textView.dataDetectorTypes = UIDataDetectorTypeAll ;
+    textView.scrollEnabled = NO;
+    //textView.dataDetectorTypes = UIDataDetectorTypeAll ;
     //textView.textAlignment = NSTextAlignmentCenter;
     //textView.typingAttributes =
     // textView.linkTextAttributes =

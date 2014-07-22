@@ -187,7 +187,7 @@
 
 #pragma mark - view elements methods:  UIImageView
 + (void)setImageView:(UIImageView *)iv{
-    iv.backgroundColor  =[AppUIManager getColorOfType:kAUCColorTypeGray withBrightness:kAUCColorScaleDark];
+    //iv.backgroundColor  =[AppUIManager getColorOfType:kAUCColorTypeGray withBrightness:kAUCColorScaleDark];
     
     // rounder cover
     [AppUIManager setRoundedCornerToImageView:iv];
@@ -615,6 +615,13 @@
     UIImageView *iv =[[UIImageView alloc] initWithImage:[UIImage imageNamed:kAUCAppLogoImage]];
     // defautl setting
     [AppUIManager setImageView:iv];
+    return iv;
+}
+
++ (UIImageView *)getAppLogoViewForNavTitle{
+    UIImageView *iv =[[UIImageView alloc] initWithFrame:CGRectMake(0,0,40,40)];
+    iv.contentMode = UIViewContentModeScaleAspectFit;
+    iv.image = [UIImage imageNamed:kAUCAppLogoImage];
     return iv;
 }
 

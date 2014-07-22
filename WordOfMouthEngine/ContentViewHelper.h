@@ -16,8 +16,9 @@
 
 #pragma mark -  View Helper Methods: Views
 + (void)setView:(UIView *)view;
-+ (UIView *)getTextBackGroundView;
-+ (void)updateTextBackGroundView:(UIView *)view forCategory:(kAPIContentCategory)category;
++ (UIImageView *)getContentBackGroundView;
++ (void)updateContentBackGroundView:(UIView *)view forCategory:(kAPIContentCategory)category;
++ (void)setImageForContentBackGroudView:(UIImageView *)imageView;
 
 #pragma mark - View Helper Methods: Image Views
 + (UIImageView *)getUserImageView;

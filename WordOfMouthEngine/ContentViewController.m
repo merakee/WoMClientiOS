@@ -114,9 +114,11 @@
 }
 - (void)updateViewWithNewContent{
     // change category color
-    [ContentViewHelper updateTextBackGroundView:textBackGround forCategory:(kAPIContentCategory)currentContent.categoryId];
+    [ContentViewHelper updateContentBackGroundView:contentBackGround forCategory:(kAPIContentCategory)currentContent.categoryId];
     
     contentTextView.text = currentContent.contentText;
+    [ContentViewHelper setImageForContentBackGroudView:contentBackGround];
+    
     //NSAttributedString *str = [[NSAttributedString alloc] initWithString:currentContent.contentText];
     //contentTextView.attributedText =str ;
     // center virtically
@@ -138,10 +140,10 @@
     [self setNavigationBar];
     
     // set textview
-    textBackGround = [ContentViewHelper getTextBackGroundView];
-    [self.view addSubview:textBackGround];
+    contentBackGround = [ContentViewHelper getContentBackGroundView];
+    [self.view addSubview:contentBackGround];
     contentTextView = [ContentViewHelper getContentTextViewWithDelegate:self];
-    [textBackGround addSubview:contentTextView];
+    [contentBackGround addSubview:contentTextView];
     
     //    // set buttons
     //    spreadButton = [ContentViewHelper getSpreadButton];
@@ -173,13 +175,13 @@
     [self addGestures];
     
     // scroll adjustment
-    //self.automaticallyAdjustsScrollViewInsets = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
 }
 
 - (void)layoutView{
     // all view elements
-    //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(userImage, spreadCount,contentTextView, spreadButton,killButton,textBackGround,progressCounter);
+    //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(userImage, spreadCount,contentTextView, spreadButton,killButton,contentBackGround,progressCounter);
     
     
     
@@ -199,40 +201,41 @@
     //[self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[progressClock(36)]"
     //                                                                           options:0 metrics:nil views:viewsDictionary]];
     
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,textBackGround);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround);
     
     // text view
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[textBackGround(>=100)]|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentBackGround(>=100)]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[textBackGround(>=100)]|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[contentBackGround(>=100)]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[contentTextView(>=100)]-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[contentTextView(>=100)]-|"
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[contentTextView(>=100)]-|"
+//                                                                     options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[contentTextView(120)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
+    [self.view addConstraint:[NSLayoutConstraint
+                              constraintWithItem:contentTextView
+                              attribute:NSLayoutAttributeCenterY
+                              relatedBy:NSLayoutRelationEqual
+                              toItem:contentBackGround
+                              attribute:NSLayoutAttributeCenterY
+                              multiplier:1.0
+                              constant:0.0]];
     
-    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[contentTextView]-|"
-    //                                                             options:0 metrics:nil views:viewsDictionary]];
     
     
     
-    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadCount]-[textBackGround]-10-[killButton]"
+    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadCount]-[contentBackGround]-10-[killButton]"
     //                                                                options:0 metrics:nil views:viewsDictionary]];
     
-    /*
-     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentTextView
-     attribute:NSLayoutAttributeCenterY
-     relatedBy:NSLayoutRelationEqual
-     toItem:textBackGround
-     attribute:NSLayoutAttributeCenterY
-     multiplier:1.0
-     constant:0.0]];
-     */
+    
     
     //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[contentTextView(>=100)]-|"
     //                                                                 options:0 metrics:nil views:viewsDictionary]];
@@ -266,7 +269,8 @@
 
 - (void)setNavigationBar {
     // set up navigation bar
-    self.navigationItem.title = @"WoM";
+    //self.navigationItem.title = @"WoM";
+    self.navigationItem.titleView = [AppUIManager getAppLogoViewForNavTitle];
     
     // right navigation button
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
@@ -371,7 +375,7 @@
         return;
     }
     
-    DBLog(@"Content id: %d",currentContent.contentId.integerValue);
+    //DBLog(@"Content id: %d",currentContent.contentId.integerValue);
     // post content
     [activityIndicator startAnimating];
     

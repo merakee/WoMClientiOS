@@ -21,7 +21,8 @@
         //                  image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageCompose]
         //                 tag:kCFVTabbarIndexCompose];
         photoManager = [[ImageProcessingManager alloc] init];
-        
+        photoManager.delegate =self;
+        photoManager.viewController = self;
     }
     return self;
 }
@@ -89,6 +90,10 @@
     // set navigation bar
     [self setNavigationBar];
     
+    // image view
+    contentImageView = [ComposeViewHelper getContentImageView];
+    [self.view addSubview:contentImageView];
+    
     // set Category control
     //    categoryControl = [ComposeViewHelper getCategoryControl];
     //    [categoryControl addTarget:self action:@selector(selectedCategoryChanged:) forControlEvents:UIControlEventValueChanged];
@@ -104,7 +109,7 @@
     activityIndicator =[[UIActivityIndicatorView alloc] init];
     [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
     
-
+    
     
     // set photos options view
     [self setPhotoOptionsView];
@@ -119,7 +124,7 @@
 - (void)layoutView{
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(composeTextView);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView);
     // text filed
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[composeTextView(>=100)]-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
@@ -130,10 +135,16 @@
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-68-[composeTextView]-218-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentImageView]|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[contentImageView]|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
 }
 
 - (void)setNavigationBar {
-    self.navigationItem.title =@"WoM";
+    //self.navigationItem.title =@"WoM";
+    self.navigationItem.titleView = [AppUIManager getAppLogoViewForNavTitle];
     // set up navigation bar
     //    self.navigationItem.titleView = [[UIBarButtonItem alloc]
     //                                     initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
@@ -180,7 +191,7 @@
         [photoOptionsView addSubview:cameraButton];
         // layout
         NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(photoOptionsView,cameraButton,albumButton);
-
+        
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[photoOptionsView(80)]|"
                                                                           options:0 metrics:nil views:viewsDictionary]];
         
@@ -303,18 +314,30 @@
 #pragma mark - popover controller method
 - (void)showPhotoOptions:(id)sender{
     photoOptionsView.hidden = !photoOptionsView.hidden;
+    // set the view to disappear
+//    if(photoOptionsView.hidden==NO){
+//        [UIView animateWithDuration:.5
+//                              delay:3
+//                            options:UIViewAnimationOptionCurveEaseOut
+//                         animations:^(void){
+//                             //photoOptionsView.alpha = .25;
+//                         }
+//                         completion:^(BOOL finished){
+//                             //photoOptionsView.hidden=YES;
+//                             //photoOptionsView.alpha = 1;
+//                         }];
+//        
+//    }
 }
 - (void)cameraButtonPressed:(id)sender {
     photoOptionsView.hidden = YES;
     // start image picker for camera
-    photoManager.viewController =self;
     [photoManager displayCamera];
 }
 
 - (void)albumButtonPressed:(id)sender {
     photoOptionsView.hidden = YES;
     // start image picker for camera
-    photoManager.viewController =self;
     [photoManager displayPhotoLibrary];
 }
 
@@ -324,10 +347,8 @@
     //[self photoDialogCancelAction];
 }
 - (void)photoCaptureDoneWithImage:(UIImage *)image {
-    // set has photo changed
-    //hasPhotoChanged=YES;
-    // size the photo and set
-    //photoImageView.image =[ImageProcessingManager cropImageToSqure:image];
+    // set image view
+    contentImageView.image = image;
 }
 
 @end

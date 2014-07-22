@@ -21,6 +21,10 @@
 		1114A810182D8B3400089669 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1114A7F5182D8B3300089669 /* Foundation.framework */; };
 		1114A811182D8B3400089669 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1114A7F9182D8B3300089669 /* UIKit.framework */; };
 		1114A819182D8B3400089669 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1114A817182D8B3400089669 /* InfoPlist.strings */; };
+		1117986D197EFF3E00A22004 /* bg3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1117986B197EFF3E00A22004 /* bg3.jpg */; };
+		1117986E197EFF3E00A22004 /* bg1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1117986C197EFF3E00A22004 /* bg1.jpg */; };
+		11179870197EFF4300A22004 /* bg2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1117986F197EFF4300A22004 /* bg2.jpg */; };
+		11179872197F01C800A22004 /* bg4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 11179871197F01C800A22004 /* bg4.jpg */; };
 		111B758718B7F4FD00B10716 /* TabBarIconContact.png in Resources */ = {isa = PBXBuildFile; fileRef = 111B758118B7F4FD00B10716 /* TabBarIconContact.png */; };
 		111B758818B7F4FD00B10716 /* TabBarIconContact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 111B758218B7F4FD00B10716 /* TabBarIconContact@2x.png */; };
 		111B758918B7F4FD00B10716 /* TabBarIconFavorites.png in Resources */ = {isa = PBXBuildFile; fileRef = 111B758318B7F4FD00B10716 /* TabBarIconFavorites.png */; };
@@ -168,6 +172,10 @@
 		1114A80E182D8B3400089669 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1114A816182D8B3400089669 /* WordOfMouthEngineTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WordOfMouthEngineTests-Info.plist"; sourceTree = "<group>"; };
 		1114A818182D8B3400089669 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1117986B197EFF3E00A22004 /* bg3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg3.jpg; sourceTree = "<group>"; };
+		1117986C197EFF3E00A22004 /* bg1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg1.jpg; sourceTree = "<group>"; };
+		1117986F197EFF4300A22004 /* bg2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg2.jpg; sourceTree = "<group>"; };
+		11179871197F01C800A22004 /* bg4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg4.jpg; sourceTree = "<group>"; };
 		111B758118B7F4FD00B10716 /* TabBarIconContact.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarIconContact.png; sourceTree = "<group>"; };
 		111B758218B7F4FD00B10716 /* TabBarIconContact@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarIconContact@2x.png"; sourceTree = "<group>"; };
 		111B758318B7F4FD00B10716 /* TabBarIconFavorites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarIconFavorites.png; sourceTree = "<group>"; };
@@ -491,8 +499,8 @@
 		1114A82A182D8D7E00089669 /* CommonUtility */ = {
 			isa = PBXGroup;
 			children = (
-				1166AD8D1976F5500010BFEA /* PlaceHolderGenerator */,
 				116EE33118ADB58500C66D86 /* CommonResourceDefintions.h */,
+				1166AD8D1976F5500010BFEA /* PlaceHolderGenerator */,
 				116D500318E38FA200579F37 /* AppConstants.h */,
 				116EE33218ADB58500C66D86 /* CommonUtility.h */,
 				116EE33318ADB58500C66D86 /* CommonUtility.m */,
@@ -728,6 +736,10 @@
 		11810B6B18C1245800C5246C /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				11179871197F01C800A22004 /* bg4.jpg */,
+				1117986F197EFF4300A22004 /* bg2.jpg */,
+				1117986B197EFF3E00A22004 /* bg3.jpg */,
+				1117986C197EFF3E00A22004 /* bg1.jpg */,
 				11810B6C18C1246100C5246C /* UserImage.png */,
 			);
 			name = Misc;
@@ -829,8 +841,8 @@
 			children = (
 				11CB8FD918B049B700396418 /* ContentViewHelper.h */,
 				11CB8FDA18B049B700396418 /* ContentViewHelper.m */,
-				11CB8FCD18B0469000396418 /* ContentViewController.h */,
 				11CB8FCE18B0469000396418 /* ContentViewController.m */,
+				11CB8FCD18B0469000396418 /* ContentViewController.h */,
 			);
 			name = ContentVC;
 			sourceTree = "<group>";
@@ -956,7 +968,7 @@
 				ORGANIZATIONNAME = "Bijit Halder";
 				TargetAttributes = {
 					1114A7F1182D8B3300089669 = {
-						DevelopmentTeam = E2FCZXHQZ9;
+						DevelopmentTeam = MC9NUR3CUR;
 					};
 					1114A80C182D8B3400089669 = {
 						TestTargetID = 1114A7F1182D8B3300089669;
@@ -998,9 +1010,13 @@
 				1131DA6E18B55B0700EFDB34 /* SocialSignin_Twitter.png in Resources */,
 				1131DA7018B55B1300EFDB34 /* SocialSignin_Email.png in Resources */,
 				11CAB43D18CA944900FE05FD /* LocalContent_DB_ori.sqlite in Resources */,
+				1117986D197EFF3E00A22004 /* bg3.jpg in Resources */,
+				11179870197EFF4300A22004 /* bg2.jpg in Resources */,
 				111B758718B7F4FD00B10716 /* TabBarIconContact.png in Resources */,
+				11179872197F01C800A22004 /* bg4.jpg in Resources */,
 				111B758818B7F4FD00B10716 /* TabBarIconContact@2x.png in Resources */,
 				111B758B18B7F4FD00B10716 /* TabBarIconNew.png in Resources */,
+				1117986E197EFF3E00A22004 /* bg1.jpg in Resources */,
 				11B68B6518E53CDE00AE9197 /* AppIcon.png in Resources */,
 				1131DA6B18B55AFE00EFDB34 /* SocialSignin_Google.png in Resources */,
 			);
@@ -1179,7 +1195,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Bijit Halder (DQN8JJT5B5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Bijit Halder (GY48ET8D49)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1197,7 +1213,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "7586A9CB-89EA-4F69-9F93-1B1C3356DD86";
+				PROVISIONING_PROFILE = "EF805E67-980E-4F8A-996F-8D7469FCBB08";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1218,7 +1234,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Merakee LLC (8387E25V96)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Freelogue Inc. (MC9NUR3CUR)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1229,7 +1245,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PROVISIONING_PROFILE = "70DFFC65-E638-452B-9CE8-CC1F54AE9664";
+				PROVISIONING_PROFILE = "A3A0A8ED-FEF5-49CC-BB7A-2132ECB51FFA";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1241,14 +1257,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Bijit Halder (GY48ET8D49)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Bijit Halder (GY48ET8D49)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngine/WordOfMouthEngine-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = WordOfMouthEngine;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "EF805E67-980E-4F8A-996F-8D7469FCBB08";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 arm64 arvm7s";
 				WRAPPER_EXTENSION = app;
@@ -1261,14 +1277,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Freelogue Inc. (MC9NUR3CUR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Freelogue Inc. (MC9NUR3CUR)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngine/WordOfMouthEngine-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = WordOfMouthEngine;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "A3A0A8ED-FEF5-49CC-BB7A-2132ECB51FFA";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 arm64 arvm7s";
 				WRAPPER_EXTENSION = app;

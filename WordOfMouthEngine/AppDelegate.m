@@ -126,6 +126,8 @@
                                            initWithRootViewController:contentViewController];
         
     }
+    // make sure it is root view
+    [contentViewNavigationController popToRootViewControllerAnimated:NO];
     
     self.window.rootViewController=contentViewNavigationController;
 }

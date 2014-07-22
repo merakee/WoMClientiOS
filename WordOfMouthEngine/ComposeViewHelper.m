@@ -22,6 +22,14 @@
     
 }
 
+#pragma mark - ImageView
++ (UIImageView *)getContentImageView{
+    UIImageView *contentImageView =[[UIImageView alloc] init];
+    contentImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [contentImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return contentImageView;
+}
+
 #pragma mark -  View Helper Methods: Segmented control
 + (UISegmentedControl *)getCategoryControl{
     UISegmentedControl *sControl = [[UISegmentedControl alloc] initWithItems:[ContentManager getActiveCategoryList]];
@@ -41,12 +49,12 @@
     sControl.tintColor = [AppUIManager getContentColorForCategory:category];
     // selected
     [sControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
-                                                  [AppUIManager getContentTextColorForCategory:category andState:UIControlStateSelected]}
-                                   forState:UIControlStateSelected];
+                                           [AppUIManager getContentTextColorForCategory:category andState:UIControlStateSelected]}
+                            forState:UIControlStateSelected];
     // normal
     [sControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
-                                                  [AppUIManager getContentTextColorForCategory:category andState:UIControlStateNormal]}
-                                   forState:UIControlStateNormal];
+                                           [AppUIManager getContentTextColorForCategory:category andState:UIControlStateNormal]}
+                            forState:UIControlStateNormal];
     
 }
 #pragma mark -  View Helper Methods: TextViews
@@ -91,7 +99,7 @@
 + (UIView *)getPhotoOptionView{
     UIView *view =[[UIView alloc] init ];//WithFrame:CGRectMake(kPhotoOptionsViewLayout[0],kPhotoOptionsViewLayout[1],kPhotoOptionsViewLayout[2],kPhotoOptionsViewLayout[3])];
     view.backgroundColor = [UIColor whiteColor];
-        [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
     return view;
 }
 + (UIButton *)getCameraButton{

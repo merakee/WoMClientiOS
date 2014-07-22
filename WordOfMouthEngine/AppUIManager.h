@@ -85,6 +85,7 @@
 
 #pragma mark - view elements methods:  App logo 
 + (UIImageView *)getAppLogoView;
++ (UIImageView *)getAppLogoViewForNavTitle;
 
 #pragma mark - Utility methods
 + (void)setBorder:(id)view withColor:(UIColor *)color;

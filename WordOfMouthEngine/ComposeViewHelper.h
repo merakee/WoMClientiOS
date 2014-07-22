@@ -16,6 +16,9 @@ static const float kPhotoOptionsViewLayout[4]={150,60,120,60};
 #pragma mark -  View Helper Methods: Views
 + (void)setView:(UIView *)view;
 
+#pragma mark - ImageView
++ (UIImageView *)getContentImageView;
+
 #pragma mark -  View Helper Methods: Segmented control
 + (UISegmentedControl *)getCategoryControl;
 + (void)updateCategoryControl:(UISegmentedControl *)sControl forCategory:(kAPIContentCategory)category;

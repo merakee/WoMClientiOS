@@ -12,6 +12,7 @@
 @interface ComposeViewController : UIViewController<UITextViewDelegate,ImageProcessingManagerDelegate>{
     // UISegmentedControl *categoryControl;
     UITextView         *composeTextView;
+    UIImageView        *contentImageView;
     
     ImageProcessingManager   *photoManager;
     UIView                   *photoOptionsView;

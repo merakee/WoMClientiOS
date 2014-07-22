@@ -13,7 +13,7 @@
 //@interface ContentViewController : UIViewController <CVCircleCounterViewDelegate>{
 @interface ContentViewController : UIViewController{
     UITextView         *contentTextView;
-    UIView             *textBackGround;
+    UIImageView        *contentBackGround;
     //UILabel            *contentSpreadCount;
     //UILabel             *authorID;
     //UIButton           *spreadButton;
