@@ -9,6 +9,7 @@
 #import "SignInViewController.h"
 #import "SignInViewHelper.h"
 #import "WomSignInViewController.h"
+#import "WomSignUpViewController.h"
 #import "AppDelegate.h"
 
 @implementation SignInViewController
@@ -76,25 +77,31 @@
     // set navigation bar
     [self setNavigationBar];
     
-    // set buttons
-    googleButton = [SignInViewHelper getGoogleButton];
-    [googleButton addTarget:self action:@selector(googleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:googleButton];
+//    // set buttons
+//    googleButton = [SignInViewHelper getGoogleButton];
+//    [googleButton addTarget:self action:@selector(googleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:googleButton];
+//    
+//    // set buttons
+//    facebookButton = [SignInViewHelper getFacebookButton];
+//    [facebookButton addTarget:self action:@selector(facebookButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:facebookButton];
+//    
+//    // set buttons
+//    twitterButton = [SignInViewHelper getTwitterButton];
+//    [twitterButton addTarget:self action:@selector(twitterButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:twitterButton];
     
     // set buttons
-    facebookButton = [SignInViewHelper getFacebookButton];
-    [facebookButton addTarget:self action:@selector(facebookButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:facebookButton];
+    signInButton = [SignInViewHelper getSignInButton];
+    [signInButton addTarget:self action:@selector(signInButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:signInButton];
     
     // set buttons
-    twitterButton = [SignInViewHelper getTwitterButton];
-    [twitterButton addTarget:self action:@selector(twitterButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:twitterButton];
+    signUpButton = [SignInViewHelper getSignUpButton];
+    [signUpButton addTarget:self action:@selector(signUpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:signUpButton];
     
-    // set buttons
-    emailButton = [SignInViewHelper getEmailButton];
-    [emailButton addTarget:self action:@selector(emailButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:emailButton];
     
     // set buttons
     signInAsGuestButton = [SignInViewHelper getSignInAsGuestButton];
@@ -115,10 +122,10 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(appLogoView,googleButton,facebookButton,twitterButton,emailButton,signInAsGuestButton,activityIndicator);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(appLogoView,signInButton,signUpButton,signInAsGuestButton,activityIndicator);
     
     // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[appLogoView(50)]-20-[googleButton(42)]-12-[facebookButton(googleButton)]-12-[twitterButton(googleButton)]-75-[emailButton(googleButton)]-24-[signInAsGuestButton(googleButton)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[appLogoView(50)]-50-[signInButton(42)]-25-[signUpButton(signInButton)]-50-[signInAsGuestButton(signInButton)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     // Center horizontally
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[appLogoView(50)]"
@@ -131,14 +138,16 @@
                                                          multiplier:1.0
                                                            constant:0.0]];
     
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[googleButton]-|"
+//    
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[googleButton]-|"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[facebookButton]-|"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[twitterButton]-|"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[signInButton]-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[facebookButton]-|"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[twitterButton]-|"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[emailButton]-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[signUpButton]-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[signInAsGuestButton]-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
@@ -182,10 +191,16 @@
 - (void)twitterButtonPressed:(id)sender {
     [CommonUtility displayAlertWithTitle:@"Not Active" message:@"Please sign in with email" delegate:self];
 }
-- (void)emailButtonPressed:(id)sender {
+- (void)signInButtonPressed:(id)sender {
     // push wom Sign in controller
     WomSignInViewController *womsivc =[[WomSignInViewController   alloc] init];
     [self.navigationController pushViewController:womsivc animated:NO];
+}
+
+- (void)signUpButtonPressed:(id)sender {
+    // push wom Sign up controller
+    WomSignUpViewController *womsuvc =[[WomSignUpViewController   alloc] init];
+    [self.navigationController pushViewController:womsuvc animated:NO];
 }
 
 - (void)signInAsGuestButtonPressed:(id)sender {
@@ -206,7 +221,7 @@
 #pragma mark - Api Manager Post actions methods
 - (void)actionsForSuccessfulAnonymusUserSignIn{
     // switch to content view
-    [(AppDelegate *)[UIApplication sharedApplication].delegate setCoreFunctionViewAsRootView];
+    [(AppDelegate *)[UIApplication sharedApplication].delegate setContentViewAsRootView];
 }
 
 @end

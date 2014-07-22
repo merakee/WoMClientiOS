@@ -10,11 +10,13 @@
 #import "ApiManager.h"
 
 @interface SignInViewController : UIViewController{
-    UIButton           *googleButton;
-    UIButton           *facebookButton;
-    UIButton           *twitterButton;
-    UIButton           *emailButton;
-    UIButton           *signInAsGuestButton;
+    //UIButton           *googleButton;
+    //UIButton           *facebookButton;
+    //UIButton           *twitterButton;
+    UIButton             *signInButton;
+    UIButton             *signUpButton;
+    
+    UIButton             *signInAsGuestButton;
     UIActivityIndicatorView *activityIndicator;
     
     UIImageView        *appLogoView;

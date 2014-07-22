@@ -87,7 +87,25 @@
     return textView;
 }
 
-#pragma mark -  View Helper Methods: Buttons
+#pragma mark - photo options view
++ (UIView *)getPhotoOptionView{
+    UIView *view =[[UIView alloc] init ];//WithFrame:CGRectMake(kPhotoOptionsViewLayout[0],kPhotoOptionsViewLayout[1],kPhotoOptionsViewLayout[2],kPhotoOptionsViewLayout[3])];
+    view.backgroundColor = [UIColor whiteColor];
+        [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return view;
+}
++ (UIButton *)getCameraButton{
+    return [AppUIManager setButtonWithTitle:@"camera" ofType:kAUCPriorityTypePrimary];
+}
++ (UIButton *)getAlbumButton{
+    UIButton *button  = [AppUIManager setButtonWithTitle:@"album" ofType:kAUCPriorityTypePrimary];
+    //UIButton *button  = [AppUIManager setButtonWithTitle:@"album" andColor:[UIColor redColor]];
+    
+    // cutom settings
+    //button.backgroundColor = [UIColor redColor];
+    
+    return button;
+}
 
 
 @end

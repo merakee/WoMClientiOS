@@ -10,26 +10,34 @@
 #import "ContentManager.h"
 #import "ContentViewHelper.h"
 
-@interface ContentViewController : UIViewController <CVCircleCounterViewDelegate>{
+//@interface ContentViewController : UIViewController <CVCircleCounterViewDelegate>{
+@interface ContentViewController : UIViewController{
     UITextView         *contentTextView;
     UIView             *textBackGround;
-    UILabel            *contentSpreadCount;
-    UILabel             *authorID;
-    UIButton           *spreadButton;
-    UIButton           *killButton;
+    //UILabel            *contentSpreadCount;
+    //UILabel             *authorID;
+    //UIButton           *spreadButton;
+    //UIButton           *killButton;
     
-    UIImageView         *userImage;
-    UILabel             *spreadCount;
+    //UIImageView         *userImage;
+    //UILabel             *spreadCount;
     
     UIActivityIndicatorView *activityIndicator;
+    
+    // circular timer
     // CVCircularProgressView      *progressClock;
-    CVCircleCounterView         *progressCounter;
-    NSTimer                     *progressTimer;
-    float                       timeRemaining;
+    //CVCircleCounterView         *progressCounter;
+    //NSTimer                     *progressTimer;
+    //float                       timeRemaining;
     
     
     ContentManager     *contentManager;
     ApiContent        *currentContent;
+    
+    // gestures
+    UISwipeGestureRecognizer *oneFingerSwipeLeft;
+    UISwipeGestureRecognizer *oneFingerSwipeRight;
+    
 }
 
 @end

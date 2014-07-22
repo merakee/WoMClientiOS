@@ -100,7 +100,7 @@
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,passwordConfirmationField,signUpButton);
     
     // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[emailField(36)]-12-[passwordField(emailField)]-12-[passwordConfirmationField(emailField)]-80-[signUpButton(emailField)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-76-[emailField(36)]-12-[passwordField(emailField)]-12-[passwordConfirmationField(emailField)]-12-[signUpButton(emailField)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[emailField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[passwordField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[passwordConfirmationField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -111,7 +111,7 @@
 
 - (void)setNavigationBar {
     // set up navigation bar
-    self.navigationItem.title = @"WoM Sign Up";
+    self.navigationItem.title = @"Sign Up";
     
     // right navigation button
     /*self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
@@ -122,12 +122,11 @@
      */
     
     
-    // set up back button for the child view
-    self.navigationItem.backBarButtonItem =  [[UIBarButtonItem alloc]
-                                              initWithTitle:@"Cancel"
-                                              style:UIBarButtonItemStylePlain
-                                              target:nil
-                                              action:nil];
+    // go back
+    self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc]
+                                              initWithBarButtonSystemItem:UIBarButtonSystemItemStop
+                                              target:self
+                                              action:@selector(goBack:)];
     
     
 }
@@ -144,6 +143,10 @@
 
 
 #pragma mark - Button Action Methods
+- (void)goBack:(id)sender {
+    // go back
+    [self.navigationController popViewControllerAnimated:NO];
+}
 - (void)signUpButtonPressed:(id)sender {
     // sign up user
     [activityIndicator startAnimating];
@@ -164,7 +167,7 @@
 #pragma mark - Api Manager Post actions methods
 - (void)actionsForSuccessfulUserSignUp{
     // switch to content view
-    [(AppDelegate *)[UIApplication sharedApplication].delegate setCoreFunctionViewAsRootView];
+    [(AppDelegate *)[UIApplication sharedApplication].delegate setContentViewAsRootView];
 }
 
 

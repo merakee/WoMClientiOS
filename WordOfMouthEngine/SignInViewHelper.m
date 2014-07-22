@@ -31,8 +31,11 @@
 + (UIButton *)getTwitterButton{
     return [AppUIManager setButtonWithTitle:@"Sign in with Twitter" ofType:kAUCPriorityTypeSecondary];
 }
-+ (UIButton *)getEmailButton{
-    return [AppUIManager setButtonWithTitle:@"Sign in with WoM" ofType:kAUCPriorityTypePrimary];
++ (UIButton *)getSignInButton{
+    return [AppUIManager setButtonWithTitle:@"Sign in" ofType:kAUCPriorityTypePrimary];
+}
++ (UIButton *)getSignUpButton{
+    return [AppUIManager setButtonWithTitle:@"Sign up" ofType:kAUCPriorityTypePrimary];
 }
 + (UIButton *)getSignInAsGuestButton{
     return [AppUIManager setButtonWithTitle:@"Sign in as Guest" ofType:kAUCPriorityTypeSecondary];

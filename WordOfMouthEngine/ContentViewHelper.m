@@ -49,6 +49,7 @@
     // set custom textview properties
     //textView.frame = [CommonUtility shrinkRect:kSIVNameFrame byXPoints:10 yPoints:40];  //kSIVNameFrame;
     textView.backgroundColor = [UIColor clearColor];
+    
     //textView.backgroundColor = [UIColor lightGrayColor];
     // textView.text=@"";
     //textView.attributedText =

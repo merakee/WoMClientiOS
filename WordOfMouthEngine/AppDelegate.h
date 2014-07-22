@@ -9,13 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @class SignInViewController;
-@class CoreFunctionViewController;
+//@class CoreFunctionViewController;
+@class ContentViewController;
 @class ApiManager;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     UINavigationController              *signInNavigationController;
-    SignInViewController                 *signInViewController;
-    CoreFunctionViewController          *coreFunctionViewController;
+    SignInViewController                *signInViewController;
+    //CoreFunctionViewController          *coreFunctionViewController;
+    ContentViewController               *contentViewController;
+    UINavigationController              *contentViewNavigationController;
     
     // API Manager manager
     ApiManager                      *sharedApiManager;
@@ -26,5 +29,6 @@
 
 # pragma mark - App Delegate methods
 - (void)setSignInViewAsRootView;
-- (void)setCoreFunctionViewAsRootView;
+//- (void)setCoreFunctionViewAsRootView;
+- (void)setContentViewAsRootView;
 @end

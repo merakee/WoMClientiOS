@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface ComposeViewController : UIViewController<UITextViewDelegate>{
-    UISegmentedControl *categoryControl;
+#import "ImageProcessingManager.h"
+
+@interface ComposeViewController : UIViewController<UITextViewDelegate,ImageProcessingManagerDelegate>{
+    // UISegmentedControl *categoryControl;
     UITextView         *composeTextView;
+    
+    ImageProcessingManager   *photoManager;
+    UIView                   *photoOptionsView;
+    UIButton                 *cameraButton;
+    UIButton                 *albumButton;
     
     UIActivityIndicatorView *activityIndicator;
 }

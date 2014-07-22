@@ -25,6 +25,7 @@
 + (UIButton *)getGoogleButton;
 + (UIButton *)getFacebookButton;
 + (UIButton *)getTwitterButton;
-+ (UIButton *)getEmailButton;
++ (UIButton *)getSignInButton;
++ (UIButton *)getSignUpButton;
 + (UIButton *)getSignInAsGuestButton;
 @end

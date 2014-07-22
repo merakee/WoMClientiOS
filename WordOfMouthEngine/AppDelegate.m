@@ -9,7 +9,8 @@
 #import "AppDelegate.h"
 #import "ApiManager.h"
 #import "SignInViewController.h"
-#import "CoreFunctionViewController.h"
+//#import "CoreFunctionViewController.h"
+#import "ContentViewController.h"
 #import "AppUIAppearanceManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
 
@@ -84,7 +85,7 @@
 - (void)setViewController {
     // check if user is signed in
     if([sharedApiManager isUserSignedIn]==YES ){
-        [self setCoreFunctionViewAsRootView];
+        [self setContentViewAsRootView];
     }
     else{
         [self setSignInViewAsRootView];
@@ -104,15 +105,28 @@
     
     self.window.rootViewController=signInNavigationController;
 }
-- (void)setCoreFunctionViewAsRootView{
-    // show core functions
-    if(coreFunctionViewController==nil) {
-        coreFunctionViewController =[[CoreFunctionViewController alloc] init];
-    }
-    // select defalt tab
-    coreFunctionViewController.selectedIndex = kCFVTabbarIndexContent;
-    
-    self.window.rootViewController=coreFunctionViewController;
-}
+//- (void)setCoreFunctionViewAsRootView{
+//    // show core functions
+//    if(coreFunctionViewController==nil) {
+//        coreFunctionViewController =[[CoreFunctionViewController alloc] init];
+//    }
+//    // select defalt tab
+//    coreFunctionViewController.selectedIndex = kCFVTabbarIndexContent;
+//    
+//    self.window.rootViewController=coreFunctionViewController;
+//}
 
+- (void)setContentViewAsRootView{
+    // show core functions
+    if(contentViewController==nil) {
+        contentViewController =[[ContentViewController alloc] init];
+    }
+    if(contentViewNavigationController ==nil){
+        contentViewNavigationController = [[UINavigationController alloc]
+                                           initWithRootViewController:contentViewController];
+        
+    }
+    
+    self.window.rootViewController=contentViewNavigationController;
+}
 @end

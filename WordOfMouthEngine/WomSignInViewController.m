@@ -76,9 +76,9 @@
     [self.view addSubview:SignInButton];
     
     // set buttons
-    signUpButton = [WomSignInViewHelper getSignUpButton];
-    [signUpButton addTarget:self action:@selector(signUpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:signUpButton];
+//    signUpButton = [WomSignInViewHelper getSignUpButton];
+//    [signUpButton addTarget:self action:@selector(signUpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:signUpButton];
     
     //text Fileds
     emailField =[[UITextField alloc] init];
@@ -100,21 +100,21 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,SignInButton,signUpButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,SignInButton);
     
     // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[emailField(36)]-12-[passwordField(emailField)]-24-[SignInButton(emailField)]-80-[signUpButton(emailField)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[emailField(36)]-12-[passwordField(emailField)]-24-[SignInButton(emailField)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[emailField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[passwordField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[SignInButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[signUpButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[signUpButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     
 }
 
 - (void)setNavigationBar {
     // set up navigation bar
-    self.navigationItem.title = @"WoM Sign In";
+    self.navigationItem.title = @"Sign In";
     
     // right navigation button
     /*self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
@@ -125,15 +125,15 @@
      */
     
     
-    // set up back button for the child view
-    self.navigationItem.backBarButtonItem =  [[UIBarButtonItem alloc]
-                                              initWithTitle:@"Cancel"
-                                              style:UIBarButtonItemStylePlain
-                                              target:nil
-                                              action:nil];
+    // go back
+    self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc]
+                                              initWithBarButtonSystemItem:UIBarButtonSystemItemStop
+                                              target:self
+                                              action:@selector(goBack:)];
     
     
 }
+
 
 
 #pragma mark - TextField Delegate Protocal
@@ -147,6 +147,10 @@
 
 
 #pragma mark - Button Action Methods
+- (void)goBack:(id)sender {
+    // go back
+    [self.navigationController popViewControllerAnimated:NO];
+}
 - (void)SignInButtonPressed:(id)sender {
     // sign in user
     [activityIndicator startAnimating];
@@ -172,7 +176,7 @@
 #pragma mark - Api Manager Post actions methods
 - (void)actionsForSuccessfulUserSignIn{
     // switch to content view
-    [(AppDelegate *)[UIApplication sharedApplication].delegate setCoreFunctionViewAsRootView];
+    [(AppDelegate *)[UIApplication sharedApplication].delegate setContentViewAsRootView];
 }
 
 

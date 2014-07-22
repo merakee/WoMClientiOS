@@ -13,7 +13,7 @@
     UITextField        *emailField;
     UITextField        *passwordField;
     UIButton           *SignInButton;
-    UIButton           *signUpButton;
+    //UIButton           *signUpButton;
     UIActivityIndicatorView *activityIndicator;
 }
 

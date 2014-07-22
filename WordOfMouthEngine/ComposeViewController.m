@@ -20,6 +20,7 @@
         //                   initWithTitle:@"Post"
         //                  image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageCompose]
         //                 tag:kCFVTabbarIndexCompose];
+        photoManager = [[ImageProcessingManager alloc] init];
         
     }
     return self;
@@ -38,9 +39,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    // display key board
-    [composeTextView becomeFirstResponder];
 }
 
 - (void)viewDidUnload
@@ -53,7 +51,11 @@
     [super viewWillAppear:animated];
     
     // clear category selection
-    [self updateViewForCategory:kAPIContentCategoryOther];
+    [self updateViewForCategory:kAPIContentCategoryNews];
+    
+    // display key board
+    [composeTextView becomeFirstResponder];
+    
     
     // hide tabbar
     //[self setHidesBottomBarWhenPushed:YES];
@@ -88,9 +90,9 @@
     [self setNavigationBar];
     
     // set Category control
-    categoryControl = [ComposeViewHelper getCategoryControl];
-    [categoryControl addTarget:self action:@selector(selectedCategoryChanged:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:categoryControl];
+    //    categoryControl = [ComposeViewHelper getCategoryControl];
+    //    [categoryControl addTarget:self action:@selector(selectedCategoryChanged:) forControlEvents:UIControlEventValueChanged];
+    //    [self.view addSubview:categoryControl];
     
     // set TextView
     composeTextView = [ComposeViewHelper getComposeTextViewWithDelegate:self];
@@ -102,6 +104,11 @@
     activityIndicator =[[UIActivityIndicatorView alloc] init];
     [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
     
+
+    
+    // set photos options view
+    [self setPhotoOptionsView];
+    
     // layout
     [self layoutView];
     
@@ -111,41 +118,97 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
+    //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(composeTextView);
     // text filed
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[composeTextView(>=100)]-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[categoryControl(>=100)]-|"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-68-[categoryControl]-8-[composeTextView]-218-|"
+    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[categoryControl(>=100)]-|"
+    //                                                                options:0 metrics:nil views:viewsDictionary]];
+    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-68-[categoryControl]-8-[composeTextView]-218-|"
+    //                                                                 options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-68-[composeTextView]-218-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
 }
 
 - (void)setNavigationBar {
+    self.navigationItem.title =@"WoM";
     // set up navigation bar
-    self.navigationItem.title = @"Compose";
+    //    self.navigationItem.titleView = [[UIBarButtonItem alloc]
+    //                                     initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
+    //                                     target:self
+    //                                     action:@selector(addPicture:)];
     
     // right navigation button
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-                                              initWithTitle:@"Post"
-                                              style:UIBarButtonItemStyleDone
-                                              target:self
-                                              action:@selector(postContent:)];
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc]
+                                                 initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
+                                                 target:self
+                                                 action:@selector(showPhotoOptions:)],
+                                                [[UIBarButtonItem alloc]
+                                                 initWithTitle:@"Post"
+                                                 style:UIBarButtonItemStyleDone
+                                                 target:self
+                                                 action:@selector(postContent:)]
+                                                ];
     
     self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc]
-                                              initWithTitle:@"Cancel"
-                                              style:UIBarButtonItemStyleDone
+                                              initWithBarButtonSystemItem:UIBarButtonSystemItemStop
                                               target:self
-                                              action:@selector(cancelPost:)];
-    //action:@selector(goBack:)];
+                                              action:@selector(goBack:)];
+    
 }
 
 - (void)updateViewForCategory:(kAPIContentCategory)category{
-    [ComposeViewHelper updateCategoryControl:categoryControl forCategory:category];
+    //[ComposeViewHelper updateCategoryControl:categoryControl forCategory:category];
     composeTextView.backgroundColor =[AppUIManager getContentColorForCategory:category];
 }
-#pragma mark -  Local Methods Implememtation
+- (void)setPhotoOptionsView{
+    photoOptionsView = [ComposeViewHelper getPhotoOptionView];
+    // add as subview and hide
+    [self.view addSubview:photoOptionsView];
+    photoOptionsView.hidden = YES;
+    
+    // add buttons
+    albumButton = [ComposeViewHelper getAlbumButton];
+    [albumButton addTarget:self action:@selector(albumButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [photoOptionsView addSubview:albumButton];
+    
+    if([photoManager isCameraAvailable]){
+        cameraButton = [ComposeViewHelper getCameraButton];
+        [cameraButton  addTarget:self action:@selector(cameraButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [photoOptionsView addSubview:cameraButton];
+        // layout
+        NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(photoOptionsView,cameraButton,albumButton);
 
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[photoOptionsView(80)]|"
+                                                                          options:0 metrics:nil views:viewsDictionary]];
+        
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[photoOptionsView(60)]"
+                                                                          options:0 metrics:nil views:viewsDictionary]];
+        
+        
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2-[cameraButton]-2-|"
+                                                                          options:0 metrics:nil views:viewsDictionary]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2-[albumButton]-2-|"
+                                                                          options:0 metrics:nil views:viewsDictionary]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[cameraButton(30)]-4-[albumButton(cameraButton)]-2-|"
+                                                                          options:0 metrics:nil views:viewsDictionary]];
+    }
+    else{
+        NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(photoOptionsView,albumButton);
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[photoOptionsView(80)]|"
+                                                                          options:0 metrics:nil views:viewsDictionary]];
+        
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[photoOptionsView(30)]"
+                                                                          options:0 metrics:nil views:viewsDictionary]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2-[albumButton]-2-|"
+                                                                          options:0 metrics:nil views:viewsDictionary]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[albumButton]-2-|"
+                                                                          options:0 metrics:nil views:viewsDictionary]];
+    }
+}
+#pragma mark -  Local Methods Implememtation
 - (void)clearTextView{
     composeTextView.text=nil;
 }
@@ -154,12 +217,13 @@
     // attempt to post content
     ApiContent *ci =[[ApiContent alloc] init];
     ci.contentText = [CommonUtility trimString:composeTextView.text];
-    if(categoryControl.selectedSegmentIndex==UISegmentedControlNoSegment){
-        ci.categoryId = [NSNumber numberWithInteger: kAPIContentCategoryOther];
-    }
-    else{
-        ci.categoryId = [NSNumber numberWithInteger:categoryControl.selectedSegmentIndex+1];
-    }
+    ci.categoryId = [NSNumber numberWithInteger: kAPIContentCategoryNews];
+    //    if(categoryControl.selectedSegmentIndex==UISegmentedControlNoSegment){
+    //        ci.categoryId = [NSNumber numberWithInteger: kAPIContentCategoryOther];
+    //    }
+    //    else{
+    //        ci.categoryId = [NSNumber numberWithInteger:categoryControl.selectedSegmentIndex+1];
+    //    }
     
     // post content
     [activityIndicator startAnimating];
@@ -178,6 +242,9 @@
     
 }
 
+- (void)addPicture:(id)sender {
+    
+}
 #pragma mark - Api Manager Post actions methods
 - (void)actionsForSuccessfulPostContent{
     //clear content
@@ -197,7 +264,7 @@
     // clear post
     [self clearTextView];
     // go back to content view
-    self.tabBarController.selectedIndex = kCFVTabbarIndexContent;
+    //self.tabBarController.selectedIndex = kCFVTabbarIndexContent;
 }
 
 #pragma mark - control events methods
@@ -232,5 +299,35 @@
     
 }
 
+#pragma mark - Photo buttons
+#pragma mark - popover controller method
+- (void)showPhotoOptions:(id)sender{
+    photoOptionsView.hidden = !photoOptionsView.hidden;
+}
+- (void)cameraButtonPressed:(id)sender {
+    photoOptionsView.hidden = YES;
+    // start image picker for camera
+    photoManager.viewController =self;
+    [photoManager displayCamera];
+}
+
+- (void)albumButtonPressed:(id)sender {
+    photoOptionsView.hidden = YES;
+    // start image picker for camera
+    photoManager.viewController =self;
+    [photoManager displayPhotoLibrary];
+}
+
+
+#pragma mark -  Image Processing Manager Delegate methods
+- (void)photoCaptureCancelled {
+    //[self photoDialogCancelAction];
+}
+- (void)photoCaptureDoneWithImage:(UIImage *)image {
+    // set has photo changed
+    //hasPhotoChanged=YES;
+    // size the photo and set
+    //photoImageView.image =[ImageProcessingManager cropImageToSqure:image];
+}
 
 @end

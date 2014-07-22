@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11019B94197E30EB00F94926 /* ImageProcessingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11019B93197E30EB00F94926 /* ImageProcessingManager.m */; };
+		11019B95197E30EB00F94926 /* ImageProcessingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11019B93197E30EB00F94926 /* ImageProcessingManager.m */; };
 		1107342D18BDBF8B008C941A /* AppUIAppearanceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1107342C18BDBF8B008C941A /* AppUIAppearanceManager.m */; };
 		1114A7F6182D8B3300089669 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1114A7F5182D8B3300089669 /* Foundation.framework */; };
 		1114A7F8182D8B3300089669 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1114A7F7182D8B3300089669 /* CoreGraphics.framework */; };
@@ -147,6 +149,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		11019B92197E30EB00F94926 /* ImageProcessingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageProcessingManager.h; sourceTree = "<group>"; };
+		11019B93197E30EB00F94926 /* ImageProcessingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageProcessingManager.m; sourceTree = "<group>"; };
 		1107342B18BDBF8B008C941A /* AppUIAppearanceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUIAppearanceManager.h; sourceTree = "<group>"; };
 		1107342C18BDBF8B008C941A /* AppUIAppearanceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUIAppearanceManager.m; sourceTree = "<group>"; };
 		1114A7F2182D8B3300089669 /* WordOfMouthEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordOfMouthEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -344,6 +348,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11019B91197E30CC00F94926 /* UtilityManagers */ = {
+			isa = PBXGroup;
+			children = (
+				11019B92197E30EB00F94926 /* ImageProcessingManager.h */,
+				11019B93197E30EB00F94926 /* ImageProcessingManager.m */,
+			);
+			name = UtilityManagers;
+			sourceTree = "<group>";
+		};
 		1114A7E9182D8B3300089669 = {
 			isa = PBXGroup;
 			children = (
@@ -389,6 +402,7 @@
 				1114A827182D8D5300089669 /* Models */,
 				1114A829182D8D7100089669 /* Resources */,
 				1114A7FC182D8B3300089669 /* Supporting Files */,
+				11019B91197E30CC00F94926 /* UtilityManagers */,
 				1114A826182D8D4A00089669 /* View */,
 			);
 			path = WordOfMouthEngine;
@@ -1061,6 +1075,7 @@
 				117D92B5194B86E700FD6EDD /* UIRefreshControl+AFNetworking.m in Sources */,
 				117D9287194B86E200FD6EDD /* AFHTTPRequestOperationManager.m in Sources */,
 				117D9295194B86E200FD6EDD /* AFURLSessionManager.m in Sources */,
+				11019B94197E30EB00F94926 /* ImageProcessingManager.m in Sources */,
 				1166AD7A1974BEBA0010BFEA /* ApiContentManager.m in Sources */,
 				11CB8FDB18B049B700396418 /* ContentViewHelper.m in Sources */,
 				1131DA6718B5584300EFDB34 /* SignInViewHelper.m in Sources */,
@@ -1076,6 +1091,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11019B95197E30EB00F94926 /* ImageProcessingManager.m in Sources */,
 				1170EB04196C70B700802D4D /* ApiUserManagerTests.m in Sources */,
 				117D9290194B86E200FD6EDD /* AFURLConnectionOperation.m in Sources */,
 				117D9286194B86E200FD6EDD /* AFHTTPRequestOperation.m in Sources */,
