@@ -241,8 +241,9 @@
     
     // post content user
     [activityIndicator startAnimating];
-    [[ApiManager sharedApiManager] postContentWithCategoryId:ci.categoryId.integerValue
+    [[ApiManager sharedApiManager] postContentWithCategoryId:(int)ci.categoryId.integerValue
                                                         text:ci.contentText
+                                                       photo:contentImageView.image
                                                      success:^(ApiContent * content){
                                                          [activityIndicator stopAnimating];
                                                          [self actionsForSuccessfulPostContent];
@@ -315,19 +316,19 @@
 - (void)showPhotoOptions:(id)sender{
     photoOptionsView.hidden = !photoOptionsView.hidden;
     // set the view to disappear
-//    if(photoOptionsView.hidden==NO){
-//        [UIView animateWithDuration:.5
-//                              delay:3
-//                            options:UIViewAnimationOptionCurveEaseOut
-//                         animations:^(void){
-//                             //photoOptionsView.alpha = .25;
-//                         }
-//                         completion:^(BOOL finished){
-//                             //photoOptionsView.hidden=YES;
-//                             //photoOptionsView.alpha = 1;
-//                         }];
-//        
-//    }
+    //    if(photoOptionsView.hidden==NO){
+    //        [UIView animateWithDuration:.5
+    //                              delay:3
+    //                            options:UIViewAnimationOptionCurveEaseOut
+    //                         animations:^(void){
+    //                             //photoOptionsView.alpha = .25;
+    //                         }
+    //                         completion:^(BOOL finished){
+    //                             //photoOptionsView.hidden=YES;
+    //                             //photoOptionsView.alpha = 1;
+    //                         }];
+    //
+    //    }
 }
 - (void)cameraButtonPressed:(id)sender {
     photoOptionsView.hidden = YES;

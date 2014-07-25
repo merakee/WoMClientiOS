@@ -14,8 +14,8 @@
 #import "ApiRequestHelper.h"
 
 
-//static NSString *kAMAPI_HOST_PATH   =   @"http://localhost:3000/api/v0";
-static NSString *kAMAPI_HOST_PATH   =   @"http://wom-backend-master-env-ujwc9jrchq.elasticbeanstalk.com/api/v0";
+static NSString *kAMAPI_HOST_PATH   =   @"http://localhost:3000/api/v0";
+//static NSString *kAMAPI_HOST_PATH   =   @"http://wom-backend-master-env-ujwc9jrchq.elasticbeanstalk.com/api/v0";
 //static NSString *kAMAPI_BASE_PATH   =   @"api/v0";
 static NSString *kAMAPI_SIGNUP_PATH   =   @"sign_up";
 static NSString *kAMAPI_SIGNIN_PATH   =   @"sign_in";
@@ -23,6 +23,9 @@ static NSString *kAMAPI_SIGNOUT_PATH  =  @"sign_out";
 static NSString *kAMAPI_PROFILE_PATH  =  @"profile";
 static NSString *kAMAPI_CONTENT_PATH  =  @"contents";
 static NSString *kAMAPI_RESPONSE_PATH =  @"user_responses";
+
+// Content photo parameters
+static const float kAMAPI_CONTENT_PHOTO_COMPRESSION = 1.0;
 
 
 @interface ApiManager : AFHTTPSessionManager{
@@ -143,9 +146,13 @@ static NSString *kAMAPI_RESPONSE_PATH =  @"user_responses";
  */
 - (void)postContentWithCategoryId:(int)categoryId
                              text:(NSString *)text
+                            photo:(UIImage *)photo
                           success:(void (^)(ApiContent * content))success
                           failure:(void (^)(NSError *error))failure;
-
+- (void)postContentWithCategoryId:(int)categoryId
+                             text:(NSString *)text_
+                          success:(void (^)(ApiContent * content))success
+                          failure:(void (^)(NSError *error))failure;
 
 #pragma mark -  API Calls: Response
 /*!

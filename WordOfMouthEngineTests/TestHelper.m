@@ -96,18 +96,19 @@
         
         StartAsyncBlock();
         [[ApiManager sharedApiManager]     postContentWithCategoryId:[CommonUtility pickRandom:4]+1
-                                             text:[PlaceHolderFactory sentencesWithNumber:2]
-                                          success:^(ApiContent * content){
-                                              StopAsyncBlock();
-                                          }
-                                          failure:^(NSError *error){
-                                              isDone = false;
-                                              StopAsyncBlock();
-                                          }];
+                                                                text:[PlaceHolderFactory sentencesWithNumber:2]
+                                                               photo:nil
+                                                             success:^(ApiContent * content){
+                                                                 StopAsyncBlock();
+                                                             }
+                                                             failure:^(NSError *error){
+                                                                 isDone = false;
+                                                                 StopAsyncBlock();
+                                                             }];
         
         // Run the Wait loop
         WaitUntilAsyncBlockCompletes();
-
+        
     }
     
     return isDone;

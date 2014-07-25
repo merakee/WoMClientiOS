@@ -44,7 +44,7 @@
 - (void)testApiManagerPostContent{
     XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
     // post 100 items
-    for(int ind=0;ind<100;ind++){
+    for(int ind=0;ind<1;ind++){
         int cid = [CommonUtility pickRandom:4]+1;
         NSString *text =[PlaceHolderFactory sentencesWithNumber:2];
         ApiUser *currentUser =apiManager.apiUserManager.currentUser;
@@ -52,6 +52,36 @@
         StartAsyncBlock();
         [apiManager     postContentWithCategoryId:cid
                                              text:text
+                                            photo:nil 
+                                          success:^(ApiContent * content){
+                                              XCTAssertEqual(content.categoryId.integerValue, cid);
+                                              XCTAssertEqualObjects(content.contentText,text);
+                                              XCTAssertEqual(content.userId.integerValue,currentUser.userId.integerValue);
+                                              StopAsyncBlock();
+                                          }
+                                          failure:^(NSError *error){
+                                              StopAsyncBlock();
+                                              NSLog(@"Error: %@",error);
+                                              XCTFail(@"Must be sucessful");
+                                          }];
+        
+        // Run the Wait loop
+        WaitUntilAsyncBlockCompletes();
+    }
+}
+
+- (void)testApiManagerPostContentWithImage{
+    XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
+    // post 100 items
+    for(int ind=0;ind<1;ind++){
+        int cid = [CommonUtility pickRandom:4]+1;
+        NSString *text =[PlaceHolderFactory sentencesWithNumber:2];
+        ApiUser *currentUser =apiManager.apiUserManager.currentUser;
+        
+        StartAsyncBlock();
+        [apiManager     postContentWithCategoryId:cid
+                                             text:text
+                                            photo:[UIImage imageNamed:[[@"bg" stringByAppendingFormat:@"%d",[CommonUtility pickRandom:4]+1] stringByAppendingString:@".jpg"]]
                                           success:^(ApiContent * content){
                                               XCTAssertEqual(content.categoryId.integerValue, cid);
                                               XCTAssertEqualObjects(content.contentText,text);
@@ -72,7 +102,7 @@
 #pragma mark - Get Content
 - (void)testApiManagerGetContent{
     // get 100 items
-    for(int ind=0;ind<100;ind++){
+    for(int ind=0;ind<1;ind++){
         XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
         //  user
         StartAsyncBlock();
@@ -116,7 +146,7 @@
     XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
     XCTAssert([TestHelper createContentsWithCount:100],@"Must be able to create contents");
     // post 100 items
-    for(int ind=0;ind<100;ind++){
+    for(int ind=0;ind<1;ind++){
         //int contentId =[CommonUtility pickRandom:100]+1;
         int contentId =ind+1;
         NSNumber *response= [NSNumber numberWithBool:[CommonUtility pickRandom:2]>0];

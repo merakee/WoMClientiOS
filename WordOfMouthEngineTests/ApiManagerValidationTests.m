@@ -307,16 +307,17 @@
     StartAsyncBlock();
     [apiManager postContentWithCategoryId:kAPIContentCategoryOther
                                      text:@"Local news"
-                                 success:^(ApiContent * content){
-                                     XCTAssert(@"Must not be sucessful");
-                                     StopAsyncBlock();
-                                 }
-                                 failure:^(NSError *error){
-                                     XCTAssertEqualObjects(error.localizedFailureReason,@"Please select a content type.");
-                                     XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-                                     XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-                                     StopAsyncBlock();
-                                 }];
+                                    photo:nil
+                                  success:^(ApiContent * content){
+                                      XCTAssert(@"Must not be sucessful");
+                                      StopAsyncBlock();
+                                  }
+                                  failure:^(NSError *error){
+                                      XCTAssertEqualObjects(error.localizedFailureReason,@"Please select a content type.");
+                                      XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
+                                      XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
+                                      StopAsyncBlock();
+                                  }];
     
     // Run the Wait loop
     WaitUntilAsyncBlockCompletes();
@@ -327,6 +328,7 @@
     StartAsyncBlock();
     [apiManager postContentWithCategoryId:kAPIContentCategoryRumor
                                      text:@"L"
+                                    photo:nil
                                   success:^(ApiContent * content){
                                       XCTAssert(@"Must not be sucessful");
                                       StopAsyncBlock();
@@ -347,6 +349,7 @@
     StartAsyncBlock();
     [apiManager postContentWithCategoryId:kAPIContentCategorySecret
                                      text:@"AWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elasticc Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elastic"
+                                    photo:nil
                                   success:^(ApiContent * content){
                                       XCTAssert(@"Must not be sucessful");
                                       StopAsyncBlock();
