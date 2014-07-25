@@ -60,7 +60,7 @@
                                                      text:results[1]
                                                    userId:results[2]
                                                categoryId:results[3]
-                                               photoToken:@""
+                                               photoToken:@{}
                                                 timeStamp:@""
                                               totalSpread:results[4]
                                               spreadCount:results[5]

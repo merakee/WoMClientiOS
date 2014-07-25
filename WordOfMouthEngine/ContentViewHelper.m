@@ -23,14 +23,14 @@
 + (UIImageView *)getContentBackGroundView{
     UIImageView *contentBackGround = [[UIImageView alloc] init];
     contentBackGround.backgroundColor =[AppUIManager getContentColorForCategory:1];
-    contentBackGround.contentMode = UIViewContentModeScaleAspectFill;
+    contentBackGround.contentMode = UIViewContentModeScaleAspectFit;
     [contentBackGround setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     return contentBackGround;
 }
-+ (void)setImageForContentBackGroudView:(UIImageView *)imageView{
++ (UIImage *)getImageForContentBackGroudView{
     NSString *fileName =[[@"bg" stringByAppendingFormat:@"%d",[CommonUtility pickRandom:4]+1] stringByAppendingString:@".jpg"];
-    imageView.image =[UIImage imageNamed:fileName];
+    return [UIImage imageNamed:fileName];
 }
 + (void)updateContentBackGroundView:(UIView *)view forCategory:(kAPIContentCategory)category{
     //view.backgroundColor = [AppUIManager getContentColorForCategory:category];

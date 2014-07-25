@@ -24,9 +24,6 @@ static NSString *kAMAPI_PROFILE_PATH  =  @"profile";
 static NSString *kAMAPI_CONTENT_PATH  =  @"contents";
 static NSString *kAMAPI_RESPONSE_PATH =  @"user_responses";
 
-// Content photo parameters
-static const float kAMAPI_CONTENT_PHOTO_COMPRESSION = 1.0;
-
 
 @interface ApiManager : AFHTTPSessionManager{
 }
@@ -147,10 +144,6 @@ static const float kAMAPI_CONTENT_PHOTO_COMPRESSION = 1.0;
 - (void)postContentWithCategoryId:(int)categoryId
                              text:(NSString *)text
                             photo:(UIImage *)photo
-                          success:(void (^)(ApiContent * content))success
-                          failure:(void (^)(NSError *error))failure;
-- (void)postContentWithCategoryId:(int)categoryId
-                             text:(NSString *)text_
                           success:(void (^)(ApiContent * content))success
                           failure:(void (^)(NSError *error))failure;
 

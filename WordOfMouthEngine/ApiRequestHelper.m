@@ -38,10 +38,25 @@
                      @"email":user.email,
                      @"authentication_token":user.authenticationToken}};
 }
-+(NSDictionary *)contentParamsWithUser:(ApiUser *)user categoryId:(int)categoryId andtext:(NSString *)text{
-    return [self addUserAuth:user toDictionary:@{@"content":@{
-                                                         @"content_category_id": [NSNumber numberWithInt:categoryId],
-                                                         @"text":text}}];
++(NSDictionary *)contentParamsWithUser:(ApiUser *)user categoryId:(int)categoryId text:(NSString *)text photo_token:(UIImage *)photo{
+    NSDictionary *contentDic;
+    if(photo){
+        NSString *photoFile = [UIImageJPEGRepresentation(photo,kAMAPI_CONTENT_PHOTO_COMPRESSION) base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
+        NSDictionary *photoTokenDic = @{@"filename": @"image.jpg",
+                                        @"file":photoFile,
+                                        @"content_type":@"image/jpeg"};
+        contentDic= @{@"content":@{
+                              @"content_category_id": [NSNumber numberWithInt:categoryId],
+                              @"text":text,
+                              @"photo_token": photoTokenDic}};
+        
+    }else{
+        contentDic= @{@"content":@{
+                              @"content_category_id": [NSNumber numberWithInt:categoryId],
+                              @"text":text}};
+    }
+    
+    return [self addUserAuth:user toDictionary:contentDic];
 }
 +(NSDictionary *)responseParamsWith:(ApiUser *)user contentId:(int)contentId andResponse:(NSNumber *)response{
     if (!response){return @{};}
@@ -82,12 +97,12 @@
 + (ApiContent *)getContentFromDictionary:(NSDictionary *)contentDic{
     return [ApiRequestHelper getContentFromDictionaryWithOutRoot:contentDic[@"content"]];
 }
-+ (ApiContent *)getContentFromDictionaryWithOutRoot:(NSDictionary *)contentDic{
++ (ApiContent *)getContentFromDictionaryWithOutRoot:(NSDictionary *)contentDic{    
     return [[ApiContent alloc] initWithContentId:contentDic[@"id"]
                                             text:contentDic[@"text"]
                                           userId:contentDic[@"user_id"]
                                       categoryId:contentDic[@"content_category_id"]
-                                      photoToken:contentDic[@"photo_token"]
+                                      photoToken:contentDic[@"photo_token"]?contentDic[@"photo_token"]:@{}
                                        timeStamp:contentDic[@"created_at"]
                                      totalSpread:contentDic[@"total_spread"]
                                      spreadCount:contentDic[@"spread_count"]

@@ -27,7 +27,7 @@ typedef enum {
 @property NSString *contentText;
 @property NSNumber * userId;
 @property NSNumber * categoryId;
-@property NSString *photoToken;
+@property NSDictionary *photoToken;
 @property NSString *timeStamp;
 @property NSNumber * totalSpread;
 @property NSNumber * spreadCount;
@@ -39,7 +39,7 @@ typedef enum {
                    text:(NSString *)contentText_
                userId:(NSNumber * )userId_
              categoryId:(NSNumber * )categoryId_
-              photoToken:(NSString *)photoToken_
+              photoToken:(NSDictionary *)photoToken_
               timeStamp:(NSString *)timeStamp_
             totalSpread:(NSNumber * )totalSpread_
             spreadCount:(NSNumber * )spreadCount_

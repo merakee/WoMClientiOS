@@ -28,7 +28,7 @@
                    text:(NSString *)contentText_
                  userId:(NSNumber * )userId_
              categoryId:(NSNumber * )categoryId_
-             photoToken:(NSString *)photoToken_
+             photoToken:(NSDictionary *)photoToken_
               timeStamp:(NSString *)timeStamp_
             totalSpread:(NSNumber * )totalSpread_
             spreadCount:(NSNumber * )spreadCount_
@@ -57,7 +57,7 @@
                                             text:@"Sorry! There is no content right now. Wait or press any button to refresh"
                                           userId:@0
                                       categoryId:[NSNumber numberWithInteger:kAPIContentCategoryEmpty]
-                                      photoToken:@""
+                                      photoToken:@{}
                                        timeStamp:@""
                                      totalSpread:@0
                                      spreadCount:@0

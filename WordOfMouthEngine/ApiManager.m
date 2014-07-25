@@ -357,57 +357,8 @@
         failure(verror);
         return;
     }
-    // post vlidation
-    // NSLog();
-    if(!photo){
-        [self postContentWithCategoryId:categoryId
-                                   text:text
-                                success:^(ApiContent *content) {
-                                    success(content);
-                                } failure:^(NSError *error) {
-                                    failure(error);
-                                }];
-    }
-    else{
-    NSString *photoFileName=[@"photo_" stringByAppendingFormat:@"%ld.jpg",(long)self.apiUserManager.currentUser.userId.integerValue];
     
-    [self POST:kAMAPI_CONTENT_PATH  parameters:[ApiRequestHelper contentParamsWithUser:self.apiUserManager.currentUser categoryId:categoryId andtext:text]   constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        if (photo) {
-            [formData appendPartWithFileData:UIImageJPEGRepresentation(photo,kAMAPI_CONTENT_PHOTO_COMPRESSION)
-                                        name:@"photo_token"
-                                    fileName:photoFileName
-                                    mimeType:@"image/jpeg"];
-        }
-    }
-       success:^(NSURLSessionDataTask *task, id responseObject) {
-           NSError *error;
-           ApiContent * content = [self actionsForSuccessfulPostContentWithResponse:responseObject andError:&error];
-           if(error){
-               failure(error);
-           }
-           else{
-               success(content);
-           }
-       }
-       failure:^(NSURLSessionDataTask *task, NSError *error) {
-           failure([self actionsForFailedPostContentWithError:error]);
-       }];
-    }
-}
-
-- (void)postContentWithCategoryId:(int)categoryId
-                             text:(NSString *)text_
-                          success:(void (^)(ApiContent * content))success
-                          failure:(void (^)(NSError *error))failure{
-//    // process and validate
-//    NSString * text = [CommonUtility trimString:text_];
-//    NSError *verror =[ApiValidationManager validatePostCotentWithCategoryId:categoryId text:text];
-//    if(verror){
-//        failure(verror);
-//        return;
-//    }
-    
-    [self POST:kAMAPI_CONTENT_PATH parameters:[ApiRequestHelper contentParamsWithUser:self.apiUserManager.currentUser categoryId:categoryId andtext:text_]
+    [self POST:kAMAPI_CONTENT_PATH parameters:[ApiRequestHelper contentParamsWithUser:self.apiUserManager.currentUser categoryId:categoryId text:text_ photo_token:photo]
        success:^(NSURLSessionDataTask *task, id responseObject) {
            NSError *error;
            ApiContent * content = [self actionsForSuccessfulPostContentWithResponse:responseObject andError:&error];

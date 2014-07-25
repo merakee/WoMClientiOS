@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ContentManager.h"
 #import "ContentViewHelper.h"
+#import "UIImageView+AFNetworking.h"
 
 //@interface ContentViewController : UIViewController <CVCircleCounterViewDelegate>{
 @interface ContentViewController : UIViewController{

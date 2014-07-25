@@ -102,7 +102,7 @@
 #pragma mark - Get Content
 - (void)testApiManagerGetContent{
     // get 100 items
-    for(int ind=0;ind<1;ind++){
+    for(int ind=0;ind<100;ind++){
         XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
         //  user
         StartAsyncBlock();
@@ -146,7 +146,7 @@
     XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
     XCTAssert([TestHelper createContentsWithCount:100],@"Must be able to create contents");
     // post 100 items
-    for(int ind=0;ind<1;ind++){
+    for(int ind=0;ind<100;ind++){
         //int contentId =[CommonUtility pickRandom:100]+1;
         int contentId =ind+1;
         NSNumber *response= [NSNumber numberWithBool:[CommonUtility pickRandom:2]>0];

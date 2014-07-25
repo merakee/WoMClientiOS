@@ -113,11 +113,19 @@
     
 }
 - (void)updateViewWithNewContent{
+    //[ApiContent printContentInfo:currentContent];
     // change category color
     [ContentViewHelper updateContentBackGroundView:contentBackGround forCategory:(kAPIContentCategory)currentContent.categoryId];
     
     contentTextView.text = currentContent.contentText;
-    [ContentViewHelper setImageForContentBackGroudView:contentBackGround];
+    UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
+    if(currentContent.photoToken[@"url"] && (![currentContent.photoToken[@"url"] isEqual:[NSNull null]])){
+        [contentBackGround setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]]
+                                               placeholderImage:bgImage];
+    }
+    else{
+        contentBackGround.image = bgImage;
+    }
     
     //NSAttributedString *str = [[NSAttributedString alloc] initWithString:currentContent.contentText];
     //contentTextView.attributedText =str ;
@@ -214,8 +222,8 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[contentTextView(>=100)]-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[contentTextView(>=100)]-|"
-//                                                                     options:0 metrics:nil views:viewsDictionary]];
+    //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[contentTextView(>=100)]-|"
+    //                                                                     options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[contentTextView(120)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];

@@ -18,7 +18,7 @@
 + (void)setView:(UIView *)view;
 + (UIImageView *)getContentBackGroundView;
 + (void)updateContentBackGroundView:(UIView *)view forCategory:(kAPIContentCategory)category;
-+ (void)setImageForContentBackGroudView:(UIImageView *)imageView;
++ (UIImage *)getImageForContentBackGroudView;
 
 #pragma mark - View Helper Methods: Image Views
 + (UIImageView *)getUserImageView;

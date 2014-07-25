@@ -11,13 +11,16 @@
 #import "ApiContent.h"
 #import "ApiUserResponse.h"
 
+// Content photo parameters
+static const float kAMAPI_CONTENT_PHOTO_COMPRESSION = 1.0;
+
 @interface ApiRequestHelper : NSObject
 
 #pragma mark -  Utility Methods: JSON Request
 +(NSDictionary *)userSignUpParamsWithUserTypeId:(int)userTypeId email:(NSString *)email password:(NSString *)password andPasswordConfirmation:(NSString *)passwordConfirmation;
 +(NSDictionary *)userSignInParamsWithEmail:(NSString *)email andPassword:(NSString *)password;
 +(NSDictionary *)userAuthenticationParams:(ApiUser *)user;
-+(NSDictionary *)contentParamsWithUser:(ApiUser *)user categoryId:(int)categoryId andtext:(NSString *)text;
++(NSDictionary *)contentParamsWithUser:(ApiUser *)user categoryId:(int)categoryId text:(NSString *)text photo_token:(UIImage *)photo;
 +(NSDictionary *)responseParamsWith:(ApiUser *)user contentId:(int)contentId andResponse:(NSNumber *)response;
 +(NSDictionary *)addUserAuth:(ApiUser *)user toDictionary:(NSDictionary *)infoDictionary;
 
