@@ -389,7 +389,7 @@
     
     // post content user
     [activityIndicator startAnimating];
-    [[ApiManager sharedApiManager] postResponseWithContentId:currentContent.contentId.integerValue
+    [[ApiManager sharedApiManager] postResponseWithContentId:currentContent.contentId.intValue
                                                     response:[NSNumber numberWithBool:response]
                                                      success:^(ApiUserResponse *response){
                                                          [activityIndicator stopAnimating];

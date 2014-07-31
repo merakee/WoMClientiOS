@@ -157,7 +157,7 @@
     // Can separate views by title [is necessary with tag]
     //Button actions using delegate
     int customButtonStartIndex = (alertView.cancelButtonIndex>=0)?1:0;
-    int totalCustomButtons = alertView.numberOfButtons - customButtonStartIndex;
+    int totalCustomButtons = (int) alertView.numberOfButtons -  customButtonStartIndex;
     
     // NSPLogBLog(@"bIndeX: %d cIndex:%d",buttonIndex,customButtonStartIndex);
     
