@@ -92,6 +92,9 @@
     
     textView.delegate=delegate;
     
+    // accessibilty
+    [textView setAccessibilityLabel:@"Add Text"];
+    
     return textView;
 }
 

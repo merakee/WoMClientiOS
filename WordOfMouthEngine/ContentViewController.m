@@ -285,6 +285,7 @@
                                               initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
                                               target:self
                                               action:@selector(goToAddContentView:)];
+    [self.navigationItem.rightBarButtonItem setAccessibilityLabel:@"Compose"];
     
     // left navigation button
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]

@@ -18,7 +18,8 @@
     [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
     
     // set custom view properties
-    
+    //[view setAccessibilityLabel:@"Sign in options View"];
+    //[view setIsAccessibilityElement:YES];
 }
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getGoogleButton{

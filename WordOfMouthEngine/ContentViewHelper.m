@@ -18,6 +18,8 @@
     [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
     
     // set custom textview properties
+//    [view setAccessibilityLabel:@"Content View"];
+//    [view setIsAccessibilityElement:YES];
     
 }
 + (UIImageView *)getContentBackGroundView{
@@ -25,6 +27,9 @@
     contentBackGround.backgroundColor =[AppUIManager getContentColorForCategory:1];
     contentBackGround.contentMode = UIViewContentModeScaleAspectFit;
     [contentBackGround setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+//    [contentBackGround setAccessibilityLabel:@"Content Image"];
+//    [contentBackGround setIsAccessibilityElement:YES];
     
     return contentBackGround;
 }
@@ -83,6 +88,7 @@
     
     textView.delegate=delegate;
     
+    [textView setAccessibilityLabel:@"Content Text"];
     return textView;
 }
 

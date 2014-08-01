@@ -30,7 +30,7 @@
     // set textField properties
     //textField.backgroundColor = [UIColor whiteColor];
     //textField.borderStyle= UITextBorderStyleLine;
-    textField.placeholder = @"Email/Id";
+    textField.placeholder = @"Email";
     
     // textField.text=@"";
     //textField.attributedText =
@@ -58,6 +58,9 @@
     
     // for auto layout
     [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    // accessibilty
+    [textField setAccessibilityLabel:@"Email"];
 }
 + (void)setPasswordTextFiled:(UITextField *)textField withDelegate:(id)delegate{
     // set app defaults
@@ -95,6 +98,9 @@
     
     // for auto layout
     [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    // accessibilty
+    [textField setAccessibilityLabel:@"Password"];
 }
 
 

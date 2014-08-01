@@ -162,6 +162,7 @@
                                                  target:self
                                                  action:@selector(postContent:)]
                                                 ];
+    [self.navigationItem.rightBarButtonItems[0] setAccessibilityLabel:@"Add Picture"];
     
     self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc]
                                               initWithBarButtonSystemItem:UIBarButtonSystemItemStop
