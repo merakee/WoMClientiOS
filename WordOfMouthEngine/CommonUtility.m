@@ -1128,7 +1128,7 @@
         sscale=0.0;
     }
     
-    float hsba[4];
+    double hsba[4];
     // get values
     [color getHue:(CGFloat *)&hsba[0] saturation:(CGFloat *)&hsba[1] brightness:(CGFloat *)&hsba[2] alpha:(CGFloat *)&hsba[3]];
     // return values

@@ -182,7 +182,8 @@
                         (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleLight
                                             andSaturation:kAUCColorScaleDark] CGColor],
                         (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleLightest] CGColor]];
-    [view.layer insertSublayer:gradient atIndex:1];
+    //[view.layer insertSublayer:gradient atIndex:1];
+    [view.layer addSublayer:gradient];
 }
 
 #pragma mark - view elements methods:  UIImageView
