@@ -6,294 +6,390 @@
 //  Copyright (c) 2014 Bijit Halder. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+#import "SpectaSetUp.h"
 #import "ApiValidationManager.h"
 
-@interface ApiValidationManagerTests : XCTestCase
-@end
 
-@implementation ApiValidationManagerTests
+//SharedExamplesBegin(MySharedExamples)
+//// Global shared examples are shared across all spec files.
+//
+////sharedExamplesFor(@"a shared behavior", ^(NSDictionary *data) {
+////    it(@"should do some stuff", ^{
+////        id obj = data[@"key"];
+////        // ...
+////    });
+////});
+//
+//SharedExamplesEnd
 
-- (void)setUp
-{
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
+SpecBegin(ApiValidationManager)
 
-- (void)tearDown
-{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
+describe(@"ApiValidationManager", ^{
+    
+    // set up all variables
+    __block NSError *error;
+    
+    //    sharedExamplesFor(@"another shared behavior", ^(NSDictionary *data) {
+    //        // Locally defined shared examples can override global shared examples within its scope.
+    //    });
+    
+    beforeAll(^{
+        // This is run once and only once before all of the examples
+        // in this group and before any beforeEach blocks.
+    });
+    
+    beforeEach(^{
+        // This is run before each example.
+    });
+    afterEach(^{
+        // This is run after each example.
+    });
+    afterAll(^{
+        // This is run once and only once after all of the examples
+        // in this group and after any afterEach blocks.
+    });
+    
+    describe(@"Sign up Validations", ^{
+        
+        it(@"should pass sign up validation",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeAnonymous
+                                                                 email:nil
+                                                              password:nil
+                                                  passwordConfirmation:nil];
+            expect(error).to.beFalsy();
+        });
+        
+        it(@"should fail sign up validation with wrong user type",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeOthers
+                                                                 email:@"me@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
+            expect(error.localizedFailureReason).to.equal(@"Unknown User Type");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+            
+        });
+        
+        
+        
+        it(@"should pass sign up validation",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
+            
+            expect(error).to.beFalsy();
+        });
+        
+        it(@"should pass sign up validation",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me.me@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
+            
+            expect(error).to.beFalsy();
+        });
+        
+        it(@"should pass sign up validation",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me_me@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
+            
+            expect(error).to.beFalsy();
+        });
+        
+        it(@"should pass sign up validation",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"1me123@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
+            
+            expect(error).to.beFalsy();
+        });
+        it(@"should pass sign up validation",^{
+            
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me_123.dfdg@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
+            
+            expect(error).to.beFalsy();
+        });
+        it(@"should pass sign up validation",^{
+            
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me.fsd_1234@23me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
+            
+            expect(error).to.beFalsy();
+        });
+        it(@"should pass sign up validation",^{
+            
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me_dfjd.453.345.345@me.comy"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
+            
+            expect(error).to.beFalsy();
+        });
+        
+        
+        it(@"should fail sign up validation with mismatched password confirmation",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password1"];
+            
+            expect(error.localizedFailureReason).to.equal(@"Password confirmation must match password");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should fail sign up validation with empty password confirmation",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@""];
+            
+            expect(error.localizedFailureReason).to.equal(@"Password confirmation must match password");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should fail sign up validation with empty password",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@""
+                                                  passwordConfirmation:@"password"];
+            
+            expect(error.localizedFailureReason).to.equal(@"Password must be at least 8 charecter long\nPassword confirmation must match password");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should fail sign up validation with empty password and password confirmation",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@""
+                                                  passwordConfirmation:@""];
+            
+            expect(error.localizedFailureReason).to.equal(@"Password must be at least 8 charecter long");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        
+        it(@"should fail sign up validation with wrong email format and empty password",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me.fd@me..fsdfcom"
+                                                              password:@""
+                                                  passwordConfirmation:@"password"];
+            
+            expect(error.localizedFailureReason).to.equal(@"Email is not valid\nPassword must be at least 8 charecter long\nPassword confirmation must match password");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should fail sign up validation with short password and mistmatched password confirmation",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@""
+                                                              password:@"dfsdsf"
+                                                  passwordConfirmation:@"password"];
+            
+            expect(error.localizedFailureReason).to.equal(@"Email is empty\nPassword must be at least 8 charecter long\nPassword confirmation must match password");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+    });
+    
+    
+    describe(@"Sign in Validations", ^{
+        
+        it(@"should pass sign in validation",^{
+            error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeAnonymous
+                                                                 email:nil
+                                                              password:nil];
+            expect(error).to.beFalsy();
+        });
+        
+        it(@"should fail sign in validation with wrong user type",^{
+            error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeOthers
+                                                                 email:@"me@me.com"
+                                                              password:@"password"];
+            
+            expect(error.localizedFailureReason).to.equal(@"Unknown User Type");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should pass sign in validation",^{
+            error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@"password"];
+            
+            expect(error).to.beFalsy();
+        });
+        
+        it(@"should pass sign in validation",^{
+            error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me.me@me.com"
+                                                              password:@"password"];
+            
+            expect(error).to.beFalsy();
+        });
+        
+        it(@"should pass sign in validation",^{
+            error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me_me@me.com"
+                                                              password:@"password"];
+            
+            expect(error).to.beFalsy();
+        });
+        it(@"should pass sign in validation",^{
+            
+            error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"1me123@me.com"
+                                                              password:@"password"];
+            
+            expect(error).to.beFalsy();
+        });
+        it(@"should pass sign in validation",^{
+            
+            error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me_123.dfdg@me.com"
+                                                              password:@"password"];
+            
+            expect(error).to.beFalsy();
+        });
+        
+        it(@"should pass sign in validation",^{
+            error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me.fsd_1234@23me.com"
+                                                              password:@"password"];
+            
+            expect(error).to.beFalsy();
+        });
+        
+        it(@"should pass sign in validation",^{
+            error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me_dfjd.453.345.345@me.comy"
+                                                              password:@"password"];
+            
+            expect(error).to.beFalsy();
+        });
+        
+        it(@"should fail sign in validation with short password",^{
+            error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@"passw"];
+            
+            expect(error.localizedFailureReason).to.equal(@"Password must be at least 8 charecter long");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should fail sign in validation with empty password",^{
+            error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@""];
+            
+            expect(error.localizedFailureReason).to.equal(@"Password must be at least 8 charecter long");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should fail sign in validation with short password and wrong email",^{
+            error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me.fd@me..fsdfcom"
+                                                              password:@"fsad"];
+            
+            
+            
+            expect(error.localizedFailureReason).to.equal(@"Email is not valid\nPassword must be at least 8 charecter long");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should fail sign in validation with wrong password and empty email",^{
+            error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@""
+                                                              password:@"dfsdsf"];
+            
+            expect(error.localizedFailureReason).to.equal(@"Email is empty\nPassword must be at least 8 charecter long");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+    });
+    
+    describe(@"Content Validations", ^{
+        it(@"should pass content validation",^{
+            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryLocalInfo
+                                                                      text:@"Local news"];
+            expect(error).to.beFalsy();
+        });
+        
+        it(@"should pass content validation",^{
+            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryRumor
+                                                                      text:@"Local news"];
+            expect(error).to.beFalsy();
+        });
+        it(@"should pass content validation",^{
+            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategorySecret
+                                                                      text:@"Local news"];
+            expect(error).to.beFalsy();
+        });
+        it(@"should pass content validation",^{
+            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryNews
+                                                                      text:@"Local news"];
+            expect(error).to.beFalsy();
+        });
+        it(@"should pass content validation",^{
+            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryLocalInfo
+                                                                      text:@"Lo"];
+            expect(error).to.beFalsy();
+        });
+        it(@"should pass content validation",^{
+            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryLocalInfo
+                                                                      text:@"AWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elastic"];
+            expect(error).to.beFalsy();
+        });
+        
+        it(@"should fail content validation with wrong category",^{
+            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryOther
+                                                                      text:@"Local news"];
+            
+            
+            expect(error.localizedFailureReason).to.equal(@"Please select a content type.");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should fail content validation with short text",^{
+            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryLocalInfo
+                                                                      text:@"L"];
+            
+            NSString *str =[NSString stringWithFormat:@"Text must be at least %d charecter long",kAPIValidationContentMinLentgh];
+            expect(error.localizedFailureReason).to.equal(str);
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should fail content validation with short text",^{
+            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryNews
+                                                                      text:@"AWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elasticc Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elastic"];
+            
+            NSString *str =[NSString stringWithFormat:@"Text must be shoter than %d charecter long",kAPIValidationContentMaxLentgh];
+            expect(error.localizedFailureReason).to.equal(str);
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+    });
+    
+    
+});
 
-- (void)testSignUpValidation{
-    NSError *error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeAnonymous
-                                                                  email:nil
-                                                               password:nil
-                                                   passwordConfirmation:nil];
-    XCTAssertNil(error,@"Anomymous user sign up must be valid.");
-    
-    error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeOthers
-                                                         email:@"me@me.com"
-                                                      password:@"password"
-                                          passwordConfirmation:@"password"];
-    
-    XCTAssertEqualObjects(error.localizedFailureReason,@"Unknown User Type");
-    XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-    XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-    
-    error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me@me.com"
-                                                      password:@"password"
-                                          passwordConfirmation:@"password"];
-    
-    XCTAssertNil(error,@"User sign up must be valid.");
-
-    error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me.me@me.com"
-                                                      password:@"password"
-                                          passwordConfirmation:@"password"];
-    
-    XCTAssertNil(error,@"User sign up must be valid.");
-    
-    
-    error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me_me@me.com"
-                                                      password:@"password"
-                                          passwordConfirmation:@"password"];
-    
-    XCTAssertNil(error,@"User sign up must be valid.");
-    
-    
-    error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"1me123@me.com"
-                                                      password:@"password"
-                                          passwordConfirmation:@"password"];
-    
-    XCTAssertNil(error,@"User sign up must be valid.");
-    
-    
-    error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me_123.dfdg@me.com"
-                                                      password:@"password"
-                                          passwordConfirmation:@"password"];
-    
-    XCTAssertNil(error,@"User sign up must be valid.");
-    
-    
-    error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me.fsd_1234@23me.com"
-                                                      password:@"password"
-                                          passwordConfirmation:@"password"];
-    
-    XCTAssertNil(error,@"User sign up must be valid.");
-    
-    
-    error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me_dfjd.453.345.345@me.comy"
-                                                      password:@"password"
-                                          passwordConfirmation:@"password"];
-    
-    XCTAssertNil(error,@"User sign up must be valid.");
-    
-    
-    
-    error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me@me.com"
-                                                      password:@"password"
-                                          passwordConfirmation:@"password1"];
-    
-    XCTAssertEqualObjects(error.localizedFailureReason,@"Password confirmation must match password");
-    XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-    XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-    
-    error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me@me.com"
-                                                      password:@"password"
-                                          passwordConfirmation:@""];
-    
-    XCTAssertEqualObjects(error.localizedFailureReason,@"Password confirmation must match password");
-    XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-    XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-    
-    error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me@me.com"
-                                                      password:@""
-                                          passwordConfirmation:@"password"];
-    
-    XCTAssertEqualObjects(error.localizedFailureReason,@"Password must be at least 8 charecter long\nPassword confirmation must match password");
-    XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-    XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-    
-    error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me@me.com"
-                                                      password:@""
-                                          passwordConfirmation:@""];
-    
-    XCTAssertEqualObjects(error.localizedFailureReason,@"Password must be at least 8 charecter long");
-    XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-    XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-    
-    
-    error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me.fd@me..fsdfcom"
-                                                      password:@""
-                                          passwordConfirmation:@"password"];
-    
-    XCTAssertEqualObjects(error.localizedFailureReason,@"Email is not valid\nPassword must be at least 8 charecter long\nPassword confirmation must match password");
-    XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-    XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-    
-    error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
-                                                         email:@""
-                                                      password:@"dfsdsf"
-                                          passwordConfirmation:@"password"];
-    
-    XCTAssertEqualObjects(error.localizedFailureReason,@"Email is empty\nPassword must be at least 8 charecter long\nPassword confirmation must match password");
-    XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-    XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-}
-
-- (void)testSignInValidation{
-    NSError *error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeAnonymous
-                                                                  email:nil
-                                                               password:nil];
-    XCTAssertNil(error,@"Anomymous user sign up must be valid.");
-    
-    error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeOthers
-                                                         email:@"me@me.com"
-                                                      password:@"password"];
-    
-    XCTAssertEqualObjects(error.localizedFailureReason,@"Unknown User Type");
-    XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-    XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-    
-    error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me@me.com"
-                                                      password:@"password"];
-    
-    XCTAssertNil(error,@"User sign up must be valid.");
-    
-    error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me.me@me.com"
-                                                      password:@"password"];
-    
-    XCTAssertNil(error,@"User sign up must be valid.");
-    
-    
-    error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me_me@me.com"
-                                                      password:@"password"];
-    
-    XCTAssertNil(error,@"User sign up must be valid.");
-    
-    
-    error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"1me123@me.com"
-                                                      password:@"password"];
-    
-    XCTAssertNil(error,@"User sign up must be valid.");
-    
-    
-    error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me_123.dfdg@me.com"
-                                                      password:@"password"];
-    
-    XCTAssertNil(error,@"User sign up must be valid.");
-    
-    
-    error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me.fsd_1234@23me.com"
-                                                      password:@"password"];
-    
-    XCTAssertNil(error,@"User sign up must be valid.");
-    
-    
-    error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me_dfjd.453.345.345@me.comy"
-                                                      password:@"password"];
-    
-    XCTAssertNil(error,@"User sign up must be valid.");
-    
-    error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me@me.com"
-                                                      password:@"passw"];
-    
-    XCTAssertEqualObjects(error.localizedFailureReason,@"Password must be at least 8 charecter long");
-    XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-    XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-    
-    error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me@me.com"
-                                                      password:@""];
-    
-    XCTAssertEqualObjects(error.localizedFailureReason,@"Password must be at least 8 charecter long");
-    XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-    XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-    
-    
-    error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
-                                                         email:@"me.fd@me..fsdfcom"
-                                                      password:@"fsad"];
-    
-    XCTAssertEqualObjects(error.localizedFailureReason,@"Email is not valid\nPassword must be at least 8 charecter long");
-    XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-    XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-    
-    error = [ApiValidationManager validateSignInWithUserTypeId:kAPIUserTypeWom
-                                                         email:@""
-                                                      password:@"dfsdsf"];
-    
-    XCTAssertEqualObjects(error.localizedFailureReason,@"Email is empty\nPassword must be at least 8 charecter long");
-    XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-    XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-    
-}
-- (void)testContentValidation{
-    NSError *error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryLocalInfo
-                                                                       text:@"Local news"];
-    XCTAssertNil(error,@"Conent post must be valid.");
-    error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryRumor
-                                                                       text:@"Local news"];
-    XCTAssertNil(error,@"Conent post must be valid.");
-    
-    error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategorySecret
-                                                                       text:@"Local news"];
-    XCTAssertNil(error,@"Conent post must be valid.");
-    
-    error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryNews
-                                                                       text:@"Local news"];
-    XCTAssertNil(error,@"Conent post must be valid.");
-    
-    error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryLocalInfo
-                                                                       text:@"Lo"];
-    XCTAssertNil(error,@"Conent post must be valid.");
-    
-    error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryLocalInfo
-                                                                       text:@"AWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elastic"];
-    XCTAssertNil(error,@"Conent post must be valid.");
-    
-    error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryOther
-                                                                       text:@"Local news"];
-    
-    XCTAssertEqualObjects(error.localizedFailureReason,@"Please select a content type.");
-    XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-    XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-    
-    error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryLocalInfo
-                                                              text:@"L"];
-    
-    NSString *str =[NSString stringWithFormat:@"Text must be at least %d charecter long",kAPIValidationContentMinLentgh];
-    XCTAssertEqualObjects(error.localizedFailureReason,str);
-    XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-    XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-    
-    error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryNews
-                                                              text:@"AWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elasticc Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elastic"];
-    
-    NSString *strm =[NSString stringWithFormat:@"Text must be shoter than %d charecter long",kAPIValidationContentMaxLentgh];
-    XCTAssertEqualObjects(error.localizedFailureReason,strm);
-    XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
-    XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
-}
-@end
+SpecEnd

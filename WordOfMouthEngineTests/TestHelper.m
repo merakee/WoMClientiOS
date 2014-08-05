@@ -47,7 +47,7 @@
 + (BOOL)signInUser:(ApiUser *)user{
     __block BOOL isSuccess=false;
     StartAsyncBlock();
-    [[ApiManager sharedApiManager]  signInUserWithUserTypeId:user.userTypeId.integerValue
+    [[ApiManager sharedApiManager]  signInUserWithUserTypeId:user.userTypeId.intValue
                                                        email:user.email
                                                     password:@"password"
                                                      success:^(){

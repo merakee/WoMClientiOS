@@ -77,6 +77,7 @@
 		1171CAC21969E30500B40A0E /* ApiUserDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CAC01969E30400B40A0E /* ApiUserDatabase.m */; };
 		1171CAC31969E30500B40A0E /* ApiUserDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CAC01969E30400B40A0E /* ApiUserDatabase.m */; };
 		11720F5118B6A83500124C9F /* ProfileViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11720F4F18B6A83500124C9F /* ProfileViewHelper.m */; };
+		1174E0AE1991977E003251C7 /* SpectaSetUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 1174E0AD1991977E003251C7 /* SpectaSetUp.m */; };
 		11810B6A18C10DD800C5246C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1114A7F7182D8B3300089669 /* CoreGraphics.framework */; };
 		11810B6D18C1246100C5246C /* UserImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 11810B6C18C1246100C5246C /* UserImage.png */; };
 		11810B7218C937D000C5246C /* CVCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7118C937D000C5246C /* CVCircularProgressView.m */; };
@@ -108,6 +109,7 @@
 		11FD6CED18B18C75007D318E /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEB18B18C75007D318E /* ComposeViewController.m */; };
 		11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */; };
 		870BD85D0FBD4E1D9F135B09 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E47A1ADCFB3478F849F074C /* libPods.a */; };
+		E7B276EC194F409AA78B66AD /* libPods-WordOfMouthEngineTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 137E30FB55AC4303821AB00C /* libPods-WordOfMouthEngineTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -217,6 +219,8 @@
 		1171CAC11969E30500B40A0E /* ApiUserDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiUserDatabase.h; sourceTree = "<group>"; };
 		11720F4F18B6A83500124C9F /* ProfileViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewHelper.m; sourceTree = "<group>"; };
 		11720F5018B6A83500124C9F /* ProfileViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewHelper.h; sourceTree = "<group>"; };
+		1174E0AC1991977E003251C7 /* SpectaSetUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectaSetUp.h; sourceTree = "<group>"; };
+		1174E0AD1991977E003251C7 /* SpectaSetUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectaSetUp.m; sourceTree = "<group>"; };
 		11810B6C18C1246100C5246C /* UserImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserImage.png; sourceTree = "<group>"; };
 		11810B7018C937D000C5246C /* CVCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVCircularProgressView.h; sourceTree = "<group>"; };
 		11810B7118C937D000C5246C /* CVCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CVCircularProgressView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -262,6 +266,8 @@
 		11FD6CEC18B18C75007D318E /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ComposeViewHelper.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		11FD6CEF18B3DCB9007D318E /* ComposeViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ComposeViewHelper.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		137E30FB55AC4303821AB00C /* libPods-WordOfMouthEngineTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WordOfMouthEngineTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		15526803F22D4415BB7A42E9 /* Pods-WordOfMouthEngineTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.xcconfig"; path = "Pods/Pods-WordOfMouthEngineTests.xcconfig"; sourceTree = "<group>"; };
 		CCC2C566F3734B64B9746401 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -287,6 +293,7 @@
 				1114A80F182D8B3400089669 /* XCTest.framework in Frameworks */,
 				1114A811182D8B3400089669 /* UIKit.framework in Frameworks */,
 				1114A810182D8B3400089669 /* Foundation.framework in Frameworks */,
+				E7B276EC194F409AA78B66AD /* libPods-WordOfMouthEngineTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +317,7 @@
 				1114A7F4182D8B3300089669 /* Frameworks */,
 				1114A7F3182D8B3300089669 /* Products */,
 				CCC2C566F3734B64B9746401 /* Pods.xcconfig */,
+				15526803F22D4415BB7A42E9 /* Pods-WordOfMouthEngineTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -331,6 +339,7 @@
 				1114A7F9182D8B3300089669 /* UIKit.framework */,
 				1114A80E182D8B3400089669 /* XCTest.framework */,
 				0E47A1ADCFB3478F849F074C /* libPods.a */,
+				137E30FB55AC4303821AB00C /* libPods-WordOfMouthEngineTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -368,6 +377,7 @@
 		1114A814182D8B3400089669 /* WordOfMouthEngineTests */ = {
 			isa = PBXGroup;
 			children = (
+				1174E0AF19919787003251C7 /* SpectaHelpers */,
 				1170EAFE196B835F00802D4D /* Controllers */,
 				1170EAFD196B835700802D4D /* Models */,
 				1114A815182D8B3400089669 /* Supporting Files */,
@@ -622,6 +632,15 @@
 			name = API;
 			sourceTree = "<group>";
 		};
+		1174E0AF19919787003251C7 /* SpectaHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				1174E0AC1991977E003251C7 /* SpectaSetUp.h */,
+				1174E0AD1991977E003251C7 /* SpectaSetUp.m */,
+			);
+			name = SpectaHelpers;
+			sourceTree = "<group>";
+		};
 		11810B6718C0024900C5246C /* AppLogo */ = {
 			isa = PBXGroup;
 			children = (
@@ -843,9 +862,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1114A821182D8B3400089669 /* Build configuration list for PBXNativeTarget "WordOfMouthEngineTests" */;
 			buildPhases = (
+				55355DCA2BA94F5F81C5E861 /* Check Pods Manifest.lock */,
 				1114A809182D8B3400089669 /* Sources */,
 				1114A80A182D8B3400089669 /* Frameworks */,
 				1114A80B182D8B3400089669 /* Resources */,
+				2DCE907313CF4EB6BB760914 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -963,6 +984,36 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		2DCE907313CF4EB6BB760914 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-WordOfMouthEngineTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		55355DCA2BA94F5F81C5E861 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1026,6 +1077,7 @@
 				11019B95197E30EB00F94926 /* ImageProcessingManager.m in Sources */,
 				1170EB04196C70B700802D4D /* ApiUserManagerTests.m in Sources */,
 				11F269C6197848700051FA38 /* TestHelper.m in Sources */,
+				1174E0AE1991977E003251C7 /* SpectaSetUp.m in Sources */,
 				1166AD8C1975ECDB0010BFEA /* WomSignUpViewHelper.m in Sources */,
 				1166AD881975EC640010BFEA /* WomSignUpViewController.m in Sources */,
 				1139704719778CD9001EFF9C /* ApiRequestHelperTests.m in Sources */,
@@ -1199,6 +1251,7 @@
 		};
 		1114A822182D8B3400089669 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15526803F22D4415BB7A42E9 /* Pods-WordOfMouthEngineTests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMouthEngine.app/WordOfMouthEngine";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1216,6 +1269,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "WordOfMouthEngineTests/WordOfMouthEngineTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = WordOfMouthEngineTests;
 				PROVISIONING_PROFILE = "490CF8BD-8895-4FF7-BED0-715A33E57FEF";
@@ -1227,6 +1281,7 @@
 		};
 		1114A823182D8B3400089669 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15526803F22D4415BB7A42E9 /* Pods-WordOfMouthEngineTests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMouthEngine.app/WordOfMouthEngine";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1240,6 +1295,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngineTests/WordOfMouthEngineTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = WordOfMouthEngineTests;
 				PROVISIONING_PROFILE = "97A555A0-AAA6-4831-8AFA-A042FFD7CF7D";

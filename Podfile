@@ -2,13 +2,18 @@
 
 platform :ios, "7.0"
 pod 'AFNetworking', '~> 2.3.1'
-#pod 'tuneup_js'
 
 #target "WordOfMouthEngine" do
 #
 #end
 
-#target "WordOfMouthEngineTests" do
-#
-#end
+target "WordOfMouthEngineTests" do
+    #pod 'tuneup_js' # giving problem with warning: no rule to process file ... of type text.script.ruby for architecture x86_64. Moved to Integration folder
+    pod 'Specta',      '~> 0.2.1'
+    pod 'Expecta',     '~> 0.2.3'   # expecta matchers
+    # pod 'OCMock',      '~> 2.2.1'   # OCMock
+    # pod 'OCHamcrest',  '~> 3.0.0'   # hamcrest matchers
+    # pod 'OCMockito',   '~> 1.0.0'   # OCMock
+    # pod 'LRMocky',     '~> 0.9.1'   # LRMocky
+end
 

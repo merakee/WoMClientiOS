@@ -1,5 +1,6 @@
 // tests with tuneup
-#import "../../../../Pods/tuneup_js/tuneup.js"
+//#import "../../../../Pods/tuneup_js/tuneup.js"
+#import "../../../tuneup_js/tuneup.js"
 
 test("Sign in options Screen test", function(target, app) {
      //UIATarget.localTarget().logElementTree();

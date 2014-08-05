@@ -25,7 +25,7 @@
 + (UIImageView *)getContentBackGroundView{
     UIImageView *contentBackGround = [[UIImageView alloc] init];
     contentBackGround.backgroundColor =[AppUIManager getContentColorForCategory:1];
-    contentBackGround.contentMode = UIViewContentModeScaleAspectFit;
+    contentBackGround.contentMode = UIViewContentModeScaleAspectFill;
     [contentBackGround setTranslatesAutoresizingMaskIntoConstraints:NO];
     
 //    [contentBackGround setAccessibilityLabel:@"Content Image"];

@@ -109,7 +109,7 @@
     
     user.email = [PlaceHolderFactory email];    
     StartAsyncBlock();
-    [apiManager signUpUserWithUserTypeId:user.userTypeId.integerValue
+    [apiManager signUpUserWithUserTypeId:user.userTypeId.intValue
                                    email:user.email
                                 password:@"password"
                     passwordConfirmation:@"password"
@@ -138,7 +138,7 @@
     XCTAssertFalse([apiManager isUserSignedIn], @"User should not be signed in");
     
     StartAsyncBlock();
-    [apiManager signUpUserWithUserTypeId:user.userTypeId.integerValue
+    [apiManager signUpUserWithUserTypeId:user.userTypeId.intValue
                                    email:user.email
                                 password:@"password"
                     passwordConfirmation:@"password"
@@ -223,7 +223,7 @@
     XCTAssertFalse([apiManager isUserSignedIn], @"User should not be signed in");
     //  user
     StartAsyncBlock();
-    [apiManager signInUserWithUserTypeId:user.userTypeId.integerValue
+    [apiManager signInUserWithUserTypeId:user.userTypeId.intValue
                                    email:user.email
                                 password:@"password"
                                  success:^(){

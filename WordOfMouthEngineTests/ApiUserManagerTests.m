@@ -6,150 +6,211 @@
 //  Copyright (c) 2014 Bijit Halder. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+#import "SpectaSetUp.h"
 #import "ApiUserManager.h"
 
-@interface ApiUserManagerTests : XCTestCase{
-    ApiUserManager      *aum;
-    ApiUser *user, *auser;
-    ApiUserDatabase *uid;
-}
 
-@end
+//SharedExamplesBegin(MySharedExamples)
+//// Global shared examples are shared across all spec files.
+//
+////sharedExamplesFor(@"a shared behavior", ^(NSDictionary *data) {
+////    it(@"should do some stuff", ^{
+////        id obj = data[@"key"];
+////        // ...
+////    });
+////});
+//
+//SharedExamplesEnd
 
-@implementation ApiUserManagerTests
+SpecBegin(ApiUserManager)
 
-- (void)setUp{
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-    user= [[ApiUser alloc] initWithUserId:nil
+describe(@"ApiUserManager", ^{
+    
+    // set up all variables
+    __block ApiUserManager      *aum;
+    __block ApiUser *user, *auser;
+    __block ApiUserDatabase *uid;
+    
+    //    sharedExamplesFor(@"another shared behavior", ^(NSDictionary *data) {
+    //        // Locally defined shared examples can override global shared examples within its scope.
+    //    });
+    
+    beforeAll(^{
+        // This is run once and only once before all of the examples
+        // in this group and before any beforeEach blocks.
+        uid =[[ApiUserDatabase alloc] init];
+        user= [[ApiUser alloc] initWithUserId:nil
                                    userTypeId:@2
-                                    email:@"user@example.com"
-                      authenticationToken:@"dfsr543jdfs9uhffaf4R"
-                                 signedIn:@YES];
-    auser= [[ApiUser alloc] initWithUserId:nil
-                                userTypeId:@1
-                                     email:@"huest@example.com"
-                       authenticationToken:@"dfsr543jdfs9sfsdfaf4R"
-                                  signedIn:@YES];
-    uid = [[ApiUserDatabase  alloc] init];
-}
-
-- (void)tearDown{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    aum=nil;
-    user=nil;
-    auser=nil;
-    [uid deleteUserInfo];
-    [uid deleteAnonymousUserInfo];
-    [super tearDown];
+                                        email:@"user@example.com"
+                          authenticationToken:@"dfsr543jdfs9uhffaf4R"
+                                     signedIn:@YES];
+        auser= [[ApiUser alloc] initWithUserId:nil
+                                    userTypeId:@1
+                                         email:@"huest@example.com"
+                           authenticationToken:@"dfsr543jdfs9sfsdfaf4R"
+                                      signedIn:@YES];
+    });
     
-}
-
-- (void)testApiUserManagerWithNoUser{
-    [uid deleteUserInfo];
-    aum =[[ApiUserManager alloc] init];
-    // check if the user is nil
-    XCTAssertNil(aum.currentUser,"Current User must be nil");
-    XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");
-    aum.currentUser = user;
-    XCTAssert([aum isUserSignedIn],"User should be singed in");
-    aum.currentUser.signedIn=@NO;
-    XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");
-    aum.currentUser.signedIn=@YES;
-    aum.currentUser.authenticationToken=@"";
-    XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");
-    aum.currentUser.authenticationToken=nil;
-    XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");
-    aum.currentUser.authenticationToken=@"sdlfasdfdshfdlghf";
-    aum.currentUser.email=@"";
-    XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");
-    aum.currentUser.email=nil;
-    XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");
-    aum.currentUser.email=@"dfasdh";
-    XCTAssert([aum isUserSignedIn],"User should be singed in");
-}
-
-- (void)testApiUserManagerWithSignedInUser{
-    [uid saveUserInfo:user];
-    [uid saveAnonymousUserInfo:auser];
-    aum =[[ApiUserManager alloc] init];
-    // check if the user is nil
-    XCTAssertNotNil(aum.currentUser,"Current User must not be nil");
-    XCTAssert([aum isUserSignedIn],"User should be singed in");
-    XCTAssertEqual(aum.currentUser.userTypeId.integerValue, user.userTypeId.integerValue);
-    XCTAssertEqualObjects(aum.currentUser.email, user.email);
-    XCTAssertEqualObjects(aum.currentUser.authenticationToken, user.authenticationToken);
-    XCTAssertEqualObjects(aum.currentUser.signedIn, user.signedIn);
-}
-
-- (void)testApiUserManagerWithAnomymousSignedInUser{
-    [uid deleteUserInfo];
-    [uid saveAnonymousUserInfo:auser];
-    aum =[[ApiUserManager alloc] init];
-    // check if the user is nil
-    XCTAssertNil(aum.currentUser,"Current User must be nil");
-    XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");
-}
-
-- (void)testUserSignInAndSignOut{
-    [uid deleteUserInfo];
-    aum =[[ApiUserManager alloc] init];
-    // check if the user is nil
-    XCTAssertNil(aum.currentUser,"Current User must be nil");
-    // sign in user
-    XCTAssert([aum signInUser:user], @"Should be able to sign in user");
-    // check if the user is nil
-    XCTAssertNotNil(aum.currentUser,"Current User must not be nil");
-    XCTAssert([aum isUserSignedIn],"User should be singed in");
-    XCTAssertEqual(aum.currentUser.userTypeId.integerValue, user.userTypeId.integerValue);
-    XCTAssertEqualObjects(aum.currentUser.email, user.email);
-    XCTAssertEqualObjects(aum.currentUser.authenticationToken, user.authenticationToken);
-    XCTAssertEqualObjects(aum.currentUser.signedIn, user.signedIn);
+    beforeEach(^{
+        // This is run before each example.
+        aum =[[ApiUserManager alloc] init];
+    });
+    afterEach(^{
+        // This is run after each example.
+        aum=nil;
+        [uid deleteUserInfo];
+        [uid deleteAnonymousUserInfo];
+    });
+    
+    afterAll(^{
+        // This is run once and only once after all of the examples
+        // in this group and after any afterEach blocks.
+    });
+    
+    describe(@"With no user", ^{
+        it(@"should return nil user",^{
+            // check if the user is nil
+            expect(aum.currentUser).to.beFalsy();
+            expect([aum isUserSignedIn]).to.beFalsy();
+        });
+        
+        it(@"should set current user info",^{
+            aum.currentUser = user;
+            expect([aum isUserSignedIn]).to.beTruthy();
+            aum.currentUser.signedIn=@NO;
+            expect([aum isUserSignedIn]).to.beFalsy();
+            aum.currentUser.signedIn=@YES;
+            aum.currentUser.authenticationToken=@"";
+            expect([aum isUserSignedIn]).to.beFalsy();
+            aum.currentUser.authenticationToken=nil;
+            expect([aum isUserSignedIn]).to.beFalsy();
+            aum.currentUser.authenticationToken=@"sdlfasdfdshfdlghf";
+            aum.currentUser.email=@"";
+            expect([aum isUserSignedIn]).to.beFalsy();
+            aum.currentUser.email=nil;
+            expect([aum isUserSignedIn]).to.beFalsy();
+            aum.currentUser.email=@"dfasdh";
+            expect([aum isUserSignedIn]).to.beTruthy();
+            
+        });
+    });
+    
+    describe(@"With saved user", ^{
+        it(@"should have valid current user",^{
+            [uid saveUserInfo:user];
+            aum =[[ApiUserManager alloc] init];
+            expect(aum.currentUser).to.beTruthy();
+            expect([aum isUserSignedIn]).to.beTruthy();
+            expect(aum.currentUser.userTypeId.integerValue).to.equal(user.userTypeId.integerValue);
+            expect(aum.currentUser.email).to.equal(user.email);
+            expect(aum.currentUser.authenticationToken).to.equal(user.authenticationToken);
+            expect(aum.currentUser.signedIn).to.equal(user.signedIn);
+        });
+        
+    });
+    
+    describe(@"With saved anonymous user", ^{
+        it(@"should not have valid current user",^{
+            [uid saveAnonymousUserInfo:auser];
+            aum =[[ApiUserManager alloc] init];
+            expect(aum.currentUser).to.beFalsy();
+            expect([aum isUserSignedIn]).to.beFalsy();
+        });
+        
+    });
+    
+    describe(@"User sign in and sign out",^{
+        it(@"should have valid current user",^{
+            
+            // check if the user is nil
+            expect(aum.currentUser).to.beFalsy();
+        });
+        
+        it(@"should sign in user",^{
+            
+            // sign in user
+            expect([aum signInUser:user]).to.beTruthy();
+            // check if the user is nil
+            expect(aum.currentUser).to.beTruthy();
+            expect([aum isUserSignedIn]).to.beTruthy();
+            expect(aum.currentUser.userTypeId.integerValue).to.equal(user.userTypeId.integerValue);
+            expect(aum.currentUser.email).to.equal(user.email);
+            expect(aum.currentUser.authenticationToken).to.equal(user.authenticationToken);
+            expect(aum.currentUser.signedIn).to.equal(user.signedIn);
+        });
+        
+        
+        it(@"should sign out user",^{
+            
+            expect([aum signOutUser]).to.beTruthy();
+            // check if the user is nil
+            expect(aum.currentUser).to.beFalsy();
+            expect([aum isUserSignedIn]).to.beFalsy();
+            
+        });
+        
+        
+    });
+    
+    describe(@"Anonymous User sign in and sign out",^{
+        
+        [uid deleteUserInfo];
+        
+        it(@"should have valid current user",^{
+            [uid saveAnonymousUserInfo:auser];
+            
+            // check if the user is nil
+            expect(aum.currentUser).to.beFalsy();
+        });
+        
+        it(@"should sign in user",^{
+            [uid saveAnonymousUserInfo:auser];
+            
+            // sign in user
+            expect([aum signInAnonymousUser]).to.beTruthy();
+            // check if the user is nil
+            expect(aum.currentUser).to.beTruthy();
+            expect([aum isUserSignedIn]).to.beTruthy();
+            expect(aum.currentUser.userTypeId.integerValue).to.equal(auser.userTypeId.integerValue);
+            expect(aum.currentUser.email).to.equal(auser.email);
+            expect(aum.currentUser.authenticationToken).to.equal(auser.authenticationToken);
+            expect(aum.currentUser.signedIn).to.equal(auser.signedIn);
+        });
+        
+        
+        it(@"should sign out user",^{
+            [uid saveAnonymousUserInfo:auser];
+            
+            expect([aum signOutUser]).to.beTruthy();
+            // check if the user is nil
+            expect(aum.currentUser).to.beTruthy();
+            expect([aum isUserSignedIn]).to.beFalsy();
+        });
+        it(@"should sign in user",^{
+            [uid saveAnonymousUserInfo:auser];
+            
+            // sign in user
+            expect([aum signInUser:user]).to.beTruthy();
+            // check if the user is nil
+            expect(aum.currentUser).to.beTruthy();
+            expect([aum isUserSignedIn]).to.beTruthy();
+            expect(aum.currentUser.userTypeId.integerValue).to.equal(user.userTypeId.integerValue);
+            expect(aum.currentUser.email).to.equal(user.email);
+            expect(aum.currentUser.authenticationToken).to.equal(user.authenticationToken);
+            expect(aum.currentUser.signedIn).to.equal(user.signedIn);
+        });
+        it(@"should sign out user",^{
+            [uid saveAnonymousUserInfo:auser];
+            
+            expect([aum signOutUser]).to.beTruthy();
+            // check if the user is nil
+            expect(aum.currentUser).to.beFalsy();
+            expect([aum isUserSignedIn]).to.beFalsy();
+            
+        });
+    });
     
     
-    XCTAssert([aum signOutUser], @"Should be able to sign out user");
-    // check if the user is nil
-    XCTAssertNil(aum.currentUser,"Current User must be nil");
-    XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");
-}
-- (void)testAnonymousUserSignInAndSignOut{
-    [uid deleteUserInfo];
-    [uid saveAnonymousUserInfo:auser];
-    aum =[[ApiUserManager alloc] init];
-    // check if the user is nil
-    XCTAssertNil(aum.currentUser,"Current User must be nil");
-    // sign in user
-    XCTAssert([aum signInAnonymousUser], @"Should be able to sign in user");
-    // check if the user is nil
-    XCTAssertNotNil(aum.currentUser,"Current User must not be nil");
-    XCTAssert([aum isUserSignedIn],"User should be singed in");
-    XCTAssertEqual(aum.currentUser.userTypeId.integerValue, auser.userTypeId.integerValue);
-    XCTAssertEqualObjects(aum.currentUser.email, auser.email);
-    XCTAssertEqualObjects(aum.currentUser.authenticationToken, auser.authenticationToken);
-    XCTAssertEqualObjects(aum.currentUser.signedIn, auser.signedIn);
-    
-    
-    XCTAssert([aum signOutUser], @"Should be able to sign out user");
-    // check if the user is nil
-    XCTAssertNil(aum.currentUser,"Current User must be nil");
-    XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");
-    
-    // sign in user
-    XCTAssert([aum signInUser:user], @"Should be able to sign in user");
-    // check if the user is nil
-    XCTAssertNotNil(aum.currentUser,"Current User must not be nil");
-    XCTAssert([aum isUserSignedIn],"User should be singed in");
-    XCTAssertEqual(aum.currentUser.userTypeId.integerValue, user.userTypeId.integerValue);
-    XCTAssertEqualObjects(aum.currentUser.email, user.email);
-    XCTAssertEqualObjects(aum.currentUser.authenticationToken, user.authenticationToken);
-    XCTAssertEqualObjects(aum.currentUser.signedIn, user.signedIn);
-    XCTAssert([aum signOutUser], @"Should be able to sign out user");
-    // check if the user is nil
-    XCTAssertNil(aum.currentUser,"Current User must be nil");
-    XCTAssertFalse([aum isUserSignedIn],"User should not be singed in");
-}
+});
 
-
-
-@end
+SpecEnd

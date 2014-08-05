@@ -59,7 +59,7 @@
     cCount=20;
     cDic =[self createContentDictionaryWithCount:cCount withError:false];
     array =[ApiRequestHelper getContentArrayFromDictionary:cDic];
-    NSLog(@"Array length: %d",[array count]);
+    NSLog(@"Array length: %lu",(unsigned long)[array count]);
     XCTAssert([array count]==cCount,@"Array Must be of length %d",cCount);
     [self checkMatchBetweenArray:array  andDictionary:cDic];
     
