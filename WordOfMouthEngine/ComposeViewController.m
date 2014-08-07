@@ -220,10 +220,6 @@
                                                                           options:0 metrics:nil views:viewsDictionary]];
     }
 }
-#pragma mark -  Local Methods Implememtation
-- (void)clearTextView{
-    composeTextView.text=nil;
-}
 #pragma mark - Button Action Methods
 - (void)postContent:(id)sender {
     // attempt to post content
@@ -261,12 +257,17 @@
 #pragma mark - Api Manager Post actions methods
 - (void)actionsForSuccessfulPostContent{
     //clear content
-    [self clearTextView];
+    [self clearViewAfterSuccessfulPostOrCancel];
     // display sucess
     [CommonUtility displayAlertWithTitle:@"Post Successful"
                                  message:@"Your content was posted sucessfully!" delegate:self];
     
 }
+- (void)clearViewAfterSuccessfulPostOrCancel{
+    composeTextView.text=nil;
+    contentImageView.image = nil;
+}
+
 
 - (void)goBack:(id)sender {
     // go back
@@ -275,7 +276,7 @@
 
 - (void)cancelPost:(id)sender {
     // clear post
-    [self clearTextView];
+    [self clearViewAfterSuccessfulPostOrCancel];
     // go back to content view
     //self.tabBarController.selectedIndex = kCFVTabbarIndexContent;
 }
@@ -299,7 +300,7 @@
     // check if cancelButton Pressed
     if(actionSheet.cancelButtonIndex==buttonIndex) {
         // NSPLogBLog(@"Action for C Button");
-        [self clearTextView];
+        [self clearViewAfterSuccessfulPostOrCancel];
     }
     else if(actionSheet.destructiveButtonIndex==buttonIndex) {
         //[busyIndicator startAnimating];

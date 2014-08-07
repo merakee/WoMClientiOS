@@ -89,7 +89,7 @@ test("Guest Content Screen test", function(target, app) {
 //                  },
                   onPass: function(window) {
                   // move over some conent
-                  for (i = 0; i < 10; i++) {
+                  for (i = 0; i < 2; i++) {
                   flip = Math.random() > 0.5
                   window.images()[0].textViews()[0].dragInsideWithOptions({startOffset:{x:flip?0.0:1.0, y:0.5}, endOffset:{x:flip?1.0:0.0, y:0.5}, duration:0.5})
                        target.delay(3);
@@ -123,6 +123,39 @@ test("Sign in to Content Screen test", function(target, app) {
                   }
                   });
      });
+
+test("User Content Screen test", function(target, app) {
+     window = app.mainWindow();
+     target.delay(1);
+     window.buttons()['Sign in'].tap()
+     
+     target.delay(1);
+     // sign in
+     window.textFields()["Email"].setValue("me@me.com")
+     window.secureTextFields()["Password"].setValue("password")
+     window.buttons()['Sign in'].tap()
+     
+     target.delay(1);
+     assertWindow({
+                  navigationBar: {
+                  leftButton: { name: "Sign Out" },
+                  rightButton: {name: "Compose"}
+                  },
+                  onPass: function(window) {
+                  
+                  // move over some conent
+                  for (i = 0; i < 10; i++) {
+                  flip = Math.random() > 0.5
+                  window.images()[0].textViews()[0].dragInsideWithOptions({startOffset:{x:flip?0.0:1.0, y:0.5}, endOffset:{x:flip?1.0:0.0, y:0.5}, duration:0.5})
+                  target.delay(3);
+                  }
+
+                  
+                  window.navigationBar().leftButton().tap()
+                  }
+                  });
+     });
+
 
 test("Sign in and Compose Screen test", function(target, app) {
      window = app.mainWindow();

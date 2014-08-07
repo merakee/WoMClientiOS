@@ -1051,9 +1051,9 @@
     return [UIColor colorWithHue:fmodf(hsba[0],1.0) saturation:hsba[1] brightness:hsba[2] alpha:hsba[3]];
 }
 + (UIColor *)getColor:(UIColor *)color withOpacity:(float)opacity {
-    float hsba[4];
+    CGFloat hsba[4];
     // get values
-    [color getHue:(CGFloat *)&hsba[0] saturation:(CGFloat *)&hsba[1] brightness:(CGFloat *)&hsba[2] alpha:(CGFloat *)&hsba[3]];
+    [color getHue:&hsba[0] saturation:&hsba[1] brightness:&hsba[2] alpha:&hsba[3]];
     // return values
     return [UIColor colorWithHue:hsba[0] saturation:hsba[1] brightness:hsba[2] alpha:opacity];
 }
@@ -1062,17 +1062,17 @@
     if(scale==1.0||scale<0) {
         return color;
     }
-    float hsba[4];
+    CGFloat hsba[4];
     // get values
-    [color getHue:(CGFloat *)&hsba[0] saturation:(CGFloat *)&hsba[1] brightness:(CGFloat *)&hsba[2] alpha:(CGFloat *)&hsba[3]];
+    [color getHue:&hsba[0] saturation:&hsba[1] brightness:&hsba[2] alpha:&hsba[3]];
     // return values
     return [UIColor colorWithHue:hsba[0] saturation:hsba[1] brightness:hsba[2] alpha:hsba[3]*scale];
 }
 
 + (UIColor *)getColor:(UIColor *)color withBrightness:(float)brightness {
-    float hsba[4];
+    CGFloat hsba[4];
     // get values
-    [color getHue:(CGFloat *)&hsba[0] saturation:(CGFloat *)&hsba[1] brightness:(CGFloat *)&hsba[2] alpha:(CGFloat *)&hsba[3]];
+    [color getHue:&hsba[0] saturation:&hsba[1] brightness:&hsba[2] alpha:&hsba[3]];
     // return values
     return [UIColor colorWithHue:hsba[0] saturation:hsba[1] brightness:brightness alpha:hsba[3]];
 }
@@ -1083,16 +1083,16 @@
     if(scale<0.0){
         scale=0.0;
     }
-    float hsba[4];
+    CGFloat hsba[4];
     // get values
-    [color getHue:(CGFloat *)&hsba[0] saturation:(CGFloat *)&hsba[1] brightness:(CGFloat *)&hsba[2] alpha:(CGFloat *)&hsba[3]];
+    [color getHue:&hsba[0] saturation:&hsba[1] brightness:&hsba[2] alpha:&hsba[3]];
     // return values
     return [UIColor colorWithHue:hsba[0] saturation:hsba[1] brightness:hsba[2]*scale alpha:hsba[3]];
 }
 + (UIColor *)getColor:(UIColor *)color withSaturation:(float)Saturation {
-    float hsba[4];
+    CGFloat hsba[4];
     // get values
-    [color getHue:(CGFloat *)&hsba[0] saturation:(CGFloat *)&hsba[1] brightness:(CGFloat *)&hsba[2] alpha:(CGFloat *)&hsba[3]];
+    [color getHue:&hsba[0] saturation:&hsba[1] brightness:&hsba[2] alpha:&hsba[3]];
     // return values
     return [UIColor colorWithHue:hsba[0] saturation:Saturation brightness:hsba[2] alpha:hsba[3]];
 }
@@ -1103,17 +1103,17 @@
     if(scale<0.0){
         scale=0.0;
     }
-    float hsba[4];
+    CGFloat hsba[4];
     // get values
-    [color getHue:(CGFloat *)&hsba[0] saturation:(CGFloat *)&hsba[1] brightness:(CGFloat *)&hsba[2] alpha:(CGFloat *)&hsba[3]];
+    [color getHue:&hsba[0] saturation:&hsba[1] brightness:&hsba[2] alpha:&hsba[3]];
     // return values
     return [UIColor colorWithHue:hsba[0] saturation:hsba[1]*scale brightness:hsba[2] alpha:hsba[3]];
 }
 
 + (UIColor *)getColor:(UIColor *)color withBrightness:(float)brightness andSaturation:(float)saturation{
-    float hsba[4];
+    CGFloat hsba[4];
     // get values
-    [color getHue:(CGFloat *)&hsba[0] saturation:(CGFloat *)&hsba[1] brightness:(CGFloat *)&hsba[2] alpha:(CGFloat *)&hsba[3]];
+    [color getHue:&hsba[0] saturation:&hsba[1] brightness:&hsba[2] alpha:&hsba[3]];
     // return values
     return [UIColor colorWithHue:hsba[0] saturation:saturation brightness:brightness alpha:hsba[3]];
 }
@@ -1128,9 +1128,9 @@
         sscale=0.0;
     }
     
-    double hsba[4];
+    CGFloat hsba[4];
     // get values
-    [color getHue:(CGFloat *)&hsba[0] saturation:(CGFloat *)&hsba[1] brightness:(CGFloat *)&hsba[2] alpha:(CGFloat *)&hsba[3]];
+    [color getHue:&hsba[0] saturation:&hsba[1] brightness:&hsba[2] alpha:&hsba[3]];
     // return values
     return [UIColor colorWithHue:hsba[0] saturation:hsba[1]*sscale brightness:hsba[2]*bscale alpha:hsba[3]];
 }
@@ -1144,9 +1144,9 @@
     }
     
     //color = [UIColor blueColor];
-    float hsba[4];
+    CGFloat hsba[4];
     // get values
-    [color getHue:(CGFloat *)&hsba[0] saturation:(CGFloat *)&hsba[1] brightness:(CGFloat *)&hsba[2] alpha:(CGFloat *)&hsba[3]];
+    [color getHue:&hsba[0] saturation:&hsba[1] brightness:&hsba[2] alpha:&hsba[3]];
     
     // when the color is pure gray: saturatino is 0 set it to full saturation 1.0
     if(hsba[1]==0) {
@@ -1157,11 +1157,11 @@
     return [UIColor colorWithHue:hue saturation:hsba[1] brightness:hsba[2] alpha:hsba[3]];
 }
 + (UIColor *)mixColor:(UIColor *)color1 withColor:(UIColor *)color2 {
-    float hsba1[4];
-    float hsba2[4];
+    CGFloat hsba1[4];
+    CGFloat hsba2[4];
     // get values
-    [color1 getHue:(CGFloat *)&hsba1[0] saturation:(CGFloat *)&hsba1[1] brightness:(CGFloat *)&hsba1[2] alpha:(CGFloat *)&hsba1[3]];
-    [color2 getHue:(CGFloat *)&hsba2[0] saturation:(CGFloat *)&hsba2[1] brightness:(CGFloat *)&hsba2[2] alpha:(CGFloat *)&hsba2[3]];
+    [color1 getHue:&hsba1[0] saturation:&hsba1[1] brightness:&hsba1[2] alpha:&hsba1[3]];
+    [color2 getHue:&hsba2[0] saturation:&hsba2[1] brightness:&hsba2[2] alpha:&hsba2[3]];
     
     // return values
     return [UIColor colorWithHue:(hsba1[0]+hsba2[0])/2.0

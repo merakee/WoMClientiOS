@@ -166,7 +166,7 @@
     DBLog(@"Test results---------------------------------Start");
     int count=1;
     ApiUserDatabase *uid =[[ApiUserDatabase alloc] init];
-    
+    NSLog(@"Test starting....%d",count);
     // test regular user
     ApiUser *user= [[ApiUser alloc] initWithUserId:nil
                                         userTypeId:@2

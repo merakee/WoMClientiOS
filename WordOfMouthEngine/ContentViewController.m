@@ -119,7 +119,9 @@
     
     contentTextView.text = currentContent.contentText;
     UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
-    if(currentContent.photoToken[@"url"] && (![currentContent.photoToken[@"url"] isEqual:[NSNull null]])){
+    if([currentContent.photoToken isKindOfClass:[NSDictionary class]]
+       && currentContent.photoToken[@"url"] &&
+       (![currentContent.photoToken[@"url"] isEqual:[NSNull null]])){
         [contentBackGround setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]]
                                                placeholderImage:bgImage];
     }

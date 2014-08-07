@@ -435,7 +435,7 @@
     return userResponse;
 }
 - (NSError *)actionsForFailedPostResonseWithError:(NSError *)error{
-    //DBLog(@"Post Response Error: %@",error);
+    DBLog(@"Post Response Error: %@",error);
     return [ApiErrorManager processPostResponseError:error];
 }
 
