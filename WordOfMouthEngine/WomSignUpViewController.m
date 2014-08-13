@@ -9,7 +9,7 @@
 #import "WomSignUpViewController.h"
 #import "WomSignUpViewHelper.h"
 #import "AppDelegate.h"
-
+#import "FlurryManager.h"
 
 @implementation WomSignUpViewController
 
@@ -158,6 +158,8 @@
                                                         [activityIndicator stopAnimating];
                                                         [self actionsForSuccessfulUserSignUp];
                                                     }failure:^(NSError * error){
+                                                        // Analytics: Flurry
+                                                        [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignUpFailure] withParameters:@{@"Error": error}];
                                                         [activityIndicator stopAnimating];
                                                         [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                     }];
@@ -166,6 +168,8 @@
 
 #pragma mark - Api Manager Post actions methods
 - (void)actionsForSuccessfulUserSignUp{
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignUpSuccess]];
     // switch to content view
     [(AppDelegate *)[UIApplication sharedApplication].delegate setContentViewAsRootView];
 }

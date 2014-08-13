@@ -39,6 +39,7 @@
 		111E5976182ECA8F00B7FD49 /* DebugTestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 111E5974182ECA8F00B7FD49 /* DebugTestManager.m */; };
 		111E597D18309A6700B7FD49 /* ApiUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 111E597C18309A6700B7FD49 /* ApiUser.m */; };
 		111E597E18309A6700B7FD49 /* ApiUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 111E597C18309A6700B7FD49 /* ApiUser.m */; };
+		111FE18D199BD51E005143E0 /* FlurryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 111FE18C199BD51E005143E0 /* FlurryManager.m */; };
 		1127D630197744B1004BA5B8 /* ApiManagerContentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1127D62F197744B1004BA5B8 /* ApiManagerContentTests.m */; };
 		1131DA6718B5584300EFDB34 /* SignInViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA6518B5584300EFDB34 /* SignInViewHelper.m */; };
 		1131DA6B18B55AFE00EFDB34 /* SocialSignin_Google.png in Resources */ = {isa = PBXBuildFile; fileRef = 1131DA6918B55AFE00EFDB34 /* SocialSignin_Google.png */; };
@@ -161,6 +162,8 @@
 		111E5974182ECA8F00B7FD49 /* DebugTestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugTestManager.m; sourceTree = "<group>"; };
 		111E597B18309A6700B7FD49 /* ApiUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiUser.h; sourceTree = "<group>"; };
 		111E597C18309A6700B7FD49 /* ApiUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiUser.m; sourceTree = "<group>"; };
+		111FE18B199BD51E005143E0 /* FlurryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryManager.h; sourceTree = "<group>"; };
+		111FE18C199BD51E005143E0 /* FlurryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlurryManager.m; sourceTree = "<group>"; };
 		1127D62F197744B1004BA5B8 /* ApiManagerContentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiManagerContentTests.m; sourceTree = "<group>"; };
 		1131DA6518B5584300EFDB34 /* SignInViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewHelper.m; sourceTree = "<group>"; };
 		1131DA6618B5584300EFDB34 /* SignInViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewHelper.h; sourceTree = "<group>"; };
@@ -347,6 +350,7 @@
 		1114A7FB182D8B3300089669 /* WordOfMouthEngine */ = {
 			isa = PBXGroup;
 			children = (
+				111FE189199BD452005143E0 /* Analytics */,
 				1114A824182D8B8500089669 /* AppDelegate */,
 				1114A82A182D8D7E00089669 /* CommonUtility */,
 				1114A82B182D8D8A00089669 /* Config */,
@@ -481,6 +485,15 @@
 				111E5974182ECA8F00B7FD49 /* DebugTestManager.m */,
 			);
 			name = DebugTest;
+			sourceTree = "<group>";
+		};
+		111FE189199BD452005143E0 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				111FE18C199BD51E005143E0 /* FlurryManager.m */,
+				111FE18B199BD51E005143E0 /* FlurryManager.h */,
+			);
+			name = Analytics;
 			sourceTree = "<group>";
 		};
 		1131DA6818B55AF100EFDB34 /* Buttons */ = {
@@ -1039,6 +1052,7 @@
 				111E5975182ECA8F00B7FD49 /* DebugTestManager.m in Sources */,
 				111E597D18309A6700B7FD49 /* ApiUser.m in Sources */,
 				11720F5118B6A83500124C9F /* ProfileViewHelper.m in Sources */,
+				111FE18D199BD51E005143E0 /* FlurryManager.m in Sources */,
 				1166AD871975EC640010BFEA /* WomSignUpViewController.m in Sources */,
 				11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */,
 				1171CABF196917DF00B40A0E /* ApiUserManager.m in Sources */,

@@ -9,6 +9,7 @@
 #import "ComposeViewController.h"
 #import "ComposeViewHelper.h"
 #import "ApiManager.h"
+#import "FlurryManager.h"
 
 @implementation ComposeViewController
 
@@ -62,10 +63,18 @@
     //[self setHidesBottomBarWhenPushed:YES];
     
 }
+- (void)viewDidAppear:(BOOL)animated{
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAComposeSession] withParameters:nil timed:YES];
+    
+}
+
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
+    // Analytics: Flurry
+    [Flurry endTimedEvent:[FlurryManager getEventName:kFAComposeSession] withParameters:nil];
 }
 
 
@@ -222,6 +231,9 @@
 }
 #pragma mark - Button Action Methods
 - (void)postContent:(id)sender {
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAComposePost]];
+    
     // attempt to post content
     ApiContent *ci =[[ApiContent alloc] init];
     ci.contentText = [CommonUtility trimString:composeTextView.text];
@@ -245,6 +257,8 @@
                                                          [activityIndicator stopAnimating];
                                                          [self actionsForSuccessfulPostContent];
                                                      }failure:^(NSError * error){
+                                                         // Analytics: Flurry
+                                                         [Flurry logEvent:[FlurryManager getEventName:kFAComposePostFailure] withParameters:@{@"Error":error}];
                                                          [activityIndicator stopAnimating];
                                                          [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                      }];
@@ -256,6 +270,8 @@
 }
 #pragma mark - Api Manager Post actions methods
 - (void)actionsForSuccessfulPostContent{
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAComposePostSuccess]];
     //clear content
     [self clearViewAfterSuccessfulPostOrCancel];
     // display sucess
@@ -316,6 +332,9 @@
 #pragma mark - Photo buttons
 #pragma mark - popover controller method
 - (void)showPhotoOptions:(id)sender{
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAComposePhoto]];
+    
     photoOptionsView.hidden = !photoOptionsView.hidden;
     // set the view to disappear
     //    if(photoOptionsView.hidden==NO){
@@ -333,12 +352,16 @@
     //    }
 }
 - (void)cameraButtonPressed:(id)sender {
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAComposeCamera]];
     photoOptionsView.hidden = YES;
     // start image picker for camera
     [photoManager displayCamera];
 }
 
 - (void)albumButtonPressed:(id)sender {
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAComposeAlbum]];
     photoOptionsView.hidden = YES;
     // start image picker for camera
     [photoManager displayPhotoLibrary];

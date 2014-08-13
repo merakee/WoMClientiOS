@@ -163,6 +163,7 @@
 
 #pragma mark -  Test Code
 + (void)test {
+    /*
     DBLog(@"Test results---------------------------------Start");
     int count=1;
     ApiUserDatabase *uid =[[ApiUserDatabase alloc] init];
@@ -240,6 +241,6 @@
     }
     
     DBLog(@"Test results---------------------------------End");
+ */
 }
-
 @end

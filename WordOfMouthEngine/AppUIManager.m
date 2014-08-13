@@ -580,7 +580,7 @@
     iv.layer.mask=circleLayer;
     
     [CommonUtility  printPoint:iv.center];
-    NSLog(@"%f",fminf(iv.frame.size.height,iv.frame.size.width)/2.0-circleLayer.lineWidth);
+    //NSLog(@"%f",fminf(iv.frame.size.height,iv.frame.size.width)/2.0-circleLayer.lineWidth);
     // create circle path
     UIBezierPath *path = [UIBezierPath bezierPath];
     [path addArcWithCenter:iv.center

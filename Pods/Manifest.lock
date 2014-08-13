@@ -21,16 +21,21 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Expecta (0.2.4)
+  - FlurrySDK (5.2.0):
+    - FlurrySDK/FlurrySDK
+  - FlurrySDK/FlurrySDK (5.2.0)
   - Specta (0.2.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.3.1)
   - Expecta (~> 0.2.3)
+  - FlurrySDK
   - Specta (~> 0.2.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
   Expecta: 112bcafa2304ee0f3c5e586505f24555a47b25d5
+  FlurrySDK: 5322b9eb0d0b538f1a1983a6717f3a2e2ba03047
   Specta: 9141310f46b1f68b676650ff2854e1ed0b74163a
 
 COCOAPODS: 0.33.1

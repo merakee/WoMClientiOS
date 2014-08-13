@@ -41,12 +41,12 @@
             &&user.email&&user.authenticationToken);
 }
 +(void)printApiUser:(ApiUser  *)user{
-    DBLog(@"Api User:--------------------");
-    DBLog(@"User_Id: %d",[user.userId intValue]);
-    DBLog(@"User_Type_Id: %d",[user.userTypeId intValue]);
-    DBLog(@"Email: %@",user.email);
-    DBLog(@"Authentication token: %@",user.authenticationToken);
-    DBLog(@"signed in: %d",[user.signedIn boolValue]);
+    NSLog(@"Api User:--------------------");
+    NSLog(@"User_Id: %d",[user.userId intValue]);
+    NSLog(@"User_Type_Id: %d",[user.userTypeId intValue]);
+    NSLog(@"Email: %@",user.email);
+    NSLog(@"Authentication token: %@",user.authenticationToken);
+    NSLog(@"signed in: %d",[user.signedIn boolValue]);
 }
 
 @end

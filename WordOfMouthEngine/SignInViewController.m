@@ -11,6 +11,7 @@
 #import "WomSignInViewController.h"
 #import "WomSignUpViewController.h"
 #import "AppDelegate.h"
+#import "FlurryManager.h"
 
 @implementation SignInViewController
 
@@ -192,18 +193,25 @@
     [CommonUtility displayAlertWithTitle:@"Not Active" message:@"Please sign in with email" delegate:self];
 }
 - (void)signInButtonPressed:(id)sender {
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignIn]];
     // push wom Sign in controller
     WomSignInViewController *womsivc =[[WomSignInViewController   alloc] init];
     [self.navigationController pushViewController:womsivc animated:NO];
 }
 
 - (void)signUpButtonPressed:(id)sender {
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignUp]];
     // push wom Sign up controller
     WomSignUpViewController *womsuvc =[[WomSignUpViewController   alloc] init];
     [self.navigationController pushViewController:womsuvc animated:NO];
 }
 
 - (void)signInAsGuestButtonPressed:(id)sender {
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionGuestSignIn]];
+     
     // sign in anonymous user
     [activityIndicator startAnimating];
     [[ApiManager sharedApiManager] signInUserWithUserTypeId:kAPIUserTypeAnonymous
@@ -213,6 +221,8 @@
                                                         [activityIndicator stopAnimating];
                                                         [self actionsForSuccessfulAnonymusUserSignIn];
                                                     }failure:^(NSError * error){
+                                                        // Analytics: Flurry
+                                                        [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionGuestSignInFailure] withParameters:@{@"Error": error}];
                                                         [activityIndicator stopAnimating];
                                                         [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                     }];
@@ -220,6 +230,8 @@
 
 #pragma mark - Api Manager Post actions methods
 - (void)actionsForSuccessfulAnonymusUserSignIn{
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionGuestSignInSuccess]];
     // switch to content view
     [(AppDelegate *)[UIApplication sharedApplication].delegate setContentViewAsRootView];
 }

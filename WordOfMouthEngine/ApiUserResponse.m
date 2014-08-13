@@ -34,10 +34,10 @@
             &&userResponse.contentId&&(userResponse.contentId.intValue>0) );
 }
 +(void)printApiUserResponse:(ApiUserResponse  *)userResponse{
-    DBLog(@"Api User Response:--------------------");
-    DBLog(@"User Id: %d",[userResponse.userId intValue]);
-    DBLog(@"Content Id: %d",[userResponse.contentId intValue]);
-    DBLog(@"User Response: %d",[userResponse.userResponse intValue]);
+    NSLog(@"Api User Response:--------------------");
+    NSLog(@"User Id: %d",[userResponse.userId intValue]);
+    NSLog(@"Content Id: %d",[userResponse.contentId intValue]);
+    NSLog(@"User Response: %d",[userResponse.userResponse intValue]);
 }
 
 @end

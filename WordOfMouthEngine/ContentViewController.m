@@ -11,6 +11,7 @@
 #import "ComposeViewController.h"
 #import "ApiManager.h"
 #import "AppDelegate.h"
+#import "FlurryManager.h"
 
 @implementation ContentViewController
 
@@ -77,14 +78,22 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAContentSession] withParameters:nil timed:YES];
+    
     // update content
     [self updateContent];
     
 }
 - (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+    // Analytics: Flurry
+    [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentSession] withParameters:nil];
+    // Analytics: Flurry
+    [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentEach] withParameters:nil];
     
+    [super viewWillDisappear:animated];
 }
+
 - (BOOL)shouldAutorotate{
     return  YES;
 }
@@ -100,16 +109,26 @@
 
 #pragma mark -  Content Display method
 - (void)updateContent{
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:nil timed:YES];
+    
     // update content
     [contentManager getContentWithActivityIndicator:activityIndicator
                                             success:^(ApiContent *content) {
+                                                // Analytics: Flurry
+                                                [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:nil];
                                                 currentContent=content;
                                                 [self updateViewWithNewContent];
                                             }
                                             failure:^(ApiContent *content) {
+                                                // Analytics: Flurry
+                                                [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:@{@"Error":@"No Content"}];
                                                 currentContent= content;
                                                 [self updateViewWithNewContent];
                                             }];
+    
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAContentEach] withParameters:nil timed:YES];
     
 }
 - (void)updateViewWithNewContent{
@@ -123,7 +142,7 @@
        && currentContent.photoToken[@"url"] &&
        (![currentContent.photoToken[@"url"] isEqual:[NSNull null]])){
         [contentBackGround setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]]
-                                               placeholderImage:bgImage];
+                          placeholderImage:bgImage];
     }
     else{
         contentBackGround.image = bgImage;
@@ -351,11 +370,15 @@
         // sign out user
         [activityIndicator startAnimating];
         [[ApiManager sharedApiManager] signOutUserSuccess:^(void){
+            // Analytics: Flurry
+            [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignOut]];
             [activityIndicator stopAnimating];
             [self signedOutSuccessfully];
         }failure:^(NSError * error){
             [activityIndicator stopAnimating];
-            [ApiErrorManager displayAlertWithError:error withDelegate:self];
+            //[ApiErrorManager displayAlertWithError:error withDelegate:self];
+            // Do not display any error: just sign user out
+            [self signedOutSuccessfully];
         }];
     }
     else{
@@ -365,13 +388,28 @@
 
 #pragma mark - user_response methods
 - (void) spreadButtonPressed:(id)sender {
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAContentSpread]];
+    [self AddContentEachAnalytics:@"Spread"];
+    
     [self postResponse:true];
     
 }
 - (void) killButtonPressed:(id)sender {
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAContentKill]];
+    [self AddContentEachAnalytics:@"Kill"];
+    
     [self postResponse:false];
 }
 
+- (void)AddContentEachAnalytics:(NSString *)type{
+    // Analytics: Flurry
+    [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentEach] withParameters:@{@"Action":type}];
+    
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAContentEach] withParameters:nil timed:YES];
+}
 #pragma mark - Session methods
 - (void)signedOutSuccessfully{
     // go to sign in view

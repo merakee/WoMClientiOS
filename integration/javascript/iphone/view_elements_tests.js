@@ -89,7 +89,7 @@ test("Guest Content Screen test", function(target, app) {
 //                  },
                   onPass: function(window) {
                   // move over some conent
-                  for (i = 0; i < 2; i++) {
+                  for (i = 0; i < 100; i++) {
                   flip = Math.random() > 0.5
                   window.images()[0].textViews()[0].dragInsideWithOptions({startOffset:{x:flip?0.0:1.0, y:0.5}, endOffset:{x:flip?1.0:0.0, y:0.5}, duration:0.5})
                        target.delay(3);
@@ -144,7 +144,7 @@ test("User Content Screen test", function(target, app) {
                   onPass: function(window) {
                   
                   // move over some conent
-                  for (i = 0; i < 10; i++) {
+                  for (i = 0; i < 200; i++) {
                   flip = Math.random() > 0.5
                   window.images()[0].textViews()[0].dragInsideWithOptions({startOffset:{x:flip?0.0:1.0, y:0.5}, endOffset:{x:flip?1.0:0.0, y:0.5}, duration:0.5})
                   target.delay(3);

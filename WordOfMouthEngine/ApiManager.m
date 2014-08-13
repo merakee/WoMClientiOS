@@ -237,6 +237,17 @@
 - (NSError *)actionsForFailedSignInWithError:(NSError *)error{
     return [ApiErrorManager processSignInError:error];
 }
+- (void)anonymousUserSignInErrorAction:(NSError *)error{
+    if(![self isAnonymousUser]){
+        return;
+    }
+    // if anonymous user in local DB does not match Backend: delete it from local DB
+    NSError *perror= [ApiErrorManager processGetContentError:error];
+    if([perror.localizedFailureReason rangeOfString:@"(401)"].location!=NSNotFound){
+        [[[ApiUserDatabase alloc] init] deleteAnonymousUserInfo];
+    }
+    
+}
 #pragma mark -  API Calls: User Session - Sign Out
 - (void)signOutUserSuccess:(void (^)())success
                    failure:(void (^)(NSError *error))failure{
@@ -342,6 +353,8 @@
 
 
 - (NSError *)actionsForFailedGetContentWithError:(NSError *)error{
+    // check for anonymous user
+    [self anonymousUserSignInErrorAction:error];
     return [ApiErrorManager processGetContentError:error];
 }
 
@@ -435,7 +448,7 @@
     return userResponse;
 }
 - (NSError *)actionsForFailedPostResonseWithError:(NSError *)error{
-    DBLog(@"Post Response Error: %@",error);
+    //DBLog(@"Post Response Error: %@",error);
     return [ApiErrorManager processPostResponseError:error];
 }
 

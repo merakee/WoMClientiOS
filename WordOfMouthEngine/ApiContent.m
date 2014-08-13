@@ -72,17 +72,17 @@
 }
 
 +(void)printContentInfo:(ApiContent *)content {
-    DBLog(@"Content info:--------------------");
-    DBLog(@"Content Id: %ld",(long)content.contentId.integerValue);
-    DBLog(@"Text: %@",content.contentText);
-    DBLog(@"Author Id: %ld",(long)content.userId.integerValue);
-    DBLog(@"Category Id: %ld",(long)content.categoryId.integerValue);
-    DBLog(@"Photo Token: %@",content.photoToken);
-    DBLog(@"Time Stamp: %@",content.timeStamp);
-    DBLog(@"Total Spread: %ld",(long)content.totalSpread.integerValue);
-    DBLog(@"Spread Count: %ld",(long)content.spreadCount.integerValue);
-    DBLog(@"Kill Count: %ld",(long)content.killCount.integerValue);
-    DBLog(@"No Response Count: %ld",(long)content.noResponseCount.integerValue);
+    NSLog(@"Content info:--------------------");
+    NSLog(@"Content Id: %ld",(long)content.contentId.integerValue);
+    NSLog(@"Text: %@",content.contentText);
+    NSLog(@"Author Id: %ld",(long)content.userId.integerValue);
+    NSLog(@"Category Id: %ld",(long)content.categoryId.integerValue);
+    NSLog(@"Photo Token: %@",content.photoToken);
+    NSLog(@"Time Stamp: %@",content.timeStamp);
+    NSLog(@"Total Spread: %ld",(long)content.totalSpread.integerValue);
+    NSLog(@"Spread Count: %ld",(long)content.spreadCount.integerValue);
+    NSLog(@"Kill Count: %ld",(long)content.killCount.integerValue);
+    NSLog(@"No Response Count: %ld",(long)content.noResponseCount.integerValue);
 }
 
 @end

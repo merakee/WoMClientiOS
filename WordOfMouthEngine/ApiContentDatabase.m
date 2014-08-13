@@ -71,6 +71,7 @@
 
 #pragma mark -  Test Code
 + (void)test {
+    /*
     DBLog(@"Test results---------------------------------Start");
     ApiContentDatabase *lcd =[[ApiContentDatabase alloc] init];
     [ApiContent printContentInfo:[lcd getContent]];
@@ -84,6 +85,7 @@
     DBLog(@"%@",[lcd getCategoryTextForId:6]);
     DBLog(@"%@",[lcd getCategoryTextForId:0]);
     DBLog(@"Test results---------------------------------End");
+     */
 }
 
 @end
