@@ -39,7 +39,7 @@
     [super viewWillAppear:animated];
     
     // hide navigation bar
-    [self.navigationController setNavigationBarHidden:NO];
+    [self.navigationController setNavigationBarHidden:YES];
     
 }
 
@@ -66,12 +66,11 @@
     [WomSignUpViewHelper setView:self.view];
     
     // set navigation bar
-    [self setNavigationBar];
-    
-    // set buttons
-    signUpButton = [WomSignUpViewHelper getSignUpButton];
-    [signUpButton addTarget:self action:@selector(signUpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:signUpButton];
+    //[self setNavigationBar];
+    // set lables
+    pageLabel = [WomSignUpViewHelper getPageLabel];
+    [self.view addSubview:pageLabel];
+
     
     //text Fileds
     emailField =[[UITextField alloc] init];
@@ -87,6 +86,15 @@
     [WomSignUpViewHelper setPasswordConfirmationTextFiled:passwordConfirmationField withDelegate:self];
     [self.view addSubview:passwordConfirmationField];
     
+    // set buttons
+    signUpButton = [WomSignUpViewHelper getSignUpButton];
+    [signUpButton addTarget:self action:@selector(signUpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:signUpButton];
+    
+    cancelButton = [WomSignUpViewHelper getCancelButton];
+    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:cancelButton];
+    
     //activity indicator view
     activityIndicator =[[UIActivityIndicatorView alloc] init];
     [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
@@ -97,15 +105,27 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,passwordConfirmationField,signUpButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,passwordConfirmationField,signUpButton,cancelButton,pageLabel);
+    
+    // labels
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLabel(120)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[pageLabel(60)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    // Center horizontally
+    [AppUIManager horizontallyCenterElement:pageLabel inView:self.view];
     
     // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-76-[emailField(36)]-12-[passwordField(emailField)]-12-[passwordConfirmationField(emailField)]-12-[signUpButton(emailField)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-19-[cancelButton(24)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-29-[cancelButton(24)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[signUpButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signUpButton(70)]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[emailField(40)]-16-[passwordField(emailField)]-20-[passwordConfirmationField(emailField)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[emailField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[passwordField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[passwordConfirmationField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[signUpButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[passwordConfirmationField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
 }
 

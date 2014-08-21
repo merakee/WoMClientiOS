@@ -109,7 +109,7 @@
     // set tab bar
     composeViewNavigationController.tabBarItem = [[UITabBarItem alloc]
                                                   initWithTitle:@"Compose"
-                                                  image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageCompose]
+                                                  image:nil//[UIImage imageNamed:kAUCCoreFunctionTabbarImageCompose]
                                                   tag:kCFVTabbarIndexCompose];
     
     [AppUIManager setNavbar:composeViewController.navigationController.navigationBar];

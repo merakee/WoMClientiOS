@@ -11,7 +11,7 @@
 #import "ApiContentDatabase.h"
 #import "AppConstants.h"
 
-#define kAppErrorDomainContent  @"ContentErrorDomain"
+static NSString *  kAppErrorDomainContent = @"ContentErrorDomain";
 
 typedef enum {
     kContentErrorNone=0,

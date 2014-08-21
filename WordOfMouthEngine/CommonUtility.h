@@ -14,25 +14,25 @@
 /* ---------------------------
  Define all constants
  ---------------------------*/
-#define kiOSDeviceTagUnknown                                            @"Unknown"
-#define kiOSDeviceTagSimulatoriPhone                            @"Sim-32-iPhone"
-#define kiOSDeviceTagSimulatoriPad                                      @"Sim-32-iPad"
-#define kiOSDeviceTagiPodFirstGeneration                @"iPod-1G"
-#define kiOSDeviceTagiPodSecondGeneration               @"iPod-2G"
-#define kiOSDeviceTagiPodThirdGeneration                @"iPod-3G"
-#define kiOSDeviceTagiPodForthGeneration                @"iPod-4G"
-#define kiOSDeviceTagiPhoneFirstGeneration              @"iPhone-1G"
-#define kiOSDeviceTagiPhoneThirdGeneration              @"iPhone-3G"
-#define kiOSDeviceTagiPhoneThirdGenerationS             @"iPhone-3GS"
-#define kiOSDeviceTagiPhoneForthGeneration              @"iPhone-4G"
-#define kiOSDeviceTagiPhoneForthGenerationV             @"iPhone-4G(Verizon)"
-#define kiOSDeviceTagiPhoneForthGenerationS             @"iPhone-4GS"
-#define kiOSDeviceTagiPadFirstGeneration                @"iPad-1G"
-#define kiOSDeviceTagiPadSecondGenerationWF             @"iPad-2G(WiFi)"
-#define kiOSDeviceTagiPadSecondGenerationGSM            @"iPad-2G(GSM)"
-#define kiOSDeviceTagiPadSecondGenerationCDMA           @"iPad-2G(CDMA)"
+static NSString * kiOSDeviceTagUnknown                            = @"Unknown";
+static NSString * kiOSDeviceTagSimulatoriPhone                    = @"Sim-32-iPhone";
+static NSString * kiOSDeviceTagSimulatoriPad                      = @"Sim-32-iPad";
+static NSString * kiOSDeviceTagiPodFirstGeneration                = @"iPod-1G";
+static NSString * kiOSDeviceTagiPodSecondGeneration               = @"iPod-2G";
+static NSString * kiOSDeviceTagiPodThirdGeneration                = @"iPod-3G";
+static NSString * kiOSDeviceTagiPodForthGeneration                = @"iPod-4G";
+static NSString * kiOSDeviceTagiPhoneFirstGeneration              = @"iPhone-1G";
+static NSString * kiOSDeviceTagiPhoneThirdGeneration              = @"iPhone-3G";
+static NSString * kiOSDeviceTagiPhoneThirdGenerationS             = @"iPhone-3GS";
+static NSString * kiOSDeviceTagiPhoneForthGeneration              = @"iPhone-4G";
+static NSString * kiOSDeviceTagiPhoneForthGenerationV             = @"iPhone-4G(Verizon)";
+static NSString * kiOSDeviceTagiPhoneForthGenerationS             = @"iPhone-4GS";
+static NSString * kiOSDeviceTagiPadFirstGeneration                = @"iPad-1G";
+static NSString * kiOSDeviceTagiPadSecondGenerationWF             = @"iPad-2G(WiFi)";
+static NSString * kiOSDeviceTagiPadSecondGenerationGSM            = @"iPad-2G(GSM)";
+static NSString * kiOSDeviceTagiPadSecondGenerationCDMA           = @"iPad-2G(CDMA)";
 
-#define kCUActionSheetViewTag                       347826902 //  a number that won't likely be used as other view tag
+static const int kCUActionSheetViewTag    = 347826902; //  a number that won't likely be used as other view tag
 
 /* -------------------------------
  // date formatting strings
@@ -40,9 +40,9 @@
  // http://unicode.org/reports/tr35/tr35-6.html#Date_Format_Patterns
  -----------------------*/
 // This is too long
-//#define kDateFormattingStringForDisplay         @"d MMM yyyy, EEEE h:mm a"
-//#define kDateFormattingStringForStorage         @"yyyy-MM-dd HH:mm:ss ZZZ"
-#define kDateFormatDefault              @"yyyyMMddHHmmss"
+//static NSString * kDateFormattingStringForDisplay         = @"d MMM yyyy, EEEE h:mm a"
+//static NSString * kDateFormattingStringForStorage         = @"yyyy-MM-dd HH:mm:ss ZZZ"
+static NSString * kDateFormatDefault              = @"yyyyMMddHHmmss";
 
 
 @interface CommonUtility : NSObject {

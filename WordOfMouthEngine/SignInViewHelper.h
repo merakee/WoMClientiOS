@@ -9,17 +9,28 @@
 #import <Foundation/Foundation.h>
 #import "AppUIManager.h"
 
-@interface SignInViewHelper : NSObject
-
 // SignIn Images
-#define kLIVCGoogleButtonImage     @"SocialSignin_Google.png"
-#define kLIVCFacebookButtonImage     @"SocialSignin_Facebook.png"
-#define kLIVCTwitterButtonImage     @"SocialSignin_Twitter.png"
-#define kLIVCEmailButtonImage     @"SocialSignin_Email.png"
+/*
+static NSString *  kLIVCGoogleButtonImage   =  @"SocialSignin_Google.png";
+static NSString *  kLIVCFacebookButtonImage   =  @"SocialSignin_Facebook.png";
+static NSString *  kLIVCTwitterButtonImage  =   @"SocialSignin_Twitter.png";
+static NSString *  kLIVCEmailButtonImage    = @"SocialSignin_Email.png";
+*/
+
+static NSString *  kAUCSigninOptionsLogoImage = @"launch_logo.png";
+static NSString *  kAUCSigninOptionsButtonsImage = @"launch_btn.png";
+
+@interface SignInViewHelper : NSObject
 
 
 #pragma mark -  View Helper Methods: Views
 + (void)setView:(UIView *)view;
+
+#pragma mark -  View Helper Methods: UIImages
++ (UIImageView *)getLogoView;
++ (UIImageView *)getButtonsView;
+
+
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getGoogleButton;

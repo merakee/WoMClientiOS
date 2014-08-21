@@ -3,7 +3,7 @@
 #import "../../../tuneup_js/tuneup.js"
 
 test("Sign in options Screen test", function(target, app) {
-     //UIATarget.localTarget().logElementTree();
+     UIATarget.localTarget().logElementTree();
      
      assertWindow({
                   buttons:[

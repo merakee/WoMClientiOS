@@ -21,7 +21,7 @@
         
         self.tabBarItem = [[UITabBarItem alloc]
                            initWithTitle:@"WoM"
-                           image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageContent]
+                           image:nil//[UIImage imageNamed:kAUCCoreFunctionTabbarImageContent]
                            tag:kCFVTabbarIndexContent];
         
         // set color
@@ -55,6 +55,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    // full screen view
+    [self setEdgesForExtendedLayout:UIRectEdgeNone];
 }
 
 - (void)viewDidUnload
@@ -72,9 +74,14 @@
     
     //userImage.image = [UIImage imageNamed:@"UserImage.png"];
     
-    // update nav bar
+    // hide navigation bar
+    [self.navigationController setNavigationBarHidden:YES];
+    
+    // update sign in button title
     [self updateSignInOutButtonTitle];
     
+    // add observer for text view
+    //[contentTextView  addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -91,6 +98,9 @@
     // Analytics: Flurry
     [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentEach] withParameters:nil];
     
+    // remove observer for text view
+    //[contentTextView removeObserver:self forKeyPath:@"contentSize"];
+    
     [super viewWillDisappear:animated];
 }
 
@@ -105,6 +115,20 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Text View Observer
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+//    UITextView *txtview = object;
+//    
+//    NSLog(@"Observer called....Text view size: %f, content size: %f",[txtview bounds].size.height,[txtview contentSize].height);
+//
+//    CGFloat topoffset = ([txtview bounds].size.height - [txtview contentSize].height * [txtview zoomScale])/2.0;
+//    topoffset = ( topoffset < 0.0 ? 0.0 : topoffset );
+//    txtview.contentOffset = (CGPoint){.x = 0, .y = -topoffset};
+//    
+//    NSLog(@"Observer called....Text view size: %f, content size: %f",[txtview bounds].size.height,[txtview contentSize].height);
+//    NSLog(@"Observer called....Text view size: %f, content size: %f",[contentTextView bounds].size.height,[txtview contentSize].height);
 }
 
 #pragma mark -  Content Display method
@@ -136,7 +160,11 @@
     // change category color
     [ContentViewHelper updateContentBackGroundView:contentBackGround forCategory:(kAPIContentCategory)currentContent.categoryId];
     
-    contentTextView.text = currentContent.contentText;
+    // set text
+    //contentTextView.text = currentContent.contentText;
+    contentTextView.attributedText = [ContentViewHelper getAttributedText:currentContent.contentText];
+    
+    
     UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
     if([currentContent.photoToken isKindOfClass:[NSDictionary class]]
        && currentContent.photoToken[@"url"] &&
@@ -166,7 +194,7 @@
     [ContentViewHelper  setView:self.view];
     
     // set navigation bar
-    [self setNavigationBar];
+    //[self setNavigationBar];
     
     // set textview
     contentBackGround = [ContentViewHelper getContentBackGroundView];
@@ -174,13 +202,24 @@
     contentTextView = [ContentViewHelper getContentTextViewWithDelegate:self];
     [contentBackGround addSubview:contentTextView];
     
-    //    // set buttons
-    //    spreadButton = [ContentViewHelper getSpreadButton];
-    //    [spreadButton addTarget:self action:@selector(spreadButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    //    killButton = [ContentViewHelper getKillButton];
-    //    [killButton addTarget:self action:@selector(killButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    //    [self.view addSubview:spreadButton];
-    //    [self.view addSubview:killButton];
+    //page logo
+    pageLogo =[ContentViewHelper getPageLogoImageView];
+    [self.view addSubview:pageLogo];
+    
+    // set buttons
+    spreadButton = [ContentViewHelper getSpreadButton];
+    [spreadButton addTarget:self action:@selector(spreadButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    killButton = [ContentViewHelper getKillButton];
+    [killButton addTarget:self action:@selector(killButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    composeButton = [ContentViewHelper getComposeButton];
+    [composeButton addTarget:self action:@selector(goToAddContentView:) forControlEvents:UIControlEventTouchUpInside];
+    signInOutButton = [ContentViewHelper getSignInOutButton];
+    [signInOutButton addTarget:self action:@selector(signInOutButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:spreadButton];
+    [self.view addSubview:killButton];
+    [self.view addSubview:composeButton];
+    [self.view addSubview:signInOutButton];
     //
     //    // set Textlabels and progress view
     //    spreadCount = [ContentViewHelper getTextLabelForSpreadCount];
@@ -191,6 +230,7 @@
     //    // image view
     //    userImage = [ContentViewHelper getUserImageView];
     //    [self.view addSubview:userImage];
+    
     
     //activity indicator view
     activityIndicator =[[UIActivityIndicatorView alloc] init];
@@ -230,35 +270,35 @@
     //[self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[progressClock(36)]"
     //                                                                           options:0 metrics:nil views:viewsDictionary]];
     
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround);
+    // NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround);
+    
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround,spreadButton,killButton,composeButton,signInOutButton,pageLogo);
+    
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLogo(42)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[pageLogo(42)][signInOutButton]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [AppUIManager horizontallyCenterElement:pageLogo inView:self.view];
+    
     
     // text view
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentBackGround(>=100)]|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentBackGround]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[contentBackGround(>=100)]|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentBackGround]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[contentTextView(>=100)]-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[contentTextView]-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
     //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[contentTextView(>=100)]-|"
     //                                                                     options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[contentTextView(120)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signInOutButton]-5-[contentTextView]-5-[spreadButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    
-    [self.view addConstraint:[NSLayoutConstraint
-                              constraintWithItem:contentTextView
-                              attribute:NSLayoutAttributeCenterY
-                              relatedBy:NSLayoutRelationEqual
-                              toItem:contentBackGround
-                              attribute:NSLayoutAttributeCenterY
-                              multiplier:1.0
-                              constant:0.0]];
-    
-    
     
     
     //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadCount]-[contentBackGround]-10-[killButton]"
@@ -272,27 +312,35 @@
     
     
     // buttons
-    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[killButton(spreadButton)]-12-[spreadButton]-|"
-    //                                                                 options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[spreadButton(70)]-16-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[killButton(spreadButton)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[composeButton(58)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
     // Center
-    /*
-     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:killButton
-     attribute:NSLayoutAttributeCenterX
-     relatedBy:NSLayoutRelationEqual
-     toItem:self.view
-     attribute:NSLayoutAttributeCenterX
-     multiplier:1.0
-     constant:-46]];
-     */
+    [AppUIManager horizontallyCenterElement:composeButton inView:self.view];
     
-    //    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[killButton(30)]-10-|"
-    //                                                                                    options:0 metrics:nil views:viewsDictionary]];
-    //    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadButton(30)]-10-|"
-    //                                                                                    options:0 metrics:nil views:viewsDictionary]];
-    //
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInOutButton(110)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     
+    // Center
+    // Center
+    [AppUIManager horizontallyCenterElement:signInOutButton inView:self.view];
     
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadButton(72)]-30-|"
+                                                                                    options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[killButton(spreadButton)]-30-|"
+                                                                                    options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[composeButton(59)]-5-|"
+                                                                                    options:0 metrics:nil views:viewsDictionary]];
+    
+    
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signInOutButton(111)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
     
 }
 
@@ -340,10 +388,12 @@
 - (void)updateSignInOutButtonTitle{
     // left navigation button
     if([[ApiManager sharedApiManager] isAnonymousUser]){
-        self.navigationItem.leftBarButtonItem.title = @"Sign In";
+        //self.navigationItem.leftBarButtonItem.title = @"Sign In";
+        [signInOutButton setImage:[UIImage imageNamed:kAUCSignInButtonImage] forState:UIControlStateNormal];
     }
     else{
-        self.navigationItem.leftBarButtonItem.title =@"Sign Out";
+        //self.navigationItem.leftBarButtonItem.title =@"Sign Out";
+        [signInOutButton setImage:[UIImage imageNamed:kAUCSignOutButtonImage] forState:UIControlStateNormal];
     }
 }
 

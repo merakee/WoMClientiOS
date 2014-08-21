@@ -9,7 +9,7 @@
 //#import <Foundation/Foundation.h>
 //#import "UserInfo.h"
 //
-//#define kAppErrorDomainSession  @"SessionErrorDomain"
+//static NSString * kAppErrorDomainSession =  @"SessionErrorDomain";
 //
 //typedef enum {
 //    kSessionErrorNone=0,

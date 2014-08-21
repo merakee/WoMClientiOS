@@ -20,6 +20,7 @@
     UIActivityIndicatorView *activityIndicator;
     
     UIImageView        *appLogoView;
+    UIImageView        *buttonsView;
 }
 
 @end

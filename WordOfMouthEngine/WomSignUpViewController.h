@@ -10,10 +10,12 @@
 #import "ApiManager.h"
 
 @interface WomSignUpViewController : UIViewController<UITextFieldDelegate>{
+    UILabel            *pageLabel;
     UITextField        *emailField;
     UITextField        *passwordField;
     UITextField        *passwordConfirmationField;
     UIButton           *signUpButton;
+    UIButton           *cancelButton;
     UIActivityIndicatorView *activityIndicator;
 }
 

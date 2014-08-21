@@ -6,8 +6,47 @@
 //  Copyright (c) 2014 Bijit Halder. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface AppAnimationManager : NSObject
+// define all contants
+// List view animation
+enum {
+    kCustomViewAnimationTypeNone = 0,
+    kCustomViewAnimationTypePulsate,
+    kCustomViewAnimationTypeShake,
+    kCustomViewAnimationTypePulsateWithSize,
+    kCustomViewAnimationTypeWabble,
+};
+typedef NSUInteger CustomViewAnimationType;
+// animation times
+static const float kCustomViewAnimationDefaultAnimationDuration =2.0;
+static const float kCustomViewAnimationDefaultAnimationDelay =0.0;
+static const int kCustomViewAnimationDefaultRepeatCount =0;
+
+@protocol AppAnimationManagerDelegate <NSObject>
+@required
+-(void)animationEndedForView:(UIView *)view ofType:(CustomViewAnimationType)type;
+@optional
+
+@end
+
+@interface AppAnimationManager : NSObject {
+    
+}
+
+@property NSInteger repeatCount;
+@property float animationDuration;
+@property float animationDelay;
+
+
+@property (assign, nonatomic) id <AppAnimationManagerDelegate>  delegate;
+
+#pragma mark - view animation instance methods
+- (void)animateView:(UIView *)view withType:(CustomViewAnimationType)animationType;
+
+
+#pragma mark - view animation class methods
++(void)attachViewWithFade:(UIView *)view toSuperView:(UIView *)superView andDuration:(float)fadeDuration;
++(void)detachViewFromSuperViewWithFade:(UIView *)view andDuration:(float)fadeDuration;
 
 @end

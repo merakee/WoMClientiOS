@@ -24,8 +24,8 @@ static int kUDLocalUserInfoDatabaseMaxArraySize = 20;
 
 
 // table name and other constants
-#define kUDSQLUserTable @"user_table"
-#define kUDSQLAnonymousUserTable @"anonymous_user_table"
+static NSString * kUDSQLUserTable  = @"user_table";
+static NSString * kUDSQLAnonymousUserTable =  @"anonymous_user_table";
 
 @interface ApiUserDatabase : NSObject {
     SQLiteAPI                  *sqlite;

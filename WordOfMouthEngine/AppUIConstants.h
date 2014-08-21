@@ -56,7 +56,7 @@ const static float kAUCColorPrimary[4] = {kAUCHuePrimary,0.8,1.0,1.0};
 const static float kAUCColorSecondary[4] = {kAUCHueSecondary,0.8,1.0,1.0};
 const static float kAUCColorTertiary[4] = {kAUCHueTertiary,1.0,0.8,1.0};
 
-const static float kAUCColorGray[4] = {kAUCHueGray,0.1,0.9,1.0};
+//const static float kAUCColorGray[4] = {kAUCHueGray,0.1,0.9,1.0};
 
 const static float kAUCColorBackground[4] = {kAUCHueGray,0.03,0.95,1.0};
 
@@ -77,6 +77,13 @@ const static float kAUCColorContentOther[4] = {0.0/360.0,0.0,1.0,1.0};
 
 const static float kAUCColorScaleFactor=0.2;
 
+// colors - version 1
+const static float kAUCColorBrandTeal[4]={ 176.0/360.0, 0.77,0.76,1.0};
+const static float kAUCColorLightTeal[4]={  179.0/360.0, 0.81 , 0.91,1.0};
+const static float kAUCColorDarkTeal[4]={  180.0/360.0, 0.71, 0.39,1.0};
+const static float kAUCColorTextTeal[4]={  177.0/360.0, 0.86, 0.86, 1.0};
+const static float kAUCColorGray[4]={0.0, 0.0, 0.96, 1.0};
+
 //----------------------------------
 // Typography
 // Text font family
@@ -85,15 +92,23 @@ const static float kAUCColorScaleFactor=0.2;
  NSString *constkAUCFontFamilySecondary = @"";
  NSString *constkAUCFontFamilyTertiary = @"";
  */
+// Custom fonts
+/*
+ Fira Sans: FiraSans-Bold
+ Utility: UtilityBoldCondensed
+ */
 
-#define kAUCFontFamilyPrimary  @"HelveticaNeue-Light"
-#define kAUCFontFamilySecondary  @"HelveticaNeue-Light"
-#define kAUCFontFamilyTertiary  @"HelveticaNeue-Light"
+static NSString * kAUCFontFamilyPrimary = @"FiraSans-Bold";   //@"HelveticaNeue-Light";
+static NSString * kAUCFontFamilySecondary  = @"UtilityBoldCondensed";   //@"HelveticaNeue-Light";
+static NSString * kAUCFontFamilyTertiary  = @"UtilityBoldCondensed"; //@"HelveticaNeue-Light";
 
 // Text font size
-const static CGFloat kAUCFontSizePrimary = 16.0;
-const static CGFloat kAUCFontSizeSecondary = 12.0;
-const static CGFloat kAUCFontSizeTertiary = 8.0;
+const static CGFloat kAUCFontSizePrimary = 36.0;
+const static CGFloat kAUCFontSizeSecondary = 32.0;
+const static CGFloat kAUCFontSizeTertiary = 20.0;
+
+const static CGFloat kAUCFontSizeTextField = 32.0;
+const static CGFloat kAUCFontSizeContentText = 26.0;
 
 // Other style
 const static float kAUCRectCornerRadius = 4.0;
@@ -109,14 +124,16 @@ const static float kAUCRectBorderWidth = 1.0;
  NSString *const kAUCCoreFunctionTabbarImageSettings =  @"TabbarIconSettings.png";
  */
 
-#define kAUCCoreFunctionTabbarImageContent    @"TabbarIconContent.png"
-#define kAUCCoreFunctionTabbarImageCompose    @"TabbarIconNew.png"
-#define kAUCCoreFunctionTabbarImageHistory    @"TabbarIconFavorites.png"
-#define kAUCCoreFunctionTabbarImageProfile    @"TabbarIconContact.png"
-#define kAUCCoreFunctionTabbarImageSettings   @"TabbarIconSettings.png"
+/*
+static NSString * kAUCCoreFunctionTabbarImageContent  =  @"TabbarIconContent.png";
+static NSString * kAUCCoreFunctionTabbarImageCompose  =  @"TabbarIconNew.png";
+static NSString * kAUCCoreFunctionTabbarImageHistory  =  @"TabbarIconFavorites.png";
+static NSString * kAUCCoreFunctionTabbarImageProfile  =  @"TabbarIconContact.png";
+static NSString * kAUCCoreFunctionTabbarImageSettings =  @"TabbarIconSettings.png";
+*/
 
 // app logo
-#define kAUCAppLogoImage   @"AppIcon.png"
+static NSString * kAUCAppLogoImage  = @"AppIcon.png";
 const static float kAUCAppLogoDefaultSize = 64.0;
 
 //----------------------------------
@@ -167,3 +184,8 @@ typedef enum {
 // App constants
 const static float kAUCAppContentTimerMax = 60.0;
 const static float kAUCAppContentTimerWarning = 5.0;
+
+// Commom images
+// SignIn Images
+static NSString *kAUCCancelButtonImage =@"cancel.png";
+static NSString *kAUCButtonMenuImage =@"menu_bubble.png";

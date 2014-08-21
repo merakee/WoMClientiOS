@@ -12,7 +12,7 @@
 #import "CommonUtility.h"
 #import "CommonResourceDefintions.h"
 #import "AppConstants.h"
-#import "ApiContent.h"
+//#import "ApiContent.h"
 
 @interface AppUIManager : NSObject
 
@@ -27,8 +27,8 @@
 + (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness;
 + (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness andSaturation:(AUCColorScale)colorSaturation;
 
-+ (UIColor *)getContentColorForCategory:(kAPIContentCategory)category;
-+ (UIColor *)getContentTextColorForCategory:(kAPIContentCategory)category andState:(UIControlState)state;
+//+ (UIColor *)getContentColorForCategory:(kAPIContentCategory)category;
+//+ (UIColor *)getContentTextColorForCategory:(kAPIContentCategory)category andState:(UIControlState)state;
 
 
 #pragma mark - view elements methods:  UIView
@@ -43,6 +43,7 @@
 
 #pragma mark - view elements methods:  UIButton
 + (void)setUIButton:(UIButton *)button;
++ (UIButton *)getTransparentUIButton;
 + (void)setUIButton:(UIButton *)button ofType:(AUCPriorityType)pType;
 + (UIButton *)setButtonWithTitle:(NSString *)text ofType:(AUCPriorityType)pType;
 + (UIButton *)setButtonWithTitle:(NSString *)text andColor:(UIColor *)bColor;
@@ -90,5 +91,9 @@
 #pragma mark - Utility methods
 + (void)setBorder:(id)view withColor:(UIColor *)color;
 + (CGSize)getSizeForText:(NSString *)text sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size;
++ (void)setBottomBorder:(id)view withColor:(UIColor *)color;
 
+#pragma mark  - layout methods
++ (void)horizontallyCenterElement:(UIView *)view inView:(UIView *)sview;
++ (void)verticallyCenterElement:(UIView *)view inView:(UIView *)sview;
 @end

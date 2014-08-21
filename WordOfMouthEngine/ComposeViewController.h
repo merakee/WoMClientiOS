@@ -19,6 +19,10 @@
     UIButton                 *cameraButton;
     UIButton                 *albumButton;
     
+    UIButton                 *postButton;
+    UIButton                 *cameraOptionsButton;
+    UIButton                 *cancelButton;
+    
     UIActivityIndicatorView *activityIndicator;
 }
 

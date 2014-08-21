@@ -19,7 +19,7 @@
         // set tab bar
         self.tabBarItem = [[UITabBarItem alloc]
                            initWithTitle:@"Settings"
-                           image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageSettings]
+                           image:nil//[UIImage imageNamed:kAUCCoreFunctionTabbarImageSettings]
                            tag:kCFVTabbarIndexSettings];
         
         // set color

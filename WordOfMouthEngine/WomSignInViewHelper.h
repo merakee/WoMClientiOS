@@ -15,11 +15,14 @@
 #pragma mark -  View Helper Methods: Views
 + (void)setView:(UIView *)view;
 
+#pragma mark -  View Helper Methods: TextLabel 
++ (UILabel *)getPageLabel;
+
 #pragma mark -  View Helper Methods: TextField
 + (void)setEmailTextFiled:(UITextField *)textField withDelegate:(id)delegate;
 + (void)setPasswordTextFiled:(UITextField *)textField withDelegate:(id)delegate;
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getSignInButton;
-+ (UIButton *)getSignUpButton;
++ (UIButton *)getCancelButton;
 @end

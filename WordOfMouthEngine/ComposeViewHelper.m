@@ -17,7 +17,6 @@
 + (void)setView:(UIView *)view{
     // set app defaults
     [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
-    
     // set custom textview properties
     
 }
@@ -25,38 +24,38 @@
 #pragma mark - ImageView
 + (UIImageView *)getContentImageView{
     UIImageView *contentImageView =[[UIImageView alloc] init];
-    contentImageView.contentMode = UIViewContentModeScaleAspectFit;
+    contentImageView.contentMode = UIViewContentModeScaleAspectFill;
     [contentImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
     return contentImageView;
 }
 
 #pragma mark -  View Helper Methods: Segmented control
-+ (UISegmentedControl *)getCategoryControl{
-    UISegmentedControl *sControl = [[UISegmentedControl alloc] initWithItems:[ContentManager getActiveCategoryList]];
-    // set app defaults
-    [AppUIManager setUISegmentedControl:sControl];
-    
-    // set custom  properties
-    [ComposeViewHelper  updateCategoryControl:sControl forCategory:kAPIContentCategoryOther];
-    return sControl;
-}
-+ (void)updateCategoryControl:(UISegmentedControl *)sControl forCategory:(kAPIContentCategory)category{
-    
-    if(category==kAPIContentCategoryOther){
-        sControl.selectedSegmentIndex=-1;
-    }
-    
-    sControl.tintColor = [AppUIManager getContentColorForCategory:category];
-    // selected
-    [sControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
-                                           [AppUIManager getContentTextColorForCategory:category andState:UIControlStateSelected]}
-                            forState:UIControlStateSelected];
-    // normal
-    [sControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
-                                           [AppUIManager getContentTextColorForCategory:category andState:UIControlStateNormal]}
-                            forState:UIControlStateNormal];
-    
-}
+//+ (UISegmentedControl *)getCategoryControl{
+//    UISegmentedControl *sControl = [[UISegmentedControl alloc] initWithItems:[ContentManager getActiveCategoryList]];
+//    // set app defaults
+//    [AppUIManager setUISegmentedControl:sControl];
+//    
+//    // set custom  properties
+//    [ComposeViewHelper  updateCategoryControl:sControl forCategory:kAPIContentCategoryOther];
+//    return sControl;
+//}
+//+ (void)updateCategoryControl:(UISegmentedControl *)sControl forCategory:(kAPIContentCategory)category{
+//    
+//    if(category==kAPIContentCategoryOther){
+//        sControl.selectedSegmentIndex=-1;
+//    }
+//    
+//    sControl.tintColor = [AppUIManager getContentColorForCategory:category];
+//    // selected
+//    [sControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
+//                                           [AppUIManager getContentTextColorForCategory:category andState:UIControlStateSelected]}
+//                            forState:UIControlStateSelected];
+//    // normal
+//    [sControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
+//                                           [AppUIManager getContentTextColorForCategory:category andState:UIControlStateNormal]}
+//                            forState:UIControlStateNormal];
+//    
+//}
 #pragma mark -  View Helper Methods: TextViews
 + (UITextView *)getComposeTextViewWithDelegate:(id)delegate{
     UITextView *textView =[[UITextView alloc] init];
@@ -66,11 +65,12 @@
     // set custom textview properties
     //textView.frame = [CommonUtility shrinkRect:kSIVNameFrame byXPoints:10 yPoints:40];  //kSIVNameFrame;
     //textView.backgroundColor = [UIColor colorWithHue:50.0/360 saturation:0.3 brightness:1.0 alpha:1.0];
-    //textView.backgroundColor = [UIColor lightGrayColor];
+    textView.backgroundColor = [UIColor whiteColor];
     // textView.text=@"";
     //textView.attributedText =
-    //textView.font = [UIFont fontWithName:kSIVTextFontName size:kSIVNameTextFontSize];
-    //textView.textColor =[UIColor whiteColor];//[UIColor colorWithHue:kCRDPrimaryHue saturation:0.0 brightness:1.0 alpha:1.0];
+    textView.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeSecondary];
+    textView.textColor =[CommonUtility getColorFromHSBACVec:kAUCColorLightTeal];
+    //[UIColor colorWithHue:kCRDPrimaryHue saturation:0.0 brightness:1.0 alpha:1.0];
     //textView.editable = YES;
     //textView.selectable = YES;
     textView.allowsEditingTextAttributes = NO;
@@ -93,30 +93,58 @@
     textView.delegate=delegate;
     
     // accessibilty
-    [textView setAccessibilityLabel:@"Add Text"];
+    [textView setAccessibilityIdentifier:@"Add Text"];
     
     return textView;
 }
 
 #pragma mark - photo options view
 + (UIView *)getPhotoOptionView{
-    UIView *view =[[UIView alloc] init ];//WithFrame:CGRectMake(kPhotoOptionsViewLayout[0],kPhotoOptionsViewLayout[1],kPhotoOptionsViewLayout[2],kPhotoOptionsViewLayout[3])];
-    view.backgroundColor = [UIColor whiteColor];
+    UIView *view =[[UIView alloc] init ];
+    //WithFrame:CGRectMake(kPhotoOptionsViewLayout[0],kPhotoOptionsViewLayout[1],kPhotoOptionsViewLayout[2],kPhotoOptionsViewLayout[3])];
+    //view.backgroundColor = [UIColor whiteColor];
+    [view addSubview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:kAUCCameraOptionsImage]]];
     [view setTranslatesAutoresizingMaskIntoConstraints:NO];
     return view;
 }
 + (UIButton *)getCameraButton{
-    return [AppUIManager setButtonWithTitle:@"camera" ofType:kAUCPriorityTypePrimary];
-}
-+ (UIButton *)getAlbumButton{
-    UIButton *button  = [AppUIManager setButtonWithTitle:@"album" ofType:kAUCPriorityTypePrimary];
-    //UIButton *button  = [AppUIManager setButtonWithTitle:@"album" andColor:[UIColor redColor]];
+    // return [AppUIManager setButtonWithTitle:@"camera" ofType:kAUCPriorityTypePrimary];
+    UIButton *button =  [AppUIManager getTransparentUIButton];
     
-    // cutom settings
-    //button.backgroundColor = [UIColor redColor];
-    
+    [button setAccessibilityIdentifier:@"Camera"];
     return button;
 }
-
++ (UIButton *)getAlbumButton{
+    //    UIButton *button  = [AppUIManager setButtonWithTitle:@"album" ofType:kAUCPriorityTypePrimary];
+    //    //UIButton *button  = [AppUIManager setButtonWithTitle:@"album" andColor:[UIColor redColor]];
+    //
+    //    // cutom settings
+    //    //button.backgroundColor = [UIColor redColor];
+    //
+    //    return button;
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    
+    [button setAccessibilityIdentifier:@"Album"];
+    return button;
+    
+}
++ (UIButton *)getCancelButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Cancel"];
+    return button;
+}
++ (UIButton *)getPostButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCPostButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Post"];
+    return button;
+}
++ (UIButton *)getCameraOptionsButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCCameraOptionsButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Camera Options"];
+    return button;
+}
 
 @end

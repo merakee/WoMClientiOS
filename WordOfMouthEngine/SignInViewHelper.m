@@ -18,8 +18,22 @@
     [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
     
     // set custom view properties
-    //[view setAccessibilityLabel:@"Sign in options View"];
+    //[view setAccessibilityIdentifier:@"Sign in options View"];
     //[view setIsAccessibilityElement:YES];
+}
+
+#pragma mark -  View Helper Methods: UIImages
++ (UIImageView *)getLogoView{
+    UIImageView *iv =[[UIImageView alloc] initWithImage:[UIImage imageNamed:kAUCSigninOptionsLogoImage]];
+    // defautl setting
+    [AppUIManager setImageView:iv];
+    return iv;
+}
++ (UIImageView *)getButtonsView{
+    UIImageView *iv =[[UIImageView alloc] initWithImage:[UIImage imageNamed:kAUCSigninOptionsButtonsImage]];
+    // defautl setting
+    [AppUIManager setImageView:iv];
+    return iv;
 }
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getGoogleButton{
@@ -33,12 +47,21 @@
     return [AppUIManager setButtonWithTitle:@"Sign in with Twitter" ofType:kAUCPriorityTypeSecondary];
 }
 + (UIButton *)getSignInButton{
-    return [AppUIManager setButtonWithTitle:@"Sign in" ofType:kAUCPriorityTypePrimary];
+    //   return [AppUIManager setButtonWithTitle:@"Sign in" ofType:kAUCPriorityTypeSecondary];
+    UIButton *button =[AppUIManager getTransparentUIButton];
+    [button setAccessibilityIdentifier:@"Sign in"];
+    return button;
 }
 + (UIButton *)getSignUpButton{
-    return [AppUIManager setButtonWithTitle:@"Sign up" ofType:kAUCPriorityTypePrimary];
+    // return [AppUIManager setButtonWithTitle:@"Sign up" ofType:kAUCPriorityTypeSecondary];
+    UIButton *button =[AppUIManager getTransparentUIButton];
+    [button setAccessibilityIdentifier:@"Sign up"];
+    return button;
 }
 + (UIButton *)getSignInAsGuestButton{
-    return [AppUIManager setButtonWithTitle:@"Sign in as Guest" ofType:kAUCPriorityTypeSecondary];
+    //return [AppUIManager setButtonWithTitle:@"Sign in as Guest" ofType:kAUCPriorityTypeSecondary];
+    UIButton *button =[AppUIManager getTransparentUIButton];
+    [button setAccessibilityIdentifier:@"Sign in as Guest"];
+    return button;
 }
 @end

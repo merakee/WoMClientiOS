@@ -14,8 +14,8 @@
 /*===========================================
    User Info DataBase
    ===========================================*/
-#define kLocalContentDatabaseFileName         @"LocalContent_DB.sqlite"
-#define kLocalContentDatabaseMaxArraySize     20
+static NSString * kLocalContentDatabaseFileName   =      @"LocalContent_DB.sqlite";
+static const int  kLocalContentDatabaseMaxArraySize =    20;
 
 
 // date formatting strings
@@ -24,8 +24,8 @@
 
 
 // table name and other constants
-#define kSQLContentTable @"content_table"
-#define kSQLCategoryTable @"category_table"
+static NSString * kSQLContentTable = @"content_table";
+static NSString * kSQLCategoryTable = @"category_table";
 
 @interface ApiContentDatabase : NSObject {
     SQLiteAPI                  *sqlite;

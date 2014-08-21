@@ -118,47 +118,47 @@
     return scaleFactor;
 }
 
-+ (UIColor *)getContentTextColorForCategory:(kAPIContentCategory)category andState:(UIControlState)state{
-    UIColor *color =[AppUIManager getContentColorForCategory:category];
-    
-    float bscaleFactor=1.0, sscaleFactor=1.0;
-    // change brightness and saturation for text
-    if(state==UIControlStateSelected){
-        bscaleFactor=[AppUIManager getValueForColorScaleFactor:kAUCColorScaleDarker];
-        sscaleFactor=[AppUIManager getValueForColorScaleFactor:kAUCColorScaleLightest];
-    }
-    else{
-        bscaleFactor=[AppUIManager getValueForColorScaleFactor:kAUCColorScaleDark];
-        sscaleFactor=[AppUIManager getValueForColorScaleFactor:kAUCColorScaleLightest];
-    }
-    color  = [CommonUtility getColor:color withScaledBrightness:bscaleFactor andScaledSaturation:sscaleFactor];
-    
-    return color;
-}
-
-+ (UIColor *)getContentColorForCategory:(kAPIContentCategory)category{
-    UIColor *color;
-    switch (category) {
-        case kAPIContentCategoryNews:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentNews];
-            break;
-        case kAPIContentCategorySecret:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentSecret];
-            break;
-        case kAPIContentCategoryRumor:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentRumor];
-            break;
-        case kAPIContentCategoryLocalInfo:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentLocalInfo];
-            break;
-        default:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentOther];
-            break;
-    }
-    
-    
-    return color;
-}
+//+ (UIColor *)getContentTextColorForCategory:(kAPIContentCategory)category andState:(UIControlState)state{
+//    UIColor *color =[AppUIManager getContentColorForCategory:category];
+//    
+//    float bscaleFactor=1.0, sscaleFactor=1.0;
+//    // change brightness and saturation for text
+//    if(state==UIControlStateSelected){
+//        bscaleFactor=[AppUIManager getValueForColorScaleFactor:kAUCColorScaleDarker];
+//        sscaleFactor=[AppUIManager getValueForColorScaleFactor:kAUCColorScaleLightest];
+//    }
+//    else{
+//        bscaleFactor=[AppUIManager getValueForColorScaleFactor:kAUCColorScaleDark];
+//        sscaleFactor=[AppUIManager getValueForColorScaleFactor:kAUCColorScaleLightest];
+//    }
+//    color  = [CommonUtility getColor:color withScaledBrightness:bscaleFactor andScaledSaturation:sscaleFactor];
+//    
+//    return color;
+//}
+//
+//+ (UIColor *)getContentColorForCategory:(kAPIContentCategory)category{
+//    UIColor *color;
+//    switch (category) {
+//        case kAPIContentCategoryNews:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentNews];
+//            break;
+//        case kAPIContentCategorySecret:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentSecret];
+//            break;
+//        case kAPIContentCategoryRumor:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentRumor];
+//            break;
+//        case kAPIContentCategoryLocalInfo:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentLocalInfo];
+//            break;
+//        default:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentOther];
+//            break;
+//    }
+//    
+//    
+//    return color;
+//}
 
 #pragma mark - view elements methods:  UIview
 + (void)setUIView:(UIView *)view{
@@ -168,9 +168,10 @@
 + (void)setUIView:(UIView *)view ofType:(AUCPriorityType)pType{
     // set view properties
     //view.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeGray];
+    view.backgroundColor = [UIColor whiteColor];
     
     // add gradient
-    [AppUIManager addColorGradient:view];
+    //[AppUIManager addColorGradient:view];
 }
 
 + (void)addColorGradient:(UIView *)view{
@@ -191,7 +192,7 @@
     //iv.backgroundColor  =[AppUIManager getColorOfType:kAUCColorTypeGray withBrightness:kAUCColorScaleDark];
     
     // rounder cover
-    [AppUIManager setRoundedCornerToImageView:iv];
+    //[AppUIManager setRoundedCornerToImageView:iv];
     // for auto layout
     [iv setTranslatesAutoresizingMaskIntoConstraints:NO];
 }
@@ -201,10 +202,27 @@
 + (void)setUIButton:(UIButton *)button{
     [AppUIManager setUIButton:button  ofType:kAUCPriorityTypePrimary];
 }
++ (UIButton *)getTransparentUIButton{
+    UIButton *button  = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    // colors and fonts
+    button.backgroundColor = [UIColor clearColor];
+    
+    // Uncomment to see border 
+    //[AppUIManager setBorder:button withColor:[UIColor redColor]];
+    
+    // for auto layout
+    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    return button;
+}
 + (void)setUIButton:(UIButton *)button ofType:(AUCPriorityType)pType{
     // colors and fonts
-    [AppUIManager setClearButton:button ofType:pType];
-    //[AppUIManager setSolidButton:button ofType:pType];
+    //button.backgroundColor = [UIColor clearColor];
+    
+    // colors and fonts
+    //[AppUIManager setClearButton:button ofType:pType];
+    [AppUIManager setSolidButton:button ofType:pType];
     
     // set button properties
     // titleLabel  property
@@ -224,7 +242,8 @@
     // rounded corner
     [AppUIManager setRoundedCorner:button];
     
-    
+    // set font
+    [AppUIManager setFontForButton:button ofType:pType];
     
     // for auto layout
     [button setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -243,8 +262,8 @@
             [button setTitleColor:[AppUIManager getColorOfType:kAUCColorTypeTextPrimaryLight] forState:UIControlStateNormal];
             break;
         default:
-            button.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypePrimary];
-            [button setTitleColor:[AppUIManager getColorOfType:kAUCColorTypeTextPrimaryLight] forState:UIControlStateNormal];
+            button.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorTextTeal];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             break;
     }
     
@@ -291,6 +310,21 @@
     [button setTitle:text forState:UIControlStateNormal];
     
     return button;
+}
+
++ (void)setFontForButton:(UIButton *)button  ofType:(AUCPriorityType)pType{
+    
+    switch (pType) {
+        case kAUCPriorityTypeSecondary:
+            [button.titleLabel setFont:[UIFont fontWithName:kAUCFontFamilySecondary  size:kAUCFontSizeSecondary]];
+            break;
+        case kAUCPriorityTypeTertiary:
+            [button.titleLabel setFont:[UIFont fontWithName:kAUCFontFamilyTertiary  size:kAUCFontSizeTertiary]];
+            break;
+        default:
+            [button.titleLabel setFont:[UIFont fontWithName:kAUCFontFamilyPrimary  size:kAUCFontSizePrimary]];
+            break;
+    }
 }
 
 #pragma mark - view elements methods:  UISegmentedControl
@@ -358,7 +392,7 @@
     //textView.returnKeyType = UIReturnKeyDefault;
     
     // rounded corner
-    [AppUIManager setRoundedCorner:textView];
+    //[AppUIManager setRoundedCorner:textView];
     
     // for auto layout
     [textView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -399,7 +433,7 @@
             textField.font = [UIFont fontWithName:kAUCFontFamilyPrimary size:kAUCFontSizePrimary];
             textField.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextPrimary];
             // add border
-            [AppUIManager setBorder:textField withColor:[AppUIManager getColorOfType:kAUCColorTypePrimary]];
+            [AppUIManager setBottomBorder:textField withColor:[AppUIManager getColorOfType:kAUCColorTypePrimary]];
             break;
     }
     
@@ -413,7 +447,7 @@
     // disabledBackground  property
     
     // rounded corner
-    [AppUIManager setRoundedCorner:textField];
+    //[AppUIManager setRoundedCorner:textField];
     
     
 }
@@ -542,20 +576,8 @@
     [view addSubview:activityIndicator];
     
     // layout: in the center
-    [view addConstraint:[NSLayoutConstraint constraintWithItem:activityIndicator
-                                                     attribute:NSLayoutAttributeCenterY
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:view
-                                                     attribute:NSLayoutAttributeCenterY
-                                                    multiplier:1.0
-                                                      constant:0.0]];
-    [view addConstraint:[NSLayoutConstraint constraintWithItem:activityIndicator
-                                                     attribute:NSLayoutAttributeCenterX
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:view
-                                                     attribute:NSLayoutAttributeCenterX
-                                                    multiplier:1.0
-                                                      constant:0.0]];
+    [AppUIManager verticallyCenterElement:activityIndicator inView:view];
+    [AppUIManager horizontallyCenterElement:activityIndicator inView:view];
 }
 
 #pragma mark - Utility methods
@@ -602,6 +624,28 @@
     }
 }
 
++ (void)setBottomBorder:(id)view withColor:(UIColor *)color{
+//    CALayer *bottomBorder = [CALayer layer];
+//    bottomBorder.frame = CGRectMake(0.0f, 0.0f, ((UIView *)view).frame.size.width, 20.0f);
+//    bottomBorder.backgroundColor = [UIColor redColor].CGColor;//color.CGColor;
+//    [((UIView *)view).layer addSublayer:bottomBorder];
+
+    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0.0, ((UIView *)view).frame.size.width-2.0,((UIView *)view).frame.size.width, 2.0)];
+    //topView.opaque = YES;
+    topView.backgroundColor = color;
+    topView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [(UIView *)view addSubview:topView];
+    
+//    ((UIView *)view).layer.borderWidth = 2;
+//    if(color==nil){
+//        ((UIView *)view).layer.borderColor = [UIColor whiteColor].CGColor;
+//    }
+//    else{
+//        ((UIView *)view).layer.borderColor = color.CGColor;
+//    }
+}
+
+
 + (CGSize)getSizeForText:(NSString *)text sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size{
     CGRect frame = [text boundingRectWithSize:size
                                       options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
@@ -624,6 +668,29 @@
     iv.contentMode = UIViewContentModeScaleAspectFit;
     iv.image = [UIImage imageNamed:kAUCAppLogoImage];
     return iv;
+}
+
+
+#pragma mark  - layout methods
++ (void)horizontallyCenterElement:(UIView *)view inView:(UIView *)sview{
+    // Center
+    [sview addConstraint:[NSLayoutConstraint constraintWithItem:view
+                                                          attribute:NSLayoutAttributeCenterX
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:sview
+                                                          attribute:NSLayoutAttributeCenterX
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+}
++ (void)verticallyCenterElement:(UIView *)view inView:(UIView *)sview{
+    // Center
+    [sview addConstraint:[NSLayoutConstraint constraintWithItem:view
+                                                      attribute:NSLayoutAttributeCenterY
+                                                      relatedBy:NSLayoutRelationEqual
+                                                         toItem:sview
+                                                      attribute:NSLayoutAttributeCenterY
+                                                     multiplier:1.0
+                                                       constant:0.0]];
 }
 
 @end

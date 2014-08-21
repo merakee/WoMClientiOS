@@ -28,6 +28,7 @@
     [AppUIAppearanceManager  setUITableView];
     [AppUIAppearanceManager  setUIToolbar];
     [AppUIAppearanceManager  setUIView];
+    [AppUIAppearanceManager  setUITextFiled];
 }
 
 // Usage: Two Methods --------------
@@ -217,6 +218,10 @@
 + (void)setUIView{
     // UIView.h:@property(nonatomic,copy)            UIColor          *backgroundColor UI_APPEARANCE_SELECTOR; // default is nil. Can be useful with the appearance proxy on custom UIView subclasses.
     //[[UIView appearance] setBackgroundColor:[AppUIManager getColorOfType:kAUCColorTypePrimary]];
+}
+
++ (void)setUITextFiled{
+    [[UITextField appearance] setTintColor:[CommonUtility getColorFromHSBACVec:kAUCColorLightTeal]];
 }
 
 @end

@@ -19,21 +19,37 @@
     
 }
 
+#pragma mark -  View Helper Methods: TextLabel
++ (UILabel *)getPageLabel{
+    UILabel *label = [[UILabel alloc] init];
+    [AppUIManager setUILabel:label];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:kAUCFontFamilySecondary size:60];
+    label.textColor = [CommonUtility getColorFromHSBACVec:kAUCColorTextTeal];
+    
+    label.text = @"Signup";
+    return label;
+}
+
+
 #pragma mark -  View Helper Methods: TextField
 + (void)setEmailTextFiled:(UITextField *)textField withDelegate:(id)delegate{
     // set app defaults
-    [AppUIManager setTextField:textField ofType:kAUCPriorityTypePrimary];
+    //[AppUIManager setTextField:textField ofType:kAUCPriorityTypePrimary];
     
     // cutom settings
     // set textField properties
     //textField.backgroundColor = [UIColor whiteColor];
     //textField.borderStyle= UITextBorderStyleLine;
-    textField.placeholder = @"Email";
+    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"email" attributes:@{NSForegroundColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUCColorGray]}];
+    // textField.placeholder = @"email";
     
     // textField.text=@"";
     //textField.attributedText =
-    //textField.font = [UIFont fontWithName:kSIVTextFontName size:kSIVNameTextFontSize];
+    textField.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeTextField];
+    textField.textColor =[CommonUtility getColorFromHSBACVec:kAUCColorLightTeal];
     //textField.textColor =[UIColor darkGrayColor];//[UIColor colorWithHue:kCRDPrimaryHue saturation:0.0 brightness:1.0 alpha:1.0];
+    textField.textAlignment = NSTextAlignmentCenter;
     
     textField.secureTextEntry = NO;
     textField.delegate=delegate;
@@ -54,25 +70,31 @@
     //label.text = @"Email";
     //textField.leftView = label;
     
+    // set border
+    [AppUIManager setBottomBorder:textField withColor:[CommonUtility getColorFromHSBACVec:kAUCColorLightTeal]];
+    
     // for auto layout
     [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     // accessibilty
-    [textField setAccessibilityLabel:@"Email"];
+    [textField setAccessibilityIdentifier:@"Email"];
 }
 + (void)setPasswordTextFiled:(UITextField *)textField withDelegate:(id)delegate{
     // set app defaults
-    [AppUIManager setTextField:textField ofType:kAUCPriorityTypePrimary];
+    //[AppUIManager setTextField:textField ofType:kAUCPriorityTypePrimary];
     
     // cutom settings
     // set textField properties
     //textField.backgroundColor = [UIColor whiteColor];
     //textField.borderStyle= UITextBorderStyleLine;
-    textField.placeholder = @"Password";
+    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"password" attributes:@{NSForegroundColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUCColorGray]}];
+    
     // textField.text=@"";
     //textField.attributedText =
-    //textField.font = [UIFont fontWithName:kSIVTextFontName size:kSIVNameTextFontSize];
+    textField.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeTextField];
+    textField.textColor =[CommonUtility getColorFromHSBACVec:kAUCColorLightTeal];
     //textField.textColor =[UIColor darkGrayColor];//[UIColor colorWithHue:kCRDPrimaryHue saturation:0.0 brightness:1.0 alpha:1.0];
+    textField.textAlignment = NSTextAlignmentCenter;
     
     textField.secureTextEntry = YES;
     textField.delegate=delegate;
@@ -86,33 +108,39 @@
     
     // set up key board
     //textField.returnKeyType = UIReturnKeyDone;
-    textField.keyboardType = UIKeyboardTypeAlphabet;
-    
+    textField.keyboardType = UIKeyboardTypeEmailAddress;
     
     // set left view
     // UILabel *label = [[UILabel alloc] init];
-    // label.text = @"Password";
-    // textField.leftView = label;
+    //label.text = @"Email";
+    //textField.leftView = label;
+    
+    // set border
+    [AppUIManager setBottomBorder:textField withColor:[CommonUtility getColorFromHSBACVec:kAUCColorLightTeal]];
     
     // for auto layout
     [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     // accessibilty
-    [textField setAccessibilityLabel:@"Password"];
+    [textField setAccessibilityIdentifier:@"Password"];
 }
 + (void)setPasswordConfirmationTextFiled:(UITextField *)textField withDelegate:(id)delegate{
     // set app defaults
-    [AppUIManager setTextField:textField ofType:kAUCPriorityTypePrimary];
+    //[AppUIManager setTextField:textField ofType:kAUCPriorityTypePrimary];
     
     // cutom settings
     // set textField properties
     //textField.backgroundColor = [UIColor whiteColor];
     //textField.borderStyle= UITextBorderStyleLine;
-    textField.placeholder = @"Password";
+    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"password" attributes:@{NSForegroundColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUCColorGray]}];
+    // textField.placeholder = @"email";
+    
     // textField.text=@"";
     //textField.attributedText =
-    //textField.font = [UIFont fontWithName:kSIVTextFontName size:kSIVNameTextFontSize];
+    textField.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeTextField];
+    textField.textColor =[CommonUtility getColorFromHSBACVec:kAUCColorLightTeal];
     //textField.textColor =[UIColor darkGrayColor];//[UIColor colorWithHue:kCRDPrimaryHue saturation:0.0 brightness:1.0 alpha:1.0];
+    textField.textAlignment = NSTextAlignmentCenter;
     
     textField.secureTextEntry = YES;
     textField.delegate=delegate;
@@ -126,24 +154,37 @@
     
     // set up key board
     //textField.returnKeyType = UIReturnKeyDone;
-    textField.keyboardType = UIKeyboardTypeAlphabet;
-    
+    textField.keyboardType = UIKeyboardTypeEmailAddress;
     
     // set left view
     // UILabel *label = [[UILabel alloc] init];
-    // label.text = @"Password";
-    // textField.leftView = label;
+    //label.text = @"Email";
+    //textField.leftView = label;
+    
+    // set border
+    [AppUIManager setBottomBorder:textField withColor:[CommonUtility getColorFromHSBACVec:kAUCColorLightTeal]];
     
     // for auto layout
     [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     // accessibilty
-    [textField setAccessibilityLabel:@"Password Confirmation"];
+    [textField setAccessibilityIdentifier:@"Password Confirmation"];
 }
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getSignUpButton{
-    return [AppUIManager setButtonWithTitle:@"Sign up" ofType:kAUCPriorityTypeSecondary];
+    UIButton *button =  [AppUIManager setButtonWithTitle:@"complete signup" ofType:kAUCPriorityTypePrimary];
+    [button.titleLabel setFont:[UIFont fontWithName:kAUCFontFamilySecondary  size:kAUCFontSizePrimary]];
+    button.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorLightTeal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"complete signup"];
+    return button;
+}
++ (UIButton *)getCancelButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Cancel"];
+    return button;
 }
 
 @end

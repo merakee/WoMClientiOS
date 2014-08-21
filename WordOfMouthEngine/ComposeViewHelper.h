@@ -8,8 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "AppUIManager.h"
+#import "ApiContent.h"
 
-static const float kPhotoOptionsViewLayout[4]={150,60,120,60};
+//static const float kPhotoOptionsViewLayout[4]={150,60,120,60};
+
+// images
+static NSString *kAUCPostButtonImage =@"wom_compose_postButton.png";
+static NSString *kAUCCameraOptionsButtonImage =@"wom_compose_cameraOptionsButton.png";
+static NSString *kAUCCameraOptionsImage =@"camera_options.png";
 
 @interface ComposeViewHelper : NSObject
 
@@ -20,8 +26,8 @@ static const float kPhotoOptionsViewLayout[4]={150,60,120,60};
 + (UIImageView *)getContentImageView;
 
 #pragma mark -  View Helper Methods: Segmented control
-+ (UISegmentedControl *)getCategoryControl;
-+ (void)updateCategoryControl:(UISegmentedControl *)sControl forCategory:(kAPIContentCategory)category;
+//+ (UISegmentedControl *)getCategoryControl;
+//+ (void)updateCategoryControl:(UISegmentedControl *)sControl forCategory:(kAPIContentCategory)category;
 
 #pragma mark -  View Helper Methods: Buttons
 
@@ -32,5 +38,8 @@ static const float kPhotoOptionsViewLayout[4]={150,60,120,60};
 + (UIView *)getPhotoOptionView;
 + (UIButton *)getCameraButton;
 + (UIButton *)getAlbumButton;
++ (UIButton *)getCancelButton;
++ (UIButton *)getPostButton;
++ (UIButton *)getCameraOptionsButton;
 
 @end

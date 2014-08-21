@@ -7,6 +7,7 @@
 //
 
 #import "ContentViewHelper.h"
+#import "ApiContent.h"
 
 @implementation ContentViewHelper
 
@@ -16,19 +17,19 @@
 + (void)setView:(UIView *)view{
     // set app defaults
     [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
-    
     // set custom textview properties
-//    [view setAccessibilityLabel:@"Content View"];
+//    [view setAccessibilityIdentifier:@"Content View"];
 //    [view setIsAccessibilityElement:YES];
     
 }
 + (UIImageView *)getContentBackGroundView{
     UIImageView *contentBackGround = [[UIImageView alloc] init];
-    contentBackGround.backgroundColor =[AppUIManager getContentColorForCategory:1];
+    //contentBackGround.backgroundColor =[AppUIManager getContentColorForCategory:1];
+    contentBackGround.backgroundColor =[UIColor whiteColor];
     contentBackGround.contentMode = UIViewContentModeScaleAspectFill;
     [contentBackGround setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-//    [contentBackGround setAccessibilityLabel:@"Content Image"];
+//    [contentBackGround setAccessibilityIdentifier:@"Content Image"];
 //    [contentBackGround setIsAccessibilityElement:YES];
     
     return contentBackGround;
@@ -50,6 +51,13 @@
     return iv;
 }
 
++ (UIImageView *)getPageLogoImageView{
+    UIImageView *iv =[[UIImageView alloc] init];
+    // set app defaults
+    [AppUIManager setImageView:iv];
+    iv.image = [UIImage imageNamed:kAUCPageLogoImage];
+    return iv;
+}
 #pragma mark -  View Helper Methods: TextViews
 + (UITextView *)getContentTextViewWithDelegate:(id)delegate{
     UITextView *textView =[[UITextView alloc] init];
@@ -58,13 +66,13 @@
     
     // set custom textview properties
     //textView.frame = [CommonUtility shrinkRect:kSIVNameFrame byXPoints:10 yPoints:40];  //kSIVNameFrame;
-    //textView.backgroundColor = [UIColor clearColor];
-    textView.backgroundColor = [UIColor  colorWithWhite:1.0 alpha:.8];
+    textView.backgroundColor = [UIColor clearColor];
+    //textView.backgroundColor = [UIColor  colorWithWhite:1.0 alpha:.8];
     
     //textView.backgroundColor = [UIColor lightGrayColor];
     // textView.text=@"";
     //textView.attributedText =
-    //textView.font = [UIFont fontWithName:kSIVTextFontName size:kSIVNameTextFontSize];
+    textView.font = [UIFont fontWithName:kAUCFontFamilyPrimary size:kAUCFontSizeTertiary];
     //textView.textColor =[UIColor whiteColor];//[UIColor colorWithHue:kCRDPrimaryHue saturation:0.0 brightness:1.0 alpha:1.0];
     textView.editable = NO;
     textView.selectable = YES;
@@ -88,23 +96,79 @@
     
     textView.delegate=delegate;
     
-    [textView setAccessibilityLabel:@"Content Text"];
+    [textView setAccessibilityIdentifier:@"Content Text"];
     return textView;
+}
+
++ (NSAttributedString *)getAttributedText:(NSString *)text{
+    NSMutableParagraphStyle *paraStyle = [NSMutableParagraphStyle new];
+    paraStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    paraStyle.alignment = NSTextAlignmentCenter;
+    paraStyle.lineSpacing = -kAUCFontSizeContentText/2.0 ;//+ 2.0;
+    
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowOffset = CGSizeMake(2.0,2.0);
+    shadow.shadowBlurRadius = (CGFloat) 2.0;
+    shadow.shadowColor = [UIColor grayColor];
+    
+    NSMutableAttributedString *atext =[[NSMutableAttributedString alloc]
+                                       initWithString:text
+                                       attributes:@{
+                                                    NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilyPrimary size:kAUCFontSizeContentText],
+                                                    NSForegroundColorAttributeName:[UIColor whiteColor],
+                                                    NSParagraphStyleAttributeName:paraStyle,
+                                                    NSStrokeColorAttributeName:[UIColor blackColor],
+                                                    NSStrokeWidthAttributeName:@-3.0,
+                                                    //NSShadowAttributeName:shadow
+                                                    }];
+    
+    return atext;
 }
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getSpreadButton{
-    return [AppUIManager setButtonWithTitle:@"spread" ofType:kAUCPriorityTypeTertiary];
+    //return [AppUIManager setButtonWithTitle:@"spread" ofType:kAUCPriorityTypeTertiary];
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCSpreadButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Spread"];
+    return button;
+    
 }
 + (UIButton *)getKillButton{
     //UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" ofType:kAUCPriorityTypeTertiary];
-    UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" andColor:[UIColor redColor]];
+    //UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" andColor:[UIColor redColor]];
     
-    // cutom settings
-    //button.backgroundColor = [UIColor redColor];
-    
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCKillButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Kill"];
     return button;
 }
+
++ (UIButton *)getComposeButton{
+    //UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" ofType:kAUCPriorityTypeTertiary];
+    //UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" andColor:[UIColor redColor]];
+    
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCComposeButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Compose"];
+    return button;
+}
+
++ (UIButton *)getSignInOutButton{
+    //UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" ofType:kAUCPriorityTypeTertiary];
+    //UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" andColor:[UIColor redColor]];
+    
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCSignInButtonImage] forState:UIControlStateNormal];
+    //[button.titleLabel setFont:[UIFont fontWithName:kAUCFontFamilySecondary  size:kAUCFontSizeSecondary]];
+    //button.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorLightTeal];
+    //[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    //[button setTitle:@"Signin" forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Sign In and Out"];
+    return button;
+}
+
+
 
 #pragma mark - Text label mathods
 + (UILabel *)getTextLabelForSpreadCount{

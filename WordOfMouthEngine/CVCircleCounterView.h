@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kCircleSegs 30
+static const int  kCircleSegs  = 30;
 
 @class CVCircleCounterView;
 

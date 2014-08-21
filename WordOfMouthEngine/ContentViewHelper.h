@@ -11,6 +11,14 @@
 #import "CVCircleDownCounter.h"
 #import "ContentManager.h"
 
+// images
+static NSString *kAUCSpreadButtonImage =@"spread.png";
+static NSString *kAUCKillButtonImage =@"kill.png";
+static NSString *kAUCComposeButtonImage =@"newtopic_btn.png";
+static NSString *kAUCSignInButtonImage =@"wom_content_signInButton.png";
+static NSString *kAUCSignOutButtonImage =@"wom_content_signOutButton.png";
+static NSString *kAUCPageLogoImage =@"nav_logo.png";
+
 @interface ContentViewHelper : NSObject
 
 
@@ -22,13 +30,18 @@
 
 #pragma mark - View Helper Methods: Image Views
 + (UIImageView *)getUserImageView;
++ (UIImageView *)getPageLogoImageView;
 
 #pragma mark -  View Helper Methods: TextViews
 + (UITextView *)getContentTextViewWithDelegate:(id)delegate;
++ (NSAttributedString *)getAttributedText:(NSString *)text;
+
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getSpreadButton;
 + (UIButton *)getKillButton;
++ (UIButton *)getComposeButton;
++ (UIButton *)getSignInOutButton;
 
 #pragma mark - Text label mathods
 + (UILabel *)getTextLabelForSpreadCount;

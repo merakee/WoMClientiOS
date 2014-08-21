@@ -16,7 +16,7 @@ typedef enum {
     CircleDownCounterTypeOneDecimalIncre
 } CircleDownCounterType;
 
-#define kDefaultCounterSize CGSizeMake(44,44)
+static const CGSize  kDefaultCounterSize = {44,44};
 
 
 

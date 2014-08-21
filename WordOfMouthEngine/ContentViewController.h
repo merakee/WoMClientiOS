@@ -17,8 +17,12 @@
     UIImageView        *contentBackGround;
     //UILabel            *contentSpreadCount;
     //UILabel             *authorID;
-    //UIButton           *spreadButton;
-    //UIButton           *killButton;
+    UIButton           *spreadButton;
+    UIButton           *killButton;
+    UIButton           *composeButton;
+    UIButton           *signInOutButton;
+    
+    UIImageView         *pageLogo;
     
     //UIImageView         *userImage;
     //UILabel             *spreadCount;

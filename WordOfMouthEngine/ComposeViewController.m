@@ -41,6 +41,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    // full screen view
+    [self setEdgesForExtendedLayout:UIRectEdgeNone];
 }
 
 - (void)viewDidUnload
@@ -57,6 +59,9 @@
     
     // display key board
     [composeTextView becomeFirstResponder];
+    
+    // hide navigation bar
+    [self.navigationController setNavigationBarHidden:YES];
     
     
     // hide tabbar
@@ -97,7 +102,7 @@
     [ComposeViewHelper setView:self.view];
     
     // set navigation bar
-    [self setNavigationBar];
+    //[self setNavigationBar];
     
     // image view
     contentImageView = [ComposeViewHelper getContentImageView];
@@ -112,6 +117,19 @@
     composeTextView = [ComposeViewHelper getComposeTextViewWithDelegate:self];
     
     [self.view addSubview:composeTextView];
+    
+    
+    // buttons
+    postButton = [ComposeViewHelper getPostButton];
+    [postButton addTarget:self action:@selector(postContent:) forControlEvents:UIControlEventTouchUpInside];
+    cameraOptionsButton = [ComposeViewHelper getCameraOptionsButton];
+    [cameraOptionsButton addTarget:self action:@selector(showPhotoOptions:) forControlEvents:UIControlEventTouchUpInside];
+    cancelButton = [ComposeViewHelper getCancelButton];
+    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:postButton ];
+    [self.view addSubview:cameraOptionsButton];
+    [self.view addSubview:cancelButton];
     
     
     //activity indicator view
@@ -133,7 +151,27 @@
 - (void)layoutView{
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,postButton,cancelButton,cameraOptionsButton);
+    
+    // buttons
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(168)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [AppUIManager horizontallyCenterElement:postButton inView:self.view];
+    
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[postButton(68)]-217-|"
+                                                                                    options:0 metrics:nil views:viewsDictionary]];
+    
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[cameraOptionsButton(126)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [AppUIManager horizontallyCenterElement:cameraOptionsButton inView:self.view];
+
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cameraOptionsButton(77)]"
+                                                                                    options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-19-[cancelButton(24)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-29-[cancelButton(24)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
     // text filed
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[composeTextView(>=100)]-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
@@ -142,13 +180,14 @@
     //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-68-[categoryControl]-8-[composeTextView]-218-|"
     //                                                                 options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-68-[composeTextView]-218-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[cameraOptionsButton]-4-[composeTextView][postButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentImageView]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[contentImageView]|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentImageView]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
+    
 }
 
 - (void)setNavigationBar {
@@ -171,7 +210,7 @@
                                                  target:self
                                                  action:@selector(postContent:)]
                                                 ];
-    [self.navigationItem.rightBarButtonItems[0] setAccessibilityLabel:@"Add Picture"];
+    [self.navigationItem.rightBarButtonItems[0] setAccessibilityIdentifier:@"Add Picture"];
     
     self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc]
                                               initWithBarButtonSystemItem:UIBarButtonSystemItemStop
@@ -182,7 +221,7 @@
 
 - (void)updateViewForCategory:(kAPIContentCategory)category{
     //[ComposeViewHelper updateCategoryControl:categoryControl forCategory:category];
-    composeTextView.backgroundColor =[AppUIManager getContentColorForCategory:category];
+    // composeTextView.backgroundColor =[AppUIManager getContentColorForCategory:category];
 }
 - (void)setPhotoOptionsView{
     photoOptionsView = [ComposeViewHelper getPhotoOptionView];
@@ -195,39 +234,40 @@
     [albumButton addTarget:self action:@selector(albumButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [photoOptionsView addSubview:albumButton];
     
-    if([photoManager isCameraAvailable]){
-        cameraButton = [ComposeViewHelper getCameraButton];
-        [cameraButton  addTarget:self action:@selector(cameraButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [photoOptionsView addSubview:cameraButton];
-        // layout
-        NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(photoOptionsView,cameraButton,albumButton);
-        
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[photoOptionsView(80)]|"
-                                                                          options:0 metrics:nil views:viewsDictionary]];
-        
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[photoOptionsView(60)]"
-                                                                          options:0 metrics:nil views:viewsDictionary]];
-        
-        
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2-[cameraButton]-2-|"
-                                                                          options:0 metrics:nil views:viewsDictionary]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2-[albumButton]-2-|"
-                                                                          options:0 metrics:nil views:viewsDictionary]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[cameraButton(30)]-4-[albumButton(cameraButton)]-2-|"
-                                                                          options:0 metrics:nil views:viewsDictionary]];
-    }
-    else{
-        NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(photoOptionsView,albumButton);
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[photoOptionsView(80)]|"
-                                                                          options:0 metrics:nil views:viewsDictionary]];
-        
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[photoOptionsView(30)]"
-                                                                          options:0 metrics:nil views:viewsDictionary]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2-[albumButton]-2-|"
-                                                                          options:0 metrics:nil views:viewsDictionary]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[albumButton]-2-|"
-                                                                          options:0 metrics:nil views:viewsDictionary]];
-    }
+    //    if([photoManager isCameraAvailable]){
+    cameraButton = [ComposeViewHelper getCameraButton];
+    [cameraButton  addTarget:self action:@selector(cameraButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [photoOptionsView addSubview:cameraButton];
+    // layout
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(photoOptionsView,cameraButton,albumButton);
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[photoOptionsView(101)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [AppUIManager horizontallyCenterElement:photoOptionsView inView:self.view];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-76-[photoOptionsView(111)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cameraButton]|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[albumButton]|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[albumButton(cameraButton)]-8-[cameraButton(30)]-16-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    //    }
+    //    else{
+    //        NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(photoOptionsView,albumButton);
+    //        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[photoOptionsView(80)]|"
+    //                                                                          options:0 metrics:nil views:viewsDictionary]];
+    //
+    //        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[photoOptionsView(30)]"
+    //                                                                          options:0 metrics:nil views:viewsDictionary]];
+    //        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2-[albumButton]-2-|"
+    //                                                                          options:0 metrics:nil views:viewsDictionary]];
+    //        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[albumButton]-2-|"
+    //                                                                          options:0 metrics:nil views:viewsDictionary]];
+    //    }
 }
 #pragma mark - Button Action Methods
 - (void)postContent:(id)sender {
@@ -334,6 +374,12 @@
 - (void)showPhotoOptions:(id)sender{
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposePhoto]];
+    
+    // if there is no camera
+    if(![photoManager isCameraAvailable]){
+        [self albumButtonPressed:nil];
+        return;
+    }
     
     photoOptionsView.hidden = !photoOptionsView.hidden;
     // set the view to disappear

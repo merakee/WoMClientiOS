@@ -10,9 +10,11 @@
 #import "ApiManager.h"
 
 @interface WomSignInViewController : UIViewController<UITextFieldDelegate>{
+    UILabel            *pageLabel;
     UITextField        *emailField;
     UITextField        *passwordField;
-    UIButton           *SignInButton;
+    UIButton           *signInButton;
+    UIButton           *cancelButton;
     //UIButton           *signUpButton;
     UIActivityIndicatorView *activityIndicator;
 }

@@ -18,7 +18,7 @@
         // set tab bar
         self.tabBarItem = [[UITabBarItem alloc]
                            initWithTitle:@"History"
-                           image:[UIImage imageNamed:kAUCCoreFunctionTabbarImageHistory]
+                           image:nil//[UIImage imageNamed:kAUCCoreFunctionTabbarImageHistory]
                            tag:kCFVTabbarIndexHistory];
         
         // set color

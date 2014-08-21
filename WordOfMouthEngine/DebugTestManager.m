@@ -23,6 +23,7 @@
     //[self testLocalContentDatabase];
     //[self testApiUserDatabase];
     //[self testApiManager];
+    //[self showAllFonts];
 }
 
 
@@ -40,5 +41,17 @@
 
 + (void)testLocalContentDatabase{
     [ApiContentDatabase test];
+}
+
++ (void)showAllFonts{
+    for (NSString* family in [UIFont familyNames])
+        {
+        NSLog(@"%@", family);
+        
+        for (NSString* name in [UIFont fontNamesForFamilyName: family])
+            {
+            NSLog(@"  %@", name);
+            }
+        }
 }
 @end
