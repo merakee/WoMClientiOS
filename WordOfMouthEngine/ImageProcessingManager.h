@@ -26,6 +26,7 @@ UINavigationControllerDelegate>{
 
 @property (assign, nonatomic) id <ImageProcessingManagerDelegate>  delegate;
 @property (strong, nonatomic) UIViewController *viewController;
+@property (assign) BOOL allowEditting; 
 
 // class methods
 +(UIImage *)getImageFromView:(UIView *)view;

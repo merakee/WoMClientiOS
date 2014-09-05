@@ -23,15 +23,8 @@
 
 #pragma mark - Color merhods
 + (UIColor *)getColorOfType:(AUCColorType)colorType{
-    return [AppUIManager getColorOfType:colorType withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleNormal];
-}
-
-
-+ (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness{
-    return [AppUIManager getColorOfType:colorType withBrightness:colorBrightness  andSaturation:kAUCColorScaleNormal];
-}
-
-+ (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness andSaturation:(AUCColorScale)colorSaturation{
+    //return [AppUIManager getColorOfType:colorType withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleNormal];
+    
     UIColor *color;// = [UIColor whiteColor];
     
     switch (colorType) {
@@ -44,26 +37,14 @@
         case kAUCColorTypeTertiary:
             color=[CommonUtility getColorFromHSBACVec:kAUCColorTertiary];
             break;
-        case kAUCColorTypeGray:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorGray];
+        case kAUCColorTypeQuaternary:
+            color=[CommonUtility getColorFromHSBACVec:kAUCColorQuaternary];
             break;
-        case kAUCColorTypeBackground:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorBackground];
-            break;
-        case kAUCColorTypeTint:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorTint];
-            break;
-        case kAUCColorTypeTintSelected:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorTintSelected];
-            break;
-        case kAUCColorTypeTintUnselected:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorTintUnselected];
+        case kAUCColorTypeQuinary:
+            color=[CommonUtility getColorFromHSBACVec:kAUCColorQuinary];
             break;
         case kAUCColorTypeTextPrimary:
             color=[CommonUtility getColorFromHSBACVec:kAUCColorTextPrimary];
-            break;
-        case kAUCColorTypeTextPrimaryLight:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorTextPrimaryLight];
             break;
         case kAUCColorTypeTextSecondary:
             color=[CommonUtility getColorFromHSBACVec:kAUCColorTextSecondary];
@@ -71,56 +52,116 @@
         case kAUCColorTypeTextTertiary:
             color=[CommonUtility getColorFromHSBACVec:kAUCColorTextTertiary];
             break;
-            
+        case kAUCColorTypeTextQuaternary:
+            color=[CommonUtility getColorFromHSBACVec:kAUCColorTextQuaternary];
+            break;
+        case kAUCColorTypeTextQuinary:
+            color=[CommonUtility getColorFromHSBACVec:kAUCColorTextQuinary];
+            break;
         default:
-            color=[CommonUtility getColorFromHSBACVec:kAUCColorPrimary];
+            color = [UIColor whiteColor];
             break;
     }
-    // brightness
-    float bscaleFactor=[AppUIManager getValueForColorScaleFactor:colorBrightness];
-    float sscaleFactor=[AppUIManager getValueForColorScaleFactor:colorSaturation];
-    color  = [CommonUtility getColor:color withScaledBrightness:bscaleFactor andScaledSaturation:sscaleFactor];
     
     return color;
+    
 }
 
-+ (float)getValueForColorScaleFactor:(AUCColorScale)scale{
-    float scaleFactor = 1.0;
-    
-    switch (scale){
-        case kAUCColorScaleLight:
-            scaleFactor += kAUCColorScaleFactor;
-            break;
-        case kAUCColorScaleDark:
-            scaleFactor -= kAUCColorScaleFactor;
-            break;
-        case kAUCColorScaleLighter:
-            scaleFactor += 2*kAUCColorScaleFactor;
-            break;
-        case kAUCColorScaleDarker:
-            scaleFactor -= 2*kAUCColorScaleFactor;
-            break;
-        case kAUCColorScaleLightest:
-            scaleFactor += 3*kAUCColorScaleFactor;
-            break;
-        case kAUCColorScaleDarkest:
-            scaleFactor -= 3*kAUCColorScaleFactor;
-            break;
-        default:
-            break;
-    }
-    
-    // min and max limit
-    if(scaleFactor<0.0){
-        scaleFactor=0.0;
-    }
-    
-    return scaleFactor;
-}
+
+//+ (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness{
+//    return [AppUIManager getColorOfType:colorType withBrightness:colorBrightness  andSaturation:kAUCColorScaleNormal];
+//}
+//
+//+ (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness andSaturation:(AUCColorScale)colorSaturation{
+//    UIColor *color;// = [UIColor whiteColor];
+//
+//    switch (colorType) {
+//        case kAUCColorTypePrimary:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorPrimary];
+//            break;
+//        case kAUCColorTypeSecondary:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorSecondary];
+//            break;
+//        case kAUCColorTypeTertiary:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorTertiary];
+//            break;
+//        case kAUCColorTypeGray:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorGray];
+//            break;
+//        case kAUCColorTypeBackground:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorBackground];
+//            break;
+//        case kAUCColorTypeTint:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorTint];
+//            break;
+//        case kAUCColorTypeTintSelected:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorTintSelected];
+//            break;
+//        case kAUCColorTypeTintUnselected:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorTintUnselected];
+//            break;
+//        case kAUCColorTypeTextPrimary:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorTextPrimary];
+//            break;
+//        case kAUCColorTypeTextPrimaryLight:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorTextPrimaryLight];
+//            break;
+//        case kAUCColorTypeTextSecondary:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorTextSecondary];
+//            break;
+//        case kAUCColorTypeTextTertiary:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorTextTertiary];
+//            break;
+//
+//        default:
+//            color=[CommonUtility getColorFromHSBACVec:kAUCColorPrimary];
+//            break;
+//    }
+//    // brightness
+//    float bscaleFactor=[AppUIManager getValueForColorScaleFactor:colorBrightness];
+//    float sscaleFactor=[AppUIManager getValueForColorScaleFactor:colorSaturation];
+//    color  = [CommonUtility getColor:color withScaledBrightness:bscaleFactor andScaledSaturation:sscaleFactor];
+//
+//    return color;
+//}
+
+//+ (float)getValueForColorScaleFactor:(AUCColorScale)scale{
+//    float scaleFactor = 1.0;
+//
+//    switch (scale){
+//        case kAUCColorScaleLight:
+//            scaleFactor += kAUCColorScaleFactor;
+//            break;
+//        case kAUCColorScaleDark:
+//            scaleFactor -= kAUCColorScaleFactor;
+//            break;
+//        case kAUCColorScaleLighter:
+//            scaleFactor += 2*kAUCColorScaleFactor;
+//            break;
+//        case kAUCColorScaleDarker:
+//            scaleFactor -= 2*kAUCColorScaleFactor;
+//            break;
+//        case kAUCColorScaleLightest:
+//            scaleFactor += 3*kAUCColorScaleFactor;
+//            break;
+//        case kAUCColorScaleDarkest:
+//            scaleFactor -= 3*kAUCColorScaleFactor;
+//            break;
+//        default:
+//            break;
+//    }
+//
+//    // min and max limit
+//    if(scaleFactor<0.0){
+//        scaleFactor=0.0;
+//    }
+//
+//    return scaleFactor;
+//}
 
 //+ (UIColor *)getContentTextColorForCategory:(kAPIContentCategory)category andState:(UIControlState)state{
 //    UIColor *color =[AppUIManager getContentColorForCategory:category];
-//    
+//
 //    float bscaleFactor=1.0, sscaleFactor=1.0;
 //    // change brightness and saturation for text
 //    if(state==UIControlStateSelected){
@@ -132,7 +173,7 @@
 //        sscaleFactor=[AppUIManager getValueForColorScaleFactor:kAUCColorScaleLightest];
 //    }
 //    color  = [CommonUtility getColor:color withScaledBrightness:bscaleFactor andScaledSaturation:sscaleFactor];
-//    
+//
 //    return color;
 //}
 //
@@ -155,8 +196,8 @@
 //            color=[CommonUtility getColorFromHSBACVec:kAUCColorContentOther];
 //            break;
 //    }
-//    
-//    
+//
+//
 //    return color;
 //}
 
@@ -174,18 +215,18 @@
     //[AppUIManager addColorGradient:view];
 }
 
-+ (void)addColorGradient:(UIView *)view{
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = view.bounds;
-    gradient.colors = @[(id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleLightest] CGColor],
-                        // (id)[[AppUIManager getColorOfType:kAUCColorTypePrimary withBrightness:kAUCColorScaleLightest
-                        //                   andSaturation:kAUCColorScaleDarkest] CGColor],
-                        (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleLight
-                                            andSaturation:kAUCColorScaleDark] CGColor],
-                        (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleLightest] CGColor]];
-    //[view.layer insertSublayer:gradient atIndex:1];
-    [view.layer addSublayer:gradient];
-}
+//+ (void)addColorGradient:(UIView *)view{
+//    CAGradientLayer *gradient = [CAGradientLayer layer];
+//    gradient.frame = view.bounds;
+//    gradient.colors = @[(id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleLightest] CGColor],
+//                        // (id)[[AppUIManager getColorOfType:kAUCColorTypePrimary withBrightness:kAUCColorScaleLightest
+//                        //                   andSaturation:kAUCColorScaleDarkest] CGColor],
+//                        (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleLight
+//                                            andSaturation:kAUCColorScaleDark] CGColor],
+//                        (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleLightest] CGColor]];
+//    //[view.layer insertSublayer:gradient atIndex:1];
+//    [view.layer addSublayer:gradient];
+//}
 
 #pragma mark - view elements methods:  UIImageView
 + (void)setImageView:(UIImageView *)iv{
@@ -208,7 +249,7 @@
     // colors and fonts
     button.backgroundColor = [UIColor clearColor];
     
-    // Uncomment to see border 
+    // Uncomment to see border
     //[AppUIManager setBorder:button withColor:[UIColor redColor]];
     
     // for auto layout
@@ -216,13 +257,21 @@
     
     return button;
 }
++ (UIButton *)getTransparentUIButtonWithTitle:(NSString *)title color:(AUCColorType)colorType font:(NSString *)fontFamily size:(CGFloat)fontSize{
+    UIButton *button  = [AppUIManager getTransparentUIButton];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:[AppUIManager getColorOfType:colorType] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont fontWithName:fontFamily  size:fontSize]];
+    return button;
+}
+
 + (void)setUIButton:(UIButton *)button ofType:(AUCPriorityType)pType{
     // colors and fonts
     //button.backgroundColor = [UIColor clearColor];
     
     // colors and fonts
     //[AppUIManager setClearButton:button ofType:pType];
-    [AppUIManager setSolidButton:button ofType:pType];
+    //[AppUIManager setSolidButton:button ofType:pType];
     
     // set button properties
     // titleLabel  property
@@ -250,24 +299,24 @@
     
 }
 
-+ (void)setSolidButton:(UIButton *)button ofType:(AUCPriorityType)pType{
-    // colors and fonts
-    switch (pType) {
-        case kAUCPriorityTypeSecondary:
-            button.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeSecondary];
-            [button setTitleColor:[AppUIManager getColorOfType:kAUCColorTypeTextPrimaryLight] forState:UIControlStateNormal];
-            break;
-        case kAUCPriorityTypeTertiary:
-            button.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeTertiary];
-            [button setTitleColor:[AppUIManager getColorOfType:kAUCColorTypeTextPrimaryLight] forState:UIControlStateNormal];
-            break;
-        default:
-            button.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorTextTeal];
-            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            break;
-    }
-    
-}
+//+ (void)setSolidButton:(UIButton *)button ofType:(AUCPriorityType)pType{
+//    // colors and fonts
+//    switch (pType) {
+//        case kAUCPriorityTypeSecondary:
+//            button.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeSecondary];
+//            [button setTitleColor:[AppUIManager getColorOfType:kAUCColorTypeTextPrimaryLight] forState:UIControlStateNormal];
+//            break;
+//        case kAUCPriorityTypeTertiary:
+//            button.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeTertiary];
+//            [button setTitleColor:[AppUIManager getColorOfType:kAUCColorTypeTextPrimaryLight] forState:UIControlStateNormal];
+//            break;
+//        default:
+//            button.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorTextTeal];
+//            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//            break;
+//    }
+//
+//}
 + (void)setClearButton:(UIButton *)button ofType:(AUCPriorityType)pType{
     // colors and fonts
     button.backgroundColor = [UIColor clearColor];
@@ -313,14 +362,13 @@
 }
 
 + (void)setFontForButton:(UIButton *)button  ofType:(AUCPriorityType)pType{
-    
     switch (pType) {
         case kAUCPriorityTypeSecondary:
             [button.titleLabel setFont:[UIFont fontWithName:kAUCFontFamilySecondary  size:kAUCFontSizeSecondary]];
             break;
-        case kAUCPriorityTypeTertiary:
-            [button.titleLabel setFont:[UIFont fontWithName:kAUCFontFamilyTertiary  size:kAUCFontSizeTertiary]];
-            break;
+            //        case kAUCPriorityTypeTertiary:
+            //            [button.titleLabel setFont:[UIFont fontWithName:kAUCFontFamilyTertiary  size:kAUCFontSizeTertiary]];
+            //            break;
         default:
             [button.titleLabel setFont:[UIFont fontWithName:kAUCFontFamilyPrimary  size:kAUCFontSizePrimary]];
             break;
@@ -347,11 +395,11 @@
             textView.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeSecondary];
             textView.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextSecondary];
             break;
-        case kAUCPriorityTypeTertiary:
-            textView.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeTertiary];
-            textView.font = [UIFont fontWithName:kAUCFontFamilyTertiary size:kAUCFontSizeTertiary];
-            textView.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextTertiary];
-            break;
+            //        case kAUCPriorityTypeTertiary:
+            //            textView.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeTertiary];
+            //            textView.font = [UIFont fontWithName:kAUCFontFamilyTertiary size:kAUCFontSizeTertiary];
+            //            textView.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextTertiary];
+            //            break;
             
         default:
             textView.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypePrimary];
@@ -406,8 +454,23 @@
 }
 
 #pragma mark - view elements methods: UITextFeild
-+ (void)setTextField:(UITextField *)textField{
-    [AppUIManager setTextField:textField ofType:kAUCPriorityTypePrimary];
++ (void)setTextField:(UITextField *)textField placeholder:(NSString *)phtext{
+    // cutom settings
+    // set textField properties
+    textField.backgroundColor = [UIColor clearColor];
+    textField.attributedPlaceholder = [[NSAttributedString alloc]
+                                       initWithString:phtext
+                                       attributes:@{NSForegroundColorAttributeName:[AppUIManager getColorOfType:kAUCColorTypeTextTertiary],
+                                                    NSFontAttributeName:[UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeTextField]}];
+    textField.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeTextField];
+    textField.textColor =[AppUIManager getColorOfType:kAUCColorTypeTextPrimary];
+    textField.textAlignment = NSTextAlignmentLeft;
+    
+    // set border
+    [AppUIManager setBottomBorder:textField withColor:[AppUIManager getColorOfType:kAUCColorTypeTertiary]];
+    
+    // for auto layout
+    [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
 }
 
 + (void)setTextField:(UITextField *)textField ofType:(AUCPriorityType)pType{
@@ -421,13 +484,13 @@
             // add border
             [AppUIManager setBorder:textField withColor:[AppUIManager getColorOfType:kAUCColorTypeSecondary]];
             break;
-        case kAUCPriorityTypeTertiary:
-            textField.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeTertiary];
-            textField.font = [UIFont fontWithName:kAUCFontFamilyTertiary size:kAUCFontSizeTertiary];
-            textField.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextTertiary];
-            // add border
-            [AppUIManager setBorder:textField withColor:[AppUIManager getColorOfType:kAUCColorTypeTertiary]];
-            break;
+            //        case kAUCPriorityTypeTertiary:
+            //            textField.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeTertiary];
+            //            textField.font = [UIFont fontWithName:kAUCFontFamilyTertiary size:kAUCFontSizeTertiary];
+            //            textField.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextTertiary];
+            //            // add border
+            //            [AppUIManager setBorder:textField withColor:[AppUIManager getColorOfType:kAUCColorTypeTertiary]];
+            //            break;
         default:
             textField.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypePrimary];
             textField.font = [UIFont fontWithName:kAUCFontFamilyPrimary size:kAUCFontSizePrimary];
@@ -453,38 +516,18 @@
 }
 
 #pragma mark - view elements methods:  UILabel
-+ (void)setUILabel:(UILabel *)label{
-    [AppUIManager setUILabel:label ofType:kAUCPriorityTypePrimary];
-}
+//+ (void)setUILabel:(UILabel *)label{
+//    [AppUIManager setUILabel:label ofType:kAUCPriorityTypePrimary];
+//}
 
-+ (void)setUILabel:(UILabel *)label ofType:(AUCPriorityType)pType{
-    // set label properties
-    // colors and fonts
-    switch (pType) {
-        case kAUCPriorityTypeSecondary:
-            label.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeSecondary];
-            label.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeSecondary];
-            label.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextPrimaryLight];
-            // add border
-            //[AppUIManager setBorder:label withColor:[AppUIManager getColorOfType:kAUCColorTypeSecondary]];
-            break;
-        case kAUCPriorityTypeTertiary:
-            label.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeTertiary];
-            label.font = [UIFont fontWithName:kAUCFontFamilyTertiary size:kAUCFontSizeTertiary];
-            label.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextPrimaryLight];
-            // add border
-            //[AppUIManager setBorder:label withColor:[AppUIManager getColorOfType:kAUCColorTypeTertiary]];
-            break;
-        default:
-            label.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypePrimary];
-            label.font = [UIFont fontWithName:kAUCFontFamilyPrimary size:kAUCFontSizePrimary];
-            label.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextPrimaryLight];
-            // add border
-            //[AppUIManager setBorder:label withColor:[AppUIManager getColorOfType:kAUCColorTypePrimary]];
-            break;
-    }
++ (UILabel *)getUILabelWithText:(NSString *)text font:(NSString *)fontFamily ofSize:(CGFloat)fontSize color:(AUCColorType)color{
+    UILabel *label =[[UILabel alloc] init];
+    label.text = text;
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:fontFamily size:fontSize];
+    label.textColor = [AppUIManager getColorOfType:color];
     
-    //label.backgroundColor = [UIColor clearColor];
+    
     // palce holder text color
     //label.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"place holder" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     label.textAlignment = NSTextAlignmentCenter;
@@ -494,11 +537,55 @@
     // disabledBackground  property
     
     // rounded corner
-    [AppUIManager setRoundedCorner:label];
+    //[AppUIManager setRoundedCorner:label];
     
     // for auto layout
     [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return label;
 }
+//
+//+ (void)setUILabel:(UILabel *)label ofType:(AUCPriorityType)pType{
+//    // set label properties
+//    // colors and fonts
+//    switch (pType) {
+//        case kAUCPriorityTypeSecondary:
+//            label.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeSecondary];
+//            label.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeSecondary];
+//            label.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextPrimaryLight];
+//            // add border
+//            //[AppUIManager setBorder:label withColor:[AppUIManager getColorOfType:kAUCColorTypeSecondary]];
+//            break;
+//        case kAUCPriorityTypeTertiary:
+//            label.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeTertiary];
+//            label.font = [UIFont fontWithName:kAUCFontFamilyTertiary size:kAUCFontSizeTertiary];
+//            label.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextPrimaryLight];
+//            // add border
+//            //[AppUIManager setBorder:label withColor:[AppUIManager getColorOfType:kAUCColorTypeTertiary]];
+//            break;
+//        default:
+//            label.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypePrimary];
+//            label.font = [UIFont fontWithName:kAUCFontFamilyPrimary size:kAUCFontSizePrimary];
+//            label.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextPrimaryLight];
+//            // add border
+//            //[AppUIManager setBorder:label withColor:[AppUIManager getColorOfType:kAUCColorTypePrimary]];
+//            break;
+//    }
+//
+//    label.backgroundColor = [UIColor clearColor];
+//    // palce holder text color
+//    //label.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"place holder" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+//    label.textAlignment = NSTextAlignmentCenter;
+//    // others
+//    //label.borderStyle  property
+//    //background  property
+//    // disabledBackground  property
+//
+//    // rounded corner
+//    //[AppUIManager setRoundedCorner:label];
+//
+//    // for auto layout
+//    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+//}
 #pragma mark - view elements methods:  Navbar
 + (void)setNavbar:(UINavigationBar *)navbar{
     //backIndicatorImage  property
@@ -529,7 +616,7 @@
     //tabbar.itemPositioning  =  ;
     //tabbar.itemSpacing  =  ;
     //tabbar.itemWidth  =  ;
-    tabbar.tintColor  =  [AppUIManager getColorOfType:kAUCColorTypeTintSelected];
+    //tabbar.tintColor  =  [AppUIManager getColorOfType:kAUCColorTypeTintSelected];
     
     //tabbar.selectedImageTintColor  =  [AppUIManager getColorOfType:kAUCColorTypeTertiary];
     tabbar.translucent  =  NO;
@@ -559,7 +646,7 @@
 + (void)setTableView:(UITableView *)tableView ofType:(AUCPriorityType)pType{
     // clear backgroud
     tableView.backgroundView = nil;
-    tableView.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeBackground];
+    //tableView.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeBackground];
     //[AppUIManager setUIView:tableView.backgroundView  ofType:kAUCPriorityTypePrimary];
     
 }
@@ -625,24 +712,24 @@
 }
 
 + (void)setBottomBorder:(id)view withColor:(UIColor *)color{
-//    CALayer *bottomBorder = [CALayer layer];
-//    bottomBorder.frame = CGRectMake(0.0f, 0.0f, ((UIView *)view).frame.size.width, 20.0f);
-//    bottomBorder.backgroundColor = [UIColor redColor].CGColor;//color.CGColor;
-//    [((UIView *)view).layer addSublayer:bottomBorder];
-
+    //    CALayer *bottomBorder = [CALayer layer];
+    //    bottomBorder.frame = CGRectMake(0.0f, 0.0f, ((UIView *)view).frame.size.width, 20.0f);
+    //    bottomBorder.backgroundColor = [UIColor redColor].CGColor;//color.CGColor;
+    //    [((UIView *)view).layer addSublayer:bottomBorder];
+    
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0.0, ((UIView *)view).frame.size.width-2.0,((UIView *)view).frame.size.width, 2.0)];
     //topView.opaque = YES;
     topView.backgroundColor = color;
     topView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [(UIView *)view addSubview:topView];
     
-//    ((UIView *)view).layer.borderWidth = 2;
-//    if(color==nil){
-//        ((UIView *)view).layer.borderColor = [UIColor whiteColor].CGColor;
-//    }
-//    else{
-//        ((UIView *)view).layer.borderColor = color.CGColor;
-//    }
+    //    ((UIView *)view).layer.borderWidth = 2;
+    //    if(color==nil){
+    //        ((UIView *)view).layer.borderColor = [UIColor whiteColor].CGColor;
+    //    }
+    //    else{
+    //        ((UIView *)view).layer.borderColor = color.CGColor;
+    //    }
 }
 
 
@@ -675,12 +762,12 @@
 + (void)horizontallyCenterElement:(UIView *)view inView:(UIView *)sview{
     // Center
     [sview addConstraint:[NSLayoutConstraint constraintWithItem:view
-                                                          attribute:NSLayoutAttributeCenterX
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:sview
-                                                          attribute:NSLayoutAttributeCenterX
-                                                         multiplier:1.0
-                                                           constant:0.0]];
+                                                      attribute:NSLayoutAttributeCenterX
+                                                      relatedBy:NSLayoutRelationEqual
+                                                         toItem:sview
+                                                      attribute:NSLayoutAttributeCenterX
+                                                     multiplier:1.0
+                                                       constant:0.0]];
 }
 + (void)verticallyCenterElement:(UIView *)view inView:(UIView *)sview{
     // Center

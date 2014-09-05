@@ -50,11 +50,11 @@
     return nil;
 }
 + (NSString *)isContentTextValid:(NSString *)text{
-    if([text length]<kAPIValidationContentMinLentgh){
-        return [NSString stringWithFormat:@"Text must be at least %d charecter long",kAPIValidationContentMinLentgh];
+    if([text length]<kAPIValidationContentMinLength){
+        return [NSString stringWithFormat:@"Text must be at least %d charecter long",kAPIValidationContentMinLength];
     }
-    if([text length]>kAPIValidationContentMaxLentgh){
-        return [NSString stringWithFormat:@"Text must be shoter than %d charecter long",kAPIValidationContentMaxLentgh];
+    if([text length]>kAPIValidationContentMaxLength){
+        return [NSString stringWithFormat:@"Text must be shoter than %d charecter long",kAPIValidationContentMaxLength];
     }
     
     return nil;

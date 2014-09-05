@@ -334,7 +334,7 @@
                                       StopAsyncBlock();
                                   }
                                   failure:^(NSError *error){
-                                      NSString *str =[NSString stringWithFormat:@"Text must be at least %d charecter long",kAPIValidationContentMinLentgh];
+                                      NSString *str =[NSString stringWithFormat:@"Text must be at least %d charecter long",kAPIValidationContentMinLength];
                                       XCTAssertEqualObjects(error.localizedFailureReason,str);
                                       XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
                                       XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");
@@ -355,7 +355,7 @@
                                       StopAsyncBlock();
                                   }
                                   failure:^(NSError *error){
-                                      NSString *strm =[NSString stringWithFormat:@"Text must be shoter than %d charecter long",kAPIValidationContentMaxLentgh];
+                                      NSString *strm =[NSString stringWithFormat:@"Text must be shoter than %d charecter long",kAPIValidationContentMaxLength];
                                       XCTAssertEqualObjects(error.localizedFailureReason,strm);
                                       XCTAssertEqualObjects(error.localizedDescription,@"Invalid Input");
                                       XCTAssertEqualObjects(error.localizedRecoverySuggestion,@"Please check and try again");

@@ -372,7 +372,7 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryLocalInfo
                                                                       text:@"L"];
             
-            NSString *str =[NSString stringWithFormat:@"Text must be at least %d charecter long",kAPIValidationContentMinLentgh];
+            NSString *str =[NSString stringWithFormat:@"Text must be at least %d charecter long",kAPIValidationContentMinLength];
             expect(error.localizedFailureReason).to.equal(str);
             expect(error.localizedDescription).to.equal(@"Invalid Input");
             expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
@@ -382,7 +382,7 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryNews
                                                                       text:@"AWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elasticc Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elastic"];
             
-            NSString *str =[NSString stringWithFormat:@"Text must be shoter than %d charecter long",kAPIValidationContentMaxLentgh];
+            NSString *str =[NSString stringWithFormat:@"Text must be shoter than %d charecter long",kAPIValidationContentMaxLength];
             expect(error.localizedFailureReason).to.equal(str);
             expect(error.localizedDescription).to.equal(@"Invalid Input");
             expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");

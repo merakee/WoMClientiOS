@@ -13,7 +13,22 @@
 @implementation ImageProcessingManager
 @synthesize delegate;
 @synthesize viewController;
+@synthesize allowEditting;
 //@synthesize controller;
+
+#pragma mark - init
+- (id)init{
+    if(self = [super init]) {
+        // initialization code
+        [self setAllDefaults];
+        
+    }
+    return self;
+}
+
+- (void)setAllDefaults{
+    self.allowEditting = YES;
+}
 
 
 #pragma mark -  Camera Capture Methods
@@ -51,7 +66,7 @@
     // set media type to photo
     photoController.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
     // Show the controls, use YES.
-    photoController.allowsEditing = YES;
+    photoController.allowsEditing = self.allowEditting;
     // set delegate
     photoController.delegate = self;
 
@@ -89,7 +104,7 @@
     // set media type to photo
     cameraController.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
     // Show the controls, use YES.
-    cameraController.allowsEditing = YES;
+    cameraController.allowsEditing = self.allowEditting;
     // set delegate
     cameraController.delegate = self;
 

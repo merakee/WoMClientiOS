@@ -174,7 +174,7 @@
 }
 
 #pragma mark -  Display Mathods
-+ (void)displayActionSheetWithTitle:(NSString *)title cancelButton:(NSString *)cancelButton destructiveButton:(NSString *)destructiveButton customButtons:(NSArray *)buttonTextArray delegate:(id)delegate {
++ (UIActionSheet *)displayActionSheetWithTitle:(NSString *)title cancelButton:(NSString *)cancelButton destructiveButton:(NSString *)destructiveButton customButtons:(NSArray *)buttonTextArray delegate:(id)delegate{
     // set action sheet
     UIActionSheet *actionSheet=[[UIActionSheet alloc] initWithTitle:title
                                                            delegate:delegate
@@ -193,6 +193,7 @@
     // display
     [actionSheet showInView:[delegate view]];
     
+    return actionSheet;
     // release
     //[actionSheet release];
     
@@ -235,7 +236,15 @@
      
      */
 }
-
++ (UIActionSheet *)displayActionSheetWithTitle:(NSString *)title cancelButton:(NSString *)cancelButton destructiveButton:(NSString *)destructiveButton customButtons:(NSArray *)buttonTextArray delegate:(id)delegate tag:(NSInteger)tag{
+    UIActionSheet *actionSheet=[CommonUtility   displayActionSheetWithTitle:title
+                                                               cancelButton:cancelButton
+                                                          destructiveButton:destructiveButton
+                                                              customButtons:buttonTextArray
+                                                                   delegate:delegate];
+    actionSheet.tag = tag;
+    return actionSheet;
+}
 + (void)displayActionSheetFromTabBarWithTitle:(NSString *)title cancelButton:(NSString *)cancelButton destructiveButton:(NSString *)destructiveButton customButtons:(NSArray *)buttonTextArray delegate:(id)delegate {
     // set action sheet
     UIActionSheet *actionSheet=[[UIActionSheet alloc] initWithTitle:title
@@ -496,7 +505,7 @@
     
 }
 + (NSArray *)sortArrayWithString:(NSArray *)sarray{
-     return [sarray sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    return [sarray sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 #pragma mark -  String functions
 + (BOOL)isEmptyString:(NSString *)string {
@@ -661,65 +670,65 @@
 }
 
 /*
-+(BOOL)generateChoiceVec:(int *)choices ofSize:(int)vecSize withMax:(int)maxVal min:(int)minVal correctVal:(int)correctVal andIndex:(int *)index {
-    int range = maxVal-minVal+1;
-    if((range)<vecSize || vecSize<1) {
-        return NO;
-    }
-    
-    // get vecSize-1 random elements
-    // fill vec with numbers from minVal to MaxVal
-    int tvec[range];
-    for(int ind=0; ind<range; ind++) {
-        tvec[ind]=ind+minVal;
-    }
-    // randomize tvec
-    [CommonUtility randomizeArray:tvec withSize:range];
-    [CommonUtility removeInt:correctVal fromArray:tvec withSize:range];
-    
-    // fill chioces array
-    for(int ind=0; ind<vecSize-1; ind++) {
-        choices[ind]=tvec[ind];
-    }
-    choices[vecSize-1]=correctVal;
-    
-    // randomize choices
-    [CommonUtility randomizeArray:choices withSize:vecSize];
-    // get index
-    *(index) =[CommonUtility isNumber:correctVal inArray:choices withSize:vecSize];
-    
-    if(*(index)<0) {
-        return NO;
-    }
-    
-    // no error
-    return YES;
-}
-
-+(BOOL)generateRandomVec:(int *)choices ofSize:(int)vecSize withMax:(int)maxVal min:(int)minVal excludingVal:(int)correctVal {
-    int range = maxVal-minVal+1;
-    if(range<vecSize || vecSize<1) {
-        return NO;
-    }
-    
-    // get vecSize-1 random elements
-    // fill vec with numbers from minVal to MaxVal
-    int tvec[range];
-    for(int ind=0; ind<range; ind++) {
-        tvec[ind]=ind+minVal;
-    }
-    // randomize tvec
-    [CommonUtility randomizeArray:tvec withSize:range];
-    [CommonUtility removeInt:correctVal fromArray:tvec withSize:range];
-    
-    // fill chioces array
-    for(int ind=0; ind <vecSize; ind++) {
-        choices[ind] = tvec[ind];
-    }
-    // no error
-    return YES;
-}
-*/
+ +(BOOL)generateChoiceVec:(int *)choices ofSize:(int)vecSize withMax:(int)maxVal min:(int)minVal correctVal:(int)correctVal andIndex:(int *)index {
+ int range = maxVal-minVal+1;
+ if((range)<vecSize || vecSize<1) {
+ return NO;
+ }
+ 
+ // get vecSize-1 random elements
+ // fill vec with numbers from minVal to MaxVal
+ int tvec[range];
+ for(int ind=0; ind<range; ind++) {
+ tvec[ind]=ind+minVal;
+ }
+ // randomize tvec
+ [CommonUtility randomizeArray:tvec withSize:range];
+ [CommonUtility removeInt:correctVal fromArray:tvec withSize:range];
+ 
+ // fill chioces array
+ for(int ind=0; ind<vecSize-1; ind++) {
+ choices[ind]=tvec[ind];
+ }
+ choices[vecSize-1]=correctVal;
+ 
+ // randomize choices
+ [CommonUtility randomizeArray:choices withSize:vecSize];
+ // get index
+ *(index) =[CommonUtility isNumber:correctVal inArray:choices withSize:vecSize];
+ 
+ if(*(index)<0) {
+ return NO;
+ }
+ 
+ // no error
+ return YES;
+ }
+ 
+ +(BOOL)generateRandomVec:(int *)choices ofSize:(int)vecSize withMax:(int)maxVal min:(int)minVal excludingVal:(int)correctVal {
+ int range = maxVal-minVal+1;
+ if(range<vecSize || vecSize<1) {
+ return NO;
+ }
+ 
+ // get vecSize-1 random elements
+ // fill vec with numbers from minVal to MaxVal
+ int tvec[range];
+ for(int ind=0; ind<range; ind++) {
+ tvec[ind]=ind+minVal;
+ }
+ // randomize tvec
+ [CommonUtility randomizeArray:tvec withSize:range];
+ [CommonUtility removeInt:correctVal fromArray:tvec withSize:range];
+ 
+ // fill chioces array
+ for(int ind=0; ind <vecSize; ind++) {
+ choices[ind] = tvec[ind];
+ }
+ // no error
+ return YES;
+ }
+ */
 
 
 #pragma mark -  File Manager Methods
@@ -1446,6 +1455,30 @@
     }
     return randomString;
 }
+
+
+#pragma mark - UI methods
++ (CGSize)getScreenSize{
+    return [[UIScreen mainScreen] bounds].size;
+}
++ (CGFloat)getScreenHeight{
+    return [CommonUtility getScreenSize].height;
+}
++ (CGFloat)getScreenWidth{
+    return [CommonUtility getScreenSize].width;
+}
+
++ (NSString *)adjustImageFileName:(NSString *)fileName{
+    if(IS_IPHONE5){
+        NSArray *sarray = [fileName componentsSeparatedByString:@"."];
+        if([sarray count]==2){
+            return [[sarray[0] stringByAppendingString:@"-568h"] stringByAppendingString:sarray[1]];
+        }
+        return [fileName stringByAppendingString:@"-568h"];
+    }
+    return fileName;
+}
+
 
 #pragma mark - C Functions
 double deg2rad (double degrees) {

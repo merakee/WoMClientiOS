@@ -24,6 +24,7 @@
         photoManager = [[ImageProcessingManager alloc] init];
         photoManager.delegate =self;
         photoManager.viewController = self;
+        photoManager.allowEditting = NO;
     }
     return self;
 }
@@ -57,8 +58,7 @@
     // clear category selection
     [self updateViewForCategory:kAPIContentCategoryNews];
     
-    // display key board
-    [composeTextView becomeFirstResponder];
+    
     
     // hide navigation bar
     [self.navigationController setNavigationBarHidden:YES];
@@ -71,7 +71,8 @@
 - (void)viewDidAppear:(BOOL)animated{
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposeSession] withParameters:nil timed:YES];
-    
+    // display key board
+    [composeTextView becomeFirstResponder];
 }
 
 
@@ -115,8 +116,12 @@
     
     // set TextView
     composeTextView = [ComposeViewHelper getComposeTextViewWithDelegate:self];
-    
     [self.view addSubview:composeTextView];
+    
+    // place holder label
+    placeHolderLabel = [ComposeViewHelper getPlaceHolderLabel];
+    [self.view addSubview:placeHolderLabel];
+    
     
     
     // buttons
@@ -139,7 +144,7 @@
     
     
     // set photos options view
-    [self setPhotoOptionsView];
+    //[self setPhotoOptionsView];
     
     // layout
     [self layoutView];
@@ -151,43 +156,45 @@
 - (void)layoutView{
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,postButton,cancelButton,cameraOptionsButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel,postButton,cancelButton,cameraOptionsButton);
     
     // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(168)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(107)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:postButton inView:self.view];
-    
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[postButton(68)]-217-|"
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[postButton(66)]-214-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[cameraOptionsButton(126)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[cameraOptionsButton(107)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:cameraOptionsButton inView:self.view];
-
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cameraOptionsButton(77)]"
-                                                                                    options:0 metrics:nil views:viewsDictionary]];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-19-[cancelButton(24)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-29-[cancelButton(24)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    // text filed
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[composeTextView(>=100)]-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cameraOptionsButton(80)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[categoryControl(>=100)]-|"
-    //                                                                options:0 metrics:nil views:viewsDictionary]];
-    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-68-[categoryControl]-8-[composeTextView]-218-|"
-    //                                                                 options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[cameraOptionsButton]-4-[composeTextView][postButton]"
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[cameraOptionsButton]-4-[composeTextView]-4-[postButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-24-[composeTextView]-24-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentImageView]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentImageView]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
+    // place holder label
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[placeHolderLabel(240)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[placeHolderLabel(30)]-24-[postButton]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [AppUIManager horizontallyCenterElement:placeHolderLabel inView:self.view];
 }
 
 - (void)setNavigationBar {
@@ -223,52 +230,99 @@
     //[ComposeViewHelper updateCategoryControl:categoryControl forCategory:category];
     // composeTextView.backgroundColor =[AppUIManager getContentColorForCategory:category];
 }
-- (void)setPhotoOptionsView{
-    photoOptionsView = [ComposeViewHelper getPhotoOptionView];
-    // add as subview and hide
-    [self.view addSubview:photoOptionsView];
-    photoOptionsView.hidden = YES;
+//- (void)setPhotoOptionsView{
+//    photoOptionsView = [ComposeViewHelper getPhotoOptionView];
+//    // add as subview and hide
+//    [self.view addSubview:photoOptionsView];
+//    photoOptionsView.hidden = YES;
+//
+//    // add buttons
+//    albumButton = [ComposeViewHelper getAlbumButton];
+//    [albumButton addTarget:self action:@selector(albumButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [photoOptionsView addSubview:albumButton];
+//
+//    //    if([photoManager isCameraAvailable]){
+//    cameraButton = [ComposeViewHelper getCameraButton];
+//    [cameraButton  addTarget:self action:@selector(cameraButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [photoOptionsView addSubview:cameraButton];
+//    // layout
+//    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(photoOptionsView,cameraButton,albumButton);
+//
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[photoOptionsView(101)]"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [AppUIManager horizontallyCenterElement:photoOptionsView inView:self.view];
+//
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-76-[photoOptionsView(111)]"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+//
+//
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cameraButton]|"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[albumButton]|"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[albumButton(cameraButton)]-8-[cameraButton(30)]-16-|"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    //    }
+//    //    else{
+//    //        NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(photoOptionsView,albumButton);
+//    //        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[photoOptionsView(80)]|"
+//    //                                                                          options:0 metrics:nil views:viewsDictionary]];
+//    //
+//    //        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[photoOptionsView(30)]"
+//    //                                                                          options:0 metrics:nil views:viewsDictionary]];
+//    //        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2-[albumButton]-2-|"
+//    //                                                                          options:0 metrics:nil views:viewsDictionary]];
+//    //        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[albumButton]-2-|"
+//    //                                                                          options:0 metrics:nil views:viewsDictionary]];
+//    //    }
+//}
+
+#pragma mark - textview delegate methods
+//- (BOOL) textViewShouldBeginEditing:(UITextView *)textView{
+//    return YES;
+//}
+//- (void)textViewDidBeginEditing:(UITextView *)textView{
+//    NSLog(@"....1...");
+//    //if(textView.tag == 0) {
+//        textView.text = @"";
+//        // textView.textColor = [UIColor whiteColor];
+//        textView.tag = 1;
+//    //}
+//}
+- (void)textViewDidChange:(UITextView *)textView{
+    long  textLength =[textView.text length];
+    // place holder text
+    if(( textLength== 0)&&(placeHolderLabel.isHidden)){
+        placeHolderLabel.hidden=NO;
+    }
+    else if((textLength> 0)&&(!placeHolderLabel.isHidden)){
+        placeHolderLabel.hidden=YES;
+    }
     
-    // add buttons
-    albumButton = [ComposeViewHelper getAlbumButton];
-    [albumButton addTarget:self action:@selector(albumButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [photoOptionsView addSubview:albumButton];
+    textLength =[[CommonUtility  trimString:textView.text ] length];
     
-    //    if([photoManager isCameraAvailable]){
-    cameraButton = [ComposeViewHelper getCameraButton];
-    [cameraButton  addTarget:self action:@selector(cameraButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [photoOptionsView addSubview:cameraButton];
-    // layout
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(photoOptionsView,cameraButton,albumButton);
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[photoOptionsView(101)]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [AppUIManager horizontallyCenterElement:photoOptionsView inView:self.view];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-76-[photoOptionsView(111)]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cameraButton]|"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[albumButton]|"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[albumButton(cameraButton)]-8-[cameraButton(30)]-16-|"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    //    }
-    //    else{
-    //        NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(photoOptionsView,albumButton);
-    //        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[photoOptionsView(80)]|"
-    //                                                                          options:0 metrics:nil views:viewsDictionary]];
-    //
-    //        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[photoOptionsView(30)]"
-    //                                                                          options:0 metrics:nil views:viewsDictionary]];
-    //        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2-[albumButton]-2-|"
-    //                                                                          options:0 metrics:nil views:viewsDictionary]];
-    //        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[albumButton]-2-|"
-    //                                                                          options:0 metrics:nil views:viewsDictionary]];
-    //    }
+    // post button
+    if((textLength < kAPIValidationContentMinLength)&&(postButton.isEnabled)){
+        postButton.enabled=NO;
+    }
+    else if((textLength >= kAPIValidationContentMinLength)&&(!postButton.isEnabled)){
+        postButton.enabled=YES;
+    }
 }
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    long totalLength = textView.text.length - range.length + text.length;
+    
+    if (totalLength>kAPIValidationContentMaxLength){
+        return NO;
+    }
+    return YES;
+}
+
+//- (void)textViewDidEndEditing:(UITextView *)textView{
+//
+//}
+
 #pragma mark - Button Action Methods
 - (void)postContent:(id)sender {
     // Analytics: Flurry
@@ -346,6 +400,10 @@
 
 #pragma mark - Action sheet delegate method
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(actionSheet.tag==kAUCComposePhotoOptionsActionSheetTag){
+        [self processPhotoOptionsActionSheet:(UIActionSheet*)actionSheet withIndex:buttonIndex];
+        return;
+    }
     //Button actions using delegate
     //int customButtonStartIndex = (actionSheet.cancelButtonIndex>=0) ? 1 : 0;
     //customButtonStartIndex += (actionSheet.destructiveButtonIndex>=0) ? 1 : 0;
@@ -369,6 +427,51 @@
     
 }
 
+- (void)willPresentActionSheet:(UIActionSheet *)actionSheet{
+    [actionSheet.subviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
+        if ([subview isKindOfClass:[UIButton class]]) {
+            UIButton *button = (UIButton *)subview;
+            button.titleLabel.textColor = [AppUIManager  getColorOfType:kAUCColorTypeTextPrimary];
+            NSString *buttonText = button.titleLabel.text;
+            if ([buttonText isEqualToString:NSLocalizedString(@"Cancel", nil)]) {
+                [button setTitleColor:[AppUIManager  getColorOfType:kAUCColorTypeTextQuinary] forState:UIControlStateNormal];
+            }
+        }
+    }];
+}
+
+- (void)processPhotoOptionsActionSheet:(UIActionSheet*)actionSheet withIndex:(NSInteger)buttonIndex{
+    //Button actions using delegate
+    int customButtonStartIndex = (actionSheet.cancelButtonIndex>=0) ? 1 : 0;
+    customButtonStartIndex += (actionSheet.destructiveButtonIndex>=0) ? 1 : 0;
+    //int totalCustomButtons = actionSheet.numberOfButtons - customButtonStartIndex;
+    
+    if(customButtonStartIndex==buttonIndex){
+        // Camera Button
+        [self cameraButtonPressed:nil];
+    }
+    if(customButtonStartIndex+1==buttonIndex){
+        // Camera Button
+        [self albumButtonPressed:nil];
+    }
+    
+    //    // NSPLogBLog(@"bIndeX: %d cIndex:%d",buttonIndex,customButtonStartIndex);
+    //
+    //    // check if cancelButton Pressed
+    //    if(actionSheet.cancelButtonIndex==buttonIndex) {
+    //        // NSPLogBLog(@"Action for C Button");
+    //        [self clearViewAfterSuccessfulPostOrCancel];
+    //    }
+    //    else if(actionSheet.destructiveButtonIndex==buttonIndex) {
+    //        //[busyIndicator startAnimating];
+    //        //[self performSelector:@selector(setDefaultAutoPlan) withObject:nil afterDelay:kCRDPerformSelectorDelay];
+    //        [self goBack:nil];
+    //    }
+    //    else{
+    //        // get selected grade
+    //    }
+    
+}
 #pragma mark - Photo buttons
 #pragma mark - popover controller method
 - (void)showPhotoOptions:(id)sender{
@@ -377,11 +480,20 @@
     
     // if there is no camera
     if(![photoManager isCameraAvailable]){
-        [self albumButtonPressed:nil];
-        return;
+        //[self albumButtonPressed:nil];
+        //return;
     }
     
-    photoOptionsView.hidden = !photoOptionsView.hidden;
+    // action sheet
+    [CommonUtility displayActionSheetWithTitle:nil
+                                  cancelButton:@"Cancel"
+                             destructiveButton:nil
+                                 customButtons:@[@"Camera",@"Photos"]
+                                      delegate:self
+                                           tag:kAUCComposePhotoOptionsActionSheetTag];
+    
+    
+    //photoOptionsView.hidden = !photoOptionsView.hidden;
     // set the view to disappear
     //    if(photoOptionsView.hidden==NO){
     //        [UIView animateWithDuration:.5
@@ -397,10 +509,11 @@
     //
     //    }
 }
+
 - (void)cameraButtonPressed:(id)sender {
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposeCamera]];
-    photoOptionsView.hidden = YES;
+    //photoOptionsView.hidden = YES;
     // start image picker for camera
     [photoManager displayCamera];
 }
@@ -408,7 +521,7 @@
 - (void)albumButtonPressed:(id)sender {
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposeAlbum]];
-    photoOptionsView.hidden = YES;
+    // photoOptionsView.hidden = YES;
     // start image picker for camera
     [photoManager displayPhotoLibrary];
 }

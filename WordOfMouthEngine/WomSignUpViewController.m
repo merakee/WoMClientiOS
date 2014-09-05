@@ -41,6 +41,10 @@
     // hide navigation bar
     [self.navigationController setNavigationBarHidden:YES];
     
+    // display key board
+    [emailField becomeFirstResponder];
+    
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -70,7 +74,7 @@
     // set lables
     pageLabel = [WomSignUpViewHelper getPageLabel];
     [self.view addSubview:pageLabel];
-
+    
     
     //text Fileds
     emailField =[[UITextField alloc] init];
@@ -109,23 +113,27 @@
     
     // labels
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLabel(120)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[pageLabel(60)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    // Center horizontally
     [AppUIManager horizontallyCenterElement:pageLabel inView:self.view];
+    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pageLabel(60)]-26-[emailField]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-42-[pageLabel(60)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
     
     // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-19-[cancelButton(24)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-29-[cancelButton(24)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[signUpButton]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signUpButton(70)]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signUpButton(40)]-10-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[signUpButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[emailField(40)]-16-[passwordField(emailField)]-20-[passwordConfirmationField(emailField)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[emailField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[passwordField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[passwordConfirmationField]-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    // text fields
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[emailField]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[passwordField]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[passwordConfirmationField]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[emailField(40)]-4-[passwordField(emailField)]-4-[passwordConfirmationField(emailField)]-218-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]]; // key board 216
+    
     
 }
 
@@ -155,7 +163,8 @@
 #pragma mark - TextField Delegate Protocal
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if ((textField == emailField) || (textField == passwordField) || (textField == passwordConfirmationField)){
-        [textField resignFirstResponder];
+        //[textField resignFirstResponder];
+        [self signUpButtonPressed:nil];
         return NO;
     }
     return YES;

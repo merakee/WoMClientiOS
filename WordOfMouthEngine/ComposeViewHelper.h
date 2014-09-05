@@ -13,9 +13,11 @@
 //static const float kPhotoOptionsViewLayout[4]={150,60,120,60};
 
 // images
-static NSString *kAUCPostButtonImage =@"wom_compose_postButton.png";
-static NSString *kAUCCameraOptionsButtonImage =@"wom_compose_cameraOptionsButton.png";
-static NSString *kAUCCameraOptionsImage =@"camera_options.png";
+static NSString *kAUCPostButtonImage =@"post-active-btn.png";
+static NSString *kAUCPostInactiveButtonImage =@"post-inactive-btn.png";
+static NSString *kAUCCameraOptionsButtonImage =@"cam-btn.png";
+
+static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 
 @interface ComposeViewHelper : NSObject
 
@@ -32,10 +34,13 @@ static NSString *kAUCCameraOptionsImage =@"camera_options.png";
 #pragma mark -  View Helper Methods: Buttons
 
 #pragma mark -  View Helper Methods: TextViews
++ (UILabel *)getPlaceHolderLabel;
+
+#pragma mark -  View Helper Methods: TextViews
 + (UITextView *)getComposeTextViewWithDelegate:(id)delegate;
 
 #pragma mark - photo options view
-+ (UIView *)getPhotoOptionView;
+//+ (UIView *)getPhotoOptionView;
 + (UIButton *)getCameraButton;
 + (UIButton *)getAlbumButton;
 + (UIButton *)getCancelButton;

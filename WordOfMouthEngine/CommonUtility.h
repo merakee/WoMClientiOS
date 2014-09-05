@@ -67,11 +67,18 @@ static NSString * kDateFormatDefault              = @"yyyyMMddHHmmss";
 + (NSString *)getAppDeviceAndOSInfo;
 
 #pragma mark -  Display Methods
-+ (void)displayActionSheetWithTitle:(NSString *)title
++ (UIActionSheet *)displayActionSheetWithTitle:(NSString *)title
                        cancelButton:(NSString *)cancelButton
                   destructiveButton:(NSString *)destructiveButton
                       customButtons:(NSArray *)buttonTextArray
                            delegate:(id)delegate;
++ (UIActionSheet *)displayActionSheetWithTitle:(NSString *)title
+                                  cancelButton:(NSString *)cancelButton
+                             destructiveButton:(NSString *)destructiveButton
+                                 customButtons:(NSArray *)buttonTextArray
+                                      delegate:(id)delegate
+                                        tag:(NSInteger)tag;
+
 + (void)displayActionSheetFromTabBarWithTitle:(NSString *)title
                                  cancelButton:(NSString *)cancelButton
                             destructiveButton:(NSString *)destructiveButton
@@ -274,6 +281,12 @@ static NSString * kDateFormatDefault              = @"yyyyMMddHHmmss";
 
 #pragma mark - Random text, numbers and others
 - (NSString *)getRandStringLength:(int)len;
+
+#pragma mark - UI methods
++ (CGSize)getScreenSize;
++ (CGFloat)getScreenHeight;
++ (CGFloat)getScreenWidth;
++ (NSString *)adjustImageFileName:(NSString *)fileName;
 
 #pragma mark - C Functions
 double deg2rad (double degrees);

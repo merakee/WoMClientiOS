@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "AppUIManager.h"
 
+static NSString *kAUCSignupButtonImage =@"signup-nav-btn.png";
+
 @interface WomSignUpViewHelper : NSObject
 
 

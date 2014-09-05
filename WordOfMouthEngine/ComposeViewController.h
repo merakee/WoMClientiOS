@@ -9,15 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "ImageProcessingManager.h"
 
-@interface ComposeViewController : UIViewController<UITextViewDelegate,ImageProcessingManagerDelegate>{
+@interface ComposeViewController : UIViewController<UITextViewDelegate,ImageProcessingManagerDelegate,UIActionSheetDelegate>{
     // UISegmentedControl *categoryControl;
     UITextView         *composeTextView;
     UIImageView        *contentImageView;
+    UILabel            *placeHolderLabel;
     
     ImageProcessingManager   *photoManager;
-    UIView                   *photoOptionsView;
-    UIButton                 *cameraButton;
-    UIButton                 *albumButton;
+    //UIView                   *photoOptionsView;
+    //UIButton                 *cameraButton;
+    //UIButton                 *albumButton;
     
     UIButton                 *postButton;
     UIButton                 *cameraOptionsButton;

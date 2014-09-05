@@ -119,5 +119,45 @@
                      }];
 }
 
++(void) slideView:(UIView *)view fromLocation:(CGPoint)original to:(CGPoint)final andDuration:(float)duration withFinalAction:(void (^)())action{
+    if(duration<=0) {
+        return;
+    }
+    // set view
+    view.center = original;
+    [UIView animateWithDuration:duration
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         view.center=final;
+                     }
+                     completion:^(BOOL finished){
+                         if (action != nil){
+                             action();
+                         }
+                     }];
+}
+
++(void) slideView:(UIView *)view fromLocation:(CGPoint)original through:(CGPoint)middle duration:(float)duration1 to:(CGPoint)final duration:(float)duration2 withFinalAction:(void (^)())action {
+    if ((duration1<=0)||(duration2<=0)) {
+        return;
+    }
+    // set view
+    view.center = original;
+    [UIView animateWithDuration:duration1
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         view.center=middle;
+                     }
+                     completion:^(BOOL finished){
+                         [AppAnimationManager slideView:view
+                                           fromLocation:middle
+                                                     to:final
+                                            andDuration:duration2
+                                        withFinalAction:action];
+                     }];
+}
+
 
 @end

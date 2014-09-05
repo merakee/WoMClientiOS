@@ -48,5 +48,7 @@ static const int kCustomViewAnimationDefaultRepeatCount =0;
 #pragma mark - view animation class methods
 +(void)attachViewWithFade:(UIView *)view toSuperView:(UIView *)superView andDuration:(float)fadeDuration;
 +(void)detachViewFromSuperViewWithFade:(UIView *)view andDuration:(float)fadeDuration;
++(void) slideView:(UIView *)view fromLocation:(CGPoint)original to:(CGPoint)final andDuration:(float)duration withFinalAction:(void (^)())action;
++(void) slideView:(UIView *)view fromLocation:(CGPoint)original through:(CGPoint)middle duration:(float)duration1 to:(CGPoint)final duration:(float)duration2 withFinalAction:(void (^)())action;
 
 @end

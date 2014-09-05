@@ -132,7 +132,7 @@
     XCTAssert(content.categoryId &&content.categoryId.integerValue>=kAPIContentCategoryNews
               &&content.categoryId.integerValue<=kAPIContentCategoryLocalInfo,@"Must be a valid category");
     XCTAssert(content.userId&&content.userId.integerValue>1,@"Must be postive integer");
-    XCTAssert(content.contentText&&[content.contentText length]>kAPIValidationContentMinLentgh && [content.contentText length]<kAPIValidationContentMinLentgh,@"Must be of valid length");
+    XCTAssert(content.contentText&&[content.contentText length]>kAPIValidationContentMinLength && [content.contentText length]<kAPIValidationContentMinLength,@"Must be of valid length");
     XCTAssertNotNil(content.photoToken,@"Must not be nil");
     XCTAssertNotNil(content.timeStamp,@"Must not be nil");
     XCTAssertNotNil(content.totalSpread,@"Must not be nil");

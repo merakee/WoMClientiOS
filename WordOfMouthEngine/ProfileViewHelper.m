@@ -69,7 +69,7 @@
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getButton{
-    UIButton *button  = [AppUIManager setButtonWithTitle:@"Sign out" andColor:[UIColor redColor]];
+    UIButton *button;  //= //[AppUIManager setButtonWithTitle:@"Sign out" andColor:[UIColor redColor]];
     
     // custom settings
     button.tag=kPVHCellViewTagsButton;

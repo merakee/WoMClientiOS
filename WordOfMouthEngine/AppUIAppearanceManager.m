@@ -29,6 +29,7 @@
     [AppUIAppearanceManager  setUIToolbar];
     [AppUIAppearanceManager  setUIView];
     [AppUIAppearanceManager  setUITextFiled];
+    [AppUIAppearanceManager  setUITextView];
 }
 
 // Usage: Two Methods --------------
@@ -89,9 +90,9 @@
 }
 + (void)setUINavigationBar{
     // UINavigationBar.h:@property(nonatomic,retain) UIColor *barTintColor NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;  // default is nil
-    [[UINavigationBar appearance] setBarTintColor:[AppUIManager getColorOfType:kAUCColorTypeTint]];
+    //[[UINavigationBar appearance] setBarTintColor:[AppUIManager getColorOfType:kAUCColorTypeTint]];
     
-    [[UINavigationBar appearance] setTintColor:[AppUIManager getColorOfType:kAUCColorTypeTintUnselected]];
+    //[[UINavigationBar appearance] setTintColor:[AppUIManager getColorOfType:kAUCColorTypeTintUnselected]];
     
     // UINavigationBar.h:- (void)setBackgroundImage:(UIImage *)backgroundImage forBarPosition:(UIBarPosition)barPosition barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;
     // UINavigationBar.h:- (UIImage *)backgroundImageForBarPosition:(UIBarPosition)barPosition barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;
@@ -101,7 +102,7 @@
     // UINavigationBar.h:@property(nonatomic,copy) NSDictionary *titleTextAttributes NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
     
     // set color of unselected text to white
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [AppUIManager getColorOfType:kAUCColorTypeTintUnselected]}];
+    //[[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [AppUIManager getColorOfType:kAUCColorTypeTintUnselected]}];
     
     // UINavigationBar.h:- (void)setTitleVerticalPositionAdjustment:(CGFloat)adjustment forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
     // UINavigationBar.h:- (CGFloat)titleVerticalPositionAdjustmentForBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
@@ -176,7 +177,7 @@
 }
 + (void)setUITabBar{
     // UITabBar.h:@property(nonatomic,retain) UIColor *barTintColor NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;  // default is nil
-    [[UITabBar appearance] setBarTintColor:[AppUIManager getColorOfType:kAUCColorTypeTint]];
+    //[[UITabBar appearance] setBarTintColor:[AppUIManager getColorOfType:kAUCColorTypeTint]];
     //[[UITabBar appearance] setBarTintColor:[UIColor clearColor]];
     // UITabBar.h:@property(nonatomic,retain) UIColor *selectedImageTintColor NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
     //[[UITabBar appearance] setSelectedImageTintColor:[AppUIManager getColorOfType:kAUCColorTypeTint withBrightness:kAUCColorScaleLighter]];
@@ -192,9 +193,9 @@
     // UITabBarItem.h:- (UIOffset)titlePositionAdjustment NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
     
     // set color of unselected text to white
-    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [AppUIManager getColorOfType:kAUCColorTypeTintUnselected]}  forState:UIControlStateNormal];
+    // [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [AppUIManager getColorOfType:kAUCColorTypeTintUnselected]}  forState:UIControlStateNormal];
     // set color of unselected text to white
-    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [AppUIManager getColorOfType:kAUCColorTypeTintSelected]}  forState:UIControlStateSelected];
+    // [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [AppUIManager getColorOfType:kAUCColorTypeTintSelected]}  forState:UIControlStateSelected];
 }
 + (void)setUITableView{
     // UITableView.h:@property (nonatomic)          UIEdgeInsets                separatorInset NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR; // allows customization of the frame of cell separators
@@ -205,7 +206,7 @@
     // UITableView.h:@property(nonatomic, retain) UIColor *sectionIndexTrackingBackgroundColor NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR; // the background color of the section index while it is being touched
     // UITableViewCell.h:@property (nonatomic) UIEdgeInsets                    separatorInset NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR; // allows customization of the separator frame
     
-    [[UITableViewCell appearance] setBackgroundColor:[AppUIManager getColorOfType:kAUCColorTypeBackground]];
+    // [[UITableViewCell appearance] setBackgroundColor:[AppUIManager getColorOfType:kAUCColorTypeBackground]];
     
 }
 + (void)setUIToolbar{
@@ -221,7 +222,11 @@
 }
 
 + (void)setUITextFiled{
-    [[UITextField appearance] setTintColor:[CommonUtility getColorFromHSBACVec:kAUCColorLightTeal]];
+    [[UITextField appearance] setTintColor:[CommonUtility getColorFromHSBACVec:kAUCColorTertiary]];
+}
+
++ (void)setUITextView{
+    [[UITextView appearance] setTintColor:[CommonUtility getColorFromHSBACVec:kAUCColorTertiary]];
 }
 
 @end

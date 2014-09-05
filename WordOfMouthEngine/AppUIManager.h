@@ -24,8 +24,8 @@
 
 #pragma mark - Color merhods
 + (UIColor *)getColorOfType:(AUCColorType)colorType;
-+ (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness;
-+ (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness andSaturation:(AUCColorScale)colorSaturation;
+//+ (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness;
+//+ (UIColor *)getColorOfType:(AUCColorType)colorType withBrightness:(AUCColorScale)colorBrightness andSaturation:(AUCColorScale)colorSaturation;
 
 //+ (UIColor *)getContentColorForCategory:(kAPIContentCategory)category;
 //+ (UIColor *)getContentTextColorForCategory:(kAPIContentCategory)category andState:(UIControlState)state;
@@ -42,11 +42,12 @@
     
 
 #pragma mark - view elements methods:  UIButton
-+ (void)setUIButton:(UIButton *)button;
+//+ (void)setUIButton:(UIButton *)button;
 + (UIButton *)getTransparentUIButton;
-+ (void)setUIButton:(UIButton *)button ofType:(AUCPriorityType)pType;
-+ (UIButton *)setButtonWithTitle:(NSString *)text ofType:(AUCPriorityType)pType;
-+ (UIButton *)setButtonWithTitle:(NSString *)text andColor:(UIColor *)bColor;
++ (UIButton *)getTransparentUIButtonWithTitle:(NSString *)title color:(AUCColorType)colorType font:(NSString *)fontFamily size:(CGFloat)fontSize;
+//+ (void)setUIButton:(UIButton *)button ofType:(AUCPriorityType)pType;
+//+ (UIButton *)setButtonWithTitle:(NSString *)text ofType:(AUCPriorityType)pType;
+//+ (UIButton *)setButtonWithTitle:(NSString *)text andColor:(UIColor *)bColor;
 
 #pragma mark - view elements methods:  UISegmentedControl
 + (void)setUISegmentedControl:(UISegmentedControl *)sControl;
@@ -57,12 +58,14 @@
 + (void)verticallyAlignTextView:(UITextView *)textView;
 
 #pragma mark - view elements methods: UITextFeild
-+ (void)setTextField:(UITextField *)textField;
-+ (void)setTextField:(UITextField *)textField ofType:(AUCPriorityType)pType;
++ (void)setTextField:(UITextField *)textField placeholder:(NSString *)phtext;
+//+ (void)setTextField:(UITextField *)textField;
+//+ (void)setTextField:(UITextField *)textField ofType:(AUCPriorityType)pType;
 
 #pragma mark - view elements methods:  UILabel
-+ (void)setUILabel:(UILabel *)label;
-+ (void)setUILabel:(UILabel *)label ofType:(AUCPriorityType)pType;
++ (UILabel *)getUILabelWithText:(NSString *)text font:(NSString *)fontFamily ofSize:(CGFloat)fontSize color:(AUCColorType)color;
+//+ (void)setUILabel:(UILabel *)label;
+//+ (void)setUILabel:(UILabel *)label ofType:(AUCPriorityType)pType;
 
 #pragma mark - view elements methods:  Navbar
 + (void)setNavbar:(UINavigationBar *)navbar;

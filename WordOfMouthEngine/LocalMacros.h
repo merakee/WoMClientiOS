@@ -34,6 +34,8 @@
 
 #define HEXCOLOR(c) [UIColor colorWithRed : ((c>>24)&0xFF)/255.0 green : ((c>>16)&0xFF)/255.0 blue : ((c>>8)&0xFF)/255.0 alpha : ((c)&0xFF)/255.0]
 
+#define IS_IPHONE5  [[UIScreen mainScreen] bounds].size.height == 568
+
 /* --------------------
    //usage
    CMLog(@&amp;quot;My iPhone is an %@, v %@&amp;quot;, [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]);

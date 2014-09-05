@@ -17,10 +17,8 @@
 + (void)setView:(UIView *)view{
     // set app defaults
     [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
-    // set custom textview properties
-//    [view setAccessibilityIdentifier:@"Content View"];
-//    [view setIsAccessibilityElement:YES];
-    
+    // view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:[CommonUtility adjustImageFileName:kAUCContentBackgroundImage]]];
+    view.backgroundColor = [UIColor whiteColor];
 }
 + (UIImageView *)getContentBackGroundView{
     UIImageView *contentBackGround = [[UIImageView alloc] init];
@@ -29,8 +27,8 @@
     contentBackGround.contentMode = UIViewContentModeScaleAspectFill;
     [contentBackGround setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-//    [contentBackGround setAccessibilityIdentifier:@"Content Image"];
-//    [contentBackGround setIsAccessibilityElement:YES];
+    //    [contentBackGround setAccessibilityIdentifier:@"Content Image"];
+    //    [contentBackGround setIsAccessibilityElement:YES];
     
     return contentBackGround;
 }
@@ -93,6 +91,7 @@
     
     // set up key board
     //textView.returnKeyType = UIReturnKeyDone;
+    textView.keyboardType = UIKeyboardTypeASCIICapable;
     
     textView.delegate=delegate;
     
@@ -104,22 +103,23 @@
     NSMutableParagraphStyle *paraStyle = [NSMutableParagraphStyle new];
     paraStyle.lineBreakMode = NSLineBreakByWordWrapping;
     paraStyle.alignment = NSTextAlignmentCenter;
-    paraStyle.lineSpacing = -kAUCFontSizeContentText/2.0 ;//+ 2.0;
+    paraStyle.lineSpacing = -kAUCFontSizeContentText/2.0 + 9.0;
     
     NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowOffset = CGSizeMake(2.0,2.0);
-    shadow.shadowBlurRadius = (CGFloat) 2.0;
-    shadow.shadowColor = [UIColor grayColor];
+    shadow.shadowOffset = CGSizeMake(0.0,1.0);
+    shadow.shadowBlurRadius = (CGFloat) 4.0;
+    shadow.shadowColor = [UIColor colorWithWhite:0.1 alpha:1.0];
     
     NSMutableAttributedString *atext =[[NSMutableAttributedString alloc]
                                        initWithString:text
                                        attributes:@{
-                                                    NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilyPrimary size:kAUCFontSizeContentText],
+                                                    NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeContentText],
                                                     NSForegroundColorAttributeName:[UIColor whiteColor],
                                                     NSParagraphStyleAttributeName:paraStyle,
                                                     NSStrokeColorAttributeName:[UIColor blackColor],
-                                                    NSStrokeWidthAttributeName:@-3.0,
-                                                    //NSShadowAttributeName:shadow
+                                                    //NSStrokeWidthAttributeName:@-3.0,
+                                                    NSShadowAttributeName:shadow
+                                                    // NSKernAttributeName:@1.0 // inter letter spacing
                                                     }];
     
     return atext;
@@ -159,7 +159,7 @@
     //UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" andColor:[UIColor redColor]];
     
     UIButton *button =  [AppUIManager getTransparentUIButton];
-    [button setImage:[UIImage imageNamed:kAUCSignInButtonImage] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:kAUCSignOutButtonImage] forState:UIControlStateNormal];
     //[button.titleLabel setFont:[UIFont fontWithName:kAUCFontFamilySecondary  size:kAUCFontSizeSecondary]];
     //button.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorLightTeal];
     //[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -171,20 +171,20 @@
 
 
 #pragma mark - Text label mathods
-+ (UILabel *)getTextLabelForSpreadCount{
-    UILabel *textLabel= [[UILabel alloc] init];
-    // set app defaults
-    [AppUIManager setUILabel:textLabel ofType:kAUCPriorityTypePrimary];
-    
-    return textLabel;
-}
-+ (UILabel *)getTextLabelForTimeCount{
-    UILabel *textLabel= [[UILabel alloc] init];
-    // set app defaults
-    [AppUIManager setUILabel:textLabel ofType:kAUCPriorityTypeSecondary];
-    
-    return textLabel;
-}
+//+ (UILabel *)getTextLabelForSpreadCount{
+//    UILabel *textLabel= [[UILabel alloc] init];
+//    // set app defaults
+//    [AppUIManager setUILabel:textLabel ofType:kAUCPriorityTypePrimary];
+//
+//    return textLabel;
+//}
+//+ (UILabel *)getTextLabelForTimeCount{
+//    UILabel *textLabel= [[UILabel alloc] init];
+//    // set app defaults
+//    [AppUIManager setUILabel:textLabel ofType:kAUCPriorityTypeSecondary];
+//
+//    return textLabel;
+//}
 
 #pragma mark -  View Helper Methods: ProgressViewb
 + (CVCircleCounterView *)getCounterViewWithDelegate:(id)delegate{
@@ -208,4 +208,56 @@
     
     return circleView;
 }
+
+#pragma mark - Animation
++ (void)animateButtonWithSlideUpAndReturn:(UIButton *)button  withFinalAction:(void (^)())action{
+    //NSLog(@"UP called: %f", button.center.y);
+    float durantion1 = 0.3;
+    float durantion2 = 0.3;
+    CGPoint final = button.center;
+    CGPoint middle =final;
+    middle.y = middle.y-60;
+    
+    [AppAnimationManager slideView:(UIView *)button
+                      fromLocation:final
+                           through:middle
+                          duration:durantion1
+                                to:final
+                          duration:durantion2
+                   withFinalAction:action];
+    
+}
++ (void)animateButtonWithSlideFromDown:(UIButton *)button   withFinalAction:(void (^)())action{
+    //NSLog(@"Down with us called: %f", button.center.y);
+    float durantion =0.4;
+    CGPoint final = button.center;
+    CGPoint start = final;
+    start.y=[CommonUtility getScreenHeight]+button.frame.size.height;
+    
+    [AppAnimationManager slideView:(UIView *)button
+                      fromLocation:start
+                                to:final
+                       andDuration:durantion
+                   withFinalAction:action];
+    
+}
++ (void)animateButtonWithSlideFromDownAndUpShoot:(UIButton *)button   withFinalAction:(void (^)())action{
+    //NSLog(@"Down with us called: %f", button.center.y);
+    float durantion1 = 0.3;
+    float durantion2 = 0.1;
+    CGPoint final = button.center;
+    CGPoint start = final;
+    start.y=[CommonUtility getScreenHeight]+button.frame.size.height;
+    CGPoint middle =final;
+    middle.y = middle.y-20;
+    
+    [AppAnimationManager slideView:(UIView *)button
+                      fromLocation:start
+                           through:middle
+                          duration:durantion1
+                                to:final
+                          duration:durantion2
+                   withFinalAction:action];
+}
+
 @end

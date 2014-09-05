@@ -20,7 +20,7 @@
         self.tabBarItem = [[UITabBarItem alloc]
                            initWithTitle:@"Settings"
                            image:nil//[UIImage imageNamed:kAUCCoreFunctionTabbarImageSettings]
-                           tag:kCFVTabbarIndexSettings];
+                           tag:0];//kCFVTabbarIndexSettings];
         
         // set color
         //[CommonViewElementManager setTableViewBackGroundColor:self.tableView];

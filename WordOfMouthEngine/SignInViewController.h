@@ -15,12 +15,13 @@
     //UIButton           *twitterButton;
     UIButton             *signInButton;
     UIButton             *signUpButton;
-    
     UIButton             *signInAsGuestButton;
+    
     UIActivityIndicatorView *activityIndicator;
     
+    //UILabel              *pageLabel;
     UIImageView        *appLogoView;
-    UIImageView        *buttonsView;
+    //UIImageView        *buttonsView;
 }
 
 @end

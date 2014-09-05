@@ -110,7 +110,7 @@
     composeViewNavigationController.tabBarItem = [[UITabBarItem alloc]
                                                   initWithTitle:@"Compose"
                                                   image:nil//[UIImage imageNamed:kAUCCoreFunctionTabbarImageCompose]
-                                                  tag:kCFVTabbarIndexCompose];
+                                                  tag:0];//kCFVTabbarIndexCompose];
     
     [AppUIManager setNavbar:composeViewController.navigationController.navigationBar];
     
@@ -126,10 +126,10 @@
     
     // set tabs: create tabbar view controller
     NSMutableArray *viewControllersArray =[[NSMutableArray alloc] init];
-    [viewControllersArray insertObject:contentViewController atIndex:kCFVTabbarIndexContent];
-    [viewControllersArray insertObject:composeViewNavigationController atIndex:kCFVTabbarIndexCompose];
+    //[viewControllersArray insertObject:contentViewController atIndex:kCFVTabbarIndexContent];
+    //[viewControllersArray insertObject:composeViewNavigationController atIndex:kCFVTabbarIndexCompose];
     //[viewControllersArray insertObject:historyViewController atIndex:kCFVTabbarIndexHistory];
-    [viewControllersArray insertObject:profileViewController atIndex:kCFVTabbarIndexProfile];
+    //[viewControllersArray insertObject:profileViewController atIndex:kCFVTabbarIndexProfile];
     //[viewControllersArray insertObject:settingsViewController atIndex:kCFVTabbarIndexSettings];
     [self setViewControllers:viewControllersArray animated:YES];
     

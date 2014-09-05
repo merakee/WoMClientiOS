@@ -19,7 +19,7 @@
         self.tabBarItem = [[UITabBarItem alloc]
                            initWithTitle:@"History"
                            image:nil//[UIImage imageNamed:kAUCCoreFunctionTabbarImageHistory]
-                           tag:kCFVTabbarIndexHistory];
+                           tag:0];//kCFVTabbarIndexHistory];
         
         // set color
         //[CommonViewElementManager setTableViewBackGroundColor:self.tableView];

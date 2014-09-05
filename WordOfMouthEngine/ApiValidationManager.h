@@ -12,8 +12,8 @@
 #import "ApiErrorManager.h"
 
 static const int kAPIValidationPasswordMinLentgh = 8;
-static const int kAPIValidationContentMinLentgh = 2;
-static const int kAPIValidationContentMaxLentgh = 530;
+static const int kAPIValidationContentMinLength = 1;
+static const int kAPIValidationContentMaxLength = 200;
 
 @interface ApiValidationManager : NSObject
 

@@ -23,7 +23,7 @@
         self.tabBarItem = [[UITabBarItem alloc]
                            initWithTitle:@"Profile"
                            image:nil//[UIImage imageNamed:kAUCCoreFunctionTabbarImageProfile]
-                           tag:kCFVTabbarIndexProfile];
+                           tag:0];//kCFVTabbarIndexProfile];
         
         // set up info list
         [self setAllInfo];

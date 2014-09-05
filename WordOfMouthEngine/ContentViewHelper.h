@@ -10,14 +10,16 @@
 #import "AppUIManager.h"
 #import "CVCircleDownCounter.h"
 #import "ContentManager.h"
+#import "AppAnimationManager.h"
 
 // images
-static NSString *kAUCSpreadButtonImage =@"spread.png";
-static NSString *kAUCKillButtonImage =@"kill.png";
-static NSString *kAUCComposeButtonImage =@"newtopic_btn.png";
-static NSString *kAUCSignInButtonImage =@"wom_content_signInButton.png";
-static NSString *kAUCSignOutButtonImage =@"wom_content_signOutButton.png";
-static NSString *kAUCPageLogoImage =@"nav_logo.png";
+static NSString *kAUCSpreadButtonImage =@"spread-btn.png";
+static NSString *kAUCKillButtonImage =@"kill-btn.png";
+static NSString *kAUCComposeButtonImage =@"newtopic-btn.png";
+static NSString *kAUCSignOutButtonImage =@"signout-nav-btn.png";
+static NSString *kAUCPageLogoImage =@"logo-nav.png";
+
+//static NSString *  kAUCContentBackgroundImage = @"content";
 
 @interface ContentViewHelper : NSObject
 
@@ -44,9 +46,14 @@ static NSString *kAUCPageLogoImage =@"nav_logo.png";
 + (UIButton *)getSignInOutButton;
 
 #pragma mark - Text label mathods
-+ (UILabel *)getTextLabelForSpreadCount;
-+ (UILabel *)getTextLabelForTimeCount;
+//+ (UILabel *)getTextLabelForSpreadCount;
+//+ (UILabel *)getTextLabelForTimeCount;
 
 #pragma mark -  View Helper Methods: ProgressView
 + (CVCircleCounterView *)getCounterViewWithDelegate:(id)delegate;
+
+#pragma mark - Animation
++ (void)animateButtonWithSlideUpAndReturn:(UIButton *)button  withFinalAction:(void (^)())action;
++ (void)animateButtonWithSlideFromDown:(UIButton *)button  withFinalAction:(void (^)())action;
++ (void)animateButtonWithSlideFromDownAndUpShoot:(UIButton *)button  withFinalAction:(void (^)())action;
 @end

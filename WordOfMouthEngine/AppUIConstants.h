@@ -46,43 +46,52 @@
 // color definitions
 //const static float kAUCHuePrimary = 36.0/360.0; // 42, 136, 216
 //const static float kAUCHuePrimary = 25.0/360.0; // 42, 136, 216, 25 orange
-const static float kAUCHuePrimary = 200.0/360.0;
-const static float kAUCHueSecondary = 200.0/360.0;// 192 - kAUCHuePrimary+0.5-24.0/360.0;
-const static float kAUCHueTertiary = 136.0/360.0;//kAUCHuePrimary+0.5+45.0/360.0;
-const static float kAUCHueGray = 200.0/360.0;
+//const static float kAUCHuePrimary = 200.0/360.0;
+//const static float kAUCHueSecondary = 200.0/360.0;// 192 - kAUCHuePrimary+0.5-24.0/360.0;
+//const static float kAUCHueTertiary = 136.0/360.0;//kAUCHuePrimary+0.5+45.0/360.0;
+//const static float kAUCHueGray = 200.0/360.0;
 
 //const static float kAUCColorPrimary[4] = {kAUCHuePrimary,0.8,1.0,1.0};
-const static float kAUCColorPrimary[4] = {kAUCHuePrimary,0.8,1.0,1.0};
-const static float kAUCColorSecondary[4] = {kAUCHueSecondary,0.8,1.0,1.0};
-const static float kAUCColorTertiary[4] = {kAUCHueTertiary,1.0,0.8,1.0};
+const static float kAUCColorPrimary[4] = {176.0/360.0, 0.860, 0.770, 1.0};//{kAUCHuePrimary,0.8,1.0,1.0};
+const static float kAUCColorSecondary[4] ={180.0/360.0, 0.710, 39.0, 1.0} ;//{kAUCHueSecondary,0.8,1.0,1.0};
+const static float kAUCColorTertiary[4] = {179.0/360.0, 0.940 , 0.91, 1.0};//{kAUCHueTertiary,1.0,0.8,1.0};
+const static float kAUCColorQuaternary[4] = {0.0/360.0, 0.0, 0.96, 1.0};
+const static float kAUCColorQuinary[4] = {0.0/360.0, 0.0, 0.93, 1.0};
 
-//const static float kAUCColorGray[4] = {kAUCHueGray,0.1,0.9,1.0};
+const static float kAUCColorTextPrimary[4] = {176.0/360.0, 0.860, 0.770, 1.0};//{kAUCHuePrimary,0.8,1.0,1.0};
+const static float kAUCColorTextSecondary[4] ={0.0/360.0, 0.0, 1.00, 1.0} ;//{kAUCHueSecondary,0.8,1.0,1.0};
+const static float kAUCColorTextTertiary[4] = {0.0/360.0, 0.0, 0.80, 1.0};//{kAUCHueTertiary,1.0,0.8,1.0};
+const static float kAUCColorTextQuaternary[4] = {0.0/360.0, 0.0, 1.00, 0.55};
+const static float kAUCColorTextQuinary[4] = {0.0/360.0, 0.0, 0.55, 1.0};
 
-const static float kAUCColorBackground[4] = {kAUCHueGray,0.03,0.95,1.0};
 
-const static float kAUCColorTint[4] = {kAUCHuePrimary,0.0,1.0,1.0};//{kAUCHuePrimary,0.8,1.0,1.0};
-const static float kAUCColorTintSelected[4] = {kAUCHuePrimary,1.0,0.7,1.0};//{kAUCHueSecondary,1.0,1.0,1.0};
-const static float kAUCColorTintUnselected[4] = {kAUCHuePrimary,0.8,1.0,1.0};//{kAUCHuePrimary,0.0,1.0,1.0};
-
-const static float kAUCColorTextPrimary[4] = {kAUCHuePrimary,1.0,0.3,1.0};
-const static float kAUCColorTextPrimaryLight[4] = {kAUCHuePrimary,0.0,1.0,1.0};
-const static float kAUCColorTextSecondary[4] = {kAUCHueSecondary,1.0,1.0,1.0};
-const static float kAUCColorTextTertiary[4] = {kAUCHueTertiary,1.0,1.0,1.0};
-
-const static float kAUCColorContentNews[4] = {200.0/360.0,0.2,1.0,1.0};
-const static float kAUCColorContentSecret[4] = {32.0,0.2,1.0,1.0};
-const static float kAUCColorContentRumor[4] = {280.0/360.0,0.2,1.0,1.0};
-const static float kAUCColorContentLocalInfo[4] = {110.0/360.0,0.2,1.0,1.0};
-const static float kAUCColorContentOther[4] = {0.0/360.0,0.0,1.0,1.0};
-
-const static float kAUCColorScaleFactor=0.2;
-
-// colors - version 1
-const static float kAUCColorBrandTeal[4]={ 176.0/360.0, 0.77,0.76,1.0};
-const static float kAUCColorLightTeal[4]={  179.0/360.0, 0.81 , 0.91,1.0};
-const static float kAUCColorDarkTeal[4]={  180.0/360.0, 0.71, 0.39,1.0};
-const static float kAUCColorTextTeal[4]={  177.0/360.0, 0.86, 0.86, 1.0};
-const static float kAUCColorGray[4]={0.0, 0.0, 0.96, 1.0};
+////const static float kAUCColorGray[4] = {kAUCHueGray,0.1,0.9,1.0};
+//
+//const static float kAUCColorBackground[4] = {kAUCHueGray,0.03,0.95,1.0};
+//
+//const static float kAUCColorTint[4] = {kAUCHuePrimary,0.0,1.0,1.0};//{kAUCHuePrimary,0.8,1.0,1.0};
+//const static float kAUCColorTintSelected[4] = {kAUCHuePrimary,1.0,0.7,1.0};//{kAUCHueSecondary,1.0,1.0,1.0};
+//const static float kAUCColorTintUnselected[4] = {kAUCHuePrimary,0.8,1.0,1.0};//{kAUCHuePrimary,0.0,1.0,1.0};
+//
+//const static float kAUCColorTextPrimary[4] = {kAUCHuePrimary,1.0,0.3,1.0};
+//const static float kAUCColorTextPrimaryLight[4] = {kAUCHuePrimary,0.0,1.0,1.0};
+//const static float kAUCColorTextSecondary[4] = {kAUCHueSecondary,1.0,1.0,1.0};
+//const static float kAUCColorTextTertiary[4] = {kAUCHueTertiary,1.0,1.0,1.0};
+//
+//const static float kAUCColorContentNews[4] = {200.0/360.0,0.2,1.0,1.0};
+//const static float kAUCColorContentSecret[4] = {32.0,0.2,1.0,1.0};
+//const static float kAUCColorContentRumor[4] = {280.0/360.0,0.2,1.0,1.0};
+//const static float kAUCColorContentLocalInfo[4] = {110.0/360.0,0.2,1.0,1.0};
+//const static float kAUCColorContentOther[4] = {0.0/360.0,0.0,1.0,1.0};
+//
+//const static float kAUCColorScaleFactor=0.2;
+//
+//// colors - version 1
+//const static float kAUCColorBrandTeal[4]={ 176.0/360.0, 0.77,0.76,1.0};
+//const static float kAUCColorLightTeal[4]={  179.0/360.0, 0.81 , 0.91,1.0};
+//const static float kAUCColorDarkTeal[4]={  180.0/360.0, 0.71, 0.39,1.0};
+//const static float kAUCColorTextTeal[4]={  177.0/360.0, 0.86, 0.86, 1.0};
+//const static float kAUCColorGray[4]={0.0, 0.0, 0.96, 1.0};
 
 //----------------------------------
 // Typography
@@ -98,17 +107,24 @@ const static float kAUCColorGray[4]={0.0, 0.0, 0.96, 1.0};
  Utility: UtilityBoldCondensed
  */
 
-static NSString * kAUCFontFamilyPrimary = @"FiraSans-Bold";   //@"HelveticaNeue-Light";
-static NSString * kAUCFontFamilySecondary  = @"UtilityBoldCondensed";   //@"HelveticaNeue-Light";
-static NSString * kAUCFontFamilyTertiary  = @"UtilityBoldCondensed"; //@"HelveticaNeue-Light";
+static NSString * kAUCFontFamilyPrimary = @"Utility";//@"FiraSans-Bold";   //@"HelveticaNeue-Light";
+static NSString * kAUCFontFamilySecondary  = @"GillSans";//@"UtilityBoldCondensed";   //@"HelveticaNeue-Light";
+
+//static NSString * kAUCFontFamilyTertiary  = @"GillSans";//@"UtilityBoldCondensed"; //@"HelveticaNeue-Light";
 
 // Text font size
 const static CGFloat kAUCFontSizePrimary = 36.0;
 const static CGFloat kAUCFontSizeSecondary = 32.0;
 const static CGFloat kAUCFontSizeTertiary = 20.0;
 
-const static CGFloat kAUCFontSizeTextField = 32.0;
-const static CGFloat kAUCFontSizeContentText = 26.0;
+const static CGFloat kAUCFontSizePageLabel =57.0;// 114;
+const static CGFloat kAUCFontSizeButtonNormal =27.0;// 54;
+const static CGFloat kAUCFontSizeButtonLarge =44.0;// 88;
+const static CGFloat kAUCFontSizeButtonSmall =18.0;// 32;
+
+const static CGFloat kAUCFontSizeTextField = 24.0;
+const static CGFloat kAUCFontSizeContentText = 24.0;//42px;
+const static CGFloat kAUCFontSizeComposeText = 22.0;//36px;
 
 // Other style
 const static float kAUCRectCornerRadius = 4.0;
@@ -143,26 +159,24 @@ typedef enum {
     kAUCColorTypePrimary=0,
     kAUCColorTypeSecondary,
     kAUCColorTypeTertiary,
-    kAUCColorTypeGray,
-    kAUCColorTypeBackground,
-    kAUCColorTypeTint,
-    kAUCColorTypeTintSelected,
-    kAUCColorTypeTintUnselected,
+    kAUCColorTypeQuaternary,
+    kAUCColorTypeQuinary,
     kAUCColorTypeTextPrimary,
-    kAUCColorTypeTextPrimaryLight,
     kAUCColorTypeTextSecondary,
-    kAUCColorTypeTextTertiary
+    kAUCColorTypeTextTertiary,
+    kAUCColorTypeTextQuaternary,
+    kAUCColorTypeTextQuinary,
 } AUCColorType;
 
-typedef enum {
-    kAUCColorScaleNormal=0,
-    kAUCColorScaleLight,
-    kAUCColorScaleDark,
-    kAUCColorScaleLighter,
-    kAUCColorScaleDarker,
-    kAUCColorScaleLightest,
-    kAUCColorScaleDarkest
-} AUCColorScale;
+//typedef enum {
+//    kAUCColorScaleNormal=0,
+//    kAUCColorScaleLight,
+//    kAUCColorScaleDark,
+//    kAUCColorScaleLighter,
+//    kAUCColorScaleDarker,
+//    kAUCColorScaleLightest,
+//    kAUCColorScaleDarkest
+//} AUCColorScale;
 
 typedef enum {
     kAUCPriorityTypePrimary=0,
@@ -170,15 +184,20 @@ typedef enum {
     kAUCPriorityTypeTertiary,
 } AUCPriorityType;
 
+//typedef enum {
+//    kAUCFontFamilyTypePrimary=0,
+//    kAUCFontFamilyTypeSecondary,
+//} AUCFontFamilyType;
 
-// Core function tabbar
-typedef enum {
-    kCFVTabbarIndexContent=0,
-    kCFVTabbarIndexCompose,
-    kCFVTabbarIndexProfile,
-    kCFVTabbarIndexHistory,
-    kCFVTabbarIndexSettings
-} CFVTabbarIndex;
+
+//// Core function tabbar
+//typedef enum {
+//    kCFVTabbarIndexContent=0,
+//    kCFVTabbarIndexCompose,
+//    kCFVTabbarIndexProfile,
+//    kCFVTabbarIndexHistory,
+//    kCFVTabbarIndexSettings
+//} CFVTabbarIndex;
 
 //-----------------
 // App constants
@@ -186,6 +205,7 @@ const static float kAUCAppContentTimerMax = 60.0;
 const static float kAUCAppContentTimerWarning = 5.0;
 
 // Commom images
+
 // SignIn Images
-static NSString *kAUCCancelButtonImage =@"cancel.png";
-static NSString *kAUCButtonMenuImage =@"menu_bubble.png";
+static NSString *kAUCCancelButtonImage =@"close-btn.png";
+static NSString *kAUCLogInButtonImage =@"login-nav-btn.png";

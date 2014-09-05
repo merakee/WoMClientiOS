@@ -17,8 +17,8 @@
 + (void)setView:(UIView *)view{
     // set app defaults
     [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
-    // set custom textview properties
-    
+    //view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:[CommonUtility adjustImageFileName:kAUCComposeBackgroundImage]]];
+    view.backgroundColor = [UIColor whiteColor];
 }
 
 #pragma mark - ImageView
@@ -34,17 +34,17 @@
 //    UISegmentedControl *sControl = [[UISegmentedControl alloc] initWithItems:[ContentManager getActiveCategoryList]];
 //    // set app defaults
 //    [AppUIManager setUISegmentedControl:sControl];
-//    
+//
 //    // set custom  properties
 //    [ComposeViewHelper  updateCategoryControl:sControl forCategory:kAPIContentCategoryOther];
 //    return sControl;
 //}
 //+ (void)updateCategoryControl:(UISegmentedControl *)sControl forCategory:(kAPIContentCategory)category{
-//    
+//
 //    if(category==kAPIContentCategoryOther){
 //        sControl.selectedSegmentIndex=-1;
 //    }
-//    
+//
 //    sControl.tintColor = [AppUIManager getContentColorForCategory:category];
 //    // selected
 //    [sControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
@@ -54,43 +54,87 @@
 //    [sControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
 //                                           [AppUIManager getContentTextColorForCategory:category andState:UIControlStateNormal]}
 //                            forState:UIControlStateNormal];
-//    
+//
 //}
+
+#pragma mark -  View Helper Methods: TextViews
++ (UILabel *)getPlaceHolderLabel{
+    UILabel *phLabel =[[UILabel alloc] init];
+    phLabel.backgroundColor = [UIColor clearColor];
+    phLabel.text=@"ADD YOUR POST";
+    phLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText];
+    phLabel.textColor =[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
+    phLabel.textAlignment = NSTextAlignmentCenter;
+    
+    phLabel.shadowColor = [UIColor whiteColor];
+    phLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    //phLabel.shadowRadius = 4.0f;
+    
+    
+    [phLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    // accessibilty
+    [phLabel setAccessibilityIdentifier:@"Place Holder Label"];
+    
+    return phLabel;
+}
 #pragma mark -  View Helper Methods: TextViews
 + (UITextView *)getComposeTextViewWithDelegate:(id)delegate{
     UITextView *textView =[[UITextView alloc] init];
     // set app defaults
-    [AppUIManager setTextView:textView ofType:kAUCPriorityTypePrimary];
+    //[AppUIManager setTextView:textView ofType:kAUCPriorityTypePrimary];
     
     // set custom textview properties
-    //textView.frame = [CommonUtility shrinkRect:kSIVNameFrame byXPoints:10 yPoints:40];  //kSIVNameFrame;
-    //textView.backgroundColor = [UIColor colorWithHue:50.0/360 saturation:0.3 brightness:1.0 alpha:1.0];
-    textView.backgroundColor = [UIColor whiteColor];
+    textView.backgroundColor = [UIColor clearColor];
+    //textView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.6];
     // textView.text=@"";
     //textView.attributedText =
-    textView.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeSecondary];
-    textView.textColor =[CommonUtility getColorFromHSBACVec:kAUCColorLightTeal];
+    //textView.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText];
+    //textView.textColor =[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
+    //textView.textColor = [UIColor   whiteColor];
     //[UIColor colorWithHue:kCRDPrimaryHue saturation:0.0 brightness:1.0 alpha:1.0];
     //textView.editable = YES;
     //textView.selectable = YES;
     textView.allowsEditingTextAttributes = NO;
     textView.dataDetectorTypes = UIDataDetectorTypeAll ;
-    //textView.textAlignment = NSTextAlignmentCenter;
+    //textView.textAlignment = NSTextAlignmentLeft;
     //textView.typingAttributes =
     // textView.linkTextAttributes =
     //textView.textContainerInset =
     
     // text shadow: use layer property (UIView)
-    //textView.layer.shadowColor = [HEXCOLOR (kCRDShadowWhiteColor) CGColor];
-    //textView.layer.shadowColor = [HEXCOLOR (kCRDTextDropShadowColor) CGColor];
-    // textView.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
-    // textView.layer.shadowOpacity = 0.6f;
-    // textView.layer.shadowRadius = 0.0f;
+    //    textView.layer.shadowColor = [UIColor blackColor].CGColor;
+    //    textView.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    //    textView.layer.shadowOpacity = 1.0f;
+    //    textView.layer.shadowRadius = 4.0f;
     
     // set up key board
     //textView.returnKeyType = UIReturnKeyDone;
     
+    // attirubtes - ios 7
+    NSMutableParagraphStyle *paraStyle = [NSMutableParagraphStyle new];
+    paraStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    paraStyle.alignment = NSTextAlignmentLeft;
+    //paraStyle.lineSpacing = -kAUCFontSizeContentText/2.0 + 9.0;
+    
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowOffset = CGSizeMake(0.0,0.0);
+    shadow.shadowBlurRadius = (CGFloat) 2.0;
+    shadow.shadowColor = [UIColor colorWithWhite:0.1 alpha:1.0];
+    
+    textView.typingAttributes = @{
+                                  NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
+                                  NSForegroundColorAttributeName:[UIColor whiteColor],
+                                  NSParagraphStyleAttributeName:paraStyle,
+                                  NSStrokeColorAttributeName:[UIColor blackColor],
+                                  //NSStrokeWidthAttributeName:@-3.0,
+                                  NSShadowAttributeName:shadow
+                                  // NSKernAttributeName:@1.0 // inter letter spacing
+                                  };
+    
+    
     textView.delegate=delegate;
+    
+    [textView setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     // accessibilty
     [textView setAccessibilityIdentifier:@"Add Text"];
@@ -99,14 +143,14 @@
 }
 
 #pragma mark - photo options view
-+ (UIView *)getPhotoOptionView{
-    UIView *view =[[UIView alloc] init ];
-    //WithFrame:CGRectMake(kPhotoOptionsViewLayout[0],kPhotoOptionsViewLayout[1],kPhotoOptionsViewLayout[2],kPhotoOptionsViewLayout[3])];
-    //view.backgroundColor = [UIColor whiteColor];
-    [view addSubview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:kAUCCameraOptionsImage]]];
-    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
-    return view;
-}
+//+ (UIView *)getPhotoOptionView{
+//    UIView *view =[[UIView alloc] init ];
+//    //WithFrame:CGRectMake(kPhotoOptionsViewLayout[0],kPhotoOptionsViewLayout[1],kPhotoOptionsViewLayout[2],kPhotoOptionsViewLayout[3])];
+//    //view.backgroundColor = [UIColor whiteColor];
+//    [view addSubview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:kAUCCameraOptionsImage]]];
+//    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    return view;
+//}
 + (UIButton *)getCameraButton{
     // return [AppUIManager setButtonWithTitle:@"camera" ofType:kAUCPriorityTypePrimary];
     UIButton *button =  [AppUIManager getTransparentUIButton];
@@ -135,8 +179,16 @@
     return button;
 }
 + (UIButton *)getPostButton{
+    //    UIButton *button =[AppUIManager getTransparentUIButtonWithTitle:@"Post"
+    //                                                              color:kAUCColorTypeTextSecondary
+    //                                                               font:kAUCFontFamilyPrimary
+    //                                                               size:kAUCFontSizeButtonNormal];
+    //    [button setTitleColor:[AppUIManager getColorOfType:kAUCColorTypeTextQuaternary] forState:UIControlStateDisabled];
+    
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCPostButtonImage] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:kAUCPostInactiveButtonImage] forState:UIControlStateDisabled];
+    
     [button setAccessibilityIdentifier:@"Post"];
     return button;
 }

@@ -22,7 +22,7 @@
         self.tabBarItem = [[UITabBarItem alloc]
                            initWithTitle:@"WoM"
                            image:nil//[UIImage imageNamed:kAUCCoreFunctionTabbarImageContent]
-                           tag:kCFVTabbarIndexContent];
+                           tag:0];//kCFVTabbarIndexContent];
         
         // set color
         //[CommonViewElementManager setTableViewBackGroundColor:self.tableView];
@@ -80,6 +80,9 @@
     // update sign in button title
     [self updateSignInOutButtonTitle];
     
+    // rest button active flag
+    isPostActionActive = NO;
+    
     // add observer for text view
     //[contentTextView  addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
 }
@@ -119,16 +122,16 @@
 
 #pragma mark - Text View Observer
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-//    UITextView *txtview = object;
-//    
-//    NSLog(@"Observer called....Text view size: %f, content size: %f",[txtview bounds].size.height,[txtview contentSize].height);
-//
-//    CGFloat topoffset = ([txtview bounds].size.height - [txtview contentSize].height * [txtview zoomScale])/2.0;
-//    topoffset = ( topoffset < 0.0 ? 0.0 : topoffset );
-//    txtview.contentOffset = (CGPoint){.x = 0, .y = -topoffset};
-//    
-//    NSLog(@"Observer called....Text view size: %f, content size: %f",[txtview bounds].size.height,[txtview contentSize].height);
-//    NSLog(@"Observer called....Text view size: %f, content size: %f",[contentTextView bounds].size.height,[txtview contentSize].height);
+    //    UITextView *txtview = object;
+    //
+    //    NSLog(@"Observer called....Text view size: %f, content size: %f",[txtview bounds].size.height,[txtview contentSize].height);
+    //
+    //    CGFloat topoffset = ([txtview bounds].size.height - [txtview contentSize].height * [txtview zoomScale])/2.0;
+    //    topoffset = ( topoffset < 0.0 ? 0.0 : topoffset );
+    //    txtview.contentOffset = (CGPoint){.x = 0, .y = -topoffset};
+    //
+    //    NSLog(@"Observer called....Text view size: %f, content size: %f",[txtview bounds].size.height,[txtview contentSize].height);
+    //    NSLog(@"Observer called....Text view size: %f, content size: %f",[contentTextView bounds].size.height,[txtview contentSize].height);
 }
 
 #pragma mark -  Content Display method
@@ -142,7 +145,7 @@
                                                 // Analytics: Flurry
                                                 [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:nil];
                                                 currentContent=content;
-                                                [self updateViewWithNewContent];
+                                                [self animationButtonsForContentUpdate];
                                             }
                                             failure:^(ApiContent *content) {
                                                 // Analytics: Flurry
@@ -155,14 +158,32 @@
     [Flurry logEvent:[FlurryManager getEventName:kFAContentEach] withParameters:nil timed:YES];
     
 }
+- (void)animationButtonsForContentUpdate{
+    // add animation: button
+    [ContentViewHelper animateButtonWithSlideFromDownAndUpShoot:spreadButton withFinalAction:^(){
+    }];
+    [ContentViewHelper animateButtonWithSlideFromDownAndUpShoot:killButton withFinalAction:^(){
+        [self updateViewWithNewContent];
+    }];
+    [ContentViewHelper animateButtonWithSlideFromDown:composeButton withFinalAction:^(){
+    }];
+    
+}
 - (void)updateViewWithNewContent{
+    // post is done
+    isPostActionActive=NO;
+    [self.view layoutIfNeeded];
+    
     //[ApiContent printContentInfo:currentContent];
     // change category color
-    [ContentViewHelper updateContentBackGroundView:contentBackGround forCategory:(kAPIContentCategory)currentContent.categoryId];
+    //[ContentViewHelper updateContentBackGroundView:contentBackGround forCategory:(kAPIContentCategory)currentContent.categoryId];
+    
+
     
     // set text
     //contentTextView.text = currentContent.contentText;
-    contentTextView.attributedText = [ContentViewHelper getAttributedText:currentContent.contentText];
+    //contentTextView.attributedText = [ContentViewHelper getAttributedText:currentContent.contentText];
+    contentTextView.attributedText = [ContentViewHelper getAttributedText:@"Put a bird on it +1 Helvetica, iPhone quinoa Kickstarter Blue Bottle tote bag McSweeney's Carles wayfarers. McSweeney's trust fund biodiesel actually, next level squid keffiyeh Williamsburg ennui semiotics Helvetica authentic. Selfies Etsy umami, narwhal chillwave Williamsburg small batch "];
     
     
     UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
@@ -220,6 +241,7 @@
     [self.view addSubview:killButton];
     [self.view addSubview:composeButton];
     [self.view addSubview:signInOutButton];
+    signInOutButton.hidden=YES;
     //
     //    // set Textlabels and progress view
     //    spreadCount = [ContentViewHelper getTextLabelForSpreadCount];
@@ -250,37 +272,22 @@
 
 - (void)layoutView{
     // all view elements
-    //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(userImage, spreadCount,contentTextView, spreadButton,killButton,contentBackGround,progressCounter);
-    
-    
-    
-    // top row : user image and labels
-    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[userImage(36)]-34-[spreadCount(>=100)]-20-[progressCounter(36)]-|"
-    //                                                                 options:0 metrics:nil views:viewsDictionary]];
-    
-    //    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[userImage(36)]"
-    //                                                                                    options:0 metrics:nil views:viewsDictionary]];
-    //
-    //    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[spreadCount(36)]"
-    //                                                                                    options:0 metrics:nil views:viewsDictionary]];
-    //
-    //    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[progressCounter(36)]"
-    //                                                                                    options:0 metrics:nil views:viewsDictionary]];
-    
-    //[self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[progressClock(36)]"
-    //                                                                           options:0 metrics:nil views:viewsDictionary]];
-    
-    // NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround);
-    
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround,spreadButton,killButton,composeButton,signInOutButton,pageLogo);
+    //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround,spreadButton,killButton,composeButton,signInOutButton);
     
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLogo(42)]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[pageLogo(42)][signInOutButton]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLogo(40)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:pageLogo inView:self.view];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInOutButton(40)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [AppUIManager horizontallyCenterElement:signInOutButton inView:self.view];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[pageLogo(35)]-4-[signInOutButton(40)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[pageLogo(35)]-20-[contentTextView]-24-[spreadButton]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     
     // text view
@@ -291,56 +298,25 @@
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[contentTextView]-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[contentTextView]-16-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    
-    //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[contentTextView(>=100)]-|"
-    //                                                                     options:0 metrics:nil views:viewsDictionary]];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signInOutButton]-5-[contentTextView]-5-[spreadButton]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    
-    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadCount]-[contentBackGround]-10-[killButton]"
-    //                                                                options:0 metrics:nil views:viewsDictionary]];
-    
-    
-    
-    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[contentTextView(>=100)]-|"
-    //                                                                 options:0 metrics:nil views:viewsDictionary]];
-    
-    
     
     // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[spreadButton(70)]-16-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[spreadButton(72)]-16-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[killButton(spreadButton)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[composeButton(58)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[composeButton(55)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    // Center
     [AppUIManager horizontallyCenterElement:composeButton inView:self.view];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInOutButton(110)]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    
-    // Center
-    // Center
-    [AppUIManager horizontallyCenterElement:signInOutButton inView:self.view];
-    
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadButton(72)]-30-|"
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadButton(72)]-42-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[killButton(spreadButton)]-30-|"
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[killButton(spreadButton)]-42-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[composeButton(59)]-5-|"
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[composeButton(55)]-14-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
-    
-    
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signInOutButton(111)]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
     
 }
 
@@ -389,7 +365,7 @@
     // left navigation button
     if([[ApiManager sharedApiManager] isAnonymousUser]){
         //self.navigationItem.leftBarButtonItem.title = @"Sign In";
-        [signInOutButton setImage:[UIImage imageNamed:kAUCSignInButtonImage] forState:UIControlStateNormal];
+        [signInOutButton setImage:[UIImage imageNamed:kAUCLogInButtonImage] forState:UIControlStateNormal];
     }
     else{
         //self.navigationItem.leftBarButtonItem.title =@"Sign Out";
@@ -399,12 +375,11 @@
 
 #pragma mark - Gesture Recognizers Action Methods
 - (void)swipeLeft:(id)sender{
-    [self postResponse:false];
+    [self killButtonPressed:nil];
 }
 
 - (void)swipeRight:(id)sender{
-    [self postResponse:true];
-    
+    [self spreadButtonPressed:nil];
 }
 #pragma mark - Button Action Methods
 - (void)goToAddContentView:(id)sender {
@@ -438,19 +413,36 @@
 
 #pragma mark - user_response methods
 - (void) spreadButtonPressed:(id)sender {
+    if(isPostActionActive){
+        return;
+    }
+    isPostActionActive=YES;
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAContentSpread]];
     [self AddContentEachAnalytics:@"Spread"];
+    // animate button
+    [ContentViewHelper animateButtonWithSlideUpAndReturn:spreadButton
+                                         withFinalAction:^(){
+                                             [self postResponse:true];
+                                         }];
     
-    [self postResponse:true];
+    
     
 }
 - (void) killButtonPressed:(id)sender {
+    if(isPostActionActive){
+        return;
+    }
+    isPostActionActive=YES;
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAContentKill]];
     [self AddContentEachAnalytics:@"Kill"];
     
-    [self postResponse:false];
+    // animate button
+    [ContentViewHelper animateButtonWithSlideUpAndReturn:killButton
+                                         withFinalAction:^(){
+                                             [self postResponse:false];
+                                         }];
 }
 
 - (void)AddContentEachAnalytics:(NSString *)type{

@@ -21,6 +21,7 @@
     UIButton           *killButton;
     UIButton           *composeButton;
     UIButton           *signInOutButton;
+    BOOL               isPostActionActive;
     
     UIImageView         *pageLogo;
     
@@ -28,6 +29,7 @@
     //UILabel             *spreadCount;
     
     UIActivityIndicatorView *activityIndicator;
+
     
     // circular timer
     // CVCircularProgressView      *progressClock;
