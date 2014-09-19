@@ -123,7 +123,7 @@
 
 #pragma mark -  Image picker Set up and dismissal
 - (void)presentImagePickerForiPhone:(UIImagePickerController *)imagePickerController {
-    [self.viewController presentViewController:imagePickerController animated: YES completion:nil];
+    [self.viewController presentViewController:imagePickerController animated:YES completion:nil];
 }
 - (void)presentImagePickerForiPad:(UIImagePickerController *)imagePickerController {
     popoverController = [[UIPopoverController alloc] initWithContentViewController:imagePickerController];

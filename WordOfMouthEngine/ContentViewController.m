@@ -12,6 +12,7 @@
 #import "ApiManager.h"
 #import "AppDelegate.h"
 #import "FlurryManager.h"
+#import "SignInAndOutViewController.h"
 
 @implementation ContentViewController
 
@@ -51,16 +52,14 @@
 }
 
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     // full screen view
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload{
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -77,17 +76,15 @@
     // hide navigation bar
     [self.navigationController setNavigationBarHidden:YES];
     
-    // update sign in button title
-    [self updateSignInOutButtonTitle];
-    
     // rest button active flag
-    isPostActionActive = NO;
+    isAnimationActive = NO;
     
     // add observer for text view
     //[contentTextView  addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAContentSession] withParameters:nil timed:YES];
     
@@ -96,6 +93,7 @@
     
 }
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     // Analytics: Flurry
     [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentSession] withParameters:nil];
     // Analytics: Flurry
@@ -104,7 +102,7 @@
     // remove observer for text view
     //[contentTextView removeObserver:self forKeyPath:@"contentSize"];
     
-    [super viewWillDisappear:animated];
+
 }
 
 - (BOOL)shouldAutorotate{
@@ -159,6 +157,7 @@
     
 }
 - (void)animationButtonsForContentUpdate{
+    isAnimationActive=YES;
     // add animation: button
     [ContentViewHelper animateButtonWithSlideFromDownAndUpShoot:spreadButton withFinalAction:^(){
     }];
@@ -171,19 +170,19 @@
 }
 - (void)updateViewWithNewContent{
     // post is done
-    isPostActionActive=NO;
+    isAnimationActive=NO;
     [self.view layoutIfNeeded];
     
     //[ApiContent printContentInfo:currentContent];
     // change category color
     //[ContentViewHelper updateContentBackGroundView:contentBackGround forCategory:(kAPIContentCategory)currentContent.categoryId];
     
-
+    
     
     // set text
     //contentTextView.text = currentContent.contentText;
-    //contentTextView.attributedText = [ContentViewHelper getAttributedText:currentContent.contentText];
-    contentTextView.attributedText = [ContentViewHelper getAttributedText:@"Put a bird on it +1 Helvetica, iPhone quinoa Kickstarter Blue Bottle tote bag McSweeney's Carles wayfarers. McSweeney's trust fund biodiesel actually, next level squid keffiyeh Williamsburg ennui semiotics Helvetica authentic. Selfies Etsy umami, narwhal chillwave Williamsburg small batch "];
+    contentTextView.attributedText = [ContentViewHelper getAttributedText:currentContent.contentText];
+    //contentTextView.attributedText = [ContentViewHelper getAttributedText:@"Put a bird on it +1 Helvetica, iPhone quinoa Kickstarter Blue Bottle tote bag McSweeney's Carles wayfarers. McSweeney's trust fund biodiesel actually, next level squid keffiyeh Williamsburg ennui semiotics Helvetica authentic. Selfies Etsy umami, narwhal chillwave Williamsburg small batch "];
     
     
     UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
@@ -224,7 +223,9 @@
     [contentBackGround addSubview:contentTextView];
     
     //page logo
-    pageLogo =[ContentViewHelper getPageLogoImageView];
+    //pageLogo =[ContentViewHelper getPageLogoImageView];
+    pageLogo =[ContentViewHelper getPageLogoButton];
+    [pageLogo addTarget:self action:@selector(pageLogoButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:pageLogo];
     
     // set buttons
@@ -234,14 +235,11 @@
     [killButton addTarget:self action:@selector(killButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     composeButton = [ContentViewHelper getComposeButton];
     [composeButton addTarget:self action:@selector(goToAddContentView:) forControlEvents:UIControlEventTouchUpInside];
-    signInOutButton = [ContentViewHelper getSignInOutButton];
-    [signInOutButton addTarget:self action:@selector(signInOutButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
     
     [self.view addSubview:spreadButton];
     [self.view addSubview:killButton];
     [self.view addSubview:composeButton];
-    [self.view addSubview:signInOutButton];
-    signInOutButton.hidden=YES;
     //
     //    // set Textlabels and progress view
     //    spreadCount = [ContentViewHelper getTextLabelForSpreadCount];
@@ -252,7 +250,6 @@
     //    // image view
     //    userImage = [ContentViewHelper getUserImageView];
     //    [self.view addSubview:userImage];
-    
     
     //activity indicator view
     activityIndicator =[[UIActivityIndicatorView alloc] init];
@@ -272,18 +269,15 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround,spreadButton,killButton,composeButton,signInOutButton,pageLogo);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround,spreadButton,killButton,composeButton,pageLogo);
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround,spreadButton,killButton,composeButton,signInOutButton);
     
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLogo(40)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:pageLogo inView:self.view];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInOutButton(40)]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [AppUIManager horizontallyCenterElement:signInOutButton inView:self.view];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[pageLogo(35)]-4-[signInOutButton(40)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[pageLogo(35)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[pageLogo(35)]-20-[contentTextView]-24-[spreadButton]"
@@ -321,23 +315,23 @@
 }
 
 - (void)setNavigationBar {
-    // set up navigation bar
-    //self.navigationItem.title = @"WoM";
-    self.navigationItem.titleView = [AppUIManager getAppLogoViewForNavTitle];
-    
-    // right navigation button
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-                                              initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
-                                              target:self
-                                              action:@selector(goToAddContentView:)];
-    [self.navigationItem.rightBarButtonItem setAccessibilityLabel:@"Compose"];
-    
-    // left navigation button
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
-                                             initWithTitle:@"Sign In"
-                                             style:UIBarButtonItemStyleDone
-                                             target:self
-                                             action:@selector(signInOutButtonPressed:)];
+//    // set up navigation bar
+//    //self.navigationItem.title = @"WoM";
+//    self.navigationItem.titleView = [AppUIManager getAppLogoViewForNavTitle];
+//    
+//    // right navigation button
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+//                                              initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
+//                                              target:self
+//                                              action:@selector(goToAddContentView:)];
+//    [self.navigationItem.rightBarButtonItem setAccessibilityLabel:@"Compose"];
+//    
+//    // left navigation button
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
+//                                             initWithTitle:@"Sign In"
+//                                             style:UIBarButtonItemStyleDone
+//                                             target:self
+//                                             action:@selector(signInOutButtonPressed:)];
     
     // set up back button for the child view
     //    self.navigationItem.backBarButtonItem =  [[UIBarButtonItem alloc]
@@ -361,18 +355,11 @@
     [[self view] addGestureRecognizer:oneFingerSwipeRight];
 }
 
-- (void)updateSignInOutButtonTitle{
-    // left navigation button
-    if([[ApiManager sharedApiManager] isAnonymousUser]){
-        //self.navigationItem.leftBarButtonItem.title = @"Sign In";
-        [signInOutButton setImage:[UIImage imageNamed:kAUCLogInButtonImage] forState:UIControlStateNormal];
-    }
-    else{
-        //self.navigationItem.leftBarButtonItem.title =@"Sign Out";
-        [signInOutButton setImage:[UIImage imageNamed:kAUCSignOutButtonImage] forState:UIControlStateNormal];
-    }
+- (void)displaySignInOutButtonView{
+    SignInAndOutViewController *siovc =[[SignInAndOutViewController alloc] init];
+    //siovc.view.bounds = self.view.bounds;
+    [self presentViewController:siovc    animated:YES completion:nil];
 }
-
 #pragma mark - Gesture Recognizers Action Methods
 - (void)swipeLeft:(id)sender{
     [self killButtonPressed:nil];
@@ -390,33 +377,16 @@
     [self.navigationController pushViewController:acvc animated:NO];
 }
 
-- (void)signInOutButtonPressed:(id)sender {
-    if(![[ApiManager sharedApiManager] isAnonymousUser]){
-        // sign out user
-        [activityIndicator startAnimating];
-        [[ApiManager sharedApiManager] signOutUserSuccess:^(void){
-            // Analytics: Flurry
-            [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignOut]];
-            [activityIndicator stopAnimating];
-            [self signedOutSuccessfully];
-        }failure:^(NSError * error){
-            [activityIndicator stopAnimating];
-            //[ApiErrorManager displayAlertWithError:error withDelegate:self];
-            // Do not display any error: just sign user out
-            [self signedOutSuccessfully];
-        }];
-    }
-    else{
-        [self signedOutSuccessfully];
-    }
+- (void)pageLogoButtonPressed:(id)sender{
+    [self displaySignInOutButtonView];
 }
 
 #pragma mark - user_response methods
 - (void) spreadButtonPressed:(id)sender {
-    if(isPostActionActive){
+    if(isAnimationActive){
         return;
     }
-    isPostActionActive=YES;
+    isAnimationActive=YES;
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAContentSpread]];
     [self AddContentEachAnalytics:@"Spread"];
@@ -430,10 +400,10 @@
     
 }
 - (void) killButtonPressed:(id)sender {
-    if(isPostActionActive){
+    if(isAnimationActive){
         return;
     }
-    isPostActionActive=YES;
+    isAnimationActive=YES;
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAContentKill]];
     [self AddContentEachAnalytics:@"Kill"];
@@ -451,11 +421,6 @@
     
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAContentEach] withParameters:nil timed:YES];
-}
-#pragma mark - Session methods
-- (void)signedOutSuccessfully{
-    // go to sign in view
-    [(AppDelegate *)[UIApplication sharedApplication].delegate  setSignInViewAsRootView];
 }
 
 #pragma mark - Post Response Method

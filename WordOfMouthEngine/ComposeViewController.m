@@ -69,10 +69,12 @@
     
 }
 - (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposeSession] withParameters:nil timed:YES];
     // display key board
     [composeTextView becomeFirstResponder];
+    [self textViewDidChange:composeTextView];
 }
 
 
@@ -277,6 +279,11 @@
 //    //    }
 //}
 
+- (void)disableKeyBoard{
+    // disable keyboard
+    [composeTextView resignFirstResponder];
+}
+
 #pragma mark - textview delegate methods
 //- (BOOL) textViewShouldBeginEditing:(UITextView *)textView{
 //    return YES;
@@ -311,6 +318,13 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    
+    // return key
+    if([text isEqualToString:@"\n"]) {
+        [self postContent:nil];
+        return NO;
+    }
+    
     long totalLength = textView.text.length - range.length + text.length;
     
     if (totalLength>kAPIValidationContentMaxLength){
@@ -322,6 +336,7 @@
 //- (void)textViewDidEndEditing:(UITextView *)textView{
 //
 //}
+
 
 #pragma mark - Button Action Methods
 - (void)postContent:(id)sender {
@@ -369,10 +384,24 @@
     //clear content
     [self clearViewAfterSuccessfulPostOrCancel];
     // display sucess
-    [CommonUtility displayAlertWithTitle:@"Post Successful"
-                                 message:@"Your content was posted sucessfully!" delegate:self];
+    //[CommonUtility displayAlertWithTitle:@"Post Successful"
+    //                           message:@"Your content was posted sucessfully!" delegate:self];
+    UIAlertView *alertView  = [[UIAlertView alloc] initWithTitle:@"Post Successful"
+                                                          message:@""
+                                                         delegate:self
+                                                cancelButtonTitle:nil
+                                                otherButtonTitles:nil];
+    
+    [alertView show];
+    
+    // dismiss autometically
+    [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:1.0];
     
 }
+-(void)dismissAlertView:(UIAlertView *)alertView{
+    [alertView dismissWithClickedButtonIndex:0 animated:YES];
+}
+
 - (void)clearViewAfterSuccessfulPostOrCancel{
     composeTextView.text=nil;
     contentImageView.image = nil;
@@ -514,7 +543,11 @@
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposeCamera]];
     //photoOptionsView.hidden = YES;
+    
+    [self disableKeyBoard];
     // start image picker for camera
+    //[AppUIManager dispatchBlock:^{[photoManager displayCamera]; } afterDelay:0.5];
+    //[photoManager performSelector:@selector(displayCamera) withObject:nil afterDelay:0.3];
     [photoManager displayCamera];
 }
 
@@ -522,7 +555,11 @@
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposeAlbum]];
     // photoOptionsView.hidden = YES;
+    
+    [self disableKeyBoard];
     // start image picker for camera
+    //[AppUIManager dispatchBlock:^{[photoManager displayPhotoLibrary]; } afterDelay:0.5];
+    //[photoManager performSelector:@selector(displayPhotoLibrary) withObject:nil afterDelay:0.3];
     [photoManager displayPhotoLibrary];
 }
 

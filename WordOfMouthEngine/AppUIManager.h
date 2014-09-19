@@ -34,6 +34,7 @@
 #pragma mark - view elements methods:  UIView
 + (void)setUIView:(UIView *)view;
 + (void)setUIView:(UIView *)view ofType:(AUCPriorityType)pType;
++ (void)addColorGradient:(NSArray *)colors toView:(UIView *)view;
 
 #pragma mark - view elements methods:  UIImageView
 + (void)setImageView:(UIImageView *)iv;
@@ -99,4 +100,7 @@
 #pragma mark  - layout methods
 + (void)horizontallyCenterElement:(UIView *)view inView:(UIView *)sview;
 + (void)verticallyCenterElement:(UIView *)view inView:(UIView *)sview;
+
+#pragma mark - Timing methods
++(void)dispatchBlock:(void (^)())action afterDelay:(double)delayInSeconds;
 @end

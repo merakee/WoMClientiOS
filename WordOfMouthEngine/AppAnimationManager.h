@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppUIConstants.h"
 
 // define all contants
 // List view animation
@@ -50,5 +51,10 @@ static const int kCustomViewAnimationDefaultRepeatCount =0;
 +(void)detachViewFromSuperViewWithFade:(UIView *)view andDuration:(float)fadeDuration;
 +(void) slideView:(UIView *)view fromLocation:(CGPoint)original to:(CGPoint)final andDuration:(float)duration withFinalAction:(void (^)())action;
 +(void) slideView:(UIView *)view fromLocation:(CGPoint)original through:(CGPoint)middle duration:(float)duration1 to:(CGPoint)final duration:(float)duration2 withFinalAction:(void (^)())action;
+
+#pragma mark - Image animation methods
++ (NSArray *)getSpreadAnimationImages;
++ (NSArray *)getKillAnimationImages;
++ (void)animateImageView:(UIImageView *)imageView withImages:(NSArray *)imageArray withRepeatCount:(NSInteger)count;
 
 @end

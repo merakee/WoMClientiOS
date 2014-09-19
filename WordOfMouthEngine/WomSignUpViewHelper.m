@@ -35,7 +35,7 @@
     textField.delegate=delegate;
     
     // set up key board
-    textField.returnKeyType = UIReturnKeyJoin;
+    textField.returnKeyType = UIReturnKeyDone;//UIReturnKeyJoin;
     textField.keyboardType = UIKeyboardTypeEmailAddress;
     
     // accessibilty
@@ -49,7 +49,7 @@
 
     
     // set up key board
-    textField.returnKeyType = UIReturnKeyJoin;
+    textField.returnKeyType = UIReturnKeyDone;//UIReturnKeyJoin;
     textField.keyboardType = UIKeyboardTypeEmailAddress;
     
     // accessibilty
@@ -63,7 +63,7 @@
     
     
     // set up key board
-    textField.returnKeyType = UIReturnKeyJoin;
+    textField.returnKeyType = UIReturnKeyDone;//UIReturnKeyJoin;
     textField.keyboardType = UIKeyboardTypeEmailAddress;
     
     // accessibilty

@@ -160,4 +160,37 @@
 }
 
 
+#pragma mark - Image animation methods
++ (NSArray *)getSpreadAnimationImages{
+    return @[[UIImage imageNamed:kAUCSpreadAnimationImage1],
+             [UIImage imageNamed:kAUCSpreadAnimationImage2],
+             [UIImage imageNamed:kAUCSpreadAnimationImage3],
+             [UIImage imageNamed:kAUCSpreadAnimationImage4],
+             [UIImage imageNamed:kAUCSpreadAnimationImage5]
+             ];
+}
++ (NSArray *)getKillAnimationImages{
+    return @[[UIImage imageNamed:kAUCKillAnimationImage1],
+             [UIImage imageNamed:kAUCKillAnimationImage2],
+             [UIImage imageNamed:kAUCKillAnimationImage3],
+             [UIImage imageNamed:kAUCKillAnimationImage4],
+             [UIImage imageNamed:kAUCKillAnimationImage5]
+             ];
+}
++ (void)startAnimatingImageView:(UIImageView *)imageView withImages:(NSArray *)imageArray duration:(NSTimeInterval)duration repeatCount:(NSInteger)count{
+    imageView.hidden=NO;
+    imageView.animationImages = imageArray;
+    imageView.animationDuration = duration;
+    imageView.animationRepeatCount = count;
+    
+    // start animation
+    [imageView startAnimating];
+}
++ (void)stopAnimatingImageView:(UIImageView *)imageView{
+    // start animation
+    [imageView stopAnimating];
+    imageView.hidden=YES;
+    imageView.animationImages = nil;
+}
+
 @end

@@ -20,10 +20,10 @@
     UIButton           *spreadButton;
     UIButton           *killButton;
     UIButton           *composeButton;
-    UIButton           *signInOutButton;
-    BOOL               isPostActionActive;
+    UIButton           *pageLogo;
+    BOOL               isAnimationActive;
     
-    UIImageView         *pageLogo;
+    //UIImageView         *pageLogo;
     
     //UIImageView         *userImage;
     //UILabel             *spreadCount;

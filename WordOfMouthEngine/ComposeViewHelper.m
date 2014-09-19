@@ -18,7 +18,7 @@
     // set app defaults
     [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
     //view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:[CommonUtility adjustImageFileName:kAUCComposeBackgroundImage]]];
-    view.backgroundColor = [UIColor whiteColor];
+    view.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeTextQuaternary];//[UIColor whiteColor];
 }
 
 #pragma mark - ImageView
@@ -63,10 +63,10 @@
     phLabel.backgroundColor = [UIColor clearColor];
     phLabel.text=@"ADD YOUR POST";
     phLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText];
-    phLabel.textColor =[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
+    phLabel.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
     phLabel.textAlignment = NSTextAlignmentCenter;
     
-    phLabel.shadowColor = [UIColor whiteColor];
+    phLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];//[UIColor whiteColor];
     phLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
     //phLabel.shadowRadius = 4.0f;
     
@@ -108,16 +108,19 @@
     //    textView.layer.shadowRadius = 4.0f;
     
     // set up key board
-    //textView.returnKeyType = UIReturnKeyDone;
+    textView.returnKeyType = UIReturnKeyDone;
+    
+    // inset for text
+    //textView.textContainerInset = UIEdgeInsetsMake(0, 0, 5.0, 0.0);
     
     // attirubtes - ios 7
     NSMutableParagraphStyle *paraStyle = [NSMutableParagraphStyle new];
     paraStyle.lineBreakMode = NSLineBreakByWordWrapping;
     paraStyle.alignment = NSTextAlignmentLeft;
-    //paraStyle.lineSpacing = -kAUCFontSizeContentText/2.0 + 9.0;
+    //paraStyle.lineSpacing = 10;// -kAUCFontSizeContentText/2.0 + 9.0;
     
     NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowOffset = CGSizeMake(0.0,0.0);
+    shadow.shadowOffset = CGSizeMake(0.0,1.0);
     shadow.shadowBlurRadius = (CGFloat) 2.0;
     shadow.shadowColor = [UIColor colorWithWhite:0.1 alpha:1.0];
     

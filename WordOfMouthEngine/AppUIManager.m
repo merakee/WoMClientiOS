@@ -58,6 +58,9 @@
         case kAUCColorTypeTextQuinary:
             color=[CommonUtility getColorFromHSBACVec:kAUCColorTextQuinary];
             break;
+        case kAUCColorTypeTextStroke:
+            color=[CommonUtility getColorFromHSBACVec:kAUCColorTextStroke];
+            break;
         default:
             color = [UIColor whiteColor];
             break;
@@ -214,6 +217,22 @@
     // add gradient
     //[AppUIManager addColorGradient:view];
 }
+
++ (void)addColorGradient:(NSArray *)colors toView:(UIView *)view{
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = view.bounds;
+    gradient.colors = colors;
+    
+    //@[(id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleLightest] CGColor],
+    // (id)[[AppUIManager getColorOfType:kAUCColorTypePrimary withBrightness:kAUCColorScaleLightest
+    //                   andSaturation:kAUCColorScaleDarkest] CGColor],
+    //                   (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleLight
+    //                                       andSaturation:kAUCColorScaleDark] CGColor],
+    // (id)[[AppUIManager getColorOfType:kAUCColorTypeBackground withBrightness:kAUCColorScaleNormal andSaturation:kAUCColorScaleLightest] CGColor]];
+    //[view.layer insertSublayer:gradient atIndex:1];
+    [view.layer addSublayer:gradient];
+}
+
 
 //+ (void)addColorGradient:(UIView *)view{
 //    CAGradientLayer *gradient = [CAGradientLayer layer];
@@ -779,5 +798,16 @@
                                                      multiplier:1.0
                                                        constant:0.0]];
 }
+
+#pragma mark - Timing methods
++(void)dispatchBlock:(void (^)())action afterDelay:(double)delayInSeconds {
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        if (action != nil){
+            action();
+        }
+    });
+}
+
 
 @end

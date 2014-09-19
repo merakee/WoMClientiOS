@@ -39,7 +39,17 @@
 + (void)updateContentBackGroundView:(UIView *)view forCategory:(kAPIContentCategory)category{
     //view.backgroundColor = [AppUIManager getContentColorForCategory:category];
 }
-
++ (void)setSignInAndOutView:(UIView *)view{
+    // set app defaults
+    [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
+    view.backgroundColor = [UIColor clearColor];
+    //view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4];
+    // add gradient
+    NSArray *colors = @[(id)[UIColor colorWithWhite:0.0 alpha:0.0].CGColor,
+                        (id)[UIColor colorWithWhite:0.0 alpha:0.4].CGColor,
+                        (id)[UIColor colorWithWhite:0.0 alpha:0.6].CGColor];
+    [AppUIManager addColorGradient:colors toView:view];
+}
 #pragma mark - View Helper Methods: Image Views
 + (UIImageView *)getUserImageView{
     UIImageView *iv =[[UIImageView alloc] init];
@@ -116,7 +126,7 @@
                                                     NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeContentText],
                                                     NSForegroundColorAttributeName:[UIColor whiteColor],
                                                     NSParagraphStyleAttributeName:paraStyle,
-                                                    NSStrokeColorAttributeName:[UIColor blackColor],
+                                                    NSStrokeColorAttributeName: [AppUIManager getColorOfType:kAUCColorTypeTextStroke],//[UIColor blackColor],
                                                     //NSStrokeWidthAttributeName:@-3.0,
                                                     NSShadowAttributeName:shadow
                                                     // NSKernAttributeName:@1.0 // inter letter spacing
@@ -154,6 +164,21 @@
     return button;
 }
 
+
+
++ (UIButton *)getPageLogoButton{
+    //UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" ofType:kAUCPriorityTypeTertiary];
+    //UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" andColor:[UIColor redColor]];
+    
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCPageLogoImage] forState:UIControlStateNormal];
+    //[button.titleLabel setFont:[UIFont fontWithName:kAUCFontFamilySecondary  size:kAUCFontSizeSecondary]];
+    //button.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorLightTeal];
+    //[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    //[button setTitle:@"Signin" forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"PageLogoButton"];
+    return button;
+}
 + (UIButton *)getSignInOutButton{
     //UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" ofType:kAUCPriorityTypeTertiary];
     //UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" andColor:[UIColor redColor]];
@@ -167,6 +192,12 @@
     [button setAccessibilityIdentifier:@"Sign In and Out"];
     return button;
 }
++ (UIButton *)getDismissButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setAccessibilityIdentifier:@"DimissButton"];
+    return button;
+}
+
 
 
 

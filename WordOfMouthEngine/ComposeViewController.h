@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ImageProcessingManager.h"
 
-@interface ComposeViewController : UIViewController<UITextViewDelegate,ImageProcessingManagerDelegate,UIActionSheetDelegate>{
+@interface ComposeViewController : UIViewController<UITextViewDelegate,ImageProcessingManagerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>{
     // UISegmentedControl *categoryControl;
     UITextView         *composeTextView;
     UIImageView        *contentImageView;

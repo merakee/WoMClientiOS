@@ -52,17 +52,18 @@
 //const static float kAUCHueGray = 200.0/360.0;
 
 //const static float kAUCColorPrimary[4] = {kAUCHuePrimary,0.8,1.0,1.0};
-const static float kAUCColorPrimary[4] = {176.0/360.0, 0.860, 0.770, 1.0};//{kAUCHuePrimary,0.8,1.0,1.0};
-const static float kAUCColorSecondary[4] ={180.0/360.0, 0.710, 39.0, 1.0} ;//{kAUCHueSecondary,0.8,1.0,1.0};
-const static float kAUCColorTertiary[4] = {179.0/360.0, 0.940 , 0.91, 1.0};//{kAUCHueTertiary,1.0,0.8,1.0};
-const static float kAUCColorQuaternary[4] = {0.0/360.0, 0.0, 0.96, 1.0};
-const static float kAUCColorQuinary[4] = {0.0/360.0, 0.0, 0.93, 1.0};
+const static float kAUCColorPrimary[4] = {176.0/360.0, 0.86, 0.770, 1.0};//{kAUCHuePrimary,0.8,1.0,1.0};
+const static float kAUCColorSecondary[4] ={180.0/360.0, 0.71, 39.0, 1.0} ;//{kAUCHueSecondary,0.8,1.0,1.0};
+const static float kAUCColorTertiary[4] = {179.0/360.0, 0.94 , 0.91, 1.0};//{kAUCHueTertiary,1.0,0.8,1.0};
+const static float kAUCColorQuaternary[4] = {0.0/360.0, 0.0, 0.94, 1.0};
+const static float kAUCColorQuinary[4] = {0.0/360.0, 0.0, 0.89, 1.0};
 
-const static float kAUCColorTextPrimary[4] = {176.0/360.0, 0.860, 0.770, 1.0};//{kAUCHuePrimary,0.8,1.0,1.0};
+const static float kAUCColorTextPrimary[4] = {176.0/360.0, 0.86, 0.77, 1.0};//{kAUCHuePrimary,0.8,1.0,1.0};
 const static float kAUCColorTextSecondary[4] ={0.0/360.0, 0.0, 1.00, 1.0} ;//{kAUCHueSecondary,0.8,1.0,1.0};
 const static float kAUCColorTextTertiary[4] = {0.0/360.0, 0.0, 0.80, 1.0};//{kAUCHueTertiary,1.0,0.8,1.0};
-const static float kAUCColorTextQuaternary[4] = {0.0/360.0, 0.0, 1.00, 0.55};
+const static float kAUCColorTextQuaternary[4] = {0.0/360.0, 0.0, .90, 1.0};
 const static float kAUCColorTextQuinary[4] = {0.0/360.0, 0.0, 0.55, 1.0};
+const static float kAUCColorTextStroke[4] = {176.0/360.0, 1.0, 0.22, 1.0};
 
 
 ////const static float kAUCColorGray[4] = {kAUCHueGray,0.1,0.9,1.0};
@@ -166,6 +167,7 @@ typedef enum {
     kAUCColorTypeTextTertiary,
     kAUCColorTypeTextQuaternary,
     kAUCColorTypeTextQuinary,
+    kAUCColorTypeTextStroke,
 } AUCColorType;
 
 //typedef enum {
@@ -209,3 +211,21 @@ const static float kAUCAppContentTimerWarning = 5.0;
 // SignIn Images
 static NSString *kAUCCancelButtonImage =@"close-btn.png";
 static NSString *kAUCLogInButtonImage =@"login-nav-btn.png";
+
+
+// Animation Images: spread 
+static NSString *kAUCSpreadAnimationImage1 =@"close-btn.png";
+static NSString *kAUCSpreadAnimationImage2 =@"close-btn.png";
+static NSString *kAUCSpreadAnimationImage3 =@"close-btn.png";
+static NSString *kAUCSpreadAnimationImage4 =@"close-btn.png";
+static NSString *kAUCSpreadAnimationImage5 =@"close-btn.png";
+static NSString *kAUCSpreadAnimationImage6 =@"close-btn.png";
+// Animation Images: kill
+static NSString *kAUCKillAnimationImage1 =@"x_1.png";
+static NSString *kAUCKillAnimationImage2 =@"x_2.png";
+static NSString *kAUCKillAnimationImage3 =@"x_3.png";
+static NSString *kAUCKillAnimationImage4 =@"x_4.png";
+static NSString *kAUCKillAnimationImage5 =@"x_5.png";
+
+
+

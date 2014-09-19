@@ -16,7 +16,8 @@
 static NSString *kAUCSpreadButtonImage =@"spread-btn.png";
 static NSString *kAUCKillButtonImage =@"kill-btn.png";
 static NSString *kAUCComposeButtonImage =@"newtopic-btn.png";
-static NSString *kAUCSignOutButtonImage =@"signout-nav-btn.png";
+static NSString *kAUCSignOutButtonImage =@"signout-menu.png";
+static NSString *kAUCLogInMenuButtonImage =@"login-menu.png";
 static NSString *kAUCPageLogoImage =@"logo-nav.png";
 
 //static NSString *  kAUCContentBackgroundImage = @"content";
@@ -29,6 +30,7 @@ static NSString *kAUCPageLogoImage =@"logo-nav.png";
 + (UIImageView *)getContentBackGroundView;
 + (void)updateContentBackGroundView:(UIView *)view forCategory:(kAPIContentCategory)category;
 + (UIImage *)getImageForContentBackGroudView;
++ (void)setSignInAndOutView:(UIView *)view;
 
 #pragma mark - View Helper Methods: Image Views
 + (UIImageView *)getUserImageView;
@@ -43,7 +45,9 @@ static NSString *kAUCPageLogoImage =@"logo-nav.png";
 + (UIButton *)getSpreadButton;
 + (UIButton *)getKillButton;
 + (UIButton *)getComposeButton;
++ (UIButton *)getPageLogoButton;
 + (UIButton *)getSignInOutButton;
++ (UIButton *)getDismissButton;
 
 #pragma mark - Text label mathods
 //+ (UILabel *)getTextLabelForSpreadCount;
