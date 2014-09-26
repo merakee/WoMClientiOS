@@ -23,4 +23,5 @@
 + (NSArray *)getActiveCategoryList;
 + (NSString *)getCategoryTextForId:(kAPIContentCategory)category;
 + (kAPIContentCategory)getCategoryIdForText:(NSString *)categoryText;
+- (void)clearContents;
 @end

@@ -31,6 +31,7 @@ static NSString *kAUCPageLogoImage =@"logo-nav.png";
 + (void)updateContentBackGroundView:(UIView *)view forCategory:(kAPIContentCategory)category;
 + (UIImage *)getImageForContentBackGroudView;
 + (void)setSignInAndOutView:(UIView *)view;
++ (void)setAnimationView:(UIView *)view withSpead:(UIImageView *)spreadView andKill:(UIImageView *)killView;
 
 #pragma mark - View Helper Methods: Image Views
 + (UIImageView *)getUserImageView;
@@ -57,7 +58,9 @@ static NSString *kAUCPageLogoImage =@"logo-nav.png";
 + (CVCircleCounterView *)getCounterViewWithDelegate:(id)delegate;
 
 #pragma mark - Animation
-+ (void)animateButtonWithSlideUpAndReturn:(UIButton *)button  withFinalAction:(void (^)())action;
-+ (void)animateButtonWithSlideFromDown:(UIButton *)button  withFinalAction:(void (^)())action;
-+ (void)animateButtonWithSlideFromDownAndUpShoot:(UIButton *)button  withFinalAction:(void (^)())action;
++ (void)animateViewsForContentDisplay:(NSArray *)views withFinalAction:(void (^)())action;
++ (void)animateViews:(NSArray *)views forUserResponse:(BOOL)response withFinalAction:(void (^)())action;
+//+ (void)animateButtonWithSlideUpAndReturn:(UIButton *)button  withFinalAction:(void (^)())action;
+//+ (void)animateButtonWithSlideFromDown:(UIButton *)button  withFinalAction:(void (^)())action;
+//+ (void)animateButtonWithSlideFromDownAndUpShoot:(UIButton *)button  withFinalAction:(void (^)())action;
 @end

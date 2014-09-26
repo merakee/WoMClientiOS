@@ -57,6 +57,8 @@
     // Do any additional setup after loading the view.
     // full screen view
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    // update content
+    [self updateContent];
 }
 
 - (void)viewDidUnload{
@@ -76,9 +78,6 @@
     // hide navigation bar
     [self.navigationController setNavigationBarHidden:YES];
     
-    // rest button active flag
-    isAnimationActive = NO;
-    
     // add observer for text view
     //[contentTextView  addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
 }
@@ -88,9 +87,9 @@
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAContentSession] withParameters:nil timed:YES];
     
-    // update content
-    [self updateContent];
-    
+    // rest button active flag
+    isAnimationActive = NO;
+    animationView.hidden=YES;
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -102,7 +101,7 @@
     // remove observer for text view
     //[contentTextView removeObserver:self forKeyPath:@"contentSize"];
     
-
+    
 }
 
 - (BOOL)shouldAutorotate{
@@ -132,82 +131,6 @@
     //    NSLog(@"Observer called....Text view size: %f, content size: %f",[contentTextView bounds].size.height,[txtview contentSize].height);
 }
 
-#pragma mark -  Content Display method
-- (void)updateContent{
-    // Analytics: Flurry
-    [Flurry logEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:nil timed:YES];
-    
-    // update content
-    [contentManager getContentWithActivityIndicator:activityIndicator
-                                            success:^(ApiContent *content) {
-                                                // Analytics: Flurry
-                                                [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:nil];
-                                                currentContent=content;
-                                                [self animationButtonsForContentUpdate];
-                                            }
-                                            failure:^(ApiContent *content) {
-                                                // Analytics: Flurry
-                                                [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:@{@"Error":@"No Content"}];
-                                                currentContent= content;
-                                                [self updateViewWithNewContent];
-                                            }];
-    
-    // Analytics: Flurry
-    [Flurry logEvent:[FlurryManager getEventName:kFAContentEach] withParameters:nil timed:YES];
-    
-}
-- (void)animationButtonsForContentUpdate{
-    isAnimationActive=YES;
-    // add animation: button
-    [ContentViewHelper animateButtonWithSlideFromDownAndUpShoot:spreadButton withFinalAction:^(){
-    }];
-    [ContentViewHelper animateButtonWithSlideFromDownAndUpShoot:killButton withFinalAction:^(){
-        [self updateViewWithNewContent];
-    }];
-    [ContentViewHelper animateButtonWithSlideFromDown:composeButton withFinalAction:^(){
-    }];
-    
-}
-- (void)updateViewWithNewContent{
-    // post is done
-    isAnimationActive=NO;
-    [self.view layoutIfNeeded];
-    
-    //[ApiContent printContentInfo:currentContent];
-    // change category color
-    //[ContentViewHelper updateContentBackGroundView:contentBackGround forCategory:(kAPIContentCategory)currentContent.categoryId];
-    
-    
-    
-    // set text
-    //contentTextView.text = currentContent.contentText;
-    contentTextView.attributedText = [ContentViewHelper getAttributedText:currentContent.contentText];
-    //contentTextView.attributedText = [ContentViewHelper getAttributedText:@"Put a bird on it +1 Helvetica, iPhone quinoa Kickstarter Blue Bottle tote bag McSweeney's Carles wayfarers. McSweeney's trust fund biodiesel actually, next level squid keffiyeh Williamsburg ennui semiotics Helvetica authentic. Selfies Etsy umami, narwhal chillwave Williamsburg small batch "];
-    
-    
-    UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
-    if([currentContent.photoToken isKindOfClass:[NSDictionary class]]
-       && currentContent.photoToken[@"url"] &&
-       (![currentContent.photoToken[@"url"] isEqual:[NSNull null]])){
-        [contentBackGround setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]]
-                          placeholderImage:bgImage];
-    }
-    else{
-        contentBackGround.image = bgImage;
-    }
-    
-    //NSAttributedString *str = [[NSAttributedString alloc] initWithString:currentContent.contentText];
-    //contentTextView.attributedText =str ;
-    // center virtically
-    //[AppUIManager  verticallyAlignTextView:contentTextView];
-    //[self.view  updateConstraintsIfNeeded];
-    
-    // update counts
-    //spreadCount.text = [NSString stringWithFormat:@"%ld", (long)currentContent.totalSpread.integerValue];
-    ///timeCount.text = currentContent.timeStamp;
-    //[self resetContentTimer];
-}
-
 #pragma mark -  View Design
 - (void)setView {
     // set view
@@ -215,6 +138,13 @@
     
     // set navigation bar
     //[self setNavigationBar];
+    
+    // animation view
+    animationView = [[UIView alloc] init];
+    spreadAnimationView = [[UIImageView alloc] init];
+    killAnimationView = [[UIImageView alloc] init];
+    [ContentViewHelper setAnimationView:animationView withSpead:spreadAnimationView andKill:killAnimationView];
+    [self.view addSubview:animationView];
     
     // set textview
     contentBackGround = [ContentViewHelper getContentBackGroundView];
@@ -252,12 +182,13 @@
     //    [self.view addSubview:userImage];
     
     //activity indicator view
-    activityIndicator =[[UIActivityIndicatorView alloc] init];
-    [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
+    //activityIndicator =[[UIActivityIndicatorView alloc] init];
+    activityIndicator =[[CustomActivityIndicator alloc] init];
+    [AppUIManager addCustomActivityIndicator:activityIndicator toView:self.view];
     
     // layout
     [self layoutView];
-    
+    [self layoutAnimationView];
     
     // add gestures
     [self addGestures];
@@ -313,25 +244,49 @@
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     
 }
-
+- (void)layoutAnimationView{
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(animationView,spreadAnimationView,killAnimationView);
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[animationView]|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[animationView]|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[spreadAnimationView(320)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadAnimationView(568)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [AppUIManager horizontallyCenterElement:spreadAnimationView    inView:animationView];
+    [AppUIManager verticallyCenterElement:spreadAnimationView    inView:animationView];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[killAnimationView(169)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[killAnimationView(173)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    [AppUIManager horizontallyCenterElement:killAnimationView    inView:animationView];
+    [AppUIManager verticallyCenterElement:killAnimationView    inView:animationView];
+    
+    
+}
 - (void)setNavigationBar {
-//    // set up navigation bar
-//    //self.navigationItem.title = @"WoM";
-//    self.navigationItem.titleView = [AppUIManager getAppLogoViewForNavTitle];
-//    
-//    // right navigation button
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-//                                              initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
-//                                              target:self
-//                                              action:@selector(goToAddContentView:)];
-//    [self.navigationItem.rightBarButtonItem setAccessibilityLabel:@"Compose"];
-//    
-//    // left navigation button
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
-//                                             initWithTitle:@"Sign In"
-//                                             style:UIBarButtonItemStyleDone
-//                                             target:self
-//                                             action:@selector(signInOutButtonPressed:)];
+    //    // set up navigation bar
+    //    //self.navigationItem.title = @"WoM";
+    //    self.navigationItem.titleView = [AppUIManager getAppLogoViewForNavTitle];
+    //
+    //    // right navigation button
+    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+    //                                              initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
+    //                                              target:self
+    //                                              action:@selector(goToAddContentView:)];
+    //    [self.navigationItem.rightBarButtonItem setAccessibilityLabel:@"Compose"];
+    //
+    //    // left navigation button
+    //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
+    //                                             initWithTitle:@"Sign In"
+    //                                             style:UIBarButtonItemStyleDone
+    //                                             target:self
+    //                                             action:@selector(signInOutButtonPressed:)];
     
     // set up back button for the child view
     //    self.navigationItem.backBarButtonItem =  [[UIBarButtonItem alloc]
@@ -381,6 +336,146 @@
     [self displaySignInOutButtonView];
 }
 
+#pragma mark -  Content Display method
+- (void)updateContent{
+    // start animation
+    [self startContentLoadAnimation];
+    
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:nil timed:YES];
+    
+    
+    // update content
+    [contentManager getContentWithActivityIndicator:nil//activityIndicator
+                                            success:^(ApiContent *content) {
+                                                // Analytics: Flurry
+                                                [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:nil];
+                                                currentContent=content;
+                                                [self updateViewWithNewContent];
+                                            }
+                                            failure:^(ApiContent *content) {
+                                                // Analytics: Flurry
+                                                [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:@{@"Error":@"No Content"}];
+                                                currentContent= content;
+                                                [self updateViewWithNewContent];
+                                            }];
+    
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAContentEach] withParameters:nil timed:YES];
+    
+}
+- (void)updateViewWithNewContent{
+    [self startContentLoadAnimation];
+    
+    UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
+    if([currentContent.photoToken isKindOfClass:[NSDictionary class]]
+       && currentContent.photoToken[@"url"] &&
+       (![currentContent.photoToken[@"url"] isEqual:[NSNull null]])){
+        [contentBackGround setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]]
+                          placeholderImage:bgImage];
+        [self performContentDisplayAnimation];
+    }
+    else{
+        contentBackGround.image = bgImage;
+        //        [self performSelector:@selector(performContentDisplayAnimation)
+        //                   withObject:nil
+        //                   afterDelay:2.0];
+        [self performContentDisplayAnimation];
+    }
+    
+    //[ApiContent printContentInfo:currentContent];
+    // change category color
+    //[ContentViewHelper updateContentBackGroundView:contentBackGround forCategory:(kAPIContentCategory)currentContent.categoryId];
+    
+    // set text
+    //contentTextView.text = currentContent.contentText;
+    contentTextView.attributedText = [ContentViewHelper getAttributedText:currentContent.contentText];
+    
+    
+    //contentTextView.attributedText = [ContentViewHelper getAttributedText:@"Put a bird on it +1 Helvetica, iPhone quinoa Kickstarter Blue Bottle tote bag McSweeney's Carles wayfarers. McSweeney's trust fund biodiesel actually, next level squid keffiyeh Williamsburg ennui semiotics Helvetica authentic. Selfies Etsy umami, narwhal chillwave Williamsburg small batch "];
+    
+    //NSAttributedString *str = [[NSAttributedString alloc] initWithString:currentContent.contentText];
+    //contentTextView.attributedText =str ;
+    // center virtically
+    //[AppUIManager  verticallyAlignTextView:contentTextView];
+    //[self.view  updateConstraintsIfNeeded];
+    
+    // update counts
+    //spreadCount.text = [NSString stringWithFormat:@"%ld", (long)currentContent.totalSpread.integerValue];
+    ///timeCount.text = currentContent.timeStamp;
+    //[self resetContentTimer];
+}
+- (void)clearContents{
+    [contentManager clearContents];
+    currentContent.contentId = nil;
+}
+- (void)refreshContent{
+    if(currentContent.contentId==nil){
+        [self updateContent];
+    }
+}
+
+#pragma mark - Animation Methods
+- (void)startContentLoadAnimation{
+    isAnimationActive=YES;
+    [self hideViewsForContentLoad];
+    if(!activityIndicator.isAnimating){
+        [activityIndicator startAnimatingCI];
+    }
+}
+- (void)stopContentLoadAnimation{
+    if(activityIndicator.isAnimating){
+        [activityIndicator stopAnimating];
+    }
+}
+- (void)performContentDisplayAnimation{
+    isAnimationActive=YES;
+    [self stopContentLoadAnimation];
+    //[self setViewsForContentDisplay];
+    [ContentViewHelper animateViewsForContentDisplay:@[contentBackGround, contentTextView,spreadButton,killButton,composeButton]
+                                     withFinalAction:^(){
+                                         isAnimationActive=NO;
+                                     }];
+}
+- (void)performUserResponseAnimationWithResponse:(BOOL)response{
+    isAnimationActive=YES;
+    [ContentViewHelper animateViews:@[contentBackGround, contentTextView,spreadButton,killButton,composeButton,animationView,spreadAnimationView,killAnimationView]
+                    forUserResponse:response
+                    withFinalAction:^(){
+                        [self updateContent];
+                    }];
+}
+//- (void)animationButtonsForContentUpdate{
+//    isAnimationActive=YES;
+//    // add animation: button
+//    [ContentViewHelper animateButtonWithSlideFromDownAndUpShoot:spreadButton withFinalAction:^(){
+//    }];
+//    [ContentViewHelper animateButtonWithSlideFromDownAndUpShoot:killButton withFinalAction:^(){
+//        [self updateViewWithNewContent];
+//    }];
+//    [ContentViewHelper animateButtonWithSlideFromDown:composeButton withFinalAction:^(){
+//    }];
+//
+//}
+
+- (void)hideViewsForContentLoad{
+    contentTextView.hidden=YES;
+    contentBackGround.hidden=YES;
+    spreadButton.hidden=YES;
+    killButton.hidden=YES;
+    composeButton.hidden=YES;
+}
+- (void)setViewsForContentDisplay{
+    contentTextView.alpha=0.0;
+    contentBackGround.alpha=0.0;
+    contentTextView.hidden=NO;
+    contentBackGround.hidden=NO;
+    spreadButton.hidden=NO;
+    killButton.hidden=NO;
+    composeButton.hidden=NO;
+}
+
+
 #pragma mark - user_response methods
 - (void) spreadButtonPressed:(id)sender {
     if(isAnimationActive){
@@ -390,11 +485,12 @@
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAContentSpread]];
     [self AddContentEachAnalytics:@"Spread"];
+    [self postResponse:true];
     // animate button
-    [ContentViewHelper animateButtonWithSlideUpAndReturn:spreadButton
-                                         withFinalAction:^(){
-                                             [self postResponse:true];
-                                         }];
+    //    [ContentViewHelper animateButtonWithSlideUpAndReturn:spreadButton
+    //                                         withFinalAction:^(){
+    //                                             [self postResponse:true];
+    //                                         }];
     
     
     
@@ -407,12 +503,13 @@
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAContentKill]];
     [self AddContentEachAnalytics:@"Kill"];
+    [self postResponse:false];
     
-    // animate button
-    [ContentViewHelper animateButtonWithSlideUpAndReturn:killButton
-                                         withFinalAction:^(){
-                                             [self postResponse:false];
-                                         }];
+    //    // animate button
+    //    [ContentViewHelper animateButtonWithSlideUpAndReturn:killButton
+    //                                         withFinalAction:^(){
+    //                                             [self postResponse:false];
+    //                                         }];
 }
 
 - (void)AddContentEachAnalytics:(NSString *)type{
@@ -431,22 +528,19 @@
         return;
     }
     
-    //DBLog(@"Content id: %d",currentContent.contentId.integerValue);
-    // post content
-    [activityIndicator startAnimating];
-    
     // post content user
-    [activityIndicator startAnimating];
+    //[activityIndicator startAnimating];
+    [self performUserResponseAnimationWithResponse:response];
     [[ApiManager sharedApiManager] postResponseWithContentId:currentContent.contentId.intValue
                                                     response:[NSNumber numberWithBool:response]
                                                      success:^(ApiUserResponse *response){
-                                                         [activityIndicator stopAnimating];
-                                                         [self actionsForSuccessfulPostResponse];
+                                                         //[activityIndicator stopAnimating];
+                                                         //[self actionsForSuccessfulPostResponse];
                                                      }failure:^(NSError * error){
-                                                         [activityIndicator stopAnimating];
+                                                         //[activityIndicator stopAnimating];
                                                          //[ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                          // do not show any error just assume sucess
-                                                         [self actionsForSuccessfulPostResponse];
+                                                         //[self actionsForSuccessfulPostResponse];
                                                      }];
     
 }

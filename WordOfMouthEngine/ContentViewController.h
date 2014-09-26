@@ -10,6 +10,7 @@
 #import "ContentManager.h"
 #import "ContentViewHelper.h"
 #import "UIImageView+AFNetworking.h"
+#import "CustomActivityIndicator.h"
 
 //@interface ContentViewController : UIViewController <CVCircleCounterViewDelegate>{
 @interface ContentViewController : UIViewController{
@@ -21,6 +22,15 @@
     UIButton           *killButton;
     UIButton           *composeButton;
     UIButton           *pageLogo;
+    
+    // animation
+    //UIActivityIndicatorView *activityIndicator;
+    CustomActivityIndicator *activityIndicator;
+    UIView                  *animationView;
+    UIImageView             *spreadAnimationView;
+    UIImageView             *killAnimationView;
+    
+    
     BOOL               isAnimationActive;
     
     //UIImageView         *pageLogo;
@@ -28,8 +38,8 @@
     //UIImageView         *userImage;
     //UILabel             *spreadCount;
     
-    UIActivityIndicatorView *activityIndicator;
-
+    
+    
     
     // circular timer
     // CVCircularProgressView      *progressClock;
@@ -47,4 +57,7 @@
     
 }
 
+#pragma mark - Utility methods
+- (void)clearContents;
+- (void)refreshContent;
 @end

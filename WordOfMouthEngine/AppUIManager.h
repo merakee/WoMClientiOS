@@ -12,6 +12,7 @@
 #import "CommonUtility.h"
 #import "CommonResourceDefintions.h"
 #import "AppConstants.h"
+#import "CustomActivityIndicator.h"
 //#import "ApiContent.h"
 
 @interface AppUIManager : NSObject
@@ -86,7 +87,7 @@
 
 #pragma mark - view elements methods:  Activity Indicator
 + (void)addActivityIndicator:(UIActivityIndicatorView *)activityIndicator toView:(UIView *)view;
-
++ (void)addCustomActivityIndicator:(CustomActivityIndicator *)activityIndicator toView:(UIView *)view;
 
 #pragma mark - view elements methods:  App logo 
 + (UIImageView *)getAppLogoView;

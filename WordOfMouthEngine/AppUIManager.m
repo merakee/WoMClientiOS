@@ -686,6 +686,19 @@
     [AppUIManager horizontallyCenterElement:activityIndicator inView:view];
 }
 
++ (void)addCustomActivityIndicator:(CustomActivityIndicator *)activityIndicator toView:(UIView *)view{
+    [activityIndicator setTranslatesAutoresizingMaskIntoConstraints:NO];
+    activityIndicator.frame = CGRectMake(0.0,0.0,100.0,100.0);
+    activityIndicator.hidesWhenStopped=YES;
+    activityIndicator.activityIndicatorStyle  = kAUCCustomActivityIndicatorStyleGray;
+    [view addSubview:activityIndicator];
+    
+    // layout: in the center
+    [AppUIManager verticallyCenterElement:activityIndicator inView:view];
+    [AppUIManager horizontallyCenterElement:activityIndicator inView:view];
+}
+
+
 #pragma mark - Utility methods
 + (void)setRoundedCorner:(id)view{
     // rounded corner

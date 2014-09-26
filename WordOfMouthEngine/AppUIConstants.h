@@ -213,19 +213,5 @@ static NSString *kAUCCancelButtonImage =@"close-btn.png";
 static NSString *kAUCLogInButtonImage =@"login-nav-btn.png";
 
 
-// Animation Images: spread 
-static NSString *kAUCSpreadAnimationImage1 =@"close-btn.png";
-static NSString *kAUCSpreadAnimationImage2 =@"close-btn.png";
-static NSString *kAUCSpreadAnimationImage3 =@"close-btn.png";
-static NSString *kAUCSpreadAnimationImage4 =@"close-btn.png";
-static NSString *kAUCSpreadAnimationImage5 =@"close-btn.png";
-static NSString *kAUCSpreadAnimationImage6 =@"close-btn.png";
-// Animation Images: kill
-static NSString *kAUCKillAnimationImage1 =@"x_1.png";
-static NSString *kAUCKillAnimationImage2 =@"x_2.png";
-static NSString *kAUCKillAnimationImage3 =@"x_3.png";
-static NSString *kAUCKillAnimationImage4 =@"x_4.png";
-static NSString *kAUCKillAnimationImage5 =@"x_5.png";
-
 
 

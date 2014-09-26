@@ -7,6 +7,7 @@
 //
 
 #import "AppAnimationManager.h"
+#import "UIImageView+AnimationCompletion.h"
 
 @implementation AppAnimationManager
 
@@ -119,8 +120,29 @@
                      }];
 }
 
++(void) fadeView:(UIView *)view fromAlpha:(double)original toAlpha:(double)final andDuration:(float)duration withFinalAction:(void (^)())action{
+    if(duration<=0) {
+        view.alpha=final;
+        return;
+    }
+    // set view
+    view.alpha = original;
+    [UIView animateWithDuration:duration
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         view.alpha=final;
+                     }
+                     completion:^(BOOL finished){
+                         if (action != nil){
+                             action();
+                         }
+                     }];
+}
+
 +(void) slideView:(UIView *)view fromLocation:(CGPoint)original to:(CGPoint)final andDuration:(float)duration withFinalAction:(void (^)())action{
     if(duration<=0) {
+        view.center=final;
         return;
     }
     // set view
@@ -140,6 +162,7 @@
 
 +(void) slideView:(UIView *)view fromLocation:(CGPoint)original through:(CGPoint)middle duration:(float)duration1 to:(CGPoint)final duration:(float)duration2 withFinalAction:(void (^)())action {
     if ((duration1<=0)||(duration2<=0)) {
+        view.center=final;
         return;
     }
     // set view
@@ -161,22 +184,6 @@
 
 
 #pragma mark - Image animation methods
-+ (NSArray *)getSpreadAnimationImages{
-    return @[[UIImage imageNamed:kAUCSpreadAnimationImage1],
-             [UIImage imageNamed:kAUCSpreadAnimationImage2],
-             [UIImage imageNamed:kAUCSpreadAnimationImage3],
-             [UIImage imageNamed:kAUCSpreadAnimationImage4],
-             [UIImage imageNamed:kAUCSpreadAnimationImage5]
-             ];
-}
-+ (NSArray *)getKillAnimationImages{
-    return @[[UIImage imageNamed:kAUCKillAnimationImage1],
-             [UIImage imageNamed:kAUCKillAnimationImage2],
-             [UIImage imageNamed:kAUCKillAnimationImage3],
-             [UIImage imageNamed:kAUCKillAnimationImage4],
-             [UIImage imageNamed:kAUCKillAnimationImage5]
-             ];
-}
 + (void)startAnimatingImageView:(UIImageView *)imageView withImages:(NSArray *)imageArray duration:(NSTimeInterval)duration repeatCount:(NSInteger)count{
     imageView.hidden=NO;
     imageView.animationImages = imageArray;
@@ -191,6 +198,65 @@
     [imageView stopAnimating];
     imageView.hidden=YES;
     imageView.animationImages = nil;
+}
++ (void)startAnimatingImageView:(UIImageView *)imageView withImages:(NSArray *)imageArray duration:(NSTimeInterval)duration repeatCount:(NSInteger)count withFinalAction:(void (^)())action{
+    imageView.hidden=NO;
+    imageView.animationImages = imageArray;
+    imageView.animationDuration = duration;
+    imageView.animationRepeatCount = count;
+    
+    [imageView startAnimatingWithCompletionBlock:^(BOOL success){
+        if (action != nil){
+            action();
+        }
+    }];
+}
+
++ (NSArray *)getSpreadAnimationImages{
+    NSMutableArray *marray =[[NSMutableArray alloc] init];
+    for(int ind=1;ind<=23;ind++){
+        NSString *fileName =[@"S" stringByAppendingFormat:@"%d.png",ind];
+        //[marray addObject:(id)[UIImage imageNamed:fileName].CGImage];
+        [marray addObject:[AppAnimationManager preloadedImage:[UIImage imageNamed:fileName]]];
+    }
+    return (NSArray *)marray;
+}
++ (NSArray *)getKillAnimationImages{
+    NSMutableArray *marray =[[NSMutableArray alloc] init];
+    for(int ind=1;ind<=5;ind++){
+        NSString *fileName =[@"x_" stringByAppendingFormat:@"%d.png",ind];
+        //[marray addObject:(id)[UIImage imageNamed:fileName].CGImage];
+        [marray addObject:[UIImage imageNamed:fileName]];
+    }
+    return (NSArray *)marray;
+}
+
+#pragma mark - preload images
++ (UIImage *) preloadedImage:(UIImage *)imageOriginal {
+    CGImageRef image = imageOriginal.CGImage;
+    
+    // make a bitmap context of a suitable size to draw to, forcing decode
+    size_t width = CGImageGetWidth(image);
+    size_t height = CGImageGetHeight(image);
+    
+    CGColorSpaceRef colourSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef imageContext =  CGBitmapContextCreate(NULL, width, height, 8, width * 4, colourSpace,
+                                                       kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
+    CGColorSpaceRelease(colourSpace);
+    
+    // draw the image to the context, release it
+    CGContextDrawImage(imageContext, CGRectMake(0, 0, width, height), image);
+    
+    // now get an image ref from the context
+    CGImageRef outputImage = CGBitmapContextCreateImage(imageContext);
+    
+    UIImage *cachedImage = [UIImage imageWithCGImage:outputImage];
+    
+    // clean up
+    CGImageRelease(outputImage);
+    CGContextRelease(imageContext);
+    
+    return cachedImage;
 }
 
 @end

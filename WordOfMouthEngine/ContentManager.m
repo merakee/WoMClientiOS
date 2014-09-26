@@ -36,13 +36,17 @@
         return;
     }
     // else get content from api
-    [activitiyIndicator startAnimating];
+    if(activitiyIndicator){
+        [activitiyIndicator startAnimating];
+    }
     // reset values
     currentContentIndex=0;
     [contentArray removeAllObjects];
     
     [[ApiManager sharedApiManager] getContentSuccess:^(NSArray *contents){
-        [activitiyIndicator stopAnimating];
+        if(activitiyIndicator){
+            [activitiyIndicator stopAnimating];
+        }
         [contentArray setArray: contents];
         
         // check if api returned an empy array
@@ -81,4 +85,7 @@
     return (kAPIContentCategory) index+1;
 }
 
+- (void)clearContents{
+    [contentArray removeAllObjects];
+}
 @end
