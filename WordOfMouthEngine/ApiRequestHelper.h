@@ -12,7 +12,7 @@
 #import "ApiUserResponse.h"
 
 // Content photo parameters
-static const float kAMAPI_CONTENT_PHOTO_COMPRESSION = 1.0;
+static const float kAMAPI_CONTENT_PHOTO_COMPRESSION = 0.7;
 
 @interface ApiRequestHelper : NSObject
 

@@ -354,6 +354,9 @@
     //        ci.categoryId = [NSNumber numberWithInteger:categoryControl.selectedSegmentIndex+1];
     //    }
     
+    // disable post button
+    postButton.enabled = NO;
+    
     // post content
     [activityIndicator startAnimating];
     
