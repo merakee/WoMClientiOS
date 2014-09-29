@@ -32,7 +32,7 @@ typedef enum {
 @property NSNumber * totalSpread;
 @property NSNumber * spreadCount;
 @property NSNumber * killCount;
-@property NSNumber * noResponseCount;
+@property NSNumber * commentCount;
 
 #pragma mark - Init Methods
 - (id)initWithContentId:(NSNumber *)contentId_
@@ -44,7 +44,7 @@ typedef enum {
             totalSpread:(NSNumber * )totalSpread_
             spreadCount:(NSNumber * )spreadCount_
               killCount:(NSNumber * )killCount_
-        noResponseCount:(NSNumber * )noResponseCount_;
+        commentCount:(NSNumber * )commentCount_;
 
 #pragma mark - Utility Methods
 /*!

@@ -162,6 +162,41 @@ static NSString *kAMAPI_RESPONSE_PATH =  @"user_responses";
                           failure:(void (^)(NSError *error))failure;
 
 
+#pragma mark -  API Calls: Comment
+/*!
+ *  Gets comments for signed in user.
+ *  @param success Returns an array of comments commentArray
+ *  @param failure Returns error
+ */
+- (void)getCommentsForContentId:(int)contentId
+                        success:(void (^)(NSArray * commentArray))success
+                  failure:(void (^)(NSError *error))failure;
+/*!
+ *  Posts comment
+ *  @param categoryId An Int for comment category id (must be between 1 and 4 for valid category)
+ *  @param text       NSString containing the text
+ *  @param success    Returns apiComment object with all relevant parameter
+ *  @param failure    Returns error
+ */
+- (void)postCommentWithContentId:(int)contentId
+                             text:(NSString *)text
+                          success:(void (^)(ApiComment * comment))success
+                          failure:(void (^)(NSError *error))failure;
+
+#pragma mark -  API Calls: Response
+/*!
+ *  Posts response for user of viewd comment
+ *  @param commentId An Int for comment Id
+ *  @param response  NSNumber containing the boolean value (spread => yes, kill => No, no response => nil)
+ *  @param success   <#success description#>
+ *  @param failure   <#failure description#>
+ */
+- (void)postCommentResponseWithCommentId:(int)commentId
+                          success:(void (^)(ApiUserResponse *userResponse))success
+                          failure:(void (^)(NSError *error))failure;
+
+
+
 #pragma mark -  Test Code
 + (void)test;
 

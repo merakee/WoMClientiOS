@@ -214,7 +214,7 @@
 
 + (NSArray *)getSpreadAnimationImages{
     NSMutableArray *marray =[[NSMutableArray alloc] init];
-    for(int ind=1;ind<=23;ind++){
+    for(int ind=1;ind<=13;ind++){
         NSString *fileName =[@"S" stringByAppendingFormat:@"%d.png",ind];
         //[marray addObject:(id)[UIImage imageNamed:fileName].CGImage];
         [marray addObject:[AppAnimationManager preloadedImage:[UIImage imageNamed:fileName]]];

@@ -1,14 +1,14 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    bwoken (2.0.0)
+    bwoken (2.1.0.rc.1)
       coffee-script-source
       colorful
       execjs
       json_pure
       rake
       slop
-    coffee-script-source (1.7.1)
+    coffee-script-source (1.8.0)
     colorful (0.0.3)
     execjs (2.2.1)
     json_pure (1.8.1)
@@ -19,4 +19,4 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bwoken (= 2.0.0)
+  bwoken (= 2.1.0.rc.1)

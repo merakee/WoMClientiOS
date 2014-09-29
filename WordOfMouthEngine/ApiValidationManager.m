@@ -69,6 +69,18 @@
     return nil;
 }
 
++ (NSString *)isCommentTextValid:(NSString *)text{
+    if([text length]<kAPIValidationCommentMinLength){
+        return [NSString stringWithFormat:@"Text must be at least %d charecter long",kAPIValidationCommentMinLength];
+    }
+    if([text length]>kAPIValidationCommentMaxLength){
+        return [NSString stringWithFormat:@"Text must be shoter than %d charecter long",kAPIValidationCommentMaxLength];
+    }
+    
+    return nil;
+}
+
+
 #pragma mark - sign up validation methods
 + (NSError *)validateSignUpWithUserTypeId:(int)userTypeId
                                     email:(NSString *)email
@@ -177,5 +189,26 @@
                                     suggestion:@"Please check and try again"];
 }
 #pragma mark - user validation methods
+
+#pragma mark - comment validation methods
++ (NSError *)validatePostCommentWithText:(NSString *)text{
+    NSMutableString * reason = [[NSMutableString alloc] initWithString:@""];
+    NSString *msg = [ApiValidationManager isCommentTextValid:text];
+    if(msg){
+        [reason appendFormat:@"%@\n",msg];
+    }
+    
+    if([reason length]==0){
+        return nil;
+    }
+    
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorValidation
+                                   description:@"Invalid Input"
+                                        reason:[reason stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]]     // drop last new line
+                                    suggestion:@"Please check and try again"];
+    
+}
+
 
 @end

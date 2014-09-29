@@ -452,6 +452,144 @@
     return [ApiErrorManager processPostResponseError:error];
 }
 
+//+++++++++++++++++++++++
+
+#pragma mark -  API Calls: Comment
+- (void)getCommentsForContentId:(int)contentId
+                        success:(void (^)(NSArray *commentArray))success
+                        failure:(void (^)(NSError *error))failure{
+    
+    [self GET:kAMAPI_CONTENT_PATH parameters:[ApiRequestHelper userAuthenticationParams:self.apiUserManager.currentUser]
+      success:^(NSURLSessionDataTask *task, id responseObject) {
+          NSError *error;
+          NSArray *commentArray = [self actionsForSuccessfulGetCommentWithResponse:responseObject withError:&error];
+          if(error){
+              failure(error);
+          }
+          else{
+              success(commentArray);
+          }
+      }
+      failure:^(NSURLSessionDataTask *task, NSError *error) {
+          failure([self actionsForFailedGetCommentWithError:error]);
+      }];
+}
+
+- (NSArray *)actionsForSuccessfulGetCommentWithResponse:(id)responseObject withError:(NSError **)error{
+    // get userResponse info
+    NSArray *commentArray = [ApiRequestHelper getCommentArrayFromDictionary:responseObject];
+    // check validity of the userResponse
+    if(!commentArray){
+        if(error){
+            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
+        }
+    }
+    return commentArray;
+}
+
+
+- (NSError *)actionsForFailedGetCommentWithError:(NSError *)error{
+    // check for anonymous user
+    [self anonymousUserSignInErrorAction:error];
+    return [ApiErrorManager processGetCommentError:error];
+}
+
+- (void)postCommentWithCategoryId:(int)categoryId
+                             text:(NSString *)text_
+                            photo:(UIImage *)photo
+                          success:(void (^)(ApiComment * comment))success
+                          failure:(void (^)(NSError *error))failure{
+    // process and validate
+    NSString * text = [CommonUtility trimString:text_];
+    NSError *verror =[ApiValidationManager validatePostCotentWithCategoryId:categoryId text:text];
+    if(verror){
+        failure(verror);
+        return;
+    }
+    
+    [self POST:kAMAPI_CONTENT_PATH parameters:[ApiRequestHelper commentParamsWithUser:self.apiUserManager.currentUser categoryId:categoryId text:text_ photo_token:photo]
+       success:^(NSURLSessionDataTask *task, id responseObject) {
+           NSError *error;
+           ApiComment * comment = [self actionsForSuccessfulPostCommentWithResponse:responseObject andError:&error];
+           if(error){
+               failure(error);
+           }
+           else{
+               success(comment);
+           }
+       }
+       failure:^(NSURLSessionDataTask *task, NSError *error) {
+           failure([self actionsForFailedPostCommentWithError:error]);
+       }];
+}
+- (ApiComment *)actionsForSuccessfulPostCommentWithResponse:(id)responseObject andError:(NSError **)error{
+    // get comment info
+    ApiComment *comment = [ApiRequestHelper getCommentFromDictionary:responseObject];
+    
+    // check validity of the comment
+    if(![ApiComment isValidComment:comment]){
+        if(error){
+            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
+        }
+        return nil;
+    }
+    
+    return comment;
+}
+- (NSError *)actionsForFailedPostCommentWithError:(NSError *)error{
+    return [ApiErrorManager processPostCommentError:error];
+}
+
+#pragma mark -  API Calls: Response
+- (void)postResponseWithCommentId:(int)commentId
+                         response:(NSNumber *)response
+                          success:(void (^)(ApiUserResponse *userResponse))success
+                          failure:(void (^)(NSError *error))failure{
+    
+    // fail if response is empty
+    if(!response){
+        failure([ApiErrorManager getErrorForInvalidParameters]);
+        return;
+    }
+    
+    [self POST:kAMAPI_RESPONSE_PATH parameters:[ApiRequestHelper responseParamsWith:self.apiUserManager.currentUser commentId:commentId andResponse:response]
+       success:^(NSURLSessionDataTask *task, id responseObject) {
+           NSError *error;
+           ApiUserResponse *userResponse = [self actionsForSuccessfulPostResponseWithResponse:responseObject withError:&error];
+           if(error){
+               failure(error);
+           }
+           else{
+               success(userResponse);
+           }
+       }
+       failure:^(NSURLSessionDataTask *task, NSError *error) {
+           failure([self actionsForFailedPostResonseWithError:error]);
+       }];
+}
+
+
+- (ApiUserResponse *)actionsForSuccessfulPostResponseWithResponse:(id)responseObject withError:(NSError **)error{
+    // get userResponse info
+    ApiUserResponse *userResponse = [ApiRequestHelper getUserResponseFromDictionary:responseObject];
+    
+    // check validity of the userResponse
+    if(![ApiUserResponse isValidUserResponse:userResponse]){
+        if(error){
+            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
+        }
+        return nil;
+    }
+    
+    return userResponse;
+}
+- (NSError *)actionsForFailedPostResonseWithError:(NSError *)error{
+    //DBLog(@"Post Response Error: %@",error);
+    return [ApiErrorManager processPostResponseError:error];
+}
+
+
+
 #pragma mark -  Test Code
 + (void)test {
     /*BOOL isSuccessful =[[ApiManager sharedApiManager] signUpUserWithUserTypeId:kAPIUserTypeWom

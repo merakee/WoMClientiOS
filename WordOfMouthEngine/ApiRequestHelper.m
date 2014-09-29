@@ -107,7 +107,7 @@
                                      totalSpread:contentDic[@"total_spread"]
                                      spreadCount:contentDic[@"spread_count"]
                                        killCount:contentDic[@"kill_count"]
-                                 noResponseCount:contentDic[@"no_response_count"]];
+                                 commentCount:contentDic[@"comment_count"]];
 }
 #pragma mark - content info from response
 + (ApiUserResponse *)getUserResponseFromDictionary:(NSDictionary *)userResponseDic{
@@ -115,5 +115,40 @@
                                          contentId:userResponseDic[@"user_response"][@"content_id"]
                                       userResponse:userResponseDic[@"user_response"][@"response"] ];
 }
+
+
+#pragma mark - comment info from response
++ (NSArray *)getCommentArrayFromDictionary:(NSDictionary *)commentsDic{
+    NSMutableArray *commentArray =[[NSMutableArray alloc] init];
+    
+    for (NSDictionary *commentDic in commentsDic[@"comments"]){
+        ApiComment *comment =[ApiRequestHelper getCommentFromDictionaryWithOutRoot:commentDic];
+        if([ApiComment isValidComment:comment]){
+            [commentArray addObject:comment];
+        }
+        else{
+            return nil;
+        }
+    }
+    return (NSArray *)commentArray;
+}
++ (ApiComment *)getCommentFromDictionary:(NSDictionary *)commentDic{
+    return [ApiRequestHelper getCommentFromDictionaryWithOutRoot:commentDic[@"comment"]];
+}
++ (ApiComment *)getCommentFromDictionaryWithOutRoot:(NSDictionary *)commentDic{
+    return [[ApiComment alloc] initWithCommentId:commentDic[@"id"]
+                                            text:commentDic[@"text"]
+                                          userId:commentDic[@"user_id"]
+                                      contentId:commentDic[@"content_id"]
+                                       timeStamp:commentDic[@"created_at"]
+                                    likeCount:commentDic[@"like_count"]];
+}
+#pragma mark - comment info from response
++ (ApiCommentResponse *)getCommentResponseFromDictionary:(NSDictionary *)userResponseDic{
+    return [[ApiCommentResponse alloc] initWithUserId:userResponseDic[@"comment_response"][@"user_id"]
+                                         commentId:userResponseDic[@"comment_response"][@"comment_id"]
+                                      commentResponse:userResponseDic[@"comment_response"][@"response"] ];
+}
+
 
 @end

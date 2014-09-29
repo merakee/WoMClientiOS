@@ -138,7 +138,7 @@
     XCTAssertNotNil(content.totalSpread,@"Must not be nil");
     XCTAssertNotNil(content.spreadCount,@"Must not be nil");
     XCTAssertNotNil(content.killCount,@"Must not be nil");
-    XCTAssertNotNil(content.noResponseCount,@"Must not be nil");
+    XCTAssertNotNil(content.commentCount,@"Must not be nil");
 }
 
 #pragma mark - Response

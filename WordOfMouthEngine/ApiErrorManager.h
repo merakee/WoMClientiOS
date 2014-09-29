@@ -53,8 +53,15 @@ static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
 + (NSError *)processGetContentError:(NSError *)error;
 + (NSError *)processPostContentError:(NSError *)error;
 
-#pragma mark - Error Handling methods - Response
+#pragma mark - Error Handling methods - User Response
 + (NSError *)processPostResponseError:(NSError *)error;
+
+#pragma mark - Error Handling methods - Comment
++ (NSError *)processGetCommentError:(NSError *)error;
++ (NSError *)processPostCommentError:(NSError *)error;
+
+#pragma mark - Error Handling methods - Comment Response
++ (NSError *)processPostCommentResponseError:(NSError *)error;
 
 
 #pragma mark - Error Handling methods - User Info

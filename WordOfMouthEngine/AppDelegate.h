@@ -31,4 +31,5 @@
 - (void)setSignInViewAsRootView;
 //- (void)setCoreFunctionViewAsRootView;
 - (void)setContentViewAsRootView;
+- (void)clearContents;
 @end

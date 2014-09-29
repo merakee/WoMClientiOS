@@ -20,7 +20,7 @@
 @synthesize totalSpread;
 @synthesize spreadCount;
 @synthesize killCount;
-@synthesize noResponseCount;
+@synthesize commentCount;
 
 
 #pragma mark - Init Methods
@@ -33,7 +33,7 @@
             totalSpread:(NSNumber * )totalSpread_
             spreadCount:(NSNumber * )spreadCount_
               killCount:(NSNumber * )killCount_
-        noResponseCount:(NSNumber * )noResponseCount_{
+        commentCount:(NSNumber * )commentCount_{
     if(self = [super init]) {
         // initialization code
         self.contentId = contentId_;
@@ -45,7 +45,7 @@
         self.totalSpread = totalSpread_;
         self.spreadCount = spreadCount_;
         self.killCount = killCount_;
-        self.noResponseCount = noResponseCount_;
+        self.commentCount = commentCount_;
         
     }
     return self;
@@ -62,7 +62,7 @@
                                      totalSpread:@0
                                      spreadCount:@0
                                        killCount:@0
-                                 noResponseCount:@0];
+                                 commentCount:@0];
 }
 
 +(BOOL)isValidContent:(ApiContent *)content{
@@ -82,7 +82,7 @@
     NSLog(@"Total Spread: %ld",(long)content.totalSpread.integerValue);
     NSLog(@"Spread Count: %ld",(long)content.spreadCount.integerValue);
     NSLog(@"Kill Count: %ld",(long)content.killCount.integerValue);
-    NSLog(@"No Response Count: %ld",(long)content.noResponseCount.integerValue);
+    NSLog(@"Comment Count: %ld",(long)content.commentCount.integerValue);
 }
 
 @end

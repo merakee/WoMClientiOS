@@ -33,7 +33,7 @@
 - (ApiContent *)getContent{
     int vcount = 8;
     // get info
-    self.command = [[NSString alloc] initWithFormat:@"SELECT rowid, content_text, author_id, category_id, total_spread,  spread_count, kill_count, noresponse_count FROM %@ ORDER BY RANDOM() LIMIT 1", kSQLContentTable];
+    self.command = [[NSString alloc] initWithFormat:@"SELECT rowid, content_text, author_id, category_id, total_spread,  spread_count, kill_count, comment_count FROM %@ ORDER BY RANDOM() LIMIT 1", kSQLContentTable];
     NSArray *results =[NSArray arrayWithArray:[sqlite executeGetCommand:self.command withDataArraySize:vcount]];
     return [self convertArrayToContentInfo:results];
 }
@@ -65,7 +65,7 @@
                                               totalSpread:results[4]
                                               spreadCount:results[5]
                                                 killCount:results[6]
-                                          noResponseCount:results[7]];
+                                          commentCount:results[7]];
     return ci;
 }
 

@@ -10,9 +10,11 @@
 #import "ApiUser.h"
 #import "ApiContent.h"
 #import "ApiUserResponse.h"
+#import "ApiComment.h"
+#import "ApiCommentResponse.h"
 
 // Content photo parameters
-static const float kAMAPI_CONTENT_PHOTO_COMPRESSION = 1.0;
+static const float kAMAPI_CONTENT_PHOTO_COMPRESSION = 0.7;
 
 @interface ApiRequestHelper : NSObject
 
@@ -30,7 +32,7 @@ static const float kAMAPI_CONTENT_PHOTO_COMPRESSION = 1.0;
  *  Converts Json Dictionary to ApiUser Object
  *  @param userDic User Dictionary containing User information
  *  @return Returns ApiUser Object with values from userDic
- *  @discussion Assings noResponseCount to nil since API does not return the value 
+ *  
  */
 + (ApiUser *)getUserFromDictionary:(NSDictionary *)userDic;
 
@@ -51,7 +53,7 @@ static const float kAMAPI_CONTENT_PHOTO_COMPRESSION = 1.0;
  */
 + (ApiContent *)getContentFromDictionary:(NSDictionary *)contentDic;
 
-#pragma mark - content info from response
+#pragma mark - user response info from response
 /*!
  *  Converts Json Dictionary to UserResponse Object
  *  @param UserResponseDic Dictionary containing User Response information
@@ -59,4 +61,30 @@ static const float kAMAPI_CONTENT_PHOTO_COMPRESSION = 1.0;
  *  @
  */
 + (ApiUserResponse *)getUserResponseFromDictionary:(NSDictionary *)userResponseDic;
+
+#pragma mark - comment info from response
+/*!
+ *  Converts get comment response object and retures array of comments. Even for single comment it retunrs an array. It returns an empty array if there is not comment and retunrs nil
+ *  if there is error - missing and invalid values in the response object
+ *  @return An NSArray of ApiComment objects
+ */
++ (NSArray *)getCommentArrayFromDictionary:(NSDictionary *)commentsDic;
+
+/*!
+ *  Converts Json Dictionary to ApiConent Object
+ *  @param commentDic Dictionary containing comment information
+ *  @return Returns ApiComment Object with values from commentDic.
+ *  @
+ */
++ (ApiComment *)getCommentFromDictionary:(NSDictionary *)commentDic;
+
+#pragma mark - user response info from response
+/*!
+ *  Converts Json Dictionary to CommentResponse Object
+ *  @param CommentResponseDic Dictionary containing User Response information
+ *  @return Returns ApiCommentResponse Object with values from cCommentResponseDic.
+ *  @
+ */
++ (ApiCommentResponse *)getCommentResponseFromDictionary:(NSDictionary *)userResponseDic;
+
 @end

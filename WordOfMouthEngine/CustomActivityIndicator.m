@@ -25,7 +25,7 @@
 
 - (void)setup {
     self.hidesWhenStopped = YES;
-    self.activityIndicatorStyle = kAUCCustomActivityIndicatorStyleWhite;
+    self.activityIndicatorStyle = kAUCCustomActivityIndicatorStyleGray;
     self.backgroundColor = [UIColor clearColor];
     self.animationDuration = 2.0f;
     self.animationRepeatCount = 0;
@@ -60,9 +60,10 @@
 - (NSArray *)getGrayWheelAnimationImages{
     NSMutableArray *marray =[[NSMutableArray alloc] init];
     for(int ind=1;ind<=6;ind++){
-        NSString *fileName =[@"s" stringByAppendingFormat:@"%dg.png",ind];
+        NSString *fileName =[@"preloader_gray" stringByAppendingFormat:@"%d.png",ind];
         [marray addObject:[UIImage imageNamed:fileName]];
     }
+    
     return (NSArray *)marray;
 }
 

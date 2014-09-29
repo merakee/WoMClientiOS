@@ -57,8 +57,6 @@
     // Do any additional setup after loading the view.
     // full screen view
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
-    // update content
-    [self updateContent];
 }
 
 - (void)viewDidUnload{
@@ -77,6 +75,10 @@
     
     // hide navigation bar
     [self.navigationController setNavigationBarHidden:YES];
+    
+    // update content
+    [self refreshContent];
+    
     
     // add observer for text view
     //[contentTextView  addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
@@ -252,9 +254,9 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[animationView]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[spreadAnimationView(320)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[spreadAnimationView(172)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadAnimationView(568)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadAnimationView(154)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:spreadAnimationView    inView:animationView];
     [AppUIManager verticallyCenterElement:spreadAnimationView    inView:animationView];
@@ -367,19 +369,19 @@
 - (void)updateViewWithNewContent{
     [self startContentLoadAnimation];
     
-    UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
+    //UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
     if([currentContent.photoToken isKindOfClass:[NSDictionary class]]
        && currentContent.photoToken[@"url"] &&
        (![currentContent.photoToken[@"url"] isEqual:[NSNull null]])){
         [contentBackGround setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]]
-                          placeholderImage:bgImage];
+                          placeholderImage:nil];
         [self performContentDisplayAnimation];
     }
     else{
-        contentBackGround.image = bgImage;
-        //        [self performSelector:@selector(performContentDisplayAnimation)
-        //                   withObject:nil
-        //                   afterDelay:2.0];
+        contentBackGround.image = nil;//bgImage;
+//                [self performSelector:@selector(performContentDisplayAnimation)
+//                           withObject:nil
+//                           afterDelay:5.0];
         [self performContentDisplayAnimation];
     }
     
@@ -410,7 +412,7 @@
     currentContent.contentId = nil;
 }
 - (void)refreshContent{
-    if(currentContent.contentId==nil){
+    if((currentContent.contentId==nil)&&([[ApiManager sharedApiManager] currentUser]!=nil)){
         [self updateContent];
     }
 }

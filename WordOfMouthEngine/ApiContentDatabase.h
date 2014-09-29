@@ -60,7 +60,7 @@ static NSString * kSQLCategoryTable = @"category_table";
  total_spread INTEGER DEFAULT '0' NOT NULL,
  kill_count INTEGER DEFAULT '0' NOT NULL,
  spread_count INTEGER DEFAULT '0' NOT NULL,
- noresponse_count INTEGER DEFAULT '0' NOT NULL
+ comment_count INTEGER DEFAULT '0' NOT NULL
  );
  sqli
 
