@@ -104,7 +104,6 @@
 		1166AD8C1975ECDB0010BFEA /* WomSignUpViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD8A1975ECDB0010BFEA /* WomSignUpViewHelper.m */; };
 		1166AD901976F5C90010BFEA /* PlaceHolderFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD8F1976F5C90010BFEA /* PlaceHolderFactory.m */; };
 		1166AD911976F5C90010BFEA /* PlaceHolderFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD8F1976F5C90010BFEA /* PlaceHolderFactory.m */; };
-		116D500518E3997A00579F37 /* LocalContent_FZ_DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 116D500418E3997A00579F37 /* LocalContent_FZ_DB.sqlite */; };
 		116EE32118ADA08D00C66D86 /* ContentManagerOLd.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32018ADA08D00C66D86 /* ContentManagerOLd.m */; };
 		116EE32718ADA0E100C66D86 /* AppUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32618ADA0E100C66D86 /* AppUIManager.m */; };
 		116EE32A18ADA0F800C66D86 /* AppGraphicsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32918ADA0F800C66D86 /* AppGraphicsManager.m */; };
@@ -128,7 +127,6 @@
 		11810B7518C9386F00C5246C /* CVCircularProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7418C9386F00C5246C /* CVCircularProgressLayer.m */; };
 		11810B7918C9407F00C5246C /* CVCircleCounterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7818C9407F00C5246C /* CVCircleCounterView.m */; };
 		11810B7C18C9419100C5246C /* CVCircleDownCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7B18C9419100C5246C /* CVCircleDownCounter.m */; };
-		11B68B6318E3BB0200AE9197 /* LocalContent_DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 11B68B6218E3BA8600AE9197 /* LocalContent_DB.sqlite */; };
 		11B68B6518E53CDE00AE9197 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B68B6418E53CDE00AE9197 /* AppIcon.png */; };
 		11B755BE19708BA000410604 /* ApiErrorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B755BD19708BA000410604 /* ApiErrorManager.m */; };
 		11B755BF19708BA000410604 /* ApiErrorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B755BD19708BA000410604 /* ApiErrorManager.m */; };
@@ -137,7 +135,6 @@
 		11CAB43318CA6C8E00FE05FD /* SQLiteAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CAB43218CA6C8E00FE05FD /* SQLiteAPI.m */; };
 		11CAB43418CA6D0700FE05FD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 11CAB42E18CA685E00FE05FD /* libsqlite3.dylib */; };
 		11CAB43718CA711C00FE05FD /* ApiContentDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CAB43618CA711C00FE05FD /* ApiContentDatabase.m */; };
-		11CAB43D18CA944900FE05FD /* LocalContent_DB_ori.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 11CAB43C18CA944900FE05FD /* LocalContent_DB_ori.sqlite */; };
 		11CB8FC318B00B2900396418 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC218B00B2900396418 /* SignInViewController.m */; };
 		11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FC718B00BB200396418 /* CoreFunctionViewController.m */; };
 		11CB8FCF18B0469000396418 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FCE18B0469000396418 /* ContentViewController.m */; };
@@ -336,6 +333,8 @@
 		11F269C6197848700051FA38 /* TestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F269C5197848700051FA38 /* TestHelper.m */; };
 		11FD6CED18B18C75007D318E /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEB18B18C75007D318E /* ComposeViewController.m */; };
 		11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */; };
+		51A9288A19DF60CE008712B5 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A9288919DF60CE008712B5 /* LocationViewController.m */; };
+		51A9288C19DF61D6008712B5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51A9288B19DF61D6008712B5 /* CoreLocation.framework */; };
 		870BD85D0FBD4E1D9F135B09 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E47A1ADCFB3478F849F074C /* libPods.a */; };
 		E7B276EC194F409AA78B66AD /* libPods-WordOfMouthEngineTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 137E30FB55AC4303821AB00C /* libPods-WordOfMouthEngineTests.a */; };
 /* End PBXBuildFile section */
@@ -439,7 +438,6 @@
 		1166AD8E1976F5C90010BFEA /* PlaceHolderFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceHolderFactory.h; sourceTree = "<group>"; };
 		1166AD8F1976F5C90010BFEA /* PlaceHolderFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceHolderFactory.m; sourceTree = "<group>"; };
 		116D500318E38FA200579F37 /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
-		116D500418E3997A00579F37 /* LocalContent_FZ_DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = LocalContent_FZ_DB.sqlite; sourceTree = "<group>"; };
 		116EE31C18ADA07500C66D86 /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
 		116EE31D18ADA07500C66D86 /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SessionManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		116EE31F18ADA08D00C66D86 /* ContentManagerOLd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentManagerOLd.h; sourceTree = "<group>"; };
@@ -479,7 +477,6 @@
 		11810B7818C9407F00C5246C /* CVCircleCounterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CVCircleCounterView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		11810B7A18C9419100C5246C /* CVCircleDownCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVCircleDownCounter.h; sourceTree = "<group>"; };
 		11810B7B18C9419100C5246C /* CVCircleDownCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVCircleDownCounter.m; sourceTree = "<group>"; };
-		11B68B6218E3BA8600AE9197 /* LocalContent_DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = LocalContent_DB.sqlite; sourceTree = "<group>"; };
 		11B68B6418E53CDE00AE9197 /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
 		11B755BC19708BA000410604 /* ApiErrorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiErrorManager.h; sourceTree = "<group>"; };
 		11B755BD19708BA000410604 /* ApiErrorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiErrorManager.m; sourceTree = "<group>"; };
@@ -488,7 +485,6 @@
 		11CAB43218CA6C8E00FE05FD /* SQLiteAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SQLiteAPI.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		11CAB43518CA711C00FE05FD /* ApiContentDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiContentDatabase.h; sourceTree = "<group>"; };
 		11CAB43618CA711C00FE05FD /* ApiContentDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ApiContentDatabase.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		11CAB43C18CA944900FE05FD /* LocalContent_DB_ori.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = LocalContent_DB_ori.sqlite; sourceTree = "<group>"; };
 		11CB8FC118B00B2900396418 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		11CB8FC218B00B2900396418 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SignInViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		11CB8FC618B00BB200396418 /* CoreFunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreFunctionViewController.h; sourceTree = "<group>"; };
@@ -612,8 +608,13 @@
 		11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ComposeViewHelper.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		11FD6CEF18B3DCB9007D318E /* ComposeViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ComposeViewHelper.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		137E30FB55AC4303821AB00C /* libPods-WordOfMouthEngineTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WordOfMouthEngineTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		15526803F22D4415BB7A42E9 /* Pods-WordOfMouthEngineTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.xcconfig"; path = "Pods/Pods-WordOfMouthEngineTests.xcconfig"; sourceTree = "<group>"; };
-		CCC2C566F3734B64B9746401 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		51A9288819DF60CE008712B5 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
+		51A9288919DF60CE008712B5 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
+		51A9288B19DF61D6008712B5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		6F964D91CEA881A38C778238 /* Pods-WordOfMouthEngineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WordOfMouthEngineTests/Pods-WordOfMouthEngineTests.release.xcconfig"; sourceTree = "<group>"; };
+		7B7DE93CBC006C0FBB938947 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		D51D646171107F801C182E34 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E6A0DFD18FBADD25A1C0EB12 /* Pods-WordOfMouthEngineTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WordOfMouthEngineTests/Pods-WordOfMouthEngineTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -621,6 +622,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51A9288C19DF61D6008712B5 /* CoreLocation.framework in Frameworks */,
 				1114A7F8182D8B3300089669 /* CoreGraphics.framework in Frameworks */,
 				1114A7FA182D8B3300089669 /* UIKit.framework in Frameworks */,
 				11CAB43418CA6D0700FE05FD /* libsqlite3.dylib in Frameworks */,
@@ -663,8 +665,7 @@
 				1114A814182D8B3400089669 /* WordOfMouthEngineTests */,
 				1114A7F4182D8B3300089669 /* Frameworks */,
 				1114A7F3182D8B3300089669 /* Products */,
-				CCC2C566F3734B64B9746401 /* Pods.xcconfig */,
-				15526803F22D4415BB7A42E9 /* Pods-WordOfMouthEngineTests.xcconfig */,
+				A5E1C55A91526551DC639EAC /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -680,6 +681,7 @@
 		1114A7F4182D8B3300089669 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				51A9288B19DF61D6008712B5 /* CoreLocation.framework */,
 				11CAB42E18CA685E00FE05FD /* libsqlite3.dylib */,
 				1114A7F5182D8B3300089669 /* Foundation.framework */,
 				1114A7F7182D8B3300089669 /* CoreGraphics.framework */,
@@ -701,7 +703,6 @@
 				1114A828182D8D5B00089669 /* Controllers */,
 				111E5972182ECA6300B7FD49 /* DebugTest */,
 				1114A807182D8B3300089669 /* Images.xcassets */,
-				1163F6CA1989BC6200FDE74A /* Misc */,
 				1114A827182D8D5300089669 /* Models */,
 				1114A829182D8D7100089669 /* Resources */,
 				1114A7FC182D8B3300089669 /* Supporting Files */,
@@ -754,6 +755,7 @@
 		1114A826182D8D4A00089669 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				51A9288719DF6088008712B5 /* LocationsVC */,
 				11810B6E18C9379800C5246C /* CustomView */,
 				11CB8FC518B00B5500396418 /* CoreFunctionVC */,
 				11CB8FC418B00B3300396418 /* SignInVC */,
@@ -826,6 +828,7 @@
 		111E5972182ECA6300B7FD49 /* DebugTest */ = {
 			isa = PBXGroup;
 			children = (
+				1163F6CA1989BC6200FDE74A /* Misc */,
 				111E5973182ECA8F00B7FD49 /* DebugTestManager.h */,
 				111E5974182ECA8F00B7FD49 /* DebugTestManager.m */,
 			);
@@ -1122,9 +1125,6 @@
 		11B67DC418CA5CEE00F6E04B /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				11B68B6218E3BA8600AE9197 /* LocalContent_DB.sqlite */,
-				116D500418E3997A00579F37 /* LocalContent_FZ_DB.sqlite */,
-				11CAB43C18CA944900FE05FD /* LocalContent_DB_ori.sqlite */,
 				11CAB43518CA711C00FE05FD /* ApiContentDatabase.h */,
 				11CAB43618CA711C00FE05FD /* ApiContentDatabase.m */,
 				11CB8FEA18B0886600396418 /* ApiContent.m */,
@@ -1402,6 +1402,26 @@
 			name = ComposeVC;
 			sourceTree = "<group>";
 		};
+		51A9288719DF6088008712B5 /* LocationsVC */ = {
+			isa = PBXGroup;
+			children = (
+				51A9288819DF60CE008712B5 /* LocationViewController.h */,
+				51A9288919DF60CE008712B5 /* LocationViewController.m */,
+			);
+			name = LocationsVC;
+			sourceTree = "<group>";
+		};
+		A5E1C55A91526551DC639EAC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7B7DE93CBC006C0FBB938947 /* Pods.debug.xcconfig */,
+				D51D646171107F801C182E34 /* Pods.release.xcconfig */,
+				E6A0DFD18FBADD25A1C0EB12 /* Pods-WordOfMouthEngineTests.debug.xcconfig */,
+				6F964D91CEA881A38C778238 /* Pods-WordOfMouthEngineTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1495,13 +1515,11 @@
 				111A272419C9087100BA2D85 /* newtopic-btn~iphone.png in Resources */,
 				11D3709519D5D99000AEF362 /* S12@2x~iphone.png in Resources */,
 				11D3701E19D0F47100AEF362 /* kill-btn@2x~iphone.png in Resources */,
-				11B68B6318E3BB0200AE9197 /* LocalContent_DB.sqlite in Resources */,
 				111A274A19C9F07000BA2D85 /* signup-nav-btn@2x~iphone.png in Resources */,
 				11D3702219D0F47100AEF362 /* spread-btn@2x~iphone.png in Resources */,
 				11D370DD19D5D9B800AEF362 /* x_4~iphone.png in Resources */,
 				11D3711919D5DB3100AEF362 /* s2w@2x.png in Resources */,
 				11D370B719D5D99000AEF362 /* S20~iphone.png in Resources */,
-				116D500518E3997A00579F37 /* LocalContent_FZ_DB.sqlite in Resources */,
 				111A272219C9087100BA2D85 /* newtopic-btn@2x~iphone.png in Resources */,
 				11D3709F19D5D99000AEF362 /* S14~iphone.png in Resources */,
 				11D3708D19D5D99000AEF362 /* S10@2x~iphone.png in Resources */,
@@ -1539,7 +1557,6 @@
 				11D370F519D5DB1D00AEF362 /* s2g~iphone.png in Resources */,
 				111A274419C909D600BA2D85 /* signup-btn@2x~iphone.png in Resources */,
 				11D370BD19D5D99000AEF362 /* S22@2x~iphone.png in Resources */,
-				11CAB43D18CA944900FE05FD /* LocalContent_DB_ori.sqlite in Resources */,
 				1117986D197EFF3E00A22004 /* bg3.jpg in Resources */,
 				11D3709719D5D99000AEF362 /* S12~iphone.png in Resources */,
 				11D370D719D5D9B800AEF362 /* x_3@2x~iphone.png in Resources */,
@@ -1753,7 +1770,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		26463924E05B44199EA6B234 /* Check Pods Manifest.lock */ = {
@@ -1783,7 +1800,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-WordOfMouthEngineTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WordOfMouthEngineTests/Pods-WordOfMouthEngineTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		55355DCA2BA94F5F81C5E861 /* Check Pods Manifest.lock */ = {
@@ -1811,6 +1828,7 @@
 				111C65A319777D530073D605 /* ApiUserResponse.m in Sources */,
 				11CAB43318CA6C8E00FE05FD /* SQLiteAPI.m in Sources */,
 				11CAB43018CA6C4600FE05FD /* SessionManager.m in Sources */,
+				51A9288A19DF60CE008712B5 /* LocationViewController.m in Sources */,
 				11D3712E19D5E31000AEF362 /* CustomActivityIndicator.m in Sources */,
 				116EE32718ADA0E100C66D86 /* AppUIManager.m in Sources */,
 				11D3702E19D5CFBB00AEF362 /* UIImageView+AnimationCompletion.m in Sources */,
@@ -2001,7 +2019,7 @@
 		};
 		1114A81F182D8B3400089669 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CCC2C566F3734B64B9746401 /* Pods.xcconfig */;
+			baseConfigurationReference = 7B7DE93CBC006C0FBB938947 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2022,7 +2040,7 @@
 		};
 		1114A820182D8B3400089669 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CCC2C566F3734B64B9746401 /* Pods.xcconfig */;
+			baseConfigurationReference = D51D646171107F801C182E34 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2043,7 +2061,7 @@
 		};
 		1114A822182D8B3400089669 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15526803F22D4415BB7A42E9 /* Pods-WordOfMouthEngineTests.xcconfig */;
+			baseConfigurationReference = E6A0DFD18FBADD25A1C0EB12 /* Pods-WordOfMouthEngineTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMouthEngine.app/WordOfMouthEngine";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -2073,7 +2091,7 @@
 		};
 		1114A823182D8B3400089669 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15526803F22D4415BB7A42E9 /* Pods-WordOfMouthEngineTests.xcconfig */;
+			baseConfigurationReference = 6F964D91CEA881A38C778238 /* Pods-WordOfMouthEngineTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMouthEngine.app/WordOfMouthEngine";
 				CLANG_ENABLE_OBJC_ARC = YES;

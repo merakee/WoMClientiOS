@@ -42,5 +42,7 @@
 		<string>FiraSans-Bold.otf</string>
 		<string>UTILITY.ttf</string>
 	</array>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>When in usage message</string>
 </dict>
 </plist>
