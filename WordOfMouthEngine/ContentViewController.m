@@ -297,18 +297,64 @@
 
 - (void)addGestures{
     // Add swipeGestures
-    oneFingerSwipeLeft = [[UISwipeGestureRecognizer alloc]
-                          initWithTarget:self
-                          action:@selector(swipeLeft:)];
-    [oneFingerSwipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [[self view] addGestureRecognizer:oneFingerSwipeLeft];
     
-    oneFingerSwipeRight = [[UISwipeGestureRecognizer alloc]
-                           initWithTarget:self
-                           action:@selector(swipeRight:)];
-    [oneFingerSwipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
-    [[self view] addGestureRecognizer:oneFingerSwipeRight];
+    panRecognized = [[UIPanGestureRecognizer alloc]
+                         initWithTarget:self
+                         action:@selector(panRecognized:)];
+    
+    [panRecognized setMinimumNumberOfTouches:1];
+    [panRecognized setMaximumNumberOfTouches:1];
+    
+    [[self view] addGestureRecognizer:panRecognized];
 }
+
+- (void)panRecognized:(UIPanGestureRecognizer *)sender
+{
+     // Begin state of pan can do something
+    if (sender.state == UIGestureRecognizerStateBegan) {
+       
+    }
+    // Get distance of pan/swipe in the view in which the gesture recognizer was added
+    CGPoint distance = [sender translationInView:self.view];
+    
+    // Get velocity of pan/swipe in the view in which the gesture recognizer was added
+    CGPoint velocity = [sender velocityInView:self.view];
+    
+    // Use this if you need to move an object at a speed that matches the users swipe speed
+    float usersSwipeSpeed = abs(velocity.x);
+    
+    //NSLog(@"swipe speed:%f", usersSwipeSpeed);
+    
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        [sender cancelsTouchesInView];
+        NSLog(@"Swiped at %f", distance.x);
+        // right
+        if (distance.x > panLeftDistance) {
+           // NSLog(@"Swiped right %f", distance.x);
+             [self spreadButtonPressed:nil];
+        // left
+        } else if (distance.x < panRightDistance) {
+           // NSLog(@"Swiped left %f", distance.x);
+             [self killButtonPressed:nil];
+        }
+
+    }
+}
+
+//- (void)addGestures{
+//    // Add swipeGestures
+//    oneFingerSwipeLeft = [[UISwipeGestureRecognizer alloc]
+//                          initWithTarget:self
+//                          action:@selector(swipeLeft:)];
+//    [oneFingerSwipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+//    [[self view] addGestureRecognizer:oneFingerSwipeLeft];
+//    
+//    oneFingerSwipeRight = [[UISwipeGestureRecognizer alloc]
+//                           initWithTarget:self
+//                           action:@selector(swipeRight:)];
+//    [oneFingerSwipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
+//    [[self view] addGestureRecognizer:oneFingerSwipeRight];
+//}
 
 - (void)displaySignInOutButtonView{
     SignInAndOutViewController *siovc =[[SignInAndOutViewController alloc] init];
@@ -316,6 +362,7 @@
     [self presentViewController:siovc    animated:YES completion:nil];
 }
 #pragma mark - Gesture Recognizers Action Methods
+
 - (void)swipeLeft:(id)sender{
     [self killButtonPressed:nil];
 }
@@ -323,6 +370,8 @@
 - (void)swipeRight:(id)sender{
     [self spreadButtonPressed:nil];
 }
+
+
 #pragma mark - Button Action Methods
 - (void)goToAddContentView:(id)sender {
     // set add content view
