@@ -688,10 +688,16 @@
 
 + (void)addCustomActivityIndicator:(CustomActivityIndicator *)activityIndicator toView:(UIView *)view{
     [activityIndicator setTranslatesAutoresizingMaskIntoConstraints:NO];
-    activityIndicator.frame = CGRectMake(0.0,0.0,100.0,100.0);
     activityIndicator.hidesWhenStopped=YES;
     activityIndicator.activityIndicatorStyle  = kAUCCustomActivityIndicatorStyleGray;
     [view addSubview:activityIndicator];
+    
+    // size
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(activityIndicator);
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[activityIndicator(50)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[activityIndicator(50)]"
+                                                                 options:0 metrics:nil views:viewsDictionary]];
     
     // layout: in the center
     [AppUIManager verticallyCenterElement:activityIndicator inView:view];

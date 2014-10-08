@@ -298,6 +298,17 @@
 //}
 - (void)textViewDidChange:(UITextView *)textView{
     long  textLength =[textView.text length];
+    
+    //   Add swipe gesture
+    panRecognized = [[UIPanGestureRecognizer alloc]
+                     initWithTarget:self
+                     action:@selector(panRecognized:)];
+    
+    [panRecognized setMinimumNumberOfTouches:1];
+    [panRecognized setMaximumNumberOfTouches:1];
+    
+    [[self view] addGestureRecognizer:panRecognized];
+    
     // place holder text
     if(( textLength== 0)&&(placeHolderLabel.isHidden)){
         placeHolderLabel.hidden=NO;
@@ -333,6 +344,22 @@
     return YES;
 }
 
+- (void)panRecognized:(UIPanGestureRecognizer *)sender
+{
+
+    float screenH = [CommonUtility getScreenHeight];
+    CGPoint distance = [sender translationInView:self.view];
+
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        [sender cancelsTouchesInView];
+         NSLog(@"Swiped at %f", distance.y);
+        if (distance.y < (screenH / 5)) {
+            [self disableKeyBoard];
+        }
+    }
+}
+
+
 //- (void)textViewDidEndEditing:(UITextView *)textView{
 //
 //}
@@ -353,6 +380,9 @@
     //    else{
     //        ci.categoryId = [NSNumber numberWithInteger:categoryControl.selectedSegmentIndex+1];
     //    }
+    
+    // disable post button
+    postButton.enabled = NO;
     
     // post content
     [activityIndicator startAnimating];
@@ -383,6 +413,12 @@
     [Flurry logEvent:[FlurryManager getEventName:kFAComposePostSuccess]];
     //clear content
     [self clearViewAfterSuccessfulPostOrCancel];
+    
+    // Go back after successful post
+    [self.navigationController popViewControllerAnimated:NO];
+    NSLog(@"go back to main page");
+//    [ContentViewController self.view];
+    //[ContentViewController setView];
     // display sucess
     //[CommonUtility displayAlertWithTitle:@"Post Successful"
     //                           message:@"Your content was posted sucessfully!" delegate:self];

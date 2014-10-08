@@ -57,8 +57,6 @@
     // Do any additional setup after loading the view.
     // full screen view
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
-    // update content
-    [self updateContent];
 }
 
 - (void)viewDidUnload{
@@ -77,6 +75,10 @@
     
     // hide navigation bar
     [self.navigationController setNavigationBarHidden:YES];
+    
+    // update content
+    [self refreshContent];
+    
     
     // add observer for text view
     //[contentTextView  addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
@@ -252,9 +254,9 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[animationView]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[spreadAnimationView(320)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[spreadAnimationView(172)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadAnimationView(568)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadAnimationView(154)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:spreadAnimationView    inView:animationView];
     [AppUIManager verticallyCenterElement:spreadAnimationView    inView:animationView];
@@ -299,16 +301,14 @@
     // Add swipeGestures
     
     panRecognized = [[UIPanGestureRecognizer alloc]
-                         initWithTarget:self
-                         action:@selector(panRecognized:)];
+                     initWithTarget:self
+                     action:@selector(panRecognized:)];
     
     [panRecognized setMinimumNumberOfTouches:1];
     [panRecognized setMaximumNumberOfTouches:1];
     
     [[self view] addGestureRecognizer:panRecognized];
 }
-
-
 //- (void)addGestures{
 //    // Add swipeGestures
 //    oneFingerSwipeLeft = [[UISwipeGestureRecognizer alloc]
@@ -330,21 +330,23 @@
     [self presentViewController:siovc    animated:YES completion:nil];
 }
 #pragma mark - Gesture Recognizers Action Methods
-
 - (void)panRecognized:(UIPanGestureRecognizer *)sender
 {
     // Begin state of pan can do something
     if (sender.state == UIGestureRecognizerStateBegan) {
         
     }
+    
+    //    float screenH = [CommonUtility getScreenHeight];
+    float screenW = [CommonUtility getScreenWidth];
     // Get distance of pan/swipe in the view in which the gesture recognizer was added
     CGPoint distance = [sender translationInView:self.view];
     
     // Get velocity of pan/swipe in the view in which the gesture recognizer was added
-    CGPoint velocity = [sender velocityInView:self.view];
+   // CGPoint velocity = [sender velocityInView:self.view];
     
     // Use this if you need to move an object at a speed that matches the users swipe speed
-    float usersSwipeSpeed = abs(velocity.x);
+    //   float usersSwipeSpeed = abs(velocity.x);
     
     //NSLog(@"swipe speed:%f", usersSwipeSpeed);
     
@@ -352,24 +354,26 @@
         [sender cancelsTouchesInView];
         NSLog(@"Swiped at %f", distance.x);
         // right
-        if (distance.x > panLeftDistance) {
+        if (distance.x > screenW / 4) {
             // NSLog(@"Swiped right %f", distance.x);
             [self spreadButtonPressed:nil];
             // left
-        } else if (distance.x < panRightDistance) {
+        } else if (distance.x < -(screenW / 4)) {
             // NSLog(@"Swiped left %f", distance.x);
             [self killButtonPressed:nil];
         }
-//        // down
-//        if (distance.y > 0) {
-//            NSLog(@"user swiped down");
-//        }
-//        //up
-//        else if (distance.y < 0){
-//            NSLog(@"user swiped up");
-//        }
+        //        // down
+        //        if (distance.y > 0) {
+        //            NSLog(@"user swiped down");
+        //        }
+        //        //up
+        //        else if (distance.y < 0){
+        //            NSLog(@"user swiped up");
+        //        }
     }
 }
+
+
 //- (void)swipeLeft:(id)sender{
 //    [self killButtonPressed:nil];
 //}
@@ -377,7 +381,6 @@
 //- (void)swipeRight:(id)sender{
 //    [self spreadButtonPressed:nil];
 //}
-
 
 #pragma mark - Button Action Methods
 - (void)goToAddContentView:(id)sender {
@@ -423,8 +426,8 @@
 - (void)updateViewWithNewContent{
     [self startContentLoadAnimation];
     
-    // Add images here
-    UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
+    UIImage *bgImage = [self dummyImage];
+  //  UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
     
     if([currentContent.photoToken isKindOfClass:[NSDictionary class]]
        && currentContent.photoToken[@"url"] &&
@@ -447,8 +450,10 @@
     
     // set text
     //contentTextView.text = currentContent.contentText;
-    contentTextView.attributedText = [ContentViewHelper getAttributedText:currentContent.contentText];
     
+    // get text
+    //    contentTextView.attributedText = [ContentViewHelper getAttributedText:currentContent.contentText];
+    contentTextView.attributedText = [ContentViewHelper getAttributedText:[self dummyText]];
     
     //contentTextView.attributedText = [ContentViewHelper getAttributedText:@"Put a bird on it +1 Helvetica, iPhone quinoa Kickstarter Blue Bottle tote bag McSweeney's Carles wayfarers. McSweeney's trust fund biodiesel actually, next level squid keffiyeh Williamsburg ennui semiotics Helvetica authentic. Selfies Etsy umami, narwhal chillwave Williamsburg small batch "];
     
@@ -462,16 +467,41 @@
     //spreadCount.text = [NSString stringWithFormat:@"%ld", (long)currentContent.totalSpread.integerValue];
     ///timeCount.text = currentContent.timeStamp;
     //[self resetContentTimer];
+    
+    pic_index +=1;
+    pic_index = (int) fmodf(pic_index,4.0);
+    
 }
 - (void)clearContents{
     [contentManager clearContents];
     currentContent.contentId = nil;
 }
 - (void)refreshContent{
-    if(currentContent.contentId==nil){
+    if((currentContent.contentId==nil)&&([[ApiManager sharedApiManager] currentUser]!=nil)){
         [self updateContent];
     }
 }
+
+#pragma mark - Dummy content
+- (UIImage *)dummyImage{
+    
+    NSString *fileName =[[@"ScreenShot" stringByAppendingFormat:@"%d",pic_index+1 ]stringByAppendingString:@".png"];
+    
+    return [UIImage imageNamed:fileName];
+}
+
+-(NSString *)dummyText{
+    NSArray *textArray=@[
+                         @"Awesome concert tonight!",
+                         @"We used to look at the stars and confess our dreams Hold each other 'till the morning light",
+                         @"\"He who must travel happily must travel light.\"\n -Antoine de Saint-Exupery",
+                         @"I can't believe we know more about the surface of the moon than the ocean floor "
+                         ];
+    
+    return textArray[pic_index];
+    
+}
+
 
 #pragma mark - Animation Methods
 - (void)startContentLoadAnimation{

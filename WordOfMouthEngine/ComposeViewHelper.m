@@ -80,6 +80,7 @@
 #pragma mark -  View Helper Methods: TextViews
 + (UITextView *)getComposeTextViewWithDelegate:(id)delegate{
     UITextView *textView =[[UITextView alloc] init];
+  //  NSLog(@"....1...");
     // set app defaults
     //[AppUIManager setTextView:textView ofType:kAUCPriorityTypePrimary];
     
@@ -108,7 +109,8 @@
     //    textView.layer.shadowRadius = 4.0f;
     
     // set up key board
-    textView.returnKeyType = UIReturnKeyDone;
+    
+  //  textView.returnKeyType = UIReturnKeyDone;
     
     // inset for text
     //textView.textContainerInset = UIEdgeInsetsMake(0, 0, 5.0, 0.0);

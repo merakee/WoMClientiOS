@@ -12,11 +12,6 @@
 #import "UIImageView+AFNetworking.h"
 #import "CustomActivityIndicator.h"
 
-
-
-static const float panLeftDistance = 100;
-static const float panRightDistance = -100;
-
 //@interface ContentViewController : UIViewController <CVCircleCounterViewDelegate>{
 @interface ContentViewController : UIViewController{
     UITextView         *contentTextView;
@@ -59,12 +54,15 @@ static const float panRightDistance = -100;
     // gestures
 //    UISwipeGestureRecognizer *oneFingerSwipeLeft;
 //    UISwipeGestureRecognizer *oneFingerSwipeRight;
-    
     UIPanGestureRecognizer *panRecognized;
+    
+    // dummy content index
+    int pic_index;
 
 }
 
 #pragma mark - Utility methods
 - (void)clearContents;
 - (void)refreshContent;
+
 @end

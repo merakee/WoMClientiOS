@@ -214,12 +214,12 @@
     //button.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorLightTeal];
     //[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     //[button setTitle:@"Signin" forState:UIControlStateNormal];
-    [button setAccessibilityIdentifier:@"Sign In and Out"];
+    [button setAccessibilityIdentifier:@"SignInAndOutButton"];
     return button;
 }
 + (UIButton *)getDismissButton{
     UIButton *button =  [AppUIManager getTransparentUIButton];
-    [button setAccessibilityIdentifier:@"DimissButton"];
+    [button setAccessibilityIdentifier:@"DismissButton"];
     return button;
 }
 

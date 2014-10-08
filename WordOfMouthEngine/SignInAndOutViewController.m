@@ -119,6 +119,9 @@
 
 #pragma mark - Session methods
 - (void)signedOutSuccessfully{
+    // clear content 
+    [(AppDelegate *)[UIApplication sharedApplication].delegate  clearContents];
+    
     [self dismissSignInOutButtonView];
     
     // go to sign in view

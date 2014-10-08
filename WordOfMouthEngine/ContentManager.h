@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ApiContent.h"
+#import "ApiManager.h"
 
 @interface ContentManager : NSObject{
     NSMutableArray *contentArray;

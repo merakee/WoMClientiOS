@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ImageProcessingManager.h"
+#import "ContentViewController.h"
 
 @interface ComposeViewController : UIViewController<UITextViewDelegate,ImageProcessingManagerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>{
     // UISegmentedControl *categoryControl;
@@ -25,6 +26,7 @@
     UIButton                 *cancelButton;
     
     UIActivityIndicatorView *activityIndicator;
+    UIPanGestureRecognizer *panRecognized;
 }
 
 @end
