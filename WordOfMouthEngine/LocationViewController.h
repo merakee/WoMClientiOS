@@ -18,7 +18,7 @@
 //locationAccuracy = kCLLocationAccuracyThreeKilometers;
 static const int minimumDistance = 1000;
 
-@interface LocationViewController : UIViewController
+@interface LocationViewController : UIViewController <CLLocationManagerDelegate>
 @property (assign, nonatomic) CLLocationDistance *distanceFilter;
 @property (assign, nonatomic) CLLocationAccuracy *desiredAccuracy;
 @property (nonatomic, strong) CLLocationManager *locationManager;

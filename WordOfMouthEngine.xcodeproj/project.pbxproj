@@ -335,6 +335,8 @@
 		11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */; };
 		51A9288A19DF60CE008712B5 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A9288919DF60CE008712B5 /* LocationViewController.m */; };
 		51A9288C19DF61D6008712B5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51A9288B19DF61D6008712B5 /* CoreLocation.framework */; };
+		51D69BD819E4CA370001D70D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D69BD719E4CA370001D70D /* MapViewController.m */; };
+		51D69BDB19E4CAB30001D70D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51D69BDA19E4CAB30001D70D /* MapKit.framework */; };
 		870BD85D0FBD4E1D9F135B09 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E47A1ADCFB3478F849F074C /* libPods.a */; };
 		E7B276EC194F409AA78B66AD /* libPods-WordOfMouthEngineTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 137E30FB55AC4303821AB00C /* libPods-WordOfMouthEngineTests.a */; };
 /* End PBXBuildFile section */
@@ -611,6 +613,9 @@
 		51A9288819DF60CE008712B5 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
 		51A9288919DF60CE008712B5 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
 		51A9288B19DF61D6008712B5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		51D69BD619E4CA370001D70D /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		51D69BD719E4CA370001D70D /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		51D69BDA19E4CAB30001D70D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6F964D91CEA881A38C778238 /* Pods-WordOfMouthEngineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WordOfMouthEngineTests/Pods-WordOfMouthEngineTests.release.xcconfig"; sourceTree = "<group>"; };
 		7B7DE93CBC006C0FBB938947 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D51D646171107F801C182E34 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -622,6 +627,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51D69BDB19E4CAB30001D70D /* MapKit.framework in Frameworks */,
 				51A9288C19DF61D6008712B5 /* CoreLocation.framework in Frameworks */,
 				1114A7F8182D8B3300089669 /* CoreGraphics.framework in Frameworks */,
 				1114A7FA182D8B3300089669 /* UIKit.framework in Frameworks */,
@@ -681,6 +687,7 @@
 		1114A7F4182D8B3300089669 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				51D69BDA19E4CAB30001D70D /* MapKit.framework */,
 				51A9288B19DF61D6008712B5 /* CoreLocation.framework */,
 				11CAB42E18CA685E00FE05FD /* libsqlite3.dylib */,
 				1114A7F5182D8B3300089669 /* Foundation.framework */,
@@ -755,6 +762,7 @@
 		1114A826182D8D4A00089669 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				51D69BD919E4CA420001D70D /* MapView */,
 				51A9288719DF6088008712B5 /* LocationsVC */,
 				11810B6E18C9379800C5246C /* CustomView */,
 				11CB8FC518B00B5500396418 /* CoreFunctionVC */,
@@ -1411,6 +1419,15 @@
 			name = LocationsVC;
 			sourceTree = "<group>";
 		};
+		51D69BD919E4CA420001D70D /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				51D69BD619E4CA370001D70D /* MapViewController.h */,
+				51D69BD719E4CA370001D70D /* MapViewController.m */,
+			);
+			name = MapView;
+			sourceTree = "<group>";
+		};
 		A5E1C55A91526551DC639EAC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1832,6 +1849,7 @@
 				11D3712E19D5E31000AEF362 /* CustomActivityIndicator.m in Sources */,
 				116EE32718ADA0E100C66D86 /* AppUIManager.m in Sources */,
 				11D3702E19D5CFBB00AEF362 /* UIImageView+AnimationCompletion.m in Sources */,
+				51D69BD819E4CA370001D70D /* MapViewController.m in Sources */,
 				1166AD7E19759ED30010BFEA /* ApiValidationManager.m in Sources */,
 				116EE33018ADA1AC00C66D86 /* AppAnimationManager.m in Sources */,
 				116EE32D18ADA10B00C66D86 /* AppAudioManager.m in Sources */,
