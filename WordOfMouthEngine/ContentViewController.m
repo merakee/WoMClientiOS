@@ -426,8 +426,8 @@
 - (void)updateViewWithNewContent{
     [self startContentLoadAnimation];
     
-    UIImage *bgImage = [self dummyImage];
-  //  UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
+  //  UIImage *bgImage = [self dummyImage];
+    UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
     
     if([currentContent.photoToken isKindOfClass:[NSDictionary class]]
        && currentContent.photoToken[@"url"] &&
@@ -452,8 +452,8 @@
     //contentTextView.text = currentContent.contentText;
     
     // get text
-    //    contentTextView.attributedText = [ContentViewHelper getAttributedText:currentContent.contentText];
-    contentTextView.attributedText = [ContentViewHelper getAttributedText:[self dummyText]];
+      contentTextView.attributedText = [ContentViewHelper getAttributedText:currentContent.contentText];
+   // contentTextView.attributedText = [ContentViewHelper getAttributedText:[self dummyText]];
     
     //contentTextView.attributedText = [ContentViewHelper getAttributedText:@"Put a bird on it +1 Helvetica, iPhone quinoa Kickstarter Blue Bottle tote bag McSweeney's Carles wayfarers. McSweeney's trust fund biodiesel actually, next level squid keffiyeh Williamsburg ennui semiotics Helvetica authentic. Selfies Etsy umami, narwhal chillwave Williamsburg small batch "];
     
@@ -483,24 +483,24 @@
 }
 
 #pragma mark - Dummy content
-- (UIImage *)dummyImage{
-    
-    NSString *fileName =[[@"ScreenShot" stringByAppendingFormat:@"%d",pic_index+1 ]stringByAppendingString:@".png"];
-    
-    return [UIImage imageNamed:fileName];
-}
-
--(NSString *)dummyText{
-    NSArray *textArray=@[
-                         @"Awesome concert tonight!",
-                         @"We used to look at the stars and confess our dreams Hold each other 'till the morning light",
-                         @"\"He who must travel happily must travel light.\"\n -Antoine de Saint-Exupery",
-                         @"I can't believe we know more about the surface of the moon than the ocean floor "
-                         ];
-    
-    return textArray[pic_index];
-    
-}
+//- (UIImage *)dummyImage{
+//    
+//    NSString *fileName =[[@"ScreenShot" stringByAppendingFormat:@"%d",pic_index+1 ]stringByAppendingString:@".png"];
+//    
+//    return [UIImage imageNamed:fileName];
+//}
+//
+//-(NSString *)dummyText{
+//    NSArray *textArray=@[
+//                         @"Awesome concert tonight!",
+//                         @"We used to look at the stars and confess our dreams Hold each other 'till the morning light",
+//                         @"\"He who must travel happily must travel light.\"\n -Antoine de Saint-Exupery",
+//                         @"I can't believe we know more about the surface of the moon than the ocean floor "
+//                         ];
+//    
+//    return textArray[pic_index];
+//    
+//}
 
 
 #pragma mark - Animation Methods

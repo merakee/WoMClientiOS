@@ -143,7 +143,6 @@
     
     // accessibilty
     [textView setAccessibilityIdentifier:@"Add Text"];
-    
     return textView;
 }
 

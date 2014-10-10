@@ -331,9 +331,11 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     
     // return key
-    if([text isEqualToString:@"\n"]) {
-        [self postContent:nil];
-        return NO;
+   if([text isEqualToString:@"\n"]) {
+//        [self postContent:nil];
+       
+//       [composeTextView resignFirstResponder];
+        return YES;
     }
     
     long totalLength = textView.text.length - range.length + text.length;
@@ -353,7 +355,7 @@
     if (sender.state == UIGestureRecognizerStateEnded) {
         [sender cancelsTouchesInView];
          NSLog(@"Swiped at %f", distance.y);
-        if (distance.y < (screenH / 5)) {
+        if (distance.y > (screenH / 50)) {
             [self disableKeyBoard];
         }
     }

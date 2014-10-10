@@ -270,8 +270,8 @@
 		11F269C6197848700051FA38 /* TestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F269C5197848700051FA38 /* TestHelper.m */; };
 		11FD6CED18B18C75007D318E /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEB18B18C75007D318E /* ComposeViewController.m */; };
 		11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */; };
-		51D69BDE19E5E0E90001D70D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D69BDD19E5E0E90001D70D /* MapViewController.m */; };
-		51D69BE219E5E11B0001D70D /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D69BE119E5E11B0001D70D /* LocationViewController.m */; };
+		51D69C2E19E74F280001D70D /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D69C2D19E74F280001D70D /* LocationViewController.m */; };
+		51D69C3119E74F330001D70D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D69C3019E74F330001D70D /* MapViewController.m */; };
 		51E0B8D419E486770090351A /* ScreenShot4.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E0B8D019E486770090351A /* ScreenShot4.png */; };
 		51E0B8D519E486770090351A /* ScreenShot2.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E0B8D119E486770090351A /* ScreenShot2.png */; };
 		51E0B8D619E486770090351A /* ScreenShot3.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E0B8D219E486770090351A /* ScreenShot3.png */; };
@@ -534,10 +534,10 @@
 		137E30FB55AC4303821AB00C /* libPods-WordOfMouthEngineTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WordOfMouthEngineTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D1850F625060252B0C1E18 /* Pods-WordOfMouthEngineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WordOfMouthEngineTests/Pods-WordOfMouthEngineTests.release.xcconfig"; sourceTree = "<group>"; };
 		390B7A12263A1DB476D0235A /* Pods-WordOfMouthEngineTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WordOfMouthEngineTests/Pods-WordOfMouthEngineTests.debug.xcconfig"; sourceTree = "<group>"; };
-		51D69BDC19E5E0E90001D70D /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = ../../WoMClientiOS/WordOfMouthEngine/MapViewController.h; sourceTree = "<group>"; };
-		51D69BDD19E5E0E90001D70D /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = ../../WoMClientiOS/WordOfMouthEngine/MapViewController.m; sourceTree = "<group>"; };
-		51D69BE019E5E11B0001D70D /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationViewController.h; path = ../../WoMClientiOS/WordOfMouthEngine/LocationViewController.h; sourceTree = "<group>"; };
-		51D69BE119E5E11B0001D70D /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationViewController.m; path = ../../WoMClientiOS/WordOfMouthEngine/LocationViewController.m; sourceTree = "<group>"; };
+		51D69C2C19E74F280001D70D /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationViewController.h; path = ../../examples/mapView/mapView/LocationViewController.h; sourceTree = "<group>"; };
+		51D69C2D19E74F280001D70D /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationViewController.m; path = ../../examples/mapView/mapView/LocationViewController.m; sourceTree = "<group>"; };
+		51D69C2F19E74F330001D70D /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = ../../examples/mapView/mapView/MapViewController.h; sourceTree = "<group>"; };
+		51D69C3019E74F330001D70D /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = ../../examples/mapView/mapView/MapViewController.m; sourceTree = "<group>"; };
 		51E0B8D019E486770090351A /* ScreenShot4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ScreenShot4.png; path = "../../../Desktop/marketing/Sample content/Backgrounds/ScreenShot4.png"; sourceTree = "<group>"; };
 		51E0B8D119E486770090351A /* ScreenShot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ScreenShot2.png; path = "../../../Desktop/marketing/Sample content/Backgrounds/ScreenShot2.png"; sourceTree = "<group>"; };
 		51E0B8D219E486770090351A /* ScreenShot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ScreenShot3.png; path = "../../../Desktop/marketing/Sample content/Backgrounds/ScreenShot3.png"; sourceTree = "<group>"; };
@@ -1328,8 +1328,8 @@
 		51D69BDF19E5E0F60001D70D /* MapVC */ = {
 			isa = PBXGroup;
 			children = (
-				51D69BDC19E5E0E90001D70D /* MapViewController.h */,
-				51D69BDD19E5E0E90001D70D /* MapViewController.m */,
+				51D69C2F19E74F330001D70D /* MapViewController.h */,
+				51D69C3019E74F330001D70D /* MapViewController.m */,
 			);
 			name = MapVC;
 			sourceTree = "<group>";
@@ -1337,8 +1337,8 @@
 		51D69BE319E5E1200001D70D /* LocationVC */ = {
 			isa = PBXGroup;
 			children = (
-				51D69BE019E5E11B0001D70D /* LocationViewController.h */,
-				51D69BE119E5E11B0001D70D /* LocationViewController.m */,
+				51D69C2C19E74F280001D70D /* LocationViewController.h */,
+				51D69C2D19E74F280001D70D /* LocationViewController.m */,
 			);
 			name = LocationVC;
 			sourceTree = "<group>";
@@ -1705,7 +1705,8 @@
 				116EE32718ADA0E100C66D86 /* AppUIManager.m in Sources */,
 				11D3702E19D5CFBB00AEF362 /* UIImageView+AnimationCompletion.m in Sources */,
 				1166AD7E19759ED30010BFEA /* ApiValidationManager.m in Sources */,
-				51D69BE219E5E11B0001D70D /* LocationViewController.m in Sources */,
+				51D69C3119E74F330001D70D /* MapViewController.m in Sources */,
+				51D69C2E19E74F280001D70D /* LocationViewController.m in Sources */,
 				116EE33018ADA1AC00C66D86 /* AppAnimationManager.m in Sources */,
 				116EE32D18ADA10B00C66D86 /* AppAudioManager.m in Sources */,
 				116EE32118ADA08D00C66D86 /* ContentManagerOLd.m in Sources */,
@@ -1714,7 +1715,6 @@
 				11810B7518C9386F00C5246C /* CVCircularProgressLayer.m in Sources */,
 				1131DA7718B5657C00EFDB34 /* WomSignInViewHelper.m in Sources */,
 				1170EB0A196DCAF600802D4D /* JSONResponseSerializerWithData.m in Sources */,
-				51D69BDE19E5E0E90001D70D /* MapViewController.m in Sources */,
 				11CAB43718CA711C00FE05FD /* ApiContentDatabase.m in Sources */,
 				116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */,
 				111E5975182ECA8F00B7FD49 /* DebugTestManager.m in Sources */,
