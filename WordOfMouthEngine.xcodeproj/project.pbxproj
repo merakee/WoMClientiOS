@@ -276,6 +276,9 @@
 		51E0B8D519E486770090351A /* ScreenShot2.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E0B8D119E486770090351A /* ScreenShot2.png */; };
 		51E0B8D619E486770090351A /* ScreenShot3.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E0B8D219E486770090351A /* ScreenShot3.png */; };
 		51E0B8D719E486770090351A /* ScreenShot1.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E0B8D319E486770090351A /* ScreenShot1.png */; };
+		51F956E819EC8B7D00C087AD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F956E719EC8B7D00C087AD /* CoreLocation.framework */; };
+		51F956EA19EC8B8600C087AD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F956E919EC8B8600C087AD /* MapKit.framework */; };
+		51F956EC19EC90F200C087AD /* mapicon.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 51F956EB19EC90F200C087AD /* mapicon.jpeg */; };
 		870BD85D0FBD4E1D9F135B09 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E47A1ADCFB3478F849F074C /* libPods.a */; };
 		E7B276EC194F409AA78B66AD /* libPods-WordOfMouthEngineTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 137E30FB55AC4303821AB00C /* libPods-WordOfMouthEngineTests.a */; };
 /* End PBXBuildFile section */
@@ -542,6 +545,9 @@
 		51E0B8D119E486770090351A /* ScreenShot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ScreenShot2.png; path = "../../../Desktop/marketing/Sample content/Backgrounds/ScreenShot2.png"; sourceTree = "<group>"; };
 		51E0B8D219E486770090351A /* ScreenShot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ScreenShot3.png; path = "../../../Desktop/marketing/Sample content/Backgrounds/ScreenShot3.png"; sourceTree = "<group>"; };
 		51E0B8D319E486770090351A /* ScreenShot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ScreenShot1.png; path = "../../../Desktop/marketing/Sample content/Backgrounds/ScreenShot1.png"; sourceTree = "<group>"; };
+		51F956E719EC8B7D00C087AD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		51F956E919EC8B8600C087AD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		51F956EB19EC90F200C087AD /* mapicon.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = mapicon.jpeg; path = ../../../Downloads/mapicon.jpeg; sourceTree = "<group>"; };
 		708D3433806F8EB96A2EBCE8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E7C0D893A0418F349B8EA369 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -551,6 +557,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51F956EA19EC8B8600C087AD /* MapKit.framework in Frameworks */,
+				51F956E819EC8B7D00C087AD /* CoreLocation.framework in Frameworks */,
 				1114A7F8182D8B3300089669 /* CoreGraphics.framework in Frameworks */,
 				1114A7FA182D8B3300089669 /* UIKit.framework in Frameworks */,
 				11CAB43418CA6D0700FE05FD /* libsqlite3.dylib in Frameworks */,
@@ -609,6 +617,8 @@
 		1114A7F4182D8B3300089669 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				51F956E919EC8B8600C087AD /* MapKit.framework */,
+				51F956E719EC8B7D00C087AD /* CoreLocation.framework */,
 				11CAB42E18CA685E00FE05FD /* libsqlite3.dylib */,
 				1114A7F5182D8B3300089669 /* Foundation.framework */,
 				1114A7F7182D8B3300089669 /* CoreGraphics.framework */,
@@ -798,10 +808,10 @@
 			children = (
 				1166AD851975EC640010BFEA /* WomSignUpViewController.h */,
 				1166AD861975EC640010BFEA /* WomSignUpViewController.m */,
-				1131DA7518B5657C00EFDB34 /* WomSignInViewController.h */,
-				1131DA7218B5657C00EFDB34 /* WomSignInViewController.m */,
 				1166AD891975ECDB0010BFEA /* WomSignUpViewHelper.h */,
 				1166AD8A1975ECDB0010BFEA /* WomSignUpViewHelper.m */,
+				1131DA7518B5657C00EFDB34 /* WomSignInViewController.h */,
+				1131DA7218B5657C00EFDB34 /* WomSignInViewController.m */,
 				1131DA7418B5657C00EFDB34 /* WomSignInViewHelper.h */,
 				1131DA7318B5657C00EFDB34 /* WomSignInViewHelper.m */,
 			);
@@ -855,6 +865,7 @@
 		116E814819AFB52E00DFB1C8 /* ContentView */ = {
 			isa = PBXGroup;
 			children = (
+				51F956EB19EC90F200C087AD /* mapicon.jpeg */,
 				111A270C19C9087100BA2D85 /* btngroup@2x~iphone.png */,
 				11D3701A19D0F47100AEF362 /* kill-btn@2x~iphone.png */,
 				11D3703019D5D63000AEF362 /* logo-nav@2x~iphone.png */,
@@ -1121,8 +1132,8 @@
 			children = (
 				11CB8FD918B049B700396418 /* ContentViewHelper.h */,
 				11CB8FDA18B049B700396418 /* ContentViewHelper.m */,
-				11CB8FCE18B0469000396418 /* ContentViewController.m */,
 				11CB8FCD18B0469000396418 /* ContentViewController.h */,
+				11CB8FCE18B0469000396418 /* ContentViewController.m */,
 				112146DD19CBBB2100346B85 /* SignInAndOutViewController.h */,
 				112146DE19CBBB2100346B85 /* SignInAndOutViewController.m */,
 			);
@@ -1513,6 +1524,7 @@
 				11D3715919DA000000AEF362 /* S1@2x~iphone.png in Resources */,
 				11D3716719DA000000AEF362 /* S8@2x~iphone.png in Resources */,
 				11D3713C19D9FFB400AEF362 /* preloader_gray5.png in Resources */,
+				51F956EC19EC90F200C087AD /* mapicon.jpeg in Resources */,
 				11D370D519D5D9B800AEF362 /* x_2~iphone.png in Resources */,
 				11D3700D19D0AC8A00AEF362 /* login-menu~iphone.png in Resources */,
 				11D3716B19DA000000AEF362 /* S10@2x~iphone.png in Resources */,

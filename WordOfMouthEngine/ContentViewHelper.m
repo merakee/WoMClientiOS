@@ -161,11 +161,19 @@
 }
 
 #pragma mark -  View Helper Methods: Buttons
++ (UIButton *)getMapButton {
+     UIButton *button = [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCMapButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Map"];
+  //  NSLog(@"1, %@", button);
+    return button;
+}
 + (UIButton *)getSpreadButton{
     //return [AppUIManager setButtonWithTitle:@"spread" ofType:kAUCPriorityTypeTertiary];
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCSpreadButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Spread"];
+//    NSLog(@"2, %@", button);
     return button;
     
 }
@@ -176,16 +184,18 @@
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCKillButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Kill"];
+//    NSLog(@"3, %@", button);
     return button;
 }
 
 + (UIButton *)getComposeButton{
     //UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" ofType:kAUCPriorityTypeTertiary];
     //UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" andColor:[UIColor redColor]];
-    
+
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCComposeButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Compose"];
+//    NSLog(@"4, %@", button);
     return button;
 }
 

@@ -24,7 +24,9 @@
 
 #pragma mark -  View Helper Methods: TextLabel
 + (UILabel *)getPageLabel{
+    // Label at top of the page
     return [AppUIManager getUILabelWithText:@"Signup" font:kAUCFontFamilyPrimary ofSize:kAUCFontSizePageLabel color:kAUCColorTypeTextPrimary];
+    
 }
 
 

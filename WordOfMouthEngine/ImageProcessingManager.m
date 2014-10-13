@@ -98,7 +98,7 @@
 
     // start imagepicker
     UIImagePickerController *cameraController = [[UIImagePickerController alloc] init];
-    // set source type to camer
+    // set source type to camera
     cameraController.sourceType = UIImagePickerControllerSourceTypeCamera;
 
     // set media type to photo

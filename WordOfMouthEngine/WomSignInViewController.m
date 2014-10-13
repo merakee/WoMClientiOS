@@ -111,6 +111,7 @@
     
     // labels
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLabel(120)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
     [AppUIManager horizontallyCenterElement:pageLabel inView:self.view];
     //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pageLabel(60)]-26-[emailField]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     

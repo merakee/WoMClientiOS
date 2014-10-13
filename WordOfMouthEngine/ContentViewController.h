@@ -23,6 +23,9 @@
     UIButton           *composeButton;
     UIButton           *pageLogo;
     
+    UIButton            *mapButton;
+    UIButton            *buttonTest;
+    
     // animation
     //UIActivityIndicatorView *activityIndicator;
     CustomActivityIndicator *activityIndicator;

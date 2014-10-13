@@ -14,6 +14,8 @@
 #import "FlurryManager.h"
 #import "SignInAndOutViewController.h"
 
+#import "MapViewController.h"
+
 @implementation ContentViewController
 
 - (id)init
@@ -168,11 +170,14 @@
     composeButton = [ContentViewHelper getComposeButton];
     [composeButton addTarget:self action:@selector(goToAddContentView:) forControlEvents:UIControlEventTouchUpInside];
     
+    mapButton = [ContentViewHelper getMapButton];
+     [mapButton addTarget:self action:@selector(goMapView:) forControlEvents:UIControlEventTouchUpInside];
     
+    [self.view addSubview:mapButton];
     [self.view addSubview:spreadButton];
     [self.view addSubview:killButton];
     [self.view addSubview:composeButton];
-    //
+    
     //    // set Textlabels and progress view
     //    spreadCount = [ContentViewHelper getTextLabelForSpreadCount];
     //    [self.view addSubview:spreadCount];
@@ -202,7 +207,7 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround,spreadButton,killButton,composeButton,pageLogo);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround,spreadButton,killButton,composeButton,pageLogo,mapButton);
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround,spreadButton,killButton,composeButton,signInOutButton);
     
     
@@ -237,6 +242,9 @@
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:composeButton inView:self.view];
     
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLogo]-50-[mapButton(72)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
     [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadButton(72)]-42-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[killButton(spreadButton)]-42-|"
@@ -244,6 +252,10 @@
     
     [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[composeButton(55)]-14-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[mapButton(72)]|"
+                                                                                    options:0 metrics:nil views:viewsDictionary]];
+    
     
 }
 - (void)layoutAnimationView{
@@ -352,7 +364,7 @@
     
     if (sender.state == UIGestureRecognizerStateEnded) {
         [sender cancelsTouchesInView];
-        NSLog(@"Swiped at %f", distance.x);
+   //     NSLog(@"Swiped at %f", distance.x);
         // right
         if (distance.x > screenW / 4) {
             // NSLog(@"Swiped right %f", distance.x);
@@ -383,6 +395,13 @@
 //}
 
 #pragma mark - Button Action Methods
+- (void)goMapView:(id)sender {
+    // set add content view
+    MapViewController *mvc =[[MapViewController alloc] init];
+    mvc.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:mvc animated:NO];
+}
+
 - (void)goToAddContentView:(id)sender {
     // set add content view
     ComposeViewController *acvc =[[ComposeViewController alloc] init];
@@ -552,6 +571,8 @@
     spreadButton.hidden=YES;
     killButton.hidden=YES;
     composeButton.hidden=YES;
+    
+//    mapButton.hidden=YES;
 }
 - (void)setViewsForContentDisplay{
     contentTextView.alpha=0.0;
@@ -561,6 +582,8 @@
     spreadButton.hidden=NO;
     killButton.hidden=NO;
     composeButton.hidden=NO;
+    
+ //   mapButton.hidden=NO;
 }
 
 

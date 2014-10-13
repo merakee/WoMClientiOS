@@ -158,10 +158,14 @@
     // page label
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[appLogoView(172)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
+    
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[appLogoView(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
     [AppUIManager horizontallyCenterElement:appLogoView inView:self.view];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[appLogoView(215)]-35-[signUpButton]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[appLogoView(215)]-35-[signUpButton]"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+
     //buttons
     // [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[appLogoView(50)]-50-[signInButton(42)]-25-[signUpButton(signInButton)]-50-[signInAsGuestButton(signInButton)]" options:0 metrics:nil views:viewsDictionary]];
     
@@ -188,6 +192,7 @@
     
     // set up navigation bar
     self.navigationItem.title = @"Sign In";
+    
     
     // right navigation button
     /*self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
@@ -226,6 +231,7 @@
     // push wom Sign in controller
     WomSignInViewController *womsivc =[[WomSignInViewController   alloc] init];
     [self.navigationController pushViewController:womsivc animated:NO];
+
 }
 
 - (void)signUpButtonPressed:(id)sender {

@@ -162,6 +162,7 @@
     
     // buttons
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(107)]"
@@ -225,7 +226,6 @@
                                               initWithBarButtonSystemItem:UIBarButtonSystemItemStop
                                               target:self
                                               action:@selector(goBack:)];
-    
 }
 
 - (void)updateViewForCategory:(kAPIContentCategory)category{
@@ -558,7 +558,8 @@
                                  customButtons:@[@"Camera",@"Photos"]
                                       delegate:self
                                            tag:kAUCComposePhotoOptionsActionSheetTag];
-    
+   
+    //[photoManager displayPhotoLibrary];
     
     //photoOptionsView.hidden = !photoOptionsView.hidden;
     // set the view to disappear

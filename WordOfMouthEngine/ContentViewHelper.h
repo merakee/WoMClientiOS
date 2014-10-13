@@ -13,6 +13,7 @@
 #import "AppAnimationManager.h"
 
 // images
+static NSString *kAUCMapButtonImage =@"mapicon.jpeg";
 static NSString *kAUCSpreadButtonImage =@"spread-btn.png";
 static NSString *kAUCKillButtonImage =@"kill-btn.png";
 static NSString *kAUCComposeButtonImage =@"newtopic-btn.png";
@@ -49,6 +50,8 @@ static NSString *kAUCPageLogoImage =@"logo-nav.png";
 + (UIButton *)getPageLogoButton;
 + (UIButton *)getSignInOutButton;
 + (UIButton *)getDismissButton;
+
++ (UIButton *)getMapButton;
 
 #pragma mark - Text label mathods
 //+ (UILabel *)getTextLabelForSpreadCount;

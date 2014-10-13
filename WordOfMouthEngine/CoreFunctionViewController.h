@@ -14,6 +14,7 @@
 //@class HistoryViewController;
 @class ProfileViewController;
 //@class SettingsViewController;
+@class MapViewController;
 
 @interface CoreFunctionViewController : UITabBarController<UITabBarDelegate,UITabBarControllerDelegate>{
     
@@ -24,6 +25,10 @@
     //HistoryViewController           *historyViewController;
     ProfileViewController           *profileViewController;
     //SettingsViewController          *settingsViewController;
+    
+    MapViewController               *mapViewController;
+    UINavigationController          *mapViewNavigationController;
+    
 }
 
 @end

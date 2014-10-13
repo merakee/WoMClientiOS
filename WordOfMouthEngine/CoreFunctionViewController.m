@@ -18,6 +18,8 @@
 #import "ApiManager.h"
 #import "AppDelegate.h"
 
+#import "MapViewController.h"
+
 @implementation CoreFunctionViewController
 
 #pragma mark -  View Life cycle Methods
@@ -114,6 +116,21 @@
     
     composeViewController.hidesBottomBarWhenPushed=YES;
     
+    // set up map view tab
+    
+    mapViewController =[[MapViewController alloc] init];
+    
+    mapViewNavigationController = [[UINavigationController alloc]
+                                       initWithRootViewController:mapViewController];
+    
+    mapViewNavigationController.tabBarItem = [[UITabBarItem alloc]
+                                                  initWithTitle:@"Map"
+                                                  image:nil//[UIImage imageNamed:kAUCCoreFunctionTabbarImageCompose]
+                                                  tag:0];//kCFVTabbarIndexCompose];
+    
+    [AppUIManager setNavbar:mapViewController.navigationController.navigationBar];
+    
+    mapViewController.hidesBottomBarWhenPushed=YES;
     
     // history view
     //historyViewController =[[HistoryViewController alloc] init];
