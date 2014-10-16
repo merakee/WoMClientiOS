@@ -33,6 +33,8 @@
     UIImageView             *spreadAnimationView;
     UIImageView             *killAnimationView;
     
+    UIView                  *contentView;
+    UIView                  *nextContentView;
     
     BOOL               isAnimationActive;
     
@@ -59,10 +61,22 @@
 //    UISwipeGestureRecognizer *oneFingerSwipeRight;
     UIPanGestureRecognizer *panRecognized;
     
+//    UITapGestureRecognizer *touchRecognized;
+
+//    CGFloat                 *xCoord;
+    
     // dummy content index
     int pic_index;
 
 }
+@property (nonatomic) CGFloat originX;
+@property (nonatomic) CGFloat originY;
+@property (nonatomic) CGFloat startingTap;
+@property (nonatomic) CGFloat endingTap;
+
+@property CGPoint startPoint;
+@property CGPoint endPoint;
+@property (nonatomic) CGFloat xCoord;
 
 #pragma mark - Utility methods
 - (void)clearContents;

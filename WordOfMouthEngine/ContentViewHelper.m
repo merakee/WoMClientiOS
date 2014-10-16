@@ -24,7 +24,8 @@
 + (UIImageView *)getContentBackGroundView{
     UIImageView *contentBackGround = [[UIImageView alloc] init];
     //contentBackGround.backgroundColor =[AppUIManager getContentColorForCategory:1];
-    contentBackGround.backgroundColor =[UIColor whiteColor];
+//    contentBackGround.backgroundColor =[UIColor blueColor];
+    
     contentBackGround.contentMode = UIViewContentModeScaleAspectFill;
     [contentBackGround setTranslatesAutoresizingMaskIntoConstraints:NO];
     
@@ -102,15 +103,17 @@
     textView.backgroundColor = [UIColor clearColor];
     //textView.backgroundColor = [UIColor  colorWithWhite:1.0 alpha:.8];
     
-    //textView.backgroundColor = [UIColor lightGrayColor];
+    // textView.backgroundColor = [UIColor lightGrayColor];
     // textView.text=@"";
     //textView.attributedText =
     textView.font = [UIFont fontWithName:kAUCFontFamilyPrimary size:kAUCFontSizeTertiary];
     //textView.textColor =[UIColor whiteColor];//[UIColor colorWithHue:kCRDPrimaryHue saturation:0.0 brightness:1.0 alpha:1.0];
     textView.editable = NO;
-    textView.selectable = YES;
+    textView.selectable = NO;
     textView.allowsEditingTextAttributes = NO;
-    textView.scrollEnabled = NO;
+    textView.scrollEnabled = YES;
+    textView.userInteractionEnabled = YES;
+   
     //textView.dataDetectorTypes = UIDataDetectorTypeAll ;
     //textView.textAlignment = NSTextAlignmentCenter;
     //textView.typingAttributes =

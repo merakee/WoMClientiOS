@@ -270,8 +270,6 @@
 		11F269C6197848700051FA38 /* TestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F269C5197848700051FA38 /* TestHelper.m */; };
 		11FD6CED18B18C75007D318E /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEB18B18C75007D318E /* ComposeViewController.m */; };
 		11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */; };
-		51D69C2E19E74F280001D70D /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D69C2D19E74F280001D70D /* LocationViewController.m */; };
-		51D69C3119E74F330001D70D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D69C3019E74F330001D70D /* MapViewController.m */; };
 		51E0B8D419E486770090351A /* ScreenShot4.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E0B8D019E486770090351A /* ScreenShot4.png */; };
 		51E0B8D519E486770090351A /* ScreenShot2.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E0B8D119E486770090351A /* ScreenShot2.png */; };
 		51E0B8D619E486770090351A /* ScreenShot3.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E0B8D219E486770090351A /* ScreenShot3.png */; };
@@ -279,6 +277,9 @@
 		51F956E819EC8B7D00C087AD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F956E719EC8B7D00C087AD /* CoreLocation.framework */; };
 		51F956EA19EC8B8600C087AD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F956E919EC8B8600C087AD /* MapKit.framework */; };
 		51F956EC19EC90F200C087AD /* mapicon.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 51F956EB19EC90F200C087AD /* mapicon.jpeg */; };
+		51F956EF19ECA5B900C087AD /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F956EE19ECA5B900C087AD /* LocationViewController.m */; };
+		51F956F219ECA5D600C087AD /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F956F119ECA5D600C087AD /* MapViewController.m */; };
+		51F956F419F03C1300C087AD /* freelogue-web1.png in Resources */ = {isa = PBXBuildFile; fileRef = 51F956F319F03C1300C087AD /* freelogue-web1.png */; };
 		870BD85D0FBD4E1D9F135B09 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E47A1ADCFB3478F849F074C /* libPods.a */; };
 		E7B276EC194F409AA78B66AD /* libPods-WordOfMouthEngineTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 137E30FB55AC4303821AB00C /* libPods-WordOfMouthEngineTests.a */; };
 /* End PBXBuildFile section */
@@ -537,10 +538,6 @@
 		137E30FB55AC4303821AB00C /* libPods-WordOfMouthEngineTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WordOfMouthEngineTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D1850F625060252B0C1E18 /* Pods-WordOfMouthEngineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WordOfMouthEngineTests/Pods-WordOfMouthEngineTests.release.xcconfig"; sourceTree = "<group>"; };
 		390B7A12263A1DB476D0235A /* Pods-WordOfMouthEngineTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WordOfMouthEngineTests/Pods-WordOfMouthEngineTests.debug.xcconfig"; sourceTree = "<group>"; };
-		51D69C2C19E74F280001D70D /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationViewController.h; path = ../../examples/mapView/mapView/LocationViewController.h; sourceTree = "<group>"; };
-		51D69C2D19E74F280001D70D /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationViewController.m; path = ../../examples/mapView/mapView/LocationViewController.m; sourceTree = "<group>"; };
-		51D69C2F19E74F330001D70D /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = ../../examples/mapView/mapView/MapViewController.h; sourceTree = "<group>"; };
-		51D69C3019E74F330001D70D /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = ../../examples/mapView/mapView/MapViewController.m; sourceTree = "<group>"; };
 		51E0B8D019E486770090351A /* ScreenShot4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ScreenShot4.png; path = "../../../Desktop/marketing/Sample content/Backgrounds/ScreenShot4.png"; sourceTree = "<group>"; };
 		51E0B8D119E486770090351A /* ScreenShot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ScreenShot2.png; path = "../../../Desktop/marketing/Sample content/Backgrounds/ScreenShot2.png"; sourceTree = "<group>"; };
 		51E0B8D219E486770090351A /* ScreenShot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ScreenShot3.png; path = "../../../Desktop/marketing/Sample content/Backgrounds/ScreenShot3.png"; sourceTree = "<group>"; };
@@ -548,6 +545,11 @@
 		51F956E719EC8B7D00C087AD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		51F956E919EC8B8600C087AD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		51F956EB19EC90F200C087AD /* mapicon.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = mapicon.jpeg; path = ../../../Downloads/mapicon.jpeg; sourceTree = "<group>"; };
+		51F956ED19ECA5B900C087AD /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
+		51F956EE19ECA5B900C087AD /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
+		51F956F019ECA5D600C087AD /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		51F956F119ECA5D600C087AD /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		51F956F319F03C1300C087AD /* freelogue-web1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "freelogue-web1.png"; path = "../../web mock stuff/freelogue-web1.png"; sourceTree = "<group>"; };
 		708D3433806F8EB96A2EBCE8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E7C0D893A0418F349B8EA369 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -865,6 +867,7 @@
 		116E814819AFB52E00DFB1C8 /* ContentView */ = {
 			isa = PBXGroup;
 			children = (
+				51F956F319F03C1300C087AD /* freelogue-web1.png */,
 				51F956EB19EC90F200C087AD /* mapicon.jpeg */,
 				111A270C19C9087100BA2D85 /* btngroup@2x~iphone.png */,
 				11D3701A19D0F47100AEF362 /* kill-btn@2x~iphone.png */,
@@ -1339,8 +1342,8 @@
 		51D69BDF19E5E0F60001D70D /* MapVC */ = {
 			isa = PBXGroup;
 			children = (
-				51D69C2F19E74F330001D70D /* MapViewController.h */,
-				51D69C3019E74F330001D70D /* MapViewController.m */,
+				51F956F019ECA5D600C087AD /* MapViewController.h */,
+				51F956F119ECA5D600C087AD /* MapViewController.m */,
 			);
 			name = MapVC;
 			sourceTree = "<group>";
@@ -1348,8 +1351,8 @@
 		51D69BE319E5E1200001D70D /* LocationVC */ = {
 			isa = PBXGroup;
 			children = (
-				51D69C2C19E74F280001D70D /* LocationViewController.h */,
-				51D69C2D19E74F280001D70D /* LocationViewController.m */,
+				51F956ED19ECA5B900C087AD /* LocationViewController.h */,
+				51F956EE19ECA5B900C087AD /* LocationViewController.m */,
 			);
 			name = LocationVC;
 			sourceTree = "<group>";
@@ -1454,6 +1457,7 @@
 				51E0B8D419E486770090351A /* ScreenShot4.png in Resources */,
 				11D3700C19D0AC8A00AEF362 /* login-menu@2x~iphone.png in Resources */,
 				51E0B8D519E486770090351A /* ScreenShot2.png in Resources */,
+				51F956F419F03C1300C087AD /* freelogue-web1.png in Resources */,
 				11D3717219DA000000AEF362 /* S13~iphone.png in Resources */,
 				111A272419C9087100BA2D85 /* newtopic-btn~iphone.png in Resources */,
 				11D3701E19D0F47100AEF362 /* kill-btn@2x~iphone.png in Resources */,
@@ -1717,8 +1721,6 @@
 				116EE32718ADA0E100C66D86 /* AppUIManager.m in Sources */,
 				11D3702E19D5CFBB00AEF362 /* UIImageView+AnimationCompletion.m in Sources */,
 				1166AD7E19759ED30010BFEA /* ApiValidationManager.m in Sources */,
-				51D69C3119E74F330001D70D /* MapViewController.m in Sources */,
-				51D69C2E19E74F280001D70D /* LocationViewController.m in Sources */,
 				116EE33018ADA1AC00C66D86 /* AppAnimationManager.m in Sources */,
 				116EE32D18ADA10B00C66D86 /* AppAudioManager.m in Sources */,
 				116EE32118ADA08D00C66D86 /* ContentManagerOLd.m in Sources */,
@@ -1743,10 +1745,12 @@
 				11CB8FC318B00B2900396418 /* SignInViewController.m in Sources */,
 				11CB8FD518B0473500396418 /* ProfileViewController.m in Sources */,
 				1166AD901976F5C90010BFEA /* PlaceHolderFactory.m in Sources */,
+				51F956F219ECA5D600C087AD /* MapViewController.m in Sources */,
 				1166AD8B1975ECDB0010BFEA /* WomSignUpViewHelper.m in Sources */,
 				11810B7C18C9419100C5246C /* CVCircleDownCounter.m in Sources */,
 				11CB8FD218B046C400396418 /* HistoryViewController.m in Sources */,
 				11FD6CED18B18C75007D318E /* ComposeViewController.m in Sources */,
+				51F956EF19ECA5B900C087AD /* LocationViewController.m in Sources */,
 				11CB8FCF18B0469000396418 /* ContentViewController.m in Sources */,
 				11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */,
 				11810B7218C937D000C5246C /* CVCircularProgressView.m in Sources */,

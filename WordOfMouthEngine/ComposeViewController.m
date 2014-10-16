@@ -105,7 +105,7 @@
     [ComposeViewHelper setView:self.view];
     
     // set navigation bar
-    //[self setNavigationBar];
+   // [self setNavigationBar];
     
     // image view
     contentImageView = [ComposeViewHelper getContentImageView];

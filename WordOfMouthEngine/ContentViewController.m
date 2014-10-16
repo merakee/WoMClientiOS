@@ -16,7 +16,9 @@
 
 #import "MapViewController.h"
 
-@implementation ContentViewController
+@implementation ContentViewController {
+
+}
 
 - (id)init
 {
@@ -139,7 +141,11 @@
 - (void)setView {
     // set view
     [ContentViewHelper  setView:self.view];
+  
     
+    
+//    [self view].userInteractionEnabled = YES;
+
     // set navigation bar
     //[self setNavigationBar];
     
@@ -154,8 +160,8 @@
     contentBackGround = [ContentViewHelper getContentBackGroundView];
     [self.view addSubview:contentBackGround];
     contentTextView = [ContentViewHelper getContentTextViewWithDelegate:self];
-    [contentBackGround addSubview:contentTextView];
-    
+    //[contentBackGround addSubview:contentTextView];
+
     //page logo
     //pageLogo =[ContentViewHelper getPageLogoImageView];
     pageLogo =[ContentViewHelper getPageLogoButton];
@@ -170,14 +176,34 @@
     composeButton = [ContentViewHelper getComposeButton];
     [composeButton addTarget:self action:@selector(goToAddContentView:) forControlEvents:UIControlEventTouchUpInside];
     
-    mapButton = [ContentViewHelper getMapButton];
-     [mapButton addTarget:self action:@selector(goMapView:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.view addSubview:mapButton];
+//    mapButton = [ContentViewHelper getMapButton];
+//     [mapButton addTarget:self action:@selector(goMapView:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self.view addSubview:mapButton];
     [self.view addSubview:spreadButton];
     [self.view addSubview:killButton];
     [self.view addSubview:composeButton];
     
+    // content view
+    contentView = [[UIView alloc] init];
+    //contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenW / 1.1, screenH / 2)];
+    // contentView.backgroundColor = [UIColor yellowColor];
+    [contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
+
+    
+    // Display the next content
+    nextContentView = [[UIView alloc] init];
+    [nextContentView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    nextContentView.backgroundColor = [UIColor yellowColor];
+    [self.view addSubview:nextContentView];
+    
+    [self.view addSubview:contentView];
+    
+    [contentView addSubview:contentBackGround];
+    [contentView addSubview:contentTextView];
+    
+    
+
     //    // set Textlabels and progress view
     //    spreadCount = [ContentViewHelper getTextLabelForSpreadCount];
     //    [self.view addSubview:spreadCount];
@@ -205,11 +231,25 @@
     
 }
 
+- (BOOL)textViewShouldBeginEditing:(UITextView *)contentTextView;
+{
+    return NO;
+}
+
+
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround,spreadButton,killButton,composeButton,pageLogo,mapButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround,spreadButton,killButton,composeButton,pageLogo,contentView,nextContentView);
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround,spreadButton,killButton,composeButton,signInOutButton);
     
+    // Content view contraints
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[contentView]-10-|" options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-75-[contentView]-120-|" options:0 metrics:nil views:viewsDictionary]];
+    
+    // Next content view same constraints
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[nextContentView]-10-|" options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-75-[nextContentView]-120-|" options:0 metrics:nil views:viewsDictionary]];
+
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLogo(40)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
@@ -218,9 +258,12 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[pageLogo(35)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[pageLogo(35)]-20-[contentTextView]-24-[spreadButton]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
+    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[pageLogo(35)]-20-[contentTextView]-24-[spreadButton]"
+      //                                                                options:0 metrics:nil views:viewsDictionary]];
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[pageLogo(35)]"
+                                                                    options:0 metrics:nil views:viewsDictionary]];
+
     
     // text view
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentBackGround]|"
@@ -230,8 +273,15 @@
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[contentTextView]-16-|"
+
+    // text view placement
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[contentTextView]-16-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
+
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[contentTextView]-16-|"
+                                                                        options:0 metrics:nil views:viewsDictionary]];
+    
+    
     
     // buttons
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[spreadButton(72)]-16-|"
@@ -242,8 +292,9 @@
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:composeButton inView:self.view];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLogo]-50-[mapButton(72)]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLogo]-50-[mapButton(72)]"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadButton(72)]-42-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
@@ -253,8 +304,8 @@
     [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[composeButton(55)]-14-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[mapButton(72)]|"
-                                                                                    options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[mapButton(72)]|"
+//                                                                                    options:0 metrics:nil views:viewsDictionary]];
     
     
 }
@@ -319,8 +370,17 @@
     [panRecognized setMinimumNumberOfTouches:1];
     [panRecognized setMaximumNumberOfTouches:1];
     
-    [[self view] addGestureRecognizer:panRecognized];
-}
+    [contentView addGestureRecognizer:panRecognized];
+    
+//     touchRecognized = [[UITapGestureRecognizer alloc]
+//              initWithTarget:self
+//              action:@selector(textTapped:)];
+// 
+//    [contentTextView addGestureRecognizer:touchRecognized];
+    
+    //    [[self view] addGestureRecognizer:panRecognized];
+    
+    }
 //- (void)addGestures{
 //    // Add swipeGestures
 //    oneFingerSwipeLeft = [[UISwipeGestureRecognizer alloc]
@@ -341,39 +401,160 @@
     //siovc.view.bounds = self.view.bounds;
     [self presentViewController:siovc    animated:YES completion:nil];
 }
+
 #pragma mark - Gesture Recognizers Action Methods
+
+//- (void)textTapped:(UITapGestureRecognizer *)recognizer
+//{
+//    UITextView *textView = (UITextView *)recognizer.view;
+//    
+//    // Location of the tap in text-container coordinates
+//    
+//    CGPoint location = [recognizer locationInView:textView];
+//    location.x -= textView.textContainerInset.left;
+//    location.y -= textView.textContainerInset.top;
+//
+//}
+
+//- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+////    [contentTextView resignFirstResponder];
+////    [super touchesBegan:touches withEvent:event];
+//    
+////    if (contentTextView.userInteractionEnabled)
+////    {
+////        NSLog(@"not detected wtf");
+////    }
+// //    NSLog(@"begin touch");
+// //   NSLog(@"%f" ,_xCoord);
+//   UITouch *touch = [touches anyObject];
+//   _startPoint = [touch locationInView:self.view];
+//   _xCoord = _startPoint.x;
+////    CGFloat y = startPoint.y;
+//    
+//   // xCoord.text = [NSString stringWithFormat:@"x = %f", x];
+//}
+
+
+//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+// //   NSLog(@"end touch");
+//    UITouch *touch = [touches anyObject];
+//    _endPoint = [touch locationInView:self.view];
+//    _xCoord = _startPoint.x - _endPoint.x;
+////    NSLog(@"%f" ,_xCoord);
+////    _xCoord.text = [NSString stringWithFormat:
+////                    @"start = %f, %f", _startPoint.x, _startPoint.y];
+//}
+//
+////-(id)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+////    id hitView = [super hitTest:point withEvent:event];
+////    if (hitView == self) return nil;
+////    else return hitView;
+////}
+
+
 - (void)panRecognized:(UIPanGestureRecognizer *)sender
 {
-    // Begin state of pan can do something
-    if (sender.state == UIGestureRecognizerStateBegan) {
-        
-    }
-    
-    //    float screenH = [CommonUtility getScreenHeight];
-    float screenW = [CommonUtility getScreenWidth];
     // Get distance of pan/swipe in the view in which the gesture recognizer was added
-    CGPoint distance = [sender translationInView:self.view];
+//    CGPoint distance = [sender translationInView:contentView];
     
     // Get velocity of pan/swipe in the view in which the gesture recognizer was added
-   // CGPoint velocity = [sender velocityInView:self.view];
+  //  CGPoint velocity = [sender velocityInView:self.view];
     
+    // Begin state get coordinates
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        
+        _originX = [contentView center].x;
+        _originY = [contentView center].y;
+        _startingTap = [panRecognized locationInView:self.view].x;
+         NSLog(@"%f", _startingTap);
+    }
+    
+    CGPoint translatedPoint = [(UIPanGestureRecognizer*)sender translationInView:contentView];
+    translatedPoint = CGPointMake(_originX+translatedPoint.x, _originY+translatedPoint.y);
+    
+    if (UIGestureRecognizerStateChanged == sender.state) {
+       
+//        NSLog(@"%f", [panRecognized locationInView:self.view].x);
+        // Use translation offset
+        CGPoint translation = [sender translationInView:sender.view];
+        sender.view.center = CGPointMake(sender.view.center.x + translation.x,
+                                         sender.view.center.y + translation.y);
+        
+        
+   
+    //    float screenH = [CommonUtility getScreenHeight];
+  
+//    float screenW = [CommonUtility getScreenWidth];
+//  
+//   
+//   
+//    //       [sender setTranslation:CGPointZero inView:sender.view];
+
+        // Clear translation
+        [sender setTranslation:CGPointZero inView:sender.view];
+        [sender cancelsTouchesInView];
+    }
+   
+
     // Use this if you need to move an object at a speed that matches the users swipe speed
     //   float usersSwipeSpeed = abs(velocity.x);
     
     //NSLog(@"swipe speed:%f", usersSwipeSpeed);
     
     if (sender.state == UIGestureRecognizerStateEnded) {
-        [sender cancelsTouchesInView];
-   //     NSLog(@"Swiped at %f", distance.x);
-        // right
-        if (distance.x > screenW / 4) {
-            // NSLog(@"Swiped right %f", distance.x);
-            [self spreadButtonPressed:nil];
-            // left
-        } else if (distance.x < -(screenW / 4)) {
-            // NSLog(@"Swiped left %f", distance.x);
-            [self killButtonPressed:nil];
-        }
+ //       NSLog(@"%f", velocity.x);
+            float screenW = [CommonUtility getScreenWidth];
+        
+        _endingTap = [panRecognized locationInView:self.view].x;
+        
+                NSLog(@"%f", _endingTap);
+        
+            // right
+        if (_endingTap - _startingTap > (screenW / 4)) {
+                // NSLog(@"Swiped right %f", distance.x);
+                [self spreadButtonPressed:nil];
+                // left
+            } else if (_startingTap - _endingTap > (screenW / 4)) {
+                // NSLog(@"Swiped left %f", distance.x);
+                [self killButtonPressed:nil];
+            }
+                [sender setTranslation:CGPointZero inView:sender.view];
+        
+        
+        
+        
+        // Snap contentView to original position
+        [contentView setCenter:translatedPoint];
+        
+        
+//        CGFloat finalX = translatedPoint.x + (0.0*[(UIPanGestureRecognizer*)sender velocityInView:self.view].x);
+//        CGFloat finalY = translatedPoint.y + (0.0*[(UIPanGestureRecognizer*)sender velocityInView:self.view].y);
+      
+        
+        
+        
+//                // Use translation offset
+//                CGPoint translation = [sender translationInView:sender.view];
+//                sender.view.center = CGPointMake(sender.view.center.x + translation.x,
+//                                                 sender.view.center.y + translation.y);
+        
+                // Clear translation
+       
+// //       [sender setTranslation:CGPointZero inView:sender.view];
+        
+//         [sender cancelsTouchesInView];
+//        
+//        // right
+//        if (distance.x > screenW / 4) {
+//            // NSLog(@"Swiped right %f", distance.x);
+//            [self spreadButtonPressed:nil];
+//            // left
+//        } else if (distance.x < -(screenW / 4)) {
+//            // NSLog(@"Swiped left %f", distance.x);
+//            [self killButtonPressed:nil];
+//        }
         //        // down
         //        if (distance.y > 0) {
         //            NSLog(@"user swiped down");
@@ -445,8 +626,12 @@
 - (void)updateViewWithNewContent{
     [self startContentLoadAnimation];
     
+    
   //  UIImage *bgImage = [self dummyImage];
-    UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
+ //   UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
+    
+    UIImage *bgImage = [UIImage imageNamed:@"freelogue-web1.png"];
+    contentBackGround.contentMode = UIViewContentModeScaleAspectFit;
     
     if([currentContent.photoToken isKindOfClass:[NSDictionary class]]
        && currentContent.photoToken[@"url"] &&
@@ -457,6 +642,7 @@
     }
     else{
         contentBackGround.image = bgImage;
+//        [contentView addSubview:contentBackGround];
         //        [self performSelector:@selector(performContentDisplayAnimation)
         //                   withObject:nil
         //                   afterDelay:2.0];
@@ -472,6 +658,9 @@
     
     // get text
       contentTextView.attributedText = [ContentViewHelper getAttributedText:currentContent.contentText];
+    
+//        contentView.attributedText = [ContentViewHelper getAttributedText:currentContent.contentView];
+    
    // contentTextView.attributedText = [ContentViewHelper getAttributedText:[self dummyText]];
     
     //contentTextView.attributedText = [ContentViewHelper getAttributedText:@"Put a bird on it +1 Helvetica, iPhone quinoa Kickstarter Blue Bottle tote bag McSweeney's Carles wayfarers. McSweeney's trust fund biodiesel actually, next level squid keffiyeh Williamsburg ennui semiotics Helvetica authentic. Selfies Etsy umami, narwhal chillwave Williamsburg small batch "];
@@ -538,14 +727,16 @@
 - (void)performContentDisplayAnimation{
     isAnimationActive=YES;
     [self stopContentLoadAnimation];
-    //[self setViewsForContentDisplay];
-    [ContentViewHelper animateViewsForContentDisplay:@[contentBackGround, contentTextView,spreadButton,killButton,composeButton]
+    [self setViewsForContentDisplay];
+    [ContentViewHelper animateViewsForContentDisplay:@[contentBackGround, contentTextView,spreadButton,killButton,composeButton, contentView, nextContentView]
                                      withFinalAction:^(){
                                          isAnimationActive=NO;
                                      }];
 }
 - (void)performUserResponseAnimationWithResponse:(BOOL)response{
     isAnimationActive=YES;
+    contentView.hidden = YES;
+    nextContentView.hidden = YES;
     [ContentViewHelper animateViews:@[contentBackGround, contentTextView,spreadButton,killButton,composeButton,animationView,spreadAnimationView,killAnimationView]
                     forUserResponse:response
                     withFinalAction:^(){
@@ -571,7 +762,6 @@
     spreadButton.hidden=YES;
     killButton.hidden=YES;
     composeButton.hidden=YES;
-    
 //    mapButton.hidden=YES;
 }
 - (void)setViewsForContentDisplay{
@@ -582,7 +772,8 @@
     spreadButton.hidden=NO;
     killButton.hidden=NO;
     composeButton.hidden=NO;
-    
+    contentView.hidden=NO;
+    nextContentView.hidden=NO;
  //   mapButton.hidden=NO;
 }
 
