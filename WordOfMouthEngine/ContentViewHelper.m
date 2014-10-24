@@ -164,6 +164,14 @@
 }
 
 #pragma mark -  View Helper Methods: Buttons
++ (UIButton *)getRepliesButton{
+    //return [AppUIManager setButtonWithTitle:@"spread" ofType:kAUCPriorityTypeTertiary];
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCSpreadButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Replies"];
+    //    NSLog(@"2, %@", button);
+    return button;
+}
 + (UIButton *)getMapButton {
      UIButton *button = [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCMapButtonImage] forState:UIControlStateNormal];
@@ -353,11 +361,11 @@
     UIView *view3 = ((UIView *)views[2]);
     UIView *view4 = ((UIView *)views[3]);
     UIView *view5 = ((UIView *)views[4]);
-    UIView *view6 = ((UIView *)views[5]);
-    UIImageView *view7 = response?(UIImageView *)views[6]:(UIImageView *)views[7];
-    view6.backgroundColor =response?[AppUIManager getColorOfType:kAUCColorTypePrimary]:[UIColor clearColor];
-    view6.hidden=NO;
-    view7.hidden=YES;
+   // UIView *view6 = ((UIView *)views[5]);
+    UIImageView *view6 = response?(UIImageView *)views[5]:(UIImageView *)views[6];
+    view5.backgroundColor =response?[AppUIManager getColorOfType:kAUCColorTypePrimary]:[UIColor clearColor];
+    view5.hidden=NO;
+    view6.hidden=YES;
     
     // slide
     float screenH=[CommonUtility getScreenHeight];
@@ -416,11 +424,11 @@
                          view5.center = final5;
                          
                          // perform spread or kill animation
+                         view5.hidden=NO;
                          view6.hidden=NO;
-                         view7.hidden=NO;
-                         [view7  startAnimatingWithCompletionBlock:^(BOOL success) {
+                         [view6  startAnimatingWithCompletionBlock:^(BOOL success) {
+                             view5.hidden=YES;
                              view6.hidden=YES;
-                             view7.hidden=YES;
                              if(action){
                                  action();
                              }

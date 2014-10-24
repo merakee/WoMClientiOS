@@ -50,7 +50,7 @@ static NSString *kAUCPageLogoImage =@"logo-nav.png";
 + (UIButton *)getPageLogoButton;
 + (UIButton *)getSignInOutButton;
 + (UIButton *)getDismissButton;
-
++ (UIButton *)getRepliesButton;
 + (UIButton *)getMapButton;
 
 #pragma mark - Text label mathods

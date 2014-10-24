@@ -77,6 +77,25 @@
     
     return phLabel;
 }
++ (UILabel *)getCharacterCountLabel{
+    UILabel *ccLabel =[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+   // ccLabel.backgroundColor = [UIColor clearColor];
+    [ccLabel setText:@"200"];
+    ccLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText];
+    ccLabel.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
+    ccLabel.textAlignment = NSTextAlignmentCenter;
+   
+    ccLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];//[UIColor whiteColor];
+    ccLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    //phLabel.shadowRadius = 4.0f;
+
+    
+    [ccLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    // accessibilty
+    [ccLabel setAccessibilityIdentifier:@"Character Count Label"];
+    
+    return ccLabel;
+}
 #pragma mark -  View Helper Methods: TextViews
 + (UITextView *)getComposeTextViewWithDelegate:(id)delegate{
     UITextView *textView =[[UITextView alloc] init];
@@ -110,7 +129,7 @@
     
     // set up key board
     
-  //  textView.returnKeyType = UIReturnKeyDone;
+    textView.returnKeyType = UIReturnKeyDone;
     
     // inset for text
     //textView.textContainerInset = UIEdgeInsetsMake(0, 0, 5.0, 0.0);

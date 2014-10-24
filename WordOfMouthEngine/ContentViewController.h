@@ -11,20 +11,22 @@
 #import "ContentViewHelper.h"
 #import "UIImageView+AFNetworking.h"
 #import "CustomActivityIndicator.h"
+#import "CustomContentView.h"
 
 //@interface ContentViewController : UIViewController <CVCircleCounterViewDelegate>{
 @interface ContentViewController : UIViewController{
-    UITextView         *contentTextView;
-    UIImageView        *contentBackGround;
+    
     //UILabel            *contentSpreadCount;
     //UILabel             *authorID;
     UIButton           *spreadButton;
     UIButton           *killButton;
-    UIButton           *composeButton;
+//    UIButton           *composeButton;
     UIButton           *pageLogo;
     
     UIButton            *mapButton;
     UIButton            *buttonTest;
+    
+    UIButton            *repliesButton;
     
     // animation
     //UIActivityIndicatorView *activityIndicator;
@@ -34,9 +36,18 @@
     UIImageView             *killAnimationView;
     
     UIView                  *contentView;
+    UITextView              *contentTextView;
+    UIImageView             *contentBackGround;
+    
     UIView                  *nextContentView;
+    UITextView              *nextContentTextView;
+    UIImageView             *nextContentBackGround;
     
     BOOL               isAnimationActive;
+    
+    CustomContentView  *customContentView1;
+    CustomContentView  *customContentView2;
+    
     
     //UIImageView         *pageLogo;
     

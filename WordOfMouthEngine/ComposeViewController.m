@@ -61,7 +61,7 @@
     
     
     // hide navigation bar
-    [self.navigationController setNavigationBarHidden:YES];
+ //   [self.navigationController setNavigationBarHidden:YES];
     
     
     // hide tabbar
@@ -105,7 +105,7 @@
     [ComposeViewHelper setView:self.view];
     
     // set navigation bar
-   // [self setNavigationBar];
+    [self setNavigationBar];
     
     // image view
     contentImageView = [ComposeViewHelper getContentImageView];
@@ -125,18 +125,17 @@
     [self.view addSubview:placeHolderLabel];
     
     
-    
     // buttons
-    postButton = [ComposeViewHelper getPostButton];
-    [postButton addTarget:self action:@selector(postContent:) forControlEvents:UIControlEventTouchUpInside];
-    cameraOptionsButton = [ComposeViewHelper getCameraOptionsButton];
-    [cameraOptionsButton addTarget:self action:@selector(showPhotoOptions:) forControlEvents:UIControlEventTouchUpInside];
-    cancelButton = [ComposeViewHelper getCancelButton];
-    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+//    postButton = [ComposeViewHelper getPostButton];
+//    [postButton addTarget:self action:@selector(postContent:) forControlEvents:UIControlEventTouchUpInside];
+//    cameraOptionsButton = [ComposeViewHelper getCameraOptionsButton];
+//    [cameraOptionsButton addTarget:self action:@selector(showPhotoOptions:) forControlEvents:UIControlEventTouchUpInside];
+//    cancelButton = [ComposeViewHelper getCancelButton];
+//    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:postButton ];
-    [self.view addSubview:cameraOptionsButton];
-    [self.view addSubview:cancelButton];
+//    [self.view addSubview:postButton ];
+//    [self.view addSubview:cameraOptionsButton];
+//    [self.view addSubview:cancelButton];
     
     
     //activity indicator view
@@ -158,28 +157,28 @@
 - (void)layoutView{
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel,postButton,cancelButton,cameraOptionsButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel);
     
     // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(107)]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [AppUIManager horizontallyCenterElement:postButton inView:self.view];
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[postButton(66)]-214-|"
-                                                                                    options:0 metrics:nil views:viewsDictionary]];
-    
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[cameraOptionsButton(107)]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [AppUIManager horizontallyCenterElement:cameraOptionsButton inView:self.view];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cameraOptionsButton(80)]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(107)]"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [AppUIManager horizontallyCenterElement:postButton inView:self.view];
+//    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[postButton(66)]-214-|"
+//                                                                                    options:0 metrics:nil views:viewsDictionary]];
     
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[cameraOptionsButton]-4-[composeTextView]-4-[postButton]"
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[cameraOptionsButton(107)]"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [AppUIManager horizontallyCenterElement:cameraOptionsButton inView:self.view];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cameraOptionsButton(80)]"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    
+//    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-4-[composeTextView]-218-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-24-[composeTextView]-24-|"
@@ -195,14 +194,14 @@
     // place holder label
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[placeHolderLabel(240)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[placeHolderLabel(30)]-24-[postButton]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[placeHolderLabel(30)]-238-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:placeHolderLabel inView:self.view];
 }
 
 - (void)setNavigationBar {
     //self.navigationItem.title =@"WoM";
-    self.navigationItem.titleView = [AppUIManager getAppLogoViewForNavTitle];
+//    self.navigationItem.titleView = [AppUIManager getAppLogoViewForNavTitle];
     // set up navigation bar
     //    self.navigationItem.titleView = [[UIBarButtonItem alloc]
     //                                     initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
@@ -210,16 +209,38 @@
     //                                     action:@selector(addPicture:)];
     
     // right navigation button
+//    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc]
+//                                                 initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
+//                                                 target:self
+//                                                 action:@selector(showPhotoOptions:)],
+//                                                [[UIBarButtonItem alloc]
+//                                                 initWithTitle:@"Post"
+//                                                 style:UIBarButtonItemStyleDone
+//                                                 target:self
+//                                                 action:@selector(postContent:)]
+//                                                ];
+    
+    // character count label
+    characterCount = [ComposeViewHelper getCharacterCountLabel];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 65, 42)];
+ //   [button setFrame:CGRectMake(0, 0, 45, 25)];
+    [button addSubview:characterCount];
+    
+    UIBarButtonItem *characterButton = [[UIBarButtonItem alloc]initWithCustomView:button];
+ //   [self.navigationController.navigationItem setRightBarButtonItem:characterButton];
+ //   self.navigationItem.title = characterCount;
+    
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc]
-                                                 initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
-                                                 target:self
-                                                 action:@selector(showPhotoOptions:)],
-                                                [[UIBarButtonItem alloc]
                                                  initWithTitle:@"Post"
                                                  style:UIBarButtonItemStyleDone
                                                  target:self
-                                                 action:@selector(postContent:)]
-                                                ];
+                                                 action:@selector(postContent:)],
+                                                characterButton];
+
+
     [self.navigationItem.rightBarButtonItems[0] setAccessibilityIdentifier:@"Add Picture"];
     
     self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc]
@@ -298,6 +319,9 @@
 //}
 - (void)textViewDidChange:(UITextView *)textView{
     long  textLength =[textView.text length];
+    int maxLength = 200;
+    long charLeft = maxLength - [textView.text length];
+//    NSString *substring = [NSString stringWithString:composeTextView];
     
     //   Add swipe gesture
     panRecognized = [[UIPanGestureRecognizer alloc]
@@ -306,15 +330,20 @@
     
     [panRecognized setMinimumNumberOfTouches:1];
     [panRecognized setMaximumNumberOfTouches:1];
-    
+
     [[self view] addGestureRecognizer:panRecognized];
     
     // place holder text
-    if(( textLength== 0)&&(placeHolderLabel.isHidden)){
+    if(( textLength == 0)&&(placeHolderLabel.isHidden)){
         placeHolderLabel.hidden=NO;
+        characterCount.text = [NSString stringWithFormat:@"%ld", charLeft];
     }
     else if((textLength> 0)&&(!placeHolderLabel.isHidden)){
         placeHolderLabel.hidden=YES;
+    }
+      // Update remaining characters
+    if (textLength >0){
+        characterCount.text = [NSString stringWithFormat:@"%ld", charLeft];
     }
     
     textLength =[[CommonUtility  trimString:textView.text ] length];
@@ -329,12 +358,13 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    
+   
     // return key
    if([text isEqualToString:@"\n"]) {
 //        [self postContent:nil];
        
-//       [composeTextView resignFirstResponder];
+
+       [composeTextView resignFirstResponder];
         return YES;
     }
     
@@ -418,7 +448,6 @@
     
     // Go back after successful post
     [self.navigationController popViewControllerAnimated:NO];
-    NSLog(@"go back to main page");
 //    [ContentViewController self.view];
     //[ContentViewController setView];
     // display sucess

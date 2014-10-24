@@ -89,12 +89,16 @@
     // UIButton.h:- (void)setBackgroundImage:(UIImage *)image forState:(UIControlState)state UI_APPEARANCE_SELECTOR; // default is nil
 }
 + (void)setUINavigationBar{
+  
+  //  [[UINavigationBar appearance] setBarTintColor:[UIColor clearColor]];
+    
     // UINavigationBar.h:@property(nonatomic,retain) UIColor *barTintColor NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;  // default is nil
     //[[UINavigationBar appearance] setBarTintColor:[AppUIManager getColorOfType:kAUCColorTypeTint]];
     
-    //[[UINavigationBar appearance] setTintColor:[AppUIManager getColorOfType:kAUCColorTypeTintUnselected]];
+  //  [[UINavigationBar appearance] setTintColor:[AppUIManager getColorOfType:kAUCColorTypeTintUnselected]];
     
     // UINavigationBar.h:- (void)setBackgroundImage:(UIImage *)backgroundImage forBarPosition:(UIBarPosition)barPosition barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;
+    
     // UINavigationBar.h:- (UIImage *)backgroundImageForBarPosition:(UIBarPosition)barPosition barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;
     // UINavigationBar.h:- (void)setBackgroundImage:(UIImage *)backgroundImage forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
     // UINavigationBar.h:- (UIImage *)backgroundImageForBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;

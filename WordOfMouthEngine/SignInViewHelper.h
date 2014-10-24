@@ -17,10 +17,10 @@ static NSString *  kLIVCTwitterButtonImage  =   @"SocialSignin_Twitter.png";
 static NSString *  kLIVCEmailButtonImage    = @"SocialSignin_Email.png";
 */
 
-static NSString *  kAUCSigninOptionsLogoImage = @"launch-logo.png";
-static NSString *  kAUCSignUpButtonImage  = @"signup-btn.png";
-static NSString *  kAUCSignInButtonImage  = @"login-btn.png";
-static NSString *  kAUCGuestButtonImage  = @"guest-btn.png";
+static NSString *  kAUCSigninOptionsLogoImage = @"logo.png";
+static NSString *  kAUCSignUpButtonImage  = @"guest-btn.png";
+static NSString *  kAUCSignInButtonImage  = @"Login.png";
+static NSString *  kAUCGuestButtonImage  = @"start.png";
 
 
 @interface SignInViewHelper : NSObject
@@ -36,7 +36,9 @@ static NSString *  kAUCGuestButtonImage  = @"guest-btn.png";
 + (UIImageView *)getLogoView;
 //+ (UIImageView *)getButtonsView;
 
-
+#pragma mark - View Helper Methods: TextViews
++ (UILabel *)getDescriptionLabel;
++ (UILabel *)getLoginLabel;
 
 #pragma mark -  View Helper Methods: Buttons
 //+ (UIButton *)getGoogleButton;

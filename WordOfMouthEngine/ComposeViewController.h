@@ -15,7 +15,7 @@
     UITextView         *composeTextView;
     UIImageView        *contentImageView;
     UILabel            *placeHolderLabel;
-    
+    UILabel             *characterCount;
     ImageProcessingManager   *photoManager;
     //UIView                   *photoOptionsView;
     //UIButton                 *cameraButton;

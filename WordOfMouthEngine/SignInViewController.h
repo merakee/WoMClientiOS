@@ -17,6 +17,9 @@
     UIButton             *signUpButton;
     UIButton             *signInAsGuestButton;
     
+    UILabel            *descriptionLabel;
+    UILabel             *loginLabel;
+    
     UIActivityIndicatorView *activityIndicator;
     
     //UILabel              *pageLabel;

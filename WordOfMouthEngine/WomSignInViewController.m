@@ -40,7 +40,7 @@
     [super viewWillAppear:animated];
     
     // hide navigation bar
-    [self.navigationController setNavigationBarHidden:YES];
+ //   [self.navigationController setNavigationBarHidden:YES];
     
     // display key board
     [emailField becomeFirstResponder];

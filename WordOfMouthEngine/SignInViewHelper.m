@@ -38,6 +38,46 @@
 //    return iv;
 //}
 
+#pragma mark -  View Helper Methods: TextViews
++ (UILabel *)getDescriptionLabel{
+    UILabel *dLabel =[[UILabel alloc] init];
+    dLabel.backgroundColor = [UIColor clearColor];
+    dLabel.text=@"Break outside your social network";
+    dLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeDescriptionText];
+    dLabel.textColor = [AppUIManager getColorOfType:kAUCColorTypeTextStroke];
+    dLabel.textAlignment = NSTextAlignmentCenter;
+    
+  //  dLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];//[UIColor whiteColor];
+  //  dLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    //phLabel.shadowRadius = 4.0f;
+    
+    
+    [dLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    // accessibilty
+    [dLabel setAccessibilityIdentifier:@"Description Label"];
+    
+    return dLabel;
+}
++ (UILabel *)getLoginLabel{
+    UILabel *lLabel =[[UILabel alloc] init];
+    lLabel.backgroundColor = [UIColor clearColor];
+    lLabel.text=@"Already a member?";
+    lLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeLoginText];
+    lLabel.textColor =[AppUIManager getColorOfType:kAUCColorTypeTextStroke];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
+    lLabel.textAlignment = NSTextAlignmentCenter;
+    
+    //  dLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];//[UIColor whiteColor];
+    //  dLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    //phLabel.shadowRadius = 4.0f;
+    
+    [lLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    // accessibilty
+    [lLabel setAccessibilityIdentifier:@"Login Label"];
+    
+    return lLabel;
+}
+
+
 #pragma mark - Labels
 //+ (UILabel *)getPageLabel{
 //    return [AppUIManager getUILabelWithText:@"Spark" font:kAUCFontFamilyPrimary ofSize:kAUCFontSizePageLabel color:kAUCColorTypeTextPrimary];
