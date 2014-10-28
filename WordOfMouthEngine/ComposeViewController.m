@@ -101,16 +101,35 @@
 
 #pragma mark -  Local View Methods Implememtation
 - (void)setView {
+    
+    // call Keyboard Notification
+    [self registerForKeyboardNotifications];
+    
+    // set up scroll View
+    scrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0,0,320,480)];
+    scrollView.showsVerticalScrollIndicator=YES;
+    scrollView.scrollEnabled=YES;
+    scrollView.userInteractionEnabled=YES;
+    scrollView.contentSize=CGSizeMake(320, 640);
+    scrollView.backgroundColor = [UIColor redColor];
+  
+  
+
     // set view
     [ComposeViewHelper setView:self.view];
     
     // set navigation bar
     [self setNavigationBar];
     
+    //
+    [self.view addSubview:scrollView];
+
+    
     // image view
     contentImageView = [ComposeViewHelper getContentImageView];
-    [self.view addSubview:contentImageView];
-    
+    [scrollView addSubview:contentImageView];
+//    [self.view addSubview:contentImageView];
+
     // set Category control
     //    categoryControl = [ComposeViewHelper getCategoryControl];
     //    [categoryControl addTarget:self action:@selector(selectedCategoryChanged:) forControlEvents:UIControlEventValueChanged];
@@ -122,26 +141,27 @@
     
     // place holder label
     placeHolderLabel = [ComposeViewHelper getPlaceHolderLabel];
-    [self.view addSubview:placeHolderLabel];
+    [composeTextView addSubview:placeHolderLabel];
     
     
     // buttons
 //    postButton = [ComposeViewHelper getPostButton];
 //    [postButton addTarget:self action:@selector(postContent:) forControlEvents:UIControlEventTouchUpInside];
-//    cameraOptionsButton = [ComposeViewHelper getCameraOptionsButton];
-//    [cameraOptionsButton addTarget:self action:@selector(showPhotoOptions:) forControlEvents:UIControlEventTouchUpInside];
+    cameraOptionsButton = [ComposeViewHelper getCameraOptionsButton];
+    [cameraOptionsButton addTarget:self action:@selector(showPhotoOptions:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
 //    cancelButton = [ComposeViewHelper getCancelButton];
 //    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     
-//    [self.view addSubview:postButton ];
-//    [self.view addSubview:cameraOptionsButton];
+//    [self.view addSubview:postButton];
+    [self.view addSubview:cameraOptionsButton];
 //    [self.view addSubview:cancelButton];
     
     
     //activity indicator view
     activityIndicator =[[UIActivityIndicatorView alloc] init];
     [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
-    
     
     
     // set photos options view
@@ -157,7 +177,7 @@
 - (void)layoutView{
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, cameraOptionsButton, scrollView);
     
     // buttons
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -171,13 +191,13 @@
 //                                                                                    options:0 metrics:nil views:viewsDictionary]];
     
     
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[cameraOptionsButton(107)]"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    [AppUIManager horizontallyCenterElement:cameraOptionsButton inView:self.view];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cameraOptionsButton(80)]"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    
-//    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[cameraOptionsButton(50)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [AppUIManager horizontallyCenterElement:cameraOptionsButton inView:self.view];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-210-[cameraOptionsButton(50)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-4-[composeTextView]-218-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
@@ -192,9 +212,9 @@
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
     // place holder label
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[placeHolderLabel(240)]"
+    [composeTextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[placeHolderLabel(260)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[placeHolderLabel(30)]-238-|"
+    [composeTextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[placeHolderLabel(45)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:placeHolderLabel inView:self.view];
 }
@@ -305,6 +325,49 @@
     [composeTextView resignFirstResponder];
 }
 
+#pragma mark - Keyboard Notifications
+
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    scrollView.contentInset = contentInsets;
+    scrollView.scrollIndicatorInsets = contentInsets;
+    
+    
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    // Your app might not need or want this behavior.
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height;
+    CGPoint origin = composeTextView.frame.origin;
+    origin.y -= scrollView.contentOffset.y;
+    if (!CGRectContainsPoint(aRect, origin) ) {
+        CGPoint scrollPoint = CGPointMake(0.0, composeTextView.frame.origin.y-(aRect.size.height));
+        [scrollView setContentOffset:scrollPoint animated:YES];
+    }
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    scrollView.contentInset = contentInsets;
+    scrollView.scrollIndicatorInsets = contentInsets;
+}
+
 #pragma mark - textview delegate methods
 //- (BOOL) textViewShouldBeginEditing:(UITextView *)textView{
 //    return YES;
@@ -385,7 +448,7 @@
     if (sender.state == UIGestureRecognizerStateEnded) {
         [sender cancelsTouchesInView];
          NSLog(@"Swiped at %f", distance.y);
-        if (distance.y > (screenH / 50)) {
+        if (distance.y > (screenH / 10)) {
             [self disableKeyBoard];
         }
     }

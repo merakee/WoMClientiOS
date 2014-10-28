@@ -265,6 +265,8 @@
 		5183403519F7236C00392D79 /* CustomContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183403419F7236C00392D79 /* CustomContentView.m */; };
 		5183403919F9712600392D79 /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 5183403819F9712600392D79 /* clear.png */; };
 		5183403C19FAC2E300392D79 /* SettingsViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183403B19FAC2E300392D79 /* SettingsViewHelper.m */; };
+		5183404519FECBCD00392D79 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183404419FECBCD00392D79 /* ForgotPasswordViewController.m */; };
+		5183404B19FF0C3000392D79 /* ForgotPasswordViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183404A19FF0C3000392D79 /* ForgotPasswordViewHelper.m */; };
 		518519FD19F5E1C400CFFEC5 /* Login.png in Resources */ = {isa = PBXBuildFile; fileRef = 518519F919F5E1C400CFFEC5 /* Login.png */; };
 		518519FE19F5E1C400CFFEC5 /* Login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 518519FA19F5E1C400CFFEC5 /* Login@2x.png */; };
 		518519FF19F5E1C400CFFEC5 /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = 518519FB19F5E1C400CFFEC5 /* start.png */; };
@@ -541,6 +543,10 @@
 		5183403819F9712600392D79 /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clear.png; path = ../../../Downloads/clear.png; sourceTree = "<group>"; };
 		5183403A19FAC2E300392D79 /* SettingsViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewHelper.h; sourceTree = "<group>"; };
 		5183403B19FAC2E300392D79 /* SettingsViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewHelper.m; sourceTree = "<group>"; };
+		5183404319FECBCD00392D79 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
+		5183404419FECBCD00392D79 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
+		5183404919FF0C3000392D79 /* ForgotPasswordViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewHelper.h; sourceTree = "<group>"; };
+		5183404A19FF0C3000392D79 /* ForgotPasswordViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewHelper.m; sourceTree = "<group>"; };
 		518519F919F5E1C400CFFEC5 /* Login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Login.png; path = "../../marketing/sign up stuff/Login.png"; sourceTree = "<group>"; };
 		518519FA19F5E1C400CFFEC5 /* Login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Login@2x.png"; path = "../../marketing/sign up stuff/Login@2x.png"; sourceTree = "<group>"; };
 		518519FB19F5E1C400CFFEC5 /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = start.png; path = "../../marketing/sign up stuff/start.png"; sourceTree = "<group>"; };
@@ -826,6 +832,10 @@
 				1131DA7218B5657C00EFDB34 /* WomSignInViewController.m */,
 				1131DA7418B5657C00EFDB34 /* WomSignInViewHelper.h */,
 				1131DA7318B5657C00EFDB34 /* WomSignInViewHelper.m */,
+				5183404919FF0C3000392D79 /* ForgotPasswordViewHelper.h */,
+				5183404A19FF0C3000392D79 /* ForgotPasswordViewHelper.m */,
+				5183404319FECBCD00392D79 /* ForgotPasswordViewController.h */,
+				5183404419FECBCD00392D79 /* ForgotPasswordViewController.m */,
 			);
 			name = WomUserSignIn;
 			sourceTree = "<group>";
@@ -1760,11 +1770,13 @@
 				11B755BE19708BA000410604 /* ApiErrorManager.m in Sources */,
 				1114A806182D8B3300089669 /* AppDelegate.m in Sources */,
 				111E5970182EC53F00B7FD49 /* ApiManager.m in Sources */,
+				5183404B19FF0C3000392D79 /* ForgotPasswordViewHelper.m in Sources */,
 				11CB8FC318B00B2900396418 /* SignInViewController.m in Sources */,
 				11CB8FD518B0473500396418 /* ProfileViewController.m in Sources */,
 				1166AD901976F5C90010BFEA /* PlaceHolderFactory.m in Sources */,
 				51F956F219ECA5D600C087AD /* MapViewController.m in Sources */,
 				1166AD8B1975ECDB0010BFEA /* WomSignUpViewHelper.m in Sources */,
+				5183404519FECBCD00392D79 /* ForgotPasswordViewController.m in Sources */,
 				11810B7C18C9419100C5246C /* CVCircleDownCounter.m in Sources */,
 				11CB8FD218B046C400396418 /* HistoryViewController.m in Sources */,
 				5183403C19FAC2E300392D79 /* SettingsViewHelper.m in Sources */,

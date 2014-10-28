@@ -18,7 +18,7 @@
 }
 
 - (void)setView{
-    NSLog(@"blah");
+ //   NSLog(@"blah");
     // set customContentView
     contentView = [[UIView alloc] init];
     [contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -32,7 +32,7 @@
 - (void)layoutView{
     // Constraints
     
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentView, contentTextView, contentImageView);
+//    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentView, contentTextView, contentImageView);
         // text view
 //        [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentImageView]|"
 //                                                                          options:0 metrics:nil views:viewsDictionary]];

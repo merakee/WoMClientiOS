@@ -15,6 +15,7 @@
     UITextField        *passwordField;
     UIButton           *signInButton;
     UIButton           *cancelButton;
+    UIButton            *resetPasswordButton;
     //UIButton           *signUpButton;
     UIActivityIndicatorView *activityIndicator;
 }

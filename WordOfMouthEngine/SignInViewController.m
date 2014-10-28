@@ -12,6 +12,7 @@
 #import "WomSignUpViewController.h"
 #import "AppDelegate.h"
 #import "FlurryManager.h"
+#import "ForgotPasswordViewController.h"
 
 @implementation SignInViewController
 
@@ -268,7 +269,8 @@
     // push wom Sign in controller
     WomSignInViewController *womsivc =[[WomSignInViewController   alloc] init];
     [self.navigationController pushViewController:womsivc animated:NO];
-
+//    ForgotPasswordViewController *passvc = [[ForgotPasswordViewController alloc] init];
+//    [self.navigationController pushViewController:passvc animated:NO];
 }
 
 - (void)signUpButtonPressed:(id)sender {

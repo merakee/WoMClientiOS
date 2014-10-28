@@ -1,16 +1,14 @@
 //
-//  EmailSignInViewHelper.m
+//  ForgotPasswordViewHelper.m
 //  WordOfMouthEngine
 //
-//  Created by Bijit Halder on 2/15/14.
+//  Created by Kevin Moy on 10/27/14.
 //  Copyright (c) 2014 Bijit Halder. All rights reserved.
 //
 
-#import "WomSignInViewHelper.h"
+#import "ForgotPasswordViewHelper.h"
 
-@implementation WomSignInViewHelper
-
-
+@implementation ForgotPasswordViewHelper
 
 #pragma mark -  View Helper Methods: Views
 + (void)setView:(UIView *)view{
@@ -25,7 +23,7 @@
 
 #pragma mark -  View Helper Methods: TextLabel
 + (UILabel *)getPageLabel{
-    return [AppUIManager getUILabelWithText:@"Login" font:kAUCFontFamilyPrimary ofSize:kAUCFontSizePageLabel color:kAUCColorTypeTextPrimary];
+    return [AppUIManager getUILabelWithText:@"Reset Password" font:kAUCFontFamilyPrimary ofSize:30 color:kAUCColorTypeTextPrimary];
 }
 
 #pragma mark -  View Helper Methods: TextField
@@ -41,28 +39,13 @@
     // accessibilty
     [textField setAccessibilityIdentifier:@"Email"];
 }
-+ (void)setPasswordTextFiled:(UITextField *)textField withDelegate:(id)delegate{
-    // set app defaults
-    [AppUIManager setTextField:textField placeholder:@"password"];
-    textField.delegate=delegate;
-    textField.secureTextEntry = YES;
-    
-    
-    // set up key board
-    textField.returnKeyType = UIReturnKeyDone;// UIReturnKeyGo;
-    textField.keyboardType = UIKeyboardTypeEmailAddress;
-    
-    // accessibilty
-    [textField setAccessibilityIdentifier:@"Password"];
-}
-
 
 #pragma mark -  View Helper Methods: Buttons
-+ (UIButton *)getSignInButton{
-//    UIButton *button =  [AppUIManager getTransparentUIButtonWithTitle:@"Login"
-//                                                                color:kAUCColorTypeTextSecondary
-//                                                                 font:kAUCFontFamilyPrimary
-//                                                                 size:kAUCFontSizeButtonSmall];
++ (UIButton *)getResetPasswordButton{
+    //    UIButton *button =  [AppUIManager getTransparentUIButtonWithTitle:@"Login"
+    //                                                                color:kAUCColorTypeTextSecondary
+    //                                                                 font:kAUCFontFamilyPrimary
+    //                                                                 size:kAUCFontSizeButtonSmall];
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCLogInButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Login"];
@@ -78,10 +61,4 @@
     return button;
 }
 
-+ (UIButton *)getResetPasswordButton{
-    UIButton *button =  [AppUIManager getTransparentUIButton];
-    [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
-    [button setAccessibilityIdentifier:@"Reset"];
-    return button;
-}
 @end
