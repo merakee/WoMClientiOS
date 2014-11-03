@@ -13,9 +13,12 @@
 #import "AppDelegate.h"
 #import "FlurryManager.h"
 #import "ForgotPasswordViewController.h"
+#import "TutorialViewController.h"
+@interface SignInViewController ()  <UIPageViewControllerDataSource>
 
+@end
 @implementation SignInViewController
-
+//@synthesize tutorialImages;
 
 #pragma mark -  View Life cycle Methods
 
@@ -79,6 +82,9 @@
     // set navigation bar
     [self setNavigationBar];
     
+    // page controller
+    [self setPageView];
+    [self setupPageControl];
     //    // set buttons
     //    googleButton = [SignInViewHelper getGoogleButton];
     //    [googleButton addTarget:self action:@selector(googleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -136,6 +142,7 @@
     
     // layout
     [self layoutView];
+    
 }
 
 - (void)layoutView{
@@ -143,7 +150,7 @@
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(appLogoView,buttonsView,signInButton,signUpButton,signInAsGuestButton,activityIndicator);
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(pageLabel,signInButton,signUpButton,signInAsGuestButton,activityIndicator);
     
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(appLogoView,signInButton,signInAsGuestButton,activityIndicator,descriptionLabel,loginLabel);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(appLogoView,signInButton,signInAsGuestButton,activityIndicator,descriptionLabel,loginLabel,pageViewController);
     
 //    // images
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[appLogoView(234)]-40-[buttonsView]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -222,6 +229,12 @@
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[loginLabel(30)]-10-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
+    
+    // page controller
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[pageController]-10-|"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[pageController]-30-[descriptionLabel]"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
 
 }
 - (void)setNavigationBar {
@@ -299,6 +312,148 @@
                                                         [activityIndicator stopAnimating];
                                                         [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                     }];
+}
+
+#pragma mark - Tutorial Page View
+
+- (void)setPageView
+{
+    tutorialImages = @[@"ScreenShot1.png",
+                       @"ScreenShot2.png",
+                       @"ScreenShot3.png"];
+
+    UIPageViewController *pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    
+    
+    pageController.dataSource = self;
+    
+    if([tutorialImages count])
+    {
+        NSArray *startingViewControllers = @[[self itemControllerForIndex: 0]];
+        [pageController setViewControllers: startingViewControllers
+                                 direction: UIPageViewControllerNavigationDirectionForward
+                                  animated: NO
+                                completion: nil];
+    }
+    pageViewController = pageController;
+//     pageController.dataSource = self;
+//    [[pageController view] setFrame:[[self view] bounds]];
+    
+//    TutorialViewController *initialViewController = [self viewControllerAtIndex:0];
+//    
+//    NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
+//    
+//    [pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+ //  pageController.view.frame = self.view.frame;
+    self.view.clipsToBounds = YES;
+    [pageController.view setFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, 320, 400)];
+    
+ //   pageController.view.backgroundColor = [UIColor blackColor];
+    [self addChildViewController:pageViewController];
+     [self.view addSubview:pageViewController.view];
+    [pageViewController didMoveToParentViewController:self];
+ 
+}
+//- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
+//    
+//    NSUInteger index = [(TutorialViewController *)viewController index];
+//    
+//    if (index == 0) {
+//        return nil;
+//    }
+//    
+//    index--;
+//    
+//    return [self viewControllerAtIndex:index];
+//    
+//}
+//
+//- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
+//    
+//    NSUInteger index = [(TutorialViewController *)viewController index];
+//    
+//    
+//    index++;
+//    
+//    if (index == 3) {
+//        return nil;
+//    }
+//    
+//    return [self viewControllerAtIndex:index];
+//    
+//}
+//- (TutorialViewController *)viewControllerAtIndex:(NSUInteger)index {
+//    
+////    TutorialViewController *tvc = [[TutorialViewController alloc] initWithNibName:@"TutorialViewController" bundle:nil];
+//    TutorialViewController *tvc = [[TutorialViewController alloc] init];
+//    tvc.index = index;
+//    
+//    return tvc;
+//    
+//}
+
+- (void) setupPageControl
+{
+    [[UIPageControl appearance] setPageIndicatorTintColor: [UIColor lightGrayColor]];
+    [[UIPageControl appearance] setCurrentPageIndicatorTintColor: [UIColor whiteColor]];
+ //   [[UIPageControl appearance] setBackgroundColor: [UIColor darkGrayColor]];
+}
+
+- (UIViewController *)pageViewController: (UIPageViewController *) pageViewController viewControllerBeforeViewController:(UIViewController *) viewController
+{
+    TutorialViewController *itemController = (TutorialViewController *) viewController;
+    
+    if (itemController.index > 0)
+    {
+        return [self itemControllerForIndex: itemController.index-1];
+    }
+    
+    return nil;
+}
+
+
+- (UIViewController *)pageViewController: (UIPageViewController *) pageViewController viewControllerAfterViewController:(UIViewController *) viewController
+{
+    TutorialViewController *itemController = (TutorialViewController *) viewController;
+    
+    if (itemController.index+1 < [tutorialImages count])
+    {
+//        NSLog(@"%d",itemController.index);
+//        NSLog(@"%d",tutorialImages.count);
+        return [self itemControllerForIndex: itemController.index+1];
+       
+    }
+    
+    return nil;
+}
+
+- (TutorialViewController *) itemControllerForIndex: (NSUInteger) itemIndex
+{
+    if (itemIndex < [tutorialImages count])
+    {
+        TutorialViewController *tutorialViewController = [[TutorialViewController alloc] init];
+        tutorialViewController.index = itemIndex;
+        tutorialViewController.imageName = tutorialImages[itemIndex];
+        return tutorialViewController;
+    }
+    
+    return nil;
+}
+- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
+    // The number of items reflected in the page indicator.
+    return [tutorialImages count];
+}
+
+
+- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
+    // The selected item reflected in the page indicator.
+//    if([pageViewController.viewControllers count] == 0) {
+//        return 0;
+//    }
+//    else {
+//        // grab pageindex from pageviewcontroller.viewcontrollers.
+//    }
+     return 0;
 }
 
 #pragma mark - Api Manager Post actions methods

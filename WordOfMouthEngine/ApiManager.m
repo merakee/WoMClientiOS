@@ -123,13 +123,13 @@
 - (void)signUpUserWithUserTypeId:(int)userTypeId
                            email:(NSString *)email_
                         password:(NSString *)password_
-            passwordConfirmation:(NSString *)passwordConfirmation_
+//            passwordConfirmation:(NSString *)passwordConfirmation_
                          success:(void (^)())success
                          failure:(void (^)(NSError *error))failure{
     // process and validate
     NSString * email = [CommonUtility trimString:email_];
     NSString * password = [CommonUtility trimString:password_];
-    NSString * passwordConfirmation = [CommonUtility trimString:passwordConfirmation_];
+//    NSString * passwordConfirmation = [CommonUtility trimString:passwordConfirmation_];
     NSError *verror =[ApiValidationManager validateSignUpWithUserTypeId:userTypeId
                                                                   email:email
                                                                password:password

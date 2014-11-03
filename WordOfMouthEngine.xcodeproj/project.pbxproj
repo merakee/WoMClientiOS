@@ -273,6 +273,7 @@
 		51851A0019F5E1C400CFFEC5 /* start@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 518519FC19F5E1C400CFFEC5 /* start@2x.png */; };
 		51851A0319F5EB7800CFFEC5 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 51851A0119F5EB7800CFFEC5 /* logo.png */; };
 		51851A0419F5EB7800CFFEC5 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 51851A0219F5EB7800CFFEC5 /* logo@2x.png */; };
+		51938CD61A03044A0013CB9B /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51938CD51A03044A0013CB9B /* TutorialViewController.m */; };
 		51E0B8D419E486770090351A /* ScreenShot4.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E0B8D019E486770090351A /* ScreenShot4.png */; };
 		51E0B8D519E486770090351A /* ScreenShot2.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E0B8D119E486770090351A /* ScreenShot2.png */; };
 		51E0B8D619E486770090351A /* ScreenShot3.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E0B8D219E486770090351A /* ScreenShot3.png */; };
@@ -553,6 +554,8 @@
 		518519FC19F5E1C400CFFEC5 /* start@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "start@2x.png"; path = "../../marketing/sign up stuff/start@2x.png"; sourceTree = "<group>"; };
 		51851A0119F5EB7800CFFEC5 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = "../../marketing/sign up stuff/logo.png"; sourceTree = "<group>"; };
 		51851A0219F5EB7800CFFEC5 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo@2x.png"; path = "../../marketing/sign up stuff/logo@2x.png"; sourceTree = "<group>"; };
+		51938CD41A03044A0013CB9B /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
+		51938CD51A03044A0013CB9B /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
 		51E0B8D019E486770090351A /* ScreenShot4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ScreenShot4.png; path = "../../../Desktop/marketing/Sample content/Backgrounds/ScreenShot4.png"; sourceTree = "<group>"; };
 		51E0B8D119E486770090351A /* ScreenShot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ScreenShot2.png; path = "../../../Desktop/marketing/Sample content/Backgrounds/ScreenShot2.png"; sourceTree = "<group>"; };
 		51E0B8D219E486770090351A /* ScreenShot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ScreenShot3.png; path = "../../../Desktop/marketing/Sample content/Backgrounds/ScreenShot3.png"; sourceTree = "<group>"; };
@@ -1132,6 +1135,8 @@
 			isa = PBXGroup;
 			children = (
 				1131DA7118B5654200EFDB34 /* WomUserSignIn */,
+				51938CD41A03044A0013CB9B /* TutorialViewController.h */,
+				51938CD51A03044A0013CB9B /* TutorialViewController.m */,
 				11CB8FC118B00B2900396418 /* SignInViewController.h */,
 				11CB8FC218B00B2900396418 /* SignInViewController.m */,
 				1131DA6618B5584300EFDB34 /* SignInViewHelper.h */,
@@ -1798,6 +1803,7 @@
 				11CB8FD818B0476A00396418 /* SettingsViewController.m in Sources */,
 				11810B7918C9407F00C5246C /* CVCircleCounterView.m in Sources */,
 				1107342D18BDBF8B008C941A /* AppUIAppearanceManager.m in Sources */,
+				51938CD61A03044A0013CB9B /* TutorialViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

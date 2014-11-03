@@ -26,7 +26,7 @@
     //contentBackGround.backgroundColor =[AppUIManager getContentColorForCategory:1];
 //    contentBackGround.backgroundColor =[UIColor blueColor];
     
-    contentBackGround.contentMode = UIViewContentModeScaleAspectFill;
+    contentBackGround.contentMode = UIViewContentModeScaleAspectFit;
     [contentBackGround setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     //    [contentBackGround setAccessibilityIdentifier:@"Content Image"];
@@ -285,7 +285,41 @@
     
     return circleView;
 }
+#pragma mark - Toolbar
++ (UIButton *)getReportButton{
+    return nil;
+}
++ (UIButton *)getViewsImage{
+    UIImage *buttonImage = [UIImage imageNamed:@"mapicon.jpeg"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"ViewsImage"];
+    return button;
 
+}
++ (UIButton *)getCommentImage{
+    UIImage *buttonImage = [UIImage imageNamed:@"mapicon.jpeg"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"SpreadImage"];
+    return button;
+}
++ (UILabel *)getViewsCount{
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 20, 20)];
+    label.backgroundColor = [UIColor purpleColor];
+    label.text = @"counts";
+    return label;
+}
++ (UILabel *)getCommentsCount{
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 20, 20)];
+    label.backgroundColor = [UIColor greenColor];
+    label.text = @"comments";
+    return label;
+}
 #pragma mark - Animation
 + (void)animateViewsForContentDisplay:(NSArray *)views withFinalAction:(void (^)())action{
     // skip animation if number of views do not match

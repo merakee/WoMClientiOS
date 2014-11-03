@@ -47,5 +47,7 @@ static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 + (UIButton *)getCancelButton;
 + (UIButton *)getPostButton;
 + (UIButton *)getCameraOptionsButton;
++ (UIButton *)getBackButton;
++ (UIButton *)getDoneButton;
 
 @end

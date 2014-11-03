@@ -66,4 +66,13 @@ static NSString *kAUCPageLogoImage =@"logo-nav.png";
 //+ (void)animateButtonWithSlideUpAndReturn:(UIButton *)button  withFinalAction:(void (^)())action;
 //+ (void)animateButtonWithSlideFromDown:(UIButton *)button  withFinalAction:(void (^)())action;
 //+ (void)animateButtonWithSlideFromDownAndUpShoot:(UIButton *)button  withFinalAction:(void (^)())action;
+
+#pragma mark - Toolbar Buttons
++ (UIButton *)getReportButton;
++ (UIButton *)getViewsImage;
++ (UIButton *)getCommentImage;
++ (UILabel *)getViewsCount;
++ (UILabel *)getCommentsCount;
+
+
 @end

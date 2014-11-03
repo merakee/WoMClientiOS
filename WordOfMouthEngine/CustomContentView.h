@@ -12,8 +12,13 @@
 
 UIView                  *contentView;
 UITextView              *contentTextView;
-UIImageView             *contentImageView;
+
 }
+
+@property (atomic) UIImageView             *contentImageView;
+
 - (void)setView;
+- (void)setAttributedText:(NSAttributedString *)text;
+
 @end
 

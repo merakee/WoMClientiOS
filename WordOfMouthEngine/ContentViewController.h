@@ -1,3 +1,4 @@
+
 //
 //  ContentViewController.h
 //  WordOfMouthEngine
@@ -48,15 +49,24 @@
     CustomContentView  *customContentView1;
     CustomContentView  *customContentView2;
     
-    
     //UIImageView         *pageLogo;
     
     //UIImageView         *userImage;
     //UILabel             *spreadCount;
     
+    UIToolbar            *infoToolBar;
     
+    UIButton                *viewsImage;
+    UIButton                *commentImage;
+   // UIButton                *reportButton;
+    UILabel                *viewsCount;
+    UILabel                *commentCount;
     
-    
+    UIBarButtonItem *reportButton;
+    UIBarButtonItem *vImage;
+    UIBarButtonItem *cImage;
+    UIBarButtonItem *vCount;
+    UIBarButtonItem *cCount;
     // circular timer
     // CVCircularProgressView      *progressClock;
     //CVCircleCounterView         *progressCounter;
@@ -71,7 +81,7 @@
 //    UISwipeGestureRecognizer *oneFingerSwipeLeft;
 //    UISwipeGestureRecognizer *oneFingerSwipeRight;
     UIPanGestureRecognizer *panRecognized;
-    
+    UIPanGestureRecognizer *panRecognized2;
 //    UITapGestureRecognizer *touchRecognized;
 
 //    CGFloat                 *xCoord;
@@ -84,6 +94,9 @@
 @property (nonatomic) CGFloat originY;
 @property (nonatomic) CGFloat startingTap;
 @property (nonatomic) CGFloat endingTap;
+@property (nonatomic) CGFloat startingTap2;
+@property (nonatomic) CGFloat endingTap2;
+
 
 @property CGPoint startPoint;
 @property CGPoint endPoint;

@@ -222,4 +222,21 @@
     return button;
 }
 
+#pragma mark - Input Accessory view buttons
++ (UIButton *)getBackButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Back"];
+    return button;
+
+}
+
++ (UIButton *)getDoneButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setTitle:@"Done" forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Done"];
+    return button;
+    
+}
+
 @end

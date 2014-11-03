@@ -20,8 +20,8 @@ static const int kAPIValidationContentMaxLength = 200;
 #pragma mark - sign up validation methods
 + (NSError *)validateSignUpWithUserTypeId:(int)userTypeId
                                     email:(NSString *)email
-                                 password:(NSString *)password
-                     passwordConfirmation:(NSString *)passwordConfirmation;
+                                 password:(NSString *)password;
+//                     passwordConfirmation:(NSString *)passwordConfirmation;
 #pragma mark - sign in validation methods
 + (NSError *)validateSignInWithUserTypeId:(int)userTypeId
                                     email:(NSString *)email

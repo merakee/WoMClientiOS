@@ -27,7 +27,11 @@
     
     UIActivityIndicatorView *activityIndicator;
     UIPanGestureRecognizer *panRecognized;
-    UIScrollView            *scrollView;
+ //   UIScrollView            *scrollView;
+    
+    UIView                  *inputAccView;
+    UIButton                *backButton;
+    UIButton                *doneButton;
 }
 
 

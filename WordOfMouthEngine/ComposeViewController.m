@@ -103,17 +103,17 @@
 - (void)setView {
     
     // call Keyboard Notification
-    [self registerForKeyboardNotifications];
+  //  [self registerForKeyboardNotifications];
     
     // set up scroll View
-    scrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0,0,320,480)];
-    scrollView.showsVerticalScrollIndicator=YES;
-    scrollView.scrollEnabled=YES;
-    scrollView.userInteractionEnabled=YES;
-    scrollView.contentSize=CGSizeMake(320, 640);
-    scrollView.backgroundColor = [UIColor redColor];
+//    scrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0,0,320,380)];
+//    scrollView.showsVerticalScrollIndicator=YES;
+//    scrollView.scrollEnabled=YES;
+//    scrollView.userInteractionEnabled=YES;
+//    scrollView.contentSize=CGSizeMake(320, 400);
+  //  scrollView.backgroundColor = [UIColor redColor];
   
-  
+    [self createInputAccessoryView];
 
     // set view
     [ComposeViewHelper setView:self.view];
@@ -121,14 +121,13 @@
     // set navigation bar
     [self setNavigationBar];
     
-    //
-    [self.view addSubview:scrollView];
+   // [self.view addSubview:scrollView];
 
     
     // image view
     contentImageView = [ComposeViewHelper getContentImageView];
-    [scrollView addSubview:contentImageView];
-//    [self.view addSubview:contentImageView];
+ //   [scrollView addSubview:contentImageView];
+   [self.view addSubview:contentImageView];
 
     // set Category control
     //    categoryControl = [ComposeViewHelper getCategoryControl];
@@ -177,7 +176,7 @@
 - (void)layoutView{
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, cameraOptionsButton, scrollView);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, cameraOptionsButton);
     
     // buttons
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -324,49 +323,73 @@
     // disable keyboard
     [composeTextView resignFirstResponder];
 }
+#pragma mark - Input Accessory View
+
+- (void)cancelText{
+    [composeTextView resignFirstResponder];
+}
+- (void)createInputAccessoryView{
+    inputAccView = [[UIView alloc] initWithFrame:CGRectMake(10.0, 0.0, 310.0, 40.0)];
+    [inputAccView setBackgroundColor:[UIColor yellowColor]];
+    [inputAccView setAlpha: 0.8];
+    [self.view addSubview:inputAccView];
+    cancelButton = [ComposeViewHelper getCancelButton];
+    doneButton = [ComposeViewHelper getDoneButton];
+    [cancelButton addTarget:self action:@selector(dismissKeyboard) forControlEvents:UIControlEventTouchUpInside];
+    [doneButton addTarget:self action:@selector(dismissKeyboard) forControlEvents:UIControlEventTouchUpInside];
+    [inputAccView addSubview:cancelButton];
+    [inputAccView addSubview:doneButton];
+    NSLog(@"input");
+
+}
+
+
+
+
+
 
 #pragma mark - Keyboard Notifications
 
-- (void)registerForKeyboardNotifications
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardDidShowNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillBeHidden:)
-                                                 name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)keyboardWasShown:(NSNotification*)aNotification
-{
-
-    NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-    scrollView.contentInset = contentInsets;
-    scrollView.scrollIndicatorInsets = contentInsets;
-    
-    
-    // If active text field is hidden by keyboard, scroll it so it's visible
-    // Your app might not need or want this behavior.
-    CGRect aRect = self.view.frame;
-    aRect.size.height -= kbSize.height;
-    CGPoint origin = composeTextView.frame.origin;
-    origin.y -= scrollView.contentOffset.y;
-    if (!CGRectContainsPoint(aRect, origin) ) {
-        CGPoint scrollPoint = CGPointMake(0.0, composeTextView.frame.origin.y-(aRect.size.height));
-        [scrollView setContentOffset:scrollPoint animated:YES];
-    }
-}
-
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification
-{
-    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    scrollView.contentInset = contentInsets;
-    scrollView.scrollIndicatorInsets = contentInsets;
-}
+//- (void)registerForKeyboardNotifications
+//{
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWasShown:)
+//                                                 name:UIKeyboardDidShowNotification object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillBeHidden:)
+//                                                 name:UIKeyboardWillHideNotification object:nil];
+//}
+//
+//- (void)keyboardWasShown:(NSNotification*)aNotification
+//{
+//
+//    NSDictionary* info = [aNotification userInfo];
+//    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+//    
+//    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+//    scrollView.contentInset = contentInsets;
+//    scrollView.scrollIndicatorInsets = contentInsets;
+//    
+//    
+//    // If active text field is hidden by keyboard, scroll it so it's visible
+//    // Your app might not need or want this behavior.
+//    CGRect aRect = self.view.frame;
+//    aRect.size.height -= kbSize.height;
+//    CGPoint origin = composeTextView.frame.origin;
+//    origin.y -= scrollView.contentOffset.y;
+//    if (!CGRectContainsPoint(aRect, origin) ) {
+//        CGPoint scrollPoint = CGPointMake(0.0, composeTextView.frame.origin.y-(aRect.size.height));
+//        [scrollView setContentOffset:scrollPoint animated:YES];
+//    }
+//}
+//
+//- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+//{
+//    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+//    scrollView.contentInset = contentInsets;
+//    scrollView.scrollIndicatorInsets = contentInsets;
+//}
 
 #pragma mark - textview delegate methods
 //- (BOOL) textViewShouldBeginEditing:(UITextView *)textView{
@@ -380,6 +403,12 @@
 //        textView.tag = 1;
 //    //}
 //}
+
+
+- (void)textViewDidBeginEditing:(UITextView *)textView{
+    [textView setInputAccessoryView:inputAccView];
+    composeTextView = textView;
+}
 - (void)textViewDidChange:(UITextView *)textView{
     long  textLength =[textView.text length];
     int maxLength = 200;

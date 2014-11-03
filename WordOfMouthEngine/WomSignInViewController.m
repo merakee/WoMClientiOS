@@ -44,7 +44,7 @@
  //   [self.navigationController setNavigationBarHidden:YES];
     
     // display key board
-  //  [emailField becomeFirstResponder];
+    [emailField becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -200,11 +200,22 @@
                                                         [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                     }];
 }
-
 - (void)signUpButtonPressed:(id)sender {
-    // push wom Sign up controller
-    WomSignUpViewController *womsuvc =[[WomSignUpViewController   alloc] init];
-    [self.navigationController pushViewController:womsuvc animated:NO];
+    // sign up user
+    [activityIndicator startAnimating];
+    [[ApiManager sharedApiManager] signUpUserWithUserTypeId:kAPIUserTypeWom
+                                                      email:emailField.text
+                                                   password:passwordField.text
+                                                    success:^(void){
+                                                        [activityIndicator stopAnimating];
+                                                        [self actionsForSuccessfulUserSignUp];
+                                                    }failure:^(NSError * error){
+                                                        // Analytics: Flurry
+                                                        [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignUpFailure] withParameters:@{@"Error": error}];
+                                                        [activityIndicator stopAnimating];
+                                                        [ApiErrorManager displayAlertWithError:error withDelegate:self];
+                                                    }];
+    
 }
 
 - (void)resetPasswordButtonPressed:(id)sender {
@@ -216,6 +227,13 @@
 - (void)actionsForSuccessfulUserSignIn{
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignInSuccess]];
+    // switch to content view
+    [(AppDelegate *)[UIApplication sharedApplication].delegate setContentViewAsRootView];
+}
+
+- (void)actionsForSuccessfulUserSignUp{
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignUpSuccess]];
     // switch to content view
     [(AppDelegate *)[UIApplication sharedApplication].delegate setContentViewAsRootView];
 }

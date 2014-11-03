@@ -73,7 +73,8 @@
 + (NSError *)validateSignUpWithUserTypeId:(int)userTypeId
                                     email:(NSString *)email
                                  password:(NSString *)password
-                     passwordConfirmation:(NSString *)passwordConfirmation{
+{
+//                     passwordConfirmation:(NSString *)passwordConfirmation{
     
     
     // check if anomymou user
