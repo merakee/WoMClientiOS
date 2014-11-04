@@ -27,13 +27,13 @@
 #pragma mark -  View Helper Methods: UIImages
 + (UIImageView *)getLogoView{
     UIImageView *iv =[[UIImageView alloc] initWithImage:[UIImage imageNamed:kAUCSigninOptionsLogoImage]];
-    // defautl setting
+    // default setting
     [AppUIManager setImageView:iv];
     return iv;
 }
 //+ (UIImageView *)getButtonsView{
 //    UIImageView *iv =[[UIImageView alloc] initWithImage:[UIImage imageNamed:kAUCSigninOptionsButtonsImage]];
-//    // defautl setting
+//    // default setting
 //    [AppUIManager setImageView:iv];
 //    return iv;
 //}

@@ -43,12 +43,12 @@
     }
     return nil;
 }
-+ (NSString *)doesPassword:(NSString *)password matchConfirmation:(NSString *)passwordConfirmation{
-    if(![password isEqualToString:passwordConfirmation]){
-        return @"Password confirmation must match password";
-    }
-    return nil;
-}
+//+ (NSString *)doesPassword:(NSString *)password matchConfirmation:(NSString *)passwordConfirmation{
+//    if(![password isEqualToString:passwordConfirmation]){
+//        return @"Password confirmation must match password";
+//    }
+//    return nil;
+//}
 + (NSString *)isContentTextValid:(NSString *)text{
     if([text length]<kAPIValidationContentMinLength){
         return [NSString stringWithFormat:@"Text must be at least %d charecter long",kAPIValidationContentMinLength];
@@ -99,7 +99,7 @@
         [reason appendFormat:@"%@\n",msg];
     }
     
-    msg = [ApiValidationManager doesPassword:password matchConfirmation:passwordConfirmation];
+//    msg = [ApiValidationManager doesPassword:password matchConfirmation:passwordConfirmation];
     if(msg){
         [reason appendFormat:@"%@\n",msg];
     }

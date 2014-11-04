@@ -11,15 +11,16 @@
 @implementation ApiRequestHelper
 
 #pragma mark -  Utility Methods: JSON Request
-+(NSDictionary *)userSignUpParamsWithUserTypeId:(int)userTypeId email:(NSString *)email password:(NSString *)password andPasswordConfirmation:(NSString *)passwordConfirmation{
++(NSDictionary *)userSignUpParamsWithUserTypeId:(int)userTypeId email:(NSString *)email password:(NSString *)password {
+//                        andPasswordConfirmation:(NSString *)passwordConfirmation
     if (email==nil){email=@"";}
     if(password==nil){password=@"";}
-    if(passwordConfirmation==nil){passwordConfirmation=@"";}
+//    if(passwordConfirmation==nil){passwordConfirmation=@"";}
     return @{@"user":@{
                      @"user_type_id": [NSNumber numberWithInt:userTypeId],
                      @"email":email,
-                     @"password":password,
-                     @"password_confirmation":passwordConfirmation}};
+                     @"password":password}};
+//                     @"password_confirmation":passwordConfirmation}};
 }
 +(NSDictionary *)userSignInParamsWithEmail:(NSString *)email andPassword:(NSString *)password{
     if (email==nil){email=@"";}

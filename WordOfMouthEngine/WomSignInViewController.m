@@ -82,6 +82,10 @@
     [signInButton addTarget:self action:@selector(signInButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signInButton];
     
+    signUpButton = [WomSignInViewHelper getSignUpButton];
+    [signUpButton addTarget:self action:@selector(signUpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:signUpButton];
+    
     cancelButton = [WomSignInViewHelper getCancelButton];
     [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:cancelButton];
@@ -89,6 +93,10 @@
     resetPasswordButton = [WomSignInViewHelper getResetPasswordButton];
     [resetPasswordButton addTarget:self action:@selector(resetPasswordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:resetPasswordButton];
+    
+    termsButton = [WomSignInViewHelper getTermsButton];
+    [termsButton addTarget:self action:@selector(termsButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:termsButton];
     
     //text Fileds
     emailField =[[UITextField alloc] init];
@@ -111,7 +119,7 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(pageLabel,emailField,passwordField,signInButton,cancelButton, resetPasswordButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(pageLabel,emailField,passwordField,signInButton,cancelButton, resetPasswordButton, signUpButton, termsButton);
     
     // labels
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLabel(120)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -127,13 +135,20 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInButton(40)]-10-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[signInButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[resetPasswordButton(40)]-10-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[resetPasswordButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[resetPasswordButton(100)]" options:0 metrics:nil views:viewsDictionary]];
-     [AppUIManager horizontallyCenterElement:resetPasswordButton inView:self.view];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-150-[signInButton(100)]" options:0 metrics:nil views:viewsDictionary]];
+     //[AppUIManager horizontallyCenterElement:resetPasswordButton inView:self.view];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[passwordField]-50-[resetPasswordButton(40)]" options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[passwordField]-50-[signInButton(40)]" options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-50-[signUpButton(100)]" options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[passwordField]-50-[signUpButton(40)]" options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[termsButton(100)]" options:0 metrics:nil views:viewsDictionary]];
+    [AppUIManager horizontallyCenterElement:termsButton inView:self.view];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[passwordField]-120-[termsButton(40)]" options:0 metrics:nil views:viewsDictionary]];
     
     // text fields
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[emailField]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -141,6 +156,7 @@
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[emailField(40)]-4-[passwordField(emailField)]"
                                                                       options:0 metrics:nil views:viewsDictionary]]; // key board 216
+    
 }
 
 - (void)setNavigationBar {
@@ -169,11 +185,18 @@
 
 #pragma mark - TextField Delegate Protocal
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if ((textField == emailField) || (textField == passwordField) ){
-        //[textField resignFirstResponder];
-        [self signInButtonPressed:nil];
+//    if ((textField == emailField) || (textField == passwordField) ){
+//        //[textField resignFirstResponder];
+//        [self signInButtonPressed:nil];
+//        return NO;
+//    }
+    if (textField == passwordField) {
+        [textField resignFirstResponder];
+       // [self signInButtonPressed:nil];
         return NO;
-    }
+    } else if (textField == emailField) {
+        [passwordField becomeFirstResponder];
+            }
     return YES;
 }
 
@@ -206,6 +229,7 @@
     [[ApiManager sharedApiManager] signUpUserWithUserTypeId:kAPIUserTypeWom
                                                       email:emailField.text
                                                    password:passwordField.text
+//                                       passwordConfirmation:passwordConfirmationField.text
                                                     success:^(void){
                                                         [activityIndicator stopAnimating];
                                                         [self actionsForSuccessfulUserSignUp];
@@ -222,7 +246,9 @@
     ForgotPasswordViewController *passvc = [[ForgotPasswordViewController alloc] init];
     [self.navigationController pushViewController:passvc animated:NO];
 }
-
+- (void)termsButtonPressed:(id)sender {
+    
+}
 #pragma mark - Api Manager Post actions methods
 - (void)actionsForSuccessfulUserSignIn{
     // Analytics: Flurry

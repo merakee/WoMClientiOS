@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AppUIManager.h"
+static NSString *kAUCSignupButtonImage =@"signup-nav-btn.png";
 
 @interface WomSignInViewHelper : NSObject
 
@@ -23,7 +24,9 @@
 + (void)setPasswordTextFiled:(UITextField *)textField withDelegate:(id)delegate;
 
 #pragma mark -  View Helper Methods: Buttons
++ (UIButton *)getSignUpButton;
 + (UIButton *)getSignInButton;
 + (UIButton *)getCancelButton;
 + (UIButton *)getResetPasswordButton;
++ (UIButton *)getTermsButton;
 @end

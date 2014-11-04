@@ -24,7 +24,7 @@
 //    screenNumber = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
 //    screenNumber = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, screenW, 200)];
    // tutorialImageView =[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ScreenShot2.png"]];
-    tutorialImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y+10, 320, 400)];
+    tutorialImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, 320, 400)];
   //  tutorialImageView.backgroundColor = [UIColor yellowColor];
     
   //  tutorialImageView = [[UIImageView alloc] init];
@@ -41,16 +41,17 @@
    // self.view.clipsToBounds = YES;
     tutorialImageView.clipsToBounds = YES;
     [self.view addSubview:tutorialImageView];
+ //   [self.view addSubview:screenNumber];
 }
 
 
-//- (void) setImageName: (NSString *) name
-//{
-//    imageName = name;
-//    tutorialImageView.image = [UIImage imageNamed: imageName];
-//  //  [self.view addSubview:tutorialImageView];
-// //   [tutorialImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
-//}
+- (void) setImageName: (NSString *) name
+{
+    imageName = name;
+    tutorialImageView.image = [UIImage imageNamed: imageName];
+  //  [self.view addSubview:tutorialImageView];
+ //   [tutorialImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

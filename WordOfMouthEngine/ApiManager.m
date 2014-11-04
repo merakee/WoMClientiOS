@@ -132,15 +132,16 @@
 //    NSString * passwordConfirmation = [CommonUtility trimString:passwordConfirmation_];
     NSError *verror =[ApiValidationManager validateSignUpWithUserTypeId:userTypeId
                                                                   email:email
-                                                               password:password
-                                                   passwordConfirmation:passwordConfirmation];
+                                                               password:password];
+//                                                   passwordConfirmation:passwordConfirmation];
     if(verror){
         failure(verror);
         return;
     }
     
     // Sign up
-    [self POST:kAMAPI_SIGNUP_PATH parameters:[ApiRequestHelper userSignUpParamsWithUserTypeId:userTypeId email:email password:password  andPasswordConfirmation:passwordConfirmation]
+    [self POST:kAMAPI_SIGNUP_PATH parameters:[ApiRequestHelper userSignUpParamsWithUserTypeId:userTypeId email:email password:password]
+//                                                                      andPasswordConfirmation:passwordConfirmation]
        success:^(NSURLSessionDataTask *task, id responseObject) {
            NSError *error = [self actionsForSuccessfulSignUpWithResponse:responseObject];
            if(error){
@@ -179,7 +180,7 @@
             [self signUpUserWithUserTypeId:userTypeId
                                      email:nil
                                   password:nil
-                      passwordConfirmation:nil
+                      //passwordConfirmation:nil
                                    success:^(){
                                        success();
                                    }

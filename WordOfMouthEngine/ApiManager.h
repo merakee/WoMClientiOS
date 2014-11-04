@@ -89,7 +89,7 @@ static NSString *kAMAPI_RESPONSE_PATH =  @"user_responses";
  */
 - (void)signUpUserWithUserTypeId:(int)userTypeId email:(NSString *)email
                         password:(NSString *)password
-            passwordConfirmation:(NSString *)passwordConfirmation
+           // passwordConfirmation:(NSString *)passwordConfirmation
                          success:(void (^)())success
                          failure:(void (^)(NSError *error))failure;
 /*!

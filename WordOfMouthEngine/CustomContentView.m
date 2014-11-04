@@ -20,7 +20,6 @@
 }
 
 - (void)setView{
- //   NSLog(@"blah");
     // set customContentView
     contentView = [[UIView alloc] init];
     [contentView setTranslatesAutoresizingMaskIntoConstraints:NO];

@@ -150,7 +150,7 @@
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(appLogoView,buttonsView,signInButton,signUpButton,signInAsGuestButton,activityIndicator);
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(pageLabel,signInButton,signUpButton,signInAsGuestButton,activityIndicator);
     
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(appLogoView,signInButton,signInAsGuestButton,activityIndicator,descriptionLabel,loginLabel,pageViewController);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(appLogoView,signInButton,signInAsGuestButton,activityIndicator,descriptionLabel,loginLabel);
     
 //    // images
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[appLogoView(234)]-40-[buttonsView]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -394,8 +394,8 @@
 
 - (void) setupPageControl
 {
-    [[UIPageControl appearance] setPageIndicatorTintColor: [UIColor lightGrayColor]];
-    [[UIPageControl appearance] setCurrentPageIndicatorTintColor: [UIColor whiteColor]];
+    [[UIPageControl appearance] setPageIndicatorTintColor: [UIColor darkGrayColor]];
+    [[UIPageControl appearance] setCurrentPageIndicatorTintColor: [UIColor lightGrayColor]];
  //   [[UIPageControl appearance] setBackgroundColor: [UIColor darkGrayColor]];
 }
 

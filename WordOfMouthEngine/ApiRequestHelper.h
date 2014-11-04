@@ -17,7 +17,8 @@ static const float kAMAPI_CONTENT_PHOTO_COMPRESSION = 0.7;
 @interface ApiRequestHelper : NSObject
 
 #pragma mark -  Utility Methods: JSON Request
-+(NSDictionary *)userSignUpParamsWithUserTypeId:(int)userTypeId email:(NSString *)email password:(NSString *)password andPasswordConfirmation:(NSString *)passwordConfirmation;
++(NSDictionary *)userSignUpParamsWithUserTypeId:(int)userTypeId email:(NSString *)email password:(NSString *)password;
+//                        andPasswordConfirmation:(NSString *)passwordConfirmation;
 +(NSDictionary *)userSignInParamsWithEmail:(NSString *)email andPassword:(NSString *)password;
 +(NSDictionary *)userAuthenticationParams:(ApiUser *)user;
 +(NSDictionary *)contentParamsWithUser:(ApiUser *)user categoryId:(int)categoryId text:(NSString *)text photo_token:(UIImage *)photo;

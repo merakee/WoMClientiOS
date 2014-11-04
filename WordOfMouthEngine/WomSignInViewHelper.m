@@ -35,7 +35,8 @@
     textField.delegate=delegate;
     
     // set up key board
-    textField.returnKeyType = UIReturnKeyDone;//UIReturnKeyGo;
+    textField.returnKeyType = UIReturnKeyNext;
+  //  textField.returnKeyType = UIReturnKeyDone;//UIReturnKeyGo;
     textField.keyboardType = UIKeyboardTypeEmailAddress;
     
     // accessibilty
@@ -50,7 +51,7 @@
     
     // set up key board
     textField.returnKeyType = UIReturnKeyDone;// UIReturnKeyGo;
-    textField.keyboardType = UIKeyboardTypeEmailAddress;
+   // textField.keyboardType = UIKeyboardTypeEmailAddress;
     
     // accessibilty
     [textField setAccessibilityIdentifier:@"Password"];
@@ -58,6 +59,17 @@
 
 
 #pragma mark -  View Helper Methods: Buttons
++ (UIButton *)getSignUpButton{
+    //    UIButton *button =  [AppUIManager getTransparentUIButtonWithTitle:@"Signup"
+    //                                                                color:kAUCColorTypeTextSecondary
+    //                                                                 font:kAUCFontFamilyPrimary
+    //                                                                 size:kAUCFontSizeButtonSmall];
+    
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCSignupButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"complete signup"];
+    return button;
+}
 + (UIButton *)getSignInButton{
 //    UIButton *button =  [AppUIManager getTransparentUIButtonWithTitle:@"Login"
 //                                                                color:kAUCColorTypeTextSecondary
@@ -82,6 +94,12 @@
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Reset"];
+    return button;
+}
++ (UIButton *)getTermsButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Terms"];
     return button;
 }
 @end
