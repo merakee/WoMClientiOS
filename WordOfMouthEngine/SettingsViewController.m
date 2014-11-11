@@ -86,6 +86,9 @@
     self.title = @"enter a title";
     // Create table view with certain style
     self.settingsTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    // Inset of cell seperators
+    [self.settingsTableView setSeparatorInset:UIEdgeInsetsZero];
+    [self.settingsTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLineEtched];
     
     // must set delegate & dataSource, otherwise the the table will be empty and not responsive
    self.settingsTableView.delegate = self;
@@ -115,20 +118,35 @@
     
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 10;
+    }
+    else 
+    return 20; // you can have your own choice, of course
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     //#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 2;
+    if (section == 0){
+        return 1;
+    }
+    else if (section == 1){
+    return 3;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -144,6 +162,10 @@
 //    cell.textLabel.textColor = [UIColor redColor];
 //    cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12.0f];
 //    cell.textLabel.backgroundColor = [UIColor orangeColor];
+    if (indexPath.section == 0){
+        cell.textLabel.text = @"History";
+    }
+    else
     switch (indexPath.row) {
         case 0:
             
@@ -151,6 +173,10 @@
             break;
         case 1:
             cell.textLabel.text = @"History";
+            break;
+        case 2:
+            cell.textLabel.text = @"Terms and Conditions";
+            break;
         default:
             break;
     }
@@ -163,9 +189,20 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12.0f];
-    cell.backgroundColor = [UIColor redColor]; //must do here in willDisplayCell
-    cell.textLabel.backgroundColor = [UIColor redColor]; //must do here in willDisplayCell
+ //   cell.backgroundColor = [UIColor greenColor]; //must do here in willDisplayCell
+ //   cell.textLabel.backgroundColor = [UIColor redColor]; //must do here in willDisplayCell
     cell.textLabel.textColor = [UIColor yellowColor]; //can do here OR in cellForRowAtIndexPath
+    tableView.separatorColor = [UIColor orangeColor];
+    // Arrow on right side of tableview
+//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//    cell.accessoryView.backgroundColor = [UIColor purpleColor];
+    // Image for accessory View, size should be 25x25
+     UIImageView *accessoryImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapicon.jpeg"]];
+    [accessoryImage setFrame:CGRectMake(0, 0, 28.0, 28.0)];
+    accessoryImage.contentMode = UIViewContentModeScaleAspectFit;
+    cell.accessoryView = accessoryImage;
+    
+//    cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapicon.jpeg"]];
 }
 
 #pragma mark -  Table view delegate
@@ -173,7 +210,7 @@
 //{
 //   if([view isKindOfClass:[UITableViewHeaderFooterView class]]){
 //        
-//        UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeaderFooterView *) view;
+//        UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeade'rFooterView *) view;
 //        tableViewHeaderFooterView.textLabel.textColor = [UIColor blueColor];
 //    }
 //}
@@ -205,6 +242,10 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == 0){
+        [self HistoryButtonPressed];
+    }
+    else
     switch (indexPath.row) {
         case 0:
             [self LoginOutButtonPressed];

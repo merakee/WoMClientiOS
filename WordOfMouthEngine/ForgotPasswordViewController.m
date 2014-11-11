@@ -118,14 +118,15 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[resetPasswordButton(40)]-10-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[resetPasswordButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[resetPasswordButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [AppUIManager horizontallyCenterElement:resetPasswordButton inView:self.view];
+//   [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[resetPasswordButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//
     
     // text fields
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[emailField]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[emailField(40)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[emailField(40)]-30-[resetPasswordButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]]; // key board 216
 }
 

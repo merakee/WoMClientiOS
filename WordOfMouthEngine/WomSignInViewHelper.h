@@ -28,5 +28,4 @@ static NSString *kAUCSignupButtonImage =@"signup-nav-btn.png";
 + (UIButton *)getSignInButton;
 + (UIButton *)getCancelButton;
 + (UIButton *)getResetPasswordButton;
-+ (UIButton *)getTermsButton;
 @end

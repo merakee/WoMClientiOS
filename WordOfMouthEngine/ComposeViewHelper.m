@@ -64,7 +64,7 @@
     phLabel.text=@"What's going on?";
     phLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText];
     phLabel.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
-  //  phLabel.textAlignment = NSTextAlignmentCenter;
+    phLabel.textAlignment = NSTextAlignmentCenter;
     
     phLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];//[UIColor whiteColor];
     phLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
@@ -138,6 +138,7 @@
     NSMutableParagraphStyle *paraStyle = [NSMutableParagraphStyle new];
     paraStyle.lineBreakMode = NSLineBreakByWordWrapping;
     paraStyle.alignment = NSTextAlignmentLeft;
+//    paraStyle.alignment = NSTextAlignmentCenter;
     //paraStyle.lineSpacing = 10;// -kAUCFontSizeContentText/2.0 + 9.0;
     
     NSShadow *shadow = [[NSShadow alloc] init];

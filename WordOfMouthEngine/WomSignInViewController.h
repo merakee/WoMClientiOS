@@ -17,7 +17,6 @@
     UIButton           *cancelButton;
     UIButton            *resetPasswordButton;
     UIButton            *signUpButton;
-    UIButton            *termsButton;
     
     UIActivityIndicatorView *activityIndicator;
    

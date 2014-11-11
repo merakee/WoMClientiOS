@@ -47,4 +47,5 @@ static NSString *  kAUCGuestButtonImage  = @"start.png";
 + (UIButton *)getSignInButton;
 + (UIButton *)getSignUpButton;
 + (UIButton *)getSignInAsGuestButton;
++ (UIButton *)getTermsButton;
 @end

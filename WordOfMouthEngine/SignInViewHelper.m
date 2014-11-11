@@ -132,4 +132,10 @@
     [button setAccessibilityIdentifier:@"Sign in as Guest"];
     return button;
 }
++ (UIButton *)getTermsButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Terms"];
+    return button;
+}
 @end

@@ -96,10 +96,4 @@
     [button setAccessibilityIdentifier:@"Reset"];
     return button;
 }
-+ (UIButton *)getTermsButton{
-    UIButton *button =  [AppUIManager getTransparentUIButton];
-    [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
-    [button setAccessibilityIdentifier:@"Terms"];
-    return button;
-}
 @end

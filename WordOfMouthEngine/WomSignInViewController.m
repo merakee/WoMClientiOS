@@ -94,9 +94,7 @@
     [resetPasswordButton addTarget:self action:@selector(resetPasswordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:resetPasswordButton];
     
-    termsButton = [WomSignInViewHelper getTermsButton];
-    [termsButton addTarget:self action:@selector(termsButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:termsButton];
+
     
     //text Fileds
     emailField =[[UITextField alloc] init];
@@ -119,7 +117,7 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(pageLabel,emailField,passwordField,signInButton,cancelButton, resetPasswordButton, signUpButton, termsButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(pageLabel,emailField,passwordField,signInButton,cancelButton, resetPasswordButton, signUpButton);
     
     // labels
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLabel(120)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -146,9 +144,6 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-50-[signUpButton(100)]" options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[passwordField]-50-[signUpButton(40)]" options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[termsButton(100)]" options:0 metrics:nil views:viewsDictionary]];
-    [AppUIManager horizontallyCenterElement:termsButton inView:self.view];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[passwordField]-120-[termsButton(40)]" options:0 metrics:nil views:viewsDictionary]];
     
     // text fields
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[emailField]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -246,9 +241,7 @@
     ForgotPasswordViewController *passvc = [[ForgotPasswordViewController alloc] init];
     [self.navigationController pushViewController:passvc animated:NO];
 }
-- (void)termsButtonPressed:(id)sender {
-    
-}
+
 #pragma mark - Api Manager Post actions methods
 - (void)actionsForSuccessfulUserSignIn{
     // Analytics: Flurry

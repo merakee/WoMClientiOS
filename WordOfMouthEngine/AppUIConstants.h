@@ -125,7 +125,7 @@ const static CGFloat kAUCFontSizeButtonSmall =18.0;// 32;
 
 const static CGFloat kAUCFontSizeTextField = 24.0;
 const static CGFloat kAUCFontSizeContentText = 24.0;//42px;
-const static CGFloat kAUCFontSizeComposeText = 22.0;//36px;
+const static CGFloat kAUCFontSizeComposeText = 32.0;//36px;
 const static CGFloat kAUCFontSizeDescriptionText = 16.0;
 const static CGFloat kAUCFontSizeLoginText = 16.0;
 

@@ -15,7 +15,7 @@
 #import "CustomContentView.h"
 
 //@interface ContentViewController : UIViewController <CVCircleCounterViewDelegate>{
-@interface ContentViewController : UIViewController{
+@interface ContentViewController : UIViewController <UIAlertViewDelegate>{
     
     //UILabel            *contentSpreadCount;
     //UILabel             *authorID;
@@ -58,11 +58,11 @@
     
     UIButton                *viewsImage;
     UIButton                *commentImage;
-   // UIButton                *reportButton;
+    UIButton                *reportButton;
     UILabel                *viewsCount;
     UILabel                *commentCount;
     
-    UIBarButtonItem *reportButton;
+    UIBarButtonItem *rButton;
     UIBarButtonItem *vImage;
     UIBarButtonItem *cImage;
     UIBarButtonItem *vCount;

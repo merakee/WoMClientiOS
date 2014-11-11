@@ -286,8 +286,15 @@
     return circleView;
 }
 #pragma mark - Toolbar
+
 + (UIButton *)getReportButton{
-    return nil;
+    UIImage *buttonImage = [UIImage imageNamed:@"mapicon.jpeg"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"ReportButton"];
+    return button;
 }
 + (UIButton *)getViewsImage{
     UIImage *buttonImage = [UIImage imageNamed:@"mapicon.jpeg"];

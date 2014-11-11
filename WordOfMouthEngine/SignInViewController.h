@@ -17,6 +17,7 @@
     UIButton             *signInButton;
     UIButton             *signUpButton;
     UIButton             *signInAsGuestButton;
+    UIButton            *termsButton;
     
     UILabel            *descriptionLabel;
     UILabel             *loginLabel;

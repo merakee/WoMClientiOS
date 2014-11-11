@@ -262,8 +262,9 @@
 		11F269C6197848700051FA38 /* TestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F269C5197848700051FA38 /* TestHelper.m */; };
 		11FD6CED18B18C75007D318E /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEB18B18C75007D318E /* ComposeViewController.m */; };
 		11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */; };
+		516384B01A11990F000C14C5 /* RepliesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 516384AF1A11990F000C14C5 /* RepliesViewController.m */; };
+		516384B31A119FC2000C14C5 /* RepliesViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 516384B21A119FC2000C14C5 /* RepliesViewHelper.m */; };
 		5183403519F7236C00392D79 /* CustomContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183403419F7236C00392D79 /* CustomContentView.m */; };
-		5183403919F9712600392D79 /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 5183403819F9712600392D79 /* clear.png */; };
 		5183403C19FAC2E300392D79 /* SettingsViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183403B19FAC2E300392D79 /* SettingsViewHelper.m */; };
 		5183404519FECBCD00392D79 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183404419FECBCD00392D79 /* ForgotPasswordViewController.m */; };
 		5183404B19FF0C3000392D79 /* ForgotPasswordViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183404A19FF0C3000392D79 /* ForgotPasswordViewHelper.m */; };
@@ -539,9 +540,12 @@
 		137E30FB55AC4303821AB00C /* libPods-WordOfMouthEngineTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WordOfMouthEngineTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D1850F625060252B0C1E18 /* Pods-WordOfMouthEngineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WordOfMouthEngineTests/Pods-WordOfMouthEngineTests.release.xcconfig"; sourceTree = "<group>"; };
 		390B7A12263A1DB476D0235A /* Pods-WordOfMouthEngineTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WordOfMouthEngineTests/Pods-WordOfMouthEngineTests.debug.xcconfig"; sourceTree = "<group>"; };
+		516384AE1A11990F000C14C5 /* RepliesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepliesViewController.h; sourceTree = "<group>"; };
+		516384AF1A11990F000C14C5 /* RepliesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepliesViewController.m; sourceTree = "<group>"; };
+		516384B11A119FC2000C14C5 /* RepliesViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepliesViewHelper.h; sourceTree = "<group>"; };
+		516384B21A119FC2000C14C5 /* RepliesViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepliesViewHelper.m; sourceTree = "<group>"; };
 		5183403319F7236C00392D79 /* CustomContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomContentView.h; sourceTree = "<group>"; };
 		5183403419F7236C00392D79 /* CustomContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomContentView.m; sourceTree = "<group>"; };
-		5183403819F9712600392D79 /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clear.png; path = ../../../Downloads/clear.png; sourceTree = "<group>"; };
 		5183403A19FAC2E300392D79 /* SettingsViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewHelper.h; sourceTree = "<group>"; };
 		5183403B19FAC2E300392D79 /* SettingsViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewHelper.m; sourceTree = "<group>"; };
 		5183404319FECBCD00392D79 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
@@ -893,7 +897,6 @@
 		116E814819AFB52E00DFB1C8 /* ContentView */ = {
 			isa = PBXGroup;
 			children = (
-				5183403819F9712600392D79 /* clear.png */,
 				51F956F319F03C1300C087AD /* freelogue-web1.png */,
 				51F956EB19EC90F200C087AD /* mapicon.jpeg */,
 				111A270C19C9087100BA2D85 /* btngroup@2x~iphone.png */,
@@ -1152,6 +1155,7 @@
 				11CB8FCC18B0432400396418 /* SettingsVC */,
 				11CB8FCB18B0431A00396418 /* ProfileVC */,
 				11CB8FCA18B0431200396418 /* HistoryVC */,
+				516384AD1A1198E7000C14C5 /* RepliesVC */,
 				11CB8FC918B0430700396418 /* ContentVC */,
 				11CB8FC618B00BB200396418 /* CoreFunctionViewController.h */,
 				11CB8FC718B00BB200396418 /* CoreFunctionViewController.m */,
@@ -1372,6 +1376,17 @@
 			name = ComposeVC;
 			sourceTree = "<group>";
 		};
+		516384AD1A1198E7000C14C5 /* RepliesVC */ = {
+			isa = PBXGroup;
+			children = (
+				516384AE1A11990F000C14C5 /* RepliesViewController.h */,
+				516384AF1A11990F000C14C5 /* RepliesViewController.m */,
+				516384B11A119FC2000C14C5 /* RepliesViewHelper.h */,
+				516384B21A119FC2000C14C5 /* RepliesViewHelper.m */,
+			);
+			name = RepliesVC;
+			sourceTree = "<group>";
+		};
 		51D69BDF19E5E0F60001D70D /* MapVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1510,7 +1525,6 @@
 				11D370F119D5DB1D00AEF362 /* s1g~iphone.png in Resources */,
 				11D370E119D5D9B800AEF362 /* x_5~iphone.png in Resources */,
 				11D3711319D5DB3100AEF362 /* s1w.png in Resources */,
-				5183403919F9712600392D79 /* clear.png in Resources */,
 				11D370EF19D5DB1D00AEF362 /* s1g@2x~iphone.png in Resources */,
 				11D370DF19D5D9B800AEF362 /* x_5@2x~iphone.png in Resources */,
 				11D3717019DA000000AEF362 /* S12~iphone.png in Resources */,
@@ -1772,6 +1786,7 @@
 				11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */,
 				1171CABF196917DF00B40A0E /* ApiUserManager.m in Sources */,
 				11F1C98D1979AB6C006DA90D /* ContentManager.m in Sources */,
+				516384B31A119FC2000C14C5 /* RepliesViewHelper.m in Sources */,
 				11B755BE19708BA000410604 /* ApiErrorManager.m in Sources */,
 				1114A806182D8B3300089669 /* AppDelegate.m in Sources */,
 				111E5970182EC53F00B7FD49 /* ApiManager.m in Sources */,
@@ -1798,6 +1813,7 @@
 				112146DF19CBBB2100346B85 /* SignInAndOutViewController.m in Sources */,
 				1166AD7A1974BEBA0010BFEA /* ApiContentManager.m in Sources */,
 				11CB8FDB18B049B700396418 /* ContentViewHelper.m in Sources */,
+				516384B01A11990F000C14C5 /* RepliesViewController.m in Sources */,
 				1131DA6718B5584300EFDB34 /* SignInViewHelper.m in Sources */,
 				5183403519F7236C00392D79 /* CustomContentView.m in Sources */,
 				11CB8FD818B0476A00396418 /* SettingsViewController.m in Sources */,

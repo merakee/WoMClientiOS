@@ -111,9 +111,9 @@
 //    scrollView.scrollEnabled=YES;
 //    scrollView.userInteractionEnabled=YES;
 //    scrollView.contentSize=CGSizeMake(320, 400);
-  //  scrollView.backgroundColor = [UIColor redColor];
+//    scrollView.backgroundColor = [UIColor redColor];
   
-    [self createInputAccessoryView];
+ //   [self createInputAccessoryView];
 
     // set view
     [ComposeViewHelper setView:self.view];
@@ -140,7 +140,7 @@
     
     // place holder label
     placeHolderLabel = [ComposeViewHelper getPlaceHolderLabel];
-    [composeTextView addSubview:placeHolderLabel];
+    [self.view addSubview:placeHolderLabel];
     
     
     // buttons
@@ -154,7 +154,7 @@
 //    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     
 //    [self.view addSubview:postButton];
-    [self.view addSubview:cameraOptionsButton];
+//    [self.view addSubview:cameraOptionsButton];
 //    [self.view addSubview:cancelButton];
     
     
@@ -171,12 +171,13 @@
     
     // scroll adjustment
     //self.automaticallyAdjustsScrollViewInsets = NO;
+   
 }
 
 - (void)layoutView{
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, cameraOptionsButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel);
     
     // buttons
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -189,12 +190,12 @@
 //    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[postButton(66)]-214-|"
 //                                                                                    options:0 metrics:nil views:viewsDictionary]];
     
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[cameraOptionsButton(50)]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [AppUIManager horizontallyCenterElement:cameraOptionsButton inView:self.view];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-210-[cameraOptionsButton(50)]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[cameraOptionsButton(50)]"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [AppUIManager horizontallyCenterElement:cameraOptionsButton inView:self.view];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cameraOptionsButton(50)]-20-[composeTextView]"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-4-[composeTextView]-218-|"
@@ -209,13 +210,15 @@
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentImageView]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    
+
     // place holder label
-    [composeTextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[placeHolderLabel(260)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[placeHolderLabel(240)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [composeTextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[placeHolderLabel(45)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[placeHolderLabel(30)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:placeHolderLabel inView:self.view];
+    
+    
 }
 
 - (void)setNavigationBar {
@@ -328,20 +331,20 @@
 - (void)cancelText{
     [composeTextView resignFirstResponder];
 }
-- (void)createInputAccessoryView{
-    inputAccView = [[UIView alloc] initWithFrame:CGRectMake(10.0, 0.0, 310.0, 40.0)];
-    [inputAccView setBackgroundColor:[UIColor yellowColor]];
-    [inputAccView setAlpha: 0.8];
-    [self.view addSubview:inputAccView];
-    cancelButton = [ComposeViewHelper getCancelButton];
-    doneButton = [ComposeViewHelper getDoneButton];
-    [cancelButton addTarget:self action:@selector(dismissKeyboard) forControlEvents:UIControlEventTouchUpInside];
-    [doneButton addTarget:self action:@selector(dismissKeyboard) forControlEvents:UIControlEventTouchUpInside];
-    [inputAccView addSubview:cancelButton];
-    [inputAccView addSubview:doneButton];
-    NSLog(@"input");
-
-}
+//- (void)createInputAccessoryView{
+//    inputAccView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 200.0, 310.0, 40.0)];
+//    [inputAccView setBackgroundColor:[UIColor yellowColor]];
+//    [inputAccView setAlpha: 0.8];
+//    [self.view addSubview:inputAccView];
+//    cancelButton = [ComposeViewHelper getCancelButton];
+//    doneButton = [ComposeViewHelper getDoneButton];
+//    [cancelButton addTarget:self action:@selector(disableKeyBoard) forControlEvents:UIControlEventTouchUpInside];
+//    [doneButton addTarget:self action:@selector(disableKeyBoard) forControlEvents:UIControlEventTouchUpInside];
+//    [inputAccView addSubview:cancelButton];
+//    [inputAccView addSubview:doneButton];
+//    NSLog(@"input");
+//
+//}
 
 
 
@@ -406,7 +409,7 @@
 
 
 - (void)textViewDidBeginEditing:(UITextView *)textView{
-    [textView setInputAccessoryView:inputAccView];
+   // [textView setInputAccessoryView:inputAccView];
     composeTextView = textView;
 }
 - (void)textViewDidChange:(UITextView *)textView{
