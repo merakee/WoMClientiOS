@@ -32,8 +32,13 @@ static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 //+ (void)updateCategoryControl:(UISegmentedControl *)sControl forCategory:(kAPIContentCategory)category;
 
 #pragma mark -  View Helper Methods: Buttons
++ (UIButton *)getCancelButton;
++ (UIButton *)getPostButton;
++ (UIButton *)getCameraOptionsButton;
++ (UIButton *)getBackButton;
++ (UIButton *)getDoneButton;
 
-#pragma mark -  View Helper Methods: TextViews
+#pragma mark -  View Helper Methods: Labels
 + (UILabel *)getPlaceHolderLabel;
 + (UILabel *)getCharacterCountLabel;
 
@@ -44,10 +49,6 @@ static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 //+ (UIView *)getPhotoOptionView;
 + (UIButton *)getCameraButton;
 + (UIButton *)getAlbumButton;
-+ (UIButton *)getCancelButton;
-+ (UIButton *)getPostButton;
-+ (UIButton *)getCameraOptionsButton;
-+ (UIButton *)getBackButton;
-+ (UIButton *)getDoneButton;
+
 
 @end

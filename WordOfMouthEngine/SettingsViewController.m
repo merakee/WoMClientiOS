@@ -83,6 +83,7 @@
 #pragma mark -  Local Methods Implememtation
 - (void)setView {
     
+     self.navigationController.toolbarHidden = YES;
     self.title = @"enter a title";
     // Create table view with certain style
     self.settingsTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];

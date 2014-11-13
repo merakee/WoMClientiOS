@@ -10,6 +10,10 @@
 #import "AppUIManager.h"
 #import "ApiContent.h"
 
+// images
+static NSString *kAUCXButtonImage = @"reply-X.png";
+static NSString *kAUCSendButtonImage = @"reply-send-btn.png";
+
 @interface RepliesViewHelper : NSObject
 
 + (void)setView:(UIView *)view;
@@ -18,6 +22,13 @@
 + (UIScrollView *)getScrollView;
 
 #pragma mark -  View Helper Methods: TextViews
-+ (UITextView *)getComposeTextViewWithDelegate:(id)delegate;
++ (UITextView *)getRepliesTextViewWithDelegate:(id)delegate;
+
+#pragma mark - View Helper Methods: Button Methods
++ (UIButton *)getBackButton;
++ (UIButton *)getSendButton;
+
+#pragma mark -  View Helper Methods: Labels
++ (UILabel *)getPlaceHolderLabel;
 
 @end

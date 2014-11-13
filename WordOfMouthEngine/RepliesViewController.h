@@ -15,6 +15,10 @@
     UIScrollView        *scrollView;
     UIActivityIndicatorView *activityIndicator;
     
+    UIButton            *backButton;
+    UIButton            *sendButton;
+    
+    UILabel             *placeHolderLabel;
 }
 
 @end

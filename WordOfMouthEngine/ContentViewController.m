@@ -16,6 +16,7 @@
 
 #import "SettingsViewController.h"
 #import "MapViewController.h"
+#import "CommentViewController.h"
 
 @implementation ContentViewController {
     
@@ -152,7 +153,7 @@
     
     // set navigation bar
     [self setNavigationBar];
-    
+     self.navigationController.toolbarHidden = YES;
     // animation view
     //    animationView = [[UIView alloc] init];
     //    spreadAnimationView = [[UIImageView alloc] init];
@@ -174,7 +175,7 @@
     [killButton addTarget:self action:@selector(killButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     repliesButton = [ContentViewHelper getRepliesButton];
-    [repliesButton addTarget:self action:@selector(spreadButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [repliesButton addTarget:self action:@selector(goToCommentView:) forControlEvents:UIControlEventTouchUpInside];
     //    composeButton = [ContentViewHelper getComposeButton];
     //    [composeButton addTarget:self action:@selector(goToAddContentView:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -760,6 +761,14 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report message" message:@"Do you really want to report this message?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Report", nil];
     [alert show];
 }
+
+-(void)goToCommentView:(id)sender{
+    CommentViewController *cvc = [[CommentViewController alloc] init];
+    cvc.hidesBottomBarWhenPushed=YES;
+    
+    [self.navigationController pushViewController:cvc animated:NO];
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0)
     {

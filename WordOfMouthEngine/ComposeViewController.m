@@ -120,7 +120,7 @@
     
     // set navigation bar
     [self setNavigationBar];
-    
+     self.navigationController.toolbarHidden = YES;
    // [self.view addSubview:scrollView];
 
     

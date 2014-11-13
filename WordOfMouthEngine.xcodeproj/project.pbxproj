@@ -262,8 +262,18 @@
 		11F269C6197848700051FA38 /* TestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F269C5197848700051FA38 /* TestHelper.m */; };
 		11FD6CED18B18C75007D318E /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEB18B18C75007D318E /* ComposeViewController.m */; };
 		11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */; };
+		512BAAD41A1427AD007C5887 /* reply-heart-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 512BAAD01A1427AD007C5887 /* reply-heart-empty.png */; };
+		512BAAD51A1427AD007C5887 /* reply-heart-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 512BAAD11A1427AD007C5887 /* reply-heart-empty@2x.png */; };
+		512BAAD61A1427AD007C5887 /* reply-heart-full.png in Resources */ = {isa = PBXBuildFile; fileRef = 512BAAD21A1427AD007C5887 /* reply-heart-full.png */; };
+		512BAAD71A1427AD007C5887 /* reply-heart-full@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 512BAAD31A1427AD007C5887 /* reply-heart-full@2x.png */; };
 		516384B01A11990F000C14C5 /* RepliesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 516384AF1A11990F000C14C5 /* RepliesViewController.m */; };
 		516384B31A119FC2000C14C5 /* RepliesViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 516384B21A119FC2000C14C5 /* RepliesViewHelper.m */; };
+		516384B71A12911B000C14C5 /* reply-X.png in Resources */ = {isa = PBXBuildFile; fileRef = 516384B51A12911B000C14C5 /* reply-X.png */; };
+		516384B81A12911B000C14C5 /* reply-X@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 516384B61A12911B000C14C5 /* reply-X@2x.png */; };
+		516384BB1A1295AD000C14C5 /* reply-send-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 516384B91A1295AD000C14C5 /* reply-send-btn.png */; };
+		516384BC1A1295AD000C14C5 /* reply-send-btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 516384BA1A1295AD000C14C5 /* reply-send-btn@2x.png */; };
+		516384C11A12DE85000C14C5 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 516384C01A12DE85000C14C5 /* CommentViewController.m */; };
+		516384C71A12E073000C14C5 /* CommentViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 516384C61A12E073000C14C5 /* CommentViewHelper.m */; };
 		5183403519F7236C00392D79 /* CustomContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183403419F7236C00392D79 /* CustomContentView.m */; };
 		5183403C19FAC2E300392D79 /* SettingsViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183403B19FAC2E300392D79 /* SettingsViewHelper.m */; };
 		5183404519FECBCD00392D79 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183404419FECBCD00392D79 /* ForgotPasswordViewController.m */; };
@@ -540,10 +550,22 @@
 		137E30FB55AC4303821AB00C /* libPods-WordOfMouthEngineTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WordOfMouthEngineTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D1850F625060252B0C1E18 /* Pods-WordOfMouthEngineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WordOfMouthEngineTests/Pods-WordOfMouthEngineTests.release.xcconfig"; sourceTree = "<group>"; };
 		390B7A12263A1DB476D0235A /* Pods-WordOfMouthEngineTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WordOfMouthEngineTests/Pods-WordOfMouthEngineTests.debug.xcconfig"; sourceTree = "<group>"; };
+		512BAAD01A1427AD007C5887 /* reply-heart-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-heart-empty.png"; path = "../../../Dropbox/FreeLogue_Public/Kevin/UI Assets/Reply/reply-icons/reply-heart-empty.png"; sourceTree = "<group>"; };
+		512BAAD11A1427AD007C5887 /* reply-heart-empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-heart-empty@2x.png"; path = "../../../Dropbox/FreeLogue_Public/Kevin/UI Assets/Reply/reply-icons/reply-heart-empty@2x.png"; sourceTree = "<group>"; };
+		512BAAD21A1427AD007C5887 /* reply-heart-full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-heart-full.png"; path = "../../../Dropbox/FreeLogue_Public/Kevin/UI Assets/Reply/reply-icons/reply-heart-full.png"; sourceTree = "<group>"; };
+		512BAAD31A1427AD007C5887 /* reply-heart-full@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-heart-full@2x.png"; path = "../../../Dropbox/FreeLogue_Public/Kevin/UI Assets/Reply/reply-icons/reply-heart-full@2x.png"; sourceTree = "<group>"; };
 		516384AE1A11990F000C14C5 /* RepliesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepliesViewController.h; sourceTree = "<group>"; };
 		516384AF1A11990F000C14C5 /* RepliesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepliesViewController.m; sourceTree = "<group>"; };
 		516384B11A119FC2000C14C5 /* RepliesViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepliesViewHelper.h; sourceTree = "<group>"; };
 		516384B21A119FC2000C14C5 /* RepliesViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepliesViewHelper.m; sourceTree = "<group>"; };
+		516384B51A12911B000C14C5 /* reply-X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-X.png"; path = "../../../Documents/replies page resources/reply-icons/reply-X.png"; sourceTree = "<group>"; };
+		516384B61A12911B000C14C5 /* reply-X@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-X@2x.png"; path = "../../../Documents/replies page resources/reply-icons/reply-X@2x.png"; sourceTree = "<group>"; };
+		516384B91A1295AD000C14C5 /* reply-send-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-send-btn.png"; path = "../../../Documents/replies page resources/reply-icons/reply-send-btn.png"; sourceTree = "<group>"; };
+		516384BA1A1295AD000C14C5 /* reply-send-btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-send-btn@2x.png"; path = "../../../Documents/replies page resources/reply-icons/reply-send-btn@2x.png"; sourceTree = "<group>"; };
+		516384BF1A12DE85000C14C5 /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
+		516384C01A12DE85000C14C5 /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
+		516384C51A12E073000C14C5 /* CommentViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewHelper.h; sourceTree = "<group>"; };
+		516384C61A12E073000C14C5 /* CommentViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewHelper.m; sourceTree = "<group>"; };
 		5183403319F7236C00392D79 /* CustomContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomContentView.h; sourceTree = "<group>"; };
 		5183403419F7236C00392D79 /* CustomContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomContentView.m; sourceTree = "<group>"; };
 		5183403A19FAC2E300392D79 /* SettingsViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewHelper.h; sourceTree = "<group>"; };
@@ -1151,6 +1173,7 @@
 		11CB8FC518B00B5500396418 /* CoreFunctionVC */ = {
 			isa = PBXGroup;
 			children = (
+				516384BE1A12DE4F000C14C5 /* CommentVC */,
 				11FD6CEA18B18C32007D318E /* ComposeVC */,
 				11CB8FCC18B0432400396418 /* SettingsVC */,
 				11CB8FCB18B0431A00396418 /* ProfileVC */,
@@ -1212,6 +1235,7 @@
 		11CB8FDF18B053B400396418 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				516384B41A12910E000C14C5 /* RepliesView */,
 				11D3703719D5D95800AEF362 /* Animation */,
 				11CB0DC419BA2D19001FF0D2 /* SignUpView */,
 				1125613719AFDAFB0039511E /* ComposeView */,
@@ -1387,6 +1411,32 @@
 			name = RepliesVC;
 			sourceTree = "<group>";
 		};
+		516384B41A12910E000C14C5 /* RepliesView */ = {
+			isa = PBXGroup;
+			children = (
+				516384B91A1295AD000C14C5 /* reply-send-btn.png */,
+				512BAAD01A1427AD007C5887 /* reply-heart-empty.png */,
+				512BAAD11A1427AD007C5887 /* reply-heart-empty@2x.png */,
+				512BAAD21A1427AD007C5887 /* reply-heart-full.png */,
+				512BAAD31A1427AD007C5887 /* reply-heart-full@2x.png */,
+				516384BA1A1295AD000C14C5 /* reply-send-btn@2x.png */,
+				516384B51A12911B000C14C5 /* reply-X.png */,
+				516384B61A12911B000C14C5 /* reply-X@2x.png */,
+			);
+			name = RepliesView;
+			sourceTree = "<group>";
+		};
+		516384BE1A12DE4F000C14C5 /* CommentVC */ = {
+			isa = PBXGroup;
+			children = (
+				516384BF1A12DE85000C14C5 /* CommentViewController.h */,
+				516384C01A12DE85000C14C5 /* CommentViewController.m */,
+				516384C51A12E073000C14C5 /* CommentViewHelper.h */,
+				516384C61A12E073000C14C5 /* CommentViewHelper.m */,
+			);
+			name = CommentVC;
+			sourceTree = "<group>";
+		};
 		51D69BDF19E5E0F60001D70D /* MapVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1520,19 +1570,23 @@
 				11D3716019DA000000AEF362 /* S4~iphone.png in Resources */,
 				111A271619C9087100BA2D85 /* btngroup@2x~iphone.png in Resources */,
 				11D370DB19D5D9B800AEF362 /* x_4@2x~iphone.png in Resources */,
+				516384BC1A1295AD000C14C5 /* reply-send-btn@2x.png in Resources */,
 				11D3712719D5DB3100AEF362 /* s6w.png in Resources */,
 				11D370CF19D5D9B800AEF362 /* x_1@2x~iphone.png in Resources */,
 				11D370F119D5DB1D00AEF362 /* s1g~iphone.png in Resources */,
 				11D370E119D5D9B800AEF362 /* x_5~iphone.png in Resources */,
 				11D3711319D5DB3100AEF362 /* s1w.png in Resources */,
 				11D370EF19D5DB1D00AEF362 /* s1g@2x~iphone.png in Resources */,
+				516384B81A12911B000C14C5 /* reply-X@2x.png in Resources */,
 				11D370DF19D5D9B800AEF362 /* x_5@2x~iphone.png in Resources */,
 				11D3717019DA000000AEF362 /* S12~iphone.png in Resources */,
 				117A269219A55EE100C9B58D /* UTILITY.ttf in Resources */,
+				516384BB1A1295AD000C14C5 /* reply-send-btn.png in Resources */,
 				11D370FD19D5DB1D00AEF362 /* s4g~iphone.png in Resources */,
 				111A274019C909D600BA2D85 /* login-btn@2x~iphone.png in Resources */,
 				11D3716119DA000000AEF362 /* S5@2x~iphone.png in Resources */,
 				11D370FF19D5DB1D00AEF362 /* s5g@2x~iphone.png in Resources */,
+				512BAAD61A1427AD007C5887 /* reply-heart-full.png in Resources */,
 				11D3713E19D9FFB400AEF362 /* preloader_gray7.png in Resources */,
 				11D3716319DA000000AEF362 /* S6@2x~iphone.png in Resources */,
 				11D3716D19DA000000AEF362 /* S11@2x~iphone.png in Resources */,
@@ -1545,6 +1599,7 @@
 				11D3716919DA000000AEF362 /* S9@2x~iphone.png in Resources */,
 				11D3716419DA000000AEF362 /* S6~iphone.png in Resources */,
 				11D370F519D5DB1D00AEF362 /* s2g~iphone.png in Resources */,
+				512BAAD51A1427AD007C5887 /* reply-heart-empty@2x.png in Resources */,
 				11D3716219DA000000AEF362 /* S5~iphone.png in Resources */,
 				518519FE19F5E1C400CFFEC5 /* Login@2x.png in Resources */,
 				11D3715E19DA000000AEF362 /* S3~iphone.png in Resources */,
@@ -1584,10 +1639,12 @@
 				11D370F319D5DB1D00AEF362 /* s2g@2x~iphone.png in Resources */,
 				11D3715A19DA000000AEF362 /* S1~iphone.png in Resources */,
 				11D3715B19DA000000AEF362 /* S2@2x~iphone.png in Resources */,
+				516384B71A12911B000C14C5 /* reply-X.png in Resources */,
 				11D3711D19D5DB3100AEF362 /* s3w@2x.png in Resources */,
 				111A271819C9087100BA2D85 /* btngroup~iphone.png in Resources */,
 				111A273619C909D600BA2D85 /* guest-btn~iphone.png in Resources */,
 				111A26CC19C8FA3C00BA2D85 /* close-btn@2x~iphone.png in Resources */,
+				512BAAD41A1427AD007C5887 /* reply-heart-empty.png in Resources */,
 				111A26FE19C9027100BA2D85 /* post-inactive-btn~iphone.png in Resources */,
 				518519FD19F5E1C400CFFEC5 /* Login.png in Resources */,
 				11D3712919D5DB3100AEF362 /* s6w@2x.png in Resources */,
@@ -1604,6 +1661,7 @@
 				11D3711719D5DB3100AEF362 /* s2w.png in Resources */,
 				111A26D219C8FA5200BA2D85 /* login-nav-btn@2x~iphone.png in Resources */,
 				11D3713B19D9FFB400AEF362 /* preloader_gray4.png in Resources */,
+				512BAAD71A1427AD007C5887 /* reply-heart-full@2x.png in Resources */,
 				111A26FA19C9027100BA2D85 /* post-active-btn~iphone.png in Resources */,
 				11D3713819D9FFB400AEF362 /* preloader_gray1.png in Resources */,
 				11D3710119D5DB1D00AEF362 /* s5g~iphone.png in Resources */,
@@ -1785,11 +1843,13 @@
 				1166AD871975EC640010BFEA /* WomSignUpViewController.m in Sources */,
 				11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */,
 				1171CABF196917DF00B40A0E /* ApiUserManager.m in Sources */,
+				516384C11A12DE85000C14C5 /* CommentViewController.m in Sources */,
 				11F1C98D1979AB6C006DA90D /* ContentManager.m in Sources */,
 				516384B31A119FC2000C14C5 /* RepliesViewHelper.m in Sources */,
 				11B755BE19708BA000410604 /* ApiErrorManager.m in Sources */,
 				1114A806182D8B3300089669 /* AppDelegate.m in Sources */,
 				111E5970182EC53F00B7FD49 /* ApiManager.m in Sources */,
+				516384C71A12E073000C14C5 /* CommentViewHelper.m in Sources */,
 				5183404B19FF0C3000392D79 /* ForgotPasswordViewHelper.m in Sources */,
 				11CB8FC318B00B2900396418 /* SignInViewController.m in Sources */,
 				11CB8FD518B0473500396418 /* ProfileViewController.m in Sources */,
