@@ -229,7 +229,6 @@
     [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Back"];
     return button;
-
 }
 
 + (UIButton *)getDoneButton{
@@ -238,6 +237,69 @@
     [button setAccessibilityIdentifier:@"Done"];
     return button;
     
+}
+
+#pragma mark - Toolbar Buttons
++ (UIButton *)getTextButton{
+    UIImage *buttonImage = [UIImage imageNamed:@"mapicon.jpeg"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"TextButton"];
+    return button;
+}
+
++ (UIButton *)getImageButton{
+    UIImage *buttonImage = [UIImage imageNamed:@"mapicon.jpeg"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"ImageButton"];
+    return button;
+}
+
++ (UIButton *)getFilterButton{
+    UIImage *buttonImage = [UIImage imageNamed:@"mapicon.jpeg"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"FilterButton"];
+    return button;
+}
+
+#pragma mark - Accessory Buttons
++ (UIButton *)getXButton{
+    UIImage *buttonImage = [UIImage imageNamed:@"logo-nav~iphone.png"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"XButton"];
+    return button;
+}
+
++ (UIButton *)getCheckButton{
+    UIImage *buttonImage = [UIImage imageNamed:@"logo-nav~iphone.png"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"CheckButton"];
+    return button;
+}
+
++ (UIButton *)getBackgroundButton{
+    UIImage *buttonImage = [UIImage imageNamed:@"logo-nav~iphone.png"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"BackgroundButton"];
+    return button;
+
 }
 
 @end

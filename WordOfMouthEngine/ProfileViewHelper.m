@@ -69,7 +69,12 @@
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getButton{
-    UIButton *button;  //= //[AppUIManager setButtonWithTitle:@"Sign out" andColor:[UIColor redColor]];
+    //UIImage *image = [UIImage imageNamed:@"reply-heart-empty.png"];
+    //  UIImageView *cellImageView = [[UIImageView alloc] initWithImage:image];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    //[button setImage:image forState:UIControlStateNormal];
+    button.backgroundColor = [UIColor redColor];
+    [button setFrame:CGRectMake(30, 10, 18.0, 18.0)];
     
     // custom settings
     button.tag=kPVHCellViewTagsButton;

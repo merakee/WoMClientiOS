@@ -27,7 +27,6 @@
     [contentTextView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [contentImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
    
-   
     contentImageView = [ContentViewHelper getContentBackGroundView];
     contentTextView = [ContentViewHelper getContentTextViewWithDelegate:self];
 

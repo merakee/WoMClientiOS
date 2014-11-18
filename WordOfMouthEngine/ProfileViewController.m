@@ -124,12 +124,12 @@
             [button  addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [cell.contentView addSubview:button];
             // add lay out constraints
-            NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(button);
+          //  NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(button);
             // buttons
-            [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-30-[button]-30-|"
-                                                                                     options:0 metrics:nil views:viewsDictionary]];
-            [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[button]-5-|"
-                                                                                     options:0 metrics:nil views:viewsDictionary]];
+            //[cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-30-[button]-30-|"
+            //                                                                         options:0 metrics:nil views:viewsDictionary]];
+           // [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[button(10)]"
+            //                                                                         options:0 metrics:nil views:viewsDictionary]];
             
             
             
@@ -175,6 +175,10 @@
     textLabel.text = [self getTextForIndexPath:indexPath];
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50;
 }
 
 #pragma mark -  Local view methods

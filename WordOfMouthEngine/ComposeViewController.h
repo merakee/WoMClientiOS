@@ -33,6 +33,29 @@
     UIView                  *inputAccView;
     UIButton                *backButton;
     UIButton                *doneButton;
+    
+    // Toolbar buttons
+    UIToolbar           *composeToolBar;
+    UIBarButtonItem     *textBarButton;
+    UIBarButtonItem     *imageBarButton;
+    UIBarButtonItem     *filterBarButton;
+    UIButton            *textButton;
+    UIButton            *imageButton;
+    UIButton            *filterButton;
+
+    // Accessory Buttons
+    UIToolbar           *keyboardToolBar;
+    UIView              *accView;
+    UIButton            *xButton;
+    UIButton            *checkButton;
+    UIButton            *backgroundButton;
+    UIBarButtonItem     *xBarButton;
+    UIBarButtonItem     *checkBarButton;
+    UIBarButtonItem     *backgroundBarButton;
+    
+    // Image Buttons
+    UIWebView           *webView;
+    UITextField         *searchTextField;
 }
 
 

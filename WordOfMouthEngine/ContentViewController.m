@@ -17,6 +17,7 @@
 #import "SettingsViewController.h"
 #import "MapViewController.h"
 #import "CommentViewController.h"
+#import "ProfileViewController.h"
 
 @implementation ContentViewController {
     
@@ -210,33 +211,7 @@
 
     // set toolbar
     [self setToolBar];
-       viewsImage = [ContentViewHelper getViewsImage];
-    commentImage = [ContentViewHelper getCommentImage];
     
-    viewsCount = [ContentViewHelper getViewsCount];
-    commentCount = [ContentViewHelper getCommentsCount];
-    
-    
-    UIBarButtonItem *flexibleSpace =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    reportButton = [ContentViewHelper getReportButton];
-   [reportButton addTarget:self action:@selector(goToReportMessage:) forControlEvents:UIControlEventTouchUpInside];
-    
-//    [rButton setBackgroundImage:[UIImage imageNamed:@"mapicon.png"] forState:UIControlStateNormal];
-    
-//    reportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(goToReportMessage:)];
-    
-    
-    rButton = [[UIBarButtonItem alloc] initWithCustomView:reportButton];
-    vImage = [[UIBarButtonItem alloc]initWithCustomView:viewsImage];
-    cImage = [[UIBarButtonItem alloc]initWithCustomView:commentImage];
-    vCount = [[UIBarButtonItem alloc] initWithCustomView:viewsCount];
-    cCount = [[UIBarButtonItem alloc] initWithCustomView:commentCount];
-    
-    NSArray *buttonItems = [NSArray arrayWithObjects:vImage,vCount,flexibleSpace, cImage, cCount, flexibleSpace, rButton, nil];
-    [infoToolBar setItems:buttonItems];
-    // infoToolBar.items = buttonItems;
-    [self.view addSubview:infoToolBar];
-
     [self.view addSubview:spreadButton];
     [self.view addSubview:killButton];
     [self.view addSubview:repliesButton];
@@ -434,26 +409,33 @@
 //      button.frame = CGRectMake(5, 5, 50, 20);
 ////    [button addTarget:self action:@selector(goToReportMessage:) forControlEvents:UIControlEventTouchUpInside];
   
+    viewsImage = [ContentViewHelper getViewsImage];
+    commentImage = [ContentViewHelper getCommentImage];
     
-//    viewsImage = [ContentViewHelper getViewsImage];
-//    commentImage = [ContentViewHelper getCommentImage];
-//    
-//    viewsCount = [ContentViewHelper getViewsCount];
-//    commentCount = [ContentViewHelper getCommentsCount];
-//    
-//    
-//    UIBarButtonItem *reportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(goToReportMessage:)];
-//
-//    UIBarButtonItem *vImage = [[UIBarButtonItem alloc]initWithCustomView:viewsImage];
-//    UIBarButtonItem *cImage = [[UIBarButtonItem alloc]initWithCustomView:commentImage];
-//    UIBarButtonItem *vCount = [[UIBarButtonItem alloc] initWithCustomView:viewsCount];
-//    UIBarButtonItem *cCount = [[UIBarButtonItem alloc] initWithCustomView:commentCount];
-//    
-//    NSArray *buttonItems = [NSArray arrayWithObjects:vImage,vCount, cImage, cCount, reportButton, nil];
-//    [infoToolBar setItems:buttonItems];
-//   // infoToolBar.items = buttonItems;
-//    
-//   //     [self.view addSubview:button];
+    viewsCount = [ContentViewHelper getViewsCount];
+    commentCount = [ContentViewHelper getCommentsCount];
+    
+    
+    UIBarButtonItem *flexibleSpace =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    reportButton = [ContentViewHelper getReportButton];
+    [reportButton addTarget:self action:@selector(goToReportMessage:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //    [rButton setBackgroundImage:[UIImage imageNamed:@"mapicon.png"] forState:UIControlStateNormal];
+    
+    //    reportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(goToReportMessage:)];
+    
+    
+    rButton = [[UIBarButtonItem alloc] initWithCustomView:reportButton];
+    vImage = [[UIBarButtonItem alloc]initWithCustomView:viewsImage];
+    cImage = [[UIBarButtonItem alloc]initWithCustomView:commentImage];
+    vCount = [[UIBarButtonItem alloc] initWithCustomView:viewsCount];
+    cCount = [[UIBarButtonItem alloc] initWithCustomView:commentCount];
+    
+    NSArray *buttonItems = [NSArray arrayWithObjects:vImage,vCount,flexibleSpace, cImage, cCount, flexibleSpace, rButton, nil];
+    [infoToolBar setItems:buttonItems];
+    // infoToolBar.items = buttonItems;
+    [self.view addSubview:infoToolBar];
+
 }
 
 - (void)setNavigationBar {
@@ -751,7 +733,8 @@
 }
 
 - (void)goToSettingsView:(id)sender {
-    SettingsViewController *svc = [[SettingsViewController alloc] init];
+//    SettingsViewController *svc = [[SettingsViewController alloc] init];
+    ProfileViewController *svc = [[ProfileViewController alloc] init];
     svc.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:svc animated:NO];
 }

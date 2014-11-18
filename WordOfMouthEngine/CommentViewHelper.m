@@ -20,31 +20,8 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
         
-        //        self.getLoginOutLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 100, 300, 30)];
-        //     //   self.getLoginOutLabel.text = @"Sign in";
-        //        self.getLoginOutLabel.textColor = [UIColor blackColor];
-        //        self.getLoginOutLabel.font = [UIFont fontWithName:@"Arial" size:12.0f];
-        //
-        //        [self addSubview:self.getLoginOutLabel];
-        //
-        //        self.getHistoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 10, 300, 30)];
-        //     //   self.getLoginOutLabel.text = @"History";
-        //        self.getHistoryLabel.textColor = [UIColor blackColor];
-        //        self.getHistoryLabel.font = [UIFont fontWithName:@"Arial" size:12.0f];
-        //
-        //        [self addSubview:self.getHistoryLabel];
-        self.getDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 100, 300, 30)];
-        //   self.getLoginOutLabel.text = @"Sign in";
-        self.getDescriptionLabel.textColor = [UIColor blackColor];
-        self.getDescriptionLabel.font = [UIFont fontWithName:@"Arial" size:12.0f];
-        
-        [self addSubview:self.getDescriptionLabel];
-        
-        
-    }
-    return self;
+         return self;
 }
 #pragma mark - Buttons
 + (UIButton *)getSendButton{
@@ -56,7 +33,7 @@
     [button setAccessibilityIdentifier:@"SendButton"];
     return button;
 }
-+ (UIImage *)getAccessoryImage{
++ (UIImage *)getCellImage{
     UIImage *accessoryImage = [UIImage imageNamed:@"reply-heart-empty.png"];
     return accessoryImage;
                                
@@ -65,5 +42,38 @@
 //    accessoryImage.contentMode = UIViewContentModeScaleAspectFit;
 //    accessoryImage.userInteractionEnabled = YES;
 //    return accessoryImage;
+}
++ (UIButton *)getCellButton{
+    UIImage *image = [UIImage imageNamed:@"reply-heart-empty.png"];
+  //  UIImageView *cellImageView = [[UIImageView alloc] initWithImage:image];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:image forState:UIControlStateNormal];
+    [button setFrame:CGRectMake(290, 15, 18.0, 18.0)];
+    return button;
+}
++ (UILabel *)getCellText{
+    UILabel *label =[[UILabel alloc] init];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:kAUCFontFamilySecondary size:16];
+    label.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
+    label.textAlignment = NSTextAlignmentLeft;
+    
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];//[UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    
+    label.numberOfLines = 0;
+   
+  //  label.lineBreakMode = NSLineBreakByWordWrapping;
+    CGFloat hotizontalPadding = 60;
+    CGFloat desiredWidth = [UIScreen mainScreen].bounds.size.width - hotizontalPadding;
+    [label setFrame:CGRectMake(0, 0, desiredWidth, 80)];
+   // [label sizeToFit];
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    // accessibilty
+    label.backgroundColor = [UIColor redColor];
+    [label setAccessibilityIdentifier:@"Comment Text"];
+    
+    return label;
+
 }
 @end

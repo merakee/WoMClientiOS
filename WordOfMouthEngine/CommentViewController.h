@@ -7,17 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
+static const int kCellButtonTag = 10;
 
-@interface CommentViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>{
-     UIButton                *sendButton;
-     UIImageView            *accessoryImageView;
-    UIImage                 *accessoryImage;
-    UIButton                *accessoryButton;
+@interface CommentViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
+     UIButton               *sendButton;
+    
+    UITableView             *commentsTableView;
+    UIToolbar               *replyToolBar;
+    UIBarButtonItem         *barItem;
+    UIBarButtonItem         *sButton;
+    
+        UIImage                 *cellImage;
+    UIImageView            *cellImageView;
+     UIButton                *cellButton;
+    UILabel                 *cellText;
+    NSArray                 *recentArray;
+    NSArray                 *popularArray;
+    NSArray                 *activeArray;
+
 }
-
-@property (nonatomic, strong) UITableView *commentsTableView;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
-
+@property NSIndexPath *editingIndexPath;
 extern NSArray const *testArray;
 
 @end

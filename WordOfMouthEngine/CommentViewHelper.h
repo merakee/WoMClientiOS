@@ -13,7 +13,9 @@
 
 + (void)setView:(UIView *)view;
 + (UIButton *) getSendButton;
-+ (UIImage *) getAccessoryImage;
++ (UIImage *) getCellImage;
++ (UIButton *)getCellButton;
++ (UILabel *)getCellText;
 
 @property (nonatomic, strong) UILabel *getDescriptionLabel;
 @end

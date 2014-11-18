@@ -50,5 +50,15 @@ static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 + (UIButton *)getCameraButton;
 + (UIButton *)getAlbumButton;
 
+#pragma mark - toolbar buttons
++ (UIButton *)getImageButton;
++ (UIButton *)getTextButton;
++ (UIButton *)getFilterButton;
+
+#pragma mark - input accessory buttons
++ (UIButton *)getXButton;
++ (UIButton *)getCheckButton;
++ (UIButton *)getBackgroundButton;
+
 
 @end
