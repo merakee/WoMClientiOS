@@ -10,21 +10,20 @@
 static const int kCellButtonTag = 10;
 
 @interface CommentViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
-     UIButton               *sendButton;
-    
+    UIButton               *sendButton;
     UITableView             *commentsTableView;
     UIToolbar               *replyToolBar;
     UIBarButtonItem         *barItem;
     UIBarButtonItem         *sButton;
     
-        UIImage                 *cellImage;
+    UIImage                 *cellImage;
     UIImageView            *cellImageView;
-     UIButton                *cellButton;
+    UIButton                *cellButton;
     UILabel                 *cellText;
     NSArray                 *recentArray;
     NSArray                 *popularArray;
     NSArray                 *activeArray;
-
+    float                  *cellHeight;
 }
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property NSIndexPath *editingIndexPath;

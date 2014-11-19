@@ -8,12 +8,14 @@
 
 #import "CommentViewController.h"
 #import "CommentViewHelper.h"
+#import "CommentTableViewCell.h"
 #import "AppUIManager.h"
 #import "ApiManager.h"
 #import "FlurryManager.h"
 
 extern float ScreenH;
 extern float ScreenW;
+static NSString *CellIdentifier = @"Cell";
 
 @interface CommentViewController ()
 
@@ -28,34 +30,23 @@ extern float ScreenW;
         [self createAllDummyLists];
     }
     return self;
-    
 }
-
 
 - (void)loadView {
     [super loadView];
-    // view customization code
     [self setView];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)viewDidUnload{
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -89,7 +80,7 @@ extern float ScreenW;
     self.view.backgroundColor = [UIColor whiteColor];
     
 //   self.navigationController.toolbarHidden = NO;
-    
+
     [self addSegmentedControl];
     [self setNavigationBar];
     [self setupTableView];
@@ -97,9 +88,8 @@ extern float ScreenW;
 
     [self addToolbar];
     [self layoutView];
-    
-    
 }
+
 - (void)layoutView{
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(replyToolBar, commentsTableView);
     
@@ -107,8 +97,6 @@ extern float ScreenW;
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[replyToolBar(320)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
      [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[commentsTableView(320)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-//
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView(320)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView]-10-[replyToolBar]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
 }
@@ -124,48 +112,20 @@ extern float ScreenW;
     return [activeArray count];
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    static NSString *CellIdentifier = @"Cell";
+    CommentTableViewCell *cell = (CommentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    static NSString *CellIdentifier = @"Cell";
-  //  NSString *CellIdentifier = [NSString stringWithFormat:@"%ld_%ld",(long)indexPath.section,(long)indexPath.row];
-    CommentViewHelper *cell = (CommentViewHelper *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    UIButton                *cellButton;
     if (!cell) {
-        NSLog(@"%ld",(long)indexPath.row);
-        cellText = [[UILabel alloc] init];
-      //  cellText.backgroundColor = [UIColor blueColor];
-         cell = [[CommentViewHelper alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cellButton = [CommentViewHelper getCellButton];
-        [cellButton addTarget:self action:@selector(cellButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
-        cellButton.tag = kCellButtonTag;
-        
-        cellText = [CommentViewHelper getCellText];
-        
-        [cell.contentView addSubview:cellButton];
-      //  [cell.contentView addSubview:cellText];
-        cellText.text = [activeArray objectAtIndex:indexPath.row];
-                cell.textLabel.text = [activeArray objectAtIndex:indexPath.row];
-     //   NSLog(@"%ld", indexPath.row);
+//         cell = [[CommentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[CommentTableViewCell alloc] init];
+     //   cellButton.tag = kCellButtonTag;
         }
-    else {
-        cell.textLabel.text = [activeArray objectAtIndex:indexPath.row];
-        //cellText.text = [activeArray objectAtIndex:indexPath.row];
-        cellButton = (UIButton *)[cell.contentView viewWithTag:kCellButtonTag];
-    }
-
-    //[cellButton addTarget:self action:@selector(cellButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
-    
-//        for (UIView *subview in cell.contentView.subviews){
-//        if ([subview isKindOfClass:[UIButton class]]){
-//            [subview removeFromSuperview];
-//            NSLog(@"removed");}
-//        }
-//    }
-   
-//    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        [cell.likeButton addTarget:self action:@selector(cellButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+        cell.commentCellLabel.text = [activeArray objectAtIndex:indexPath.row];
+       // [cell.commentCellLabel setLineBreakMode:NSLineBreakByWordWrapping];
+       // [cell.commentCellLabel sizeToFit];
+       // cellButton = (UIButton *)[cell.contentView viewWithTag:kCellButtonTag];
     
 //    if (segmentedControl.selectedSegmentIndex == 0) {
 //        // Update the comments to top/most recent
@@ -175,6 +135,7 @@ extern float ScreenW;
 //        cell.textLabel.text = @"Two";
 //    }
 //     [cellText sizeToFit];
+//    cellHeight = cell.commentCellLabel.bounds.size.height;
        return cell;
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -184,37 +145,12 @@ extern float ScreenW;
 
 
 #pragma mark - Customize cell
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12.0f];
     //   cell.backgroundColor = [UIColor greenColor]; //must do here in willDisplayCell
     //   cell.textLabel.backgroundColor = [UIColor redColor]; //must do here in willDisplayCell
     cell.textLabel.textColor = [UIColor greenColor]; //can do here OR in cellForRowAtIndexPath
    tableView.separatorColor = [UIColor orangeColor];
-  
-   // [cell.contentView addSubview:cellButton];
-
-    
-    
-    // Image for accessory View, size should be 25x25
-//    UIImageView *accessoryImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"reply-heart-empty.png"]];
-//    [accessoryImage setFrame:CGRectMake(0, 0, 18.0, 18.0)];
-//    accessoryImage.contentMode = UIViewContentModeScaleAspectFit;
-    
-//    // Get accessory image
-//    accessoryImage = [CommentViewHelper getAccessoryImage];
-//    accessoryImageView = [[UIImageView alloc] initWithImage:accessoryImage];
-//    
-//    [accessoryButton setImage:accessoryImage forState:UIControlStateNormal];
-//    [accessoryButton setFrame:CGRectMake(0, 0, 18.0, 18.0)];
-//    accessoryButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [accessoryButton addTarget:self action:@selector(accessoryButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
-    
-   // accessoryButton.contentMode = UIViewContentModeScaleAspectFit;
-
-    
-//    [tableView cellForRowAtIndexPath:indexPath].accessoryView = accessoryButton;
-//   cell.accessoryView = accessoryButton;
 }
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -231,19 +167,22 @@ extern float ScreenW;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//   float height = cell.commentCellLabel.bounds.size.height;
+    NSString *str = [activeArray objectAtIndex:indexPath.row];
     return 100;
-    //return cellText.frame.size.height;
+   // return [self heightForBasicCellAtIndexPath:indexPath];
 }
 
-//-(CGFloat)heightForText:(NSString *)text
-//{
-//    NSInteger MAX_HEIGHT = 2000;
-//    UITextView * textView = [[UITextView alloc] initWithFrame: CGRectMake(0, 0, 320, MAX_HEIGHT)];
-//    textView.text = text;
-//    textView.font = [UIFont boldSystemFontOfSize:12];
-//    [textView sizeToFit];
-//    return textView.frame.size.height;
+//- (CGFloat)heightForBasicCellAtIndexPath:(NSIndexPath *)indexPath {
+//    static Cell *sizingCell = nil;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//    sizingCell = [commentsTableView dequeueReusableCellWithIdentifier:CellIdentifier];});
+//    
+//    [self configureBasicCell:sizingCell atIndexPath:indexPath];
+//    return [self calculateHeightForConfiguredSizingCell:sizingCell];
 //}
+
 #pragma mark - Segmented Control
 - (void) addSegmentedControl {
     NSArray *segmentItems = [NSArray arrayWithObjects: @"One", @"Two", nil];
@@ -434,49 +373,6 @@ extern float ScreenW;
     // send Message
     [self.navigationController popViewControllerAnimated:NO];
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - temp code
 - (void) createAllDummyLists{

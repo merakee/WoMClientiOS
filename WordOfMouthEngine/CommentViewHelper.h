@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AppUIManager.h"
 #import "ApiContent.h"
-@interface CommentViewHelper : UITableViewCell
+@interface CommentViewHelper : NSObject
 
 + (void)setView:(UIView *)view;
 + (UIButton *) getSendButton;

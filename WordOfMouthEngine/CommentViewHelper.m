@@ -19,10 +19,9 @@
 }
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-        
-         return self;
+    return self;
 }
+
 #pragma mark - Buttons
 + (UIButton *)getSendButton{
     UIImage *buttonImage = [UIImage imageNamed:@"reply-send-btn.png"];
@@ -33,26 +32,24 @@
     [button setAccessibilityIdentifier:@"SendButton"];
     return button;
 }
+
 + (UIImage *)getCellImage{
     UIImage *accessoryImage = [UIImage imageNamed:@"reply-heart-empty.png"];
     return accessoryImage;
-                               
-//    UIImage *accessoryImage = [[UIImage alloc] initWithImage:[UIImage imageNamed:@"reply-heart-empty.png"]];
-//    [accessoryImage setFrame:CGRectMake(0, 0, 18.0, 18.0)];
-//    accessoryImage.contentMode = UIViewContentModeScaleAspectFit;
-//    accessoryImage.userInteractionEnabled = YES;
-//    return accessoryImage;
 }
+
 + (UIButton *)getCellButton{
     UIImage *image = [UIImage imageNamed:@"reply-heart-empty.png"];
   //  UIImageView *cellImageView = [[UIImageView alloc] initWithImage:image];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+   // UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *button = [AppUIManager getTransparentUIButton];
     [button setImage:image forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(290, 15, 18.0, 18.0)];
+    //[button setFrame:CGRectMake(290, 15, 18.0, 18.0)];
     return button;
 }
+
 + (UILabel *)getCellText{
-    UILabel *label =[[UILabel alloc] init];
+    UILabel *label = [[UILabel alloc] init];
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont fontWithName:kAUCFontFamilySecondary size:16];
     label.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
@@ -63,16 +60,13 @@
     
     label.numberOfLines = 0;
    
-  //  label.lineBreakMode = NSLineBreakByWordWrapping;
-    CGFloat hotizontalPadding = 60;
-    CGFloat desiredWidth = [UIScreen mainScreen].bounds.size.width - hotizontalPadding;
-    [label setFrame:CGRectMake(0, 0, desiredWidth, 80)];
-   // [label sizeToFit];
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+//    CGFloat hotizontalPadding = 100;
+//    CGFloat desiredWidth = [UIScreen mainScreen].bounds.size.width - hotizontalPadding;
+//    [label sizeToFit];
     [label setTranslatesAutoresizingMaskIntoConstraints:NO];
     // accessibilty
-    label.backgroundColor = [UIColor redColor];
     [label setAccessibilityIdentifier:@"Comment Text"];
-    
     return label;
 
 }
