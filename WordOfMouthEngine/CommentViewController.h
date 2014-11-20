@@ -9,21 +9,19 @@
 #import <UIKit/UIKit.h>
 static const int kCellButtonTag = 10;
 
-@interface CommentViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
-    UIButton               *sendButton;
+@interface CommentViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>{
+    UIButton                *sendButton;
     UITableView             *commentsTableView;
     UIToolbar               *replyToolBar;
     UIBarButtonItem         *barItem;
     UIBarButtonItem         *sButton;
+    UITextView              *commentText;
     
-    UIImage                 *cellImage;
-    UIImageView            *cellImageView;
-    UIButton                *cellButton;
+    UIButton                *likeButton;
     UILabel                 *cellText;
     NSArray                 *recentArray;
     NSArray                 *popularArray;
     NSArray                 *activeArray;
-    float                  *cellHeight;
 }
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property NSIndexPath *editingIndexPath;

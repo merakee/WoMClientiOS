@@ -14,7 +14,7 @@
 static const int kAPIValidationPasswordMinLentgh = 8;
 static const int kAPIValidationContentMinLength = 1;
 static const int kAPIValidationContentMaxLength = 200;
-
+static const int kAPICommentMaxLength = 250;
 @interface ApiValidationManager : NSObject
 
 #pragma mark - sign up validation methods

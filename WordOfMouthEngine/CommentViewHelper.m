@@ -28,7 +28,8 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    button.frame = CGRectMake(0, 0, 40, 40);
+   // button.frame = CGRectMake(0, 0, 40, 40);
+    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
     [button setAccessibilityIdentifier:@"SendButton"];
     return button;
 }
@@ -61,13 +62,70 @@
     label.numberOfLines = 0;
    
     label.lineBreakMode = NSLineBreakByWordWrapping;
-//    CGFloat hotizontalPadding = 100;
-//    CGFloat desiredWidth = [UIScreen mainScreen].bounds.size.width - hotizontalPadding;
-//    [label sizeToFit];
     [label setTranslatesAutoresizingMaskIntoConstraints:NO];
     // accessibilty
     [label setAccessibilityIdentifier:@"Comment Text"];
     return label;
+}
++ (UILabel *)getLikeCount{
+    UILabel *likeLabel =[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    // ccLabel.backgroundColor = [UIColor clearColor];
+    [likeLabel setText:@"test"];
+    likeLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText];
+    likeLabel.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
+    likeLabel.textAlignment = NSTextAlignmentCenter;
+    
+    likeLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];//[UIColor whiteColor];
+    likeLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    [likeLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    // accessibilty
+    [likeLabel setAccessibilityIdentifier:@"Like Count Label"];
+    return likeLabel;
+}
+
++ (UITextView *)getCommentText:(id)delegate{
+    UITextView *textView =[[UITextView alloc] init];
+    textView.backgroundColor = [UIColor redColor];
+    textView.allowsEditingTextAttributes = NO;
+    textView.dataDetectorTypes = UIDataDetectorTypeAll ;
+    
+    // set up key board
+    
+    textView.returnKeyType = UIReturnKeyDone;
+    // inset for text
+    //textView.textContainerInset = UIEdgeInsetsMake(0, 0, 5.0, 0.0);
+    
+    // attirubtes - ios 7
+    NSMutableParagraphStyle *paraStyle = [NSMutableParagraphStyle new];
+    paraStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    paraStyle.alignment = NSTextAlignmentLeft;
+    //    paraStyle.alignment = NSTextAlignmentCenter;
+    //paraStyle.lineSpacing = 10;// -kAUCFontSizeContentText/2.0 + 9.0;
+    
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowOffset = CGSizeMake(0.0,1.0);
+    shadow.shadowBlurRadius = (CGFloat) 2.0;
+    shadow.shadowColor = [UIColor colorWithWhite:0.1 alpha:1.0];
+    
+    textView.typingAttributes = @{
+                                  NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
+                                  NSForegroundColorAttributeName:[UIColor whiteColor],
+                                  NSParagraphStyleAttributeName:paraStyle,
+                                  NSStrokeColorAttributeName:[UIColor blackColor],
+                                  //NSStrokeWidthAttributeName:@-3.0,
+                                  NSShadowAttributeName:shadow
+                                  // NSKernAttributeName:@1.0 // inter letter spacing
+                                  };
+    
+    
+    textView.delegate=delegate;
+    
+    [textView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    // accessibilty
+    [textView setAccessibilityIdentifier:@"Add Text"];
+    return textView;
 
 }
+
 @end

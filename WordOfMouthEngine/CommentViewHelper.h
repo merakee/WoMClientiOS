@@ -12,10 +12,12 @@
 @interface CommentViewHelper : NSObject
 
 + (void)setView:(UIView *)view;
-+ (UIButton *) getSendButton;
-+ (UIImage *) getCellImage;
-+ (UIButton *)getCellButton;
-+ (UILabel *)getCellText;
++ (UIButton *)      getSendButton;
++ (UIImage *)       getCellImage;
++ (UIButton *)      getCellButton;
++ (UILabel *)       getCellText;
++ (UILabel *)       getLikeCount;
++ (UITextView *)    getCommentText:(id)delegate;
 
 @property (nonatomic, strong) UILabel *getDescriptionLabel;
 @end

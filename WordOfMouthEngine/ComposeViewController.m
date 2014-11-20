@@ -170,8 +170,6 @@
     // Set toolbar
     [self setToolBar];
     
-    // Set webView
-    [self loadWebView];
     
     // layout
     [self layoutView];
@@ -381,20 +379,6 @@
      [keyboardToolBar setItems:buttonItems];
 }
 
-- (void)loadWebView{
-    webView= [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, 500,300)];
-    searchTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
-    searchTextField.backgroundColor = [UIColor redColor];
-    NSString *searchString = searchTextField.text;
-    NSString *urlAddress = [NSString stringWithFormat:@"http://www.google.com/search?q=%@",searchString];
-    NSURL *url = [NSURL URLWithString:urlAddress];
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    [webView loadRequest:requestObj];
-   // [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlAddress]];
-   // [self.view addSubview:webView];
-   // [self.view addSubview:searchTextField];
-    
-}
     
 - (void)searchImage{
     NSString *searchString = searchTextField.text;
@@ -541,7 +525,6 @@
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
    // [composeTextView resignFirstResponder];
     [composeTextView setInputAccessoryView:keyboardToolBar];
-   // [composeTextView becomeFirstResponder];
    return YES;
 }
 
@@ -586,7 +569,7 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-   
+    NSLog(@"text");
     // return key
    if([text isEqualToString:@"\n"]) {
 //        [self postContent:nil];

@@ -11,6 +11,6 @@
 @interface CommentTableViewCell : UITableViewCell
 
 @property (nonatomic, retain) UILabel *commentCellLabel;
-@property (nonatomic, retain)  UIButton *likeButton;
-
+@property (nonatomic, retain) UIButton *likeButton;
+@property (nonatomic, retain) UILabel *likeCount;
 @end

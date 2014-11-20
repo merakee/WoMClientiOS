@@ -12,6 +12,7 @@
 @implementation CommentTableViewCell
 @synthesize likeButton;
 @synthesize commentCellLabel;
+@synthesize likeCount;
 - (id)init {
     if (self = [super init]) {
         [self setView];
@@ -22,21 +23,26 @@
 - (void)setView{
     self.commentCellLabel = [CommentViewHelper getCellText];
     self.likeButton = [CommentViewHelper getCellButton];
-  //  self.commentCellLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 150, 40)];
+    self.likeCount = [CommentViewHelper getLikeCount];
+    
     [self addSubview:self.commentCellLabel];
     [self addSubview:self.likeButton];
+    [self addSubview:self.likeCount];
     // layout
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(likeButton,commentCellLabel);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(likeButton,commentCellLabel, likeCount);
     
     // like Button
-//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[likeButton(18)]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[likeButton]-5-[likeCount]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[likeButton]-2-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-
     // Comment label
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentCellLabel]-20-[likeButton(18)]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentCellLabel]-20-[likeCount]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+
+    
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[commentCellLabel]-2-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    
 
 
 }
