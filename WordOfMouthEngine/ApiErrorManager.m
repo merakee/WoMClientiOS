@@ -133,7 +133,7 @@
 }
 
 
-#pragma mark - Error Handling methods - Response
+#pragma mark - Error Handling methods - User Response
 + (NSError *)processPostResponseError:(NSError *)error{
     return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
                                           code:kAPIManagerErrorApi
@@ -142,6 +142,33 @@
                                     suggestion:@"Please try again"];
 }
 
+
+#pragma mark - Error Handling methods - Comment
++ (NSError *)processGetCommentError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Get Comment Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
+
++ (NSError *)processPostCommentError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Post Comment Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
+
+
+#pragma mark - Error Handling methods - Comment Response
++ (NSError *)processPostCommentResponseError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Post Comment Like Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
 
 
 #pragma mark - Error Handling methods - User Info

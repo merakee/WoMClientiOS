@@ -40,7 +40,7 @@
 }
 
 + (void)testLocalContentDatabase{
-    [ApiContentDatabase test];
+    //[ApiContentDatabase test];
 }
 
 + (void)showAllFonts{

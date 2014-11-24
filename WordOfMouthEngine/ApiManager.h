@@ -6,6 +6,15 @@
 //  Copyright (c) 2013 Bijit Halder. All rights reserved.
 //
 
+
+/*!
+ * @header ApiManager
+ * Manager Class for communicating with BackEnd Api
+ * @abstract ApiManager Interface
+ * @author Bijit Halder
+ * @version 2.0
+ */
+
 #import "AFHTTPSessionManager.h"
 #import "ApiUserManager.h"
 #import "ApiContentManager.h"
@@ -15,22 +24,95 @@
 
 
 //static NSString *kAMAPI_HOST_PATH   =   @"http://localhost:3000/api/v0";
-static NSString *kAMAPI_HOST_PATH   =   @"http://wom.freelogue.net/api/v0";
-//static NSString *kAMAPI_HOST_PATH   =   @"http://wom-backend-master-env-hv2gxttyvi.elasticbeanstalk.com/api/v0";
-//static NSString *kAMAPI_BASE_PATH   =   @"api/v0";
-static NSString *kAMAPI_SIGNUP_PATH   =   @"sign_up";
-static NSString *kAMAPI_SIGNIN_PATH   =   @"sign_in";
-static NSString *kAMAPI_SIGNOUT_PATH  =  @"sign_out";
-static NSString *kAMAPI_PROFILE_PATH  =  @"profile";
-static NSString *kAMAPI_CONTENT_PATH  =  @"contents";
-static NSString *kAMAPI_RESPONSE_PATH =  @"user_responses";
+/*!
+ *  @brief URL for the back end server
+ */
+// Production
+//static NSString *kAMAPI_HOST_PATH   =   @"http://wom.freelogue.net/api/v0";
+// Development
+//static NSString *kAMAPI_HOST_PATH   =   @"http://wom-dev.freelogue.net/";
+// Local
+static NSString *kAMAPI_HOST_PATH  =   @"http://localhost/";
 
+//static NSString *kAMAPI_BASE_PATH   =   @"api/v0";
+/*!
+ *  @brief Relative path for SIGNUP_PATH
+ */
+static NSString *kAMAPI_SIGNUP_PATH   =   @"signup";
+/*!
+ *  @brief Relative path for SIGNIN_PATH
+ */
+static NSString *kAMAPI_SIGNIN_PATH   =   @"signin";
+/*!
+ *  @brief Relative path for SIGNOUT_PATH
+ */
+static NSString *kAMAPI_SIGNOUT_PATH  =  @"signout";
+/*!
+ *  @brief Relative path for PROFILE_PATH
+ */
+//static NSString *kAMAPI_PROFILE_PATH  =  @"profile";
+/*!
+ *  @brief Relative path for GET_CONTENT_LIST
+ */
+static NSString *kAMAPI_GET_CONTENT_LIST_PATH  =  @"contents/getlist";
+/*!
+ *  @brief Relative path for GET_CONTENT
+ */
+static NSString *kAMAPI_GET_CONTENT_PATH  =  @"contents/getcontent";
+/*!
+ *  @brief Relative path for POST_CONTENT
+ */
+static NSString *kAMAPI_POST_CONTENT_PATH  =  @"contents/create";
+/*!
+ *  @brief Relative path for FLAG_CONTENT
+ */
+static NSString *kAMAPI_FLAG_CONTENT_PATH  =  @"contents/flag";
+/*!
+ *  @brief Relative path for USER RESPONSE
+ */
+static NSString *kAMAPI_CONTENT_RESPONSE_PATH =  @"contents/response";
+/*!
+ *  @brief Relative path for GET_COMMENT
+ */
+static NSString *kAMAPI_GET_COMMENT_LIST_PATH  =  @"comments/getlist";
+/*!
+ *  @brief Relative path for POST_COMMENT
+ */
+static NSString *kAMAPI_POST_COMMENT_PATH  =  @"comments/create";
+/*!
+ *  @brief Relative path for COMMENT_RESPONSE
+ */
+static NSString *kAMAPI_COMMENT_RESPONSE_PATH =  @"comments/response";
+/*!
+ *  @brief Relative path for GET_HISTORY_CONTENTS
+ */
+static NSString *kAMAPI_GET_HISTORY_CONTENTS_PATH =  @"history/contents";
+/*!
+ *  @brief Relative path for GET_HISTORY_COMMENTS
+ */
+static NSString *kAMAPI_GET_HISTORY_COMMENTS_PATH =  @"history/comments";
+/*!
+ *  @brief Relative path for GET_NOTIFICATIONS
+ */
+static NSString *kAMAPI_GET_NOTIFICATIONS_LIST_PATH =  @"notifications/getlist";
+/*!
+ *  @brief Relative path for GET_NOTIFICATIONS_COUNT
+ */
+static NSString *kAMAPI_GET_NOTIFICATIONS_COUNT_PATH =  @"notifications/count";
+/*!
+ *  @brief Relative path for RESET_NOTIFICATIONS_COTENT_PATH
+ */
+static NSString *kAMAPI_RESET_NOTIFICATIONS_COTENT_PATH =  @"notifications/reset/content";
+/*!
+ *  @brief Relative path for RESET_NOTIFICATIONS_COMMENT_PATH
+ */
+static NSString *kAMAPI_RESET_NOTIFICATIONS_COMMENT_PATH =  @"notifications/reset/comment";
 
 @interface ApiManager : AFHTTPSessionManager{
 }
 #pragma mark - API User Manager
 /*!
- *  ApiUserManager
+ *  @brief ApiUserManager
  */
 @property ApiUserManager    *apiUserManager;
 
@@ -45,6 +127,11 @@ static NSString *kAMAPI_RESPONSE_PATH =  @"user_responses";
 #pragma mark -  HTTP CURD methods
 
 #pragma mark -  Utility Methods
+/*!
+ *  Converts relative path to full URL by attaching Host specified in kAMAPI_HOST_PATH
+ *  @param pathString relative path
+ *  @return the full URL with host path
+ */
 + (NSString *)getStringForPath:(NSString *)pathString;
 
 #pragma mark - Utility Methods: Network Reachability
@@ -112,29 +199,39 @@ static NSString *kAMAPI_RESPONSE_PATH =  @"user_responses";
                    failure:(void (^)(NSError *error))failure;
 
 #pragma mark -  API Calls: User Profile
-/*!
- *  Gets User Profile information.
- *  @param success <#success description#>
- *  @param failure <#failure description#>
- */
-- (void)getUserProfileSuccess:(void (^)())success
-                      failure:(void (^)(NSError *error))failure;
-/*!
- *  <#Description#>
- *  @param success <#success description#>
- *  @param failure <#failure description#>
- */
-- (void)updateUserProfileSuccess:(void (^)())success
-                         failure:(void (^)(NSError *error))failure;
+///*!
+// *  Gets User Profile information.
+// *  @param success Returns void
+// *  @param failure Returns error
+// *  @deprecated Do not use this method
+// */
+//- (void)getUserProfileSuccess:(void (^)())success
+//                      failure:(void (^)(NSError *error))failure;
+///*!
+// *  Method to update User Profile
+// *  @param success Returns void
+// *  @param failure Returns error
+// *  @deprecated Do not use this method
+// */
+//- (void)updateUserProfileSuccess:(void (^)())success
+//                         failure:(void (^)(NSError *error))failure;
 
 #pragma mark -  API Calls: Content
 /*!
- *  Gets contents for signed in user.
- *  @param success Returns an array of contents contentArray
+ *  Gets List contents for signed in user.
+ *  @param success Returns an array of contents: contentArray
  *  @param failure Returns error
  */
-- (void)getContentSuccess:(void (^)(NSArray * contentArray))success
-                  failure:(void (^)(NSError *error))failure;
+- (void)getContentListSuccess:(void (^)(NSArray * contentArray))success
+                      failure:(void (^)(NSError *error))failure;
+/*!
+ *  Gets content for given content id
+ *  @param success Returns an array of contents: contentArray
+ *  @param failure Returns error
+ */
+- (void)getContentWithId:(int)contentId
+                 success:(void (^)(ApiContent *))success
+                 failure:(void (^)(NSError *error))failure;
 /*!
  *  Posts content
  *  @param categoryId An Int for content category id (must be between 1 and 4 for valid category)
@@ -153,13 +250,54 @@ static NSString *kAMAPI_RESPONSE_PATH =  @"user_responses";
  *  Posts response for user of viewd content
  *  @param contentId An Int for content Id
  *  @param response  NSNumber containing the boolean value (spread => yes, kill => No, no response => nil)
- *  @param success   <#success description#>
- *  @param failure   <#failure description#>
+ *  @param success   Returns apiUserResponse object with all relevant parameter
+ *  @param failure   Returns error
  */
 - (void)postResponseWithContentId:(int)contentId
                          response:(NSNumber *)response
                           success:(void (^)(ApiUserResponse *userResponse))success
                           failure:(void (^)(NSError *error))failure;
+
+
+#pragma mark -  API Calls: Comment
+/*!
+ *  Gets comment for given content id Gets comment for given content id
+ *  @param mode comment order mode popular or recent. Default recent
+ *  @param count number of comments
+ *  @param offset the start count
+ *  @param success Returns an array of comments: commentArray
+ *  @param failure Returns error
+ */
+
+- (void)getCommentsForContentId:(int)contentId
+                           mode:(kAPICommentOrderMode)mode
+                          count:(int)count
+                         offset:(int)offset
+                        success:(void (^)(NSArray * commentArray))success
+                        failure:(void (^)(NSError *error))failure;
+/*!
+ *  Posts comment
+ *  @param contentId An Int for content id
+ *  @param text       NSString containing the text
+ *  @param success    Returns apiComment object with all relevant parameter
+ *  @param failure    Returns error
+ */
+- (void)postCommentWithContentId:(int)contentId
+                            text:(NSString *)text
+                         success:(void (^)(ApiComment * comment))success
+                         failure:(void (^)(NSError *error))failure;
+
+#pragma mark -  API Calls: Response
+/*!
+ *  Posts response for user of viewd comment
+ *  @param commentId An Int for comment Id
+ *  @param success   Returns apiCommentResponse object with all relevant parameter
+ *  @param failure   Returns error
+ */
+- (void)postCommentResponseWithCommentId:(int)commentId
+                                 success:(void (^)(ApiCommentResponse *userResponse))success
+                                 failure:(void (^)(NSError *error))failure;
+
 
 
 #pragma mark -  Test Code

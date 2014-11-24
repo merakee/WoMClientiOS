@@ -16,12 +16,13 @@
 @synthesize userId;
 @synthesize categoryId;
 @synthesize photoToken;
-@synthesize timeStamp;
 @synthesize totalSpread;
 @synthesize spreadCount;
 @synthesize killCount;
-@synthesize noResponseCount;
-
+@synthesize commentCount;
+@synthesize commentCountNew;
+@synthesize createdAt;
+@synthesize updatedAt;
 
 #pragma mark - Init Methods
 - (id)initWithContentId:(NSNumber *)contentId_
@@ -29,11 +30,13 @@
                  userId:(NSNumber * )userId_
              categoryId:(NSNumber * )categoryId_
              photoToken:(NSDictionary *)photoToken_
-              timeStamp:(NSString *)timeStamp_
             totalSpread:(NSNumber * )totalSpread_
             spreadCount:(NSNumber * )spreadCount_
               killCount:(NSNumber * )killCount_
-        noResponseCount:(NSNumber * )noResponseCount_{
+           commentCount:(NSNumber * )commentCount_
+        commentCountNew:(NSNumber * )commentCountNew_
+              createdAt:(NSString *)createdAt_
+              updatedAt:(NSString *)updatedAt_{
     if(self = [super init]) {
         // initialization code
         self.contentId = contentId_;
@@ -41,11 +44,13 @@
         self.userId = userId_;
         self.categoryId = categoryId_;
         self.photoToken = photoToken_;
-        self.timeStamp = timeStamp_;
         self.totalSpread = totalSpread_;
         self.spreadCount = spreadCount_;
         self.killCount = killCount_;
-        self.noResponseCount = noResponseCount_;
+        self.commentCount = commentCount_;
+        self.commentCountNew = commentCountNew_;
+        self.createdAt = createdAt_;
+        self.updatedAt = updatedAt_;
         
     }
     return self;
@@ -58,11 +63,13 @@
                                           userId:@0
                                       categoryId:[NSNumber numberWithInteger:kAPIContentCategoryEmpty]
                                       photoToken:@{}
-                                       timeStamp:@""
                                      totalSpread:@0
                                      spreadCount:@0
                                        killCount:@0
-                                 noResponseCount:@0];
+                                    commentCount:@0
+                                 commentCountNew:@0
+                                       createdAt:@""
+                                       updatedAt:@""];
 }
 
 +(BOOL)isValidContent:(ApiContent *)content{
@@ -78,11 +85,13 @@
     NSLog(@"Author Id: %ld",(long)content.userId.integerValue);
     NSLog(@"Category Id: %ld",(long)content.categoryId.integerValue);
     NSLog(@"Photo Token: %@",content.photoToken);
-    NSLog(@"Time Stamp: %@",content.timeStamp);
     NSLog(@"Total Spread: %ld",(long)content.totalSpread.integerValue);
     NSLog(@"Spread Count: %ld",(long)content.spreadCount.integerValue);
     NSLog(@"Kill Count: %ld",(long)content.killCount.integerValue);
-    NSLog(@"No Response Count: %ld",(long)content.noResponseCount.integerValue);
+    NSLog(@"Comment Count: %ld",(long)content.commentCount.integerValue);
+    NSLog(@"Comment Count New: %ld",(long)content.commentCountNew.integerValue);
+    NSLog(@"Created At: %@",content.createdAt);
+    NSLog(@"Updated At: %@",content.createdAt);
 }
 
 @end

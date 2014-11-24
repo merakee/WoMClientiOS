@@ -89,7 +89,7 @@
                              @"total_spread":[NSNumber numberWithInt:[CommonUtility  pickRandom:1000]+1],
                              @"spread_count":[NSNumber numberWithInt:[CommonUtility  pickRandom:1000]+1],
                              @"kill_count":[NSNumber numberWithInt:[CommonUtility  pickRandom:1000]+1],
-                             @"no_response_count":[NSNumber numberWithInt:[CommonUtility  pickRandom:100]+1]};
+                             @"comment_count":[NSNumber numberWithInt:[CommonUtility  pickRandom:100]+1]};
     return content;
 }
 
@@ -103,11 +103,11 @@
         XCTAssert(content.userId==contentDic[@"user_id"], @"Must be the same");
         XCTAssert(content.contentText==contentDic[@"text"], @"Must be the same");
         XCTAssert(content.photoToken==contentDic[@"photo_token"], @"Must be the same");
-        XCTAssert(content.timeStamp==contentDic[@"created_at"], @"Must be the same");
+        XCTAssert(content.createdAt==contentDic[@"created_at"], @"Must be the same");
         XCTAssert(content.totalSpread==contentDic[@"total_spread"], @"Must be the same");
         XCTAssert(content.spreadCount==contentDic[@"spread_count"], @"Must be the same");
         XCTAssert(content.killCount==contentDic[@"kill_count"], @"Must be the same");
-        XCTAssert(content.noResponseCount==contentDic[@"no_response_count"], @"Must be the same");
+        XCTAssert(content.commentCount==contentDic[@"comment_count"], @"Must be the same");
     }
 }
 

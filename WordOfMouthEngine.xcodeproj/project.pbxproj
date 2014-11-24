@@ -128,6 +128,10 @@
 		11B68B6518E53CDE00AE9197 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B68B6418E53CDE00AE9197 /* AppIcon.png */; };
 		11B755BE19708BA000410604 /* ApiErrorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B755BD19708BA000410604 /* ApiErrorManager.m */; };
 		11B755BF19708BA000410604 /* ApiErrorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B755BD19708BA000410604 /* ApiErrorManager.m */; };
+		11BDC0E71A23D877002131DA /* ApiComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BDC0E61A23D877002131DA /* ApiComment.m */; };
+		11BDC0E81A23D877002131DA /* ApiComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BDC0E61A23D877002131DA /* ApiComment.m */; };
+		11BDC0EB1A23DB0F002131DA /* ApiCommentResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BDC0EA1A23DB0F002131DA /* ApiCommentResponse.m */; };
+		11BDC0EC1A23DB0F002131DA /* ApiCommentResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BDC0EA1A23DB0F002131DA /* ApiCommentResponse.m */; };
 		11CAB42F18CA685E00FE05FD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 11CAB42E18CA685E00FE05FD /* libsqlite3.dylib */; };
 		11CAB43018CA6C4600FE05FD /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE31D18ADA07500C66D86 /* SessionManager.m */; };
 		11CAB43318CA6C8E00FE05FD /* SQLiteAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CAB43218CA6C8E00FE05FD /* SQLiteAPI.m */; };
@@ -412,10 +416,15 @@
 		11810B7818C9407F00C5246C /* CVCircleCounterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CVCircleCounterView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		11810B7A18C9419100C5246C /* CVCircleDownCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVCircleDownCounter.h; sourceTree = "<group>"; };
 		11810B7B18C9419100C5246C /* CVCircleDownCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVCircleDownCounter.m; sourceTree = "<group>"; };
+		11A309A91A25CB7C00E67BAC /* WorkFlow_iOS.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = WorkFlow_iOS.txt; sourceTree = "<group>"; };
 		11B68B6218E3BA8600AE9197 /* LocalContent_DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = LocalContent_DB.sqlite; sourceTree = "<group>"; };
 		11B68B6418E53CDE00AE9197 /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
 		11B755BC19708BA000410604 /* ApiErrorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiErrorManager.h; sourceTree = "<group>"; };
 		11B755BD19708BA000410604 /* ApiErrorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiErrorManager.m; sourceTree = "<group>"; };
+		11BDC0E51A23D877002131DA /* ApiComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiComment.h; sourceTree = "<group>"; };
+		11BDC0E61A23D877002131DA /* ApiComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiComment.m; sourceTree = "<group>"; };
+		11BDC0E91A23DB0F002131DA /* ApiCommentResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiCommentResponse.h; sourceTree = "<group>"; };
+		11BDC0EA1A23DB0F002131DA /* ApiCommentResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiCommentResponse.m; sourceTree = "<group>"; };
 		11CAB42E18CA685E00FE05FD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		11CAB43118CA6C8E00FE05FD /* SQLiteAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SQLiteAPI.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		11CAB43218CA6C8E00FE05FD /* SQLiteAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SQLiteAPI.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -532,8 +541,10 @@
 		11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ComposeViewHelper.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		11FD6CEF18B3DCB9007D318E /* ComposeViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ComposeViewHelper.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		137E30FB55AC4303821AB00C /* libPods-WordOfMouthEngineTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WordOfMouthEngineTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		15526803F22D4415BB7A42E9 /* Pods-WordOfMouthEngineTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.xcconfig"; path = "Pods/Pods-WordOfMouthEngineTests.xcconfig"; sourceTree = "<group>"; };
-		CCC2C566F3734B64B9746401 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		148F2EC1F0C60D40F8E6A9B1 /* Pods-WordOfMouthEngineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WordOfMouthEngineTests/Pods-WordOfMouthEngineTests.release.xcconfig"; sourceTree = "<group>"; };
+		4B50612008F26DAD374700CE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		8CC22BBA1AA7F6E71023CB33 /* Pods-WordOfMouthEngineTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordOfMouthEngineTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WordOfMouthEngineTests/Pods-WordOfMouthEngineTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B69C3BD4008BF8C381D2A18F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -583,8 +594,8 @@
 				1114A814182D8B3400089669 /* WordOfMouthEngineTests */,
 				1114A7F4182D8B3300089669 /* Frameworks */,
 				1114A7F3182D8B3300089669 /* Products */,
-				CCC2C566F3734B64B9746401 /* Pods.xcconfig */,
-				15526803F22D4415BB7A42E9 /* Pods-WordOfMouthEngineTests.xcconfig */,
+				11A309A71A25137700E67BAC /* Misc */,
+				C6409AE470887E74C37B0F86 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -685,6 +696,8 @@
 		1114A827182D8D5300089669 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				11BDC0E41A23D849002131DA /* CommentResponse */,
+				11BDC0E31A23D842002131DA /* Comment */,
 				111C659F19777CF80073D605 /* UserResponse */,
 				11B67DC618CA5DB800F6E04B /* SQliteAPI */,
 				11B67DC418CA5CEE00F6E04B /* Content */,
@@ -1035,6 +1048,14 @@
 			name = CircularCounter;
 			sourceTree = "<group>";
 		};
+		11A309A71A25137700E67BAC /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				11A309A91A25CB7C00E67BAC /* WorkFlow_iOS.txt */,
+			);
+			name = Misc;
+			sourceTree = "<group>";
+		};
 		11B67DC418CA5CEE00F6E04B /* Content */ = {
 			isa = PBXGroup;
 			children = (
@@ -1067,6 +1088,24 @@
 				11CAB43218CA6C8E00FE05FD /* SQLiteAPI.m */,
 			);
 			name = SQliteAPI;
+			sourceTree = "<group>";
+		};
+		11BDC0E31A23D842002131DA /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				11BDC0E51A23D877002131DA /* ApiComment.h */,
+				11BDC0E61A23D877002131DA /* ApiComment.m */,
+			);
+			name = Comment;
+			sourceTree = "<group>";
+		};
+		11BDC0E41A23D849002131DA /* CommentResponse */ = {
+			isa = PBXGroup;
+			children = (
+				11BDC0E91A23DB0F002131DA /* ApiCommentResponse.h */,
+				11BDC0EA1A23DB0F002131DA /* ApiCommentResponse.m */,
+			);
+			name = CommentResponse;
 			sourceTree = "<group>";
 		};
 		11CB0DC419BA2D19001FF0D2 /* SignUpView */ = {
@@ -1311,6 +1350,17 @@
 				11FD6CEF18B3DCB9007D318E /* ComposeViewHelper.h */,
 			);
 			name = ComposeVC;
+			sourceTree = "<group>";
+		};
+		C6409AE470887E74C37B0F86 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B69C3BD4008BF8C381D2A18F /* Pods.debug.xcconfig */,
+				4B50612008F26DAD374700CE /* Pods.release.xcconfig */,
+				8CC22BBA1AA7F6E71023CB33 /* Pods-WordOfMouthEngineTests.debug.xcconfig */,
+				148F2EC1F0C60D40F8E6A9B1 /* Pods-WordOfMouthEngineTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1601,7 +1651,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		26463924E05B44199EA6B234 /* Check Pods Manifest.lock */ = {
@@ -1631,7 +1681,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-WordOfMouthEngineTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WordOfMouthEngineTests/Pods-WordOfMouthEngineTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		55355DCA2BA94F5F81C5E861 /* Check Pods Manifest.lock */ = {
@@ -1660,6 +1710,7 @@
 				11CAB43318CA6C8E00FE05FD /* SQLiteAPI.m in Sources */,
 				11CAB43018CA6C4600FE05FD /* SessionManager.m in Sources */,
 				11D3712E19D5E31000AEF362 /* CustomActivityIndicator.m in Sources */,
+				11BDC0E71A23D877002131DA /* ApiComment.m in Sources */,
 				116EE32718ADA0E100C66D86 /* AppUIManager.m in Sources */,
 				11D3702E19D5CFBB00AEF362 /* UIImageView+AnimationCompletion.m in Sources */,
 				1166AD7E19759ED30010BFEA /* ApiValidationManager.m in Sources */,
@@ -1694,6 +1745,7 @@
 				11CB8FCF18B0469000396418 /* ContentViewController.m in Sources */,
 				11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */,
 				11810B7218C937D000C5246C /* CVCircularProgressView.m in Sources */,
+				11BDC0EB1A23DB0F002131DA /* ApiCommentResponse.m in Sources */,
 				1114A802182D8B3300089669 /* main.m in Sources */,
 				1131DA7618B5657C00EFDB34 /* WomSignInViewController.m in Sources */,
 				115F1B9E197492D9002262F5 /* ApiRequestHelper.m in Sources */,
@@ -1720,6 +1772,7 @@
 				11F269C6197848700051FA38 /* TestHelper.m in Sources */,
 				1174E0AE1991977E003251C7 /* SpectaSetUp.m in Sources */,
 				1166AD8C1975ECDB0010BFEA /* WomSignUpViewHelper.m in Sources */,
+				11BDC0EC1A23DB0F002131DA /* ApiCommentResponse.m in Sources */,
 				1166AD881975EC640010BFEA /* WomSignUpViewController.m in Sources */,
 				1139704719778CD9001EFF9C /* ApiRequestHelperTests.m in Sources */,
 				111C65A419777D530073D605 /* ApiUserResponse.m in Sources */,
@@ -1729,6 +1782,7 @@
 				111E597E18309A6700B7FD49 /* ApiUser.m in Sources */,
 				1170EB01196B83A600802D4D /* ApiUserDatabaseTests.m in Sources */,
 				1166AD7F19759ED30010BFEA /* ApiValidationManager.m in Sources */,
+				11BDC0E81A23D877002131DA /* ApiComment.m in Sources */,
 				1166AD911976F5C90010BFEA /* PlaceHolderFactory.m in Sources */,
 				11B755BF19708BA000410604 /* ApiErrorManager.m in Sources */,
 				11D1B6F0183AB0690022AF62 /* ApiManagerUserSessionTests.m in Sources */,
@@ -1851,7 +1905,7 @@
 		};
 		1114A81F182D8B3400089669 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CCC2C566F3734B64B9746401 /* Pods.xcconfig */;
+			baseConfigurationReference = B69C3BD4008BF8C381D2A18F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1873,7 +1927,7 @@
 		};
 		1114A820182D8B3400089669 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CCC2C566F3734B64B9746401 /* Pods.xcconfig */;
+			baseConfigurationReference = 4B50612008F26DAD374700CE /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1895,7 +1949,7 @@
 		};
 		1114A822182D8B3400089669 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15526803F22D4415BB7A42E9 /* Pods-WordOfMouthEngineTests.xcconfig */;
+			baseConfigurationReference = 8CC22BBA1AA7F6E71023CB33 /* Pods-WordOfMouthEngineTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMouthEngine.app/WordOfMouthEngine";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1925,7 +1979,7 @@
 		};
 		1114A823182D8B3400089669 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15526803F22D4415BB7A42E9 /* Pods-WordOfMouthEngineTests.xcconfig */;
+			baseConfigurationReference = 148F2EC1F0C60D40F8E6A9B1 /* Pods-WordOfMouthEngineTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMouthEngine.app/WordOfMouthEngine";
 				CLANG_ENABLE_OBJC_ARC = YES;

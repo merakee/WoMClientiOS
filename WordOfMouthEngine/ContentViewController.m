@@ -404,7 +404,7 @@
     
     // update counts
     //spreadCount.text = [NSString stringWithFormat:@"%ld", (long)currentContent.totalSpread.integerValue];
-    ///timeCount.text = currentContent.timeStamp;
+    ///timeCount.text = currentContent.createdAt;
     //[self resetContentTimer];
 }
 - (void)clearContents{
