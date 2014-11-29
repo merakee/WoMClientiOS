@@ -69,13 +69,15 @@
     
     return [self addUserAuth:user toDictionary:contentDic];
 }
-+(NSDictionary *)responseParamsWith:(ApiUser *)user contentId:(int)contentId andResponse:(NSNumber *)response{
++(NSDictionary *)responseParamsWithUser:(ApiUser *)user contentId:(int)contentId andResponse:(NSNumber *)response{
     if (!response){return @{};}
     return [self addUserAuth:user  toDictionary:@{@"user_response":@{
                                                           @"content_id": [NSNumber numberWithInt:contentId],
                                                           @"response":response}}];
 }
-
++(NSDictionary *)flagContentParamsWithUser:(ApiUser *)user contentId:(int)contentId{
+    return [self addUserAuth:user  toDictionary:@{@"params":@{@"content_id": [NSNumber numberWithInt:contentId]}}];
+}
 #pragma mark -  Utility Methods: JSON Request - Comment
 +(NSDictionary *)commentParamsWithUser:(ApiUser *)user contentId:(int)contentId text:(NSString *)text{
     return [self addUserAuth:user toDictionary:@{@"comment":@{
@@ -107,6 +109,33 @@
                                                           @"response":[NSNumber numberWithBool:true]}}];
 }
 
+#pragma mark -  Utility Methods: JSON Request - History
++(NSDictionary *)getHistoryParamsWithUser:(ApiUser *)user
+                                    count:(int)count
+                                   offset:(int)offset{
+    return [self addUserAuth:user  toDictionary:@{@"params":@{
+                                                          @"count": [NSNumber numberWithInt:count],
+                                                          @"offset": [NSNumber numberWithInt:offset]}}];
+    
+}
+
+#pragma mark -  Utility Methods: JSON Request - Notification
++(NSDictionary *)getResetNotificationContentParamsWithUser:(ApiUser *)user
+                                                 contentId:(int)contentId
+                                                     count:(int)count{
+    return [self addUserAuth:user  toDictionary:@{@"params":@{
+                                                          @"content_id": [NSNumber numberWithInt:contentId],
+                                                          @"count": [NSNumber numberWithInt:count]}}];
+    
+}
++(NSDictionary *)getResetNotificationCommentParamsWithUser:(ApiUser *)user
+                                                 commentId:(int)commentId
+                                                     count:(int)count{
+    return [self addUserAuth:user  toDictionary:@{@"params":@{
+                                                          @"comment_id": [NSNumber numberWithInt:commentId],
+                                                          @"count": [NSNumber numberWithInt:count]}}];
+    
+}
 #pragma mark - user info from response
 + (ApiUser *)getUserFromDictionary:(NSDictionary *)userDic{
     return [[ApiUser alloc] initWithUserId:userDic[@"user"][@"id"]
@@ -155,6 +184,18 @@
                                       userResponse:userResponseDic[@"user_response"][@"response"] ];
 }
 
+#pragma mark - content flag info from response
+/*!
+ *  Converts Json Dictionary to ApiContentFlag Object
+ *  @param UserResponseDic Dictionary containing ApiContentFlag information
+ *  @return Returns ApiContentFlagObject with values from ContentFlagDic.
+ *  @
+ */
++ (ApiContentFlag *)getContentFlagFromDictionary:(NSDictionary *)contentFlagDic{
+    return [[ApiContentFlag  alloc] initWithContentFlagId:contentFlagDic[@"flag"][@"id"]
+                                                   userId:contentFlagDic[@"flag"][@"user_id"]
+                                                contentId:contentFlagDic[@"flag"][@"content_id"]];
+}
 
 #pragma mark - comment info from response
 + (NSArray *)getCommentArrayFromDictionary:(NSDictionary *)commentsDic{
@@ -185,7 +226,7 @@
                                        createdAt:commentDic[@"created_at"]
                                        updatedAt:commentDic[@"updated_at"]];
 }
-#pragma mark - comment info from response
+#pragma mark - comment response from response
 + (ApiCommentResponse *)getCommentResponseFromDictionary:(NSDictionary *)userResponseDic{
     return [[ApiCommentResponse alloc] initWithResponseId:userResponseDic[@"comment_response"][@"id"]
                                                    userId:userResponseDic[@"comment_response"][@"user_id"]
@@ -193,5 +234,44 @@
                                           commentResponse:userResponseDic[@"comment_response"][@"response"] ];
 }
 
+#pragma mark - notification list from response
++ (NSArray *)getNotificationArrayFromDictionary:(NSDictionary *)notificationsDic{
+    NSMutableArray *notificationArray =[[NSMutableArray alloc] init];
+    
+    for (NSDictionary *notificationDic in notificationsDic[@"notifications"]){
+        if(notificationDic[@"content"]){
+            ApiContent *content =[ApiRequestHelper getContentFromDictionaryWithOutRoot:notificationDic];
+            if([ApiContent isValidContent:content]){
+                [notificationArray addObject:content];
+            }
+            else{
+                return nil;
+            }
+        }
+        else if(notificationDic[@"comment"]){
+            ApiComment *comment  =[ApiRequestHelper getCommentFromDictionaryWithOutRoot:notificationDic];
+            if([ApiComment isValidComment:comment]){
+                [notificationArray addObject:comment];
+            }
+            else{
+                return nil;
+            }
+        }
+    }
+    return (NSArray *)notificationArray;
+}
+
+#pragma mark - notification count from response
+/*!
+ *  Converts get notification list response object and retures an ApiNotificationCount object
+ *  if there is error - missing and invalid values in the response object
+ *  @return an ApiNotificationCount object
+ */
++ (ApiNotificationCount *)getNotificationCountFromDictionary:(NSDictionary *)notificationCountDic{
+    return [[ApiNotificationCount alloc] initWithUserId:notificationCountDic[@"notifications"][@"user_id"]
+                                          totalNewCount:notificationCountDic[@"notifications"][@"total_new_count"]
+                                        commentCountNew:notificationCountDic[@"notifications"][@"new_comment_count"]
+                                           likeCountNew:notificationCountDic[@"notifications"][@"new_like_count"]];
+}
 
 @end

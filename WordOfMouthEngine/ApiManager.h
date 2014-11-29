@@ -22,17 +22,17 @@
 #import "ApiErrorManager.h"
 #import "ApiRequestHelper.h"
 
-
-//static NSString *kAMAPI_HOST_PATH   =   @"http://localhost:3000/api/v0";
 /*!
  *  @brief URL for the back end server
  */
-// Production
-//static NSString *kAMAPI_HOST_PATH   =   @"http://wom.freelogue.net/api/v0";
-// Development
-//static NSString *kAMAPI_HOST_PATH   =   @"http://wom-dev.freelogue.net/";
 // Local
-static NSString *kAMAPI_HOST_PATH  =   @"http://localhost/";
+static NSString *kAMAPI_HOST_PATH   =   @"http://localhost:3000/api/v0";
+// Development
+//static NSString *kAMAPI_HOST_PATH   =   @"http://wom-dev.freelogue.net/api/v0";
+// Production
+//static NSString *kAMAPI_HOST_PATH   =   @"http://wom-v2.freelogue.net/api/v0";
+
+
 
 //static NSString *kAMAPI_BASE_PATH   =   @"api/v0";
 /*!
@@ -70,7 +70,7 @@ static NSString *kAMAPI_FLAG_CONTENT_PATH  =  @"contents/flag";
 /*!
  *  @brief Relative path for USER RESPONSE
  */
-static NSString *kAMAPI_CONTENT_RESPONSE_PATH =  @"contents/response";
+static NSString *kAMAPI_POST_CONTENT_RESPONSE_PATH =  @"contents/response";
 /*!
  *  @brief Relative path for GET_COMMENT
  */
@@ -82,7 +82,7 @@ static NSString *kAMAPI_POST_COMMENT_PATH  =  @"comments/create";
 /*!
  *  @brief Relative path for COMMENT_RESPONSE
  */
-static NSString *kAMAPI_COMMENT_RESPONSE_PATH =  @"comments/response";
+static NSString *kAMAPI_POST_COMMENT_RESPONSE_PATH =  @"comments/response";
 /*!
  *  @brief Relative path for GET_HISTORY_CONTENTS
  */
@@ -94,19 +94,19 @@ static NSString *kAMAPI_GET_HISTORY_COMMENTS_PATH =  @"history/comments";
 /*!
  *  @brief Relative path for GET_NOTIFICATIONS
  */
-static NSString *kAMAPI_GET_NOTIFICATIONS_LIST_PATH =  @"notifications/getlist";
+static NSString *kAMAPI_GET_NOTIFICATION_LIST_PATH =  @"notifications/getlist";
 /*!
  *  @brief Relative path for GET_NOTIFICATIONS_COUNT
  */
-static NSString *kAMAPI_GET_NOTIFICATIONS_COUNT_PATH =  @"notifications/count";
+static NSString *kAMAPI_GET_NOTIFICATION_COUNT_PATH =  @"notifications/count";
 /*!
  *  @brief Relative path for RESET_NOTIFICATIONS_COTENT_PATH
  */
-static NSString *kAMAPI_RESET_NOTIFICATIONS_COTENT_PATH =  @"notifications/reset/content";
+static NSString *kAMAPI_RESET_NOTIFICATION_CONTENT_PATH =  @"notifications/reset/content";
 /*!
  *  @brief Relative path for RESET_NOTIFICATIONS_COMMENT_PATH
  */
-static NSString *kAMAPI_RESET_NOTIFICATIONS_COMMENT_PATH =  @"notifications/reset/comment";
+static NSString *kAMAPI_RESET_NOTIFICATION_COMMENT_PATH =  @"notifications/reset/comment";
 
 @interface ApiManager : AFHTTPSessionManager{
 }
@@ -245,7 +245,7 @@ static NSString *kAMAPI_RESET_NOTIFICATIONS_COMMENT_PATH =  @"notifications/rese
                           success:(void (^)(ApiContent * content))success
                           failure:(void (^)(NSError *error))failure;
 
-#pragma mark -  API Calls: Response
+#pragma mark -  API Calls: Content Response
 /*!
  *  Posts response for user of viewd content
  *  @param contentId An Int for content Id
@@ -258,10 +258,20 @@ static NSString *kAMAPI_RESET_NOTIFICATIONS_COMMENT_PATH =  @"notifications/rese
                           success:(void (^)(ApiUserResponse *userResponse))success
                           failure:(void (^)(NSError *error))failure;
 
+#pragma mark -  API Calls: Content Flag
+/*!
+ *  Flags Content
+ *  @param contentId The id for comment that is flagged
+ *  @param success Returns an ApiContentFlag object
+ *  @param failure Returns error
+ */
+- (void)flagContentWithId:(int)contentId
+                                 success:(void (^)(ApiContentFlag * contentFlag))success
+                                 failure:(void (^)(NSError *error))failure;
 
 #pragma mark -  API Calls: Comment
 /*!
- *  Gets comment for given content id Gets comment for given content id
+ *  Gets comment for given content id
  *  @param mode comment order mode popular or recent. Default recent
  *  @param count number of comments
  *  @param offset the start count
@@ -276,7 +286,7 @@ static NSString *kAMAPI_RESET_NOTIFICATIONS_COMMENT_PATH =  @"notifications/rese
                         success:(void (^)(NSArray * commentArray))success
                         failure:(void (^)(NSError *error))failure;
 /*!
- *  Posts comment
+ *  Posts comment for associated content
  *  @param contentId An Int for content id
  *  @param text       NSString containing the text
  *  @param success    Returns apiComment object with all relevant parameter
@@ -287,15 +297,81 @@ static NSString *kAMAPI_RESET_NOTIFICATIONS_COMMENT_PATH =  @"notifications/rese
                          success:(void (^)(ApiComment * comment))success
                          failure:(void (^)(NSError *error))failure;
 
-#pragma mark -  API Calls: Response
+#pragma mark -  API Calls: Comment Response
 /*!
- *  Posts response for user of viewd comment
+ *  Posts response for user of viewed comment
  *  @param commentId An Int for comment Id
  *  @param success   Returns apiCommentResponse object with all relevant parameter
  *  @param failure   Returns error
  */
 - (void)postCommentResponseWithCommentId:(int)commentId
                                  success:(void (^)(ApiCommentResponse *userResponse))success
+                                 failure:(void (^)(NSError *error))failure;
+
+
+
+
+#pragma mark -  API Calls: History
+/*!
+ *  Gets content history for given user id
+ *  @param count number of contents
+ *  @param offset the start count
+ *  @param success Returns an array of contents: contentArray
+ *  @param failure Returns error
+ */
+- (void)getHistoryOfContentsWithCount:(int)count
+                               offset:(int)offset
+                              success:(void (^)(NSArray * contentArray))success
+                              failure:(void (^)(NSError *error))failure;
+/*!
+ *  Gets comment history for given user id
+ *  @param count number of comments
+ *  @param offset the start count
+ *  @param success Returns an array of comments: commentArray
+ *  @param failure Returns error
+ */
+- (void)getHistoryOfCommentsWithCount:(int)count
+                               offset:(int)offset
+                              success:(void (^)(NSArray * commentArray))success
+                              failure:(void (^)(NSError *error))failure;
+
+#pragma mark -  API Calls: Notifications
+/*!
+ *  Gets List Notification Counts for signed in user.
+ *  @param success Returns an ApiNotificationCount Object
+ *  @param failure Returns error
+ */
+- (void)getNotificationCountSuccess:(void (^)(ApiNotificationCount *))success
+                            failure:(void (^)(NSError *error))failure;
+/*!
+ *  Gets List Notifications for signed in user.
+ *  @param success Returns an array of Notifications: each item is either an ApiContent or ApiComment object
+ *  @param failure Returns error
+ */
+- (void)getNotificationListSuccess:(void (^)(NSArray * notificationArray))success
+                           failure:(void (^)(NSError *error))failure;
+/*!
+ *  Resets Content new like count by the amount specified by count param
+ *  @param contentId The id for content whose like count are to be reset
+ *  @param count the value the new like count would be decremented by. Must be >0 and less the current new like count
+ *  @param success Returns an ApiContent object with modified values
+ *  @param failure Returns error
+ */
+- (void)resetNotificationCountForContent:(int)contentId
+                               withCount:(int)count
+                                 success:(void (^)(ApiContent * content))success
+                                 failure:(void (^)(NSError *error))failure;
+
+/*!
+ *  Resets Comment new like count by the amount specified by count param
+ *  @param commentId The id for comment whose like count are to be reset
+ *  @param count the value the new like count would be decremented by. Must be >0 and less the current new like count
+ *  @param success Returns an ApiComment object with modified values
+ *  @param failure Returns error
+ */
+- (void)resetNotificationCountForComment:(int)commentId
+                               withCount:(int)count
+                                 success:(void (^)(ApiComment * comment))success
                                  failure:(void (^)(NSError *error))failure;
 
 

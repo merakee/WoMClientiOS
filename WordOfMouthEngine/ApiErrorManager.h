@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ApiErrorManager.h"
 
 /*!
  *  APIManager error codes
@@ -42,6 +41,7 @@ static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
 + (NSError *)getErrorForInternalError;
 + (NSError *)getErrorForInvalidParameters;
 + (NSError *)getErrorForSignInSaveUser;
++ (NSError *)getErrorForInvalidRequestForAnonymousUser;
 
 #pragma mark - Error Handling methods - Session and Registration
 
@@ -56,6 +56,9 @@ static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
 #pragma mark - Error Handling methods - User Response
 + (NSError *)processPostResponseError:(NSError *)error;
 
+#pragma mark - Error Handling methods - Content Flag
++ (NSError *)processFlagContentError:(NSError *)error;
+
 #pragma mark - Error Handling methods - Comment
 + (NSError *)processGetCommentError:(NSError *)error;
 + (NSError *)processPostCommentError:(NSError *)error;
@@ -63,6 +66,8 @@ static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
 #pragma mark - Error Handling methods - Comment Response
 + (NSError *)processPostCommentResponseError:(NSError *)error;
 
+#pragma mark - Error Handling methods - History
++ (NSError *)processGetHistoryError:(NSError *)error;
 
 #pragma mark - Error Handling methods - User Info
 + (NSError *)processGetProfileError:(NSError *)error;
@@ -71,4 +76,14 @@ static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
 #pragma mark - Error Handling methods - Display Method
 + (void)displayAlertWithError:(NSError *)error withDelegate:(id)delegate;
 + (void)displayAlertForAnonymousUserCannotHaveProfileWithDelegate:(id)delegate;
+
+#pragma mark - Error Handling methods - Notification
++ (NSError *)processGetNotificationListError:(NSError *)error;
++ (NSError *)processGetNotificationCountError:(NSError *)error;
+
+#pragma mark - Error Handling methods - Notification Reset
++ (NSError *)processResetNotificationContentError:(NSError *)error;
++ (NSError *)processResetNotificationCommentError:(NSError *)error;
+
+
 @end

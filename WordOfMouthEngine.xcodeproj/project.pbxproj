@@ -10,6 +10,10 @@
 		11019B94197E30EB00F94926 /* ImageProcessingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11019B93197E30EB00F94926 /* ImageProcessingManager.m */; };
 		11019B95197E30EB00F94926 /* ImageProcessingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11019B93197E30EB00F94926 /* ImageProcessingManager.m */; };
 		1107342D18BDBF8B008C941A /* AppUIAppearanceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1107342C18BDBF8B008C941A /* AppUIAppearanceManager.m */; };
+		110B67511A2A781800FB7DC5 /* ApiNotificationCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 110B67501A2A781800FB7DC5 /* ApiNotificationCount.m */; };
+		110B67521A2A781800FB7DC5 /* ApiNotificationCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 110B67501A2A781800FB7DC5 /* ApiNotificationCount.m */; };
+		110B67561A2A817400FB7DC5 /* ApiContentFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 110B67551A2A817400FB7DC5 /* ApiContentFlag.m */; };
+		110B67571A2A817400FB7DC5 /* ApiContentFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 110B67551A2A817400FB7DC5 /* ApiContentFlag.m */; };
 		1114A7F6182D8B3300089669 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1114A7F5182D8B3300089669 /* Foundation.framework */; };
 		1114A7F8182D8B3300089669 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1114A7F7182D8B3300089669 /* CoreGraphics.framework */; };
 		1114A7FA182D8B3300089669 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1114A7F9182D8B3300089669 /* UIKit.framework */; };
@@ -297,6 +301,10 @@
 		11019B93197E30EB00F94926 /* ImageProcessingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageProcessingManager.m; sourceTree = "<group>"; };
 		1107342B18BDBF8B008C941A /* AppUIAppearanceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUIAppearanceManager.h; sourceTree = "<group>"; };
 		1107342C18BDBF8B008C941A /* AppUIAppearanceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUIAppearanceManager.m; sourceTree = "<group>"; };
+		110B674F1A2A781800FB7DC5 /* ApiNotificationCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiNotificationCount.h; sourceTree = "<group>"; };
+		110B67501A2A781800FB7DC5 /* ApiNotificationCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiNotificationCount.m; sourceTree = "<group>"; };
+		110B67541A2A817400FB7DC5 /* ApiContentFlag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiContentFlag.h; sourceTree = "<group>"; };
+		110B67551A2A817400FB7DC5 /* ApiContentFlag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiContentFlag.m; sourceTree = "<group>"; };
 		1114A7F2182D8B3300089669 /* WordOfMouthEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordOfMouthEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1114A7F5182D8B3300089669 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1114A7F7182D8B3300089669 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -587,6 +595,24 @@
 			name = UtilityManagers;
 			sourceTree = "<group>";
 		};
+		110B674A1A2A77CB00FB7DC5 /* NotificationCount */ = {
+			isa = PBXGroup;
+			children = (
+				110B674F1A2A781800FB7DC5 /* ApiNotificationCount.h */,
+				110B67501A2A781800FB7DC5 /* ApiNotificationCount.m */,
+			);
+			name = NotificationCount;
+			sourceTree = "<group>";
+		};
+		110B67531A2A815700FB7DC5 /* ContentFlag */ = {
+			isa = PBXGroup;
+			children = (
+				110B67541A2A817400FB7DC5 /* ApiContentFlag.h */,
+				110B67551A2A817400FB7DC5 /* ApiContentFlag.m */,
+			);
+			name = ContentFlag;
+			sourceTree = "<group>";
+		};
 		1114A7E9182D8B3300089669 = {
 			isa = PBXGroup;
 			children = (
@@ -696,6 +722,8 @@
 		1114A827182D8D5300089669 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				110B67531A2A815700FB7DC5 /* ContentFlag */,
+				110B674A1A2A77CB00FB7DC5 /* NotificationCount */,
 				11BDC0E41A23D849002131DA /* CommentResponse */,
 				11BDC0E31A23D842002131DA /* Comment */,
 				111C659F19777CF80073D605 /* UserResponse */,
@@ -1736,12 +1764,14 @@
 				1114A806182D8B3300089669 /* AppDelegate.m in Sources */,
 				111E5970182EC53F00B7FD49 /* ApiManager.m in Sources */,
 				11CB8FC318B00B2900396418 /* SignInViewController.m in Sources */,
+				110B67561A2A817400FB7DC5 /* ApiContentFlag.m in Sources */,
 				11CB8FD518B0473500396418 /* ProfileViewController.m in Sources */,
 				1166AD901976F5C90010BFEA /* PlaceHolderFactory.m in Sources */,
 				1166AD8B1975ECDB0010BFEA /* WomSignUpViewHelper.m in Sources */,
 				11810B7C18C9419100C5246C /* CVCircleDownCounter.m in Sources */,
 				11CB8FD218B046C400396418 /* HistoryViewController.m in Sources */,
 				11FD6CED18B18C75007D318E /* ComposeViewController.m in Sources */,
+				110B67511A2A781800FB7DC5 /* ApiNotificationCount.m in Sources */,
 				11CB8FCF18B0469000396418 /* ContentViewController.m in Sources */,
 				11CB8FC818B00BB200396418 /* CoreFunctionViewController.m in Sources */,
 				11810B7218C937D000C5246C /* CVCircularProgressView.m in Sources */,
@@ -1771,6 +1801,7 @@
 				11D3702F19D5CFBB00AEF362 /* UIImageView+AnimationCompletion.m in Sources */,
 				11F269C6197848700051FA38 /* TestHelper.m in Sources */,
 				1174E0AE1991977E003251C7 /* SpectaSetUp.m in Sources */,
+				110B67571A2A817400FB7DC5 /* ApiContentFlag.m in Sources */,
 				1166AD8C1975ECDB0010BFEA /* WomSignUpViewHelper.m in Sources */,
 				11BDC0EC1A23DB0F002131DA /* ApiCommentResponse.m in Sources */,
 				1166AD881975EC640010BFEA /* WomSignUpViewController.m in Sources */,
@@ -1780,6 +1811,7 @@
 				111E5976182ECA8F00B7FD49 /* DebugTestManager.m in Sources */,
 				1166AD7B1974BEBA0010BFEA /* ApiContentManager.m in Sources */,
 				111E597E18309A6700B7FD49 /* ApiUser.m in Sources */,
+				110B67521A2A781800FB7DC5 /* ApiNotificationCount.m in Sources */,
 				1170EB01196B83A600802D4D /* ApiUserDatabaseTests.m in Sources */,
 				1166AD7F19759ED30010BFEA /* ApiValidationManager.m in Sources */,
 				11BDC0E81A23D877002131DA /* ApiComment.m in Sources */,

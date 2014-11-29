@@ -54,7 +54,7 @@ typedef enum {
  */
 @property NSNumber * likeCount;
 /*!
- * @brief  Total number of likes
+ * @brief  Total number of new likes
  */
 @property NSNumber * likeCountNew;
 /*!
@@ -91,7 +91,7 @@ typedef enum {
  *  Valdiates existence of comment properties: commentId, categoryId, text, and userId
  *  @param comment An ApiComment Object
  *  @return BOOL value indicating validity of the comment object
- *  @discussion To be valid commentId must be a positive integer (>=1) and commentTypeId must be between 1 and 4: [1 4]
+ *  @discussion To be valid commentId and contentId must be a positive integer (>=1) and must have valid text and userid
  */
 +(BOOL)isValidComment:(ApiComment *)comment;
 /*!
