@@ -29,7 +29,7 @@ static const int kAPIValidationCommentMaxLength = 200;
                                     email:(NSString *)email
                                  password:(NSString *)password;
 #pragma mark - content validation methods
-+ (NSError *)validatePostCotentWithCategoryId:(int)categoryId
++ (NSError *)validatePostContentWithCategoryId:(int)categoryId
                                           text:(NSString *)text;
 
 #pragma mark - comment validation methods

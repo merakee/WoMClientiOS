@@ -5,10 +5,9 @@
 //  Created by Bijit Halder on 11/18/13.
 //  Copyright (c) 2013 Bijit Halder. All rights reserved.
 //
-
 #import <XCTest/XCTest.h>
 #import "ApiManager.h"
-#import "AsynTextHelper.h"
+#import "AsynTestHelper.h"
 #import "PlaceHolderFactory.h"
 #import "CommonUtility.h"
 #import "TestHelper.h"
@@ -106,7 +105,7 @@
         XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
         //  user
         StartAsyncBlock();
-        [apiManager     getContentSuccess:^(NSArray *contentArray){
+        [apiManager     getContentListSuccess:^(NSArray *contentArray){
             XCTAssert([contentArray count]==20,@"There must be 20 contents");
             StopAsyncBlock();
         }

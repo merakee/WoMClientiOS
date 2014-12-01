@@ -12,7 +12,7 @@
  */
 #import <Foundation/Foundation.h>
 #import "ApiManager.h"
-#import "AsynTextHelper.h"
+#import "AsynTestHelper.h"
 
 @interface TestHelper : NSObject
 

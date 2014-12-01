@@ -88,7 +88,7 @@
 		1131DA6718B5584300EFDB34 /* SignInViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA6518B5584300EFDB34 /* SignInViewHelper.m */; };
 		1131DA7618B5657C00EFDB34 /* WomSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7218B5657C00EFDB34 /* WomSignInViewController.m */; };
 		1131DA7718B5657C00EFDB34 /* WomSignInViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7318B5657C00EFDB34 /* WomSignInViewHelper.m */; };
-		1139704719778CD9001EFF9C /* ApiRequestHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139704619778CD9001EFF9C /* ApiRequestHelperTests.m */; };
+		1144A1A81A2D6F1E006F3F98 /* ApiManagerContentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1144A1A71A2D6F1E006F3F98 /* ApiManagerContentSpec.m */; };
 		115F1B9E197492D9002262F5 /* ApiRequestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 115F1B9D197492D9002262F5 /* ApiRequestHelper.m */; };
 		115F1B9F197492D9002262F5 /* ApiRequestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 115F1B9D197492D9002262F5 /* ApiRequestHelper.m */; };
 		1163F6C91989BC4100FDE74A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 1163F6C81989BC4100FDE74A /* .gitignore */; };
@@ -96,14 +96,14 @@
 		1166AD7B1974BEBA0010BFEA /* ApiContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD791974BEBA0010BFEA /* ApiContentManager.m */; };
 		1166AD7E19759ED30010BFEA /* ApiValidationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD7D19759ED30010BFEA /* ApiValidationManager.m */; };
 		1166AD7F19759ED30010BFEA /* ApiValidationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD7D19759ED30010BFEA /* ApiValidationManager.m */; };
-		1166AD811975AD4C0010BFEA /* ApiValidationManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD801975AD4C0010BFEA /* ApiValidationManagerTests.m */; };
-		1166AD831975D79C0010BFEA /* ApiManagerValidationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD821975D79C0010BFEA /* ApiManagerValidationTests.m */; };
+		1166AD811975AD4C0010BFEA /* ApiValidationManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD801975AD4C0010BFEA /* ApiValidationManagerSpec.m */; };
 		1166AD871975EC640010BFEA /* WomSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD861975EC640010BFEA /* WomSignUpViewController.m */; };
 		1166AD881975EC640010BFEA /* WomSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD861975EC640010BFEA /* WomSignUpViewController.m */; };
 		1166AD8B1975ECDB0010BFEA /* WomSignUpViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD8A1975ECDB0010BFEA /* WomSignUpViewHelper.m */; };
 		1166AD8C1975ECDB0010BFEA /* WomSignUpViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD8A1975ECDB0010BFEA /* WomSignUpViewHelper.m */; };
 		1166AD901976F5C90010BFEA /* PlaceHolderFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD8F1976F5C90010BFEA /* PlaceHolderFactory.m */; };
 		1166AD911976F5C90010BFEA /* PlaceHolderFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1166AD8F1976F5C90010BFEA /* PlaceHolderFactory.m */; };
+		116843211A2CFCF600B42B97 /* ApiRequestHelperSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 116843201A2CFCF600B42B97 /* ApiRequestHelperSpec.m */; };
 		116D500518E3997A00579F37 /* LocalContent_FZ_DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 116D500418E3997A00579F37 /* LocalContent_FZ_DB.sqlite */; };
 		116EE32118ADA08D00C66D86 /* ContentManagerOLd.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32018ADA08D00C66D86 /* ContentManagerOLd.m */; };
 		116EE32718ADA0E100C66D86 /* AppUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32618ADA0E100C66D86 /* AppUIManager.m */; };
@@ -112,8 +112,9 @@
 		116EE33018ADA1AC00C66D86 /* AppAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32F18ADA1AC00C66D86 /* AppAnimationManager.m */; };
 		116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE33318ADB58500C66D86 /* CommonUtility.m */; };
 		1170EB01196B83A600802D4D /* ApiUserDatabaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1170EB00196B83A600802D4D /* ApiUserDatabaseTests.m */; };
-		1170EB04196C70B700802D4D /* ApiUserManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1170EB03196C70B700802D4D /* ApiUserManagerTests.m */; };
+		1170EB04196C70B700802D4D /* ApiUserManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1170EB03196C70B700802D4D /* ApiUserManagerSpec.m */; };
 		1170EB0A196DCAF600802D4D /* JSONResponseSerializerWithData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1170EB09196DCAF600802D4D /* JSONResponseSerializerWithData.m */; };
+		1171594C1A2EC1C8000CA6BC /* ApiManagerNotificationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171594B1A2EC1C8000CA6BC /* ApiManagerNotificationSpec.m */; };
 		1171CABF196917DF00B40A0E /* ApiUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CABE196917DF00B40A0E /* ApiUserManager.m */; };
 		1171CAC21969E30500B40A0E /* ApiUserDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CAC01969E30400B40A0E /* ApiUserDatabase.m */; };
 		1171CAC31969E30500B40A0E /* ApiUserDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CAC01969E30400B40A0E /* ApiUserDatabase.m */; };
@@ -123,6 +124,8 @@
 		117A269319A55EE100C9B58D /* UTILITY.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 117A269119A55EE100C9B58D /* UTILITY.ttf */; };
 		117A269519A55F0600C9B58D /* FiraSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 117A269419A55F0600C9B58D /* FiraSans-Bold.otf */; };
 		117A269619A55F0600C9B58D /* FiraSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 117A269419A55F0600C9B58D /* FiraSans-Bold.otf */; };
+		117B61541A2E4EF100FA2532 /* TestHelperSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 117B61531A2E4EF100FA2532 /* TestHelperSpec.m */; };
+		117B61561A2E522800FA2532 /* ApiManagerHisotrySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 117B61551A2E522800FA2532 /* ApiManagerHisotrySpec.m */; };
 		11810B6A18C10DD800C5246C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1114A7F7182D8B3300089669 /* CoreGraphics.framework */; };
 		11810B7218C937D000C5246C /* CVCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7118C937D000C5246C /* CVCircularProgressView.m */; };
 		11810B7518C9386F00C5246C /* CVCircularProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 11810B7418C9386F00C5246C /* CVCircularProgressLayer.m */; };
@@ -279,6 +282,7 @@
 		11F1C98D1979AB6C006DA90D /* ContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F1C98C1979AB6C006DA90D /* ContentManager.m */; };
 		11F1C98E1979AB6C006DA90D /* ContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F1C98C1979AB6C006DA90D /* ContentManager.m */; };
 		11F269C6197848700051FA38 /* TestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F269C5197848700051FA38 /* TestHelper.m */; };
+		11FAEA941A2E41A300B8A111 /* ApiManagerCommentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FAEA931A2E41A300B8A111 /* ApiManagerCommentSpec.m */; };
 		11FD6CED18B18C75007D318E /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEB18B18C75007D318E /* ComposeViewController.m */; };
 		11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */; };
 		870BD85D0FBD4E1D9F135B09 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E47A1ADCFB3478F849F074C /* libPods.a */; };
@@ -298,7 +302,7 @@
 /* Begin PBXFileReference section */
 		0E47A1ADCFB3478F849F074C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		11019B92197E30EB00F94926 /* ImageProcessingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageProcessingManager.h; sourceTree = "<group>"; };
-		11019B93197E30EB00F94926 /* ImageProcessingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageProcessingManager.m; sourceTree = "<group>"; };
+		11019B93197E30EB00F94926 /* ImageProcessingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ImageProcessingManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1107342B18BDBF8B008C941A /* AppUIAppearanceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUIAppearanceManager.h; sourceTree = "<group>"; };
 		1107342C18BDBF8B008C941A /* AppUIAppearanceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUIAppearanceManager.m; sourceTree = "<group>"; };
 		110B674F1A2A781800FB7DC5 /* ApiNotificationCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiNotificationCount.h; sourceTree = "<group>"; };
@@ -351,7 +355,7 @@
 		111E5973182ECA8F00B7FD49 /* DebugTestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugTestManager.h; sourceTree = "<group>"; };
 		111E5974182ECA8F00B7FD49 /* DebugTestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugTestManager.m; sourceTree = "<group>"; };
 		111E597B18309A6700B7FD49 /* ApiUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiUser.h; sourceTree = "<group>"; };
-		111E597C18309A6700B7FD49 /* ApiUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiUser.m; sourceTree = "<group>"; };
+		111E597C18309A6700B7FD49 /* ApiUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ApiUser.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		111FE18B199BD51E005143E0 /* FlurryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryManager.h; sourceTree = "<group>"; };
 		111FE18C199BD51E005143E0 /* FlurryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlurryManager.m; sourceTree = "<group>"; };
 		112146DD19CBBB2100346B85 /* SignInAndOutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInAndOutViewController.h; sourceTree = "<group>"; };
@@ -365,24 +369,25 @@
 		1131DA7518B5657C00EFDB34 /* WomSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WomSignInViewController.h; sourceTree = "<group>"; };
 		1137F95919ABF58000720F51 /* DrawCustomEffectsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawCustomEffectsManager.h; sourceTree = "<group>"; };
 		1137F95A19ABF58000720F51 /* DrawCustomEffectsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawCustomEffectsManager.m; sourceTree = "<group>"; };
-		1139704619778CD9001EFF9C /* ApiRequestHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiRequestHelperTests.m; sourceTree = "<group>"; };
+		1144A1A71A2D6F1E006F3F98 /* ApiManagerContentSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ApiManagerContentSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		1144A1B11A2D856C006F3F98 /* TestHelperSpec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TestHelperSpec.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		115F1B9C197492D9002262F5 /* ApiRequestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiRequestHelper.h; sourceTree = "<group>"; };
-		115F1B9D197492D9002262F5 /* ApiRequestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiRequestHelper.m; sourceTree = "<group>"; };
+		115F1B9D197492D9002262F5 /* ApiRequestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ApiRequestHelper.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1163F6C81989BC4100FDE74A /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
 		1163F6F8198AD36700FDE74A /* Gemfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile; sourceTree = "<group>"; };
 		1166AD781974BEBA0010BFEA /* ApiContentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiContentManager.h; sourceTree = "<group>"; };
 		1166AD791974BEBA0010BFEA /* ApiContentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiContentManager.m; sourceTree = "<group>"; };
 		1166AD7C19759ED30010BFEA /* ApiValidationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiValidationManager.h; sourceTree = "<group>"; };
 		1166AD7D19759ED30010BFEA /* ApiValidationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiValidationManager.m; sourceTree = "<group>"; };
-		1166AD801975AD4C0010BFEA /* ApiValidationManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiValidationManagerTests.m; sourceTree = "<group>"; };
-		1166AD821975D79C0010BFEA /* ApiManagerValidationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiManagerValidationTests.m; sourceTree = "<group>"; };
-		1166AD841975D85F0010BFEA /* AsynTextHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AsynTextHelper.h; sourceTree = "<group>"; };
+		1166AD801975AD4C0010BFEA /* ApiValidationManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiValidationManagerSpec.m; sourceTree = "<group>"; };
+		1166AD841975D85F0010BFEA /* AsynTestHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AsynTestHelper.h; sourceTree = "<group>"; };
 		1166AD851975EC640010BFEA /* WomSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WomSignUpViewController.h; sourceTree = "<group>"; };
 		1166AD861975EC640010BFEA /* WomSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WomSignUpViewController.m; sourceTree = "<group>"; };
 		1166AD891975ECDB0010BFEA /* WomSignUpViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WomSignUpViewHelper.h; sourceTree = "<group>"; };
 		1166AD8A1975ECDB0010BFEA /* WomSignUpViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WomSignUpViewHelper.m; sourceTree = "<group>"; };
 		1166AD8E1976F5C90010BFEA /* PlaceHolderFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceHolderFactory.h; sourceTree = "<group>"; };
 		1166AD8F1976F5C90010BFEA /* PlaceHolderFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceHolderFactory.m; sourceTree = "<group>"; };
+		116843201A2CFCF600B42B97 /* ApiRequestHelperSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ApiRequestHelperSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		116D500318E38FA200579F37 /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
 		116D500418E3997A00579F37 /* LocalContent_FZ_DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = LocalContent_FZ_DB.sqlite; sourceTree = "<group>"; };
 		116EE31C18ADA07500C66D86 /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
@@ -401,21 +406,24 @@
 		116EE33218ADB58500C66D86 /* CommonUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CommonUtility.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		116EE33318ADB58500C66D86 /* CommonUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CommonUtility.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		116EE33418ADB58500C66D86 /* CoreSizeDefintions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreSizeDefintions.h; sourceTree = "<group>"; };
-		116EE33518ADB58500C66D86 /* LocalMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMacros.h; sourceTree = "<group>"; };
+		116EE33518ADB58500C66D86 /* LocalMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LocalMacros.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1170EB00196B83A600802D4D /* ApiUserDatabaseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiUserDatabaseTests.m; sourceTree = "<group>"; };
-		1170EB03196C70B700802D4D /* ApiUserManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiUserManagerTests.m; sourceTree = "<group>"; };
+		1170EB03196C70B700802D4D /* ApiUserManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiUserManagerSpec.m; sourceTree = "<group>"; };
 		1170EB08196DCAF600802D4D /* JSONResponseSerializerWithData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONResponseSerializerWithData.h; sourceTree = "<group>"; };
 		1170EB09196DCAF600802D4D /* JSONResponseSerializerWithData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JSONResponseSerializerWithData.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		1171594B1A2EC1C8000CA6BC /* ApiManagerNotificationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ApiManagerNotificationSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1171CABD196917DF00B40A0E /* ApiUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiUserManager.h; sourceTree = "<group>"; };
 		1171CABE196917DF00B40A0E /* ApiUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ApiUserManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1171CAC01969E30400B40A0E /* ApiUserDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ApiUserDatabase.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		1171CAC11969E30500B40A0E /* ApiUserDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiUserDatabase.h; sourceTree = "<group>"; };
+		1171CAC11969E30500B40A0E /* ApiUserDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ApiUserDatabase.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		11720F4F18B6A83500124C9F /* ProfileViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewHelper.m; sourceTree = "<group>"; };
 		11720F5018B6A83500124C9F /* ProfileViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewHelper.h; sourceTree = "<group>"; };
 		1174E0AC1991977E003251C7 /* SpectaSetUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectaSetUp.h; sourceTree = "<group>"; };
 		1174E0AD1991977E003251C7 /* SpectaSetUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectaSetUp.m; sourceTree = "<group>"; };
 		117A269119A55EE100C9B58D /* UTILITY.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = UTILITY.ttf; sourceTree = "<group>"; };
 		117A269419A55F0600C9B58D /* FiraSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-Bold.otf"; sourceTree = "<group>"; };
+		117B61531A2E4EF100FA2532 /* TestHelperSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TestHelperSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		117B61551A2E522800FA2532 /* ApiManagerHisotrySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiManagerHisotrySpec.m; sourceTree = "<group>"; };
 		11810B7018C937D000C5246C /* CVCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVCircularProgressView.h; sourceTree = "<group>"; };
 		11810B7118C937D000C5246C /* CVCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CVCircularProgressView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		11810B7318C9386F00C5246C /* CVCircularProgressLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVCircularProgressLayer.h; sourceTree = "<group>"; };
@@ -436,7 +444,7 @@
 		11CAB42E18CA685E00FE05FD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		11CAB43118CA6C8E00FE05FD /* SQLiteAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SQLiteAPI.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		11CAB43218CA6C8E00FE05FD /* SQLiteAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SQLiteAPI.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		11CAB43518CA711C00FE05FD /* ApiContentDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiContentDatabase.h; sourceTree = "<group>"; };
+		11CAB43518CA711C00FE05FD /* ApiContentDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ApiContentDatabase.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		11CAB43618CA711C00FE05FD /* ApiContentDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ApiContentDatabase.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		11CAB43C18CA944900FE05FD /* LocalContent_DB_ori.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = LocalContent_DB_ori.sqlite; sourceTree = "<group>"; };
 		11CB8FC118B00B2900396418 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
@@ -542,8 +550,9 @@
 		11D3715819DA000000AEF362 /* S13~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S13~iphone.png"; sourceTree = "<group>"; };
 		11F1C98B1979AB6C006DA90D /* ContentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentManager.h; sourceTree = "<group>"; };
 		11F1C98C1979AB6C006DA90D /* ContentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentManager.m; sourceTree = "<group>"; };
-		11F269C4197848700051FA38 /* TestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHelper.h; sourceTree = "<group>"; };
+		11F269C4197848700051FA38 /* TestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TestHelper.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		11F269C5197848700051FA38 /* TestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestHelper.m; sourceTree = "<group>"; };
+		11FAEA931A2E41A300B8A111 /* ApiManagerCommentSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ApiManagerCommentSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		11FD6CEB18B18C75007D318E /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ComposeViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		11FD6CEC18B18C75007D318E /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		11FD6CEE18B3DCB9007D318E /* ComposeViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ComposeViewHelper.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -1000,13 +1009,15 @@
 		1170EB02196C708C00802D4D /* API */ = {
 			isa = PBXGroup;
 			children = (
+				117B61551A2E522800FA2532 /* ApiManagerHisotrySpec.m */,
+				1171594B1A2EC1C8000CA6BC /* ApiManagerNotificationSpec.m */,
+				11FAEA931A2E41A300B8A111 /* ApiManagerCommentSpec.m */,
+				1144A1A71A2D6F1E006F3F98 /* ApiManagerContentSpec.m */,
 				1127D62F197744B1004BA5B8 /* ApiManagerContentTests.m */,
-				1166AD821975D79C0010BFEA /* ApiManagerValidationTests.m */,
 				11D1B6EF183AB0690022AF62 /* ApiManagerUserSessionTests.m */,
-				1170EB03196C70B700802D4D /* ApiUserManagerTests.m */,
-				1166AD801975AD4C0010BFEA /* ApiValidationManagerTests.m */,
-				1166AD841975D85F0010BFEA /* AsynTextHelper.h */,
-				1139704619778CD9001EFF9C /* ApiRequestHelperTests.m */,
+				116843201A2CFCF600B42B97 /* ApiRequestHelperSpec.m */,
+				1170EB03196C70B700802D4D /* ApiUserManagerSpec.m */,
+				1166AD801975AD4C0010BFEA /* ApiValidationManagerSpec.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -1363,8 +1374,11 @@
 		11F269C3197848410051FA38 /* TestHelpers */ = {
 			isa = PBXGroup;
 			children = (
+				117B61531A2E4EF100FA2532 /* TestHelperSpec.m */,
+				1166AD841975D85F0010BFEA /* AsynTestHelper.h */,
 				11F269C4197848700051FA38 /* TestHelper.h */,
 				11F269C5197848700051FA38 /* TestHelper.m */,
+				1144A1B11A2D856C006F3F98 /* TestHelperSpec.h */,
 			);
 			name = TestHelpers;
 			sourceTree = "<group>";
@@ -1797,7 +1811,8 @@
 			files = (
 				11019B95197E30EB00F94926 /* ImageProcessingManager.m in Sources */,
 				11D3712F19D5E31000AEF362 /* CustomActivityIndicator.m in Sources */,
-				1170EB04196C70B700802D4D /* ApiUserManagerTests.m in Sources */,
+				1170EB04196C70B700802D4D /* ApiUserManagerSpec.m in Sources */,
+				1144A1A81A2D6F1E006F3F98 /* ApiManagerContentSpec.m in Sources */,
 				11D3702F19D5CFBB00AEF362 /* UIImageView+AnimationCompletion.m in Sources */,
 				11F269C6197848700051FA38 /* TestHelper.m in Sources */,
 				1174E0AE1991977E003251C7 /* SpectaSetUp.m in Sources */,
@@ -1805,16 +1820,19 @@
 				1166AD8C1975ECDB0010BFEA /* WomSignUpViewHelper.m in Sources */,
 				11BDC0EC1A23DB0F002131DA /* ApiCommentResponse.m in Sources */,
 				1166AD881975EC640010BFEA /* WomSignUpViewController.m in Sources */,
-				1139704719778CD9001EFF9C /* ApiRequestHelperTests.m in Sources */,
+				116843211A2CFCF600B42B97 /* ApiRequestHelperSpec.m in Sources */,
+				117B61561A2E522800FA2532 /* ApiManagerHisotrySpec.m in Sources */,
 				111C65A419777D530073D605 /* ApiUserResponse.m in Sources */,
 				115F1B9F197492D9002262F5 /* ApiRequestHelper.m in Sources */,
 				111E5976182ECA8F00B7FD49 /* DebugTestManager.m in Sources */,
 				1166AD7B1974BEBA0010BFEA /* ApiContentManager.m in Sources */,
 				111E597E18309A6700B7FD49 /* ApiUser.m in Sources */,
+				11FAEA941A2E41A300B8A111 /* ApiManagerCommentSpec.m in Sources */,
 				110B67521A2A781800FB7DC5 /* ApiNotificationCount.m in Sources */,
 				1170EB01196B83A600802D4D /* ApiUserDatabaseTests.m in Sources */,
 				1166AD7F19759ED30010BFEA /* ApiValidationManager.m in Sources */,
 				11BDC0E81A23D877002131DA /* ApiComment.m in Sources */,
+				117B61541A2E4EF100FA2532 /* TestHelperSpec.m in Sources */,
 				1166AD911976F5C90010BFEA /* PlaceHolderFactory.m in Sources */,
 				11B755BF19708BA000410604 /* ApiErrorManager.m in Sources */,
 				11D1B6F0183AB0690022AF62 /* ApiManagerUserSessionTests.m in Sources */,
@@ -1823,8 +1841,8 @@
 				111E5971182EC53F00B7FD49 /* ApiManager.m in Sources */,
 				1171CAC31969E30500B40A0E /* ApiUserDatabase.m in Sources */,
 				1127D630197744B1004BA5B8 /* ApiManagerContentTests.m in Sources */,
-				1166AD831975D79C0010BFEA /* ApiManagerValidationTests.m in Sources */,
-				1166AD811975AD4C0010BFEA /* ApiValidationManagerTests.m in Sources */,
+				1171594C1A2EC1C8000CA6BC /* ApiManagerNotificationSpec.m in Sources */,
+				1166AD811975AD4C0010BFEA /* ApiValidationManagerSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

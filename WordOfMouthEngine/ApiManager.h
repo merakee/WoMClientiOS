@@ -26,11 +26,11 @@
  *  @brief URL for the back end server
  */
 // Local
-static NSString *kAMAPI_HOST_PATH   =   @"http://localhost:3000/api/v0";
+//static NSString *kAMAPI_HOST_PATH   =   @"http://localhost:3000/api/v0";
 // Development
 //static NSString *kAMAPI_HOST_PATH   =   @"http://wom-dev.freelogue.net/api/v0";
 // Production
-//static NSString *kAMAPI_HOST_PATH   =   @"http://wom-v2.freelogue.net/api/v0";
+static NSString *kAMAPI_HOST_PATH   =   @"http://wom-v2.freelogue.net/api/v0";
 
 
 
@@ -305,7 +305,7 @@ static NSString *kAMAPI_RESET_NOTIFICATION_COMMENT_PATH =  @"notifications/reset
  *  @param failure   Returns error
  */
 - (void)postCommentResponseWithCommentId:(int)commentId
-                                 success:(void (^)(ApiCommentResponse *userResponse))success
+                                 success:(void (^)(ApiCommentResponse *commentResponse))success
                                  failure:(void (^)(NSError *error))failure;
 
 
