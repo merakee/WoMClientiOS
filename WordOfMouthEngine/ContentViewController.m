@@ -18,6 +18,8 @@
 #import "MapViewController.h"
 #import "CommentViewController.h"
 #import "ProfileViewController.h"
+#import <Social/Social.h>
+#import "NotificationViewController.h"
 
 @implementation ContentViewController {
     
@@ -32,12 +34,23 @@
                            image:nil//[UIImage imageNamed:kAUCCoreFunctionTabbarImageContent]
                            tag:0];//kCFVTabbarIndexContent];
         
-        // set color
-        //[CommonViewElementManager setTableViewBackGroundColor:self.tableView];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(receiveTestNotification:)
+                                                     name:@"TestNotification"
+                                                   object:nil];
         
     }
     return self;
 }
+- (void) receiveTestNotification:(NSNotification *) notification
+{
+    // [notification name] should always be @"TestNotification"
+    // unless you use this method for observation of other notifications
+    // as well.
+      if ([[notification name] isEqualToString:@"TestNotification"])
+        NSLog (@"Successfully received the test notification!");
+}
+
 
 #pragma mark -  View Life cycle Methods
 
@@ -177,6 +190,10 @@
     
     repliesButton = [ContentViewHelper getRepliesButton];
     [repliesButton addTarget:self action:@selector(goToCommentView:) forControlEvents:UIControlEventTouchUpInside];
+    
+    shareButton = [ContentViewHelper getShareButton];
+    [shareButton addTarget:self action:@selector(shareButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
     //    composeButton = [ContentViewHelper getComposeButton];
     //    [composeButton addTarget:self action:@selector(goToAddContentView:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -187,17 +204,6 @@
     
     //    [self.view addSubview:composeButton];
     
-//    // content view
-//    contentView = [[UIView alloc] init];
-//    //contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenW / 1.1, screenH / 2)];
-//    // contentView.backgroundColor = [UIColor yellowColor];
-//    [contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    // set textview
-//    contentBackGround = [ContentViewHelper getContentBackGroundView];
-//    [self.view addSubview:contentBackGround];
-//    contentTextView = [ContentViewHelper getContentTextViewWithDelegate:self];
-//    //[contentBackGround addSubview:contentTextView];
-//
 
     customContentView1 = [[CustomContentView alloc] init];
     customContentView2 = [[CustomContentView alloc] init];
@@ -215,7 +221,7 @@
     [self.view addSubview:spreadButton];
     [self.view addSubview:killButton];
     [self.view addSubview:repliesButton];
-
+    [self.view addSubview:shareButton];
     
     
     //    // set Textlabels and progress view
@@ -253,7 +259,7 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(spreadButton,killButton,repliesButton,customContentView1,customContentView2, infoToolBar, reportButton, viewsImage);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(spreadButton,killButton,repliesButton,customContentView1,customContentView2, infoToolBar, reportButton, viewsImage, shareButton);
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround,spreadButton,killButton,composeButton,signInOutButton);
     
 //     Content view contraints
@@ -279,21 +285,6 @@
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     
-//    // text view
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentBackGround]|"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentBackGround]|"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[nextContentBackGround]|"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[nextContentBackGround]|"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    
-//    
-//    
 //    // text view placement
 //    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[contentTextView]-16-|"
 //                                                                        options:0 metrics:nil views:viewsDictionary]];
@@ -318,25 +309,23 @@
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[killButton(spreadButton)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[repliesButton(72)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[repliesButton(72)]"
                                                                           options:0 metrics:nil views:viewsDictionary]];
-        [AppUIManager horizontallyCenterElement:repliesButton inView:self.view];
-    
+    [AppUIManager horizontallyCenterElement:repliesButton inView:self.view];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[shareButton(72)]-16-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLogo]-50-[mapButton(72)]"
     //                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[spreadButton(72)]-20-|"
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[shareButton(50)]-50-[spreadButton(72)]-20-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[killButton(spreadButton)]-20-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[infoToolBar(50)]-20-[repliesButton(72)]-5-|"
-                                                                                        options:0 metrics:nil views:viewsDictionary]];
+                                                                                    options:0 metrics:nil views:viewsDictionary]];
     
-    //    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[mapButton(72)]|"
-    //                                                                                    options:0 metrics:nil views:viewsDictionary]];
     
     // toolbar
 //    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"H:[infoToolBar]"
@@ -394,20 +383,6 @@
     [infoToolBar setShadowImage:[UIImage new]
               forToolbarPosition:UIToolbarPositionAny];
     
-//    UIBarButtonItem *reportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(goToReportMessage:)];
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 50, 20)];
-//    label.backgroundColor = [UIColor purpleColor];
-//    label.text = @"label";
-//    UIBarButtonItem *labelText = [[UIBarButtonItem alloc] initWithCustomView:label];
-//    
-//    UIImage *buttonImage = [UIImage imageNamed:@"mapicon.jpeg"];
-//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
-//    [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
-//   // button.contentMode = UIViewContentModeScaleAspectFit;
-// //   button.frame = CGRectMake(0, 0, buttonImage.size.width, buttonImage.size.height);
-//      button.frame = CGRectMake(5, 5, 50, 20);
-////    [button addTarget:self action:@selector(goToReportMessage:) forControlEvents:UIControlEventTouchUpInside];
   
     viewsImage = [ContentViewHelper getViewsImage];
     commentImage = [ContentViewHelper getCommentImage];
@@ -419,11 +394,6 @@
     UIBarButtonItem *flexibleSpace =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     reportButton = [ContentViewHelper getReportButton];
     [reportButton addTarget:self action:@selector(goToReportMessage:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //    [rButton setBackgroundImage:[UIImage imageNamed:@"mapicon.png"] forState:UIControlStateNormal];
-    
-    //    reportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(goToReportMessage:)];
-    
     
     rButton = [[UIBarButtonItem alloc] initWithCustomView:reportButton];
     vImage = [[UIBarButtonItem alloc]initWithCustomView:viewsImage];
@@ -605,14 +575,11 @@
     //  CGPoint velocity = [sender velocityInView:self.view];
     // Begin state get coordinates
     if (sender.state == UIGestureRecognizerStateBegan) {
-        
         _originX = [tcv center].x;
         _originY = [tcv center].y;
         _startingTap = [panRecognized locationInView:self.view].x;
         _startingTap2 = [panRecognized2 locationInView:self.view].x;
-       // NSLog(@"%f", _startingTap2);
- 
-        
+        _startVerticalTap = [panRecognized locationInView:customContentView1].y;
     }
     
     CGPoint translatedPoint = [(UIPanGestureRecognizer*)sender translationInView:tcv];
@@ -625,16 +592,6 @@
         sender.view.center = CGPointMake(sender.view.center.x + translation.x,
                                          sender.view.center.y);
         
-        
-        
-        //    float screenH = [CommonUtility getScreenHeight];
-        
-        //    float screenW = [CommonUtility getScreenWidth];
-        //
-        //
-        //
-        //    //       [sender setTranslation:CGPointZero inView:sender.view];
-        
         // Clear translation
         [sender setTranslation:CGPointZero inView:sender.view];
         [sender cancelsTouchesInView];
@@ -644,14 +601,15 @@
     // Use this if you need to move an object at a speed that matches the users swipe speed
     //   float usersSwipeSpeed = abs(velocity.x);
     
-    //NSLog(@"swipe speed:%f", usersSwipeSpeed);
-    
     if (sender.state == UIGestureRecognizerStateEnded) {
         //       NSLog(@"%f", velocity.x);
         float screenW = [CommonUtility getScreenWidth];
+        float screenH = [CommonUtility getScreenHeight];
         
         _endingTap = [panRecognized locationInView:self.view].x;
         _endingTap2 = [panRecognized2 locationInView:self.view].x;
+        _endVerticalTap = [panRecognized locationInView:self.view].y;
+        
        // NSLog(@"%f", _endingTap2);
         // right
         if (_endingTap - _startingTap > (screenW / 3) || _endingTap2 - _startingTap2 > (screenW / 3)) {
@@ -662,19 +620,14 @@
             // NSLog(@"Swiped left %f", distance.x);
             [self killButtonPressed:nil];
         }
-        
+//        if (_startVerticalTap - _endVerticalTap > (screenH / 4)){
+//            [self goToCommentView:self];
+//        }
         [sender setTranslation:CGPointZero inView:sender.view];
         
         
         // Snap contentView to original position
         [tcv setCenter:translatedPoint];
-        
-
-        //        CGFloat finalX = translatedPoint.x + (0.0*[(UIPanGestureRecognizer*)sender velocityInView:self.view].x);
-        //        CGFloat finalY = translatedPoint.y + (0.0*[(UIPanGestureRecognizer*)sender velocityInView:self.view].y);
-        
-        
-        
         
         //                // Use translation offset
         //                CGPoint translation = [sender translationInView:sender.view];
@@ -717,6 +670,37 @@
 //}
 
 #pragma mark - Button Action Methods
+- (void)shareButtonPressed:(id)sender {
+    NSString *message = @"Hello spark";
+    UIImage *imageToShare = ccv.contentImageView.image;
+   // ccv.contentImageView.image;
+    NSArray *postItems = @[message, imageToShare];
+    
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc]
+                                            initWithActivityItems:postItems
+                                            applicationActivities:nil];
+    
+    activityVC.excludedActivityTypes = @[UIActivityTypePostToWeibo,
+                                         // UIActivityTypeMessage,
+                                       //   UIActivityTypeMail,
+                                          UIActivityTypePrint,
+                                          UIActivityTypeCopyToPasteboard,
+                                          UIActivityTypeAssignToContact,
+                                         // UIActivityTypeSaveToCameraRoll,
+                                          UIActivityTypeAddToReadingList,
+                                          UIActivityTypePostToFlickr,
+                                          UIActivityTypePostToVimeo,
+                                          UIActivityTypePostToTencentWeibo,
+                                          UIActivityTypeAirDrop];
+    
+    [self presentViewController:activityVC animated:YES completion:nil];
+
+}
+//+ (UIActivityCategory)activityCategory
+//{
+//    return UIActivityCategoryShare;
+//}
+
 - (void)goMapView:(id)sender {
     // set add content view
     MapViewController *mvc =[[MapViewController alloc] init];
@@ -733,8 +717,8 @@
 }
 
 - (void)goToSettingsView:(id)sender {
-//    SettingsViewController *svc = [[SettingsViewController alloc] init];
-    ProfileViewController *svc = [[ProfileViewController alloc] init];
+    SettingsViewController *svc = [[SettingsViewController alloc] init];
+//    NotificationViewController *svc = [[NotificationViewController alloc] init];
     svc.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:svc animated:NO];
 }
@@ -850,13 +834,13 @@
     [self startContentLoadAnimation];
     NSLog(@"updating");
     //  UIImage *bgImage = [self dummyImage];
-       UIImage *bgImage = [ContentViewHelper getImageForContentBackGroudView];
+       bgImage = [ContentViewHelper getImageForContentBackGroudView];
     
   //  UIImage *bgImage = [UIImage imageNamed:@"freelogue-web1.png"];
  //   UIImage *bgImage2 = [UIImage imageNamed:@"319041.jpg"];
     customContentView1.contentMode = UIViewContentModeScaleToFill;
     customContentView2.contentMode = UIViewContentModeScaleToFill;
-    CustomContentView *ccv = [self getViewOnTop];
+    ccv = [self getViewOnTop];
     ccv.contentMode = UIViewContentModeScaleAspectFill;
     
     if([currentContent.photoToken isKindOfClass:[NSDictionary class]]
@@ -870,7 +854,6 @@
     }
     else{
         ccv.contentImageView.image = bgImage;
-        
         //        [contentView addSubview:contentBackGround];
         //        [self performSelector:@selector(performContentDisplayAnimation)
         //                   withObject:nil
@@ -978,7 +961,6 @@
 - (void)performUserResponseAnimationWithResponse:(BOOL)response{
     //isAnimationActive=YES;
     contentView.hidden = YES;
-    nextContentView.hidden = YES;
     //    [ContentViewHelper animateViews:@[contentBackGround, contentTextView,spreadButton,killButton,animationView,spreadAnimationView,killAnimationView]
     //                    forUserResponse:response
     //                    withFinalAction:^(){
@@ -1017,7 +999,6 @@
     killButton.hidden=NO;
     //    composeButton.hidden=NO;
     contentView.hidden=NO;
-    nextContentView.hidden=NO;
     //   mapButton.hidden=NO;
 }
 
@@ -1038,6 +1019,7 @@
     //                                             [self postResponse:true];
     //                                         }];
        [self swapCustomContentView:[self getViewOnTop]];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"TestNotification" object:nil];
 }
 - (void) killButtonPressed:(id)sender {
  //   [self swapCustomContentView:customContentView1];

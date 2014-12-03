@@ -40,15 +40,11 @@
     UITextView              *contentTextView;
     UIImageView             *contentBackGround;
     
-    UIView                  *nextContentView;
-    UITextView              *nextContentTextView;
-    UIImageView             *nextContentBackGround;
-    
     BOOL               isAnimationActive;
     
     CustomContentView  *customContentView1;
     CustomContentView  *customContentView2;
-    
+    CustomContentView   *ccv;
     //UIImageView         *pageLogo;
     
     //UIImageView         *userImage;
@@ -67,6 +63,9 @@
     UIBarButtonItem *cImage;
     UIBarButtonItem *vCount;
     UIBarButtonItem *cCount;
+
+    UIButton        *shareButton;
+    UIImage         *bgImage;
     // circular timer
     // CVCircularProgressView      *progressClock;
     //CVCircleCounterView         *progressCounter;
@@ -97,6 +96,8 @@
 @property (nonatomic) CGFloat startingTap2;
 @property (nonatomic) CGFloat endingTap2;
 
+@property (nonatomic) CGFloat startVerticalTap;
+@property (nonatomic) CGFloat endVerticalTap;
 
 @property CGPoint startPoint;
 @property CGPoint endPoint;

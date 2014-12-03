@@ -10,4 +10,7 @@
 
 @interface NotificationViewHelper : NSObject
 
++ (UILabel *)      getNotificationLabel;
++ (UIImageView *)  getNotificationImage;
+
 @end

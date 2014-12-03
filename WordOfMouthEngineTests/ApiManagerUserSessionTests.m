@@ -58,7 +58,7 @@
     [apiManager signUpUserWithUserTypeId:kAPIUserTypeAnonymous
                                    email:nil
                                 password:nil
-                  //  passwordConfirmation:nil
+                    passwordConfirmation:nil
                                  success:^(){
                                      StopAsyncBlock();
                                  }
@@ -84,7 +84,7 @@
     [apiManager signUpUserWithUserTypeId:kAPIUserTypeAnonymous
                                    email:nil
                                 password:nil
-                //    passwordConfirmation:nil
+                    passwordConfirmation:nil
                                  success:^(){
                                      StopAsyncBlock();
                                  }
@@ -112,7 +112,7 @@
     [apiManager signUpUserWithUserTypeId:user.userTypeId.intValue
                                    email:user.email
                                 password:@"password"
-                 //   passwordConfirmation:@"password"
+                    passwordConfirmation:@"password"
                                  success:^(){
                                      XCTAssert([apiManager isUserSignedIn], @"User should  be signed in");
                                      XCTAssertEqual([apiManager currentUser].userTypeId.integerValue, user.userTypeId.integerValue);
@@ -141,7 +141,7 @@
     [apiManager signUpUserWithUserTypeId:user.userTypeId.intValue
                                    email:user.email
                                 password:@"password"
-                //    passwordConfirmation:@"password"
+                    passwordConfirmation:@"password"
                                  success:^(){
                                      XCTAssert([apiManager isUserSignedIn], @"User should  be signed in");
                                      XCTAssertEqual([apiManager currentUser].userTypeId.integerValue, user.userTypeId.integerValue);

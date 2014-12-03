@@ -32,12 +32,12 @@
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(likeButton,commentCellLabel, likeCount);
     
     // like Button
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[likeButton]-5-[likeCount]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[likeButton(15)]-1-[likeCount(5)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     // Comment label
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentCellLabel]-20-[likeButton(18)]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentCellLabel]-20-[likeButton(15)]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentCellLabel]-20-[likeCount]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentCellLabel]-20-[likeCount(15)]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
 
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[commentCellLabel]-2-|"                                                                      options:0 metrics:nil views:viewsDictionary]];

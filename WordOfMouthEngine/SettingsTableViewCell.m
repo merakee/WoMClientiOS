@@ -9,15 +9,25 @@
 #import "SettingsTableViewCell.h"
 
 @implementation SettingsTableViewCell
-
-- (void)awakeFromNib {
-    // Initialization code
+@synthesize accessoryImage;
+- (id)init {
+    if (self = [super init]) {
+        [self setView];
+    }
+    return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+-(void)setView{
+    accessoryImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapicon.jpeg"]];
+    accessoryImage.contentMode = UIViewContentModeScaleAspectFill;
+    [accessoryImage setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self addSubview:self.accessoryImage];
+    
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(accessoryImage);
+    
+    // like Button
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[accessoryImage(15)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[accessoryImage(15)]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
 }
 
 @end

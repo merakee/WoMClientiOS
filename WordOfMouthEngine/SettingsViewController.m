@@ -13,29 +13,22 @@
 #import "FlurryManager.h"
 #import "SignInAndOutViewController.h"
 #import "HistoryViewController.h"
+#import "SettingsTableViewCell.h"
 
 @implementation SettingsViewController {
 
 }
 
 #pragma mark -  init methods
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    if (self = [super initWithStyle:style]) {
-        // set tab bar
+
+- (id)init{
+    if (self = [super init]) {
         self.tabBarItem = [[UITabBarItem alloc]
                            initWithTitle:@"Settings"
                            image:nil//[UIImage imageNamed:kAUCCoreFunctionTabbarImageSettings]
                            tag:0];//kCFVTabbarIndexSettings];
-        
-        // set color
-        //[CommonViewElementManager setTableViewBackGroundColor:self.tableView];
-        
     }
     return self;
-}
-- (id)init {
-    return [self initWithStyle:UITableViewStyleGrouped];
 }
 
 #pragma mark -  View Life cycle Methods
@@ -43,7 +36,6 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
     [super loadView];
-    // view customization code
     [self setView];
 }
 
@@ -83,25 +75,48 @@
 #pragma mark -  Local Methods Implememtation
 - (void)setView {
     
-     self.navigationController.toolbarHidden = YES;
-    self.title = @"enter a title";
-    // Create table view with certain style
-    self.settingsTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    // Inset of cell seperators
-    [self.settingsTableView setSeparatorInset:UIEdgeInsetsZero];
-    [self.settingsTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLineEtched];
+    self.navigationController.toolbarHidden = YES;
+    self.title = @"Settings";
+    self.view.backgroundColor = [UIColor whiteColor];
     
-    // must set delegate & dataSource, otherwise the the table will be empty and not responsive
-   self.settingsTableView.delegate = self;
-   self.settingsTableView.dataSource = self;
+    [self setupTableView];
+    [self.view addSubview:settingsTableView];
+    [self layoutView];
+}
+- (void)layoutView{
     
-    self.settingsTableView.backgroundColor = [UIColor whiteColor];
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(settingsTableView);
     
-    //make sure our table view resizes correctly
-    self.settingsTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[settingsTableView(320)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[settingsTableView]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+
+}
+
+- (void) setupTableView{
+//    settingsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+    settingsTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+   // settingsTableView.style = UITableViewStyleGrouped;
+    settingsTableView.delegate = self;
+    settingsTableView.dataSource = self;
+    [settingsTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    settingsTableView.backgroundColor = [UIColor lightGrayColor];
+   
+    // ios7
+    if ([ settingsTableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [ settingsTableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    // ios 8
+    if ([ settingsTableView respondsToSelector:@selector(layoutMargins)]) {
+         settingsTableView.layoutMargins = UIEdgeInsetsZero;
+    }
+
+    // [self.settingsTableView setSeparatorColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"mapicon.jpeg"]]];
+    [settingsTableView setSeparatorColor:[UIColor greenColor]];
+
+    settingsTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
-    // add to canvas
-    [self.view addSubview:self.settingsTableView];
+
 }
 
 - (void)LoginOutButtonPressed{
@@ -145,7 +160,7 @@
         return 1;
     }
     else if (section == 1){
-    return 3;
+    return 4;
     }
     return 0;
 }
@@ -153,16 +168,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    SettingsViewHelper *cell = (SettingsViewHelper *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    SettingsTableViewCell *cell = (SettingsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
-    // Configure the cell...
     if (!cell) {
-        cell = [[SettingsViewHelper alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
+//        cell = [[SettingsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[SettingsTableViewCell alloc] init];
+        }
   
-//    cell.textLabel.textColor = [UIColor redColor];
-//    cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12.0f];
-//    cell.textLabel.backgroundColor = [UIColor orangeColor];
     if (indexPath.section == 0){
         cell.textLabel.text = @"History";
     }
@@ -173,37 +185,42 @@
             cell.textLabel.text = @"Sign in";
             break;
         case 1:
-            cell.textLabel.text = @"History";
+            cell.textLabel.text = @"Contact";
             break;
         case 2:
-            cell.textLabel.text = @"Terms and Conditions";
+            cell.textLabel.text = @"Rate";
             break;
         default:
             break;
+        case 3:
+            cell.textLabel.text = @"Share";
+            break;
     }
- 
+    if ([cell respondsToSelector:@selector(layoutMargins)]) {
+        cell.layoutMargins = UIEdgeInsetsZero;
+    }
     
     return cell;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 60;
+}
 #pragma mark - Customize cell
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12.0f];
  //   cell.backgroundColor = [UIColor greenColor]; //must do here in willDisplayCell
  //   cell.textLabel.backgroundColor = [UIColor redColor]; //must do here in willDisplayCell
-    cell.textLabel.textColor = [UIColor yellowColor]; //can do here OR in cellForRowAtIndexPath
-    tableView.separatorColor = [UIColor orangeColor];
+    cell.textLabel.textColor = [UIColor blueColor]; //can do here OR in cellForRowAtIndexPath
     // Arrow on right side of tableview
 //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 //    cell.accessoryView.backgroundColor = [UIColor purpleColor];
     // Image for accessory View, size should be 25x25
-     UIImageView *accessoryImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapicon.jpeg"]];
-    [accessoryImage setFrame:CGRectMake(0, 0, 28.0, 28.0)];
-    accessoryImage.contentMode = UIViewContentModeScaleAspectFit;
-    cell.accessoryView = accessoryImage;
-    
-//    cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapicon.jpeg"]];
+//     UIImageView *accessoryImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapicon.jpeg"]];
+//    [accessoryImage setFrame:CGRectMake(0, 0, 28.0, 28.0)];
+//    accessoryImage.contentMode = UIViewContentModeScaleAspectFit;
+//    cell.accessoryView = accessoryImage;
 }
 
 #pragma mark -  Table view delegate
@@ -260,55 +277,6 @@
             break;
     }
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
- */
 
 @end

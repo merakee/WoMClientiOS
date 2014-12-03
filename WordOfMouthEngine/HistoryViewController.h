@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppUIManager.h"
+#import "ApiManager.h"
+#import "FlurryManager.h"
 
-@interface HistoryViewController : UITableViewController{
-    
+@interface HistoryViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+{
+    UITableView             *historyTableView;
 }
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
 
 @end

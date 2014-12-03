@@ -10,9 +10,9 @@
 #import "AppUIManager.h"
 #import "ApiContent.h"
 
-@interface SettingsViewHelper : UITableViewCell
+@interface SettingsViewHelper : NSObject
 #pragma mark -  View Helper Methods: Views
-+ (void)setView:(UIView *)view;
+//+ (void)setView:(UIView *)view;
 
 #pragma mark - Setting Buttons
 //@property (nonatomic, strong) UILabel *getLoginOutLabel;

@@ -7,17 +7,29 @@
 //
 
 #import "NotificationTableViewCell.h"
+#import "NotificationViewHelper.h"
 
 @implementation NotificationTableViewCell
+@synthesize notificationLabel;
+@synthesize notificationImageView;
 
-- (void)awakeFromNib {
-    // Initialization code
+- (id)init {
+    if (self = [super init]) {
+        [self setView];
+    }
+    return self;
 }
+- (void)setView{
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+    
+    self.notificationImageView = [NotificationViewHelper getNotificationImage];
+    [self addSubview:notificationImageView];
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(notificationImageView);
+    
+    // notification image
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[notificationImageView(18)]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[notificationImageView(18)]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
 
-    // Configure the view for the selected state
 }
 
 @end

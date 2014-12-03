@@ -186,7 +186,7 @@
     [[ApiManager sharedApiManager] signUpUserWithUserTypeId:kAPIUserTypeWom
                                                       email:emailField.text
                                                    password:passwordField.text
-                              //         passwordConfirmation:passwordConfirmationField.text
+                                       passwordConfirmation:passwordConfirmationField.text
                                                     success:^(void){
                                                         [activityIndicator stopAnimating];
                                                         [self actionsForSuccessfulUserSignUp];

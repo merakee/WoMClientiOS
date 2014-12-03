@@ -59,6 +59,16 @@ static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 + (UIButton *)getXButton;
 + (UIButton *)getCheckButton;
 + (UIButton *)getBackgroundButton;
++ (UIButton *)getKeyboardButton;
 
+#pragma mark - text color buttons
++ (UIButton *)getColor1;
++ (UIButton *)getColor2;
++ (UIButton *)getColor3;
++ (UIButton *)getColor4;
++ (UIButton *)getColor5;
+
+#pragma mark - Toolbars
+//+ (UIToolbar *)getKeyboardToolbar;
 
 @end

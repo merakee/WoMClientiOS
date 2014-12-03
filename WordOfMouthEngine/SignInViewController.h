@@ -29,7 +29,6 @@
     //UIImageView        *buttonsView;
 
     UIPageViewController *pageViewController;
-    
     NSArray *tutorialImages;
 }
 //@property (nonatomic, strong) NSArray *tutorialImages;

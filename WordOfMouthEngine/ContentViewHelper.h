@@ -52,6 +52,7 @@ static NSString *kAUCPageLogoImage =@"logo-nav.png";
 + (UIButton *)getDismissButton;
 + (UIButton *)getRepliesButton;
 + (UIButton *)getMapButton;
++ (UIButton *)getShareButton;
 
 #pragma mark - Text label mathods
 //+ (UILabel *)getTextLabelForSpreadCount;

@@ -130,6 +130,7 @@ const static CGFloat kAUCFontSizeDescriptionText = 16.0;
 const static CGFloat kAUCFontSizeLoginText = 16.0;
 const static CGFloat kAUCFontSizeRepliesText = 16.0;
 
+const static CGFloat kAUCFontSizeLikeLabel = 12.0;
 // Other style
 const static float kAUCRectCornerRadius = 4.0;
 const static float kAUCRectBorderWidth = 1.0;
@@ -214,7 +215,7 @@ const static float kAUCAppContentTimerWarning = 5.0;
 // SignIn Images
 static NSString *kAUCCancelButtonImage =@"close-btn.png";
 static NSString *kAUCLogInButtonImage =@"login-nav-btn.png";
-
+static NSString *kAUCTermsButtonImage =@"Privacy-policy-Terms.png";
 
 
 

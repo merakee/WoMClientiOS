@@ -106,7 +106,7 @@
         XCTAssert([apiManager isUserSignedIn], @"User should be signed in");
         //  user
         StartAsyncBlock();
-        [apiManager     getContentSuccess:^(NSArray *contentArray){
+        [apiManager     getContentListSuccess:^(NSArray *contentArray){
             XCTAssert([contentArray count]==20,@"There must be 20 contents");
             StopAsyncBlock();
         }
@@ -134,11 +134,11 @@
     XCTAssert(content.userId&&content.userId.integerValue>1,@"Must be postive integer");
     XCTAssert(content.contentText&&[content.contentText length]>kAPIValidationContentMinLength && [content.contentText length]<kAPIValidationContentMinLength,@"Must be of valid length");
     XCTAssertNotNil(content.photoToken,@"Must not be nil");
-    XCTAssertNotNil(content.timeStamp,@"Must not be nil");
+    XCTAssertNotNil(content.createdAt,@"Must not be nil");
     XCTAssertNotNil(content.totalSpread,@"Must not be nil");
     XCTAssertNotNil(content.spreadCount,@"Must not be nil");
     XCTAssertNotNil(content.killCount,@"Must not be nil");
-    XCTAssertNotNil(content.noResponseCount,@"Must not be nil");
+    XCTAssertNotNil(content.commentCount,@"Must not be nil");
 }
 
 #pragma mark - Response

@@ -169,14 +169,12 @@
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCSpreadButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Replies"];
-    //    NSLog(@"2, %@", button);
     return button;
 }
 + (UIButton *)getMapButton {
      UIButton *button = [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCMapButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Map"];
-  //  NSLog(@"1, %@", button);
     return button;
 }
 + (UIButton *)getSpreadButton{
@@ -184,7 +182,6 @@
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCSpreadButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Spread"];
-//    NSLog(@"2, %@", button);
     return button;
     
 }
@@ -195,7 +192,6 @@
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCKillButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Kill"];
-//    NSLog(@"3, %@", button);
     return button;
 }
 
@@ -206,10 +202,15 @@
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCComposeButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Compose"];
-//    NSLog(@"4, %@", button);
     return button;
 }
 
++ (UIButton *)getShareButton{
+    UIButton *button = [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCComposeButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Share"];
+    return button;
+}
 
 
 + (UIButton *)getPageLogoButton{

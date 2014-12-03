@@ -73,7 +73,6 @@
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposeSession] withParameters:nil timed:YES];
     // display key board
-//    [composeTextView becomeFirstResponder];
     [self textViewDidChange:composeTextView];
 }
 
@@ -174,6 +173,7 @@
     // layout
     [self layoutView];
     
+    [self addGesture];
     // scroll adjustment
     //self.automaticallyAdjustsScrollViewInsets = NO;
    
@@ -224,35 +224,14 @@
     [AppUIManager horizontallyCenterElement:placeHolderLabel inView:self.view];
     
     // compose tool bar
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[composeToolBar(320)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[composeToolBar]-5-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[composeToolBar(50)]-5-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[composeToolBar]-15-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
-    
 }
 
 - (void)setNavigationBar {
-    //self.navigationItem.title =@"WoM";
-//    self.navigationItem.titleView = [AppUIManager getAppLogoViewForNavTitle];
-    // set up navigation bar
-    //    self.navigationItem.titleView = [[UIBarButtonItem alloc]
-    //                                     initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
-    //                                     target:self
-    //                                     action:@selector(addPicture:)];
-    
-    // right navigation button
-//    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc]
-//                                                 initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
-//                                                 target:self
-//                                                 action:@selector(showPhotoOptions:)],
-//                                                [[UIBarButtonItem alloc]
-//                                                 initWithTitle:@"Post"
-//                                                 style:UIBarButtonItemStyleDone
-//                                                 target:self
-//                                                 action:@selector(postContent:)]
-//                                                ];
-    
     // character count label
     characterCount = [ComposeViewHelper getCharacterCountLabel];
     
@@ -281,43 +260,6 @@
                                               target:self
                                               action:@selector(goBack:)];
 }
-- (void)setToolBar {
-    
-    float screenW = [CommonUtility getScreenWidth];
-    //   infoToolBar = [[UIToolbar alloc] init];
-    composeToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenW, 50)];
-    //    infoToolBar = [[UIToolbar alloc] init];
-    //   infoToolBar.frame = CGRectMake(0,  44, self.view.frame.size.width, 44);
-    composeToolBar.backgroundColor = [UIColor clearColor];
-    composeToolBar.tintColor = [UIColor orangeColor];
-    composeToolBar.translucent = YES;
-    // Make toolbar clear
-    [composeToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [composeToolBar setBackgroundImage:[UIImage new]
-                 forToolbarPosition:UIBarPositionAny
-                         barMetrics:UIBarMetricsDefault];
-    [composeToolBar setShadowImage:[UIImage new]
-             forToolbarPosition:UIToolbarPositionAny];
-    
-    textButton = [ComposeViewHelper getTextButton];
-    [textButton addTarget:self action:@selector(textButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    imageButton = [ComposeViewHelper getImageButton];
-    [imageButton addTarget:self action:@selector(imageButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    filterButton = [ComposeViewHelper getFilterButton];
-    [filterButton addTarget:self action:@selector(filterButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-
-    UIBarButtonItem *flexibleSpace =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-
-//    textBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(textButtonPressed:)];
-    textBarButton = [[UIBarButtonItem alloc] initWithCustomView:textButton];
-   imageBarButton = [[UIBarButtonItem alloc] initWithCustomView:imageButton];
-    filterBarButton = [[UIBarButtonItem alloc] initWithCustomView:filterButton];
-
-    NSArray *buttonItems = [NSArray arrayWithObjects:textBarButton, flexibleSpace, imageBarButton, flexibleSpace, filterBarButton, nil];
-    [composeToolBar setItems:buttonItems];
-    [self.view addSubview:composeToolBar];
-    
-}
 //- (void)registerForKeyboardNotifications {
 //    [[NSNotificationCenter defaultCenter] addObserver:self
 //                                             selector:@selector(createAccessoryView:)
@@ -339,55 +281,6 @@
 //                                                    name:UIKeyboardWillHideNotification
 //                                                  object:nil];
 //}
-- (void)createAccessoryView{
-    
-    float screenW = [CommonUtility getScreenWidth];
-    keyboardToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenW, 50)];
-//    accView = [[UIView alloc] initWithFrame:CGRectMake(10.0, 300, 320.0, 40.0)];
-
-    keyboardToolBar.backgroundColor = [UIColor clearColor];
-    keyboardToolBar.tintColor = [UIColor orangeColor];
-    keyboardToolBar.translucent = YES;
-    // Make toolbar clear
-    [keyboardToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [keyboardToolBar setBackgroundImage:[UIImage new]
-                    forToolbarPosition:UIBarPositionAny
-                            barMetrics:UIBarMetricsDefault];
-    [keyboardToolBar setShadowImage:[UIImage new]
-                forToolbarPosition:UIToolbarPositionAny];
-    
-    [composeTextView becomeFirstResponder];
-    [accView setBackgroundColor:[UIColor lightGrayColor]];
-   
-    xButton = [ComposeViewHelper getXButton];
-    checkButton = [ComposeViewHelper getCheckButton];
-    backgroundButton = [ComposeViewHelper getBackgroundButton];
-      // [self.view addSubview:accView];
-//    [accView addSubview:xButton];
-//    [accView addSubview:checkButton];
-//    [accView addSubview:backgroundButton];
-//    
-//     [composeTextView setInputAccessoryView:accView];
-    
-    xBarButton = [[UIBarButtonItem alloc] initWithCustomView:xButton];
-    checkBarButton = [[UIBarButtonItem alloc] initWithCustomView:checkButton];
-    backgroundBarButton = [[UIBarButtonItem alloc] initWithCustomView:backgroundButton];
-    
-    UIBarButtonItem *flexibleSpace =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    
-    NSArray *buttonItems = [NSArray arrayWithObjects:xBarButton, flexibleSpace, checkBarButton, flexibleSpace, backgroundBarButton, nil];
-     [keyboardToolBar setItems:buttonItems];
-}
-
-    
-- (void)searchImage{
-    NSString *searchString = searchTextField.text;
-    NSString *urlAddress = [NSString stringWithFormat:@"http://www.google.com/search?q=%@",searchString];
-    NSURL *url = [NSURL URLWithString:urlAddress];
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    [webView loadRequest:requestObj];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlAddress]];
-}
 
 - (void)updateViewForCategory:(kAPIContentCategory)category{
     //[ComposeViewHelper updateCategoryControl:categoryControl forCategory:category];
@@ -440,109 +333,226 @@
 //    //    }
 //}
 
+#pragma mark - Bottom ToolBar Buttons
+- (void)setToolBar {
+  //  float screenW = [CommonUtility getScreenWidth];
+  // composeToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenW, 50)];
+    composeToolBar = [[UIToolbar alloc] init];
+    
+    composeToolBar.backgroundColor = [UIColor clearColor];
+    composeToolBar.tintColor = [UIColor orangeColor];
+    composeToolBar.translucent = YES;
+    // Make toolbar clear
+    [composeToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [composeToolBar setBackgroundImage:[UIImage new]
+                    forToolbarPosition:UIBarPositionAny
+                            barMetrics:UIBarMetricsDefault];
+    [composeToolBar setShadowImage:[UIImage new]
+                forToolbarPosition:UIToolbarPositionAny];
+    
+    textButton = [ComposeViewHelper getTextButton];
+    [textButton addTarget:self action:@selector(textButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    imageButton = [ComposeViewHelper getImageButton];
+    [imageButton addTarget:self action:@selector(imageButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    filterButton = [ComposeViewHelper getFilterButton];
+    [filterButton addTarget:self action:@selector(filterButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *flexibleSpace =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    //    textBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(textButtonPressed:)];
+    textBarButton = [[UIBarButtonItem alloc] initWithCustomView:textButton];
+    imageBarButton = [[UIBarButtonItem alloc] initWithCustomView:imageButton];
+    filterBarButton = [[UIBarButtonItem alloc] initWithCustomView:filterButton];
+    
+    NSArray *mainButtonItems = [NSArray arrayWithObjects:flexibleSpace, textBarButton, flexibleSpace, imageBarButton, flexibleSpace, nil];
+    [composeToolBar setItems:mainButtonItems];
+    [self.view addSubview:composeToolBar];
+}
+
+- (void)textButtonPressed:(id)sender {
+    [self keyboardOptions];
+    NSLog(@"text pressed");
+}
+
+- (void)imageButtonPressed:(id)sender {
+    [self imageOptions];
+    NSLog(@"image pressed");
+}
+
+- (void)filterButtonPressed:(id)sender {
+    [self filterOptions];
+    NSLog(@"filter pressed");
+}
+
+#pragma mark - Keyboard Toolbar Options
+- (void)addKeyboardToolBar{
+    keyboardToolBar = [[UIToolbar alloc] init];
+    
+    keyboardToolBar.backgroundColor = [UIColor clearColor];
+    keyboardToolBar.tintColor = [UIColor orangeColor];
+    keyboardToolBar.translucent = YES;
+    // Make toolbar clear
+    [keyboardToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [keyboardToolBar setBackgroundImage:[UIImage new]
+                     forToolbarPosition:UIBarPositionAny
+                             barMetrics:UIBarMetricsDefault];
+    [keyboardToolBar setShadowImage:[UIImage new]
+                 forToolbarPosition:UIToolbarPositionAny];
+    
+    xButton = [ComposeViewHelper getXButton];
+    [xButton addTarget:self action:@selector(cancelText:) forControlEvents:UIControlEventTouchUpInside];
+    checkButton = [ComposeViewHelper getCheckButton];
+    [checkButton addTarget:self action:@selector(confirmText:) forControlEvents:UIControlEventTouchUpInside];
+    backgroundButton = [ComposeViewHelper getBackgroundButton];
+    [backgroundButton addTarget:self action:@selector(getTextColor:) forControlEvents:UIControlEventTouchUpInside];
+    keyboardButton = [ComposeViewHelper getKeyboardButton];
+    [keyboardButton addTarget:self action:@selector(keyboardButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    xBarButton = [[UIBarButtonItem alloc] initWithCustomView:xButton];
+    checkBarButton = [[UIBarButtonItem alloc] initWithCustomView:checkButton];
+    backgroundBarButton = [[UIBarButtonItem alloc] initWithCustomView:backgroundButton];
+    keyboardBarButton = [[UIBarButtonItem alloc] initWithCustomView:keyboardButton];
+    
+    UIBarButtonItem *flexibleSpace =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    buttonItems = [NSArray arrayWithObjects:xBarButton, flexibleSpace, backgroundBarButton, keyboardBarButton, flexibleSpace, checkBarButton, nil];
+    [keyboardToolBar setItems:buttonItems];
+}
+
+- (void)keyboardOptions{
+    //  composeTextView.backgroundColor = [UIColor redColor];
+    [self addKeyboardToolBar];
+    [composeTextView becomeFirstResponder];
+}
+- (void)addColorKeyboardToolBar{
+    colorKeyboardToolBar = [[UIToolbar alloc] init];
+    
+    colorKeyboardToolBar.backgroundColor = [UIColor clearColor];
+    colorKeyboardToolBar.tintColor = [UIColor orangeColor];
+    colorKeyboardToolBar.translucent = YES;
+    // Make toolbar clear
+    [colorKeyboardToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [colorKeyboardToolBar setBackgroundImage:[UIImage new]
+                          forToolbarPosition:UIBarPositionAny
+                                  barMetrics:UIBarMetricsDefault];
+    [colorKeyboardToolBar setShadowImage:[UIImage new]
+                      forToolbarPosition:UIToolbarPositionAny];
+    [colorKeyboardToolBar setItems:buttonItems];
+}
+- (void)getTextColor:(id)sender {
+    [composeTextView endEditing:YES];
+    color1 = [ComposeViewHelper getColor1];
+    [color1 addTarget:self action:@selector(color1Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    color2 = [ComposeViewHelper getColor2];
+    [color2 addTarget:self action:@selector(color2Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    color3 = [ComposeViewHelper getColor3];
+    [color3 addTarget:self action:@selector(color3Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    color4 = [ComposeViewHelper getColor4];
+    [color4 addTarget:self action:@selector(color4Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    color5 = [ComposeViewHelper getColor5];
+    [color5 addTarget:self action:@selector(color5Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    [color1 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [color2 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [color3 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [color4 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [color5 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    [self.view addSubview:color1];
+    [self.view addSubview:color2];
+    [self.view addSubview:color3];
+    [self.view addSubview:color4];
+    [self.view addSubview:color5];
+    [self addColorKeyboardToolBar];
+    [self.view addSubview:colorKeyboardToolBar];
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(colorKeyboardToolBar, color1, color2, color3, color4, color5);
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar]-5-[color1]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar]-5-[color2]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar]-5-[color3]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar]-5-[color4]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar]-5-[color5]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[colorKeyboardToolBar]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    // color buttons
+     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[color1]-15-[color2]-15-[color3]-15-[color4]-15-[color5]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    colorKeyboardToolBar.hidden = NO;
+    color1.hidden = NO;
+    color2.hidden = NO;
+    color3.hidden = NO;
+    color4.hidden = NO;
+    color5.hidden = NO;
+    
+    colorKeyboardToolBar.backgroundColor = [UIColor greenColor];
+}
+
+- (void)keyboardButtonPressed:(id)sender{
+    [self keyboardOptions];
+    colorKeyboardToolBar.hidden = YES;
+    color1.hidden = YES;
+    color2.hidden = YES;
+    color3.hidden = YES;
+    color4.hidden = YES;
+    color5.hidden = YES;
+}
+
+- (void)cancelText:(id)sender{
+    colorKeyboardToolBar.hidden = YES;
+    color1.hidden = YES;
+    color2.hidden = YES;
+    color3.hidden = YES;
+    color4.hidden = YES;
+    color5.hidden = YES;
+    composeTextView.text = @"";
+    [self disableKeyBoard];
+}
+
+- (void)confirmText:(id)sender{
+    colorKeyboardToolBar.hidden = YES;
+    color1.hidden = YES;
+    color2.hidden = YES;
+    color3.hidden = YES;
+    color4.hidden = YES;
+    color5.hidden = YES;
+    [self disableKeyBoard];
+}
+
+#pragma mark - Color options
+- (void)color1Pressed:(id)sender{
+    composeTextView.textColor = [UIColor whiteColor];
+}
+- (void)color2Pressed:(id)sender{
+    composeTextView.textColor = [UIColor blackColor];
+}
+- (void)color3Pressed:(id)sender{
+    composeTextView.textColor = [UIColor yellowColor];
+}
+- (void)color4Pressed:(id)sender{
+    composeTextView.textColor = [UIColor redColor];
+}
+- (void)color5Pressed:(id)sender{
+    composeTextView.textColor = [UIColor blueColor];
+}
+#pragma mark - textview delegate methods
 - (void)disableKeyBoard{
     // disable keyboard
     [composeTextView resignFirstResponder];
-    composeTextView.inputAccessoryView = nil;
+    //composeTextView.inputAccessoryView = nil;
 }
-#pragma mark - Input Accessory View
-
-- (void)cancelText{
-    [composeTextView resignFirstResponder];
-}
-//- (void)createInputAccessoryView{
-//    inputAccView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 200.0, 310.0, 40.0)];
-//    [inputAccView setBackgroundColor:[UIColor yellowColor]];
-//    [inputAccView setAlpha: 0.8];
-//    [self.view addSubview:inputAccView];
-//    cancelButton = [ComposeViewHelper getCancelButton];
-//    doneButton = [ComposeViewHelper getDoneButton];
-//    [cancelButton addTarget:self action:@selector(disableKeyBoard) forControlEvents:UIControlEventTouchUpInside];
-//    [doneButton addTarget:self action:@selector(disableKeyBoard) forControlEvents:UIControlEventTouchUpInside];
-//    [inputAccView addSubview:cancelButton];
-//    [inputAccView addSubview:doneButton];
-//    NSLog(@"input");
-//
-//}
-
-
-#pragma mark - Keyboard Notifications
-
-//- (void)registerForKeyboardNotifications
-//{
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardWasShown:)
-//                                                 name:UIKeyboardDidShowNotification object:nil];
-//    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardWillBeHidden:)
-//                                                 name:UIKeyboardWillHideNotification object:nil];
-//}
-//
-//- (void)keyboardWasShown:(NSNotification*)aNotification
-//{
-//
-//    NSDictionary* info = [aNotification userInfo];
-//    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-//    
-//    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-//    scrollView.contentInset = contentInsets;
-//    scrollView.scrollIndicatorInsets = contentInsets;
-//    
-//    
-//    // If active text field is hidden by keyboard, scroll it so it's visible
-//    // Your app might not need or want this behavior.
-//    CGRect aRect = self.view.frame;
-//    aRect.size.height -= kbSize.height;
-//    CGPoint origin = composeTextView.frame.origin;
-//    origin.y -= scrollView.contentOffset.y;
-//    if (!CGRectContainsPoint(aRect, origin) ) {
-//        CGPoint scrollPoint = CGPointMake(0.0, composeTextView.frame.origin.y-(aRect.size.height));
-//        [scrollView setContentOffset:scrollPoint animated:YES];
-//    }
-//}
-//
-//- (void)keyboardWillBeHidden:(NSNotification*)aNotification
-//{
-//    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-//    scrollView.contentInset = contentInsets;
-//    scrollView.scrollIndicatorInsets = contentInsets;
-//}
-
-#pragma mark - textview delegate methods
-//- (BOOL) textViewShouldBeginEditing:(UITextView *)textView{
-//    return YES;
-//}
-//- (void)textViewDidBeginEditing:(UITextView *)textView{
-//    NSLog(@"....1...");
-//    //if(textView.tag == 0) {
-//        textView.text = @"";
-//        // textView.textColor = [UIColor whiteColor];
-//        textView.tag = 1;
-//    //}
-//}
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
    // [composeTextView resignFirstResponder];
     [composeTextView setInputAccessoryView:keyboardToolBar];
+    
    return YES;
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
+    
     long  textLength =[textView.text length];
     int maxLength = 200;
     long charLeft = maxLength - [textView.text length];
 //    NSString *substring = [NSString stringWithString:composeTextView];
-    
-    //   Add swipe gesture
-    panRecognized = [[UIPanGestureRecognizer alloc]
-                     initWithTarget:self
-                     action:@selector(panRecognized:)];
-    
-    [panRecognized setMinimumNumberOfTouches:1];
-    [panRecognized setMaximumNumberOfTouches:1];
-
-    [[self view] addGestureRecognizer:panRecognized];
     
     // place holder text
     if(( textLength == 0)&&(placeHolderLabel.isHidden)){
@@ -569,12 +579,9 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    NSLog(@"text");
     // return key
    if([text isEqualToString:@"\n"]) {
 //        [self postContent:nil];
-       
-
        [composeTextView resignFirstResponder];
         return YES;
     }
@@ -587,26 +594,88 @@
     return YES;
 }
 
-- (void)panRecognized:(UIPanGestureRecognizer *)sender
-{
-
-    float screenH = [CommonUtility getScreenHeight];
-    CGPoint distance = [sender translationInView:self.view];
-
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        [sender cancelsTouchesInView];
-         NSLog(@"Swiped at %f", distance.y);
-        if (distance.y > (screenH / 10)) {
-            [self disableKeyBoard];
-        }
-    }
+#pragma mark - Image options
+- (void)imageOptions{
+    [self showPhotoOptions:self];
+//    filterToolBar = [[UIToolbar alloc] init];
+//    [filterToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    filterToolBar.backgroundColor = [UIColor redColor];
+//    
+//    keyboardToolBar = [[UIToolbar alloc] init];
+//    [keyboardToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    
+//    [self.view addSubview:keyboardToolBar];
+//    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(keyboardToolBar);
+//    
+//    // like Button
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[keyboardToolBar(100)]-50-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    
+//    // Comment label
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[keyboardToolBar]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
 }
 
+#pragma mark - Google Image Search
+- (void)imageSearch{
+    NSString * yourImageURL = 0;//...//;
+    NSString *searchURL = @"https://www.google.com/searchbyimage?&image_url=";
+    NSString * completeURL = [NSString stringWithFormat:@"%@%@", searchURL, yourImageURL];
+}
 
-//- (void)textViewDidEndEditing:(UITextView *)textView{
-//
+#pragma mark - Filter options
+- (void)filterOptions{
+    
+}
+
+#pragma mark - Gesture recognizes
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGesture {
+//    return YES;
 //}
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return YES;
+}
+- (void)addGesture{
+    //   Add swipe gesture
+    
+    panRecognized = [[UIPanGestureRecognizer alloc]
+                     initWithTarget:self
+                     action:@selector(panRecognized:)];
+    
+    [panRecognized setMinimumNumberOfTouches:1];
+    [panRecognized setMaximumNumberOfTouches:1];
+    [composeTextView setGestureRecognizers:nil];
+ //   composeTextView.gestureRecognizers = nil;
+    [composeTextView setMultipleTouchEnabled:YES];
+    [composeTextView setUserInteractionEnabled:YES];
+    [contentImageView setUserInteractionEnabled:YES];
+    
+    [contentImageView addGestureRecognizer:panRecognized];
+   // [[self view] addGestureRecognizer:panRecognized];
+       [composeTextView addGestureRecognizer:panRecognized];
 
+}
+
+- (void)panRecognized:(UIPanGestureRecognizer *)sender
+{
+//    CGPoint touchLocation = [panRecognized locationInView:self.view];
+//    composeTextView.center = touchLocation;
+    if (sender.state == UIGestureRecognizerStateBegan) {
+    }
+   
+    CGPoint translatedPoint = [(UIPanGestureRecognizer*)sender translationInView:composeTextView];
+    translatedPoint = CGPointMake(translatedPoint.x, translatedPoint.y);
+    
+    if (UIGestureRecognizerStateChanged == sender.state) {
+        // Use translation offset
+        CGPoint translation = [sender translationInView:composeTextView];
+        composeTextView.center = CGPointMake(composeTextView.center.x + translation.x,
+                                         composeTextView.center.y + translation.y);
+        // Clear translation
+        [sender setTranslation:CGPointZero inView:sender.view];
+        [sender cancelsTouchesInView];
+    }
+    NSLog(@"panning");
+}
 
 #pragma mark - Button Action Methods
 - (void)postContent:(id)sender {
@@ -654,8 +723,7 @@
 - (void)actionsForSuccessfulPostContent{
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposePostSuccess]];
-    //clear content
-    [self clearViewAfterSuccessfulPostOrCancel];
+    //clear contentj    [self clearViewAfterSuccessfulPostOrCancel];
     
     // Go back after successful post
     [self.navigationController popViewControllerAnimated:NO];
@@ -696,19 +764,6 @@
     [self clearViewAfterSuccessfulPostOrCancel];
     // go back to content view
     //self.tabBarController.selectedIndex = kCFVTabbarIndexContent;
-}
-
-- (void)textButtonPressed:(id)sender {
-    [self createAccessoryView];
-          NSLog(@"text pressed");
-}
-
-- (void)imageButtonPressed:(id)sender {
-    NSLog(@"image pressed");
-}
-
-- (void)filterButtonPressed:(id)sender {
-    NSLog(@"filter pressed");
 }
 
 #pragma mark - control events methods

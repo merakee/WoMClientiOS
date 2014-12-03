@@ -10,4 +10,7 @@
 
 @interface NotificationTableViewCell : UITableViewCell
 
+@property (nonatomic, retain) UILabel *notificationLabel;
+@property (nonatomic, retain) UIImageView *notificationImageView;
+
 @end

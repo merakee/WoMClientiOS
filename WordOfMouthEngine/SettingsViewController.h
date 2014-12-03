@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>{
+@interface SettingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
+
+    UITableView             *settingsTableView;
 }
-@property (nonatomic, strong) UITableView *settingsTableView;
-extern NSArray const *testArray;
+
 @end

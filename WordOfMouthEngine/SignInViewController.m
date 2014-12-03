@@ -152,86 +152,29 @@
 - (void)layoutView{
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(appLogoView,buttonsView,signInButton,signUpButton,signInAsGuestButton,activityIndicator);
-    //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(pageLabel,signInButton,signUpButton,signInAsGuestButton,activityIndicator);
     
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(signInButton,signInAsGuestButton,activityIndicator,termsButton);
-    
-    
-//    // images
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[appLogoView(234)]-40-[buttonsView]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[buttonsView]|"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[appLogoView(192)]"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-    // Center horizontally
-    // Center
-    //[AppUIManager horizontallyCenterElement:appLogoView inView:self.view];
-    
-    //
-    //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[googleButton]-|"
-    //                                                                      options:0 metrics:nil views:viewsDictionary]];
-    //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[facebookButton]-|"
-    //                                                                      options:0 metrics:nil views:viewsDictionary]];
-    //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[twitterButton]-|"
-    //                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    // page label
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[appLogoView(150)]"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[appLogoView(250)]-100-[descriptionLabel]"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[appLogoView(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-//    [AppUIManager horizontallyCenterElement:appLogoView inView:self.view];
-    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[appLogoView(215)]-35-[signUpButton]"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(signInButton,signInAsGuestButton,activityIndicator,termsButton,pageViewController);
 
-    //buttons
-    // [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[appLogoView(50)]-50-[signInButton(42)]-25-[signUpButton(signInButton)]-50-[signInAsGuestButton(signInButton)]" options:0 metrics:nil views:viewsDictionary]];
-    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[signInButton(70)]"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signUpButton(126)]"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    [AppUIManager horizontallyCenterElement:signUpButton inView:self.view];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInAsGuestButton(signInButton)]|"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signInButton(92)]-50-|"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signUpButton(126)]-37-|"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signInAsGuestButton(signInButton)]-50-|"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageViewController]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pageViewController]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
     // buttons
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInAsGuestButton]"
                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signInAsGuestButton]-20-[signInButton]-20-[termsButton]-10-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signInButton(40)]-12-[signInAsGuestButton(40)]-56-[termsButton(34)]-19-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:signInAsGuestButton inView:self.view];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInButton(30)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
      [AppUIManager horizontallyCenterElement:signInButton inView:self.view];
     
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signInButton(30)]-10-|"
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    
-    // description label
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[descriptionLabel]"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[descriptionLabel(30)]-40-[signInAsGuestButton]"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    [AppUIManager horizontallyCenterElement:descriptionLabel inView:self.view];
-
-    // login label
+        // login label
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-70-[loginLabel(130)]"
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[loginLabel(30)]-10-|"
@@ -245,8 +188,8 @@
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[pageController]-30-[descriptionLabel]"
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
-
 }
+
 - (void)setNavigationBar {
     // app settings
     [AppUIManager setNavbar:self.navigationController.navigationBar];
@@ -335,38 +278,35 @@
                        @"ScreenShot2.png",
                        @"ScreenShot3.png"];
 
-    UIPageViewController *pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+//    UIPageViewController *pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     
-    
-    pageController.dataSource = self;
-    
+      pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    pageViewController.dataSource = self;
     if([tutorialImages count])
     {
         NSArray *startingViewControllers = @[[self itemControllerForIndex: 0]];
-        [pageController setViewControllers: startingViewControllers
+        [pageViewController setViewControllers: startingViewControllers
                                  direction: UIPageViewControllerNavigationDirectionForward
                                   animated: NO
                                 completion: nil];
     }
-    pageViewController = pageController;
-//     pageController.dataSource = self;
-//    [[pageController view] setFrame:[[self view] bounds]];
-    
+ //   pageViewController = pageController;
+
 //    TutorialViewController *initialViewController = [self viewControllerAtIndex:0];
 //    
 //    NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
 //    
 //    [pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
  //  pageController.view.frame = self.view.frame;
-    self.view.clipsToBounds = YES;
+     self.view.clipsToBounds = YES;
+  
     float screenW = [CommonUtility getScreenWidth];
-    [pageController.view setFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, screenW, 400)];
-    
+    [pageViewController.view setFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, screenW, 440)];
+    [pageViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
  //   pageController.view.backgroundColor = [UIColor blackColor];
     [self addChildViewController:pageViewController];
      [self.view addSubview:pageViewController.view];
     [pageViewController didMoveToParentViewController:self];
- 
 }
 //- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
 //    

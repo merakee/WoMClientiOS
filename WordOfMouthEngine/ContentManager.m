@@ -43,7 +43,7 @@
     currentContentIndex=0;
     [contentArray removeAllObjects];
     
-    [[ApiManager sharedApiManager] getContentSuccess:^(NSArray *contents){
+    [[ApiManager sharedApiManager] getContentListSuccess:^(NSArray *contents){
         if(activitiyIndicator){
             [activitiyIndicator stopAnimating];
         }

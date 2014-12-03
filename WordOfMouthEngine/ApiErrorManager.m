@@ -60,6 +60,14 @@
                                     suggestion:@"Please let us know if this happens again"];
 }
 
++ (NSError *)getErrorForInvalidRequestForAnonymousUser{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorInvalidParameters
+                                   description:@"Invalid request for anonymous user"
+                                        reason:@"User must be singed in for this action"
+                                    suggestion:@"Please try after user is signed in."];
+}
+
 #pragma mark - Error Unitilty methods
 + (NSString *)getErrorReasonFromError:(NSError *)error{
     NSDictionary *edic=nil;
@@ -133,7 +141,7 @@
 }
 
 
-#pragma mark - Error Handling methods - Response
+#pragma mark - Error Handling methods - User Response
 + (NSError *)processPostResponseError:(NSError *)error{
     return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
                                           code:kAPIManagerErrorApi
@@ -142,8 +150,49 @@
                                     suggestion:@"Please try again"];
 }
 
+#pragma mark - Error Handling methods - Content Flag
++ (NSError *)processFlagContentError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Flag Content Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
+#pragma mark - Error Handling methods - Comment
++ (NSError *)processGetCommentError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Get Comment Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
+
++ (NSError *)processPostCommentError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Post Comment Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
 
 
+#pragma mark - Error Handling methods - Comment Response
++ (NSError *)processPostCommentResponseError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Post Comment Like Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
+
+#pragma mark - Error Handling methods - History
++ (NSError *)processGetHistoryError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Get History Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
 #pragma mark - Error Handling methods - User Info
 + (NSError *)processGetProfileError:(NSError *)error{
     return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
@@ -161,6 +210,37 @@
                                     suggestion:@"Please try again"];
 }
 
+#pragma mark - Error Handling methods - Notification
++ (NSError *)processGetNotificationListError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Get Notification Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
++ (NSError *)processGetNotificationCountError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Get Notification Count Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
+
+#pragma mark - Error Handling methods - Notification Reset
++ (NSError *)processResetNotificationContentError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Reset Notification Content Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
++ (NSError *)processResetNotificationCommentError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Reset Notification Comment Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
 
 #pragma mark - Error Handling methods - Display Method
 + (void)displayAlertWithError:(NSError *)error withDelegate:(id)delegate{

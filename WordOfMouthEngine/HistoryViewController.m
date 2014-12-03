@@ -8,57 +8,32 @@
 
 #import "HistoryViewController.h"
 #import "AppUIManager.h"
+#import "HistoryTableViewCell.h"
 
 @implementation HistoryViewController
+@synthesize segmentedControl;
 
-#pragma mark -  init methods
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    if (self = [super initWithStyle:style]) {
-        // set tab bar
-        self.tabBarItem = [[UITabBarItem alloc]
-                           initWithTitle:@"History"
-                           image:nil//[UIImage imageNamed:kAUCCoreFunctionTabbarImageHistory]
-                           tag:0];//kCFVTabbarIndexHistory];
-        
-        // set color
-        //[CommonViewElementManager setTableViewBackGroundColor:self.tableView];
-        
+- (id)init {
+    if (self = [super init]) {
     }
     return self;
 }
-- (id)init {
-    return [self initWithStyle:UITableViewStyleGrouped];
-}
-#pragma mark -  View Life cycle Methods
 
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
     [super loadView];
-    // view customization code
     [self setView];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
-- (void)viewDidUnload
-{
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+- (void)viewDidUnload{
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-// Implement viewWillAppear method for setting up the display
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
 }
 
 - (BOOL)shouldAutorotate{
@@ -67,98 +42,106 @@
 - (NSUInteger)supportedInterfaceOrientations{
     return [AppUIManager getSupportedOrentation];
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)setView{
+    // set app defaults
+    [AppUIManager setUIView:self.view ofType:kAUCPriorityTypePrimary];
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self setupTableView];
+    [self.view addSubview:historyTableView];
+    [self onSegmentedControlChanged:segmentedControl];
+    [self addSegmentedControl];
+    [self layoutView];
 }
 
-#pragma mark -  Local Methods Implememtation
-- (void)setView {
+- (void)layoutView{
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(historyTableView);
     
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[historyTableView]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[historyTableView]-200-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+}
+
+#pragma mark - Table View setup
+- (void) setupTableView{
+    historyTableView = [[UITableView alloc] init];
+    [historyTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    // Inset of cell seperators
+    // ios7
+    if ([historyTableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [historyTableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    // ios 8
+    if ([historyTableView respondsToSelector:@selector(layoutMargins)]) {
+        historyTableView.layoutMargins = UIEdgeInsetsZero;
+    }
+    historyTableView.delegate = self;
+    historyTableView.dataSource = self;
+    historyTableView.backgroundColor = [UIColor whiteColor];
+    
+    //make sure our table view resizes correctly
+    historyTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+    UIViewAutoresizingFlexibleHeight;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"Cell";
+    HistoryTableViewCell *cell = (HistoryTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (!cell) {
+        //         cell = [[CommentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[HistoryTableViewCell alloc] init];
+    }
+    // Add image to left of the cell
+    //   cell.imageView.image = [UIImage imageNamed:@"mapicon.jpeg"];
+    if ([cell respondsToSelector:@selector(layoutMargins)]) {
+        cell.layoutMargins = UIEdgeInsetsZero;
+    }
+    return cell;
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    //#warning Potentially incomplete method implementation.
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    //#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section. should be returning the amount of history
+    return 3;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+#pragma mark - Segmented Control
+
+- (void) addSegmentedControl {
+    NSArray *segmentItems = [NSArray arrayWithObjects: @"Posts", @"Comments", nil];
+    segmentedControl = [[UISegmentedControl alloc] initWithItems: segmentItems];
     
-    // Configure the cell...
+    [segmentedControl addTarget: self action: @selector(onSegmentedControlChanged:) forControlEvents: UIControlEventValueChanged];
     
-    return cell;
+    segmentedControl.selectedSegmentIndex = 0;
+    self.navigationItem.titleView = segmentedControl;
 }
 
-#pragma mark -  Table view delegate
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"User History - To be implemented";
+- (void) onSegmentedControlChanged:(UISegmentedControl *) sender {
+    
+    // NSLog(@"%ld", sender.selectedSegmentIndex);
+    if (sender.selectedSegmentIndex == 0) {
+        segmentedControl.selectedSegmentIndex = 0;
+        // switch active array pointer to popular array
+       // activeArray = popularArray;
+        [historyTableView reloadData];
+    }
+    else if (sender.selectedSegmentIndex == 1){
+        segmentedControl.selectedSegmentIndex = 1;
+        // switch active array pointer to recent array
+   //     activeArray = recentArray;
+        [historyTableView reloadData];
+    }
+    // reset the scrolling to the top of the table view
+    if ([self tableView:historyTableView numberOfRowsInSection:0] > 0) {
+        NSIndexPath *topIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [historyTableView scrollToRowAtIndexPath:topIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }
 }
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-/*
- #pragma mark - Navigation
- 
- // In a story board-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- 
- */
 
 @end

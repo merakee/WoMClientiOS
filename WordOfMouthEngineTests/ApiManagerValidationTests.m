@@ -36,7 +36,7 @@
     [apiManager signUpUserWithUserTypeId:kAPIUserTypeOthers
                                    email:@"me@me.com"
                                 password:@"password"
-                 //   passwordConfirmation:@"password"
+                    passwordConfirmation:@"password"
                                  success:^(){
                                      XCTAssert(@"Must not be sucessful");
                                      StopAsyncBlock();
@@ -58,7 +58,7 @@
     [apiManager signUpUserWithUserTypeId:kAPIUserTypeWom
                                    email:@"me@me.com"
                                 password:@"password"
-               //     passwordConfirmation:@"password1"
+                    passwordConfirmation:@"password1"
                                  success:^(){
                                      XCTAssert(@"Must not be sucessful");
                                      StopAsyncBlock();
@@ -80,7 +80,7 @@
     [apiManager signUpUserWithUserTypeId:kAPIUserTypeWom
                                    email:@"me@me.com"
                                 password:@"password"
-            //        passwordConfirmation:@""
+                    passwordConfirmation:@""
                                  success:^(){
                                      XCTAssert(@"Must not be sucessful");
                                      StopAsyncBlock();
@@ -102,7 +102,7 @@
     [apiManager signUpUserWithUserTypeId:kAPIUserTypeWom
                                    email:@"me@me.com"
                                 password:@""
-        //            passwordConfirmation:@"password"
+                    passwordConfirmation:@"password"
                                  success:^(){
                                      XCTAssert(@"Must not be sucessful");
                                      StopAsyncBlock();
@@ -123,7 +123,7 @@
     [apiManager signUpUserWithUserTypeId:kAPIUserTypeWom
                                    email:@"me@me.com"
                                 password:@""
-        //            passwordConfirmation:@""
+                    passwordConfirmation:@""
                                  success:^(){
                                      XCTAssert(@"Must not be sucessful");
                                      StopAsyncBlock();
@@ -143,7 +143,7 @@
     [apiManager signUpUserWithUserTypeId:kAPIUserTypeWom
                                    email:@"me.fd@me..fsdfcom"
                                 password:@""
-        //            passwordConfirmation:@"password"
+                    passwordConfirmation:@"password"
                                  success:^(){
                                      XCTAssert(@"Must not be sucessful");
                                      StopAsyncBlock();
@@ -164,7 +164,7 @@
     [apiManager signUpUserWithUserTypeId:kAPIUserTypeWom
                                    email:@""
                                 password:@"dfsdsf"
-        //            passwordConfirmation:@"password"
+                    passwordConfirmation:@"password"
                                  success:^(){
                                      XCTAssert(@"Must not be sucessful");
                                      StopAsyncBlock();

@@ -19,12 +19,11 @@ static NSString *  kLIVCEmailButtonImage    = @"SocialSignin_Email.png";
 
 static NSString *  kAUCSigninOptionsLogoImage = @"logo.png";
 static NSString *  kAUCSignUpButtonImage  = @"guest-btn.png";
-static NSString *  kAUCSignInButtonImage  = @"Login.png";
-static NSString *  kAUCGuestButtonImage  = @"start.png";
+static NSString *  kAUCSignInButtonImage  = @"signup-signin-btn.png";
+static NSString *  kAUCGuestButtonImage  = @"explore-text.png";
 
 
 @interface SignInViewHelper : NSObject
-
 
 #pragma mark -  View Helper Methods: Views
 + (void)setView:(UIView *)view;

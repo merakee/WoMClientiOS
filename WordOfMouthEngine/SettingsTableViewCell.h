@@ -10,4 +10,7 @@
 
 @interface SettingsTableViewCell : UITableViewCell
 
+@property (nonatomic, retain) UIImageView *seperatorImage;
+@property (nonatomic, retain) UIImageView *accessoryImage;
+
 @end

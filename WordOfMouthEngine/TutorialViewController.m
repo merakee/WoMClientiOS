@@ -18,30 +18,32 @@
 //@synthesize tutorialImageView;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    float screenW = [CommonUtility getScreenWidth];
+//    float screenW = [CommonUtility getScreenWidth];
 //     float screenH = [CommonUtility getScreenHeight];
     
-//    screenNumber = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
 //    screenNumber = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, screenW, 200)];
-   // tutorialImageView =[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ScreenShot2.png"]];
-    tutorialImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, screenW, 400)];
-  //  tutorialImageView.backgroundColor = [UIColor yellowColor];
+//    tutorialImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, screenW, 400)];
+    UIImage *image = [UIImage imageNamed:imageName];
+    tutorialImageView = [[UIImageView alloc] initWithImage:image];
+    [tutorialImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-  //  tutorialImageView = [[UIImageView alloc] init];
-//    tutorialImageView.contentMode = UIViewContentModeScaleAspectFit;
-//    [tutorialImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    //       screenNumber.text = [NSString stringWithFormat:@"Screen %d", self.index];
     
- //   tutorialImageView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"ScreenShot2.png"]];
- //   screenNumber.backgroundColor = [UIColor orangeColor];
- //       screenNumber.text = [NSString stringWithFormat:@"Screen %d", self.index];
-    
-    tutorialImageView.image = [UIImage imageNamed:imageName];
-    [tutorialImageView setContentMode:UIViewContentModeScaleAspectFill];
+   // tutorialImageView.image = [UIImage imageNamed:imageName];
+  //  [tutorialImageView setContentMode:UIViewContentModeScaleAspectFill];
+    tutorialImageView.contentMode = UIViewContentModeScaleAspectFit;
    // [tutorialImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
-   // self.view.clipsToBounds = YES;
+//    self.view.clipsToBounds = YES;
     tutorialImageView.clipsToBounds = YES;
     [self.view addSubview:tutorialImageView];
  //   [self.view addSubview:screenNumber];
+    
+//    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(tutorialImageView);
+//    
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[tutorialImageView]-10-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[tutorialImageView]-10-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+
 }
 
 

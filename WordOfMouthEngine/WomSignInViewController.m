@@ -221,20 +221,23 @@
 - (void)signUpButtonPressed:(id)sender {
     // sign up user
     [activityIndicator startAnimating];
-    [[ApiManager sharedApiManager] signUpUserWithUserTypeId:kAPIUserTypeWom
-                                                      email:emailField.text
-                                                   password:passwordField.text
+//    [[ApiManager sharedApiManager] signUpUserWithUserTypeId:kAPIUserTypeWom
+//                                                      email:emailField.text
+//                                                   password:passwordField.text
 //                                       passwordConfirmation:passwordConfirmationField.text
-                                                    success:^(void){
-                                                        [activityIndicator stopAnimating];
-                                                        [self actionsForSuccessfulUserSignUp];
-                                                    }failure:^(NSError * error){
-                                                        // Analytics: Flurry
-                                                        [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignUpFailure] withParameters:@{@"Error": error}];
-                                                        [activityIndicator stopAnimating];
-                                                        [ApiErrorManager displayAlertWithError:error withDelegate:self];
-                                                    }];
-    
+//                                                    success:^(void){
+//                                                        [activityIndicator stopAnimating];
+//                                                        [self actionsForSuccessfulUserSignUp];
+//                                                    }failure:^(NSError * error){
+//                                                        // Analytics: Flurry
+//                                                        [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignUpFailure] withParameters:@{@"Error": error}];
+//                                                        [activityIndicator stopAnimating];
+//                                                        [ApiErrorManager displayAlertWithError:error withDelegate:self];
+//                                                    }];
+    // push wom Sign up controller
+    WomSignUpViewController *womsuvc =[[WomSignUpViewController   alloc] init];
+    [self.navigationController pushViewController:womsuvc animated:NO];
+
 }
 
 - (void)resetPasswordButtonPressed:(id)sender {

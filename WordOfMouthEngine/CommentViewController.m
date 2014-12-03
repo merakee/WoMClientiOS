@@ -49,7 +49,7 @@
     [super viewWillAppear:animated];
     [self registerForKeyboardNotifications];
     
-    [self onSegmentedControlChanged:segmentedControl];
+//    [self onSegmentedControlChanged:segmentedControl];
 //    [self textViewDidChange:commentText];
 //    [commentText becomeFirstResponder];
 }
@@ -80,7 +80,7 @@
 //   self.navigationController.toolbarHidden = NO;
     commentsTableView.estimatedRowHeight = 68.0;
     commentsTableView.rowHeight = UITableViewAutomaticDimension;
-    
+    [self onSegmentedControlChanged:segmentedControl];
     [self addSegmentedControl];
     [self setNavigationBar];
     [self setupTableView];
@@ -91,16 +91,25 @@
 }
 
 - (void)layoutView{
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings( commentsTableView, sendButton, commentText);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText);
     
     // buttons
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[replyToolBar(320)]-10-[sendButton]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[commentsTableView(320)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[commentText(320)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+  //  [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView(200)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[commentText(320)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
 
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView]-100-[commentText]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[commentsTableView]-10-[commentText(50)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[commentsTableView]-10-[sendButton(50)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentText(200)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentText]-5-[sendButton]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+
     
 //    [replyToolBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentText]-5-|" options:0 metrics:nil views:viewsDictionary]];
 //    
@@ -139,7 +148,11 @@
 //    } else if (segmentedControl.selectedSegmentIndex == 1) {
 //        cell.textLabel.text = @"Two";
 //    }
-       return cell;
+    if ([cell respondsToSelector:@selector(layoutMargins)]) {
+        cell.layoutMargins = UIEdgeInsetsZero;
+    }
+    
+    return cell;
 }
 
 #pragma mark - Customize cell
@@ -150,13 +163,13 @@
     cell.textLabel.textColor = [UIColor greenColor]; //can do here OR in cellForRowAtIndexPath
    tableView.separatorColor = [UIColor orangeColor];
 }
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (3 == indexPath.section){
-        return nil;
-    }
-    return indexPath;
-}
+//- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (3 == indexPath.section){
+//        return nil;
+//    }
+//    return indexPath;
+//}
 
 - (void)cellButtonTapped:(id)sender event:(id)event{
     NSSet *touches = [event allTouches];
@@ -176,13 +189,13 @@
 
 #pragma mark - Segmented Control
 - (void) addSegmentedControl {
-    NSArray *segmentItems = [NSArray arrayWithObjects: @"One", @"Two", nil];
+    NSArray *segmentItems = [NSArray arrayWithObjects: @"Popular", @"Recent", nil];
     segmentedControl = [[UISegmentedControl alloc] initWithItems: segmentItems];
 
     [segmentedControl addTarget: self action: @selector(onSegmentedControlChanged:) forControlEvents: UIControlEventValueChanged];
 
     segmentedControl.selectedSegmentIndex = 0;
-    segmentedControl.frame = CGRectMake(0, 0, 120, 30);
+   // segmentedControl.frame = CGRectMake(0, 0, 120, 30);
     //self.navigationItem.titleView = segmentedControl;
   //   self.tableView.tableHeaderView = segmentedControl;
   //  [self.navigationController.navigationItem setPrompt:@"some prompt text"];
@@ -205,6 +218,11 @@
         activeArray = recentArray;
         [commentsTableView reloadData];
     }
+// reset the scrolling to the top of the table view
+    if ([self tableView:commentsTableView numberOfRowsInSection:0] > 0) {
+        NSIndexPath *topIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [commentsTableView scrollToRowAtIndexPath:topIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }
     
     // lazy load data for a segment choice (write this based on your data)
 //    [self loadSegmentData:segmentedControl.selectedSegmentIndex];
@@ -212,11 +230,7 @@
     // reload data based on the new index
 //    [self.tableView reloadData];
 //    
-//    // reset the scrolling to the top of the table view
-//    if ([self tableView:self.tableView numberOfRowsInSection:0] > 0) {
-//        NSIndexPath *topIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//        [self.tableView scrollToRowAtIndexPath:topIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
-//    }
+
 }
 
 #pragma mark - Toolbar at bottom
@@ -224,7 +238,7 @@
 
     sendButton = [CommentViewHelper getSendButton];
     [sendButton addTarget:self action:@selector(sendButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-  //  [self.view addSubview:sendButton];
+    [self.view addSubview:sendButton];
     
     commentText = [CommentViewHelper getCommentText:self];
     [self.view addSubview:commentText];
@@ -265,18 +279,18 @@
 
 }
 - (void) setupTableView{
- //   float screenH = [CommonUtility getScreenHeight];
-    float screenW = [CommonUtility getScreenWidth];
-    // Create table view with certain style
-//    commentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, screenW, 500) style:UITableViewStylePlain];
     commentsTableView = [[UITableView alloc] init];
     [commentsTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
-   // commentsTableView.translatesAutoresizingMaskIntoConstraints = NO;
-    // Inset of cell seperators
-    [commentsTableView setSeparatorInset:UIEdgeInsetsZero];
-    //    [self.commentsTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLineEtched];
-    
-    // must set delegate & dataSource, otherwise the the table will be empty and not responsive
+
+    // ios7
+    if ([commentsTableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [commentsTableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    // ios 8
+    if ([commentsTableView respondsToSelector:@selector(layoutMargins)]) {
+        commentsTableView.layoutMargins = UIEdgeInsetsZero;
+    }
+
     commentsTableView.delegate = self;
     commentsTableView.dataSource = self;
     
@@ -285,7 +299,7 @@
     //make sure our table view resizes correctly
     commentsTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
-    // add to canvas
+
 }
 
 #pragma mark - Keyboard notifications
@@ -344,7 +358,7 @@
 }
 - (void)textViewDidChange:(UITextView *)textView{
     long  textLength =[textView.text length];
-     NSLog(@"%ld",textLength);
+    // NSLog(@"%ld",textLength);
     textLength =[[CommonUtility  trimString:textView.text ] length];
     // post button
     if(textLength < kAPIValidationContentMinLength){
@@ -359,7 +373,7 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     long totalLength = textView.text.length - range.length + text.length;
     
-    if (totalLength>kAPICommentMaxLength){
+    if (totalLength>200){
         return NO;
     }
     return YES;

@@ -54,16 +54,16 @@ describe(@"ApiValidationManager", ^{
         it(@"should pass sign up validation",^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeAnonymous
                                                                  email:nil
-                                                              password:nil];
-//                                                  passwordConfirmation:nil];
+                                                              password:nil
+                                                  passwordConfirmation:nil];
             expect(error).to.beFalsy();
         });
         
         it(@"should fail sign up validation with wrong user type",^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeOthers
                                                                  email:@"me@me.com"
-                                                              password:@"password"];
-//                                                  passwordConfirmation:@"password"];
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
             expect(error.localizedFailureReason).to.equal(@"Unknown User Type");
             expect(error.localizedDescription).to.equal(@"Invalid Input");
             expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
@@ -75,8 +75,8 @@ describe(@"ApiValidationManager", ^{
         it(@"should pass sign up validation",^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me@me.com"
-                                                              password:@"password"];
-//                                                  passwordConfirmation:@"password"];
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
             
             expect(error).to.beFalsy();
         });
@@ -84,8 +84,8 @@ describe(@"ApiValidationManager", ^{
         it(@"should pass sign up validation",^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me.me@me.com"
-                                                              password:@"password"];
-                                               //   passwordConfirmation:@"password"];
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
             
             expect(error).to.beFalsy();
         });
@@ -93,8 +93,8 @@ describe(@"ApiValidationManager", ^{
         it(@"should pass sign up validation",^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me_me@me.com"
-                                                              password:@"password"];
-                                                //  passwordConfirmation:@"password"];
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
             
             expect(error).to.beFalsy();
         });
@@ -102,8 +102,8 @@ describe(@"ApiValidationManager", ^{
         it(@"should pass sign up validation",^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"1me123@me.com"
-                                                              password:@"password"];
-                                                //  passwordConfirmation:@"password"];
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
             
             expect(error).to.beFalsy();
         });
@@ -111,8 +111,8 @@ describe(@"ApiValidationManager", ^{
             
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me_123.dfdg@me.com"
-                                                              password:@"password"];
-                                               //  passwordConfirmation:@"password"];
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
             
             expect(error).to.beFalsy();
         });
@@ -120,8 +120,8 @@ describe(@"ApiValidationManager", ^{
             
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me.fsd_1234@23me.com"
-                                                              password:@"password"];
-                                            //      passwordConfirmation:@"password"];
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
             
             expect(error).to.beFalsy();
         });
@@ -129,8 +129,8 @@ describe(@"ApiValidationManager", ^{
             
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me_dfjd.453.345.345@me.comy"
-                                                              password:@"password"];
-                                                //  passwordConfirmation:@"password"];
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"];
             
             expect(error).to.beFalsy();
         });
@@ -139,8 +139,8 @@ describe(@"ApiValidationManager", ^{
         it(@"should fail sign up validation with mismatched password confirmation",^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me@me.com"
-                                                              password:@"password"];
-                                                //  passwordConfirmation:@"password1"];
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password1"];
             
             expect(error.localizedFailureReason).to.equal(@"Password confirmation must match password");
             expect(error.localizedDescription).to.equal(@"Invalid Input");
@@ -150,8 +150,8 @@ describe(@"ApiValidationManager", ^{
         it(@"should fail sign up validation with empty password confirmation",^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me@me.com"
-                                                              password:@"password"];
-                                                //  passwordConfirmation:@""];
+                                                              password:@"password"
+                                                  passwordConfirmation:@""];
             
             expect(error.localizedFailureReason).to.equal(@"Password confirmation must match password");
             expect(error.localizedDescription).to.equal(@"Invalid Input");
@@ -161,8 +161,8 @@ describe(@"ApiValidationManager", ^{
         it(@"should fail sign up validation with empty password",^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me@me.com"
-                                                              password:@""];
-                                             //     passwordConfirmation:@"password"];
+                                                              password:@""
+                                                  passwordConfirmation:@"password"];
             
             expect(error.localizedFailureReason).to.equal(@"Password must be at least 8 charecter long\nPassword confirmation must match password");
             expect(error.localizedDescription).to.equal(@"Invalid Input");
@@ -172,8 +172,8 @@ describe(@"ApiValidationManager", ^{
         it(@"should fail sign up validation with empty password and password confirmation",^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me@me.com"
-                                                              password:@""];
-                                              //    passwordConfirmation:@""];
+                                                              password:@""
+                                                  passwordConfirmation:@""];
             
             expect(error.localizedFailureReason).to.equal(@"Password must be at least 8 charecter long");
             expect(error.localizedDescription).to.equal(@"Invalid Input");
@@ -184,8 +184,8 @@ describe(@"ApiValidationManager", ^{
         it(@"should fail sign up validation with wrong email format and empty password",^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me.fd@me..fsdfcom"
-                                                              password:@""];
-                                            //      passwordConfirmation:@"password"];
+                                                              password:@""
+                                                  passwordConfirmation:@"password"];
             
             expect(error.localizedFailureReason).to.equal(@"Email is not valid\nPassword must be at least 8 charecter long\nPassword confirmation must match password");
             expect(error.localizedDescription).to.equal(@"Invalid Input");
@@ -195,8 +195,8 @@ describe(@"ApiValidationManager", ^{
         it(@"should fail sign up validation with short password and mistmatched password confirmation",^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@""
-                                                              password:@"dfsdsf"];
-                                              //    passwordConfirmation:@"password"];
+                                                              password:@"dfsdsf"
+                                                  passwordConfirmation:@"password"];
             
             expect(error.localizedFailureReason).to.equal(@"Email is empty\nPassword must be at least 8 charecter long\nPassword confirmation must match password");
             expect(error.localizedDescription).to.equal(@"Invalid Input");

@@ -43,19 +43,36 @@
     UIButton            *imageButton;
     UIButton            *filterButton;
 
-    // Accessory Buttons
+    // Keyboard Accessory Buttons
     UIToolbar           *keyboardToolBar;
     UIView              *accView;
     UIButton            *xButton;
     UIButton            *checkButton;
     UIButton            *backgroundButton;
+    UIButton            *keyboardButton;
     UIBarButtonItem     *xBarButton;
     UIBarButtonItem     *checkBarButton;
     UIBarButtonItem     *backgroundBarButton;
+    UIBarButtonItem     *keyboardBarButton;
+    UIToolbar           *colorKeyboardToolBar;
     
-    // Image Buttons
-    UIWebView           *webView;
-    UITextField         *searchTextField;
+    UICollectionView    *colorGrid;
+    UICollectionViewFlowLayout *collectionLayout;
+    
+   // Image accessory Buttons
+    UIToolbar           *imageToolBar;
+    
+    // Filter accessory Buttons
+    UIToolbar           *filterToolBar;
+    
+    // Color text
+    UIButton            *color1;
+    UIButton            *color2;
+    UIButton            *color3;
+    UIButton            *color4;
+    UIButton            *color5;
+    
+    NSArray             *buttonItems;
 }
 
 

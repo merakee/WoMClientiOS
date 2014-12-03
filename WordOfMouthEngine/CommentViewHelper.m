@@ -68,10 +68,10 @@
     return label;
 }
 + (UILabel *)getLikeCount{
-    UILabel *likeLabel =[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    UILabel *likeLabel =[[UILabel alloc] init];
     // ccLabel.backgroundColor = [UIColor clearColor];
-    [likeLabel setText:@"test"];
-    likeLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText];
+    [likeLabel setText:@"1"];
+    likeLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeLikeLabel];
     likeLabel.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
     likeLabel.textAlignment = NSTextAlignmentCenter;
     
@@ -85,13 +85,13 @@
 
 + (UITextView *)getCommentText:(id)delegate{
     UITextView *textView =[[UITextView alloc] init];
-    textView.backgroundColor = [UIColor redColor];
+    textView.backgroundColor = [UIColor lightGrayColor];
     textView.allowsEditingTextAttributes = NO;
     textView.dataDetectorTypes = UIDataDetectorTypeAll ;
     
     // set up key board
     
-    textView.returnKeyType = UIReturnKeyDone;
+    textView.returnKeyType = UIReturnKeyDefault;
     // inset for text
     //textView.textContainerInset = UIEdgeInsetsMake(0, 0, 5.0, 0.0);
     

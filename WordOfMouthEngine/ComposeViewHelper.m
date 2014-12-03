@@ -299,7 +299,55 @@
     button.frame = CGRectMake(5, 5, 20, 20);
     [button setAccessibilityIdentifier:@"BackgroundButton"];
     return button;
-
 }
 
++ (UIButton *)getKeyboardButton{
+    UIImage *buttonImage = [UIImage imageNamed:@"logo-nav~iphone.png"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"KeyboardButton"];
+    return button;
+}
+
++ (UIButton *)getColor1{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundColor:[UIColor whiteColor]];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"Color1"];
+    return button;
+}
+
++ (UIButton *)getColor2{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundColor:[UIColor blackColor]];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"Color2"];
+    return button;
+}
+
++ (UIButton *)getColor3{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundColor:[UIColor yellowColor]];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"Color3"];
+    return button;
+}
+
++ (UIButton *)getColor4{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundColor:[UIColor redColor]];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"Color4"];
+    return button;
+}
+
++ (UIButton *)getColor5{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundColor:[UIColor blueColor]];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"Color5"];
+    return button;
+}
 @end
