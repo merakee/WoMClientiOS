@@ -194,16 +194,19 @@
     shareButton = [ContentViewHelper getShareButton];
     [shareButton addTarget:self action:@selector(shareButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    //    composeButton = [ContentViewHelper getComposeButton];
-    //    [composeButton addTarget:self action:@selector(goToAddContentView:) forControlEvents:UIControlEventTouchUpInside];
+    reportButton = [ContentViewHelper getReportButton];
+    [reportButton addTarget:self action:@selector(goToReportMessage:) forControlEvents:UIControlEventTouchUpInside];
     
+    commentCount = [ContentViewHelper getCommentsCount];
+    spreadsCount = [ContentViewHelper getSpreadsCount];
+    [repliesButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [repliesButton addSubview:commentCount];
+    
+    [spreadButton addSubview:spreadsCount];
+
     //    mapButton = [ContentViewHelper getMapButton];
     //     [mapButton addTarget:self action:@selector(goMapView:) forControlEvents:UIControlEventTouchUpInside];
-    //
     //    [self.view addSubview:mapButton];
-    
-    //    [self.view addSubview:composeButton];
-    
 
     customContentView1 = [[CustomContentView alloc] init];
     customContentView2 = [[CustomContentView alloc] init];
@@ -222,7 +225,7 @@
     [self.view addSubview:killButton];
     [self.view addSubview:repliesButton];
     [self.view addSubview:shareButton];
-    
+    [self.view addSubview:reportButton];
     
     //    // set Textlabels and progress view
     //    spreadCount = [ContentViewHelper getTextLabelForSpreadCount];
@@ -259,16 +262,25 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(spreadButton,killButton,repliesButton,customContentView1,customContentView2, infoToolBar, reportButton, viewsImage, shareButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(spreadButton,killButton,repliesButton,customContentView1,customContentView2, shareButton, reportButton, commentCount, spreadsCount);
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround,spreadButton,killButton,composeButton,signInOutButton);
     
+    // Comment count
+    [repliesButton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[commentCount(40)]" options:0 metrics:nil views:viewsDictionary]];
+    [repliesButton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[commentCount(35)]-15-|" options:0 metrics:nil views:viewsDictionary]];
+
+    [spreadButton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[spreadsCount(40)]-2-|" options:0 metrics:nil views:viewsDictionary]];
+    [spreadButton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[spreadsCount(20)]" options:0 metrics:nil views:viewsDictionary]];
+
+    
 //     Content view contraints
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[customContentView1]-10-|" options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[customContentView1]-10-|" options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[customContentView1(320)]|" options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[customContentView1(320)]-18-[repliesButton(59)]" options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[customContentView1(320)]-11-[reportButton)]" options:0 metrics:nil views:viewsDictionary]];
 
     // Next content view same constraints
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[customContentView2]-10-|" options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[customContentView2]-10-|" options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[customContentView2(320)]|" options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[customContentView2(320)]-18-[repliesButton(59)]" options:0 metrics:nil views:viewsDictionary]];
     
     
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLogo(40)]"
@@ -299,32 +311,34 @@
 //    [nextContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[nextContentTextView]-16-|"
 //                                                                            options:0 metrics:nil views:viewsDictionary]];
     // toolbar
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[infoToolBar(320)]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[infoToolBar(320)]"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[infoToolBar]-20-[repliesButton]|"
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[spreadButton(72)]-16-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[spreadButton(92)]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[killButton(spreadButton)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[killButton(spreadButton)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[repliesButton(72)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[reportButton(64)]-60-[repliesButton(59)]-60-[shareButton(64)]"
                                                                           options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:repliesButton inView:self.view];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[shareButton(72)]-16-|"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[shareButton(64)]-16-|"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLogo]-50-[mapButton(72)]"
     //                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[shareButton(50)]-50-[spreadButton(72)]-20-|"
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[shareButton(32)]-50-[spreadButton(82)]|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[killButton(spreadButton)]-20-|"
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[reportButton(32)]-50-[spreadButton(82)]|"
+                                                                                    options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[killButton(spreadButton)]|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[infoToolBar(50)]-20-[repliesButton(72)]-5-|"
-                                                                                    options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-70-[repliesButton(72)]-5-|"
+//                                                                                    options:0 metrics:nil views:viewsDictionary]];
     
     
     // toolbar
@@ -367,100 +381,114 @@
 }
 - (void)setToolBar {
     
-    float screenW = [CommonUtility getScreenWidth];
- //   infoToolBar = [[UIToolbar alloc] init];
-  infoToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenW, 50)];
- //    infoToolBar = [[UIToolbar alloc] init];
- //   infoToolBar.frame = CGRectMake(0,  44, self.view.frame.size.width, 44);
-    infoToolBar.backgroundColor = [UIColor clearColor];
-    infoToolBar.tintColor = [UIColor orangeColor];
-    infoToolBar.translucent = YES;
-    // Make toolbar clear
-    [infoToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [infoToolBar setBackgroundImage:[UIImage new]
-                  forToolbarPosition:UIBarPositionAny
-                          barMetrics:UIBarMetricsDefault];
-    [infoToolBar setShadowImage:[UIImage new]
-              forToolbarPosition:UIToolbarPositionAny];
-    
-  
-    viewsImage = [ContentViewHelper getViewsImage];
-    commentImage = [ContentViewHelper getCommentImage];
-    
-    viewsCount = [ContentViewHelper getViewsCount];
-    commentCount = [ContentViewHelper getCommentsCount];
-    
-    
-    UIBarButtonItem *flexibleSpace =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    reportButton = [ContentViewHelper getReportButton];
-    [reportButton addTarget:self action:@selector(goToReportMessage:) forControlEvents:UIControlEventTouchUpInside];
-    
-    rButton = [[UIBarButtonItem alloc] initWithCustomView:reportButton];
-    vImage = [[UIBarButtonItem alloc]initWithCustomView:viewsImage];
-    cImage = [[UIBarButtonItem alloc]initWithCustomView:commentImage];
-    vCount = [[UIBarButtonItem alloc] initWithCustomView:viewsCount];
-    cCount = [[UIBarButtonItem alloc] initWithCustomView:commentCount];
-    
-    NSArray *buttonItems = [NSArray arrayWithObjects:vImage,vCount,flexibleSpace, cImage, cCount, flexibleSpace, rButton, nil];
-    [infoToolBar setItems:buttonItems];
-    // infoToolBar.items = buttonItems;
-    [self.view addSubview:infoToolBar];
+//    float screenW = [CommonUtility getScreenWidth];
+// //   infoToolBar = [[UIToolbar alloc] init];
+//  infoToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenW, 50)];
+// //    infoToolBar = [[UIToolbar alloc] init];
+// //   infoToolBar.frame = CGRectMake(0,  44, self.view.frame.size.width, 44);
+//    infoToolBar.backgroundColor = [UIColor clearColor];
+//    infoToolBar.tintColor = [UIColor orangeColor];
+//    infoToolBar.translucent = YES;
+//    // Make toolbar clear
+//    [infoToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    [infoToolBar setBackgroundImage:[UIImage new]
+//                  forToolbarPosition:UIBarPositionAny
+//                          barMetrics:UIBarMetricsDefault];
+//    [infoToolBar setShadowImage:[UIImage new]
+//              forToolbarPosition:UIToolbarPositionAny];
+//    
+//  
+//    viewsImage = [ContentViewHelper getViewsImage];
+//    commentImage = [ContentViewHelper getCommentImage];
+//    
+//    viewsCount = [ContentViewHelper getViewsCount];
+//    commentCount = [ContentViewHelper getCommentsCount];
+//    
+//    
+//    UIBarButtonItem *flexibleSpace =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//    reportButton = [ContentViewHelper getReportButton];
+//    [reportButton addTarget:self action:@selector(goToReportMessage:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    rButton = [[UIBarButtonItem alloc] initWithCustomView:reportButton];
+//    vImage = [[UIBarButtonItem alloc]initWithCustomView:viewsImage];
+//    cImage = [[UIBarButtonItem alloc]initWithCustomView:commentImage];
+//    vCount = [[UIBarButtonItem alloc] initWithCustomView:viewsCount];
+//    cCount = [[UIBarButtonItem alloc] initWithCustomView:commentCount];
+//    
+//    NSArray *buttonItems = [NSArray arrayWithObjects:vImage,vCount,flexibleSpace, cImage, cCount, flexibleSpace, rButton, nil];
+//    [infoToolBar setItems:buttonItems];
+//    // infoToolBar.items = buttonItems;
+//    [self.view addSubview:infoToolBar];
 
 }
 
 - (void)setNavigationBar {
     // set up navigation bar
-       self.navigationItem.title = @"Spark";
-
+    //   self.navigationItem.title = @"Spark";
+    composeButton = [ContentViewHelper getComposeButton];
+    [composeButton addTarget:self action:@selector(goToAddContentView:) forControlEvents:UIControlEventTouchUpInside];
+    moreButton = [ContentViewHelper getSettingsButton];
+    [moreButton addTarget:self action:@selector(goToSettingsView:) forControlEvents:UIControlEventTouchUpInside];
     
+//    [self.navigationController.navigationBar setTranslucent:YES];
+//    self.navigationController.navigationBar.shadowImage = [UIImage new];
+//    self.navigationController.view.backgroundColor = [UIColor clearColor];
+//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+//    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+//    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
 //    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
-//                            forBarMetrics:UIBarMetricsDefault];
+//                             forBarMetrics:UIBarMetricsDefault];
 //    self.navigationController.navigationBar.shadowImage = [UIImage new];
 //    self.navigationController.navigationBar.translucent = YES;
 //    self.navigationController.view.backgroundColor = [UIColor clearColor];
-//    self.navigationController.navigationBar.barTintColor = [UIColor clearColor];
-  //  self.navigationItem.titleView = [AppUIManager getAppLogoViewForNavTitle];
-    
-    [self.navigationController.navigationBar setTranslucent:YES];
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
-    self.navigationController.view.backgroundColor = [UIColor clearColor];
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     
      // right navigation button
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-                                              initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
-                                              target:self
-                                              action:@selector(goToAddContentView:)];
-    [self.navigationItem.rightBarButtonItem setAccessibilityLabel:@"Compose"];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+//                                              initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
+//                                              target:self
+//                                              action:@selector(goToAddContentView:)];
+//    [self.navigationItem.rightBarButtonItem setAccessibilityLabel:@"Compose"];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:composeButton];
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:composeButton];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
     
     // left navigation button
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
+    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:moreButton];
+    self.navigationItem.leftBarButtonItem = leftBarButton;
     
-//                                             initWithTitle:@"Sign In"
-//                                             style:UIBarButtonItemStyleDone
-//                                             target:self
-//                                             action:@selector(signInOutButtonPressed:)];
+//    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain
+//                                                                      target:self action:@selector(goToSettingsView:)];
+//    
+//    UIFont *settingsFont = [UIFont fontWithName:@"Helvetica" size:24.0];
+//     NSDictionary *fontDictionary = @{NSFontAttributeName:settingsFont};
+//    [settingsButton setTitleTextAttributes:fontDictionary forState:UIControlStateNormal];
+//    self.navigationItem.leftBarButtonItem = settingsButton;
     
-    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain
-                                                                      target:self action:@selector(goToSettingsView:)];
     
-    UIFont *settingsFont = [UIFont fontWithName:@"Helvetica" size:24.0];
- //   NSDictionary *fontDictionary = @{UITextAttributeFont:settingsFont};
-     NSDictionary *fontDictionary = @{NSFontAttributeName:settingsFont};
-    [settingsButton setTitleTextAttributes:fontDictionary forState:UIControlStateNormal];
-    self.navigationItem.leftBarButtonItem = settingsButton;
     
 //     [[UINavigationBar appearance] setTranslucent:YES];
 //    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
 //    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
 //    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
-//    [[UINavigationBar appearance] setBackgroundColor:[UIColor clearColor]];
-    
-   
-    //    [[UINavigationBar appearance] setBarTintColor:[UIColor clearColor]];
-    
+//    [[UINavigationBar appearance] setBackgroundColor:[UIColor blueColor]];
+  //  navigationController.navigationBar setTranslucent:NO]
+    if([UINavigationBar conformsToProtocol:@protocol(UIAppearanceContainer)]) {
+        [[UINavigationBar appearance] setTranslucent:NO];
+    }
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"header-gradient.png"] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setTintColor:[UIColor redColor]];
+ 
+ //   [[UINavigationBar appearance] setShadowImage:[UIImage imageNamed:@"header-gradient.png"]];
+    // text shadow: use layer property (UIView)
+    //    self.navigationController.navigationBar.layer.shadowColor = [HEXCOLOR (kCRDTextDropShadowColor) CGColor];
+//    self.navigationController.navigationBar.layer.shadowColor = [UIColor blackColor].CGColor;
+//    self.navigationController.navigationBar.layer.masksToBounds = NO;
+//    self.navigationController.navigationBar.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
+//    self.navigationController.navigationBar.layer.shadowOpacity = 0.6f;
+//    self.navigationController.navigationBar.layer.shadowRadius = 0.0f;
+//    self.navigationController.navigationBar.barTintColor = [UIColor redColor];
 }
 
 - (void)addGestures{

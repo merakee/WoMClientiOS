@@ -21,13 +21,14 @@
     //UILabel             *authorID;
     UIButton           *spreadButton;
     UIButton           *killButton;
-//    UIButton           *composeButton;
     UIButton           *pageLogo;
-    
     UIButton            *mapButton;
     UIButton            *buttonTest;
-    
     UIButton            *repliesButton;
+    
+    // navigation buttons
+    UIButton           *composeButton;
+    UIButton            *moreButton;
     
     // animation
     //UIActivityIndicatorView *activityIndicator;
@@ -55,7 +56,7 @@
     UIButton                *viewsImage;
     UIButton                *commentImage;
     UIButton                *reportButton;
-    UILabel                *viewsCount;
+    UILabel                *spreadsCount;
     UILabel                *commentCount;
     
     UIBarButtonItem *rButton;

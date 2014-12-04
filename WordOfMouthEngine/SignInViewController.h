@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ApiManager.h"
 
-@interface SignInViewController : UIViewController <UIPageViewControllerDataSource> {
+@interface SignInViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate> {
 
     //UIButton           *googleButton;
     //UIButton           *facebookButton;
@@ -30,6 +30,7 @@
 
     UIPageViewController *pageViewController;
     NSArray *tutorialImages;
+    UIPageControl *pageControl;
 }
 //@property (nonatomic, strong) NSArray *tutorialImages;
 

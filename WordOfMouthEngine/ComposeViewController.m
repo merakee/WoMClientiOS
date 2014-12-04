@@ -118,21 +118,29 @@
     [ComposeViewHelper setView:self.view];
     
     // set navigation bar
-    [self setNavigationBar];
-     self.navigationController.toolbarHidden = YES;
+  //  [self setNavigationBar];
+    self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.toolbarHidden = YES;
    // [self.view addSubview:scrollView];
     
 
     
     // image view
     contentImageView = [ComposeViewHelper getContentImageView];
- //   [scrollView addSubview:contentImageView];
    [self.view addSubview:contentImageView];
 
     // set Category control
     //    categoryControl = [ComposeViewHelper getCategoryControl];
     //    [categoryControl addTarget:self action:@selector(selectedCategoryChanged:) forControlEvents:UIControlEventValueChanged];
     //    [self.view addSubview:categoryControl];
+    
+    postButton = [ComposeViewHelper getPostButton];
+    [postButton addTarget:self action:@selector(postContent:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:postButton];
+    
+    cancelButton = [ComposeViewHelper getCancelButton];
+    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:cancelButton];
     
     // set TextView
     composeTextView = [ComposeViewHelper getComposeTextViewWithDelegate:self];
@@ -148,10 +156,6 @@
 //    [postButton addTarget:self action:@selector(postContent:) forControlEvents:UIControlEventTouchUpInside];
     cameraOptionsButton = [ComposeViewHelper getCameraOptionsButton];
     [cameraOptionsButton addTarget:self action:@selector(showPhotoOptions:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-//    cancelButton = [ComposeViewHelper getCancelButton];
-//    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     
 //    [self.view addSubview:postButton];
 //    [self.view addSubview:cameraOptionsButton];
@@ -182,12 +186,14 @@
 - (void)layoutView{
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, composeToolBar);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, textButton, imageButton, postButton, cancelButton);
     
     // buttons
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(40)]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[postButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(107)]"
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -219,46 +225,57 @@
     // place holder label
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[placeHolderLabel(240)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[placeHolderLabel(30)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-127-[placeHolderLabel(30)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:placeHolderLabel inView:self.view];
     
-    // compose tool bar
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[composeToolBar]-5-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[textButton(56)]-43-[imageButton]-78-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[composeToolBar]-15-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[textButton(57)]-40-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[imageButton(57)]-40-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+
 }
 
 - (void)setNavigationBar {
+    
+    postButton = [ComposeViewHelper getPostButton];
+    [postButton addTarget:self action:@selector(postContent:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:postButton];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
+
+    cancelButton = [ComposeViewHelper getCancelButton];
+    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
+    self.navigationItem.leftBarButtonItem = leftBarButton;
+    
+    
     // character count label
-    characterCount = [ComposeViewHelper getCharacterCountLabel];
+//    characterCount = [ComposeViewHelper getCharacterCountLabel]; 
+//    
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [button addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+//    [button setFrame:CGRectMake(0, 0, 40, 40)];
+//    [button addSubview:characterCount];
+//    
+//    UIBarButtonItem *characterButton = [[UIBarButtonItem alloc]initWithCustomView:button];
+// 
+//    
+//    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc]
+//                                                 initWithTitle:@"Post"
+//                                                 style:UIBarButtonItemStyleDone
+//                                                 target:self
+//                                                 action:@selector(postContent:)],
+//                                                characterButton];
+//
+//
+//    [self.navigationItem.rightBarButtonItems[0] setAccessibilityIdentifier:@"Add Picture"];
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [button setFrame:CGRectMake(0, 0, 65, 42)];
- //   [button setFrame:CGRectMake(0, 0, 45, 25)];
-    [button addSubview:characterCount];
-    
-    UIBarButtonItem *characterButton = [[UIBarButtonItem alloc]initWithCustomView:button];
- //   [self.navigationController.navigationItem setRightBarButtonItem:characterButton];
- //   self.navigationItem.title = characterCount;
-    
-    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc]
-                                                 initWithTitle:@"Post"
-                                                 style:UIBarButtonItemStyleDone
-                                                 target:self
-                                                 action:@selector(postContent:)],
-                                                characterButton];
-
-
-    [self.navigationItem.rightBarButtonItems[0] setAccessibilityIdentifier:@"Add Picture"];
-    
-    self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc]
-                                              initWithBarButtonSystemItem:UIBarButtonSystemItemStop
-                                              target:self
-                                              action:@selector(goBack:)];
+//    self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc]
+//                                              initWithBarButtonSystemItem:UIBarButtonSystemItemStop
+//                                              target:self
+//                                              action:@selector(goBack:)];
 }
 //- (void)registerForKeyboardNotifications {
 //    [[NSNotificationCenter defaultCenter] addObserver:self
@@ -352,21 +369,25 @@
     
     textButton = [ComposeViewHelper getTextButton];
     [textButton addTarget:self action:@selector(textButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:textButton];
+    
     imageButton = [ComposeViewHelper getImageButton];
     [imageButton addTarget:self action:@selector(imageButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:imageButton];
+    
     filterButton = [ComposeViewHelper getFilterButton];
     [filterButton addTarget:self action:@selector(filterButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem *flexibleSpace =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//    UIBarButtonItem *flexibleSpace =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
     //    textBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(textButtonPressed:)];
-    textBarButton = [[UIBarButtonItem alloc] initWithCustomView:textButton];
-    imageBarButton = [[UIBarButtonItem alloc] initWithCustomView:imageButton];
-    filterBarButton = [[UIBarButtonItem alloc] initWithCustomView:filterButton];
+//    textBarButton = [[UIBarButtonItem alloc] initWithCustomView:textButton];
+//    imageBarButton = [[UIBarButtonItem alloc] initWithCustomView:imageButton];
+//    filterBarButton = [[UIBarButtonItem alloc] initWithCustomView:filterButton];
     
-    NSArray *mainButtonItems = [NSArray arrayWithObjects:flexibleSpace, textBarButton, flexibleSpace, imageBarButton, flexibleSpace, nil];
-    [composeToolBar setItems:mainButtonItems];
-    [self.view addSubview:composeToolBar];
+//    NSArray *mainButtonItems = [NSArray arrayWithObjects:flexibleSpace, textBarButton, flexibleSpace, imageBarButton, flexibleSpace, nil];
+//    [composeToolBar setItems:mainButtonItems];
+//    [self.view addSubview:composeToolBar];
 }
 
 - (void)textButtonPressed:(id)sender {

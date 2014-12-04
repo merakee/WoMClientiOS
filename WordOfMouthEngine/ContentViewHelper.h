@@ -16,10 +16,14 @@
 static NSString *kAUCMapButtonImage =@"mapicon.jpeg";
 static NSString *kAUCSpreadButtonImage =@"spread-btn.png";
 static NSString *kAUCKillButtonImage =@"kill-btn.png";
-static NSString *kAUCComposeButtonImage =@"newtopic-btn.png";
+static NSString *kAUCComposeButtonImage =@"compose-icon.png";
 static NSString *kAUCSignOutButtonImage =@"signout-menu.png";
 static NSString *kAUCLogInMenuButtonImage =@"login-menu.png";
 static NSString *kAUCPageLogoImage =@"logo-nav.png";
+static NSString *kAUCShareButtonImage =@"share-btn.png";
+static NSString *kAUCReplyButtonImage =@"reply-btn.png";
+static NSString *kAUCReportButtonImage =@"flag-btn.png";
+static NSString *kAUCSettingsButtonImage =@"more-icon.png";
 
 //static NSString *  kAUCContentBackgroundImage = @"content";
 
@@ -46,7 +50,6 @@ static NSString *kAUCPageLogoImage =@"logo-nav.png";
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getSpreadButton;
 + (UIButton *)getKillButton;
-+ (UIButton *)getComposeButton;
 + (UIButton *)getPageLogoButton;
 + (UIButton *)getSignInOutButton;
 + (UIButton *)getDismissButton;
@@ -72,8 +75,10 @@ static NSString *kAUCPageLogoImage =@"logo-nav.png";
 + (UIButton *)getReportButton;
 + (UIButton *)getViewsImage;
 + (UIButton *)getCommentImage;
-+ (UILabel *)getViewsCount;
++ (UILabel *)getSpreadsCount;
 + (UILabel *)getCommentsCount;
 
-
+#pragma mark - Navigation Buttons
++ (UIButton *)getSettingsButton;
++ (UIButton *)getComposeButton;
 @end

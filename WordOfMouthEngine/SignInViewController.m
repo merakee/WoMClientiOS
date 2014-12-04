@@ -144,6 +144,7 @@
     activityIndicator =[[UIActivityIndicatorView alloc] init];
     [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
     
+  //  [self.view bringSubviewToFront:pageControl];
     // layout
     [self layoutView];
     
@@ -159,6 +160,7 @@
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pageViewController]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
+
     // buttons
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInAsGuestButton]"
@@ -282,6 +284,7 @@
     
       pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     pageViewController.dataSource = self;
+    pageViewController.delegate = self;
     if([tutorialImages count])
     {
         NSArray *startingViewControllers = @[[self itemControllerForIndex: 0]];
@@ -290,18 +293,18 @@
                                   animated: NO
                                 completion: nil];
     }
- //   pageViewController = pageController;
-
 //    TutorialViewController *initialViewController = [self viewControllerAtIndex:0];
 //    
 //    NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
 //    
 //    [pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
- //  pageController.view.frame = self.view.frame;
-     self.view.clipsToBounds = YES;
-  
+//    pageViewController.view.frame = self.view.bounds;
+    self.view.clipsToBounds = YES;
+  //  self.view.frame = self.view.bounds;
     float screenW = [CommonUtility getScreenWidth];
-    [pageViewController.view setFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, screenW, 440)];
+    float screenH = [CommonUtility getScreenHeight];
+//    TutorialViewController *container = [[TutorialViewController alloc] init];
+   [pageViewController.view setFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, screenW, screenH*2/3)];
     [pageViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
  //   pageController.view.backgroundColor = [UIColor blackColor];
     [self addChildViewController:pageViewController];
@@ -348,6 +351,7 @@
 
 - (void) setupPageControl
 {
+    pageControl = [UIPageControl appearance];
     [[UIPageControl appearance] setPageIndicatorTintColor: [UIColor lightGrayColor]];
     [[UIPageControl appearance] setCurrentPageIndicatorTintColor: [UIColor darkGrayColor]];
  //   [[UIPageControl appearance] setBackgroundColor: [UIColor darkGrayColor]];
@@ -390,9 +394,16 @@
         tutorialViewController.imageName = tutorialImages[itemIndex];
         return tutorialViewController;
     }
-    
     return nil;
 }
+
+- (TutorialViewController *)viewControllerAtIndex:(NSUInteger)index {
+    
+    TutorialViewController *childViewController = [[TutorialViewController alloc] initWithNibName:@"TutorialPageViewController" bundle:nil];
+    childViewController.index = index;
+    return childViewController;
+}
+
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
     // The number of items reflected in the page indicator.
     return [tutorialImages count];

@@ -16,7 +16,8 @@
 static NSString *kAUCPostButtonImage =@"post-active-btn.png";
 static NSString *kAUCPostInactiveButtonImage =@"post-inactive-btn.png";
 static NSString *kAUCCameraOptionsButtonImage =@"cam-btn.png";
-
+static NSString *kAUCComposeSpreadButtonImage = @"compose-spread-btn.png";
+//static NSString *kAUCCancelButtonImage =@"";
 static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 
 @interface ComposeViewHelper : NSObject

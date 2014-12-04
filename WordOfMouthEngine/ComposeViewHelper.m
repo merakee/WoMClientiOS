@@ -61,7 +61,7 @@
 + (UILabel *)getPlaceHolderLabel{
     UILabel *phLabel =[[UILabel alloc] init];
     phLabel.backgroundColor = [UIColor clearColor];
-    phLabel.text=@"What's going on?";
+    phLabel.text=@"Tell the world...";
     phLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText];
     phLabel.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
     phLabel.textAlignment = NSTextAlignmentCenter;
@@ -198,21 +198,15 @@
 }
 + (UIButton *)getCancelButton{
     UIButton *button =  [AppUIManager getTransparentUIButton];
-    [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:kAUCComposeSpreadButtonImage] forState:UIControlStateNormal];
+    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
     [button setAccessibilityIdentifier:@"Cancel"];
     return button;
 }
 + (UIButton *)getPostButton{
-    //    UIButton *button =[AppUIManager getTransparentUIButtonWithTitle:@"Post"
-    //                                                              color:kAUCColorTypeTextSecondary
-    //                                                               font:kAUCFontFamilyPrimary
-    //                                                               size:kAUCFontSizeButtonNormal];
-    //    [button setTitleColor:[AppUIManager getColorOfType:kAUCColorTypeTextQuaternary] forState:UIControlStateDisabled];
-    
     UIButton *button =  [AppUIManager getTransparentUIButton];
-    [button setImage:[UIImage imageNamed:kAUCPostButtonImage] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:kAUCPostInactiveButtonImage] forState:UIControlStateDisabled];
-    
+    [button setImage:[UIImage imageNamed:kAUCComposeSpreadButtonImage] forState:UIControlStateNormal];
+    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
     [button setAccessibilityIdentifier:@"Post"];
     return button;
 }
@@ -241,21 +235,23 @@
 
 #pragma mark - Toolbar Buttons
 + (UIButton *)getTextButton{
-    UIImage *buttonImage = [UIImage imageNamed:@"mapicon.jpeg"];
+    UIImage *buttonImage = [UIImage imageNamed:@"text-btn.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    button.frame = CGRectMake(5, 5, 20, 20);
+ //   button.frame = CGRectMake(0, 0, 56, 57);
+    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
     [button setAccessibilityIdentifier:@"TextButton"];
     return button;
 }
 
 + (UIButton *)getImageButton{
-    UIImage *buttonImage = [UIImage imageNamed:@"mapicon.jpeg"];
+    UIImage *buttonImage = [UIImage imageNamed:@"photo-btn.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    button.frame = CGRectMake(5, 5, 20, 20);
+ //   button.frame = CGRectMake(0, 0, 56, 57);
+    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
     [button setAccessibilityIdentifier:@"ImageButton"];
     return button;
 }

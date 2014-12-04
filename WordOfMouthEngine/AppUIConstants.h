@@ -110,7 +110,7 @@ const static float kAUCColorTextStroke[4] = {176.0/360.0, 1.0, 0.22, 1.0};
 
 static NSString * kAUCFontFamilyPrimary = @"Utility";//@"FiraSans-Bold";   //@"HelveticaNeue-Light";
 static NSString * kAUCFontFamilySecondary  = @"GillSans";//@"UtilityBoldCondensed";   //@"HelveticaNeue-Light";
-
+static NSString * kAUCFontFamilyThird = @"GillSansLight";
 //static NSString * kAUCFontFamilyTertiary  = @"GillSans";//@"UtilityBoldCondensed"; //@"HelveticaNeue-Light";
 
 // Text font size
@@ -131,6 +131,9 @@ const static CGFloat kAUCFontSizeLoginText = 16.0;
 const static CGFloat kAUCFontSizeRepliesText = 16.0;
 
 const static CGFloat kAUCFontSizeLikeLabel = 12.0;
+
+const static CGFloat kAUCFontSizeCommentCount = 17.0;
+const static CGFloat kAUCFontSizeSpreadCount = 14.0;
 // Other style
 const static float kAUCRectCornerRadius = 4.0;
 const static float kAUCRectBorderWidth = 1.0;

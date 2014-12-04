@@ -167,7 +167,7 @@
 + (UIButton *)getRepliesButton{
     //return [AppUIManager setButtonWithTitle:@"spread" ofType:kAUCPriorityTypeTertiary];
     UIButton *button =  [AppUIManager getTransparentUIButton];
-    [button setImage:[UIImage imageNamed:kAUCSpreadButtonImage] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:kAUCReplyButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Replies"];
     return button;
 }
@@ -201,17 +201,25 @@
 
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCComposeButtonImage] forState:UIControlStateNormal];
+    [button setFrame:CGRectMake(0, 0, 40, 40)];
     [button setAccessibilityIdentifier:@"Compose"];
     return button;
 }
 
 + (UIButton *)getShareButton{
     UIButton *button = [AppUIManager getTransparentUIButton];
-    [button setImage:[UIImage imageNamed:kAUCComposeButtonImage] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:kAUCShareButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Share"];
     return button;
 }
 
++ (UIButton *)getSettingsButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCSettingsButtonImage] forState:UIControlStateNormal];
+    [button setFrame:CGRectMake(0, 0, 40, 40)];
+    [button setAccessibilityIdentifier:@"Settings"];
+    return button;
+}
 
 + (UIButton *)getPageLogoButton{
     //UIButton *button  = [AppUIManager setButtonWithTitle:@"kill" ofType:kAUCPriorityTypeTertiary];
@@ -289,11 +297,8 @@
 #pragma mark - Toolbar
 
 + (UIButton *)getReportButton{
-    UIImage *buttonImage = [UIImage imageNamed:@"mapicon.jpeg"];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    button.frame = CGRectMake(5, 5, 20, 20);
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCReportButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"ReportButton"];
     return button;
 }
@@ -316,16 +321,29 @@
     [button setAccessibilityIdentifier:@"SpreadImage"];
     return button;
 }
-+ (UILabel *)getViewsCount{
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 20, 20)];
-    label.backgroundColor = [UIColor purpleColor];
-    label.text = @"counts";
++ (UILabel *)getSpreadsCount{
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    UILabel *label = [[UILabel alloc] init];
+ //   label.backgroundColor = [UIColor purpleColor];
+    [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeSpreadCount]];
+    label.textColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(1, 1);
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = @"2";
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
     return label;
 }
 + (UILabel *)getCommentsCount{
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 20, 20)];
-    label.backgroundColor = [UIColor greenColor];
-    label.text = @"comments";
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    UILabel *label = [[UILabel alloc] init];
+   // label.backgroundColor = [UIColor greenColor];
+    label.text = @"3";
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.shadowOffset = CGSizeMake(1, 1);
+    [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeCommentCount]];
+
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
     return label;
 }
 #pragma mark - Animation
