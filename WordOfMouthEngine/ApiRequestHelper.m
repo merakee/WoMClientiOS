@@ -106,7 +106,7 @@
 +(NSDictionary *)commentResponseParamsWith:(ApiUser *)user commentId:(int)commentId{
     return [self addUserAuth:user  toDictionary:@{@"comment_response":@{
                                                           @"comment_id": [NSNumber numberWithInt:commentId],
-                                                          @"response":[NSNumber numberWithBool:true]}}];
+                                                          @"response":[NSNumber numberWithInteger:kApiCommentResponseTypeLike]}}];
 }
 
 #pragma mark -  Utility Methods: JSON Request - History
@@ -177,11 +177,11 @@
                                        createdAt:contentDic[@"created_at"]
                                        updatedAt:contentDic[@"updated_at"]];
 }
-#pragma mark - content info from response
+#pragma mark - content response info from response
 + (ApiUserResponse *)getUserResponseFromDictionary:(NSDictionary *)userResponseDic{
-    return [[ApiUserResponse alloc] initWithUserId:userResponseDic[@"user_response"][@"user_id"]
-                                         contentId:userResponseDic[@"user_response"][@"content_id"]
-                                      userResponse:userResponseDic[@"user_response"][@"response"] ];
+    return [[ApiUserResponse alloc] initWithUserId:userResponseDic[@"content_response"][@"user_id"]
+                                         contentId:userResponseDic[@"content_response"][@"content_id"]
+                                      userResponse:userResponseDic[@"content_response"][@"response"] ];
 }
 
 #pragma mark - content flag info from response
@@ -192,9 +192,9 @@
  *  @
  */
 + (ApiContentFlag *)getContentFlagFromDictionary:(NSDictionary *)contentFlagDic{
-    return [[ApiContentFlag  alloc] initWithContentFlagId:contentFlagDic[@"flag"][@"id"]
-                                                   userId:contentFlagDic[@"flag"][@"user_id"]
-                                                contentId:contentFlagDic[@"flag"][@"content_id"]];
+    return [[ApiContentFlag  alloc] initWithContentFlagId:contentFlagDic[@"content_flag"][@"id"]
+                                                   userId:contentFlagDic[@"content_flag"][@"user_id"]
+                                                contentId:contentFlagDic[@"content_flag"][@"content_id"]];
 }
 
 #pragma mark - comment info from response
@@ -239,7 +239,7 @@
     NSMutableArray *notificationArray =[[NSMutableArray alloc] init];
     
     for (NSDictionary *notificationDic in notificationsDic[@"notifications"]){
-        if(notificationDic[@"content"]){
+        if(notificationDic[@"content_category_id"]){
             ApiContent *content =[ApiRequestHelper getContentFromDictionaryWithOutRoot:notificationDic];
             if([ApiContent isValidContent:content]){
                 [notificationArray addObject:content];
@@ -248,7 +248,7 @@
                 return nil;
             }
         }
-        else if(notificationDic[@"comment"]){
+        else if(notificationDic[@"content_id"]){
             ApiComment *comment  =[ApiRequestHelper getCommentFromDictionaryWithOutRoot:notificationDic];
             if([ApiComment isValidComment:comment]){
                 [notificationArray addObject:comment];

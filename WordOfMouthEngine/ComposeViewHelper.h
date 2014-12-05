@@ -17,6 +17,15 @@ static NSString *kAUCPostButtonImage =@"post-active-btn.png";
 static NSString *kAUCPostInactiveButtonImage =@"post-inactive-btn.png";
 static NSString *kAUCCameraOptionsButtonImage =@"cam-btn.png";
 static NSString *kAUCComposeSpreadButtonImage = @"compose-spread-btn.png";
+static NSString *kAUCDeleteImageButtonImage = @"delete-img-btn.png";
+static NSString *kAUCBackButtonImage =@"back-btn.png";
+static NSString *kAUCKeyboardButtonImage =@"keyboard-icon.png";
+static NSString *kAUCKeyboardActiveButtonImage = @"keyboard-active-icon.png";
+static NSString *kAUCTextColorButtonImage = @"text-color-icon.png";
+static NSString *kAUCTextColorActiveButtonImage = @"text-color-icon-active.png";
+static NSString *kAUCCheckIconButtonImage = @"check-icon.png";
+static NSString *kAUCClearIconButtonImage = @"clear-icon.png";
+
 //static NSString *kAUCCancelButtonImage =@"";
 static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 
@@ -38,6 +47,7 @@ static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 + (UIButton *)getCameraOptionsButton;
 + (UIButton *)getBackButton;
 + (UIButton *)getDoneButton;
++ (UIButton *)getRemoveImageButton;
 
 #pragma mark -  View Helper Methods: Labels
 + (UILabel *)getPlaceHolderLabel;
@@ -59,7 +69,7 @@ static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 #pragma mark - input accessory buttons
 + (UIButton *)getXButton;
 + (UIButton *)getCheckButton;
-+ (UIButton *)getBackgroundButton;
++ (UIButton *)getTextColorButton;
 + (UIButton *)getKeyboardButton;
 
 #pragma mark - text color buttons
@@ -68,6 +78,10 @@ static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 + (UIButton *)getColor3;
 + (UIButton *)getColor4;
 + (UIButton *)getColor5;
++ (UIButton *)getColor6;
++ (UIButton *)getColor7;
++ (UIButton *)getColor8;
+
 
 #pragma mark - Toolbars
 //+ (UIToolbar *)getKeyboardToolbar;

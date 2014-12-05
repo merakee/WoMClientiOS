@@ -166,7 +166,7 @@
                                     suggestion:@"Please check and try again"];
 }
 #pragma mark - content validation methods
-+ (NSError *)validatePostCotentWithCategoryId:(int)categoryId
++ (NSError *)validatePostContentWithCategoryId:(int)categoryId
                                            text:(NSString *)text{
     NSMutableString * reason = [[NSMutableString alloc] initWithString:@""];
     NSString *msg = [ApiValidationManager isContentCategoryValid:categoryId];

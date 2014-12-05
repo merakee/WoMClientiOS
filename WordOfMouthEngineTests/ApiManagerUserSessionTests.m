@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "ApiManager.h"
-#import "AsynTextHelper.h"
+#import "AsynTestHelper.h"
 #import "ApiUserDatabase.h"
 #import "PlaceHolderFactory.h"
 #import "CommonUtility.h"

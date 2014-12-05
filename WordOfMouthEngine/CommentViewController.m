@@ -7,23 +7,21 @@
 //
 
 #import "CommentViewController.h"
-#import "CommentViewHelper.h"
 #import "CommentTableViewCell.h"
 #import "AppUIManager.h"
-#import "ApiManager.h"
 #import "FlurryManager.h"
-
-@interface CommentViewController ()
-
-@end
 
 @implementation CommentViewController
 @synthesize segmentedControl;
+@synthesize currentContent;
 
 #pragma mark -  init methods
 - (id)init {
     if (self = [super init]) {
-        [self createAllDummyLists];
+        // [self createAllDummyLists];
+        recentArray = [[NSMutableArray alloc] init];
+        popularArray = [[NSMutableArray alloc] init];
+        activeArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -49,11 +47,14 @@
     [super viewWillAppear:animated];
     [self registerForKeyboardNotifications];
     
-//    [self onSegmentedControlChanged:segmentedControl];
-//    [self textViewDidChange:commentText];
-//    [commentText becomeFirstResponder];
+    
+    //    [self onSegmentedControlChanged:segmentedControl];
+    //    [self textViewDidChange:commentText];
+    //    [commentText becomeFirstResponder];
 }
-
+- (void)viewDidAppear:(BOOL)animated {
+    [self updateCommentArrayWithMode:kAPICommentRefreshModeGetMore];
+}
 - (void)viewWillDisappear:(BOOL)animated {
     [self deregisterFromKeyboardNotifications];
     [super viewWillDisappear:animated];
@@ -77,7 +78,7 @@
     // view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:[CommonUtility adjustImageFileName:kAUCContentBackgroundImage]]];
     self.view.backgroundColor = [UIColor whiteColor];
     
-//   self.navigationController.toolbarHidden = NO;
+    //   self.navigationController.toolbarHidden = NO;
     commentsTableView.estimatedRowHeight = 68.0;
     commentsTableView.rowHeight = UITableViewAutomaticDimension;
     [self onSegmentedControlChanged:segmentedControl];
@@ -85,7 +86,12 @@
     [self setNavigationBar];
     [self setupTableView];
     [self.view addSubview:commentsTableView];
-
+    
+    //activity indicator view
+    activityIndicator =[[UIActivityIndicatorView alloc] init];
+    [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
+    
+    
     [self addToolbar];
     [self layoutView];
 }
@@ -94,26 +100,26 @@
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText);
     
     // buttons
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[replyToolBar(320)]-10-[sendButton]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[replyToolBar(320)]-10-[sendButton]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[commentsTableView(320)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-  //  [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView(200)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    //  [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView(200)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[commentText(320)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-
+    //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[commentText(320)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[commentsTableView]-10-[commentText(50)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[commentsTableView]-10-[sendButton(50)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentText(200)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    
+    //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentText(200)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    //
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentText]-5-[sendButton]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-
     
-//    [replyToolBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentText]-5-|" options:0 metrics:nil views:viewsDictionary]];
-//    
-//    [replyToolBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[commentText]-5-|" options:0 metrics:nil views:viewsDictionary]];
+    
+    //    [replyToolBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentText]-5-|" options:0 metrics:nil views:viewsDictionary]];
+    //
+    //    [replyToolBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[commentText]-5-|" options:0 metrics:nil views:viewsDictionary]];
 }
 #pragma mark - Table view data source
 
@@ -124,6 +130,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section. should be returning the number of comments
+    NSLog(@"Update: %ld", (unsigned long)activeArray.count);
     return [activeArray count];
 }
 
@@ -132,22 +139,24 @@
     CommentTableViewCell *cell = (CommentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (!cell) {
-//         cell = [[CommentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        //         cell = [[CommentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell = [[CommentTableViewCell alloc] init];
-     //   cellButton.tag = kCellButtonTag;
-        }
-        likeButton = cell.likeButton;
-        [likeButton addTarget:self action:@selector(cellButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
-        cell.commentCellLabel.text = [activeArray objectAtIndex:indexPath.row];
-        [cell sizeToFit];
-        likeButton.tag = indexPath.row;
-//    if (segmentedControl.selectedSegmentIndex == 0) {
-//        // Update the comments to top/most recent
-//        cell.textLabel.text = @"One";
-//    
-//    } else if (segmentedControl.selectedSegmentIndex == 1) {
-//        cell.textLabel.text = @"Two";
-//    }
+        //   cellButton.tag = kCellButtonTag;
+    }
+    [CommentViewHelper  updateLikeButtonImage:cell.likeButton withDidLike:[[(ApiComment*) [activeArray objectAtIndex:indexPath.row] didLike] boolValue]];
+    [cell.likeButton addTarget:self action:@selector(likeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    NSLog(@"comment text: %@", ((ApiComment*) [activeArray objectAtIndex:indexPath.row]).commentText);
+    cell.commentCellLabel.text = ((ApiComment*) [activeArray objectAtIndex:indexPath.row]).commentText;
+    [cell sizeToFit];
+    //cell.likeButton.tag = indexPath.row;
+    //    if (segmentedControl.selectedSegmentIndex == 0) {
+    //        // Update the comments to top/most recent
+    //        cell.textLabel.text = @"One";
+    //
+    //    } else if (segmentedControl.selectedSegmentIndex == 1) {
+    //        cell.textLabel.text = @"Two";
+    //    }
     if ([cell respondsToSelector:@selector(layoutMargins)]) {
         cell.layoutMargins = UIEdgeInsetsZero;
     }
@@ -161,7 +170,7 @@
     //   cell.backgroundColor = [UIColor greenColor]; //must do here in willDisplayCell
     //   cell.textLabel.backgroundColor = [UIColor redColor]; //must do here in willDisplayCell
     cell.textLabel.textColor = [UIColor greenColor]; //can do here OR in cellForRowAtIndexPath
-   tableView.separatorColor = [UIColor orangeColor];
+    tableView.separatorColor = [UIColor orangeColor];
 }
 //- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 //{
@@ -171,73 +180,84 @@
 //    return indexPath;
 //}
 
-- (void)cellButtonTapped:(id)sender event:(id)event{
-    NSSet *touches = [event allTouches];
-    UITouch *touch = [touches anyObject];
-    CGPoint currentTouchPosition = [touch locationInView:commentsTableView];
-    NSIndexPath *indexPath = [commentsTableView indexPathForRowAtPoint: currentTouchPosition];
-    if (indexPath != nil){
-        [self tableView:commentsTableView cellButtonTapped:indexPath];
+-(void)likeButtonPressed:(CustomLilkeButton *)sender{
+    if(sender.didLike){
+        return;
     }
+    UITableViewCell *cell = (UITableViewCell *) sender.superview;
+    NSIndexPath *indexPath = [commentsTableView indexPathForCell:cell];
+    [self postCommentLikeWithIndexPath:(NSIndexPath *)indexPath];
 }
 
-- (void)tableView:(UITableView *)tableView cellButtonTapped:(NSIndexPath *)indexPath{
-    UIImage *heartFull = [UIImage imageNamed:@"reply-heart-full.png"];
-    CommentTableViewCell *cell = (CommentTableViewCell *)[commentsTableView cellForRowAtIndexPath:indexPath];
-    [cell.likeButton setImage:heartFull forState:UIControlStateNormal];
-}
+//- (void)cellButtonTapped:(id)sender event:(id)event{
+//    NSSet *touches = [event allTouches];
+//    UITouch *touch = [touches anyObject];
+//    CGPoint currentTouchPosition = [touch locationInView:commentsTableView];
+//    NSIndexPath *indexPath = [commentsTableView indexPathForRowAtPoint: currentTouchPosition];
+//    if (indexPath != nil){
+//        [self tableView:commentsTableView cellButtonTapped:indexPath];
+//    }
+//}
+//
+//- (void)tableView:(UITableView *)tableView cellButtonTapped:(NSIndexPath *)indexPath{
+//    UIImage *heartFull = [UIImage imageNamed:@"reply-heart-full.png"];
+//    CommentTableViewCell *cell = (CommentTableViewCell *)[commentsTableView cellForRowAtIndexPath:indexPath];
+//    [cell.likeButton setImage:heartFull forState:UIControlStateNormal];
+//}
 
 #pragma mark - Segmented Control
 - (void) addSegmentedControl {
-    NSArray *segmentItems = [NSArray arrayWithObjects: @"Popular", @"Recent", nil];
+    NSArray *segmentItems = [NSArray arrayWithObjects: @"Recent", @"Popular", nil];
     segmentedControl = [[UISegmentedControl alloc] initWithItems: segmentItems];
-
+    
     [segmentedControl addTarget: self action: @selector(onSegmentedControlChanged:) forControlEvents: UIControlEventValueChanged];
-
-    segmentedControl.selectedSegmentIndex = 0;
-   // segmentedControl.frame = CGRectMake(0, 0, 120, 30);
+    
+    segmentedControl.selectedSegmentIndex = kCVCommentModeRecent;
+    // segmentedControl.frame = CGRectMake(0, 0, 120, 30);
     //self.navigationItem.titleView = segmentedControl;
-  //   self.tableView.tableHeaderView = segmentedControl;
-  //  [self.navigationController.navigationItem setPrompt:@"some prompt text"];
+    //   self.tableView.tableHeaderView = segmentedControl;
+    //  [self.navigationController.navigationItem setPrompt:@"some prompt text"];
     self.navigationItem.titleView = segmentedControl;
     //[self.view addSubview:segmentedControl];
 }
 
 - (void) onSegmentedControlChanged:(UISegmentedControl *) sender {
     
-  // NSLog(@"%ld", sender.selectedSegmentIndex);
-    if (sender.selectedSegmentIndex == 0) {
-        segmentedControl.selectedSegmentIndex = 0;
-        // switch active array pointer to popular array
-        activeArray = popularArray;
-        [commentsTableView reloadData];
-    }
-    else if (sender.selectedSegmentIndex == 1){
-        segmentedControl.selectedSegmentIndex = 1;
-        // switch active array pointer to recent array
-        activeArray = recentArray;
-        [commentsTableView reloadData];
-    }
-// reset the scrolling to the top of the table view
+    [self updateCommentArrayWithMode:kAPICommentRefreshModeRefresh];
+    
+    // NSLog(@"%ld", sender.selectedSegmentIndex);
+    //    if (sender.selectedSegmentIndex == 0) {
+    //        segmentedControl.selectedSegmentIndex = 0;
+    //        // switch active array pointer to popular array
+    //        activeArray = popularArray;
+    //        [commentsTableView reloadData];
+    //    }
+    //    else if (sender.selectedSegmentIndex == 1){
+    //        segmentedControl.selectedSegmentIndex = 1;
+    //        // switch active array pointer to recent array
+    //        activeArray = recentArray;
+    //        [commentsTableView reloadData];
+    //    }
+    // reset the scrolling to the top of the table view
     if ([self tableView:commentsTableView numberOfRowsInSection:0] > 0) {
         NSIndexPath *topIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [commentsTableView scrollToRowAtIndexPath:topIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
     }
     
     // lazy load data for a segment choice (write this based on your data)
-//    [self loadSegmentData:segmentedControl.selectedSegmentIndex];
+    //    [self loadSegmentData:segmentedControl.selectedSegmentIndex];
     
     // reload data based on the new index
-//    [self.tableView reloadData];
-//    
-
+    //    [self.tableView reloadData];
+    //
+    
 }
 
 #pragma mark - Toolbar at bottom
 - (void) addToolbar{
-
+    
     sendButton = [CommentViewHelper getSendButton];
-    [sendButton addTarget:self action:@selector(sendButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [sendButton addTarget:self action:@selector(postComment:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:sendButton];
     
     commentText = [CommentViewHelper getCommentText:self];
@@ -248,15 +268,15 @@
     //    replyToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenW, 50)];
     //    replyToolBar.backgroundColor = [UIColor greenColor];
     //commentText.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-//    barItem = [[UIBarButtonItem alloc] initWithCustomView:commentText];
-//    sButton = [[UIBarButtonItem alloc] initWithCustomView:sendButton];
-//    commentText.backgroundColor = [UIColor redColor];
-//    NSArray *buttonItems = [NSArray arrayWithObjects:barItem, sButton, nil];
-//    [replyToolBar setItems:buttonItems];
-  //  [self setToolbarItems:buttonItems animated:NO];
-  //  self.navigationController.toolbarHidden = NO;
-//    [replyToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
-
+    //    barItem = [[UIBarButtonItem alloc] initWithCustomView:commentText];
+    //    sButton = [[UIBarButtonItem alloc] initWithCustomView:sendButton];
+    //    commentText.backgroundColor = [UIColor redColor];
+    //    NSArray *buttonItems = [NSArray arrayWithObjects:barItem, sButton, nil];
+    //    [replyToolBar setItems:buttonItems];
+    //  [self setToolbarItems:buttonItems animated:NO];
+    //  self.navigationController.toolbarHidden = NO;
+    //    [replyToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
 }
 #pragma mark - Navigation bar
 - (void) setNavigationBar{
@@ -272,16 +292,16 @@
     self.navigationItem.leftBarButtonItem = cancelButton;
     
     
-//    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reply-X.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(goBack:)];
-////    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"myImage"] style:UIBarButtonItemStyleBordered target:self action:@selector(goBack:)];
-//    
-//    [[self navigationItem] setLeftBarButtonItem:cancelButton]
-
+    //    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reply-X.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(goBack:)];
+    ////    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"myImage"] style:UIBarButtonItemStyleBordered target:self action:@selector(goBack:)];
+    //
+    //    [[self navigationItem] setLeftBarButtonItem:cancelButton]
+    
 }
 - (void) setupTableView{
     commentsTableView = [[UITableView alloc] init];
     [commentsTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
-
+    
     // ios7
     if ([commentsTableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [commentsTableView setSeparatorInset:UIEdgeInsetsZero];
@@ -290,7 +310,7 @@
     if ([commentsTableView respondsToSelector:@selector(layoutMargins)]) {
         commentsTableView.layoutMargins = UIEdgeInsetsZero;
     }
-
+    
     commentsTableView.delegate = self;
     commentsTableView.dataSource = self;
     
@@ -299,7 +319,7 @@
     //make sure our table view resizes correctly
     commentsTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
-
+    
 }
 
 #pragma mark - Keyboard notifications
@@ -334,23 +354,23 @@
     NSValue *keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
     float keyboardHeight = keyboardFrameBeginRect.size.height;
-
-//    CGSize kbSize = [[keyboardInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-//    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-//    commentsTableView.contentInset = contentInsets;
-//    commentsTableView.scrollIndicatorInsets = contentInsets;
+    
+    //    CGSize kbSize = [[keyboardInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    //    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    //    commentsTableView.contentInset = contentInsets;
+    //    commentsTableView.scrollIndicatorInsets = contentInsets;
     
     [self.view setFrame:CGRectMake(0,0-keyboardHeight,screenW, screenH)];
-//     [replyToolBar setFrame:CGRectMake(0,0-keyboardHeight,screenW, screenH)];
-//    [self scrollViewForKeyboard:notification up:YES];
+    //     [replyToolBar setFrame:CGRectMake(0,0-keyboardHeight,screenW, screenH)];
+    //    [self scrollViewForKeyboard:notification up:YES];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *)notification {
     float screenH = [CommonUtility getScreenHeight];
     float screenW = [CommonUtility getScreenWidth];
     
-//    scrollView.contentInset = contentInsets;
-//    scrollView.scrollIndicatorInsets = contentInsets;
+    //    scrollView.contentInset = contentInsets;
+    //    scrollView.scrollIndicatorInsets = contentInsets;
     [self.view setFrame:CGRectMake(0,0,screenW,screenH)];
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView{
@@ -367,106 +387,298 @@
     else if(textLength >= kAPIValidationContentMinLength){
         sendButton.enabled=YES;
     }
-
+    
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     long totalLength = textView.text.length - range.length + text.length;
     
-    if (totalLength>200){
+    if (totalLength>kAPIValidationCommentMaxLength){
         return NO;
     }
     return YES;
 }
 - (void)disableKeyBoard{
     // disable keyboard
-   
+    
     [commentText resignFirstResponder];
- //   commentText.inputAccessoryView = nil;
+    //   commentText.inputAccessoryView = nil;
 }
 
-#pragma mark - Button presses
+#pragma mark - Button Action Methods
 - (void)goBack:(id)sender {
     // go back
     [self.navigationController popViewControllerAnimated:NO];
 }
 - (void)sendButtonPressed:(id)sender {
     // send Message and clear content
-    NSLog(@"sent comment!");
+    
     [self disableKeyBoard];
     commentText.text = @"";
 }
 
-#pragma mark - temp code
-- (void) createAllDummyLists{
-    recentArray = @[@"1. Ninety-nine percent of lawyers give the rest a bad name. I AM GOING TO WRITE LONG TEST TEXT TO TEST HOW MANY LONG BLAH BLAH BLAH BLAH BAF;ASDJFK;LJ;",
-                    @"2. Borrow money from a pessimist -- they don't expect it back.",
-                    @"3. Time is what keeps things from happening all at once.",
-                    @"4. Lottery: A tax on people who are bad at math.",
-                    @"5. I didn't fight my way to the top of the food chain to be a vegetarian.",
-                    @"6. Never answer an anonymous letter.",
-                    @"7. It's lonely at the top; but you do eat better.",
-                    @"8. I don't suffer from insanity; I enjoy every minute of it.",
-                    @"9. Always go to other people's funerals, or they won't go to yours.",
-                    @"10. Few women admit their age; few men act it.",
-                    @"11. If we aren't supposed to eat animals, why are they made with meat?",
-                    @"12. No one is listening until you make a mistake.",
-                    @"13. Give me ambiguity or give me something else.",
-                    @"14. We have enough youth. How about a fountain of Smart?",
-                    @"15. He who laughs last thinks slowest.",
-                    @"16. Campers: Nature's way of feeding mosquitoes.",
-                    @"17. Always remember that you are unique; just like everyone else.",
-                    @"18. Consciousness: That annoying time between naps.",
-                    @"19. There are three kinds of people: Those who can count and those who can't.",
-                    @"20. Why is abbreviation such a long word?",
-                    @"21. Nuke the Whales.",
-                    @"22. I started out with nothing and I still have most of it.",
-                    @"23. Change is inevitable, except from a vending machine.",
-                    @"24. Out of my mind. Back in five minutes.",
-                    @"25. A clear conscience is usually the sign of a bad memory.",
-                    @"26. As long as there are tests, there will be prayer in public schools.",
-                    @"27. Laugh alone and the world thinks you're an idiot.",
-                    @"28. Sometimes I wake up grumpy; other times I let her sleep.",
-                    @"29. The severity of the itch is inversely proportional to the ability to reach it.",
-                    @"30. You can't have everything; where would you put it?",
-                    @"31. I took an IQ test and the results were negative.",
-                    @"32. Okay, who stopped the payment on my reality check?"
-                    ];
+
+- (void)postComment:(id)sender {
     
-    popularArray = @[@"Popular: 1. Ninety-nine percent of lawyers give the rest a bad name.",
-                    @"Popular: 2. Borrow money from a pessimist -- they don't expect it back.",
-                    @"Popular: 3. Time is what keeps things from happening all at once.",
-                    @"Popular: 4. Lottery: A tax on people who are bad at math.",
-                    @"Popular: 5. I didn't fight my way to the top of the food chain to be a vegetarian.",
-                    @"Popular: 6. Never answer an anonymous letter.",
-                    @"Popular: 7. It's lonely at the top; but you do eat better.",
-                    @"Popular: 8. I don't suffer from insanity; I enjoy every minute of it.",
-                    @"Popular: 9. Always go to other people's funerals, or they won't go to yours.",
-                    @"Popular: 10. Few women admit their age; few men act it.",
-                    @"Popular: 11. If we aren't supposed to eat animals, why are they made with meat?",
-                    @"Popular: 12. No one is listening until you make a mistake.",
-                    @"Popular: 13. Give me ambiguity or give me something else.",
-                    @"Popular: 14. We have enough youth. How about a fountain of Smart?",
-                    @"Popular: 15. He who laughs last thinks slowest.",
-                    @"Popular: 16. Campers: Nature's way of feeding mosquitoes.",
-                    @"Popular: 17. Always remember that you are unique; just like everyone else.",
-                    @"Popular: 18. Consciousness: That annoying time between naps.",
-                    @"Popular: 19. There are three kinds of people: Those who can count and those who can't.",
-                    @"Popular: 20. Why is abbreviation such a long word?",
-                    @"Popular: 21. Nuke the Whales.",
-                    @"Popular: 22. I started out with nothing and I still have most of it.",
-                    @"Popular: 23. Change is inevitable, except from a vending machine.",
-                    @"Popular: 24. Out of my mind. Back in five minutes.",
-                    @"Popular: 25. A clear conscience is usually the sign of a bad memory.",
-                    @"Popular: 26. As long as there are tests, there will be prayer in public schools.",
-                    @"Popular: 27. Laugh alone and the world thinks you're an idiot.",
-                    @"Popular: 28. Sometimes I wake up grumpy; other times I let her sleep.",
-                    @"Popular: 29. The severity of the itch is inversely proportional to the ability to reach it.",
-                    @"Popular: 30. You can't have everything; where would you put it?",
-                    @"Popular: 31. I took an IQ test and the results were negative.",
-                    @"Popular: 32. Okay, who stopped the payment on my reality check?"
-                    ];
+    [self disableKeyBoard];
+    
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFACommentPost]];
+    
+    
+    // post content
+    [activityIndicator startAnimating];
+    
+    // post content user
+    [activityIndicator startAnimating];
+    [[ApiManager sharedApiManager] postCommentWithContentId:(int)[self.currentContent.contentId integerValue]
+                                                       text:commentText.text
+                                                    success:^(ApiComment *comment) {
+                                                        [activityIndicator stopAnimating];
+                                                        [self actionsForSuccessfulPostComment];
+                                                    }
+                                                    failure:^(NSError *error) {
+                                                        // Analytics: Flurry
+                                                        [Flurry logEvent:[FlurryManager getEventName:kFACommentPostFailure] withParameters:@{@"Error":error}];
+                                                        [activityIndicator stopAnimating];
+                                                        [ApiErrorManager displayAlertWithError:error withDelegate:self];
+                                                    }];
+    
     
 }
+
+#pragma mark - Api Manager Post actions methods
+- (void)actionsForSuccessfulPostComment{
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFACommentPostSuccess]];
+    
+    commentText.text = @"";
+    NSLog(@"sent comment!");
+    //    UIAlertView *alertView  = [[UIAlertView alloc] initWithTitle:@"Post Successful"
+    //                                                         message:@""
+    //                                                        delegate:self
+    //                                               cancelButtonTitle:nil
+    //                                               otherButtonTitles:nil];
+    //
+    //    [alertView show];
+    //
+    //    // dismiss autometically
+    //    [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:1.0];
+    [self updateCommentArrayWithMode:kAPICommentRefreshModeRefresh];
+}
+-(void)dismissAlertView:(UIAlertView *)alertView{
+    [alertView dismissWithClickedButtonIndex:0 animated:YES];
+}
+#pragma mark - Api Manager Get actions methods
+-(void)updateCommentArrayWithMode:(kAPICommentRefreshMode)updateMode{
+    if (isUpdateActive) {
+        return;
+    }
+    isUpdateActive = true;
+    if (segmentedControl.selectedSegmentIndex == kCVCommentModeRecent){
+        [self updateCommentArrayRecentWithMode:updateMode];
+    }
+    else{
+        [self updateCommentArrayPopularWithMode:updateMode];
+    }
+    
+    NSLog(@"commenet array count %ld", (unsigned long)activeArray.count);
+}
+- (void)updateCommentArrayRecentWithMode:(kAPICommentRefreshMode)updateMode{
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFACommentGetRecent]];
+    
+    NSLog(@"updating recentg: ");
+    // post content
+    [activityIndicator startAnimating];
+    
+    int offset = (updateMode==kAPICommentRefreshModeGetMore)?(int)[recentArray count]:0;
+    
+    // post content user
+    [activityIndicator startAnimating];
+    [[ApiManager sharedApiManager] getCommentsForContentId:(int)[self.currentContent.contentId integerValue]
+                                                      mode:kAPICommentOrderModeRecent
+                                                     count:kCVC_DEFAULT_NUMBER_OF_COMMENTS
+                                                    offset:offset
+                                                   success:^(NSArray *commentArray) {
+                                                       [activityIndicator stopAnimating];
+                                                       // Analytics: Flurry
+                                                       [Flurry logEvent:[FlurryManager getEventName:kFACommentGetRecentSuccess]];
+                                                       if(updateMode==kAPICommentRefreshModeGetMore){
+                                                           [recentArray addObjectsFromArray:commentArray];
+                                                       }
+                                                       else{
+                                                           [recentArray setArray:commentArray];
+                                                       }
+                                                       activeArray =recentArray;
+                                                       [commentsTableView reloadData];
+                                                       isUpdateActive = false;
+                                                   }
+                                                   failure:^(NSError *error) {
+                                                       // Analytics: Flurry
+                                                       [Flurry logEvent:[FlurryManager getEventName:kFACommentGetRecentFailure] withParameters:@{@"Error":error}];
+                                                       [activityIndicator stopAnimating];
+                                                       [ApiErrorManager displayAlertWithError:error withDelegate:self];
+                                                       isUpdateActive = false;
+                                                   }];
+}
+
+- (void)updateCommentArrayPopularWithMode:(kAPICommentRefreshMode)updateMode{
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFACommentGetPopular]];
+    
+    
+    // post content
+    [activityIndicator startAnimating];
+    
+    int offset = (updateMode==kAPICommentRefreshModeGetMore)?(int)[popularArray count]:0;
+    
+    // post content user
+    [activityIndicator startAnimating];
+    [[ApiManager sharedApiManager] getCommentsForContentId:(int)[self.currentContent.contentId integerValue]
+                                                      mode:kAPICommentOrderModePopular
+                                                     count:kCVC_DEFAULT_NUMBER_OF_COMMENTS
+                                                    offset:offset
+                                                   success:^(NSArray *commentArray) {
+                                                       [activityIndicator stopAnimating];
+                                                       // Analytics: Flurry
+                                                       [Flurry logEvent:[FlurryManager getEventName:kFACommentGetPopularSuccess]];
+                                                       if(updateMode==kAPICommentRefreshModeGetMore){
+                                                           [popularArray addObjectsFromArray:commentArray];
+                                                       }
+                                                        else{
+                                                            [popularArray setArray:commentArray];
+                                                        }
+
+                                                       activeArray =popularArray;
+                                                       [commentsTableView reloadData];
+                                                       isUpdateActive = false;
+                                                   }
+                                                   failure:^(NSError *error) {
+                                                       // Analytics: Flurry
+                                                       [Flurry logEvent:[FlurryManager getEventName:kFACommentGetPopularFailure] withParameters:@{@"Error":error}];
+                                                       [activityIndicator stopAnimating];
+                                                       [ApiErrorManager displayAlertWithError:error withDelegate:self];
+                                                       isUpdateActive = false;
+                                                   }];
+    
+}
+- (void)postCommentLikeWithIndexPath:(NSIndexPath *)indexPath{
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFACommentGetPopular]];
+    
+    
+    // post content
+    [activityIndicator startAnimating];
+    
+    
+    
+    // get comment id
+    NSLog(@"index path row: %ld ", (long)indexPath.row);
+    ApiComment *comment =(ApiComment *)[activeArray objectAtIndex:indexPath.row];
+    int commentId =(int)[comment.commentId  integerValue];
+    
+    // post content user
+    [activityIndicator startAnimating];
+    [[ApiManager sharedApiManager] postCommentResponseWithCommentId:commentId
+                                                            success:^(ApiCommentResponse *commentResponse) {
+                                                                // Analytics: Flurry
+                                                                [Flurry logEvent:[FlurryManager getEventName:kFACommentGetPopularSuccess]];
+                                                                [activityIndicator stopAnimating];
+                                                                // like button state
+                                                                comment.didLike = [NSNumber numberWithBool:true];
+                                                                [self updateLikeButtonWithIndexPath:indexPath];
+                                                                
+                                                            }
+                                                            failure:^(NSError *error) {
+                                                                // Analytics: Flurry
+                                                                [Flurry logEvent:[FlurryManager getEventName:kFACommentGetPopularFailure] withParameters:@{@"Error":error}];
+                                                                [activityIndicator stopAnimating];
+                                                                [ApiErrorManager displayAlertWithError:error withDelegate:self];
+                                                            } ];
+    
+    
+}
+- (void)updateLikeButtonWithIndexPath:(NSIndexPath *)indexPath{
+    CommentTableViewCell *cell = (CommentTableViewCell *)[commentsTableView cellForRowAtIndexPath:indexPath];
+    
+    CustomLilkeButton * button = (CustomLilkeButton *)[cell viewWithTag:kCVCCommentTableCellTagLikeButton];
+    [CommentViewHelper updateLikeButtonImage:button withDidLike:true];
+    
+    // comment count tag
+    // .text = [CommonUtility getFixedLengthStringForNumber:currentContent.commentCount];
+    
+}
+#pragma mark - temp code
+//- (void) createAllDummyLists{
+//    recentArray = @[@"1. Ninety-nine percent of lawyers give the rest a bad name. I AM GOING TO WRITE LONG TEST TEXT TO TEST HOW MANY LONG BLAH BLAH BLAH BLAH BAF;ASDJFK;LJ;",
+//                    @"2. Borrow money from a pessimist -- they don't expect it back.",
+//                    @"3. Time is what keeps things from happening all at once.",
+//                    @"4. Lottery: A tax on people who are bad at math.",
+//                    @"5. I didn't fight my way to the top of the food chain to be a vegetarian.",
+//                    @"6. Never answer an anonymous letter.",
+//                    @"7. It's lonely at the top; but you do eat better.",
+//                    @"8. I don't suffer from insanity; I enjoy every minute of it.",
+//                    @"9. Always go to other people's funerals, or they won't go to yours.",
+//                    @"10. Few women admit their age; few men act it.",
+//                    @"11. If we aren't supposed to eat animals, why are they made with meat?",
+//                    @"12. No one is listening until you make a mistake.",
+//                    @"13. Give me ambiguity or give me something else.",
+//                    @"14. We have enough youth. How about a fountain of Smart?",
+//                    @"15. He who laughs last thinks slowest.",
+//                    @"16. Campers: Nature's way of feeding mosquitoes.",
+//                    @"17. Always remember that you are unique; just like everyone else.",
+//                    @"18. Consciousness: That annoying time between naps.",
+//                    @"19. There are three kinds of people: Those who can count and those who can't.",
+//                    @"20. Why is abbreviation such a long word?",
+//                    @"21. Nuke the Whales.",
+//                    @"22. I started out with nothing and I still have most of it.",
+//                    @"23. Change is inevitable, except from a vending machine.",
+//                    @"24. Out of my mind. Back in five minutes.",
+//                    @"25. A clear conscience is usually the sign of a bad memory.",
+//                    @"26. As long as there are tests, there will be prayer in public schools.",
+//                    @"27. Laugh alone and the world thinks you're an idiot.",
+//                    @"28. Sometimes I wake up grumpy; other times I let her sleep.",
+//                    @"29. The severity of the itch is inversely proportional to the ability to reach it.",
+//                    @"30. You can't have everything; where would you put it?",
+//                    @"31. I took an IQ test and the results were negative.",
+//                    @"32. Okay, who stopped the payment on my reality check?"
+//                    ];
+//
+//    popularArray = @[@"Popular: 1. Ninety-nine percent of lawyers give the rest a bad name.",
+//                    @"Popular: 2. Borrow money from a pessimist -- they don't expect it back.",
+//                    @"Popular: 3. Time is what keeps things from happening all at once.",
+//                    @"Popular: 4. Lottery: A tax on people who are bad at math.",
+//                    @"Popular: 5. I didn't fight my way to the top of the food chain to be a vegetarian.",
+//                    @"Popular: 6. Never answer an anonymous letter.",
+//                    @"Popular: 7. It's lonely at the top; but you do eat better.",
+//                    @"Popular: 8. I don't suffer from insanity; I enjoy every minute of it.",
+//                    @"Popular: 9. Always go to other people's funerals, or they won't go to yours.",
+//                    @"Popular: 10. Few women admit their age; few men act it.",
+//                    @"Popular: 11. If we aren't supposed to eat animals, why are they made with meat?",
+//                    @"Popular: 12. No one is listening until you make a mistake.",
+//                    @"Popular: 13. Give me ambiguity or give me something else.",
+//                    @"Popular: 14. We have enough youth. How about a fountain of Smart?",
+//                    @"Popular: 15. He who laughs last thinks slowest.",
+//                    @"Popular: 16. Campers: Nature's way of feeding mosquitoes.",
+//                    @"Popular: 17. Always remember that you are unique; just like everyone else.",
+//                    @"Popular: 18. Consciousness: That annoying time between naps.",
+//                    @"Popular: 19. There are three kinds of people: Those who can count and those who can't.",
+//                    @"Popular: 20. Why is abbreviation such a long word?",
+//                    @"Popular: 21. Nuke the Whales.",
+//                    @"Popular: 22. I started out with nothing and I still have most of it.",
+//                    @"Popular: 23. Change is inevitable, except from a vending machine.",
+//                    @"Popular: 24. Out of my mind. Back in five minutes.",
+//                    @"Popular: 25. A clear conscience is usually the sign of a bad memory.",
+//                    @"Popular: 26. As long as there are tests, there will be prayer in public schools.",
+//                    @"Popular: 27. Laugh alone and the world thinks you're an idiot.",
+//                    @"Popular: 28. Sometimes I wake up grumpy; other times I let her sleep.",
+//                    @"Popular: 29. The severity of the itch is inversely proportional to the ability to reach it.",
+//                    @"Popular: 30. You can't have everything; where would you put it?",
+//                    @"Popular: 31. I took an IQ test and the results were negative.",
+//                    @"Popular: 32. Okay, who stopped the payment on my reality check?"
+//                    ];
+//
+//}
 
 @end

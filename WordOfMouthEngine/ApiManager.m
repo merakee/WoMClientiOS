@@ -399,7 +399,7 @@
                           failure:(void (^)(NSError *error))failure{
     // process and validate
     NSString * text = [CommonUtility trimString:text_];
-    NSError *verror =[ApiValidationManager validatePostCotentWithCategoryId:categoryId text:text];
+    NSError *verror =[ApiValidationManager validatePostContentWithCategoryId:categoryId text:text];
     if(verror){
         failure(verror);
         return;
@@ -924,7 +924,7 @@
     }
     
     
-    [self POST:kAMAPI_RESET_NOTIFICATION_CONTENT_PATH parameters:[ApiRequestHelper getResetNotificationCommentParamsWithUser:self.apiUserManager.currentUser
+    [self POST:kAMAPI_RESET_NOTIFICATION_COMMENT_PATH parameters:[ApiRequestHelper getResetNotificationCommentParamsWithUser:self.apiUserManager.currentUser
                                                                                                                    commentId:commentId
                                                                                                                        count:count]
        success:^(NSURLSessionDataTask *task, id responseObject) {

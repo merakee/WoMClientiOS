@@ -1,5 +1,5 @@
 //
-//  AsynTextHelper.h
+//  AsynTestHelper.h
 //  WordOfMouthEngine
 //
 //  Created by Bijit Halder on 7/15/14.

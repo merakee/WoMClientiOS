@@ -32,6 +32,16 @@ typedef enum {
     kFAComposePost,
     kFAComposePostSuccess,
     kFAComposePostFailure,
+    kFACommentPost,
+    kFACommentPostSuccess,
+    kFACommentPostFailure,
+    kFACommentGetRecent,
+    kFACommentGetRecentSuccess,
+    kFACommentGetRecentFailure,
+    kFACommentGetPopular,
+    kFACommentGetPopularSuccess,
+    kFACommentGetPopularFailure,
+    
 } kFACustomEventType;
 
 @interface FlurryManager : NSObject

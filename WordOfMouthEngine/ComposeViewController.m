@@ -70,6 +70,9 @@
 }
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+   //  self.navigationController.navigationBar.hidden = YES;
+    [self.navigationController setNavigationBarHidden:YES];
+    [self.navigationController setToolbarHidden:YES];
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposeSession] withParameters:nil timed:YES];
     // display key board
@@ -79,7 +82,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+    [self.navigationController setNavigationBarHidden:NO];
+   // [self.navigationController setToolbarHidden:NO];
     // Analytics: Flurry
     [Flurry endTimedEvent:[FlurryManager getEventName:kFAComposeSession] withParameters:nil];
 }
@@ -128,7 +132,7 @@
     // image view
     contentImageView = [ComposeViewHelper getContentImageView];
    [self.view addSubview:contentImageView];
-
+    contentImageView.backgroundColor = [UIColor redColor];
     // set Category control
     //    categoryControl = [ComposeViewHelper getCategoryControl];
     //    [categoryControl addTarget:self action:@selector(selectedCategoryChanged:) forControlEvents:UIControlEventValueChanged];
@@ -145,11 +149,16 @@
     // set TextView
     composeTextView = [ComposeViewHelper getComposeTextViewWithDelegate:self];
     [contentImageView addSubview:composeTextView];
-    
+    [composeTextView addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
+     composeTextView.backgroundColor = [UIColor blueColor];
     // place holder label
     placeHolderLabel = [ComposeViewHelper getPlaceHolderLabel];
     [self.view addSubview:placeHolderLabel];
     
+    deleteImage = [ComposeViewHelper getRemoveImageButton];
+    [deleteImage addTarget:self action:@selector(removeImage:) forControlEvents:UIControlEventTouchUpInside];
+    [contentImageView addSubview:deleteImage];
+    deleteImage.hidden = YES;
     
     // buttons
 //    postButton = [ComposeViewHelper getPostButton];
@@ -186,15 +195,17 @@
 - (void)layoutView{
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, textButton, imageButton, postButton, cancelButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, textButton, imageButton, postButton, cancelButton, deleteImage);
     
     // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[cancelButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[cancelButton(33)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(40)]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[postButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(44)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[postButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
+    [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[deleteImage(33)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[deleteImage(33)]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(107)]"
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
 //    [AppUIManager horizontallyCenterElement:postButton inView:self.view];
@@ -209,7 +220,7 @@
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     
-    [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-4-[composeTextView]-218-|"
+    [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-4-[composeTextView(200)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
     [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-24-[composeTextView]-24-|"
@@ -217,9 +228,9 @@
     
     
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentImageView]|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentImageView(320)]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentImageView]|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[cancelButton(44)]-[contentImageView(320)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
 
     // place holder label
@@ -229,7 +240,7 @@
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:placeHolderLabel inView:self.view];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[textButton(56)]-43-[imageButton]-78-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[textButton(56)]-43-[imageButton(56)]-78-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[textButton(57)]-40-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
@@ -392,12 +403,13 @@
 
 - (void)textButtonPressed:(id)sender {
     [self keyboardOptions];
-    NSLog(@"text pressed");
+    placeHolderLabel.hidden=YES;
+  //  deleteImage.hidden = NO;
 }
 
 - (void)imageButtonPressed:(id)sender {
     [self imageOptions];
-    NSLog(@"image pressed");
+  //  deleteImage.hidden = YES;
 }
 
 - (void)filterButtonPressed:(id)sender {
@@ -424,7 +436,7 @@
     [xButton addTarget:self action:@selector(cancelText:) forControlEvents:UIControlEventTouchUpInside];
     checkButton = [ComposeViewHelper getCheckButton];
     [checkButton addTarget:self action:@selector(confirmText:) forControlEvents:UIControlEventTouchUpInside];
-    backgroundButton = [ComposeViewHelper getBackgroundButton];
+    backgroundButton = [ComposeViewHelper getTextColorButton];
     [backgroundButton addTarget:self action:@selector(getTextColor:) forControlEvents:UIControlEventTouchUpInside];
     keyboardButton = [ComposeViewHelper getKeyboardButton];
     [keyboardButton addTarget:self action:@selector(keyboardButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -435,7 +447,7 @@
     keyboardBarButton = [[UIBarButtonItem alloc] initWithCustomView:keyboardButton];
     
     UIBarButtonItem *flexibleSpace =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    buttonItems = [NSArray arrayWithObjects:xBarButton, flexibleSpace, backgroundBarButton, keyboardBarButton, flexibleSpace, checkBarButton, nil];
+    buttonItems = [NSArray arrayWithObjects:xBarButton, flexibleSpace, backgroundBarButton, flexibleSpace, keyboardBarButton, flexibleSpace, checkBarButton, nil];
     [keyboardToolBar setItems:buttonItems];
 }
 
@@ -448,7 +460,7 @@
     colorKeyboardToolBar = [[UIToolbar alloc] init];
     
     colorKeyboardToolBar.backgroundColor = [UIColor clearColor];
-    colorKeyboardToolBar.tintColor = [UIColor orangeColor];
+   // colorKeyboardToolBar.tintColor = [UIColor orangeColor];
     colorKeyboardToolBar.translucent = YES;
     // Make toolbar clear
     [colorKeyboardToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -471,40 +483,59 @@
     [color4 addTarget:self action:@selector(color4Pressed:) forControlEvents:UIControlEventTouchUpInside];
     color5 = [ComposeViewHelper getColor5];
     [color5 addTarget:self action:@selector(color5Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    color6 = [ComposeViewHelper getColor5];
+    [color6 addTarget:self action:@selector(color6Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    color7 = [ComposeViewHelper getColor5];
+    [color7 addTarget:self action:@selector(color7Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    color8 = [ComposeViewHelper getColor5];
+    [color8 addTarget:self action:@selector(color8Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    
     [color1 setTranslatesAutoresizingMaskIntoConstraints:NO];
     [color2 setTranslatesAutoresizingMaskIntoConstraints:NO];
     [color3 setTranslatesAutoresizingMaskIntoConstraints:NO];
     [color4 setTranslatesAutoresizingMaskIntoConstraints:NO];
     [color5 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [color6 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [color7 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [color8 setTranslatesAutoresizingMaskIntoConstraints:NO];
+
     
     [self.view addSubview:color1];
     [self.view addSubview:color2];
     [self.view addSubview:color3];
     [self.view addSubview:color4];
     [self.view addSubview:color5];
+    [self.view addSubview:color6];
+    [self.view addSubview:color7];
+    [self.view addSubview:color8];
     [self addColorKeyboardToolBar];
     [self.view addSubview:colorKeyboardToolBar];
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(colorKeyboardToolBar, color1, color2, color3, color4, color5);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(colorKeyboardToolBar, color1, color2, color3, color4, color5, color6, color7, color8);
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar]-5-[color1]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar]-5-[color2]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar]-5-[color3]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar]-5-[color4]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar]-5-[color5]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-11-[color1(71)]-11-[color5(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-11-[color2(71)]-11-[color6(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-11-[color3(71)]-11-[color7(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-11-[color4(71)]-11-[color8(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+  
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[colorKeyboardToolBar]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     // color buttons
-     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[color1]-15-[color2]-15-[color3]-15-[color4]-15-[color5]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-3-[color1(71)]-10-[color2(71)]-10-[color3(71)]-10-[color4(71)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-3-[color5(71)]-8-[color6(71)]-8-[color7(71)]-8-[color8(71)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+
     colorKeyboardToolBar.hidden = NO;
     color1.hidden = NO;
     color2.hidden = NO;
     color3.hidden = NO;
     color4.hidden = NO;
     color5.hidden = NO;
-    
+    color6.hidden = NO;
+    color7.hidden = NO;
+    color8.hidden = NO;
     colorKeyboardToolBar.backgroundColor = [UIColor greenColor];
+    textButton.hidden = YES;
+    imageButton.hidden = YES;
 }
 
 - (void)keyboardButtonPressed:(id)sender{
@@ -515,6 +546,9 @@
     color3.hidden = YES;
     color4.hidden = YES;
     color5.hidden = YES;
+    color6.hidden = YES;
+    color7.hidden = YES;
+    color8.hidden = YES;
 }
 
 - (void)cancelText:(id)sender{
@@ -524,8 +558,13 @@
     color3.hidden = YES;
     color4.hidden = YES;
     color5.hidden = YES;
+    color6.hidden = YES;
+    color7.hidden = YES;
+    color8.hidden = YES;
     composeTextView.text = @"";
     [self disableKeyBoard];
+    textButton.hidden = NO;
+    imageButton.hidden = NO;
 }
 
 - (void)confirmText:(id)sender{
@@ -535,7 +574,12 @@
     color3.hidden = YES;
     color4.hidden = YES;
     color5.hidden = YES;
+    color6.hidden = YES;
+    color7.hidden = YES;
+    color8.hidden = YES;
     [self disableKeyBoard];
+    textButton.hidden = NO;
+    imageButton.hidden = NO;
 }
 
 #pragma mark - Color options
@@ -554,6 +598,16 @@
 - (void)color5Pressed:(id)sender{
     composeTextView.textColor = [UIColor blueColor];
 }
+- (void)color6Pressed:(id)sender{
+    composeTextView.textColor = [UIColor blueColor];
+}
+- (void)color7Pressed:(id)sender{
+    composeTextView.textColor = [UIColor blueColor];
+}
+- (void)color8Pressed:(id)sender{
+    composeTextView.textColor = [UIColor blueColor];
+}
+
 #pragma mark - textview delegate methods
 - (void)disableKeyBoard{
     // disable keyboard
@@ -571,17 +625,16 @@
 - (void)textViewDidChange:(UITextView *)textView{
     
     long  textLength =[textView.text length];
-    int maxLength = 200;
-    long charLeft = maxLength - [textView.text length];
+    long charLeft = kAPIValidationContentMaxLength - [textView.text length];
 //    NSString *substring = [NSString stringWithString:composeTextView];
     
     // place holder text
     if(( textLength == 0)&&(placeHolderLabel.isHidden)){
-        placeHolderLabel.hidden=NO;
+       // placeHolderLabel.hidden=NO;
         characterCount.text = [NSString stringWithFormat:@"%ld", charLeft];
     }
     else if((textLength> 0)&&(!placeHolderLabel.isHidden)){
-        placeHolderLabel.hidden=YES;
+        //placeHolderLabel.hidden=YES;
     }
       // Update remaining characters
     if (textLength >0){
@@ -603,7 +656,7 @@
     // return key
    if([text isEqualToString:@"\n"]) {
 //        [self postContent:nil];
-       [composeTextView resignFirstResponder];
+//       [composeTextView resignFirstResponder];
         return YES;
     }
     
@@ -615,6 +668,13 @@
     return YES;
 }
 
+// Vertically center text
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    UITextView *tv = object;
+    CGFloat topCorrect = ([tv bounds].size.height - [tv contentSize].height * [tv zoomScale])/2.0;
+    topCorrect = ( topCorrect < 0.0 ? 0.0 : topCorrect );
+    tv.contentOffset = (CGPoint){.x = 0, .y = -topCorrect};
+}
 #pragma mark - Image options
 - (void)imageOptions{
     [self showPhotoOptions:self];
@@ -637,11 +697,11 @@
 }
 
 #pragma mark - Google Image Search
-- (void)imageSearch{
-    NSString * yourImageURL = 0;//...//;
-    NSString *searchURL = @"https://www.google.com/searchbyimage?&image_url=";
-    NSString * completeURL = [NSString stringWithFormat:@"%@%@", searchURL, yourImageURL];
-}
+//- (void)imageSearch{
+//    NSString * yourImageURL = 0;//...//;
+//    NSString *searchURL = @"https://www.google.com/searchbyimage?&image_url=";
+//    NSString * completeURL = [NSString stringWithFormat:@"%@%@", searchURL, yourImageURL];
+//}
 
 #pragma mark - Filter options
 - (void)filterOptions{
@@ -662,6 +722,10 @@
                      initWithTarget:self
                      action:@selector(panRecognized:)];
     
+    touchRecognized = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchRecognized:)];
+    [touchRecognized setNumberOfTapsRequired:1];
+    
+    
     [panRecognized setMinimumNumberOfTouches:1];
     [panRecognized setMaximumNumberOfTouches:1];
     [composeTextView setGestureRecognizers:nil];
@@ -670,12 +734,14 @@
     [composeTextView setUserInteractionEnabled:YES];
     [contentImageView setUserInteractionEnabled:YES];
     
-    [contentImageView addGestureRecognizer:panRecognized];
+   // [contentImageView addGestureRecognizer:panRecognized];
    // [[self view] addGestureRecognizer:panRecognized];
-       [composeTextView addGestureRecognizer:panRecognized];
-
+    [composeTextView addGestureRecognizer:panRecognized];
+    [composeTextView addGestureRecognizer:touchRecognized];
 }
-
+- (void)touchRecognized:(UITapGestureRecognizer *)sender{
+    [self textButtonPressed:self];
+}
 - (void)panRecognized:(UIPanGestureRecognizer *)sender
 {
 //    CGPoint touchLocation = [panRecognized locationInView:self.view];
@@ -695,7 +761,6 @@
         [sender setTranslation:CGPointZero inView:sender.view];
         [sender cancelsTouchesInView];
     }
-    NSLog(@"panning");
 }
 
 #pragma mark - Button Action Methods
@@ -740,6 +805,8 @@
 - (void)addPicture:(id)sender {
     
 }
+
+
 #pragma mark - Api Manager Post actions methods
 - (void)actionsForSuccessfulPostContent{
     // Analytics: Flurry
@@ -786,7 +853,10 @@
     // go back to content view
     //self.tabBarController.selectedIndex = kCFVTabbarIndexContent;
 }
-
+- (void)removeImage:(id)sender {
+    contentImageView.image = nil;
+    deleteImage.hidden = YES;
+}
 #pragma mark - control events methods
 - (void)selectedCategoryChanged:(id)sender{
     // update colors
@@ -911,29 +981,30 @@
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposeCamera]];
     //photoOptionsView.hidden = YES;
-    
     [self disableKeyBoard];
     // start image picker for camera
     //[AppUIManager dispatchBlock:^{[photoManager displayCamera]; } afterDelay:0.5];
     //[photoManager performSelector:@selector(displayCamera) withObject:nil afterDelay:0.3];
     [photoManager displayCamera];
+    deleteImage.hidden = NO;
 }
 
 - (void)albumButtonPressed:(id)sender {
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposeAlbum]];
     // photoOptionsView.hidden = YES;
-    
     [self disableKeyBoard];
     // start image picker for camera
     //[AppUIManager dispatchBlock:^{[photoManager displayPhotoLibrary]; } afterDelay:0.5];
     //[photoManager performSelector:@selector(displayPhotoLibrary) withObject:nil afterDelay:0.3];
     [photoManager displayPhotoLibrary];
+    deleteImage.hidden = NO;
 }
 
 
 #pragma mark -  Image Processing Manager Delegate methods
 - (void)photoCaptureCancelled {
+    deleteImage.hidden = YES;
     //[self photoDialogCancelAction];
 }
 - (void)photoCaptureDoneWithImage:(UIImage *)image {

@@ -166,7 +166,9 @@
     //    [self view].userInteractionEnabled = YES;
     
     // set navigation bar
+    self.navigationController.navigationBar.hidden = NO;
     [self setNavigationBar];
+   
      self.navigationController.toolbarHidden = YES;
     // animation view
     //    animationView = [[UIView alloc] init];
@@ -472,9 +474,8 @@
 //    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
 //    [[UINavigationBar appearance] setBackgroundColor:[UIColor blueColor]];
   //  navigationController.navigationBar setTranslucent:NO]
-    if([UINavigationBar conformsToProtocol:@protocol(UIAppearanceContainer)]) {
-        [[UINavigationBar appearance] setTranslucent:NO];
-    }
+    [[UINavigationBar appearance] setTranslucent:NO];
+    
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
 //    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"header-gradient.png"] forBarMetrics:UIBarMetricsDefault];
@@ -632,7 +633,7 @@
     if (sender.state == UIGestureRecognizerStateEnded) {
         //       NSLog(@"%f", velocity.x);
         float screenW = [CommonUtility getScreenWidth];
-        float screenH = [CommonUtility getScreenHeight];
+     //   float screenH = [CommonUtility getScreenHeight];
         
         _endingTap = [panRecognized locationInView:self.view].x;
         _endingTap2 = [panRecognized2 locationInView:self.view].x;
@@ -760,6 +761,7 @@
 -(void)goToCommentView:(id)sender{
     CommentViewController *cvc = [[CommentViewController alloc] init];
     cvc.hidesBottomBarWhenPushed=YES;
+    cvc.currentContent = currentContent;
     
     [self.navigationController pushViewController:cvc animated:NO];
 }
@@ -924,6 +926,10 @@
     
     pic_index +=1;
     pic_index = (int) fmodf(pic_index,4.0);
+    
+    // comment count tag
+    commentCount.text = [CommonUtility getFixedLengthStringForNumber:currentContent.commentCount];
+    spreadsCount.text = [CommonUtility getFixedLengthStringForNumber:currentContent.spreadCount];
     
 }
 - (void)clearContents{

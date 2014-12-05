@@ -39,11 +39,16 @@
     return accessoryImage;
 }
 
-+ (UIButton *)getCellButton{
++ (CustomLilkeButton *)getCellButton{
     UIImage *image = [UIImage imageNamed:@"reply-heart-empty.png"];
   //  UIImageView *cellImageView = [[UIImageView alloc] initWithImage:image];
    // UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIButton *button = [AppUIManager getTransparentUIButton];
+    CustomLilkeButton *button = [[CustomLilkeButton alloc] init];
+    // colors and fonts
+    button.backgroundColor = [UIColor clearColor];
+    // for auto layout
+    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
     [button setImage:image forState:UIControlStateNormal];
     //[button setFrame:CGRectMake(290, 15, 18.0, 18.0)];
     return button;
@@ -125,7 +130,17 @@
     // accessibilty
     [textView setAccessibilityIdentifier:@"Add Text"];
     return textView;
+}
 
++ (void)updateLikeButtonImage:(CustomLilkeButton *)button withDidLike:(BOOL)didLike{
+    button.didLike = didLike;
+    if (didLike){
+        button.imageView.image = [UIImage imageNamed:@"reply-heart-full.png"];
+    }
+    else {
+        button.imageView.image = [UIImage imageNamed:@"reply-heart-empty.png"];
+
+    }
 }
 
 @end

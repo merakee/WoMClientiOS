@@ -25,6 +25,11 @@
     self.likeButton = [CommentViewHelper getCellButton];
     self.likeCount = [CommentViewHelper getLikeCount];
     
+    self.commentCellLabel.tag = kCVCCommentTableCellTagText;
+    self.likeButton.tag = kCVCCommentTableCellTagLikeButton;
+    self.likeCount.tag = kCVCCommentTableCellTagLikeCount;
+    
+    
     [self addSubview:self.commentCellLabel];
     [self addSubview:self.likeButton];
     [self addSubview:self.likeCount];

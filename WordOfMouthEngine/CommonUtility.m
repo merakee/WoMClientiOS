@@ -930,6 +930,10 @@
     return [nf numberFromString:string];
 }
 
++(NSString *)getFixedLengthStringForNumber:(NSNumber *)val{
+    return [val stringValue];
+}
+
 #pragma mark - Size and Shape methods
 + (CGRect)scaleRect:(CGRect)rect byScale:(float)scale {
     if(scale==1.0||scale<0) {

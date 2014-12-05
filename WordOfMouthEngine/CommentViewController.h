@@ -7,6 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ApiManager.h"
+#import "CommentViewHelper.h"
+
+static const int kCVC_DEFAULT_NUMBER_OF_COMMENTS = 20;
+
+static const int kCVCommentModePopular = 1;
+static const int kCVCommentModeRecent = 0;
+typedef enum {
+    kAPICommentRefreshModeRefresh = 0,
+    kAPICommentRefreshModeGetMore = 1,
+} kAPICommentRefreshMode;
+
 static const int kCellButtonTag = 10;
 
 @interface CommentViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>{
@@ -17,12 +29,17 @@ static const int kCellButtonTag = 10;
     UIBarButtonItem         *sButton;
     UITextView              *commentText;
     
-    UIButton                *likeButton;
+    UIActivityIndicatorView *activityIndicator;
+    
+    
+    //CustomLilkeButton       *likeButton;
     UILabel                 *cellText;
-    NSArray                 *recentArray;
-    NSArray                 *popularArray;
-    NSArray                 *activeArray;
+    NSMutableArray          *recentArray;
+    NSMutableArray          *popularArray;
+    NSMutableArray          *activeArray;
+    BOOL                    isUpdateActive;
 }
+@property (nonatomic) ApiContent *currentContent;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property NSIndexPath *editingIndexPath;
 extern NSArray const *testArray;

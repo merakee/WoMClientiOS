@@ -27,12 +27,14 @@
     
     UIActivityIndicatorView *activityIndicator;
     UIPanGestureRecognizer *panRecognized;
- 
+    UITapGestureRecognizer *touchRecognized;
+    
     //UIScrollView            *scrollView;
     
     UIView                  *inputAccView;
     UIButton                *backButton;
     UIButton                *doneButton;
+    UIButton                *deleteImage;
     
     // Toolbar buttons
     UIToolbar           *composeToolBar;
@@ -71,7 +73,9 @@
     UIButton            *color3;
     UIButton            *color4;
     UIButton            *color5;
-    
+    UIButton            *color6;
+    UIButton            *color7;
+    UIButton            *color8;
     NSArray             *buttonItems;
 }
 

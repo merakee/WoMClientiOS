@@ -53,6 +53,7 @@
     [super viewWillAppear:animated];
     
     // hide navigation bar
+    [self.navigationController.navigationBar setTranslucent:NO],
     [self.navigationController setNavigationBarHidden:YES];
     
 }
@@ -282,7 +283,7 @@
 
 //    UIPageViewController *pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     
-      pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     pageViewController.dataSource = self;
     pageViewController.delegate = self;
     if([tutorialImages count])
@@ -299,12 +300,11 @@
 //    
 //    [pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 //    pageViewController.view.frame = self.view.bounds;
-    self.view.clipsToBounds = YES;
+    pageViewController.view.clipsToBounds = YES;
   //  self.view.frame = self.view.bounds;
     float screenW = [CommonUtility getScreenWidth];
     float screenH = [CommonUtility getScreenHeight];
-//    TutorialViewController *container = [[TutorialViewController alloc] init];
-   [pageViewController.view setFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, screenW, screenH*2/3)];
+//   [pageViewController.view setFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, screenW, screenH*2/3)];
     [pageViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
  //   pageController.view.backgroundColor = [UIColor blackColor];
     [self addChildViewController:pageViewController];

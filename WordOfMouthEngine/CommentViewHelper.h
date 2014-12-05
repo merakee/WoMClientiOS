@@ -9,15 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "AppUIManager.h"
 #import "ApiContent.h"
+#import "CustomLilkeButton.h"
 @interface CommentViewHelper : NSObject
 
 + (void)setView:(UIView *)view;
 + (UIButton *)      getSendButton;
 + (UIImage *)       getCellImage;
-+ (UIButton *)      getCellButton;
++ (CustomLilkeButton *)      getCellButton;
 + (UILabel *)       getCellText;
 + (UILabel *)       getLikeCount;
 + (UITextView *)    getCommentText:(id)delegate;
++ (void)updateLikeButtonImage:(CustomLilkeButton *)button withDidLike:(BOOL)didLike;
 
 @property (nonatomic, strong) UILabel *getDescriptionLabel;
 @end

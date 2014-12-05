@@ -26,6 +26,7 @@
     UIImageView *contentImageView =[[UIImageView alloc] init];
     contentImageView.contentMode = UIViewContentModeScaleAspectFill;
     [contentImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    contentImageView.clipsToBounds = YES;
     return contentImageView;
 }
 
@@ -129,7 +130,7 @@
     
     // set up key board
     
-    textView.returnKeyType = UIReturnKeyDone;
+    textView.returnKeyType = UIReturnKeyDefault;
     
     // inset for text
     //textView.textContainerInset = UIEdgeInsetsMake(0, 0, 5.0, 0.0);
@@ -137,8 +138,9 @@
     // attirubtes - ios 7
     NSMutableParagraphStyle *paraStyle = [NSMutableParagraphStyle new];
     paraStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    paraStyle.alignment = NSTextAlignmentLeft;
-//    paraStyle.alignment = NSTextAlignmentCenter;
+    paraStyle.alignment = NSTextAlignmentCenter;
+    
+    
     //paraStyle.lineSpacing = 10;// -kAUCFontSizeContentText/2.0 + 9.0;
     
     NSShadow *shadow = [[NSShadow alloc] init];
@@ -198,7 +200,7 @@
 }
 + (UIButton *)getCancelButton{
     UIButton *button =  [AppUIManager getTransparentUIButton];
-    [button setImage:[UIImage imageNamed:kAUCComposeSpreadButtonImage] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:kAUCBackButtonImage] forState:UIControlStateNormal];
     [button setTranslatesAutoresizingMaskIntoConstraints:NO];
     [button setAccessibilityIdentifier:@"Cancel"];
     return button;
@@ -230,7 +232,13 @@
     [button setTitle:@"Done" forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Done"];
     return button;
-    
+}
++ (UIButton *)getRemoveImageButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCDeleteImageButtonImage] forState:UIControlStateNormal];
+    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [button setAccessibilityIdentifier:@"Remove Image"];
+    return button;
 }
 
 #pragma mark - Toolbar Buttons
@@ -261,48 +269,48 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    button.frame = CGRectMake(5, 5, 20, 20);
+    button.frame = CGRectMake(0, 0, 20, 20);
     [button setAccessibilityIdentifier:@"FilterButton"];
     return button;
 }
 
 #pragma mark - Accessory Buttons
 + (UIButton *)getXButton{
-    UIImage *buttonImage = [UIImage imageNamed:@"logo-nav~iphone.png"];
+    UIImage *buttonImage = [UIImage imageNamed:kAUCClearIconButtonImage];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    button.frame = CGRectMake(5, 5, 20, 20);
+    button.frame = CGRectMake(0, 0, 20, 20);
     [button setAccessibilityIdentifier:@"XButton"];
     return button;
 }
 
 + (UIButton *)getCheckButton{
-    UIImage *buttonImage = [UIImage imageNamed:@"logo-nav~iphone.png"];
+    UIImage *buttonImage = [UIImage imageNamed:kAUCCheckIconButtonImage];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    button.frame = CGRectMake(5, 5, 20, 20);
+    button.frame = CGRectMake(0, 0, 20, 20);
     [button setAccessibilityIdentifier:@"CheckButton"];
     return button;
 }
 
-+ (UIButton *)getBackgroundButton{
-    UIImage *buttonImage = [UIImage imageNamed:@"logo-nav~iphone.png"];
++ (UIButton *)getTextColorButton{
+    UIImage *buttonImage = [UIImage imageNamed:kAUCTextColorButtonImage];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    button.frame = CGRectMake(5, 5, 20, 20);
+    button.frame = CGRectMake(0, 0, 36, 28);
     [button setAccessibilityIdentifier:@"BackgroundButton"];
     return button;
 }
 
 + (UIButton *)getKeyboardButton{
-    UIImage *buttonImage = [UIImage imageNamed:@"logo-nav~iphone.png"];
+    UIImage *buttonImage = [UIImage imageNamed:kAUCKeyboardButtonImage];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    button.frame = CGRectMake(5, 5, 20, 20);
+    button.frame = CGRectMake(0, 0, 36, 28);
     [button setAccessibilityIdentifier:@"KeyboardButton"];
     return button;
 }
@@ -310,7 +318,7 @@
 + (UIButton *)getColor1{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundColor:[UIColor whiteColor]];
-    button.frame = CGRectMake(5, 5, 20, 20);
+  //  button.frame = CGRectMake(5, 5, 20, 20);
     [button setAccessibilityIdentifier:@"Color1"];
     return button;
 }
@@ -318,7 +326,7 @@
 + (UIButton *)getColor2{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundColor:[UIColor blackColor]];
-    button.frame = CGRectMake(5, 5, 20, 20);
+ //   button.frame = CGRectMake(5, 5, 20, 20);
     [button setAccessibilityIdentifier:@"Color2"];
     return button;
 }
@@ -326,7 +334,7 @@
 + (UIButton *)getColor3{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundColor:[UIColor yellowColor]];
-    button.frame = CGRectMake(5, 5, 20, 20);
+ //   button.frame = CGRectMake(5, 5, 20, 20);
     [button setAccessibilityIdentifier:@"Color3"];
     return button;
 }
@@ -334,12 +342,33 @@
 + (UIButton *)getColor4{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundColor:[UIColor redColor]];
-    button.frame = CGRectMake(5, 5, 20, 20);
+ //   button.frame = CGRectMake(5, 5, 20, 20);
     [button setAccessibilityIdentifier:@"Color4"];
     return button;
 }
 
 + (UIButton *)getColor5{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundColor:[UIColor blueColor]];
+ //   button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"Color5"];
+    return button;
+}
++ (UIButton *)getColor6{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundColor:[UIColor blueColor]];
+ //   button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"Color5"];
+    return button;
+}
++ (UIButton *)getColor7{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundColor:[UIColor blueColor]];
+    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setAccessibilityIdentifier:@"Color5"];
+    return button;
+}
++ (UIButton *)getColor8{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundColor:[UIColor blueColor]];
     button.frame = CGRectMake(5, 5, 20, 20);

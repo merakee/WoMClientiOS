@@ -327,39 +327,39 @@ describe(@"ApiValidationManager", ^{
     
     describe(@"Content Validations", ^{
         it(@"should pass content validation",^{
-            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryLocalInfo
+            error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryLocalInfo
                                                                       text:@"Local news"];
             expect(error).to.beFalsy();
         });
         
         it(@"should pass content validation",^{
-            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryRumor
+            error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryRumor
                                                                       text:@"Local news"];
             expect(error).to.beFalsy();
         });
         it(@"should pass content validation",^{
-            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategorySecret
+            error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategorySecret
                                                                       text:@"Local news"];
             expect(error).to.beFalsy();
         });
         it(@"should pass content validation",^{
-            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryNews
+            error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryNews
                                                                       text:@"Local news"];
             expect(error).to.beFalsy();
         });
         it(@"should pass content validation",^{
-            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryLocalInfo
-                                                                      text:@"Lo"];
+            error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryLocalInfo
+                                                                      text:@"L"];
             expect(error).to.beFalsy();
         });
         it(@"should pass content validation",^{
-            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryLocalInfo
+            error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryLocalInfo
                                                                       text:@"AWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elastic"];
             expect(error).to.beFalsy();
         });
         
         it(@"should fail content validation with wrong category",^{
-            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryOther
+            error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryOther
                                                                       text:@"Local news"];
             
             
@@ -369,8 +369,8 @@ describe(@"ApiValidationManager", ^{
         });
         
         it(@"should fail content validation with short text",^{
-            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryLocalInfo
-                                                                      text:@"L"];
+            error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryLocalInfo
+                                                                      text:@""];
             
             NSString *str =[NSString stringWithFormat:@"Text must be at least %d charecter long",kAPIValidationContentMinLength];
             expect(error.localizedFailureReason).to.equal(str);
@@ -378,8 +378,8 @@ describe(@"ApiValidationManager", ^{
             expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
         });
         
-        it(@"should fail content validation with short text",^{
-            error = [ApiValidationManager validatePostCotentWithCategoryId:kAPIContentCategoryNews
+        it(@"should fail content validation with too long text",^{
+            error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryNews
                                                                       text:@"AWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elasticc Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elastic"];
             
             NSString *str =[NSString stringWithFormat:@"Text must be shoter than %d charecter long",kAPIValidationContentMaxLength];
@@ -388,6 +388,37 @@ describe(@"ApiValidationManager", ^{
             expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
         });
     });
+    
+    
+    describe(@"Comment Validations", ^{
+        it(@"should pass comment validation",^{
+            error = [ApiValidationManager validatePostCommentWithText:@"L"];
+            expect(error).to.beFalsy();
+        });
+        it(@"should pass comment validation",^{
+            error = [ApiValidationManager validatePostCommentWithText:@"AWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elastic"];
+            expect(error).to.beFalsy();
+        });
+        
+        it(@"should fail comment validation with short text",^{
+            error = [ApiValidationManager validatePostCommentWithText:@""];
+            
+            NSString *str =[NSString stringWithFormat:@"Text must be at least %d charecter long",kAPIValidationCommentMinLength];
+            expect(error.localizedFailureReason).to.equal(str);
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should fail comment validation with too long text",^{
+            error = [ApiValidationManager validatePostCommentWithText:@"AWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elasticc Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elastic"];
+            
+            NSString *str =[NSString stringWithFormat:@"Text must be shoter than %d charecter long",kAPIValidationCommentMaxLength];
+            expect(error.localizedFailureReason).to.equal(str);
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+    });
+
     
     
 });

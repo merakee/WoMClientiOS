@@ -329,7 +329,7 @@
     label.textColor = [UIColor whiteColor];
     label.shadowOffset = CGSizeMake(1, 1);
     label.textAlignment = NSTextAlignmentCenter;
-    label.text = @"2";
+//    label.text = @"2";
     [label setTranslatesAutoresizingMaskIntoConstraints:NO];
     return label;
 }
@@ -337,7 +337,7 @@
 //    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     UILabel *label = [[UILabel alloc] init];
    // label.backgroundColor = [UIColor greenColor];
-    label.text = @"3";
+//    label.text = @"3";
     label.textColor = [UIColor whiteColor];
     label.textAlignment = NSTextAlignmentCenter;
     label.shadowOffset = CGSizeMake(1, 1);

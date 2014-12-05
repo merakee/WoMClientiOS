@@ -5,10 +5,9 @@
 //  Created by Bijit Halder on 11/18/13.
 //  Copyright (c) 2013 Bijit Halder. All rights reserved.
 //
-
 #import <XCTest/XCTest.h>
 #import "ApiManager.h"
-#import "AsynTextHelper.h"
+#import "AsynTestHelper.h"
 #import "PlaceHolderFactory.h"
 #import "CommonUtility.h"
 #import "TestHelper.h"

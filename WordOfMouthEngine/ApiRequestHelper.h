@@ -115,7 +115,7 @@ static const float kAMAPI_CONTENT_PHOTO_COMPRESSION = 0.7;
  */
 + (ApiComment *)getCommentFromDictionary:(NSDictionary *)commentDic;
 
-#pragma mark - user response info from response
+#pragma mark - comment response info from response
 /*!
  *  Converts Json Dictionary to CommentResponse Object
  *  @param CommentResponseDic Dictionary containing User Response information

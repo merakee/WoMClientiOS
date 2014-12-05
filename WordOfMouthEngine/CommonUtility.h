@@ -170,6 +170,8 @@ static NSString * kDateFormatDefault              = @"yyyyMMddHHmmss";
 +(NSString *)wordsForInt:(NSInteger)val;
 +(NSString *)wordsForFloat:(float)val;
 +(NSString *)wordsForNumber:(NSNumber *)val;
++(NSString *)getFixedLengthStringForNumber:(NSNumber *)val;
+
 /*!
  *  Converts NSString to NSNumber using NSNumberFormatter with no style
  *  @param string The NSString containing the Number
