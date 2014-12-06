@@ -326,41 +326,64 @@ describe(@"ApiValidationManager", ^{
     });
     
     describe(@"Content Validations", ^{
+        
+        it(@"should pass content validation with image and empty text",^{
+            error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryLocalInfo
+                                                                       text:@""
+                                                                   andPhoto:[UIImage imageNamed:@"logo-nav.png"]];
+            expect(error).to.beFalsy();
+        });
+        
+        it(@"should pass content validation with image and nil text",^{
+            error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryLocalInfo
+                                                                       text:nil
+                                                                   andPhoto:[UIImage imageNamed:@"logo-nav.png"]];
+            expect(error).to.beFalsy();
+        });
+        
+        
         it(@"should pass content validation",^{
             error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryLocalInfo
-                                                                      text:@"Local news"];
+                                                                      text:@"Local news"
+                     andPhoto:nil];
             expect(error).to.beFalsy();
         });
         
         it(@"should pass content validation",^{
             error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryRumor
-                                                                      text:@"Local news"];
+                                                                      text:@"Local news"
+                     andPhoto:nil];
             expect(error).to.beFalsy();
         });
         it(@"should pass content validation",^{
             error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategorySecret
-                                                                      text:@"Local news"];
+                                                                      text:@"Local news"
+                     andPhoto:nil];
             expect(error).to.beFalsy();
         });
         it(@"should pass content validation",^{
             error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryNews
-                                                                      text:@"Local news"];
+                                                                      text:@"Local news"
+                                                                   andPhoto:nil];
             expect(error).to.beFalsy();
         });
         it(@"should pass content validation",^{
             error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryLocalInfo
-                                                                      text:@"L"];
+                                                                      text:@"L"
+                     andPhoto:nil];
             expect(error).to.beFalsy();
         });
         it(@"should pass content validation",^{
             error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryLocalInfo
-                                                                      text:@"AWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elastic"];
+                                                                      text:@"AWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elastic"
+                     andPhoto:nil];
             expect(error).to.beFalsy();
         });
         
         it(@"should fail content validation with wrong category",^{
             error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryOther
-                                                                      text:@"Local news"];
+                                                                      text:@"Local news"
+                     andPhoto:nil];
             
             
             expect(error.localizedFailureReason).to.equal(@"Please select a content type.");
@@ -370,7 +393,8 @@ describe(@"ApiValidationManager", ^{
         
         it(@"should fail content validation with short text",^{
             error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryLocalInfo
-                                                                      text:@""];
+                                                                      text:@""
+                     andPhoto:nil];
             
             NSString *str =[NSString stringWithFormat:@"Text must be at least %d charecter long",kAPIValidationContentMinLength];
             expect(error.localizedFailureReason).to.equal(str);
@@ -380,7 +404,8 @@ describe(@"ApiValidationManager", ^{
         
         it(@"should fail content validation with too long text",^{
             error = [ApiValidationManager validatePostContentWithCategoryId:kAPIContentCategoryNews
-                                                                      text:@"AWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elasticc Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elastic"];
+                                                                      text:@"AWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elasticc Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and ElasticAWS Elastic Beanstalk makes it even easier for developers to quickly deploy and manage applications in the AWS cloud. Developers simply upload their application, and Elastic"
+                     andPhoto:nil];
             
             NSString *str =[NSString stringWithFormat:@"Text must be shoter than %d charecter long",kAPIValidationContentMaxLength];
             expect(error.localizedFailureReason).to.equal(str);

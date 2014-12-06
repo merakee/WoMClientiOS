@@ -399,7 +399,7 @@
                           failure:(void (^)(NSError *error))failure{
     // process and validate
     NSString * text = [CommonUtility trimString:text_];
-    NSError *verror =[ApiValidationManager validatePostContentWithCategoryId:categoryId text:text];
+    NSError *verror =[ApiValidationManager validatePostContentWithCategoryId:categoryId text:text andPhoto:photo];
     if(verror){
         failure(verror);
         return;

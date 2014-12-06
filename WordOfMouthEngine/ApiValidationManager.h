@@ -13,9 +13,9 @@
 
 static const int kAPIValidationPasswordMinLentgh = 8;
 static const int kAPIValidationContentMinLength = 1;
-static const int kAPIValidationContentMaxLength = 200;
+static const int kAPIValidationContentMaxLength = 250;
 static const int kAPIValidationCommentMinLength = 1;
-static const int kAPIValidationCommentMaxLength = 200;
+static const int kAPIValidationCommentMaxLength = 250;
 
 @interface ApiValidationManager : NSObject
 
@@ -30,7 +30,8 @@ static const int kAPIValidationCommentMaxLength = 200;
                                  password:(NSString *)password;
 #pragma mark - content validation methods
 + (NSError *)validatePostContentWithCategoryId:(int)categoryId
-                                          text:(NSString *)text;
+                                          text:(NSString *)text
+                                      andPhoto:(UIImage *)photo;
 
 #pragma mark - comment validation methods
 + (NSError *)validatePostCommentWithText:(NSString *)text;
