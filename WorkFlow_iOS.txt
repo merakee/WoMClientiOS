@@ -44,6 +44,23 @@ pod list new
 All commands: http://guides.cocoapods.org/terminal/commands.html#commands
 
 #—————————————————————————
+# Version control: Git
+#—————————————————————————
+1. Fetch new branch from remote and track
+    git checkout --track remote_name/branch_name
+    go --track github/branch_name
+2. Fetch all
+    git fetch --all
+3. Track remote branch
+        git branch -u remote_name/branch_name
+    Or, if local branch branch_name is not the current branch:
+        git branch -u upstream/branch_name branch_name
+    Or, longer commands, these are equivalent to the above two:
+        git branch --set-upstream-to=remote_name/branch_name
+        git branch --set-upstream-to=remote_name/branch_name branch_name
+
+
+#—————————————————————————
 # Documentation: Headerdoc
 #—————————————————————————
 Commands:
