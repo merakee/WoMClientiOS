@@ -155,18 +155,18 @@
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(appLogoView,buttonsView,signInButton,signUpButton,signInAsGuestButton,activityIndicator);
     
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(signInButton,signInAsGuestButton,activityIndicator,termsButton,pageViewController);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(signInButton,signInAsGuestButton,activityIndicator,termsButton,pageViewControllerView);
 
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageViewController]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[pageViewControllerView]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pageViewController]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pageViewControllerView(300)]"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
 
     // buttons
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInAsGuestButton]"
                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signInButton(40)]-12-[signInAsGuestButton(40)]-56-[termsButton(34)]-19-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pageViewControllerView(300)]-41-[signInButton(40)]-12-[signInAsGuestButton(40)]-56-[termsButton(34)]-19-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:signInAsGuestButton inView:self.view];
     
@@ -302,13 +302,14 @@
 //    pageViewController.view.frame = self.view.bounds;
     pageViewController.view.clipsToBounds = YES;
   //  self.view.frame = self.view.bounds;
-    float screenW = [CommonUtility getScreenWidth];
-    float screenH = [CommonUtility getScreenHeight];
 //   [pageViewController.view setFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, screenW, screenH*2/3)];
-    [pageViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+
  //   pageController.view.backgroundColor = [UIColor blackColor];
     [self addChildViewController:pageViewController];
-     [self.view addSubview:pageViewController.view];
+    pageViewControllerView = pageViewController.view;
+    [pageViewControllerView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:pageViewControllerView];
+  //  pageViewControllerView.backgroundColor = [UIColor redColor];
     [pageViewController didMoveToParentViewController:self];
 }
 //- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {

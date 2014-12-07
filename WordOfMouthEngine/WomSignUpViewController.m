@@ -86,9 +86,9 @@
     [self.view addSubview:passwordField];
     
     
-    passwordConfirmationField =[[UITextField alloc] init];
-    [WomSignUpViewHelper setPasswordConfirmationTextFiled:passwordConfirmationField withDelegate:self];
-    [self.view addSubview:passwordConfirmationField];
+//    passwordConfirmationField =[[UITextField alloc] init];
+//    [WomSignUpViewHelper setPasswordConfirmationTextFiled:passwordConfirmationField withDelegate:self];
+//    [self.view addSubview:passwordConfirmationField];
     
     // set buttons
     signUpButton = [WomSignUpViewHelper getSignUpButton];
@@ -109,7 +109,7 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,passwordConfirmationField,signUpButton,cancelButton,pageLabel);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,signUpButton,cancelButton,pageLabel);
     
     // labels
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLabel(120)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -133,10 +133,10 @@
     // text fields
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[emailField]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[passwordField]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[passwordConfirmationField]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[passwordConfirmationField]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[emailField(40)]-4-[passwordField(emailField)]-4-[passwordConfirmationField(emailField)]-218-|"
-                                                                      options:0 metrics:nil views:viewsDictionary]]; // key board 216
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[emailField(40)]-4-[passwordField(emailField)]-4-[passwordConfirmationField(emailField)]-218-|"
+//                                                                      options:0 metrics:nil views:viewsDictionary]]; // key board 216
     
     
 }

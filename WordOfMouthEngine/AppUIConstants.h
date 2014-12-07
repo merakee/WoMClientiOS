@@ -65,6 +65,14 @@ const static float kAUCColorTextQuaternary[4] = {0.0/360.0, 0.0, .90, 1.0};
 const static float kAUCColorTextQuinary[4] = {0.0/360.0, 0.0, 0.55, 1.0};
 const static float kAUCColorTextStroke[4] = {176.0/360.0, 1.0, 0.22, 1.0};
 
+const static float kAUTextColor1[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
+const static float kAUTextColor2[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
+const static float kAUTextColor3[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
+const static float kAUTextColor4[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
+const static float kAUTextColor5[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
+const static float kAUTextColor6[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
+const static float kAUTextColor7[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
+const static float kAUTextColor8[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
 
 ////const static float kAUCColorGray[4] = {kAUCHueGray,0.1,0.9,1.0};
 //
@@ -216,8 +224,9 @@ const static float kAUCAppContentTimerWarning = 5.0;
 // Commom images
 
 // SignIn Images
-static NSString *kAUCCancelButtonImage =@"close-btn.png";
-static NSString *kAUCLogInButtonImage =@"login-nav-btn.png";
+static NSString *kAUCCancelButtonImage =@"cancel.png";
+static NSString *kAUCLogInButtonImage =@"Login.png";
+static NSString *kAUCSignupButtonImaghe =@"signup.png";
 static NSString *kAUCTermsButtonImage =@"Privacy-policy-Terms.png";
 
 

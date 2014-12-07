@@ -71,8 +71,8 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
    //  self.navigationController.navigationBar.hidden = YES;
-    [self.navigationController setNavigationBarHidden:YES];
-    [self.navigationController setToolbarHidden:YES];
+//    [self.navigationController setNavigationBarHidden:YES];
+//     self.navigationController.navigationBar.hidden = NO;
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposeSession] withParameters:nil timed:YES];
     // display key board
@@ -122,9 +122,9 @@
     [ComposeViewHelper setView:self.view];
     
     // set navigation bar
-  //  [self setNavigationBar];
-    self.navigationController.navigationBar.hidden = YES;
-    self.navigationController.toolbarHidden = YES;
+    [self setNavigationBar];
+    self.navigationController.navigationBar.hidden = NO;
+//    self.navigationController.toolbarHidden = YES;
    // [self.view addSubview:scrollView];
     
 
@@ -138,19 +138,19 @@
     //    [categoryControl addTarget:self action:@selector(selectedCategoryChanged:) forControlEvents:UIControlEventValueChanged];
     //    [self.view addSubview:categoryControl];
     
-    postButton = [ComposeViewHelper getPostButton];
-    [postButton addTarget:self action:@selector(postContent:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:postButton];
-    
-    cancelButton = [ComposeViewHelper getCancelButton];
-    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:cancelButton];
+//    postButton = [ComposeViewHelper getPostButton];
+//    [postButton addTarget:self action:@selector(postContent:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:postButton];
+//    
+//    cancelButton = [ComposeViewHelper getCancelButton];
+//    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:cancelButton];
     
     // set TextView
     composeTextView = [ComposeViewHelper getComposeTextViewWithDelegate:self];
     [contentImageView addSubview:composeTextView];
     [composeTextView addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
-     composeTextView.backgroundColor = [UIColor blueColor];
+ //    composeTextView.backgroundColor = [UIColor blueColor];
     // place holder label
     placeHolderLabel = [ComposeViewHelper getPlaceHolderLabel];
     [self.view addSubview:placeHolderLabel];
@@ -195,14 +195,14 @@
 - (void)layoutView{
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, textButton, imageButton, postButton, cancelButton, deleteImage);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, textButton, imageButton, deleteImage);
     
     // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[cancelButton(33)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(44)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[postButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(44)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[postButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[deleteImage(33)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[deleteImage(33)]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -230,7 +230,7 @@
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentImageView(320)]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[cancelButton(44)]-[contentImageView(320)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentImageView(320)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
 
     // place holder label
@@ -533,7 +533,7 @@
     color6.hidden = NO;
     color7.hidden = NO;
     color8.hidden = NO;
-    colorKeyboardToolBar.backgroundColor = [UIColor greenColor];
+//    colorKeyboardToolBar.backgroundColor = [UIColor greenColor];
     textButton.hidden = YES;
     imageButton.hidden = YES;
 }
@@ -584,28 +584,28 @@
 
 #pragma mark - Color options
 - (void)color1Pressed:(id)sender{
-    composeTextView.textColor = [UIColor whiteColor];
+    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor1];
 }
 - (void)color2Pressed:(id)sender{
-    composeTextView.textColor = [UIColor blackColor];
+    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor2];
 }
 - (void)color3Pressed:(id)sender{
-    composeTextView.textColor = [UIColor yellowColor];
+    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor3];
 }
 - (void)color4Pressed:(id)sender{
-    composeTextView.textColor = [UIColor redColor];
+    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor4];
 }
 - (void)color5Pressed:(id)sender{
-    composeTextView.textColor = [UIColor blueColor];
+    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor5];
 }
 - (void)color6Pressed:(id)sender{
-    composeTextView.textColor = [UIColor blueColor];
+    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor6];
 }
 - (void)color7Pressed:(id)sender{
-    composeTextView.textColor = [UIColor blueColor];
+    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor7];
 }
 - (void)color8Pressed:(id)sender{
-    composeTextView.textColor = [UIColor blueColor];
+    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor8];
 }
 
 #pragma mark - textview delegate methods
@@ -644,10 +644,10 @@
     textLength =[[CommonUtility  trimString:textView.text ] length];
     
     // post button
-    if((textLength < kAPIValidationContentMinLength)&&(postButton.isEnabled)){
+    if((textLength < kAPIValidationContentMinLength)){//&&(postButton.isEnabled)){
         postButton.enabled=NO;
     }
-    else if((textLength >= kAPIValidationContentMinLength)&&(!postButton.isEnabled)){
+    else if((textLength >= kAPIValidationContentMinLength)){//&&(!postButton.isEnabled)){
         postButton.enabled=YES;
     }
 }
@@ -856,6 +856,7 @@
 - (void)removeImage:(id)sender {
     contentImageView.image = nil;
     deleteImage.hidden = YES;
+    postButton.enabled = NO;
 }
 #pragma mark - control events methods
 - (void)selectedCategoryChanged:(id)sender{
@@ -987,6 +988,7 @@
     //[photoManager performSelector:@selector(displayCamera) withObject:nil afterDelay:0.3];
     [photoManager displayCamera];
     deleteImage.hidden = NO;
+    postButton.enabled = YES;
 }
 
 - (void)albumButtonPressed:(id)sender {
@@ -999,6 +1001,7 @@
     //[photoManager performSelector:@selector(displayPhotoLibrary) withObject:nil afterDelay:0.3];
     [photoManager displayPhotoLibrary];
     deleteImage.hidden = NO;
+    postButton.enabled = YES;
 }
 
 
@@ -1006,10 +1009,12 @@
 - (void)photoCaptureCancelled {
     deleteImage.hidden = YES;
     //[self photoDialogCancelAction];
+   // postButton.enabled = NO;
 }
 - (void)photoCaptureDoneWithImage:(UIImage *)image {
     // set image view
     contentImageView.image = image;
+    postButton.enabled = YES;
 }
 
 @end

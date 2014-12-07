@@ -75,7 +75,6 @@
 + (UILabel *)getLikeCount{
     UILabel *likeLabel =[[UILabel alloc] init];
     // ccLabel.backgroundColor = [UIColor clearColor];
-    [likeLabel setText:@"1"];
     likeLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeLikeLabel];
     likeLabel.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
     likeLabel.textAlignment = NSTextAlignmentCenter;
@@ -132,15 +131,5 @@
     return textView;
 }
 
-+ (void)updateLikeButtonImage:(CustomLilkeButton *)button withDidLike:(BOOL)didLike{
-    button.didLike = didLike;
-    if (didLike){
-        button.imageView.image = [UIImage imageNamed:@"reply-heart-full.png"];
-    }
-    else {
-        button.imageView.image = [UIImage imageNamed:@"reply-heart-empty.png"];
-
-    }
-}
 
 @end

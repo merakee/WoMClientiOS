@@ -143,11 +143,14 @@
         cell = [[CommentTableViewCell alloc] init];
         //   cellButton.tag = kCellButtonTag;
     }
-    [CommentViewHelper  updateLikeButtonImage:cell.likeButton withDidLike:[[(ApiComment*) [activeArray objectAtIndex:indexPath.row] didLike] boolValue]];
     [cell.likeButton addTarget:self action:@selector(likeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    ApiComment *apiComment =(ApiComment*) [activeArray objectAtIndex:indexPath.row];
+    cell.likeButton.didLike =[apiComment.didLike boolValue];
+    cell.likeCount.text = [apiComment.likeCount stringValue];
+    cell.commentCellLabel.text = apiComment.commentText;
     
-    NSLog(@"comment text: %@", ((ApiComment*) [activeArray objectAtIndex:indexPath.row]).commentText);
-    cell.commentCellLabel.text = ((ApiComment*) [activeArray objectAtIndex:indexPath.row]).commentText;
+    NSLog(@"comment text: %@", apiComment.commentText);
+    
     [cell sizeToFit];
     //cell.likeButton.tag = indexPath.row;
     //    if (segmentedControl.selectedSegmentIndex == 0) {
@@ -546,10 +549,10 @@
                                                        if(updateMode==kAPICommentRefreshModeGetMore){
                                                            [popularArray addObjectsFromArray:commentArray];
                                                        }
-                                                        else{
-                                                            [popularArray setArray:commentArray];
-                                                        }
-
+                                                       else{
+                                                           [popularArray setArray:commentArray];
+                                                       }
+                                                       
                                                        activeArray =popularArray;
                                                        [commentsTableView reloadData];
                                                        isUpdateActive = false;
@@ -602,8 +605,7 @@
 - (void)updateLikeButtonWithIndexPath:(NSIndexPath *)indexPath{
     CommentTableViewCell *cell = (CommentTableViewCell *)[commentsTableView cellForRowAtIndexPath:indexPath];
     
-    CustomLilkeButton * button = (CustomLilkeButton *)[cell viewWithTag:kCVCCommentTableCellTagLikeButton];
-    [CommentViewHelper updateLikeButtonImage:button withDidLike:true];
+    cell.likeButton.didLike=true;
     
     // comment count tag
     // .text = [CommonUtility getFixedLengthStringForNumber:currentContent.commentCount];

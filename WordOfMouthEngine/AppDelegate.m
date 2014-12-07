@@ -72,7 +72,7 @@
         [self  setSignInViewAsRootView];
     }else{
         if(contentViewController){
-            [contentViewController refreshContent];
+            [contentViewController refreshContentOnlyForTopView:false];
         }
     }
 }

@@ -9,10 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "CustomLilkeButton.h"
 
-static const int kCVCCommentTableCellTagText = 1;
-static const int kCVCCommentTableCellTagLikeButton = 2;
-static const int kCVCCommentTableCellTagLikeCount = 3;
-
 @interface CommentTableViewCell : UITableViewCell
 
 @property (nonatomic, retain) UILabel *commentCellLabel;

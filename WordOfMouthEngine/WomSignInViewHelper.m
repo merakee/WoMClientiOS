@@ -86,6 +86,7 @@
 + (UIButton *)getCancelButton{
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
+    [button setFrame:CGRectMake(0, 0, 40, 40)];
     [button setAccessibilityIdentifier:@"Cancel"];
     return button;
 }

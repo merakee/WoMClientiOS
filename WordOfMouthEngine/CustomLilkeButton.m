@@ -10,7 +10,19 @@
 
 @implementation CustomLilkeButton
 
-@synthesize didLike;
+@synthesize didLike = _didLike;
+
+- (void)setDidLike:(bool)didLike_ {
+    _didLike = didLike_;
+    if (didLike_){
+        self.imageView.image = [UIImage imageNamed:@"reply-heart-full.png"];
+    }
+    else {
+        self.imageView.image = [UIImage imageNamed:@"reply-heart-empty.png"];
+        
+    }
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

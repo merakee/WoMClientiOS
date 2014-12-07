@@ -201,14 +201,14 @@
 + (UIButton *)getCancelButton{
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCBackButtonImage] forState:UIControlStateNormal];
-    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [button setFrame:CGRectMake(0, 0, 40, 40)];
     [button setAccessibilityIdentifier:@"Cancel"];
     return button;
 }
 + (UIButton *)getPostButton{
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCComposeSpreadButtonImage] forState:UIControlStateNormal];
-    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [button setFrame:CGRectMake(0, 0, 40, 40)];
     [button setAccessibilityIdentifier:@"Post"];
     return button;
 }
@@ -317,61 +317,61 @@
 
 + (UIButton *)getColor1{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundColor:[UIColor whiteColor]];
-  //  button.frame = CGRectMake(5, 5, 20, 20);
+    [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor1]];
+    button.layer.cornerRadius = 4;
     [button setAccessibilityIdentifier:@"Color1"];
     return button;
 }
 
 + (UIButton *)getColor2{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundColor:[UIColor blackColor]];
- //   button.frame = CGRectMake(5, 5, 20, 20);
+    [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor2]];
+    button.layer.cornerRadius = 4;
     [button setAccessibilityIdentifier:@"Color2"];
     return button;
 }
 
 + (UIButton *)getColor3{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundColor:[UIColor yellowColor]];
- //   button.frame = CGRectMake(5, 5, 20, 20);
+    [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor3]];
+    button.layer.cornerRadius = 4;
     [button setAccessibilityIdentifier:@"Color3"];
     return button;
 }
 
 + (UIButton *)getColor4{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundColor:[UIColor redColor]];
- //   button.frame = CGRectMake(5, 5, 20, 20);
+    [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor4]];
+    button.layer.cornerRadius = 4;
     [button setAccessibilityIdentifier:@"Color4"];
     return button;
 }
 
 + (UIButton *)getColor5{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundColor:[UIColor blueColor]];
- //   button.frame = CGRectMake(5, 5, 20, 20);
+    [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor5]];
+    button.layer.cornerRadius = 4;
     [button setAccessibilityIdentifier:@"Color5"];
     return button;
 }
 + (UIButton *)getColor6{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundColor:[UIColor blueColor]];
- //   button.frame = CGRectMake(5, 5, 20, 20);
+    [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor6]];
+    button.layer.cornerRadius = 4;
     [button setAccessibilityIdentifier:@"Color5"];
     return button;
 }
 + (UIButton *)getColor7{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundColor:[UIColor blueColor]];
-    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor7]];
+    button.layer.cornerRadius = 4;
     [button setAccessibilityIdentifier:@"Color5"];
     return button;
 }
 + (UIButton *)getColor8{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundColor:[UIColor blueColor]];
-    button.frame = CGRectMake(5, 5, 20, 20);
+    [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor8]];
+    button.layer.cornerRadius = 4;
     [button setAccessibilityIdentifier:@"Color5"];
     return button;
 }

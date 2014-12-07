@@ -29,6 +29,7 @@
     //UIImageView        *buttonsView;
 
     UIPageViewController *pageViewController;
+    UIView                  *pageViewControllerView;
     NSArray *tutorialImages;
     UIPageControl *pageControl;
 }

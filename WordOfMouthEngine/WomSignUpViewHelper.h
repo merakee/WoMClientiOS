@@ -23,7 +23,7 @@ static NSString *kAUCSignupButtonImage =@"signup-nav-btn.png";
 #pragma mark -  View Helper Methods: TextField
 + (void)setEmailTextFiled:(UITextField *)textField withDelegate:(id)delegate;
 + (void)setPasswordTextFiled:(UITextField *)textField withDelegate:(id)delegate;
-+ (void)setPasswordConfirmationTextFiled:(UITextField *)textField withDelegate:(id)delegate;
+//+ (void)setPasswordConfirmationTextFiled:(UITextField *)textField withDelegate:(id)delegate;
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getSignUpButton;

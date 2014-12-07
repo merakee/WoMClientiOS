@@ -57,20 +57,20 @@
     // accessibilty
     [textField setAccessibilityIdentifier:@"Password"];
 }
-+ (void)setPasswordConfirmationTextFiled:(UITextField *)textField withDelegate:(id)delegate{
-    // set app defaults
-    [AppUIManager setTextField:textField placeholder:@"password"];
-    textField.delegate=delegate;
-    textField.secureTextEntry = YES;
-    
-    
-    // set up key board
-    textField.returnKeyType = UIReturnKeyDone;//UIReturnKeyJoin;
-    textField.keyboardType = UIKeyboardTypeEmailAddress;
-    
-    // accessibilty
-    [textField setAccessibilityIdentifier:@"Password Confirmation"];
-}
+//+ (void)setPasswordConfirmationTextFiled:(UITextField *)textField withDelegate:(id)delegate{
+//    // set app defaults
+//    [AppUIManager setTextField:textField placeholder:@"password"];
+//    textField.delegate=delegate;
+//    textField.secureTextEntry = YES;
+//    
+//    
+//    // set up key board
+//    textField.returnKeyType = UIReturnKeyDone;//UIReturnKeyJoin;
+//    textField.keyboardType = UIKeyboardTypeEmailAddress;
+//    
+//    // accessibilty
+//    [textField setAccessibilityIdentifier:@"Password Confirmation"];
+//}
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getSignUpButton{

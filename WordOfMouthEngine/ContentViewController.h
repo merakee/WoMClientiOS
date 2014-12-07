@@ -42,6 +42,7 @@
     UIImageView             *contentBackGround;
     
     BOOL               isAnimationActive;
+    BOOL                isRefreshingContent;
     
     CustomContentView  *customContentView1;
     CustomContentView  *customContentView2;
@@ -106,6 +107,6 @@
 
 #pragma mark - Utility methods
 - (void)clearContents;
-- (void)refreshContent;
+- (void)refreshContentOnlyForTopView:(bool)onlyTop;
 
 @end

@@ -167,7 +167,10 @@
 }
 #pragma mark - content validation methods
 + (NSError *)validatePostContentWithCategoryId:(int)categoryId
-                                           text:(NSString *)text{
+                                          text:(NSString *)text andPhoto:(UIImage *)photo{
+    if(photo){
+        return nil; 
+    }
     NSMutableString * reason = [[NSMutableString alloc] initWithString:@""];
     NSString *msg = [ApiValidationManager isContentCategoryValid:categoryId];
     if(msg){

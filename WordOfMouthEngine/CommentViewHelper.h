@@ -19,7 +19,6 @@
 + (UILabel *)       getCellText;
 + (UILabel *)       getLikeCount;
 + (UITextView *)    getCommentText:(id)delegate;
-+ (void)updateLikeButtonImage:(CustomLilkeButton *)button withDidLike:(BOOL)didLike;
 
 @property (nonatomic, strong) UILabel *getDescriptionLabel;
 @end
