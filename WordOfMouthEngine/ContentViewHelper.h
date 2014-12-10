@@ -15,7 +15,9 @@
 // images
 static NSString *kAUCMapButtonImage =@"mapicon.jpeg";
 static NSString *kAUCSpreadButtonImage =@"spread-btn.png";
+static NSString *kAUCSpreadButtonFilledImage= @"spread-btn-full.png";
 static NSString *kAUCKillButtonImage =@"kill-btn.png";
+static NSString *kAUCKillButtonFilledImage= @"kill-btn-full.png";
 static NSString *kAUCComposeButtonImage =@"compose-icon.png";
 static NSString *kAUCSignOutButtonImage =@"signout-menu.png";
 static NSString *kAUCLogInMenuButtonImage =@"login-menu.png";

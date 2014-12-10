@@ -24,7 +24,7 @@
 
 #pragma mark - Buttons
 + (UIButton *)getSendButton{
-    UIImage *buttonImage = [UIImage imageNamed:@"reply-send-btn.png"];
+    UIImage *buttonImage = [UIImage imageNamed:@"reply-send.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];

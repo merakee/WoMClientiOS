@@ -74,6 +74,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(BOOL)prefersStatusBarHidden{
+    return YES;
+}
 
 #pragma mark -  Local Methods Implememtation
 - (void)setView {
@@ -166,7 +169,7 @@
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInAsGuestButton]"
                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pageViewControllerView(300)]-41-[signInButton(40)]-12-[signInAsGuestButton(40)]-56-[termsButton(34)]-19-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[pageViewControllerView(300)]-41-[signInButton(40)]-12-[signInAsGuestButton(40)]-56-[termsButton(34)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:signInAsGuestButton inView:self.view];
     

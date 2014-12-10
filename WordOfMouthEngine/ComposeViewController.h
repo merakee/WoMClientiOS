@@ -77,6 +77,9 @@
     UIButton            *color7;
     UIButton            *color8;
     NSArray             *buttonItems;
+    
+    NSMutableParagraphStyle *paraStyle;
+    
 }
 
 

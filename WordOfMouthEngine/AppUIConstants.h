@@ -65,15 +65,16 @@ const static float kAUCColorTextQuaternary[4] = {0.0/360.0, 0.0, .90, 1.0};
 const static float kAUCColorTextQuinary[4] = {0.0/360.0, 0.0, 0.55, 1.0};
 const static float kAUCColorTextStroke[4] = {176.0/360.0, 1.0, 0.22, 1.0};
 
-const static float kAUTextColor1[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
-const static float kAUTextColor2[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
-const static float kAUTextColor3[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
-const static float kAUTextColor4[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
-const static float kAUTextColor5[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
-const static float kAUTextColor6[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
-const static float kAUTextColor7[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
-const static float kAUTextColor8[4] = {176.0/360.0, 86.0/360.0 ,77.0/360.0, 1.0};
+const static float kAUTextColor1[4] = {32.0/360.0, 0.32 , 0.16, 0};
+const static float kAUTextColor2[4] = {32.0/360.0, 0.32 , 0.16, 1.0};
+const static float kAUTextColor3[4] = {176.0/360.0, 0.09, 0.72, 1.0};
+const static float kAUTextColor4[4] = {179.0/360.0, 1.0, 0.89, 1.0};
+const static float kAUTextColor5[4] = {13.0/360.0, 1.0, .83, 1.0};
+const static float kAUTextColor6[4] = {240.0/360.0, 1.0, 0.50, 1.0};
+const static float kAUTextColor7[4] = {294.0/360.0, 0.75, 0.62, 1.0};
+const static float kAUTextColor8[4] = {58.0/360.0, 0.99, 1.0, 1.0};
 
+const static float kAUTextStrokeColor[4] = {32.0/360.0, 0.32, 0.16, 1.0};
 ////const static float kAUCColorGray[4] = {kAUCHueGray,0.1,0.9,1.0};
 //
 //const static float kAUCColorBackground[4] = {kAUCHueGray,0.03,0.95,1.0};

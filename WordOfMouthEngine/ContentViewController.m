@@ -53,8 +53,6 @@
 
 
 #pragma mark -  View Life cycle Methods
-
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
     [super loadView];
     
@@ -69,15 +67,8 @@
     
 }
 
-- (void) viewDidLayoutSubviews {
-    
-    
-}
-
-
 - (void)viewDidLoad{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     // full screen view
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
     
@@ -85,10 +76,8 @@
 
 - (void)viewDidUnload{
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
-// Implement viewWillAppear method for setting up the display
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -161,8 +150,6 @@
 - (void)setView {
     // set view
     [ContentViewHelper  setView:self.view];
-    
-    
     //    [self view].userInteractionEnabled = YES;
     
     // set navigation bar
@@ -342,21 +329,8 @@
     
     //    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-70-[repliesButton(72)]-5-|"
     //                                                                                    options:0 metrics:nil views:viewsDictionary]];
-    
-    
-    // toolbar
-    //    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"H:[infoToolBar]"
-    //                                                                                    options:0 metrics:nil views:viewsDictionary]];
-    //
-    //    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[infoToolBar]-30-[repliesButton]|"
-    //                                                                                    options:0 metrics:nil views:viewsDictionary]];
-    
-    //    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"H:[viewsButton]-20-|"
-    //                                                                                    options:0 metrics:nil views:viewsDictionary]];
-    //
-    //    [infoToolBar addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[reportButton]"
-    //                                                                                    options:0 metrics:nil views:viewsDictionary]];
 }
+
 - (void)layoutAnimationView{
     //    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(animationView,spreadAnimationView,killAnimationView);
     //
@@ -445,13 +419,6 @@
     //    self.navigationController.navigationBar.translucent = YES;
     //    self.navigationController.view.backgroundColor = [UIColor clearColor];
     
-    // right navigation button
-    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-    //                                              initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
-    //                                              target:self
-    //                                              action:@selector(goToAddContentView:)];
-    //    [self.navigationItem.rightBarButtonItem setAccessibilityLabel:@"Compose"];
-    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:composeButton];
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:composeButton];
     self.navigationItem.rightBarButtonItem = rightBarButton;
     
@@ -479,7 +446,7 @@
     
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    //   [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"header-gradient.png"] forBarMetrics:UIBarMetricsDefault];
+  //  [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"header-gradient.png"] forBarMetrics:UIBarMetricsDefault];
     //   [[UINavigationBar appearance] setTintColor:[UIColor redColor]];
     
     //   [[UINavigationBar appearance] setShadowImage:[UIImage imageNamed:@"header-gradient.png"]];
@@ -705,7 +672,11 @@
 #pragma mark - Button Action Methods
 - (void)shareButtonPressed:(id)sender {
     NSString *message = @"Hello spark";
-    UIImage *imageToShare = ccv.contentImageView.image;
+     tcv = [self getViewOnTop];
+    if (tcv.contentImageView.image==nil){
+        return;
+    }
+     UIImage *imageToShare = tcv.contentImageView.image;
     // ccv.contentImageView.image;
     NSArray *postItems = @[message, imageToShare];
     
@@ -727,7 +698,16 @@
                                          UIActivityTypeAirDrop];
     
     [self presentViewController:activityVC animated:YES completion:nil];
-    
+}
+
+- (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
+    [super presentViewController:viewControllerToPresent animated:flag completion:^{
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        if (completion) {
+            completion();
+            [self setNavigationBar];
+        }
+    }];
 }
 //+ (UIActivityCategory)activityCategory
 //{
@@ -735,7 +715,6 @@
 //}
 
 - (void)goMapView:(id)sender {
-    // set add content view
     MapViewController *mvc =[[MapViewController alloc] init];
     mvc.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:mvc animated:NO];
@@ -760,9 +739,13 @@
     // Display report message, report it to backend
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report message" message:@"Do you really want to report this message?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Report", nil];
     [alert show];
+    
 }
 
 -(void)goToCommentView:(id)sender{
+    if (isRefreshingContent) {
+        return;
+    }
     CommentViewController *cvc = [[CommentViewController alloc] init];
     cvc.hidesBottomBarWhenPushed=YES;
     cvc.currentContent = currentContent;
@@ -778,14 +761,25 @@
     }
     else if (buttonIndex == 1)
     {
-        // Flag message
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report message" message:@"This content is now reported as inappropriate" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        
-        [alert show];
-        [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:1.0];
-        NSLog(@"Flag Message");
-        
+        [activityIndicator startAnimating];
+        [[ApiManager sharedApiManager] flagContentWithId:currentContent.contentId.intValue
+                                                 success:^(ApiContentFlag *contentFlag) {
+                                                     [activityIndicator stopAnimating];
+                                                     [self actionsForSuccessfulFlagContent];
+                                                 } failure:^(NSError *error) {
+                                                     [activityIndicator stopAnimating];
+                                                 }];
+        [self killButtonPressed:self];
     }
+}
+-(void)actionsForSuccessfulFlagContent{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report message" message:@"This content is now reported as inappropriate" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    
+    [self performSelector:@selector(dismissAlertView:) withObject:alert afterDelay:1.0];
+    NSLog(@"Flag Message");
+    
+    
 }
 -(void)dismissAlertView:(UIAlertView *)alertView{
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
@@ -835,7 +829,7 @@
 }
 
 #pragma mark -  Content Display method
-- (void)updateContentOnlyForTopView:(bool)onlyTop{
+- (void)updateContentForTopView:(bool)isTop{
     // start animation
     [self startContentLoadAnimation];
     
@@ -848,13 +842,13 @@
                                                 // Analytics: Flurry
                                                 [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:nil];
                                                 currentContent=content;
-                                                [self updateViewWithNewContentOnlyForTopView:onlyTop];
+                                                [self updateViewWithNewContentForTopView:isTop];
                                             }
                                             failure:^(ApiContent *content) {
                                                 // Analytics: Flurry
                                                 [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:@{@"Error":@"No Content"}];
                                                 currentContent= content;
-                                                [self updateViewWithNewContentOnlyForTopView:onlyTop];
+                                                [self updateViewWithNewContentForTopView:isTop];
                                             }];
     
     // Analytics: Flurry
@@ -862,16 +856,10 @@
     
 }
 //- (void)updateView:(CustomContentView *)customContentView WithNewContent:newContent{
-- (void)updateViewWithNewContentOnlyForTopView:(bool)onlyTop{
+- (void)updateViewWithNewContentForTopView:(bool)isTop{
     
+    //    [spreadButton setImage:[UIImage imageNamed:kAUCSpreadButtonImage] forState:UIControlStateNormal];
     [self startContentLoadAnimation];
-    if (currentContent==nil){
-        shareButton.enabled = NO;
-    }
-    else {
-        shareButton.enabled = YES;
-    }
-    NSLog(@"updating");
     
     //  UIImage *bgImage = [self dummyImage];
     bgImage = [ContentViewHelper getImageForContentBackGroudView];
@@ -880,7 +868,7 @@
     //   UIImage *bgImage2 = [UIImage imageNamed:@"319041.jpg"];
     customContentView1.contentMode = UIViewContentModeScaleToFill;
     customContentView2.contentMode = UIViewContentModeScaleToFill;
-    if(onlyTop){
+    if(isTop){
         ccv = [self getViewOnTop];
     }
     else{
@@ -948,6 +936,9 @@
     // comment count tag
     commentCount.text = [CommonUtility getFixedLengthStringForNumber:currentContent.commentCount];
     spreadsCount.text = [CommonUtility getFixedLengthStringForNumber:currentContent.spreadCount];
+    
+    shareButton.enabled = YES;
+    
     isRefreshingContent = false;
 }
 - (void)clearContents{
@@ -956,11 +947,14 @@
     
 }
 - (void)refreshContentOnlyForTopView:(bool)onlyTop{
-    isRefreshingContent = true;
     if((currentContent.contentId==nil)&&([[ApiManager sharedApiManager] currentUser]!=nil)){
-        [self updateContentOnlyForTopView:(bool)onlyTop];
+        // update the top view
+        NSLog(@"blah");
+         isRefreshingContent = true;
+        [self updateContentForTopView:true];
         if(!onlyTop){
-            [self updateContentOnlyForTopView:(bool)onlyTop];
+            // update the bottom view
+            //[self updateContentForTopView:false];
         }
     }
 }
@@ -1022,7 +1016,8 @@
     //                    withFinalAction:^(){
     //                        [self updateContent];
     //                    }];
-    [self updateContentOnlyForTopView:true];
+    [self updateContentForTopView:true];
+   // [self refreshContentOnlyForTopView:true];
     
 }
 //- (void)animationButtonsForContentUpdate{
@@ -1064,25 +1059,63 @@
     //    if(isAnimationActive){
     //        return;
     //    }
+    if (isRefreshingContent){
+        return;
+    }
     isAnimationActive=YES;
+    [self animateSpreadButton];
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAContentSpread]];
+    
+    //    [UIView transitionWithView:spreadButton
+    //                      duration:1.2f
+    //                       options:UIViewAnimationOptionTransitionCrossDissolve
+    //                    animations:^{
+    //                        spreadButton.imageView.image = [UIImage imageNamed:kAUCSpreadButtonFilledImage];
+    //                    } completion:NULL];
+    
     [self AddContentEachAnalytics:@"Spread"];
     [self postResponse:true];
     // animate button
+    
     //    [ContentViewHelper animateButtonWithSlideUpAndReturn:spreadButton
     //                                         withFinalAction:^(){
     //                                             [self postResponse:true];
     //                                         }];
     [self swapCustomContentView:[self getViewOnTop]];
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"TestNotification" object:nil];
+    //   [spreadButton setImage:[UIImage imageNamed:kAUCSpreadButtonFilledImage] forState:UIControlStateNormal];
+    //    [[NSNotificationCenter defaultCenter]postNotificationName:@"TestNotification" object:nil];
+    
+}
+- (void)animateSpreadButton{
+    NSArray *animationArray=[NSArray arrayWithObjects:
+                             [UIImage imageNamed:kAUCSpreadButtonFilledImage],
+                             [UIImage imageNamed:kAUCSpreadButtonImage],
+                             nil];
+    //    [UIView transitionWithView:spreadButton
+    //                      duration:1.2f
+    //                       options:UIViewAnimationOptionTransitionCrossDissolve
+    //                    animations:^{
+    //                        spreadButton.imageView.image = [UIImage imageNamed:kAUCSpreadButtonFilledImage];
+    //                    } completion:NULL];
+    
+    spreadButton.imageView.animationImages = animationArray;
+    spreadButton.imageView.animationDuration = 1.0;
+    spreadButton.imageView.animationRepeatCount = 1;
+    spreadButton.adjustsImageWhenHighlighted = NO;
+    [spreadButton.imageView startAnimating];
 }
 - (void) killButtonPressed:(id)sender {
+    if (isRefreshingContent){
+        return;
+    }
+    
     //   [self swapCustomContentView:customContentView1];
     //    if(isAnimationActive){
     //        return;
     //    }
     isAnimationActive=YES;
+    [self animateKillButton];
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAContentKill]];
     [self AddContentEachAnalytics:@"Kill"];
@@ -1094,7 +1127,24 @@
     //                                             [self postResponse:false];
     //                                         }];
     [self swapCustomContentView:[self getViewOnTop]];
+}
+- (void)animateKillButton{
+    NSArray *animationArray=[NSArray arrayWithObjects:
+                             [UIImage imageNamed:kAUCKillButtonFilledImage],
+                             [UIImage imageNamed:kAUCKillButtonImage],
+                             nil];
+    //    [UIView transitionWithView:spreadButton
+    //                      duration:1.2f
+    //                       options:UIViewAnimationOptionTransitionCrossDissolve
+    //                    animations:^{
+    //                        spreadButton.imageView.image = [UIImage imageNamed:kAUCSpreadButtonFilledImage];
+    //                    } completion:NULL];
     
+    killButton.imageView.animationImages = animationArray;
+    killButton.imageView.animationDuration = 1.0;
+    killButton.imageView.animationRepeatCount = 1;
+    killButton.adjustsImageWhenHighlighted = NO;
+    [killButton.imageView startAnimating];
 }
 
 - (void)AddContentEachAnalytics:(NSString *)type{
@@ -1109,7 +1159,8 @@
 - (void)postResponse:(BOOL)response{
     // check for empty content condition: do not post response
     if(currentContent.categoryId==kAPIContentCategoryEmpty){
-        [self updateContentOnlyForTopView:true];
+        [self updateContentForTopView:true];
+//        [self refreshContentOnlyForTopView:true];
         return;
     }
     
@@ -1127,12 +1178,13 @@
                                                          // do not show any error just assume sucess
                                                          //[self actionsForSuccessfulPostResponse];
                                                      }];
-    
+    // spreadButton.imageView.image = [UIImage imageNamed:kAUCSpreadButtonImage];
 }
 
 #pragma mark - Api Manager Post actions methods
 - (void)actionsForSuccessfulPostResponse{
-    [self updateContentOnlyForTopView:true];
+    [self updateContentForTopView:true];
+ //   [self refreshContentOnlyForTopView:true];
 }
 
 //#pragma mark -  Progress view methods

@@ -30,7 +30,7 @@ static const int kCellButtonTag = 10;
     UITextView              *commentText;
     
     UIActivityIndicatorView *activityIndicator;
-    
+    UITapGestureRecognizer *touchRecognized;
     
     //CustomLilkeButton       *likeButton;
     UILabel                 *cellText;

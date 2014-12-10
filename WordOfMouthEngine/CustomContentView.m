@@ -29,7 +29,6 @@
    
     contentImageView = [ContentViewHelper getContentBackGroundView];
     contentTextView = [ContentViewHelper getContentTextViewWithDelegate:self];
-
     [self addSubview:contentView];
     contentImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.clipsToBounds = YES;

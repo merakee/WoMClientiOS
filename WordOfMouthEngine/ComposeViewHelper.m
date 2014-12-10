@@ -18,7 +18,6 @@
     // set app defaults
     [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
     //view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:[CommonUtility adjustImageFileName:kAUCComposeBackgroundImage]]];
-    view.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeTextQuaternary];//[UIColor whiteColor];
 }
 
 #pragma mark - ImageView
@@ -129,12 +128,11 @@
     //    textView.layer.shadowRadius = 4.0f;
     
     // set up key board
-    
     textView.returnKeyType = UIReturnKeyDefault;
     
     // inset for text
     //textView.textContainerInset = UIEdgeInsetsMake(0, 0, 5.0, 0.0);
-    
+    textView.layer.borderWidth = 1.0f;
     // attirubtes - ios 7
     NSMutableParagraphStyle *paraStyle = [NSMutableParagraphStyle new];
     paraStyle.lineBreakMode = NSLineBreakByWordWrapping;
@@ -144,18 +142,18 @@
     //paraStyle.lineSpacing = 10;// -kAUCFontSizeContentText/2.0 + 9.0;
     
     NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowOffset = CGSizeMake(0.0,1.0);
-    shadow.shadowBlurRadius = (CGFloat) 2.0;
-    shadow.shadowColor = [UIColor colorWithWhite:0.1 alpha:1.0];
+//    shadow.shadowOffset = CGSizeMake(0.0,1.0);
+//    shadow.shadowBlurRadius = (CGFloat) 2.0;
+//    shadow.shadowColor = [UIColor colorWithWhite:0.1 alpha:1.0];
     
     textView.typingAttributes = @{
                                   NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
                                   NSForegroundColorAttributeName:[UIColor whiteColor],
                                   NSParagraphStyleAttributeName:paraStyle,
-                                  NSStrokeColorAttributeName:[UIColor blackColor],
-                                  //NSStrokeWidthAttributeName:@-3.0,
-                                  NSShadowAttributeName:shadow
-                                  // NSKernAttributeName:@1.0 // inter letter spacing
+                                  NSStrokeColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUTextStrokeColor],
+                                  NSStrokeWidthAttributeName:@-4.0,
+                                  NSShadowAttributeName:shadow,
+                                  NSKernAttributeName:@1.0 // inter letter spacing
                                   };
     
     
@@ -317,8 +315,10 @@
 
 + (UIButton *)getColor1{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor1]];
+   // [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor1]];
+    [button setBackgroundColor:[UIColor whiteColor]];
     button.layer.cornerRadius = 4;
+    [[button layer] setBorderWidth:3.0f];
     [button setAccessibilityIdentifier:@"Color1"];
     return button;
 }
@@ -372,6 +372,7 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor8]];
     button.layer.cornerRadius = 4;
+    [[button layer] setBorderWidth:3.0f];
     [button setAccessibilityIdentifier:@"Color5"];
     return button;
 }

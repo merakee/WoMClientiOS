@@ -33,6 +33,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    commentsTableView.estimatedRowHeight = 44.0;
+    commentsTableView.rowHeight = UITableViewAutomaticDimension;
+  //  commentsTableView.rowHeight = 22.0;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,8 +82,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     //   self.navigationController.toolbarHidden = NO;
-    commentsTableView.estimatedRowHeight = 68.0;
-    commentsTableView.rowHeight = UITableViewAutomaticDimension;
+//    commentsTableView.estimatedRowHeight = 44.0;
+//    commentsTableView.rowHeight = UITableViewAutomaticDimension;
     [self onSegmentedControlChanged:segmentedControl];
     [self addSegmentedControl];
     [self setNavigationBar];
@@ -94,6 +97,7 @@
     
     [self addToolbar];
     [self layoutView];
+    [self addGesture];
 }
 
 - (void)layoutView{
@@ -172,8 +176,8 @@
     cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12.0f];
     //   cell.backgroundColor = [UIColor greenColor]; //must do here in willDisplayCell
     //   cell.textLabel.backgroundColor = [UIColor redColor]; //must do here in willDisplayCell
-    cell.textLabel.textColor = [UIColor greenColor]; //can do here OR in cellForRowAtIndexPath
-    tableView.separatorColor = [UIColor orangeColor];
+    //   cell.textLabel.textColor = [UIColor greenColor]; //can do here OR in cellForRowAtIndexPath
+    //   tableView.separatorColor = [UIColor orangeColor];
 }
 //- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 //{
@@ -207,6 +211,9 @@
 //    CommentTableViewCell *cell = (CommentTableViewCell *)[commentsTableView cellForRowAtIndexPath:indexPath];
 //    [cell.likeButton setImage:heartFull forState:UIControlStateNormal];
 //}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewAutomaticDimension;
+}
 
 #pragma mark - Segmented Control
 - (void) addSegmentedControl {
@@ -324,7 +331,20 @@
     UIViewAutoresizingFlexibleHeight;
     
 }
+#pragma mark - Touch gesture
+- (void)addGesture{
+    touchRecognized = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchRecognized:)];
+    [touchRecognized setNumberOfTapsRequired:1];
+    [commentsTableView addGestureRecognizer:touchRecognized];
+}
 
+- (void)touchRecognized:(UITapGestureRecognizer *)sender{
+    [self textButtonPressed:self];
+}
+
+- (void)textButtonPressed:(id)sender {
+    [self disableKeyBoard];
+}
 #pragma mark - Keyboard notifications
 - (void)registerForKeyboardNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -374,7 +394,7 @@
     
     //    scrollView.contentInset = contentInsets;
     //    scrollView.scrollIndicatorInsets = contentInsets;
-    [self.view setFrame:CGRectMake(0,0,screenW,screenH)];
+    [self.view setFrame:CGRectMake(0,64,screenW,screenH-64)];
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView{
     sendButton.enabled=NO;
@@ -457,6 +477,9 @@
     
     commentText.text = @"";
     NSLog(@"sent comment!");
+    commentsTableView.estimatedRowHeight = 44.0;
+    commentsTableView.rowHeight = UITableViewAutomaticDimension;
+    
     //    UIAlertView *alertView  = [[UIAlertView alloc] initWithTitle:@"Post Successful"
     //                                                         message:@""
     //                                                        delegate:self

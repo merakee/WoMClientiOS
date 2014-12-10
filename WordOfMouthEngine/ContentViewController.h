@@ -47,6 +47,8 @@
     CustomContentView  *customContentView1;
     CustomContentView  *customContentView2;
     CustomContentView   *ccv;
+    
+    CustomContentView   *tcv;
     //UIImageView         *pageLogo;
     
     //UIImageView         *userImage;
@@ -65,7 +67,7 @@
     UIBarButtonItem *cImage;
     UIBarButtonItem *vCount;
     UIBarButtonItem *cCount;
-
+    
     UIButton        *shareButton;
     UIImage         *bgImage;
     // circular timer
@@ -79,17 +81,17 @@
     ApiContent        *currentContent;
     
     // gestures
-//    UISwipeGestureRecognizer *oneFingerSwipeLeft;
-//    UISwipeGestureRecognizer *oneFingerSwipeRight;
+    //    UISwipeGestureRecognizer *oneFingerSwipeLeft;
+    //    UISwipeGestureRecognizer *oneFingerSwipeRight;
     UIPanGestureRecognizer *panRecognized;
     UIPanGestureRecognizer *panRecognized2;
-//    UITapGestureRecognizer *touchRecognized;
-
-//    CGFloat                 *xCoord;
+    //    UITapGestureRecognizer *touchRecognized;
+    
+    //    CGFloat                 *xCoord;
     
     // dummy content index
     int pic_index;
-
+    
 }
 @property (nonatomic) CGFloat originX;
 @property (nonatomic) CGFloat originY;

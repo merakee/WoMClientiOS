@@ -102,6 +102,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(BOOL)prefersStatusBarHidden{
+    return YES;
+}
 #pragma mark -  Local View Methods Implememtation
 - (void)setView {
     
@@ -132,7 +135,7 @@
     // image view
     contentImageView = [ComposeViewHelper getContentImageView];
    [self.view addSubview:contentImageView];
-    contentImageView.backgroundColor = [UIColor redColor];
+  //  contentImageView.backgroundColor = [UIColor redColor];
     // set Category control
     //    categoryControl = [ComposeViewHelper getCategoryControl];
     //    [categoryControl addTarget:self action:@selector(selectedCategoryChanged:) forControlEvents:UIControlEventValueChanged];
@@ -181,7 +184,9 @@
     
     // Set toolbar
     [self setToolBar];
-    
+    paraStyle = [NSMutableParagraphStyle new];
+    paraStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    paraStyle.alignment = NSTextAlignmentCenter;
     
     // layout
     [self layoutView];
@@ -261,7 +266,8 @@
     UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
     self.navigationItem.leftBarButtonItem = leftBarButton;
     
-    
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundColor:[UIColor redColor]];
     // character count label
 //    characterCount = [ComposeViewHelper getCharacterCountLabel]; 
 //    
@@ -483,11 +489,11 @@
     [color4 addTarget:self action:@selector(color4Pressed:) forControlEvents:UIControlEventTouchUpInside];
     color5 = [ComposeViewHelper getColor5];
     [color5 addTarget:self action:@selector(color5Pressed:) forControlEvents:UIControlEventTouchUpInside];
-    color6 = [ComposeViewHelper getColor5];
+    color6 = [ComposeViewHelper getColor6];
     [color6 addTarget:self action:@selector(color6Pressed:) forControlEvents:UIControlEventTouchUpInside];
-    color7 = [ComposeViewHelper getColor5];
+    color7 = [ComposeViewHelper getColor7];
     [color7 addTarget:self action:@selector(color7Pressed:) forControlEvents:UIControlEventTouchUpInside];
-    color8 = [ComposeViewHelper getColor5];
+    color8 = [ComposeViewHelper getColor8];
     [color8 addTarget:self action:@selector(color8Pressed:) forControlEvents:UIControlEventTouchUpInside];
     
     [color1 setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -522,7 +528,7 @@
     
     // color buttons
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-3-[color1(71)]-10-[color2(71)]-10-[color3(71)]-10-[color4(71)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-3-[color5(71)]-8-[color6(71)]-8-[color7(71)]-8-[color8(71)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-3-[color5(71)]-10-[color6(71)]-10-[color7(71)]-10-[color8(71)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
 
     colorKeyboardToolBar.hidden = NO;
     color1.hidden = NO;
@@ -584,28 +590,99 @@
 
 #pragma mark - Color options
 - (void)color1Pressed:(id)sender{
-    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor1];
+   // composeTextView.textColor = [UIColor whiteColor];
+    NSDictionary *typingAttributes = @{
+                                  NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
+                                  NSForegroundColorAttributeName:[UIColor whiteColor],
+                                  NSParagraphStyleAttributeName:paraStyle,
+                                  NSStrokeColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUTextStrokeColor],
+                                  NSStrokeWidthAttributeName:@-4.0,
+                                  NSKernAttributeName:@1.0
+                                  };
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:composeTextView.text attributes:typingAttributes];
+    composeTextView.attributedText = str;
+
+
 }
 - (void)color2Pressed:(id)sender{
-    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor2];
+    NSDictionary *typingAttributes = @{
+                                       NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
+                                       NSForegroundColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUTextColor2],
+                                       NSParagraphStyleAttributeName:paraStyle,
+                                       NSStrokeWidthAttributeName:@0,
+                                       NSKernAttributeName:@1.0
+                                       };
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:composeTextView.text attributes:typingAttributes];
+    composeTextView.attributedText = str;
+
 }
 - (void)color3Pressed:(id)sender{
-    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor3];
+    NSDictionary *typingAttributes = @{
+                                       NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
+                                       NSForegroundColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUTextColor3],
+                                       NSParagraphStyleAttributeName:paraStyle,
+                                       NSStrokeWidthAttributeName:@0,
+                                       NSKernAttributeName:@1.0
+                                       };
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:composeTextView.text attributes:typingAttributes];
+    composeTextView.attributedText = str;
 }
+
 - (void)color4Pressed:(id)sender{
-    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor4];
+    NSDictionary *typingAttributes = @{
+                                       NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
+                                       NSForegroundColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUTextColor4],
+                                       NSParagraphStyleAttributeName:paraStyle,
+                                       NSStrokeWidthAttributeName:@0,
+                                       NSKernAttributeName:@1.0
+                                       };
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:composeTextView.text attributes:typingAttributes];
+    composeTextView.attributedText = str;
 }
 - (void)color5Pressed:(id)sender{
-    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor5];
+    NSDictionary *typingAttributes = @{
+                                       NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
+                                       NSForegroundColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUTextColor5],
+                                       NSParagraphStyleAttributeName:paraStyle,
+                                       NSStrokeWidthAttributeName:@0,
+                                       NSKernAttributeName:@1.0
+                                       };
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:composeTextView.text attributes:typingAttributes];
+    composeTextView.attributedText = str;
 }
 - (void)color6Pressed:(id)sender{
-    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor6];
+    NSDictionary *typingAttributes = @{
+                                       NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
+                                       NSForegroundColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUTextColor6],
+                                       NSParagraphStyleAttributeName:paraStyle,
+                                       NSStrokeWidthAttributeName:@0,
+                                       NSKernAttributeName:@1.0
+                                       };
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:composeTextView.text attributes:typingAttributes];
+    composeTextView.attributedText = str;
 }
 - (void)color7Pressed:(id)sender{
-    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor7];
+    NSDictionary *typingAttributes = @{
+                                       NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
+                                       NSForegroundColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUTextColor7],
+                                       NSParagraphStyleAttributeName:paraStyle,
+                                       NSStrokeWidthAttributeName:@0,
+                                       NSKernAttributeName:@1.0
+                                       };
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:composeTextView.text attributes:typingAttributes];
+    composeTextView.attributedText = str;
 }
 - (void)color8Pressed:(id)sender{
-    composeTextView.textColor = [CommonUtility getColorFromHSBACVec:kAUTextColor8];
+    NSDictionary *typingAttributes = @{
+                                       NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
+                                       NSForegroundColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUTextColor8],
+                                       NSParagraphStyleAttributeName:paraStyle,
+                                       NSStrokeColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUTextStrokeColor],
+                                       NSStrokeWidthAttributeName:@-4.0,
+                                       NSKernAttributeName:@1.0
+                                       };
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:composeTextView.text attributes:typingAttributes];
+    composeTextView.attributedText = str;
 }
 
 #pragma mark - textview delegate methods
