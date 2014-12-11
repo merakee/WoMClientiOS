@@ -672,14 +672,13 @@
 #pragma mark - Button Action Methods
 - (void)shareButtonPressed:(id)sender {
     NSString *message = @"Hello spark";
-     tcv = [self getViewOnTop];
-    if (tcv.contentImageView.image==nil){
+     scv = [self getViewOnTop];
+    if (scv.contentImageView.image==nil){
         return;
     }
-     UIImage *imageToShare = tcv.contentImageView.image;
-    // ccv.contentImageView.image;
-    NSArray *postItems = @[message, imageToShare];
-    
+    UIImage *imageToShare = scv.contentImageView.image;
+//    NSArray *postItems = @[message, imageToShare];
+    NSArray *postItems = [[NSArray alloc] initWithObjects:message, imageToShare, nil];
     UIActivityViewController *activityVC = [[UIActivityViewController alloc]
                                             initWithActivityItems:postItems
                                             applicationActivities:nil];
@@ -696,10 +695,13 @@
                                          UIActivityTypePostToVimeo,
                                          UIActivityTypePostToTencentWeibo,
                                          UIActivityTypeAirDrop];
-    
-    [self presentViewController:activityVC animated:YES completion:nil];
+    [self setNavigationBar];
+    activityVC.popoverPresentationController.sourceView = self.view;
+    [[self parentViewController] presentViewController:activityVC animated:YES completion:nil];
+    //  [self presentViewController:activityVC animated:YES completion:nil];
+  
 }
-
+// Override
 - (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
     [super presentViewController:viewControllerToPresent animated:flag completion:^{
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -709,10 +711,6 @@
         }
     }];
 }
-//+ (UIActivityCategory)activityCategory
-//{
-//    return UIActivityCategoryShare;
-//}
 
 - (void)goMapView:(id)sender {
     MapViewController *mvc =[[MapViewController alloc] init];
@@ -949,7 +947,6 @@
 - (void)refreshContentOnlyForTopView:(bool)onlyTop{
     if((currentContent.contentId==nil)&&([[ApiManager sharedApiManager] currentUser]!=nil)){
         // update the top view
-        NSLog(@"blah");
          isRefreshingContent = true;
         [self updateContentForTopView:true];
         if(!onlyTop){

@@ -33,18 +33,17 @@
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(likeButton,commentCellLabel, likeCount);
     
     // like Button
-//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[likeButton(15)]-1-[likeCount(5)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[likeButton(15)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-   [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[likeCount(15)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-13-[likeButton(15)]-2-[likeCount(10)]"
+                                                                 options:0 metrics:nil views:viewsDictionary]];
+    
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-13-[commentCellLabel]-13-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[likeButton(15)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//   [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[likeCount(15)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     // Comment label
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentCellLabel]-5-[likeCount(15)]-[likeButton(15)]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentCellLabel]-5-[likeCount(15)]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[commentCellLabel]-2-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[commentCellLabel]-5-[likeCount(15)]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[commentCellLabel]-5-[likeButton(15)]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+
     
     
     

@@ -24,7 +24,7 @@
 
 #pragma mark - Buttons
 + (UIButton *)getSendButton{
-    UIImage *buttonImage = [UIImage imageNamed:@"reply-send.png"];
+    UIImage *buttonImage = [UIImage imageNamed:kAURSendButtonImage];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
@@ -34,13 +34,8 @@
     return button;
 }
 
-+ (UIImage *)getCellImage{
-    UIImage *accessoryImage = [UIImage imageNamed:@"reply-heart-empty.png"];
-    return accessoryImage;
-}
-
 + (CustomLilkeButton *)getCellButton{
-    UIImage *image = [UIImage imageNamed:@"reply-heart-empty.png"];
+    UIImage *image = [UIImage imageNamed:kAUREmptyLikeImage];
   //  UIImageView *cellImageView = [[UIImageView alloc] initWithImage:image];
    // UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     CustomLilkeButton *button = [[CustomLilkeButton alloc] init];
@@ -57,13 +52,10 @@
 + (UILabel *)getCellText{
     UILabel *label = [[UILabel alloc] init];
     label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:kAUCFontFamilySecondary size:16];
-    label.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
+    label.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeRepliesText];
+    label.textColor =[CommonUtility getColorFromHSBACVec:kAUCColorSecondary];
     label.textAlignment = NSTextAlignmentLeft;
-    
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];//[UIColor whiteColor];
-    label.shadowOffset = CGSizeMake(0.0f, 1.0f);
-    
+
     label.numberOfLines = 0;
    
     label.lineBreakMode = NSLineBreakByWordWrapping;
@@ -76,11 +68,10 @@
     UILabel *likeLabel =[[UILabel alloc] init];
     // ccLabel.backgroundColor = [UIColor clearColor];
     likeLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeLikeLabel];
-    likeLabel.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
+    likeLabel.textColor =[CommonUtility getColorFromHSBACVec:kAUCColorPrimary];
     likeLabel.textAlignment = NSTextAlignmentCenter;
-    
-    likeLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];//[UIColor whiteColor];
-    likeLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+//    likeLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];//[UIColor whiteColor];
+//    likeLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
     [likeLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     // accessibilty
     [likeLabel setAccessibilityIdentifier:@"Like Count Label"];
@@ -89,7 +80,7 @@
 
 + (UITextView *)getCommentText:(id)delegate{
     UITextView *textView =[[UITextView alloc] init];
-    textView.backgroundColor = [UIColor lightGrayColor];
+    textView.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCommentTextColor];
     textView.allowsEditingTextAttributes = NO;
     textView.dataDetectorTypes = UIDataDetectorTypeAll ;
     
@@ -120,8 +111,7 @@
                                   NSShadowAttributeName:shadow
                                   // NSKernAttributeName:@1.0 // inter letter spacing
                                   };
-    
-    
+    textView.layer.cornerRadius = 6;
     textView.delegate=delegate;
     
     [textView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -131,5 +121,12 @@
     return textView;
 }
 
++ (UIButton *)getCancelButton{
+    UIButton *button = [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAURCloseButtonImage] forState:UIControlStateNormal];
+    [button setFrame:CGRectMake(0, 0, 40, 40)];
+    [button setAccessibilityIdentifier:@"Cancel"];
+    return button;
+}
 
 @end

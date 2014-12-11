@@ -53,7 +53,7 @@
 
 //const static float kAUCColorPrimary[4] = {kAUCHuePrimary,0.8,1.0,1.0};
 const static float kAUCColorPrimary[4] = {176.0/360.0, 0.86, 0.770, 1.0};//{kAUCHuePrimary,0.8,1.0,1.0};
-const static float kAUCColorSecondary[4] ={180.0/360.0, 0.71, 39.0, 1.0} ;//{kAUCHueSecondary,0.8,1.0,1.0};
+const static float kAUCColorSecondary[4] ={180.0/360.0, 0.71, 0.39, 1.0} ;//{kAUCHueSecondary,0.8,1.0,1.0};
 const static float kAUCColorTertiary[4] = {179.0/360.0, 0.94 , 0.91, 1.0};//{kAUCHueTertiary,1.0,0.8,1.0};
 const static float kAUCColorQuaternary[4] = {0.0/360.0, 0.0, 0.94, 1.0};
 const static float kAUCColorQuinary[4] = {0.0/360.0, 0.0, 0.89, 1.0};
@@ -75,6 +75,8 @@ const static float kAUTextColor7[4] = {294.0/360.0, 0.75, 0.62, 1.0};
 const static float kAUTextColor8[4] = {58.0/360.0, 0.99, 1.0, 1.0};
 
 const static float kAUTextStrokeColor[4] = {32.0/360.0, 0.32, 0.16, 1.0};
+
+const static float kAUCommentTextColor[4] = {0/360.0, 0, 0.90, 1.0};
 ////const static float kAUCColorGray[4] = {kAUCHueGray,0.1,0.9,1.0};
 //
 //const static float kAUCColorBackground[4] = {kAUCHueGray,0.03,0.95,1.0};

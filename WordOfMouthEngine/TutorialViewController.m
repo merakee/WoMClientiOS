@@ -18,9 +18,6 @@
 //@synthesize tutorialImageView;
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    float screenW = [CommonUtility getScreenWidth];
-//     float screenH = [CommonUtility getScreenHeight];
-    
 //    screenNumber = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, screenW, 200)];
 //    tutorialImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, screenW, 400)];
     UIImage *image = [UIImage imageNamed:imageName];
@@ -37,13 +34,6 @@
     tutorialImageView.clipsToBounds = YES;
     [self.view addSubview:tutorialImageView];
  //   [self.view addSubview:screenNumber];
-    
-//    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(tutorialImageView);
-//    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[tutorialImageView]-10-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-//
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[tutorialImageView]-10-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-
 }
 
 
@@ -57,6 +47,5 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 @end

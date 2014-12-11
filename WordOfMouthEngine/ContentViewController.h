@@ -48,7 +48,7 @@
     CustomContentView  *customContentView2;
     CustomContentView   *ccv;
     
-    CustomContentView   *tcv;
+    CustomContentView   *scv;
     //UIImageView         *pageLogo;
     
     //UIImageView         *userImage;

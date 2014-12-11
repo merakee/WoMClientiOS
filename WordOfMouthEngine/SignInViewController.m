@@ -14,6 +14,8 @@
 #import "FlurryManager.h"
 #import "ForgotPasswordViewController.h"
 #import "TutorialViewController.h"
+#import "TermsViewController.h"
+
 @interface SignInViewController ()  <UIPageViewControllerDataSource>
 
 @end
@@ -126,16 +128,9 @@
     
     // set buttons
     signInButton = [SignInViewHelper getSignInButton];
-    [signInButton addTarget:self action:@selector(signInButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [signInButton addTarget:self action:@selector(signInLoginButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signInButton];
     
-    // set buttons
-//    signUpButton = [SignInViewHelper getSignUpButton];
-//    [signUpButton addTarget:self action:@selector(signUpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:signUpButton];
-    
-    
-    // set buttons
     signInAsGuestButton = [SignInViewHelper getSignInAsGuestButton];
     [signInAsGuestButton addTarget:self action:@selector(signInAsGuestButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signInAsGuestButton];
@@ -169,7 +164,7 @@
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInAsGuestButton]"
                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[pageViewControllerView(300)]-41-[signInButton(40)]-12-[signInAsGuestButton(40)]-56-[termsButton(34)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[pageViewControllerView(340)]-41-[signInButton(40)]-12-[signInAsGuestButton(40)]-56-[termsButton(34)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:signInAsGuestButton inView:self.view];
     
@@ -201,7 +196,7 @@
     [AppUIManager setNavbar:self.navigationController.navigationBar];
     
     // set up navigation bar
-    self.navigationItem.title = @"Sign In";
+   // self.navigationItem.title = @"Sign In";
     
     
     // right navigation button
@@ -235,23 +230,21 @@
 - (void)twitterButtonPressed:(id)sender {
     [CommonUtility displayAlertWithTitle:@"Not Active" message:@"Please sign in with email" delegate:self];
 }
-- (void)signInButtonPressed:(id)sender {
+- (void)signInLoginButtonPressed:(id)sender {
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignIn]];
     // push wom Sign in controller
-    WomSignInViewController *womsivc =[[WomSignInViewController   alloc] init];
+    WomSignInViewController *womsivc =[[WomSignInViewController alloc] init];
     [self.navigationController pushViewController:womsivc animated:NO];
-//    ForgotPasswordViewController *passvc = [[ForgotPasswordViewController alloc] init];
-//    [self.navigationController pushViewController:passvc animated:NO];
 }
 
-- (void)signUpButtonPressed:(id)sender {
-    // Analytics: Flurry
-    [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignUp]];
-    // push wom Sign up controller
-    WomSignUpViewController *womsuvc =[[WomSignUpViewController   alloc] init];
-    [self.navigationController pushViewController:womsuvc animated:NO];
-}
+//- (void)signUpButtonPressed:(id)sender {
+//    // Analytics: Flurry
+//    [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignUp]];
+//    // push wom Sign up controller
+//    WomSignUpViewController *womsuvc =[[WomSignUpViewController   alloc] init];
+//    [self.navigationController pushViewController:womsuvc animated:NO];
+//}
 
 - (void)signInAsGuestButtonPressed:(id)sender {
     // Analytics: Flurry
@@ -274,15 +267,19 @@
 }
 
 - (void)termsButtonPressed:(id)sender {
-    
+    [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionTerms]];
+    //Go to terms view controller
+    TermsViewController *tvc = [[TermsViewController alloc] init];
+    [self.navigationController pushViewController:tvc animated:NO];
 }
 #pragma mark - Tutorial Page View
 
 - (void)setPageView
 {
-    tutorialImages = @[@"ScreenShot1.png",
-                       @"ScreenShot2.png",
-                       @"ScreenShot3.png"];
+    tutorialImages = @[@"slide-1.png",
+                       @"slide-2.png",
+                       @"slide-3.png",
+                       @"slide-4.png"];
 
 //    UIPageViewController *pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     
@@ -304,6 +301,7 @@
 //    [pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 //    pageViewController.view.frame = self.view.bounds;
     pageViewController.view.clipsToBounds = YES;
+     pageViewController.view.contentMode = UIViewContentModeScaleAspectFit;
   //  self.view.frame = self.view.bounds;
 //   [pageViewController.view setFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, screenW, screenH*2/3)];
 

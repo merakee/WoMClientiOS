@@ -156,7 +156,7 @@
  //    composeTextView.backgroundColor = [UIColor blueColor];
     // place holder label
     placeHolderLabel = [ComposeViewHelper getPlaceHolderLabel];
-    [self.view addSubview:placeHolderLabel];
+    [composeTextView addSubview:placeHolderLabel];
     
     deleteImage = [ComposeViewHelper getRemoveImageButton];
     [deleteImage addTarget:self action:@selector(removeImage:) forControlEvents:UIControlEventTouchUpInside];
@@ -239,11 +239,11 @@
                                                                       options:0 metrics:nil views:viewsDictionary]];
 
     // place holder label
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[placeHolderLabel(240)]"
+    [composeTextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[placeHolderLabel(240)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-127-[placeHolderLabel(30)]"
+    [composeTextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-27-[placeHolderLabel(30)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [AppUIManager horizontallyCenterElement:placeHolderLabel inView:self.view];
+    [AppUIManager horizontallyCenterElement:placeHolderLabel inView:composeTextView];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[textButton(56)]-43-[imageButton(56)]-78-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
@@ -427,8 +427,7 @@
 - (void)addKeyboardToolBar{
     keyboardToolBar = [[UIToolbar alloc] init];
     
-    keyboardToolBar.backgroundColor = [UIColor clearColor];
-    keyboardToolBar.tintColor = [UIColor orangeColor];
+   
     keyboardToolBar.translucent = YES;
     // Make toolbar clear
     [keyboardToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -437,7 +436,8 @@
                              barMetrics:UIBarMetricsDefault];
     [keyboardToolBar setShadowImage:[UIImage new]
                  forToolbarPosition:UIToolbarPositionAny];
-    
+     keyboardToolBar.backgroundColor = [UIColor whiteColor];
+     keyboardToolBar.tintColor = [[UIColor clearColor] colorWithAlphaComponent:0.6];
     xButton = [ComposeViewHelper getXButton];
     [xButton addTarget:self action:@selector(cancelText:) forControlEvents:UIControlEventTouchUpInside];
     checkButton = [ComposeViewHelper getCheckButton];

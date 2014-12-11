@@ -199,14 +199,14 @@
 + (UIButton *)getCancelButton{
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCBackButtonImage] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(0, 0, 40, 40)];
+    [button setFrame:CGRectMake(0, 0, 30, 30)];
     [button setAccessibilityIdentifier:@"Cancel"];
     return button;
 }
 + (UIButton *)getPostButton{
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCComposeSpreadButtonImage] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(0, 0, 40, 40)];
+    [button setFrame:CGRectMake(0, 0, 61, 27)];
     [button setAccessibilityIdentifier:@"Post"];
     return button;
 }

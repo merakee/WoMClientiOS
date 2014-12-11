@@ -7,6 +7,7 @@
 //
 
 #import "CustomLilkeButton.h"
+#import "CommentViewHelper.h"
 
 @implementation CustomLilkeButton
 
@@ -15,10 +16,10 @@
 - (void)setDidLike:(bool)didLike_ {
     _didLike = didLike_;
     if (didLike_){
-        self.imageView.image = [UIImage imageNamed:@"reply-heart-full.png"];
+        self.imageView.image = [UIImage imageNamed:kAURFilledLikeImage];
     }
     else {
-        self.imageView.image = [UIImage imageNamed:@"reply-heart-empty.png"];
+        self.imageView.image = [UIImage imageNamed:kAUREmptyLikeImage];
         
     }
 }

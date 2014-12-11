@@ -35,7 +35,7 @@
     [super viewDidLoad];
     commentsTableView.estimatedRowHeight = 44.0;
     commentsTableView.rowHeight = UITableViewAutomaticDimension;
-  //  commentsTableView.rowHeight = 22.0;
+    commentsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,12 +78,9 @@
     
     // set app defaults
     [AppUIManager setUIView:self.view ofType:kAUCPriorityTypePrimary];
-    // view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:[CommonUtility adjustImageFileName:kAUCContentBackgroundImage]]];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    //   self.navigationController.toolbarHidden = NO;
-//    commentsTableView.estimatedRowHeight = 44.0;
-//    commentsTableView.rowHeight = UITableViewAutomaticDimension;
+
     [self onSegmentedControlChanged:segmentedControl];
     [self addSegmentedControl];
     [self setNavigationBar];
@@ -104,21 +101,15 @@
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText);
     
     // buttons
-    //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[replyToolBar(320)]-10-[sendButton]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[commentsTableView]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[commentsTableView(320)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView]-10-[commentText(39)]-10-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    //  [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView(200)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[commentText(320)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[commentsTableView]-10-[commentText(50)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[commentsTableView]-10-[sendButton(50)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView]-10-[sendButton(39)]-10-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentText(200)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     //
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentText]-5-[sendButton]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-6-[commentText(250)]-6-[sendButton(50)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     
     //    [replyToolBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentText]-5-|" options:0 metrics:nil views:viewsDictionary]];
@@ -223,6 +214,10 @@
     [segmentedControl addTarget: self action: @selector(onSegmentedControlChanged:) forControlEvents: UIControlEventValueChanged];
     
     segmentedControl.selectedSegmentIndex = kCVCommentModeRecent;
+    [[UISegmentedControl appearance] setTitleTextAttributes:@{
+                                                              NSForegroundColorAttributeName : [UIColor redColor]
+                                                              } forState:UIControlStateNormal];
+    
     // segmentedControl.frame = CGRectMake(0, 0, 120, 30);
     //self.navigationItem.titleView = segmentedControl;
     //   self.tableView.tableHeaderView = segmentedControl;
@@ -235,7 +230,6 @@
     
     [self updateCommentArrayWithMode:kAPICommentRefreshModeRefresh];
     
-    // NSLog(@"%ld", sender.selectedSegmentIndex);
     //    if (sender.selectedSegmentIndex == 0) {
     //        segmentedControl.selectedSegmentIndex = 0;
     //        // switch active array pointer to popular array
@@ -290,23 +284,16 @@
 }
 #pragma mark - Navigation bar
 - (void) setNavigationBar{
-    
-    UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *cancelBtnImage = [UIImage imageNamed:@"reply-X.png"];
-    [cancelBtn setBackgroundImage:cancelBtnImage forState:UIControlStateNormal];
+
+    UIButton *cancelBtn = [CommentViewHelper getCancelButton];
     [cancelBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-    cancelBtn.frame = CGRectMake(0, 0, 15, 15);
-    UIView *cancelButtonView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
-    [cancelButtonView addSubview:cancelBtn];
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithCustomView:cancelButtonView];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithCustomView:cancelBtn];
     self.navigationItem.leftBarButtonItem = cancelButton;
-    
     
     //    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reply-X.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(goBack:)];
     ////    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"myImage"] style:UIBarButtonItemStyleBordered target:self action:@selector(goBack:)];
     //
-    //    [[self navigationItem] setLeftBarButtonItem:cancelButton]
-    
+    //    [[self navigationItem] setLeftBarButtonItem:cancelButton] d
 }
 - (void) setupTableView{
     commentsTableView = [[UITableView alloc] init];
@@ -343,6 +330,8 @@
 }
 
 - (void)textButtonPressed:(id)sender {
+    commentText.text = @"";
+
     [self disableKeyBoard];
 }
 #pragma mark - Keyboard notifications
@@ -382,10 +371,11 @@
     //    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
     //    commentsTableView.contentInset = contentInsets;
     //    commentsTableView.scrollIndicatorInsets = contentInsets;
-    
+    [commentsTableView setContentOffset:
+     CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
     [self.view setFrame:CGRectMake(0,0-keyboardHeight,screenW, screenH)];
-    //     [replyToolBar setFrame:CGRectMake(0,0-keyboardHeight,screenW, screenH)];
-    //    [self scrollViewForKeyboard:notification up:YES];
+//    [commentsTableView setContentOffset:
+//     CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *)notification {

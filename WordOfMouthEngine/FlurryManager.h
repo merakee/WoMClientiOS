@@ -20,6 +20,7 @@ typedef enum {
     kFAUserSessionSignUpSuccess,
     kFAUserSessionSignUpFailure,
     kFAUserSessionSignOut,
+    kFAUserSessionTerms,
     kFAContentSession,
     kFAContentFetch,
     kFAContentEach,
@@ -40,7 +41,8 @@ typedef enum {
     kFACommentGetRecentFailure,
     kFACommentGetPopular,
     kFACommentGetPopularSuccess,
-    kFACommentGetPopularFailure,
+    kFACommentGetPopularFailure
+    
     
 } kFACustomEventType;
 
