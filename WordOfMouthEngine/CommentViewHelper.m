@@ -36,8 +36,6 @@
 
 + (CustomLilkeButton *)getCellButton{
     UIImage *image = [UIImage imageNamed:kAUREmptyLikeImage];
-  //  UIImageView *cellImageView = [[UIImageView alloc] initWithImage:image];
-   // UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     CustomLilkeButton *button = [[CustomLilkeButton alloc] init];
     // colors and fonts
     button.backgroundColor = [UIColor clearColor];

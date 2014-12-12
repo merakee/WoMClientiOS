@@ -305,12 +305,10 @@
   //  self.view.frame = self.view.bounds;
 //   [pageViewController.view setFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, screenW, screenH*2/3)];
 
- //   pageController.view.backgroundColor = [UIColor blackColor];
     [self addChildViewController:pageViewController];
     pageViewControllerView = pageViewController.view;
     [pageViewControllerView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.view addSubview:pageViewControllerView];
-  //  pageViewControllerView.backgroundColor = [UIColor redColor];
     [pageViewController didMoveToParentViewController:self];
 }
 //- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
@@ -356,7 +354,7 @@
     pageControl = [UIPageControl appearance];
     [[UIPageControl appearance] setPageIndicatorTintColor: [UIColor lightGrayColor]];
     [[UIPageControl appearance] setCurrentPageIndicatorTintColor: [UIColor darkGrayColor]];
- //   [[UIPageControl appearance] setBackgroundColor: [UIColor darkGrayColor]];
+    [[UIPageControl appearance] setFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
 }
 
 - (UIViewController *)pageViewController: (UIPageViewController *) pageViewController viewControllerBeforeViewController:(UIViewController *) viewController

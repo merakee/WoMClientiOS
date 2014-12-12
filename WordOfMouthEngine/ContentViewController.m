@@ -433,7 +433,7 @@
     //     NSDictionary *fontDictionary = @{NSFontAttributeName:settingsFont};
     //    [settingsButton setTitleTextAttributes:fontDictionary forState:UIControlStateNormal];
     //    self.navigationItem.leftBarButtonItem = settingsButton;
-    
+//    self.navigationController.navigationBar = sizeToFit;
     
     
     //     [[UINavigationBar appearance] setTranslucent:YES];
@@ -443,7 +443,6 @@
     //    [[UINavigationBar appearance] setBackgroundColor:[UIColor blueColor]];
     //  navigationController.navigationBar setTranslucent:NO]
     [[UINavigationBar appearance] setTranslucent:NO];
-    
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
   //  [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"header-gradient.png"] forBarMetrics:UIBarMetricsDefault];
@@ -451,13 +450,7 @@
     
     //   [[UINavigationBar appearance] setShadowImage:[UIImage imageNamed:@"header-gradient.png"]];
     // text shadow: use layer property (UIView)
-    //    self.navigationController.navigationBar.layer.shadowColor = [HEXCOLOR (kCRDTextDropShadowColor) CGColor];
-    //    self.navigationController.navigationBar.layer.shadowColor = [UIColor blackColor].CGColor;
-    //    self.navigationController.navigationBar.layer.masksToBounds = NO;
-    //    self.navigationController.navigationBar.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
-    //    self.navigationController.navigationBar.layer.shadowOpacity = 0.6f;
-    //    self.navigationController.navigationBar.layer.shadowRadius = 0.0f;
-    //    self.navigationController.navigationBar.barTintColor = [UIColor redColor];
+   
 }
 
 - (void)addGestures{
@@ -671,18 +664,17 @@
 
 #pragma mark - Button Action Methods
 - (void)shareButtonPressed:(id)sender {
-    NSString *message = @"Hello spark";
+    NSString *message = @"Found in Spark http://www.sparkapp.social/";
      scv = [self getViewOnTop];
     if (scv.contentImageView.image==nil){
         return;
     }
     UIImage *imageToShare = scv.contentImageView.image;
-//    NSArray *postItems = @[message, imageToShare];
-    NSArray *postItems = [[NSArray alloc] initWithObjects:message, imageToShare, nil];
+    NSArray *postItems = [[NSArray alloc] initWithObjects:imageToShare, message, nil];
     UIActivityViewController *activityVC = [[UIActivityViewController alloc]
                                             initWithActivityItems:postItems
                                             applicationActivities:nil];
-    
+    [activityVC setTitle:message];
     activityVC.excludedActivityTypes = @[UIActivityTypePostToWeibo,
                                          // UIActivityTypeMessage,
                                          //   UIActivityTypeMail,
@@ -695,7 +687,6 @@
                                          UIActivityTypePostToVimeo,
                                          UIActivityTypePostToTencentWeibo,
                                          UIActivityTypeAirDrop];
-    [self setNavigationBar];
     activityVC.popoverPresentationController.sourceView = self.view;
     [[self parentViewController] presentViewController:activityVC animated:YES completion:nil];
     //  [self presentViewController:activityVC animated:YES completion:nil];
@@ -781,7 +772,6 @@
 }
 -(void)dismissAlertView:(UIAlertView *)alertView{
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
-    NSLog(@"dismiss");
 }
 
 - (void)pageLogoButtonPressed:(id)sender{

@@ -170,13 +170,6 @@
     //   cell.textLabel.textColor = [UIColor greenColor]; //can do here OR in cellForRowAtIndexPath
     //   tableView.separatorColor = [UIColor orangeColor];
 }
-//- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (3 == indexPath.section){
-//        return nil;
-//    }
-//    return indexPath;
-//}
 
 -(void)likeButtonPressed:(CustomLilkeButton *)sender{
     if(sender.didLike){
@@ -202,9 +195,9 @@
 //    CommentTableViewCell *cell = (CommentTableViewCell *)[commentsTableView cellForRowAtIndexPath:indexPath];
 //    [cell.likeButton setImage:heartFull forState:UIControlStateNormal];
 //}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return UITableViewAutomaticDimension;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    return UITableViewAutomaticDimension;
+//}
 
 #pragma mark - Segmented Control
 - (void) addSegmentedControl {
@@ -215,9 +208,9 @@
     
     segmentedControl.selectedSegmentIndex = kCVCommentModeRecent;
     [[UISegmentedControl appearance] setTitleTextAttributes:@{
-                                                              NSForegroundColorAttributeName : [UIColor redColor]
+                                                              NSForegroundColorAttributeName : [CommonUtility getColorFromHSBACVec:kAUCColorPrimary]
                                                               } forState:UIControlStateNormal];
-    
+    [[UISegmentedControl appearance] setTintColor:[CommonUtility getColorFromHSBACVec:kAUCColorPrimary]];
     // segmentedControl.frame = CGRectMake(0, 0, 120, 30);
     //self.navigationItem.titleView = segmentedControl;
     //   self.tableView.tableHeaderView = segmentedControl;
@@ -290,10 +283,6 @@
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithCustomView:cancelBtn];
     self.navigationItem.leftBarButtonItem = cancelButton;
     
-    //    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reply-X.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(goBack:)];
-    ////    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"myImage"] style:UIBarButtonItemStyleBordered target:self action:@selector(goBack:)];
-    //
-    //    [[self navigationItem] setLeftBarButtonItem:cancelButton] d
 }
 - (void) setupTableView{
     commentsTableView = [[UITableView alloc] init];
@@ -367,10 +356,6 @@
     CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
     float keyboardHeight = keyboardFrameBeginRect.size.height;
     
-    //    CGSize kbSize = [[keyboardInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    //    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-    //    commentsTableView.contentInset = contentInsets;
-    //    commentsTableView.scrollIndicatorInsets = contentInsets;
     [commentsTableView setContentOffset:
      CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
     [self.view setFrame:CGRectMake(0,0-keyboardHeight,screenW, screenH)];
@@ -413,9 +398,7 @@
 }
 - (void)disableKeyBoard{
     // disable keyboard
-    
     [commentText resignFirstResponder];
-    //   commentText.inputAccessoryView = nil;
 }
 
 #pragma mark - Button Action Methods
@@ -504,7 +487,6 @@
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFACommentGetRecent]];
     
-    NSLog(@"updating recentg: ");
     // post content
     [activityIndicator startAnimating];
     
@@ -590,7 +572,7 @@
     
     
     // get comment id
-    NSLog(@"index path row: %ld ", (long)indexPath.row);
+   // NSLog(@"index path row: %ld ", (long)indexPath.row);
     ApiComment *comment =(ApiComment *)[activeArray objectAtIndex:indexPath.row];
     int commentId =(int)[comment.commentId  integerValue];
     

@@ -260,14 +260,15 @@
     [postButton addTarget:self action:@selector(postContent:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:postButton];
     self.navigationItem.rightBarButtonItem = rightBarButton;
-
+    postButton.enabled = NO;
+    
     cancelButton = [ComposeViewHelper getCancelButton];
     [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
     self.navigationItem.leftBarButtonItem = leftBarButton;
     
     [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setBackgroundColor:[UIColor redColor]];
+    
     // character count label
 //    characterCount = [ComposeViewHelper getCharacterCountLabel]; 
 //    
@@ -721,12 +722,18 @@
     textLength =[[CommonUtility  trimString:textView.text ] length];
     
     // post button
-    if((textLength < kAPIValidationContentMinLength)){//&&(postButton.isEnabled)){
+    if((textLength < kAPIValidationContentMinLength)) {//&&(postButton.isEnabled)){
+        if (!(deleteImage.hidden)){
+            NSLog(@"is image");
+            postButton.enabled = YES;
+        }
+        else {
         postButton.enabled=NO;
-    }
+        NSLog(@"blah");}
+        }
     else if((textLength >= kAPIValidationContentMinLength)){//&&(!postButton.isEnabled)){
         postButton.enabled=YES;
-    }
+        }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
@@ -857,7 +864,7 @@
     //    }
     
     // disable post button
-    postButton.enabled = NO;
+     postButton.enabled = NO;
     
     // post content
     [activityIndicator startAnimating];
@@ -1065,7 +1072,7 @@
     //[photoManager performSelector:@selector(displayCamera) withObject:nil afterDelay:0.3];
     [photoManager displayCamera];
     deleteImage.hidden = NO;
-    postButton.enabled = YES;
+//    postButton.enabled = YES;
 }
 
 - (void)albumButtonPressed:(id)sender {
@@ -1078,7 +1085,7 @@
     //[photoManager performSelector:@selector(displayPhotoLibrary) withObject:nil afterDelay:0.3];
     [photoManager displayPhotoLibrary];
     deleteImage.hidden = NO;
-    postButton.enabled = YES;
+//    postButton.enabled = YES;
 }
 
 
@@ -1091,7 +1098,7 @@
 - (void)photoCaptureDoneWithImage:(UIImage *)image {
     // set image view
     contentImageView.image = image;
-    postButton.enabled = YES;
+//    postButton.enabled = YES;
 }
 
 @end
