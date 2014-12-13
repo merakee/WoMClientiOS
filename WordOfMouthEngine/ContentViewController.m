@@ -20,7 +20,7 @@
 #import "ProfileViewController.h"
 #import <Social/Social.h>
 #import "NotificationViewController.h"
-
+#import "AppUIConstants.h"
 @implementation ContentViewController {
     
 }
@@ -201,12 +201,12 @@
     customContentView2 = [[CustomContentView alloc] init];
     [customContentView2 setView];
     [customContentView1 setView];
-    customContentView1.backgroundColor = [UIColor yellowColor];
-    //  customContentView1.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"mapicon.jpeg"]];
-    customContentView2.backgroundColor = [UIColor redColor];
+    customContentView1.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kAUCContentLoadingImage]];
+    customContentView2.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kAUCContentLoadingImage]];
     [self.view addSubview:customContentView2];
     [self.view addSubview:customContentView1];
     
+    self.view.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUContentBackgroundColor];
     // set toolbar
     [self setToolBar];
     
@@ -427,8 +427,6 @@
     self.navigationItem.leftBarButtonItem = leftBarButton;
     
     //    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain
-    //                                                                      target:self action:@selector(goToSettingsView:)];
-    //
     //    UIFont *settingsFont = [UIFont fontWithName:@"Helvetica" size:24.0];
     //     NSDictionary *fontDictionary = @{NSFontAttributeName:settingsFont};
     //    [settingsButton setTitleTextAttributes:fontDictionary forState:UIControlStateNormal];
@@ -688,20 +686,10 @@
                                          UIActivityTypePostToTencentWeibo,
                                          UIActivityTypeAirDrop];
     activityVC.popoverPresentationController.sourceView = self.view;
-    [[self parentViewController] presentViewController:activityVC animated:YES completion:nil];
-    //  [self presentViewController:activityVC animated:YES completion:nil];
-  
+//    [[self parentViewController] presentViewController:activityVC animated:YES completion:nil];
+      [self presentViewController:activityVC animated:YES completion:nil];
 }
 // Override
-- (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
-    [super presentViewController:viewControllerToPresent animated:flag completion:^{
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        if (completion) {
-            completion();
-            [self setNavigationBar];
-        }
-    }];
-}
 
 - (void)goMapView:(id)sender {
     MapViewController *mvc =[[MapViewController alloc] init];
@@ -718,15 +706,18 @@
 }
 
 - (void)goToSettingsView:(id)sender {
-    SettingsViewController *svc = [[SettingsViewController alloc] init];
-    //    NotificationViewController *svc = [[NotificationViewController alloc] init];
-    svc.hidesBottomBarWhenPushed=YES;
-    [self.navigationController pushViewController:svc animated:NO];
+    SignInAndOutViewController *siovc =[[SignInAndOutViewController alloc] init];
+    siovc.hidesBottomBarWhenPushed=YES;
+    [self presentViewController:siovc    animated:YES completion:nil];
+    
+//    SettingsViewController *svc = [[SettingsViewController alloc] init];
+//    svc.hidesBottomBarWhenPushed=YES;
+//    [self.navigationController pushViewController:svc animated:NO];
 }
 
 -(void)goToReportMessage:(id)sender {
     // Display report message, report it to backend
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report message" message:@"Do you really want to report this message?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Report", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Content offensive?" message:@"Want to report this content?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     [alert show];
     
 }
@@ -762,11 +753,11 @@
     }
 }
 -(void)actionsForSuccessfulFlagContent{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report message" message:@"This content is now reported as inappropriate" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
-    
-    [self performSelector:@selector(dismissAlertView:) withObject:alert afterDelay:1.0];
-    NSLog(@"Flag Message");
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report message" message:@"This content is now reported as inappropriate" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//    [alert show];
+//    
+//    [self performSelector:@selector(dismissAlertView:) withObject:alert afterDelay:1.0];
+//    NSLog(@"Flag Message");
     
     
 }

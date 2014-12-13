@@ -24,7 +24,7 @@
         photoManager = [[ImageProcessingManager alloc] init];
         photoManager.delegate =self;
         photoManager.viewController = self;
-        photoManager.allowEditting = NO;
+        photoManager.allowEditting = YES;
     }
     return self;
 }
@@ -241,7 +241,7 @@
     // place holder label
     [composeTextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[placeHolderLabel(240)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [composeTextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-27-[placeHolderLabel(30)]"
+    [composeTextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[placeHolderLabel]-5-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:placeHolderLabel inView:composeTextView];
     

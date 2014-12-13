@@ -16,11 +16,10 @@
 - (void)setDidLike:(bool)didLike_ {
     _didLike = didLike_;
     if (didLike_){
-        self.imageView.image = [UIImage imageNamed:kAURFilledLikeImage];
+        [self setImage:[UIImage imageNamed:kAURFilledLikeImage] forState:UIControlStateNormal];
     }
     else {
-        self.imageView.image = [UIImage imageNamed:kAUREmptyLikeImage];
-        
+        [self setImage:[UIImage imageNamed:kAUREmptyLikeImage] forState:UIControlStateNormal];
     }
 }
 

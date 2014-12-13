@@ -61,7 +61,7 @@
 + (UILabel *)getPlaceHolderLabel{
     UILabel *phLabel =[[UILabel alloc] init];
     phLabel.backgroundColor = [UIColor clearColor];
-    phLabel.text=@"Tell the world...";
+    phLabel.text=@"What's on your mind? \n *Drag to move text";
     phLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText];
     phLabel.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
     phLabel.textAlignment = NSTextAlignmentCenter;
@@ -69,7 +69,7 @@
     phLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];//[UIColor whiteColor];
     phLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
     //phLabel.shadowRadius = 4.0f;
-    
+    phLabel.numberOfLines = 0;
     
     [phLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     // accessibilty
@@ -132,7 +132,6 @@
     
     // inset for text
     //textView.textContainerInset = UIEdgeInsetsMake(0, 0, 5.0, 0.0);
-    textView.layer.borderWidth = 1.0f;
     // attirubtes - ios 7
     NSMutableParagraphStyle *paraStyle = [NSMutableParagraphStyle new];
     paraStyle.lineBreakMode = NSLineBreakByWordWrapping;
@@ -199,14 +198,14 @@
 + (UIButton *)getCancelButton{
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCBackButtonImage] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(0, 0, 30, 30)];
+    [button setFrame:CGRectMake(0, 10, 30, 30)];
     [button setAccessibilityIdentifier:@"Cancel"];
     return button;
 }
 + (UIButton *)getPostButton{
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCComposeSpreadButtonImage] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(0, 0, 61, 27)];
+    [button setFrame:CGRectMake(0, 100, 61, 27)];
     [button setAccessibilityIdentifier:@"Post"];
     return button;
 }
@@ -278,7 +277,7 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    button.frame = CGRectMake(0, 0, 20, 20);
+    button.frame = CGRectMake(0, 0, 16, 16);
     [button setAccessibilityIdentifier:@"XButton"];
     return button;
 }
@@ -288,7 +287,7 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    button.frame = CGRectMake(0, 0, 20, 20);
+    button.frame = CGRectMake(0, 0, 20, 16);
     [button setAccessibilityIdentifier:@"CheckButton"];
     return button;
 }
@@ -358,14 +357,14 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor6]];
     button.layer.cornerRadius = 4;
-    [button setAccessibilityIdentifier:@"Color5"];
+    [button setAccessibilityIdentifier:@"Color6"];
     return button;
 }
 + (UIButton *)getColor7{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor7]];
     button.layer.cornerRadius = 4;
-    [button setAccessibilityIdentifier:@"Color5"];
+    [button setAccessibilityIdentifier:@"Color7"];
     return button;
 }
 + (UIButton *)getColor8{
@@ -373,7 +372,7 @@
     [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor8]];
     button.layer.cornerRadius = 4;
     [[button layer] setBorderWidth:3.0f];
-    [button setAccessibilityIdentifier:@"Color5"];
+    [button setAccessibilityIdentifier:@"Color8"];
     return button;
 }
 @end

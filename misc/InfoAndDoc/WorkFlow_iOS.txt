@@ -1,0 +1,83 @@
+#—————————————————————————
+# Information for iOS projects
+#—————————————————————————
+
+#—————————————————————————
+# Basic Xcode
+#—————————————————————————
+Clean build Sht-alt-cmd-K
+
+
+#—————————————————————————
+# Dependancy Management: CoCoaPod 
+#—————————————————————————
+
+1. install: gem install cocoapods
+2. Create or edit pod file: pod init
+3. Install dependency: pod install 
+4. Always use workspace: open App.xcworkspace
+
+
+Trouble shooting:
+1. Uninstall and resinstall cocoapod
+   gem uninstall cocoapods
+   gem install cocoapods
+
+2. Permission errors: Delete Pod dir and reinstall them 
+ 	rm -fr ~/Library/Caches/CocoaPods/
+        rm -fr ~/.cocoapods/repos/master/
+        rm -fr Pods/
+        pod setup or pod install 
+
+4. Check this link http://guides.cocoapods.org/using/troubleshooting.html
+
+Pod Commends
+—————————————
+pod init
+pod install
+pod update
+pod outdated
+pod search
+pod list
+pod list new
+
+All commands: http://guides.cocoapods.org/terminal/commands.html#commands
+
+
+#—————————————————————————
+# Inegration Test: UI Auto Monkey
+#—————————————————————————
+1. Product -> Profile (cmd-I)
+2. UIAutomation -> Script - copy paste UIAutoMonkey.js
+3. Save template: File -> Save Template (under misc/UIMonkey)
+4. Double click on the file from folder to run
+
+#—————————————————————————
+# Version control: Git
+#—————————————————————————
+1. Fetch new branch from remote and track
+    git checkout --track remote_name/branch_name
+    go --track github/branch_name
+2. Fetch all
+    git fetch --all
+3. Track remote branch
+        git branch -u remote_name/branch_name
+    Or, if local branch branch_name is not the current branch:
+        git branch -u upstream/branch_name branch_name
+    Or, longer commands, these are equivalent to the above two:
+        git branch --set-upstream-to=remote_name/branch_name
+        git branch --set-upstream-to=remote_name/branch_name branch_name
+
+
+#—————————————————————————
+# Documentation: Headerdoc
+#—————————————————————————
+Commands:
+To create: cdoc source_file_name/Dir_name
+To create TOC: gdoc
+
+The Taget dir is set to Code_Documentation in the same lavel as Code
+
+Header doc quto fill: VVDocumenter-Xcode plug in - may need to build fresh afte Xcode upgrade
+Command: /// to start the auto fil
+

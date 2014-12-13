@@ -24,11 +24,11 @@
     self.commentCellLabel = [CommentViewHelper getCellText];
     self.likeButton = [CommentViewHelper getCellButton];
     self.likeCount = [CommentViewHelper getLikeCount];
-    
+    //    [self.likeButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addSubview:self.commentCellLabel];
     [self addSubview:self.likeCount];
     [self addSubview:self.likeButton];
-    
+
     // layout
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(likeButton,commentCellLabel, likeCount);
     

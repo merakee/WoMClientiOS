@@ -35,15 +35,10 @@
 }
 
 + (CustomLilkeButton *)getCellButton{
-    UIImage *image = [UIImage imageNamed:kAUREmptyLikeImage];
-    CustomLilkeButton *button = [[CustomLilkeButton alloc] init];
-    // colors and fonts
-    button.backgroundColor = [UIColor clearColor];
-    // for auto layout
+    CustomLilkeButton *button = [CustomLilkeButton buttonWithType:UIButtonTypeCustom];
     [button setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
-    [button setImage:image forState:UIControlStateNormal];
-    //[button setFrame:CGRectMake(290, 15, 18.0, 18.0)];
+    button.didLike = false;
+ //   [button setImage:[UIImage imageNamed:kAURFilledLikeImage] forState:UIControlStateNormal];
     return button;
 }
 

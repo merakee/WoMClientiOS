@@ -19,14 +19,14 @@ static NSString *kAUCSpreadButtonFilledImage= @"spread-btn-full.png";
 static NSString *kAUCKillButtonImage =@"kill-btn.png";
 static NSString *kAUCKillButtonFilledImage= @"kill-btn-full.png";
 static NSString *kAUCComposeButtonImage =@"compose-icon.png";
-static NSString *kAUCSignOutButtonImage =@"signout-menu.png";
-static NSString *kAUCLogInMenuButtonImage =@"logout.png";
+static NSString *kAUCSignOutButtonImage =@"logout-menu.png";
+static NSString *kAUCLogInMenuButtonImage =@"signup-menu.png";
 static NSString *kAUCPageLogoImage =@"logo-nav.png";
 static NSString *kAUCShareButtonImage =@"share-btn.png";
 static NSString *kAUCReplyButtonImage =@"reply-btn.png";
 static NSString *kAUCReportButtonImage =@"flag-btn.png";
 static NSString *kAUCSettingsButtonImage =@"more-icon.png";
-
+static NSString *kAUCContentLoadingImage =@"content-loading";
 //static NSString *  kAUCContentBackgroundImage = @"content";
 
 @interface ContentViewHelper : NSObject

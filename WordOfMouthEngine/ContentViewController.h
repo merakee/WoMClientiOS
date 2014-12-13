@@ -15,7 +15,7 @@
 #import "CustomContentView.h"
 
 //@interface ContentViewController : UIViewController <CVCircleCounterViewDelegate>{
-@interface ContentViewController : UIViewController <UIAlertViewDelegate>{
+@interface ContentViewController : UIViewController <UIAlertViewDelegate, UIPopoverControllerDelegate>{
     
     //UILabel            *contentSpreadCount;
     //UILabel             *authorID;

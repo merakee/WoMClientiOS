@@ -62,10 +62,10 @@
 
 - (void)layoutView{
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(signInOutButton,dismissButton);
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInOutButton(80)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInOutButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:signInOutButton inView:self.view];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-40-[signInOutButton(80)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-40-[signInOutButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[dismissButton]|"

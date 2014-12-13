@@ -72,13 +72,16 @@
 - (NSUInteger)supportedInterfaceOrientations{
     return [AppUIManager getSupportedOrentation];
 }
-
+//- (void)updateViewConstraints{
+//  //  [self updateViewConstraints];
+//}
 #pragma mark -  Local Methods Implememtation
 - (void)setView {
     
     // set app defaults
     [AppUIManager setUIView:self.view ofType:kAUCPriorityTypePrimary];
     self.view.backgroundColor = [UIColor whiteColor];
+    totalHeight = 10;
     
 
     [self onSegmentedControlChanged:segmentedControl];
@@ -98,23 +101,26 @@
 }
 
 - (void)layoutView{
+    //totalHeight = 10;
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText);
-    
+    NSDictionary *metrics = @{@"totalHeight":[NSNumber numberWithFloat:totalHeight]};
     // buttons
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[commentsTableView]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView]-10-[commentText(39)]-10-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView]-10-[sendButton(39)]-10-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentText(200)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    //
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-6-[commentText(250)]-6-[sendButton(50)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
+    [self layoutCommentSectionViewWithDictionary:viewsDictionary andMetrics:metrics];
+}
+- (void)layoutCommentSectionViewWithDictionary:(NSDictionary *)viewsDictionary andMetrics:(NSDictionary *)metrics{
     
-    //    [replyToolBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[commentText]-5-|" options:0 metrics:nil views:viewsDictionary]];
-    //
-    //    [replyToolBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[commentText]-5-|" options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[sendButton(39)]-totalHeight-|"                                                                      options:0 metrics:metrics views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[commentText(39)]-totalHeight-|"                                                                      options:0 metrics:metrics views:viewsDictionary]];
+    
+  //   [self.view setNeedsUpdateConstraints];
+    NSLog(@"total height: %f", totalHeight);
 }
 #pragma mark - Table view data source
 
@@ -125,7 +131,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section. should be returning the number of comments
-    NSLog(@"Update: %ld", (unsigned long)activeArray.count);
+  //  NSLog(@"Update: %ld", (unsigned long)activeArray.count);
     return [activeArray count];
 }
 
@@ -172,7 +178,7 @@
 }
 
 -(void)likeButtonPressed:(CustomLilkeButton *)sender{
-    if(sender.didLike){
+    if(sender.didLike==true){
         return;
     }
     UITableViewCell *cell = (UITableViewCell *) sender.superview;
@@ -345,31 +351,44 @@
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
 }
-
+//- (void)layoutIfNeeded{
+//    NSLog(@"blah");
+//    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText);
+//    NSDictionary *metrics = @{@"totalHeight":[NSNumber numberWithFloat:totalHeight]};
+//    [self layoutCommentSectionViewWithDictionary:viewsDictionary andMetrics:metrics];
+//}
 - (void)keyboardWasShown:(NSNotification *)notification {
-    
-    float screenH = [CommonUtility getScreenHeight];
-    float screenW = [CommonUtility getScreenWidth];
-    // Step 1: Get the size of the keyboard.
+    if(keyboardHeight!=0.0){
+        totalHeight = 10 + keyboardHeight;
+        [self.view setNeedsLayout];
+         [self.view updateConstraints];
+        return;
+    }
+    // get keyboard size
     NSDictionary *keyboardInfo = [notification userInfo];
     NSValue *keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
-    float keyboardHeight = keyboardFrameBeginRect.size.height;
-    
-    [commentsTableView setContentOffset:
-     CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
-    [self.view setFrame:CGRectMake(0,0-keyboardHeight,screenW, screenH)];
-//    [commentsTableView setContentOffset:
-//     CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
+    keyboardHeight = keyboardFrameBeginRect.size.height;
+    totalHeight = keyboardHeight + 10;
+    [self.view setNeedsLayout];
+     [self.view updateConstraints];
+    //    [commentsTableView setContentOffset:
+    //     CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
+    //    [self.view setFrame:CGRectMake(0,0-keyboardHeight,screenW, screenH)];
+    //    [commentsTableView setContentOffset:
+    //     CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
 }
 
+
+
+
 - (void)keyboardWillBeHidden:(NSNotification *)notification {
-    float screenH = [CommonUtility getScreenHeight];
-    float screenW = [CommonUtility getScreenWidth];
-    
     //    scrollView.contentInset = contentInsets;
     //    scrollView.scrollIndicatorInsets = contentInsets;
-    [self.view setFrame:CGRectMake(0,64,screenW,screenH-64)];
+//    [self.view setFrame:CGRectMake(0,64,screenW,screenH-64)];
+    totalHeight = 10;
+    [self.view setNeedsLayout];
+    [self.view updateConstraints];
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView{
     sendButton.enabled=NO;
@@ -449,7 +468,6 @@
     [Flurry logEvent:[FlurryManager getEventName:kFACommentPostSuccess]];
     
     commentText.text = @"";
-    NSLog(@"sent comment!");
     commentsTableView.estimatedRowHeight = 44.0;
     commentsTableView.rowHeight = UITableViewAutomaticDimension;
     
