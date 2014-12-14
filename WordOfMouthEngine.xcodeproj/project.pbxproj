@@ -265,6 +265,7 @@
 		51106BE51A3BB9760048CD34 /* signup-menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 51106BE21A3BB9760048CD34 /* signup-menu.png */; };
 		51106BE61A3BB9760048CD34 /* signup-menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 51106BE31A3BB9760048CD34 /* signup-menu@2x.png */; };
 		51106BE71A3BB9760048CD34 /* signup-menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 51106BE31A3BB9760048CD34 /* signup-menu@2x.png */; };
+		51106BEA1A3D10140048CD34 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51106BE91A3D10140048CD34 /* SearchViewController.m */; };
 		51117E971A33A09D00B482A6 /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 51117E8F1A33A09D00B482A6 /* cancel.png */; };
 		51117E981A33A09D00B482A6 /* cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 51117E901A33A09D00B482A6 /* cancel@2x.png */; };
 		51117E991A33A09D00B482A6 /* Forgot-password-.png in Resources */ = {isa = PBXBuildFile; fileRef = 51117E911A33A09D00B482A6 /* Forgot-password-.png */; };
@@ -679,6 +680,8 @@
 		51106BDD1A3BB9570048CD34 /* logout-menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logout-menu@2x.png"; sourceTree = "<group>"; };
 		51106BE21A3BB9760048CD34 /* signup-menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "signup-menu.png"; sourceTree = "<group>"; };
 		51106BE31A3BB9760048CD34 /* signup-menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "signup-menu@2x.png"; sourceTree = "<group>"; };
+		51106BE81A3D10140048CD34 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		51106BE91A3D10140048CD34 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		51117E8F1A33A09D00B482A6 /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		51117E901A33A09D00B482A6 /* cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@2x.png"; sourceTree = "<group>"; };
 		51117E911A33A09D00B482A6 /* Forgot-password-.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Forgot-password-.png"; sourceTree = "<group>"; };
@@ -1479,6 +1482,8 @@
 		11CB8FC518B00B5500396418 /* CoreFunctionVC */ = {
 			isa = PBXGroup;
 			children = (
+				51106BE81A3D10140048CD34 /* SearchViewController.h */,
+				51106BE91A3D10140048CD34 /* SearchViewController.m */,
 				5130394A1A2515B500B9E436 /* NotificationVC */,
 				516384BE1A12DE4F000C14C5 /* CommentVC */,
 				11FD6CEA18B18C32007D318E /* ComposeVC */,
@@ -2324,6 +2329,7 @@
 				111FE18D199BD51E005143E0 /* FlurryManager.m in Sources */,
 				513039611A2CF19200B9E436 /* ApiContent.m in Sources */,
 				513039511A251E6100B9E436 /* NotificationViewHelper.m in Sources */,
+				51106BEA1A3D10140048CD34 /* SearchViewController.m in Sources */,
 				1166AD871975EC640010BFEA /* WomSignUpViewController.m in Sources */,
 				11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */,
 				1171CABF196917DF00B40A0E /* ApiUserManager.m in Sources */,
