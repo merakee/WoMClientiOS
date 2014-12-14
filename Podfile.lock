@@ -1,11 +1,11 @@
 PODS:
   - AFNetworking (2.3.1):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-    - AFNetworking/UIKit
+    - AFNetworking/NSURLConnection (= 2.3.1)
+    - AFNetworking/NSURLSession (= 2.3.1)
+    - AFNetworking/Reachability (= 2.3.1)
+    - AFNetworking/Security (= 2.3.1)
+    - AFNetworking/Serialization (= 2.3.1)
+    - AFNetworking/UIKit (= 2.3.1)
   - AFNetworking/NSURLConnection (2.3.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
@@ -22,7 +22,7 @@ PODS:
     - AFNetworking/NSURLSession
   - Expecta (0.2.4)
   - FlurrySDK (5.4.0):
-    - FlurrySDK/FlurrySDK
+    - FlurrySDK/FlurrySDK (= 5.4.0)
   - FlurrySDK/FlurrySDK (5.4.0)
   - Specta (0.3.0.beta1)
 
@@ -43,4 +43,4 @@ SPEC CHECKSUMS:
   FlurrySDK: bed9e5598353f867508d164795a451e3ada92cb6
   Specta: 63e8ac8e07db6675c7096d37f77a266a1be4c02d
 
-COCOAPODS: 0.34.4
+COCOAPODS: 0.35.0
