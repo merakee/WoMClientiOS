@@ -153,10 +153,11 @@
     composeTextView = [ComposeViewHelper getComposeTextViewWithDelegate:self];
     [contentImageView addSubview:composeTextView];
     [composeTextView addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
- //    composeTextView.backgroundColor = [UIColor blueColor];
     // place holder label
     placeHolderLabel = [ComposeViewHelper getPlaceHolderLabel];
     [composeTextView addSubview:placeHolderLabel];
+    placeHolderLabel2 = [ComposeViewHelper getPlaceHolderLabel2];
+    [composeTextView addSubview:placeHolderLabel2];
     
     deleteImage = [ComposeViewHelper getRemoveImageButton];
     [deleteImage addTarget:self action:@selector(removeImage:) forControlEvents:UIControlEventTouchUpInside];
@@ -200,7 +201,7 @@
 - (void)layoutView{
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, textButton, imageButton, deleteImage);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, placeHolderLabel2, textButton, imageButton, deleteImage);
     
     // buttons
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -241,8 +242,11 @@
     // place holder label
     [composeTextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[placeHolderLabel(240)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [composeTextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[placeHolderLabel]-5-|"
+    [composeTextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[placeHolderLabel]-5-[placeHolderLabel2]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
+    [composeTextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[placeHolderLabel2(240)]"
+                                                                            options:0 metrics:nil views:viewsDictionary]];
+  
     [AppUIManager horizontallyCenterElement:placeHolderLabel inView:composeTextView];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[textButton(56)]-43-[imageButton(56)]-78-|"
@@ -411,6 +415,7 @@
 - (void)textButtonPressed:(id)sender {
     [self keyboardOptions];
     placeHolderLabel.hidden=YES;
+     placeHolderLabel2.hidden=YES;
   //  deleteImage.hidden = NO;
 }
 

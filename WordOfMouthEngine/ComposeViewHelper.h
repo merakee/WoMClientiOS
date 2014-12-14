@@ -51,6 +51,7 @@ static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 
 #pragma mark -  View Helper Methods: Labels
 + (UILabel *)getPlaceHolderLabel;
++ (UILabel *)getPlaceHolderLabel2;
 + (UILabel *)getCharacterCountLabel;
 
 #pragma mark -  View Helper Methods: TextViews

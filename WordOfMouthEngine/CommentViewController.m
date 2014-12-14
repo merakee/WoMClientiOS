@@ -101,6 +101,7 @@
 }
 
 - (void)layoutView{
+    NSLog(@"layout");
     //totalHeight = 10;
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText);
     NSDictionary *metrics = @{@"totalHeight":[NSNumber numberWithFloat:totalHeight]};
@@ -360,8 +361,9 @@
 - (void)keyboardWasShown:(NSNotification *)notification {
     if(keyboardHeight!=0.0){
         totalHeight = 10 + keyboardHeight;
+        [self.view layoutIfNeeded];
         [self.view setNeedsLayout];
-         [self.view updateConstraints];
+
         return;
     }
     // get keyboard size
@@ -370,8 +372,8 @@
     CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
     keyboardHeight = keyboardFrameBeginRect.size.height;
     totalHeight = keyboardHeight + 10;
-    [self.view setNeedsLayout];
-     [self.view updateConstraints];
+    [self.view layoutIfNeeded];
+    NSLog(@"blah, %f", totalHeight);
     //    [commentsTableView setContentOffset:
     //     CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
     //    [self.view setFrame:CGRectMake(0,0-keyboardHeight,screenW, screenH)];
@@ -387,8 +389,7 @@
     //    scrollView.scrollIndicatorInsets = contentInsets;
 //    [self.view setFrame:CGRectMake(0,64,screenW,screenH-64)];
     totalHeight = 10;
-    [self.view setNeedsLayout];
-    [self.view updateConstraints];
+    [self.view layoutIfNeeded];
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView{
     sendButton.enabled=NO;
@@ -499,7 +500,6 @@
         [self updateCommentArrayPopularWithMode:updateMode];
     }
     
-    NSLog(@"commenet array count %ld", (unsigned long)activeArray.count);
 }
 - (void)updateCommentArrayRecentWithMode:(kAPICommentRefreshMode)updateMode{
     // Analytics: Flurry

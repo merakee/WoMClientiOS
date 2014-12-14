@@ -61,8 +61,8 @@
 + (UILabel *)getPlaceHolderLabel{
     UILabel *phLabel =[[UILabel alloc] init];
     phLabel.backgroundColor = [UIColor clearColor];
-    phLabel.text=@"What's on your mind? \n *Drag to move text";
-    phLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText];
+    phLabel.text=@"What's on your mind?";
+    phLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizePlaceholder1];
     phLabel.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
     phLabel.textAlignment = NSTextAlignmentCenter;
     
@@ -74,9 +74,23 @@
     [phLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     // accessibilty
     [phLabel setAccessibilityIdentifier:@"Place Holder Label"];
-    
     return phLabel;
 }
++ (UILabel *)getPlaceHolderLabel2{
+    UILabel *phLabel =[[UILabel alloc] init];
+    phLabel.backgroundColor = [UIColor clearColor];
+    phLabel.text=@"*Drag to move text";
+    phLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizePlaceholder2];
+    phLabel.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];
+    phLabel.textAlignment = NSTextAlignmentCenter;
+    phLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];
+    phLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    phLabel.numberOfLines = 0;
+    [phLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [phLabel setAccessibilityIdentifier:@"Place Holder Label 2"];
+    return phLabel;
+}
+
 + (UILabel *)getCharacterCountLabel{
     UILabel *ccLabel =[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
    // ccLabel.backgroundColor = [UIColor clearColor];
