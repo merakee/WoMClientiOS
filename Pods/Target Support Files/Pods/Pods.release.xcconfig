@@ -3,4 +3,5 @@ HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public
 LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/FlurrySDK/Flurry"
 OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AFNetworking" -isystem "${PODS_ROOT}/Headers/Public/Expecta" -isystem "${PODS_ROOT}/Headers/Public/FlurrySDK" -isystem "${PODS_ROOT}/Headers/Public/Specta"
 OTHER_LDFLAGS = -ObjC -l"Flurry_5.4.0" -l"Pods-AFNetworking" -l"Pods-FlurrySDK" -l"z" -framework "CoreGraphics" -framework "Foundation" -framework "MediaPlayer" -framework "MobileCoreServices" -framework "Security" -framework "SystemConfiguration" -framework "UIKit" -weak_framework "AdSupport" -weak_framework "StoreKit"
+OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
 PODS_ROOT = ${SRCROOT}/Pods
