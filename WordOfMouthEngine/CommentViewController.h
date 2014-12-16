@@ -40,6 +40,7 @@ static const int kCellButtonTag = 10;
     BOOL                    isUpdateActive;
     float keyboardHeight;
     float totalHeight;
+    NSDictionary            *heightMetrics;
 }
 @property (nonatomic) ApiContent *currentContent;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;

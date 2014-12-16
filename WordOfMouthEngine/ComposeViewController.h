@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ImageProcessingManager.h"
 #import "ContentViewController.h"
+#import "CustomIOS7AlertView.h"
 
 @interface ComposeViewController : UIViewController<UITextViewDelegate,ImageProcessingManagerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>{
     // UISegmentedControl *categoryControl;
@@ -80,6 +81,7 @@
     NSArray             *buttonItems;
     
     NSMutableParagraphStyle *paraStyle;
+    CustomIOS7AlertView *successAlertView;
     
 }
 

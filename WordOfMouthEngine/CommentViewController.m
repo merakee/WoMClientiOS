@@ -49,7 +49,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForKeyboardNotifications];
-    
+    [self.navigationController setNavigationBarHidden:NO];
     
     //    [self onSegmentedControlChanged:segmentedControl];
     //    [self textViewDidChange:commentText];
@@ -57,6 +57,7 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [self updateCommentArrayWithMode:kAPICommentRefreshModeGetMore];
+    
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [self deregisterFromKeyboardNotifications];
@@ -101,10 +102,10 @@
 }
 
 - (void)layoutView{
-    NSLog(@"layout");
     //totalHeight = 10;
+    NSLog(@"updating constraints");
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText);
-    NSDictionary *metrics = @{@"totalHeight":[NSNumber numberWithFloat:totalHeight]};
+    heightMetrics = @{@"totalHeight":[NSNumber numberWithFloat:totalHeight]};
     // buttons
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[commentsTableView]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
@@ -112,7 +113,7 @@
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-6-[commentText(250)]-6-[sendButton(50)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self layoutCommentSectionViewWithDictionary:viewsDictionary andMetrics:metrics];
+    [self layoutCommentSectionViewWithDictionary:viewsDictionary andMetrics:heightMetrics];
 }
 - (void)layoutCommentSectionViewWithDictionary:(NSDictionary *)viewsDictionary andMetrics:(NSDictionary *)metrics{
     
@@ -165,7 +166,7 @@
     if ([cell respondsToSelector:@selector(layoutMargins)]) {
         cell.layoutMargins = UIEdgeInsetsZero;
     }
-    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
 }
 
@@ -352,45 +353,47 @@
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
 }
-//- (void)layoutIfNeeded{
-//    NSLog(@"blah");
-//    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText);
-//    NSDictionary *metrics = @{@"totalHeight":[NSNumber numberWithFloat:totalHeight]};
-//    [self layoutCommentSectionViewWithDictionary:viewsDictionary andMetrics:metrics];
-//}
-- (void)keyboardWasShown:(NSNotification *)notification {
-    if(keyboardHeight!=0.0){
-        totalHeight = 10 + keyboardHeight;
-        [self.view layoutIfNeeded];
-        [self.view setNeedsLayout];
 
-        return;
-    }
+- (void)keyboardWasShown:(NSNotification *)notification {
+//    if(keyboardHeight!=0.0){
+//        totalHeight = 10 + keyboardHeight;
+//        [self.view constraints];
+//        [self.view layoutIfNeeded];
+//         NSLog(@"total height, %f", totalHeight);
+//        return;
+//    }
     // get keyboard size
     NSDictionary *keyboardInfo = [notification userInfo];
     NSValue *keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
     keyboardHeight = keyboardFrameBeginRect.size.height;
     totalHeight = keyboardHeight + 10;
+    [self updateConstraints];
     [self.view layoutIfNeeded];
     NSLog(@"blah, %f", totalHeight);
-    //    [commentsTableView setContentOffset:
-    //     CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
-    //    [self.view setFrame:CGRectMake(0,0-keyboardHeight,screenW, screenH)];
-    //    [commentsTableView setContentOffset:
-    //     CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
+//    [commentsTableView setContentOffset:
+//    CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
+//    [self.view setFrame:CGRectMake(0,0-keyboardHeight,screenW, screenH)];
+//    [commentsTableView setContentOffset: CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
 }
+-(void)updateConstraints{
+ //   NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText);
+    heightMetrics = @{@"totalHeight":[NSNumber numberWithFloat:totalHeight]};
+   //    [self layoutCommentSectionViewWithDictionary:viewsDictionary andMetrics:heightMetrics];
 
+}
 
 
 
 - (void)keyboardWillBeHidden:(NSNotification *)notification {
-    //    scrollView.contentInset = contentInsets;
-    //    scrollView.scrollIndicatorInsets = contentInsets;
+//    float screenW = [CommonUtility getScreenWidth];
+//    float screenH = [CommonUtility getScreenHeight];
 //    [self.view setFrame:CGRectMake(0,64,screenW,screenH-64)];
     totalHeight = 10;
     [self.view layoutIfNeeded];
 }
+
+#pragma mark - Text changes
 - (void)textViewDidBeginEditing:(UITextView *)textView{
     sendButton.enabled=NO;
 }

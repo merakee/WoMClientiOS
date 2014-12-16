@@ -77,7 +77,6 @@
     textView.allowsEditingTextAttributes = NO;
     textView.dataDetectorTypes = UIDataDetectorTypeAll ;
     
-    // set up key board
     
     textView.returnKeyType = UIReturnKeyDefault;
     // inset for text

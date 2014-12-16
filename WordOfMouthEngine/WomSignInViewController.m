@@ -125,9 +125,9 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[emailField]-25-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[passwordField]-25-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-46-[emailField(40)]-15-[passwordField(emailField)]-28-[signUpButton]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-6-[emailField(40)]-8-[passwordField(emailField)]-28-[signUpButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]]; // key board 216
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-46-[emailField(40)]-15-[passwordField(emailField)]-28-[signInButton]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-6-[emailField(40)]-8-[passwordField(emailField)]-28-[signInButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
 }
 

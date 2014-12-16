@@ -25,6 +25,8 @@ static NSString *kAUCTextColorButtonImage = @"text-color-icon.png";
 static NSString *kAUCTextColorActiveButtonImage = @"text-color-icon-active.png";
 static NSString *kAUCCheckIconButtonImage = @"check-icon.png";
 static NSString *kAUCClearIconButtonImage = @"clear-icon.png";
+static NSString *kAUCPostSuccessImage = @"success.png";
+static NSString *kAUCPostFailureImage = @"error.png";
 
 //static NSString *kAUCCancelButtonImage =@"";
 static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;

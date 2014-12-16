@@ -21,6 +21,8 @@
 #import <Social/Social.h>
 #import "NotificationViewController.h"
 #import "AppUIConstants.h"
+
+
 @implementation ContentViewController {
     
 }
@@ -105,6 +107,9 @@
     // rest button active flag
     //    isAnimationActive = NO;
     //    animationView.hidden=YES;
+    // set navigation bar
+  //  self.navigationController.navigationBar.hidden = YES;
+    [self.navigationController setNavigationBarHidden:YES];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -152,8 +157,6 @@
     [ContentViewHelper  setView:self.view];
     //    [self view].userInteractionEnabled = YES;
     
-    // set navigation bar
-    self.navigationController.navigationBar.hidden = NO;
     [self setNavigationBar];
     
     self.navigationController.toolbarHidden = YES;
@@ -252,7 +255,7 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(spreadButton,killButton,repliesButton,customContentView1,customContentView2, shareButton, reportButton, commentCount, spreadsCount);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(spreadButton,killButton,repliesButton,customContentView1,customContentView2, shareButton, reportButton, commentCount, spreadsCount, composeButton, moreButton);
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentTextView,contentBackGround,spreadButton,killButton,composeButton,signInOutButton);
     
     // Comment count
@@ -262,23 +265,20 @@
     [spreadButton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[spreadsCount(40)]-2-|" options:0 metrics:nil views:viewsDictionary]];
     [spreadButton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[spreadsCount(20)]" options:0 metrics:nil views:viewsDictionary]];
     
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[moreButton(49)]" options:0 metrics:nil views:viewsDictionary]];
     
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[composeButton(40)]|" options:0 metrics:nil views:viewsDictionary]];
+
     //     Content view contraints
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[customContentView1(320)]|" options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[customContentView1(320)]-18-[repliesButton(59)]" options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[moreButton(40)]-[customContentView1(320)]-18-[repliesButton(59)]" options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[composeButton(40)]-[customContentView1(320)]-18-[repliesButton(59)]" options:0 metrics:nil views:viewsDictionary]];
     //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[customContentView1(320)]-11-[reportButton)]" options:0 metrics:nil views:viewsDictionary]];
     
     // Next content view same constraints
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[customContentView2(320)]|" options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[customContentView2(320)]-18-[repliesButton(59)]" options:0 metrics:nil views:viewsDictionary]];
-    
-    
-    //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLogo(40)]"
-    //                                                                      options:0 metrics:nil views:viewsDictionary]];
-    //    [AppUIManager horizontallyCenterElement:pageLogo inView:self.view];
-    //
-    //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[pageLogo(35)]"
-    //                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[moreButton(40)]-[customContentView2(320)]-18-[repliesButton(59)]" options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[composeButton(40)]-[customContentView2(320)]-18-[repliesButton(59)]" options:0 metrics:nil views:viewsDictionary]];
     
     //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[pageLogo(35)]-20-[contentTextView]-24-[spreadButton]"
     //                                                                options:0 metrics:nil views:viewsDictionary]];
@@ -314,11 +314,6 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[reportButton(64)]-60-[repliesButton(59)]-60-[shareButton(64)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:repliesButton inView:self.view];
-    //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[shareButton(64)]-16-|"
-    //                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pageLogo]-50-[mapButton(72)]"
-    //                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[shareButton(32)]-50-[spreadButton(82)]|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
@@ -404,9 +399,10 @@
     //   self.navigationItem.title = @"Spark";
     composeButton = [ContentViewHelper getComposeButton];
     [composeButton addTarget:self action:@selector(goToAddContentView:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:composeButton];
     moreButton = [ContentViewHelper getSettingsButton];
     [moreButton addTarget:self action:@selector(goToSettingsView:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [self.view addSubview:moreButton];
     //    [self.navigationController.navigationBar setTranslucent:YES];
     //    self.navigationController.navigationBar.shadowImage = [UIImage new];
     //    self.navigationController.view.backgroundColor = [UIColor clearColor];
@@ -419,12 +415,12 @@
     //    self.navigationController.navigationBar.translucent = YES;
     //    self.navigationController.view.backgroundColor = [UIColor clearColor];
     
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:composeButton];
-    self.navigationItem.rightBarButtonItem = rightBarButton;
-    
-    // left navigation button
-    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:moreButton];
-    self.navigationItem.leftBarButtonItem = leftBarButton;
+//    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:composeButton];
+//    self.navigationItem.rightBarButtonItem = rightBarButton;
+//    
+//    // left navigation button
+//    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:moreButton];
+//    self.navigationItem.leftBarButtonItem = leftBarButton;
     
     //    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain
     //    UIFont *settingsFont = [UIFont fontWithName:@"Helvetica" size:24.0];
@@ -667,12 +663,14 @@
     if (scv.contentImageView.image==nil){
         return;
     }
+    
     UIImage *imageToShare = scv.contentImageView.image;
     NSArray *postItems = [[NSArray alloc] initWithObjects:imageToShare, message, nil];
     UIActivityViewController *activityVC = [[UIActivityViewController alloc]
                                             initWithActivityItems:postItems
                                             applicationActivities:nil];
     [activityVC setTitle:message];
+    
     activityVC.excludedActivityTypes = @[UIActivityTypePostToWeibo,
                                          // UIActivityTypeMessage,
                                          //   UIActivityTypeMail,
@@ -685,9 +683,11 @@
                                          UIActivityTypePostToVimeo,
                                          UIActivityTypePostToTencentWeibo,
                                          UIActivityTypeAirDrop];
-    activityVC.popoverPresentationController.sourceView = self.view;
-//    [[self parentViewController] presentViewController:activityVC animated:YES completion:nil];
-      [self presentViewController:activityVC animated:YES completion:nil];
+   // activityVC.popoverPresentationController.sourceView = self.view;
+ //   [self presentViewController:activityVC animated:YES completion:nil];
+  //  [self.navigationController pushViewController:activityVC animated:NO];
+  //  [[[self parentViewController] parentViewController] presentViewController:activityVC animated:YES completion:nil];
+    [[self parentViewController] presentViewController:activityVC animated:YES completion:nil];
 }
 // Override
 
@@ -1040,6 +1040,7 @@
     if (isRefreshingContent){
         return;
     }
+    
     isAnimationActive=YES;
     [self animateSpreadButton];
     // Analytics: Flurry

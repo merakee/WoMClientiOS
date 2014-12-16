@@ -70,9 +70,7 @@
 }
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-   //  self.navigationController.navigationBar.hidden = YES;
-//    [self.navigationController setNavigationBarHidden:YES];
-//     self.navigationController.navigationBar.hidden = NO;
+    [self.navigationController setNavigationBarHidden:YES];
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposeSession] withParameters:nil timed:YES];
     // display key board
@@ -82,7 +80,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO];
    // [self.navigationController setToolbarHidden:NO];
     // Analytics: Flurry
     [Flurry endTimedEvent:[FlurryManager getEventName:kFAComposeSession] withParameters:nil];
@@ -201,7 +198,7 @@
 - (void)layoutView{
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, placeHolderLabel2, textButton, imageButton, deleteImage);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, placeHolderLabel2, textButton, imageButton, deleteImage, postButton, cancelButton);
     
     // buttons
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -211,7 +208,7 @@
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[postButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[deleteImage(33)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[deleteImage(33)]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[deleteImage(33)]-8-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(107)]"
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
 //    [AppUIManager horizontallyCenterElement:postButton inView:self.view];
@@ -232,11 +229,16 @@
     [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-24-[composeTextView]-24-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
-    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(61)]-15-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[cancelButton(40)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentImageView(320)]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentImageView(320)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[postButton(40)]-[contentImageView(320)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cancelButton(40)]-[contentImageView(320)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
 
     // place holder label
@@ -262,16 +264,18 @@
     
     postButton = [ComposeViewHelper getPostButton];
     [postButton addTarget:self action:@selector(postContent:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:postButton];
-    self.navigationItem.rightBarButtonItem = rightBarButton;
+//    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:postButton];
+//    self.navigationItem.rightBarButtonItem = rightBarButton;
+    [self.view addSubview:postButton];
     postButton.enabled = NO;
     
     cancelButton = [ComposeViewHelper getCancelButton];
     [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
-    self.navigationItem.leftBarButtonItem = leftBarButton;
-    
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.view addSubview:cancelButton];
+//    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
+//    self.navigationItem.leftBarButtonItem = leftBarButton;
+//    
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     
     // character count label
 //    characterCount = [ComposeViewHelper getCharacterCountLabel]; 
@@ -471,16 +475,16 @@
 - (void)addColorKeyboardToolBar{
     colorKeyboardToolBar = [[UIToolbar alloc] init];
     
-    colorKeyboardToolBar.backgroundColor = [UIColor clearColor];
+    colorKeyboardToolBar.backgroundColor = [UIColor whiteColor];
    // colorKeyboardToolBar.tintColor = [UIColor orangeColor];
     colorKeyboardToolBar.translucent = YES;
     // Make toolbar clear
     [colorKeyboardToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [colorKeyboardToolBar setBackgroundImage:[UIImage new]
-                          forToolbarPosition:UIBarPositionAny
-                                  barMetrics:UIBarMetricsDefault];
-    [colorKeyboardToolBar setShadowImage:[UIImage new]
-                      forToolbarPosition:UIToolbarPositionAny];
+//    [colorKeyboardToolBar setBackgroundImage:[UIImage new]
+//                          forToolbarPosition:UIBarPositionAny
+//                                  barMetrics:UIBarMetricsDefault];
+//    [colorKeyboardToolBar setShadowImage:[UIImage new]
+//                      forToolbarPosition:UIToolbarPositionAny];
     [colorKeyboardToolBar setItems:buttonItems];
 }
 - (void)getTextColor:(id)sender {
@@ -524,13 +528,13 @@
     [self.view addSubview:colorKeyboardToolBar];
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(colorKeyboardToolBar, color1, color2, color3, color4, color5, color6, color7, color8);
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-11-[color1(71)]-11-[color5(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-11-[color2(71)]-11-[color6(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-11-[color3(71)]-11-[color7(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-11-[color4(71)]-11-[color8(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-6-[color1(71)]-11-[color5(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-6-[color2(71)]-11-[color6(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-6-[color3(71)]-11-[color7(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-6-[color4(71)]-11-[color8(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
   
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[colorKeyboardToolBar]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[colorKeyboardToolBar]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     // color buttons
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-3-[color1(71)]-10-[color2(71)]-10-[color3(71)]-10-[color4(71)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -733,8 +737,7 @@
             postButton.enabled = YES;
         }
         else {
-        postButton.enabled=NO;
-        NSLog(@"blah");}
+        postButton.enabled=NO; }
         }
     else if((textLength >= kAPIValidationContentMinLength)){//&&(!postButton.isEnabled)){
         postButton.enabled=YES;
@@ -909,20 +912,25 @@
     // display sucess
     //[CommonUtility displayAlertWithTitle:@"Post Successful"
     //                           message:@"Your content was posted sucessfully!" delegate:self];
-    UIAlertView *alertView  = [[UIAlertView alloc] initWithTitle:@"Post Successful"
-                                                          message:@""
-                                                         delegate:self
-                                                cancelButtonTitle:nil
-                                                otherButtonTitles:nil];
+    successAlertView = [[CustomIOS7AlertView alloc] init];
+    UIImage *image = [UIImage imageNamed:kAUCPostSuccessImage];
+    UIImageView *successImage = [[UIImageView alloc] initWithImage:image];
+    [successAlertView setContainerView:successImage];
+//    UIAlertView *alertView  = [[UIAlertView alloc] initWithTitle:@"Post Successful"
+//                                                          message:@""
+//                                                         delegate:self
+//                                                cancelButtonTitle:nil
+//                                                otherButtonTitles:nil];
     
-    [alertView show];
+    [successAlertView show];
     
     // dismiss autometically
-    [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:1.0];
+    [self performSelector:@selector(dismissAlertView:) withObject:successAlertView afterDelay:1.0];
     
 }
 -(void)dismissAlertView:(UIAlertView *)alertView{
-    [alertView dismissWithClickedButtonIndex:0 animated:YES];
+   // [alertView dismissWithClickedButtonIndex:0 animated:YES];
+    [successAlertView close];
 }
 
 - (void)clearViewAfterSuccessfulPostOrCancel{

@@ -164,9 +164,12 @@
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInAsGuestButton]"
                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[pageViewControllerView(340)]-41-[signInButton(40)]-12-[signInAsGuestButton(40)]-56-[termsButton(34)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[pageViewControllerView(340)]-11-[signInButton(40)]-12-[signInAsGuestButton(40)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:signInAsGuestButton inView:self.view];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[termsButton(34)]-5-|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
