@@ -15,6 +15,7 @@
     // UISegmentedControl *categoryControl;
     UITextView         *composeTextView;
     UIImageView        *contentImageView;
+    UIImage             *finalContentImage;
     UILabel            *placeHolderLabel;
     UILabel             *placeHolderLabel2;
     UILabel             *characterCount;

@@ -58,7 +58,8 @@
         
     }failure:^(NSError *error){
         [activitiyIndicator stopAnimating];
-        [ApiErrorManager displayAlertWithError:error withDelegate:nil];
+        //[ApiErrorManager displayAlertWithError:error withDelegate:nil];
+        [ApiErrorManager displayAlertWithError:[ApiErrorManager getErrorForGetContentError] withDelegate:nil];
         failure([ApiContent getEmptyContentNotice]);
     }];
 }

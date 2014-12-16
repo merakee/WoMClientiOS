@@ -35,21 +35,21 @@
                                           code:kAPIManagerErrorInvalidSignUp
                                    description:@"Something Went Wrong"
                                         reason:@"Invalid Api Response"
-                                    suggestion:@"Please try again."];
+                                    suggestion:@"Please try again"];
 }
 + (NSError *)getErrorForInternalError{
     return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
                                           code:kAPIManagerErrorInvalidSignUp
                                    description:@"Something Went Wrong"
                                         reason:@"Internal Error in the iOS client"
-                                    suggestion:@"Please try again."];
+                                    suggestion:@"Please try again"];
 }
 + (NSError *)getErrorForInvalidParameters{
     return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
                                           code:kAPIManagerErrorInvalidParameters
                                    description:@"Invalid Parameters"
                                         reason:@"Internal Error in the iOS client"
-                                    suggestion:@"Please try again."];
+                                    suggestion:@"Please try again"];
 }
 
 + (NSError *)getErrorForSignInSaveUser{
@@ -68,6 +68,13 @@
                                     suggestion:@"Please try after user is signed in."];
 }
 
++ (NSError *)getErrorForGetContentError{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorInvalidParameters
+                                   description:@"Cannot Load Content"
+                                        reason:@""
+                                    suggestion:@"Please check connection and try again"];
+}
 #pragma mark - Error Unitilty methods
 + (NSString *)getErrorReasonFromError:(NSError *)error{
     NSDictionary *edic=nil;

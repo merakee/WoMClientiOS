@@ -22,6 +22,7 @@ typedef enum {
     kAPIManagerErrorValidation,
     kAPIManagerErrorInvalidParameters,
     kAPIManagerErrorInvalidChoice,
+    kAPIManagerErrorGetContentError,
 } kAPIManagerErrorCode;
 
 // Error domain
@@ -42,6 +43,7 @@ static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
 + (NSError *)getErrorForInvalidParameters;
 + (NSError *)getErrorForSignInSaveUser;
 + (NSError *)getErrorForInvalidRequestForAnonymousUser;
++ (NSError *)getErrorForGetContentError;
 
 #pragma mark - Error Handling methods - Session and Registration
 

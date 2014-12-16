@@ -43,6 +43,7 @@
     
     BOOL               isAnimationActive;
     BOOL                isRefreshingContent;
+    BOOL                isEmptyContent;
     
     CustomContentView  *customContentView1;
     CustomContentView  *customContentView2;

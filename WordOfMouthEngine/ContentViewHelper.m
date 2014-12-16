@@ -9,7 +9,6 @@
 #import "ContentViewHelper.h"
 #import "ApiContent.h"
 #import "UIImageView+AnimationCompletion.h"
-
 @implementation ContentViewHelper
 
 
@@ -23,12 +22,15 @@
 }
 + (UIImageView *)getContentBackGroundView{
     UIImageView *contentBackGround = [[UIImageView alloc] init];
-    //contentBackGround.backgroundColor =[AppUIManager getContentColorForCategory:1];
-//    contentBackGround.backgroundColor =[UIColor blueColor];
     
     contentBackGround.contentMode = UIViewContentModeScaleAspectFit;
     [contentBackGround setTranslatesAutoresizingMaskIntoConstraints:NO];
     
+//    contentBackGround.layer.shadowColor = [UIColor purpleColor].CGColor;
+//    contentBackGround.layer.shadowOffset = CGSizeMake(5, 5);
+//    contentBackGround.layer.shadowOpacity = 0.4;
+//    contentBackGround.layer.shadowRadius = 1.0;
+//    contentBackGround.clipsToBounds = NO;
     //    [contentBackGround setAccessibilityIdentifier:@"Content Image"];
     //    [contentBackGround setIsAccessibilityElement:YES];
     

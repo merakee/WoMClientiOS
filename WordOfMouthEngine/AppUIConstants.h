@@ -65,6 +65,8 @@ const static float kAUCColorTextQuaternary[4] = {0.0/360.0, 0.0, .90, 1.0};
 const static float kAUCColorTextQuinary[4] = {0.0/360.0, 0.0, 0.55, 1.0};
 const static float kAUCColorTextStroke[4] = {176.0/360.0, 1.0, 0.22, 1.0};
 
+const static float kAUCPlaceHolderColor[4] = {176.0/360.0, 0.0, 0.57, 1.0};
+
 const static float kAUTextColor1[4] = {32.0/360.0, 0.32 , 0.16, 0};
 const static float kAUTextColor2[4] = {32.0/360.0, 0.32 , 0.16, 1.0};
 const static float kAUTextColor3[4] = {176.0/360.0, 0.09, 0.72, 1.0};
@@ -139,8 +141,8 @@ const static CGFloat kAUCFontSizeButtonSmall =18.0;// 32;
 const static CGFloat kAUCFontSizeTextField = 24.0;
 const static CGFloat kAUCFontSizeContentText = 24.0;//42px;
 const static CGFloat kAUCFontSizeComposeText = 24.0;//36px;
-const static CGFloat kAUCFontSizePlaceholder1 = 24.0;
-const static CGFloat kAUCFontSizePlaceholder2 = 16.0;
+const static CGFloat kAUCFontSizePlaceholder1 = 26.0;
+const static CGFloat kAUCFontSizePlaceholder2 = 20.0;
 
 const static CGFloat kAUCFontSizeDescriptionText = 16.0;
 const static CGFloat kAUCFontSizeLoginText = 16.0;

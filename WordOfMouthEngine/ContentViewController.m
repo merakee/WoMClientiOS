@@ -550,6 +550,7 @@
 
 - (void)panRecognized:(UIPanGestureRecognizer *)sender
 {
+  //  NSLog(@"is refreshing: %d", isRefreshingContent);
     if (isRefreshingContent){
         return;
     }
@@ -597,7 +598,6 @@
         _endingTap2 = [panRecognized2 locationInView:self.view].x;
         _endVerticalTap = [panRecognized locationInView:self.view].y;
         
-        // NSLog(@"%f", _endingTap2);
         // right
         if (_endingTap - _startingTap > (screenW / 3) || _endingTap2 - _startingTap2 > (screenW / 3)) {
             // NSLog(@"Swiped right %f", distance.x);
@@ -812,7 +812,19 @@
 }
 
 #pragma mark -  Content Display method
+- (void)cleanContentForView:(CustomContentView *)ccView{
+    ccView.contentImageView.image = nil;
+}
 - (void)updateContentForTopView:(bool)isTop{
+    isRefreshingContent = true;
+    // set content image to nil
+    if(isTop){
+        ccv = [self getViewOnTop];
+    }
+    else{
+        ccv = [self getViewInBottom];
+    }
+    [self cleanContentForView:ccv];
     // start animation
     [self startContentLoadAnimation];
     
@@ -832,6 +844,7 @@
                                                 [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:@{@"Error":@"No Content"}];
                                                 currentContent= content;
                                                 [self updateViewWithNewContentForTopView:isTop];
+                                                
                                             }];
     
     // Analytics: Flurry
@@ -841,6 +854,7 @@
 //- (void)updateView:(CustomContentView *)customContentView WithNewContent:newContent{
 - (void)updateViewWithNewContentForTopView:(bool)isTop{
     
+    isEmptyContent = currentContent.categoryId.integerValue==kAPIContentCategoryEmpty;
     //    [spreadButton setImage:[UIImage imageNamed:kAUCSpreadButtonImage] forState:UIControlStateNormal];
     [self startContentLoadAnimation];
     
@@ -873,6 +887,7 @@
     }
     else{
         ccv.contentImageView.image = bgImage;
+      //  ccv.contentImageView.backgroundColor = [UIColor blueColor];
         //        [contentView addSubview:contentBackGround];
         //        [self performSelector:@selector(performContentDisplayAnimation)
         //                   withObject:nil
@@ -919,7 +934,7 @@
     // comment count tag
     commentCount.text = [CommonUtility getFixedLengthStringForNumber:currentContent.commentCount];
     spreadsCount.text = [CommonUtility getFixedLengthStringForNumber:currentContent.spreadCount];
-    
+
     shareButton.enabled = YES;
     
     isRefreshingContent = false;
@@ -932,11 +947,10 @@
 - (void)refreshContentOnlyForTopView:(bool)onlyTop{
     if((currentContent.contentId==nil)&&([[ApiManager sharedApiManager] currentUser]!=nil)){
         // update the top view
-         isRefreshingContent = true;
         [self updateContentForTopView:true];
         if(!onlyTop){
             // update the bottom view
-            //[self updateContentForTopView:false];
+            [self updateContentForTopView:false];
         }
     }
 }
@@ -993,6 +1007,7 @@
 - (void)performUserResponseAnimationWithResponse:(BOOL)response{
     //isAnimationActive=YES;
     contentView.hidden = YES;
+    
     //    [ContentViewHelper animateViews:@[contentBackGround, contentTextView,spreadButton,killButton,animationView,spreadAnimationView,killAnimationView]
     //                    forUserResponse:response
     //                    withFinalAction:^(){
@@ -1141,9 +1156,11 @@
 #pragma mark - Post Response Method
 - (void)postResponse:(BOOL)response{
     // check for empty content condition: do not post response
-    if(currentContent.categoryId==kAPIContentCategoryEmpty){
+    if(isEmptyContent){
+         DBLog("%@", currentContent.categoryId);
         [self updateContentForTopView:true];
 //        [self refreshContentOnlyForTopView:true];
+       
         return;
     }
     

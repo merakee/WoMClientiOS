@@ -89,18 +89,18 @@
     //    paraStyle.alignment = NSTextAlignmentCenter;
     //paraStyle.lineSpacing = 10;// -kAUCFontSizeContentText/2.0 + 9.0;
     
-    NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowOffset = CGSizeMake(0.0,1.0);
-    shadow.shadowBlurRadius = (CGFloat) 2.0;
-    shadow.shadowColor = [UIColor colorWithWhite:0.1 alpha:1.0];
+//    NSShadow *shadow = [[NSShadow alloc] init];
+//    shadow.shadowOffset = CGSizeMake(0.0,1.0);
+//    shadow.shadowBlurRadius = (CGFloat) 2.0;
+//    shadow.shadowColor = [UIColor colorWithWhite:0.1 alpha:1.0];
     
     textView.typingAttributes = @{
                                   NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
-                                  NSForegroundColorAttributeName:[UIColor whiteColor],
+                                  NSForegroundColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUCColorSecondary],
                                   NSParagraphStyleAttributeName:paraStyle,
-                                  NSStrokeColorAttributeName:[UIColor blackColor],
+                                //  NSStrokeColorAttributeName:[UIColor blackColor],
                                   //NSStrokeWidthAttributeName:@-3.0,
-                                  NSShadowAttributeName:shadow
+                                 // NSShadowAttributeName:shadow
                                   // NSKernAttributeName:@1.0 // inter letter spacing
                                   };
     textView.layer.cornerRadius = 6;

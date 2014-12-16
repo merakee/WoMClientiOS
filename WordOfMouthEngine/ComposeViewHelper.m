@@ -60,15 +60,14 @@
 #pragma mark -  View Helper Methods: TextViews
 + (UILabel *)getPlaceHolderLabel{
     UILabel *phLabel =[[UILabel alloc] init];
-    phLabel.backgroundColor = [UIColor clearColor];
+   // phLabel.backgroundColor = [UIColor clearColor];
     phLabel.text=@"What's on your mind?";
     phLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizePlaceholder1];
-    phLabel.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
+    phLabel.textColor =[CommonUtility getColorFromHSBACVec:kAUCPlaceHolderColor];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
     phLabel.textAlignment = NSTextAlignmentCenter;
-    
     phLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];//[UIColor whiteColor];
     phLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-    //phLabel.shadowRadius = 4.0f;
+ //   phLabel.shadowRadius = 4.0f;
     phLabel.numberOfLines = 0;
     
     [phLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -81,7 +80,7 @@
     phLabel.backgroundColor = [UIColor clearColor];
     phLabel.text=@"*Drag to move text";
     phLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizePlaceholder2];
-    phLabel.textColor =[UIColor colorWithWhite:1.0 alpha:0.42];
+    phLabel.textColor =[CommonUtility getColorFromHSBACVec:kAUCPlaceHolderColor];
     phLabel.textAlignment = NSTextAlignmentCenter;
     phLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];
     phLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);

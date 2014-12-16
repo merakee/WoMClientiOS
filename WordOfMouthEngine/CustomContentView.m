@@ -34,9 +34,13 @@
     self.clipsToBounds = YES;
     [contentView addSubview:contentImageView];
 //    [contentView addSubview:contentTextView];
-   // contentView.backgroundColor = [UIColor redColor];
     
-    
+    self.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.layer.shadowOffset = CGSizeMake(0, 3);
+    self.layer.shadowOpacity = 0.1;
+    self.layer.shadowRadius = 2.0;
+    self.clipsToBounds = NO;
+
     [self layoutView];
 }
 

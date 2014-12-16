@@ -430,7 +430,6 @@
 
 - (void)filterButtonPressed:(id)sender {
     [self filterOptions];
-    NSLog(@"filter pressed");
 }
 
 #pragma mark - Keyboard Toolbar Options
@@ -581,6 +580,7 @@
     [self disableKeyBoard];
     textButton.hidden = NO;
     imageButton.hidden = NO;
+    postButton.enabled=YES;
 }
 
 - (void)confirmText:(id)sender{
@@ -596,6 +596,7 @@
     [self disableKeyBoard];
     textButton.hidden = NO;
     imageButton.hidden = NO;
+    postButton.enabled=YES;
 }
 
 #pragma mark - Color options
@@ -733,7 +734,6 @@
     // post button
     if((textLength < kAPIValidationContentMinLength)) {//&&(postButton.isEnabled)){
         if (!(deleteImage.hidden)){
-            NSLog(@"is image");
             postButton.enabled = YES;
         }
         else {
@@ -841,8 +841,8 @@
     if (sender.state == UIGestureRecognizerStateBegan) {
     }
    
-    CGPoint translatedPoint = [(UIPanGestureRecognizer*)sender translationInView:composeTextView];
-    translatedPoint = CGPointMake(translatedPoint.x, translatedPoint.y);
+   // CGPoint translatedPoint = [(UIPanGestureRecognizer*)sender translationInView:composeTextView];
+   // translatedPoint = CGPointMake(translatedPoint.x, translatedPoint.y);
     
     if (UIGestureRecognizerStateChanged == sender.state) {
         // Use translation offset
@@ -857,8 +857,11 @@
 
 #pragma mark - Button Action Methods
 - (void)postContent:(id)sender {
+    
+    [self captureContentImage];
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposePost]];
+    
     
     // attempt to post content
     ApiContent *ci =[[ApiContent alloc] init];
@@ -876,12 +879,12 @@
     
     // post content
     [activityIndicator startAnimating];
-    
+    DBLog(@"%f", contentImageView.image.size.width);
     // post content user
     [activityIndicator startAnimating];
     [[ApiManager sharedApiManager] postContentWithCategoryId:(int)ci.categoryId.integerValue
                                                         text:ci.contentText
-                                                       photo:contentImageView.image
+                                                       photo:finalContentImage//contentImageView.image
                                                      success:^(ApiContent * content){
                                                          [activityIndicator stopAnimating];
                                                          [self actionsForSuccessfulPostContent];
@@ -1103,6 +1106,9 @@
 
 
 #pragma mark -  Image Processing Manager Delegate methods
+- (void)captureContentImage{
+    finalContentImage = [CommonUtility getImageFromView:contentImageView];
+}
 - (void)photoCaptureCancelled {
     deleteImage.hidden = YES;
     //[self photoDialogCancelAction];

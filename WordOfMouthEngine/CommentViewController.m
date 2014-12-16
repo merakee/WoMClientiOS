@@ -57,6 +57,7 @@
     //    [commentText becomeFirstResponder];
 }
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self updateCommentArrayWithMode:kAPICommentRefreshModeGetMore];
     
 }
@@ -124,7 +125,6 @@
     
     [self.view addConstraints:self.keyboardConstraints];
     
-    NSLog(@"total height: %f", totalHeight);
 }
 #pragma mark - Table view data source
 
@@ -154,7 +154,7 @@
     cell.likeCount.text = [apiComment.likeCount stringValue];
     cell.commentCellLabel.text = apiComment.commentText;
     
-    NSLog(@"comment text: %@", apiComment.commentText);
+ //   NSLog(@"comment text: %@", apiComment.commentText);
     
     [cell sizeToFit];
     //cell.likeButton.tag = indexPath.row;
@@ -357,19 +357,12 @@
 }
 
 - (void)keyboardWasShown:(NSNotification *)notification {
-//    if(keyboardHeight!=0.0){
-//        totalHeight = 10 + keyboardHeight;
-//        [self.view constraints];
-//        [self.view layoutIfNeeded];
-//         NSLog(@"total height, %f", totalHeight);
-//        return;
-//    }
     // get keyboard size
     NSDictionary *keyboardInfo = [notification userInfo];
     NSValue *keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
     keyboardHeight = keyboardFrameBeginRect.size.height;
-    totalHeight = keyboardHeight;
+    totalHeight = keyboardHeight + 5;
     [self updateConstraints];
 
     NSLog(@"keyboardConstraints, %f", totalHeight);
@@ -396,7 +389,7 @@
     sendButton.enabled=NO;
 }
 - (void)textViewDidChange:(UITextView *)textView{
-    long  textLength =[textView.text length];
+    long  textLength;// =[textView.text length];
     // NSLog(@"%ld",textLength);
     textLength =[[CommonUtility  trimString:textView.text ] length];
     // post button
