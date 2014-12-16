@@ -14,7 +14,7 @@
 @implementation CommentViewController
 @synthesize segmentedControl;
 @synthesize currentContent;
-
+@synthesize keyboardConstraints;
 #pragma mark -  init methods
 - (id)init {
     if (self = [super init]) {
@@ -22,6 +22,7 @@
         recentArray = [[NSMutableArray alloc] init];
         popularArray = [[NSMutableArray alloc] init];
         activeArray = [[NSMutableArray alloc] init];
+        keyboardConstraints = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -102,8 +103,6 @@
 }
 
 - (void)layoutView{
-    //totalHeight = 10;
-    NSLog(@"updating constraints");
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText);
     heightMetrics = @{@"totalHeight":[NSNumber numberWithFloat:totalHeight]};
     // buttons
@@ -116,12 +115,15 @@
     [self layoutCommentSectionViewWithDictionary:viewsDictionary andMetrics:heightMetrics];
 }
 - (void)layoutCommentSectionViewWithDictionary:(NSDictionary *)viewsDictionary andMetrics:(NSDictionary *)metrics{
+    if (self.keyboardConstraints.count) {
+        [self.view removeConstraints:self.keyboardConstraints];
+        [self.keyboardConstraints removeAllObjects];
+    }
+    [self.keyboardConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[sendButton(39)]-totalHeight-|"                                                                      options:0 metrics:metrics views:viewsDictionary]];
+    [self.keyboardConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[commentText(39)]-totalHeight-|"                                                                      options:0 metrics:metrics views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[sendButton(39)]-totalHeight-|"                                                                      options:0 metrics:metrics views:viewsDictionary]];
+    [self.view addConstraints:self.keyboardConstraints];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[commentText(39)]-totalHeight-|"                                                                      options:0 metrics:metrics views:viewsDictionary]];
-    
-  //   [self.view setNeedsUpdateConstraints];
     NSLog(@"total height: %f", totalHeight);
 }
 #pragma mark - Table view data source
@@ -367,30 +369,26 @@
     NSValue *keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
     keyboardHeight = keyboardFrameBeginRect.size.height;
-    totalHeight = keyboardHeight + 10;
+    totalHeight = keyboardHeight;
     [self updateConstraints];
-    [self.view layoutIfNeeded];
-    NSLog(@"blah, %f", totalHeight);
+
+    NSLog(@"keyboardConstraints, %f", totalHeight);
 //    [commentsTableView setContentOffset:
 //    CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
 //    [self.view setFrame:CGRectMake(0,0-keyboardHeight,screenW, screenH)];
 //    [commentsTableView setContentOffset: CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
 }
 -(void)updateConstraints{
- //   NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText);
-    heightMetrics = @{@"totalHeight":[NSNumber numberWithFloat:totalHeight]};
-   //    [self layoutCommentSectionViewWithDictionary:viewsDictionary andMetrics:heightMetrics];
-
+    [self layoutView];
 }
 
 
 
 - (void)keyboardWillBeHidden:(NSNotification *)notification {
-//    float screenW = [CommonUtility getScreenWidth];
-//    float screenH = [CommonUtility getScreenHeight];
 //    [self.view setFrame:CGRectMake(0,64,screenW,screenH-64)];
     totalHeight = 10;
-    [self.view layoutIfNeeded];
+  //  [self.view layoutIfNeeded];
+    [self updateConstraints];
 }
 
 #pragma mark - Text changes

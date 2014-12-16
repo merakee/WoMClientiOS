@@ -45,6 +45,7 @@ static const int kCellButtonTag = 10;
 @property (nonatomic) ApiContent *currentContent;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property NSIndexPath *editingIndexPath;
+@property NSLayoutConstraint *horizontalContraint;
 extern NSArray const *testArray;
-
+@property NSMutableArray *keyboardConstraints;
 @end

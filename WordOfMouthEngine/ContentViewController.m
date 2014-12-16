@@ -717,6 +717,10 @@
 
 -(void)goToReportMessage:(id)sender {
     // Display report message, report it to backend
+     scv = [self getViewOnTop];
+    if (scv.contentImageView.image==nil){
+        return;
+    }
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Content offensive?" message:@"Want to report this content?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     [alert show];
     
