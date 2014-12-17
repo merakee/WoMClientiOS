@@ -1157,7 +1157,7 @@
 - (void)postResponse:(BOOL)response{
     // check for empty content condition: do not post response
     if(isEmptyContent){
-         DBLog("%@", currentContent.categoryId);
+ //        DBLog("%@", currentContent.categoryId);
         [self updateContentForTopView:true];
 //        [self refreshContentOnlyForTopView:true];
        

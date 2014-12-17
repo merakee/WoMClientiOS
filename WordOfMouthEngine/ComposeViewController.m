@@ -881,7 +881,7 @@
     
     // post content
     [activityIndicator startAnimating];
-    DBLog(@"%f", contentImageView.image.size.width);
+ //   DBLog(@"%f", contentImageView.image.size.width);
     // post content user
     [activityIndicator startAnimating];
     [[ApiManager sharedApiManager] postContentWithCategoryId:(int)ci.categoryId.integerValue
