@@ -158,7 +158,7 @@
     
     deleteImage = [ComposeViewHelper getRemoveImageButton];
     [deleteImage addTarget:self action:@selector(removeImage:) forControlEvents:UIControlEventTouchUpInside];
-    [contentImageView addSubview:deleteImage];
+    [self.view addSubview:deleteImage];
     deleteImage.hidden = YES;
     
     // buttons
@@ -207,8 +207,8 @@
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(44)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[postButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[deleteImage(33)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[deleteImage(33)]-8-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[deleteImage(33)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-347-[deleteImage(33)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(107)]"
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
 //    [AppUIManager horizontallyCenterElement:postButton inView:self.view];
@@ -580,7 +580,9 @@
     [self disableKeyBoard];
     textButton.hidden = NO;
     imageButton.hidden = NO;
-    postButton.enabled=YES;
+    if ((deleteImage.hidden)){
+        postButton.enabled = NO;
+    }
 }
 
 - (void)confirmText:(id)sender{
@@ -596,7 +598,6 @@
     [self disableKeyBoard];
     textButton.hidden = NO;
     imageButton.hidden = NO;
-    postButton.enabled=YES;
 }
 
 #pragma mark - Color options
@@ -858,6 +859,7 @@
 #pragma mark - Button Action Methods
 - (void)postContent:(id)sender {
     
+    
     [self captureContentImage];
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAComposePost]];
@@ -1107,7 +1109,10 @@
 
 #pragma mark -  Image Processing Manager Delegate methods
 - (void)captureContentImage{
+    [self disableKeyBoard];
     finalContentImage = [CommonUtility getImageFromView:contentImageView];
+    placeHolderLabel.hidden = YES;
+    placeHolderLabel2.hidden = YES;
 }
 - (void)photoCaptureCancelled {
     deleteImage.hidden = YES;
@@ -1118,6 +1123,8 @@
     // set image view
     contentImageView.image = image;
 //    postButton.enabled = YES;
+    placeHolderLabel.hidden = YES;
+    placeHolderLabel2.hidden = YES;
 }
 
 @end
