@@ -1237,7 +1237,7 @@
 + (NSDate *)getFirstDateOfTheYearForDate:(NSDate *)date {
     NSCalendar* calendar = [NSCalendar currentCalendar];
     // Get necessary date components
-    NSDateComponents* comps = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSWeekCalendarUnit|NSWeekdayCalendarUnit fromDate:date];
+    NSDateComponents* comps = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitWeekday|NSCalendarUnitWeekday fromDate:date];
     
     // set first day and month
     [comps setMonth:1];
@@ -1247,7 +1247,7 @@
 + (NSDate *)getLastDateOfTheYearForDate:(NSDate *)date {
     NSCalendar* calendar = [NSCalendar currentCalendar];
     // Get necessary date components
-    NSDateComponents* comps = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSWeekCalendarUnit|NSWeekdayCalendarUnit fromDate:date];
+    NSDateComponents* comps = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitWeekday|NSCalendarUnitWeekday fromDate:date];
     
     // set 0th day and month for next year
     [comps setYear:[comps year]+1];
@@ -1258,7 +1258,7 @@
 + (NSDate *)getFirstDateOfTheMonthForDate:(NSDate *)date {
     NSCalendar* calendar = [NSCalendar currentCalendar];
     // Get necessary date components
-    NSDateComponents* comps = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSWeekCalendarUnit|NSWeekdayCalendarUnit fromDate:date];
+    NSDateComponents* comps = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitWeekday|NSCalendarUnitWeekday fromDate:date];
     
     // set first day
     [comps setDay:1];
@@ -1267,7 +1267,7 @@
 + (NSDate *)getLastDateOfTheMonthForDate:(NSDate *)date {
     NSCalendar* calendar = [NSCalendar currentCalendar];
     // Get necessary date components
-    NSDateComponents* comps = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSWeekCalendarUnit|NSWeekdayCalendarUnit fromDate:date];
+    NSDateComponents* comps = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitWeekday|NSCalendarUnitWeekday fromDate:date];
     
     // set first day and month
     [comps setMonth:[comps month]+1];
@@ -1278,7 +1278,7 @@
 + (NSDate *)getFirstDateOfTheWeekForDate:(NSDate *)date {
     NSCalendar* calendar = [NSCalendar currentCalendar];
     // Get necessary date components
-    NSDateComponents* comps = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSWeekCalendarUnit|NSWeekdayCalendarUnit fromDate:date];
+    NSDateComponents* comps = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitWeekday|NSCalendarUnitWeekday fromDate:date];
     
     // set first day
     [comps setWeekday:1];
@@ -1287,7 +1287,7 @@
 + (NSDate *)getLastDateOfTheWeekForDate:(NSDate *)date {
     NSCalendar* calendar = [NSCalendar currentCalendar];
     // Get necessary date components
-    NSDateComponents* comps = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSWeekCalendarUnit|NSWeekdayCalendarUnit fromDate:date];
+    NSDateComponents* comps = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitWeekday|NSCalendarUnitWeekday fromDate:date];
     
     // set 0 day and next week
     [comps setWeekday:7];
@@ -1316,7 +1316,7 @@
 + (NSInteger)getCurrentYear {
     NSCalendar* calendar = [NSCalendar currentCalendar];
     // Get necessary date components
-    NSDateComponents* comps = [calendar components:NSYearCalendarUnit fromDate:[NSDate date]];
+    NSDateComponents* comps = [calendar components:NSCalendarUnitYear fromDate:[NSDate date]];
     return [comps year];
 }
 

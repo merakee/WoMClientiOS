@@ -2548,7 +2548,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngine/WordOfMouthEngine-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = WordOfMouthEngine;
@@ -2572,7 +2572,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngine/WordOfMouthEngine-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = WordOfMouthEngine;
