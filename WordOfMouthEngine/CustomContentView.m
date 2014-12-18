@@ -39,7 +39,7 @@
     self.layer.shadowOffset = CGSizeMake(0, 3);
     self.layer.shadowOpacity = 0.1;
     self.layer.shadowRadius = 2.0;
-    self.clipsToBounds = NO;
+ //   self.clipsToBounds = NO;
 
     [self layoutView];
 }

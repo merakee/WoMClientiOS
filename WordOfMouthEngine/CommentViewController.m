@@ -84,7 +84,7 @@
     // set app defaults
     [AppUIManager setUIView:self.view ofType:kAUCPriorityTypePrimary];
     self.view.backgroundColor = [UIColor whiteColor];
-    totalHeight = 10;
+
     
 
     [self onSegmentedControlChanged:segmentedControl];
@@ -105,7 +105,6 @@
 
 - (void)layoutView{
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText);
-    heightMetrics = @{@"totalHeight":[NSNumber numberWithFloat:totalHeight]};
     // buttons
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[commentsTableView]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
@@ -113,18 +112,30 @@
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-6-[commentText(250)]-6-[sendButton(50)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self layoutCommentSectionViewWithDictionary:viewsDictionary andMetrics:heightMetrics];
-}
-- (void)layoutCommentSectionViewWithDictionary:(NSDictionary *)viewsDictionary andMetrics:(NSDictionary *)metrics{
-    if (self.keyboardConstraints.count) {
-        [self.view removeConstraints:self.keyboardConstraints];
-        [self.keyboardConstraints removeAllObjects];
-    }
-    [self.keyboardConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[sendButton(39)]-totalHeight-|"                                                                      options:0 metrics:metrics views:viewsDictionary]];
-    [self.keyboardConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[commentText(39)]-totalHeight-|"                                                                      options:0 metrics:metrics views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[sendButton(39)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[commentText(39)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:self.keyboardConstraints];
+    heightWithoutKeyboard=10.0;
     
+    layoutConstraintSendButtonYPosition = [NSLayoutConstraint constraintWithItem:sendButton
+                                                                       attribute:NSLayoutAttributeBottom
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:self.view
+                                                                       attribute:NSLayoutAttributeBottom
+                                                                      multiplier:1.0
+                                                                        constant:-heightWithoutKeyboard];
+    
+    layoutConstraintTextFieldYPosition = [NSLayoutConstraint constraintWithItem:commentText
+                                                                       attribute:NSLayoutAttributeBottom
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:self.view
+                                                                       attribute:NSLayoutAttributeBottom
+                                                                      multiplier:1.0
+                                                                        constant:-heightWithoutKeyboard];
+    
+    [self.view addConstraint:layoutConstraintSendButtonYPosition];
+    [self.view addConstraint:layoutConstraintTextFieldYPosition];
+
 }
 #pragma mark - Table view data source
 
@@ -361,11 +372,13 @@
     NSDictionary *keyboardInfo = [notification userInfo];
     NSValue *keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
-    keyboardHeight = keyboardFrameBeginRect.size.height;
-    totalHeight = keyboardHeight + 5;
-    [self updateConstraints];
-
-    NSLog(@"keyboardConstraints, %f", totalHeight);
+    float keyboardHeight  =keyboardFrameBeginRect.size.height;
+    
+    layoutConstraintSendButtonYPosition.constant = -(heightWithoutKeyboard +keyboardHeight);
+    layoutConstraintTextFieldYPosition.constant = -(heightWithoutKeyboard +keyboardHeight);
+    [self.view layoutIfNeeded];
+    
+   // NSLog(@"keyboardConstraints, %f", totalHeight);
 //    [commentsTableView setContentOffset:
 //    CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
 //    [self.view setFrame:CGRectMake(0,0-keyboardHeight,screenW, screenH)];
@@ -378,10 +391,9 @@
 
 
 - (void)keyboardWillBeHidden:(NSNotification *)notification {
-//    [self.view setFrame:CGRectMake(0,64,screenW,screenH-64)];
-    totalHeight = 10;
-  //  [self.view layoutIfNeeded];
-    [self updateConstraints];
+    layoutConstraintSendButtonYPosition.constant = -heightWithoutKeyboard;
+    layoutConstraintTextFieldYPosition.constant = -heightWithoutKeyboard;
+    [self.view layoutIfNeeded];
 }
 
 #pragma mark - Text changes

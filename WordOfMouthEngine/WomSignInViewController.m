@@ -215,7 +215,6 @@
     // push wom Sign up controller
 //    WomSignUpViewController *womsuvc =[[WomSignUpViewController   alloc] init];
 //    [self.navigationController pushViewController:womsuvc animated:NO];
-    NSLog(@"blah:");
 
 }
 

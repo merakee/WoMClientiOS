@@ -38,9 +38,12 @@ static const int kCellButtonTag = 10;
     NSMutableArray          *popularArray;
     NSMutableArray          *activeArray;
     BOOL                    isUpdateActive;
-    float keyboardHeight;
-    float totalHeight;
+
     NSDictionary            *heightMetrics;
+    
+    NSLayoutConstraint      *layoutConstraintSendButtonYPosition;
+    NSLayoutConstraint      *layoutConstraintTextFieldYPosition;
+    float heightWithoutKeyboard;
 }
 @property (nonatomic) ApiContent *currentContent;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
