@@ -50,7 +50,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForKeyboardNotifications];
-    //[self.navigationController setNavigationBarHidden:NO];
+    [self.navigationController setNavigationBarHidden:NO];
     //    [self onSegmentedControlChanged:segmentedControl];
     //    [self textViewDidChange:commentText];
     //    [commentText becomeFirstResponder];
@@ -238,8 +238,8 @@
     //self.navigationItem.titleView = segmentedControl;
     //   self.tableView.tableHeaderView = segmentedControl;
     [segmentedControl setTranslatesAutoresizingMaskIntoConstraints:NO];
-    //self.navigationItem.titleView = segmentedControl;
-    [self.view addSubview:segmentedControl];
+    self.navigationItem.titleView = segmentedControl;
+    //[self.view addSubview:segmentedControl];
 }
 
 - (void) onSegmentedControlChanged:(UISegmentedControl *) sender {
@@ -300,11 +300,11 @@
 }
 #pragma mark - Navigation bar
 - (void) setNavigationBar{
-//    UIButton *cancelBtn = [CommentViewHelper getCancelButton];
-//    [cancelBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithCustomView:cancelBtn];
-//    self.navigationItem.leftBarButtonItem = cancelButton;
-    
+    UIButton *cancelBtn = [CommentViewHelper getCancelButton];
+    [cancelBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithCustomView:cancelBtn];
+    self.navigationItem.leftBarButtonItem = cancelButton;
+    //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(goBack:)];
 }
 - (void) setupTableView{
     commentsTableView = [[UITableView alloc] init];

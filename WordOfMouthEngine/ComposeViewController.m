@@ -149,6 +149,7 @@
     // set TextView
     composeTextView = [ComposeViewHelper getComposeTextViewWithDelegate:self];
     [contentImageView addSubview:composeTextView];
+    //composeTextView.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [composeTextView addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
     // place holder label
     placeHolderLabel = [ComposeViewHelper getPlaceHolderLabel];
@@ -764,6 +765,13 @@
 // Vertically center text
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     UITextView *tv = object;
+//    CGFloat height = [tv bounds].size.height;
+//    CGFloat contentheight;
+//    contentheight = [tv sizeThatFits:CGSizeMake(tv.frame.size.width, FLT_MAX)].height;
+//    CGFloat topCorrect = height - contentheight;
+//    topCorrect = (topCorrect <0.0 ? 0.0 : topCorrect);
+//    tv.contentOffset = (CGPoint){.x = 0, .y = -topCorrect};
+
     CGFloat topCorrect = ([tv bounds].size.height - [tv contentSize].height * [tv zoomScale])/2.0;
     topCorrect = ( topCorrect < 0.0 ? 0.0 : topCorrect );
     tv.contentOffset = (CGPoint){.x = 0, .y = -topCorrect};
