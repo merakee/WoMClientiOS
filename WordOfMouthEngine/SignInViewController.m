@@ -369,6 +369,7 @@
         return [self itemControllerForIndex: itemController.index-1];
     }
     
+   // return [self itemControllerForIndex:3];
     return nil;
 }
 
@@ -379,13 +380,17 @@
     
     if (itemController.index+1 < [tutorialImages count])
     {
-//        NSLog(@"%d",itemController.index);
-//        NSLog(@"%d",tutorialImages.count);
+    //    NSLog(@"%lu",(long)itemController.index);
+    //    NSLog(@"%lu",(long)tutorialImages.count);
         return [self itemControllerForIndex: itemController.index+1];
        
     }
-    
-    return nil;
+    if (itemController.index > 3)
+    {
+        return [self itemControllerForIndex:itemController.index];
+    }
+    return [self itemControllerForIndex:0];
+ //   return nil;
 }
 
 - (TutorialViewController *) itemControllerForIndex: (NSUInteger) itemIndex

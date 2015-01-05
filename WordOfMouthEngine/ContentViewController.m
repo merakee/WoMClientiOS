@@ -436,7 +436,7 @@
     //    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     //    [[UINavigationBar appearance] setBackgroundColor:[UIColor blueColor]];
     //  navigationController.navigationBar setTranslucent:NO]
-    [[UINavigationBar appearance] setTranslucent:NO];
+  //  [[UINavigationBar appearance] setTranslucent:NO];
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
   //  [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"header-gradient.png"] forBarMetrics:UIBarMetricsDefault];

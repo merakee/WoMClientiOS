@@ -21,7 +21,7 @@ typedef enum {
 
 static const int kCellButtonTag = 10;
 
-@interface CommentViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>{
+@interface CommentViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UIScrollViewDelegate>{
     UIButton                *sendButton;
     UITableView             *commentsTableView;
     UIToolbar               *replyToolBar;

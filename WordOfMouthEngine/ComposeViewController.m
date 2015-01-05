@@ -257,7 +257,7 @@
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[imageButton(57)]-40-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-
+    //[super layoutSubviews];
 }
 
 - (void)setNavigationBar {

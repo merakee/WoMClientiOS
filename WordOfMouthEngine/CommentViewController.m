@@ -50,8 +50,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForKeyboardNotifications];
-    [self.navigationController setNavigationBarHidden:NO];
-    
+    //[self.navigationController setNavigationBarHidden:NO];
     //    [self onSegmentedControlChanged:segmentedControl];
     //    [self textViewDidChange:commentText];
     //    [commentText becomeFirstResponder];
@@ -104,7 +103,7 @@
 }
 
 - (void)layoutView{
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText, segmentedControl);
     // buttons
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[commentsTableView]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
@@ -114,6 +113,9 @@
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[sendButton(39)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[commentText(39)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[segmentedControl]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[segmentedControl(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     heightWithoutKeyboard=10.0;
     
@@ -225,19 +227,19 @@
     NSArray *segmentItems = [NSArray arrayWithObjects: @"Recent", @"Popular", nil];
     segmentedControl = [[UISegmentedControl alloc] initWithItems: segmentItems];
     
-    [segmentedControl addTarget: self action: @selector(onSegmentedControlChanged:) forControlEvents: UIControlEventValueChanged];
+    [segmentedControl addTarget:self action:@selector(onSegmentedControlChanged:) forControlEvents: UIControlEventValueChanged];
     
     segmentedControl.selectedSegmentIndex = kCVCommentModeRecent;
     [[UISegmentedControl appearance] setTitleTextAttributes:@{
                                                               NSForegroundColorAttributeName : [CommonUtility getColorFromHSBACVec:kAUCColorPrimary]
                                                               } forState:UIControlStateNormal];
     [[UISegmentedControl appearance] setTintColor:[CommonUtility getColorFromHSBACVec:kAUCColorPrimary]];
-    // segmentedControl.frame = CGRectMake(0, 0, 120, 30);
+     segmentedControl.frame = CGRectMake(0, 0, 120, 30);
     //self.navigationItem.titleView = segmentedControl;
     //   self.tableView.tableHeaderView = segmentedControl;
-    //  [self.navigationController.navigationItem setPrompt:@"some prompt text"];
-    self.navigationItem.titleView = segmentedControl;
-    //[self.view addSubview:segmentedControl];
+    [segmentedControl setTranslatesAutoresizingMaskIntoConstraints:NO];
+    //self.navigationItem.titleView = segmentedControl;
+    [self.view addSubview:segmentedControl];
 }
 
 - (void) onSegmentedControlChanged:(UISegmentedControl *) sender {
@@ -298,11 +300,10 @@
 }
 #pragma mark - Navigation bar
 - (void) setNavigationBar{
-
-    UIButton *cancelBtn = [CommentViewHelper getCancelButton];
-    [cancelBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithCustomView:cancelBtn];
-    self.navigationItem.leftBarButtonItem = cancelButton;
+//    UIButton *cancelBtn = [CommentViewHelper getCancelButton];
+//    [cancelBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithCustomView:cancelBtn];
+//    self.navigationItem.leftBarButtonItem = cancelButton;
     
 }
 - (void) setupTableView{
@@ -395,6 +396,14 @@
     layoutConstraintTextFieldYPosition.constant = -heightWithoutKeyboard;
     [self.view layoutIfNeeded];
 }
+#pragma mark - ScrollView Delegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    float bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
+    if (bottomEdge >= scrollView.contentSize.height) {
+        
+        [self updateCommentArrayWithMode:kAPICommentRefreshModeGetMore];
+    }
+}
 
 #pragma mark - Text changes
 - (void)textViewDidBeginEditing:(UITextView *)textView{
@@ -430,7 +439,7 @@
 #pragma mark - Button Action Methods
 - (void)goBack:(id)sender {
     // go back
-    [self.navigationController popViewControllerAnimated:NO];
+   // [self.navigationController popViewControllerAnimated:NO];
 }
 - (void)sendButtonPressed:(id)sender {
     // send Message and clear content
@@ -488,7 +497,10 @@
     //
     //    // dismiss autometically
     //    [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:1.0];
+    
     [self updateCommentArrayWithMode:kAPICommentRefreshModeRefresh];
+   
+    
 }
 -(void)dismissAlertView:(UIAlertView *)alertView{
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
@@ -618,8 +630,8 @@
                                                                 [activityIndicator stopAnimating];
                                                                 [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                             } ];
-    
-    
+   
+   
 }
 - (void)updateLikeButtonWithIndexPath:(NSIndexPath *)indexPath{
     CommentTableViewCell *cell = (CommentTableViewCell *)[commentsTableView cellForRowAtIndexPath:indexPath];
