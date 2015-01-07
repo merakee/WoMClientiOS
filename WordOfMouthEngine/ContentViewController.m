@@ -234,6 +234,7 @@
     //activityIndicator =[[UIActivityIndicatorView alloc] init];
     activityIndicator =[[CustomActivityIndicator alloc] init];
     [AppUIManager addCustomActivityIndicator:activityIndicator toView:self.view];
+
     
     // layout
     [self layoutView];
@@ -403,6 +404,11 @@
     moreButton = [ContentViewHelper getSettingsButton];
     [moreButton addTarget:self action:@selector(goToSettingsView:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:moreButton];
+    
+    [[UINavigationBar appearance] setTranslucent:NO];
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    
     //    [self.navigationController.navigationBar setTranslucent:YES];
     //    self.navigationController.navigationBar.shadowImage = [UIImage new];
     //    self.navigationController.view.backgroundColor = [UIColor clearColor];
@@ -436,9 +442,7 @@
     //    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     //    [[UINavigationBar appearance] setBackgroundColor:[UIColor blueColor]];
     //  navigationController.navigationBar setTranslucent:NO]
-  //  [[UINavigationBar appearance] setTranslucent:NO];
-    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+   
   //  [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"header-gradient.png"] forBarMetrics:UIBarMetricsDefault];
     //   [[UINavigationBar appearance] setTintColor:[UIColor redColor]];
     
@@ -832,7 +836,7 @@
     [Flurry logEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:nil timed:YES];
     
     // update content
-    [contentManager getContentWithActivityIndicator:nil//activityIndicator
+    [contentManager getContentWithActivityIndicator:nil//(UIActivityIndicatorView *)activityIndicator
                                             success:^(ApiContent *content) {
                                                 // Analytics: Flurry
                                                 [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:nil];
@@ -844,7 +848,6 @@
                                                 [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:@{@"Error":@"No Content"}];
                                                 currentContent= content;
                                                 [self updateViewWithNewContentForTopView:isTop];
-                                                
                                             }];
     
     // Analytics: Flurry
@@ -883,7 +886,7 @@
         //        NSLog(@"getting image");
         [ccv.contentImageView setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]]
                              placeholderImage:bgImage];
-        //   [self performContentDisplayAnimation];
+           [self performContentDisplayAnimation];
     }
     else{
         ccv.contentImageView.image = bgImage;
@@ -892,7 +895,7 @@
         //        [self performSelector:@selector(performContentDisplayAnimation)
         //                   withObject:nil
         //                   afterDelay:2.0];
-        //    [self performContentDisplayAnimation];
+            [self performContentDisplayAnimation];
     }
     
     //[ApiContent printContentInfo:currentContent];
@@ -978,11 +981,11 @@
 
 #pragma mark - Animation Methods
 - (void)startContentLoadAnimation{
-    //isAnimationActive=YES;
+    isAnimationActive=YES;
     //    [self hideViewsForContentLoad];
-    //    if(!activityIndicator.isAnimating){
-    //        [activityIndicator startAnimatingCI];
-    //    }
+       if(!activityIndicator.isAnimating){
+            [activityIndicator startAnimatingCI];
+        }
 }
 - (void)stopContentLoadAnimation{
     if(activityIndicator.isAnimating){

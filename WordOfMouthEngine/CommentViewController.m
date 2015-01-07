@@ -107,7 +107,7 @@
     // buttons
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[commentsTableView]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView]-60-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-6-[commentText(250)]-6-[sendButton(50)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
@@ -439,7 +439,7 @@
 #pragma mark - Button Action Methods
 - (void)goBack:(id)sender {
     // go back
-   // [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 - (void)sendButtonPressed:(id)sender {
     // send Message and clear content

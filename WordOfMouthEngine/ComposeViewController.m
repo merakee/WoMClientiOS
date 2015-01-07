@@ -12,6 +12,7 @@
 #import "FlurryManager.h"
 
 @implementation ComposeViewController
+long  textLength;
 
 - (id)init
 {
@@ -156,7 +157,7 @@
     [composeTextView addSubview:placeHolderLabel];
     placeHolderLabel2 = [ComposeViewHelper getPlaceHolderLabel2];
     [composeTextView addSubview:placeHolderLabel2];
-    
+//    contentImageView.backgroundColor = [UIColor redColor];
     deleteImage = [ComposeViewHelper getRemoveImageButton];
     [deleteImage addTarget:self action:@selector(removeImage:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:deleteImage];
@@ -187,6 +188,58 @@
     paraStyle.lineBreakMode = NSLineBreakByWordWrapping;
     paraStyle.alignment = NSTextAlignmentCenter;
     
+    // Set default toolbar
+    [self defaultToolBar];
+    
+    // Set colors
+    color1 = [ComposeViewHelper getColor1];
+    [color1 addTarget:self action:@selector(color1Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    color2 = [ComposeViewHelper getColor2];
+    [color2 addTarget:self action:@selector(color2Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    color3 = [ComposeViewHelper getColor3];
+    [color3 addTarget:self action:@selector(color3Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    color4 = [ComposeViewHelper getColor4];
+    [color4 addTarget:self action:@selector(color4Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    color5 = [ComposeViewHelper getColor5];
+    [color5 addTarget:self action:@selector(color5Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    color6 = [ComposeViewHelper getColor6];
+    [color6 addTarget:self action:@selector(color6Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    color7 = [ComposeViewHelper getColor7];
+    [color7 addTarget:self action:@selector(color7Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    color8 = [ComposeViewHelper getColor8];
+    [color8 addTarget:self action:@selector(color8Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [color1 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [color2 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [color3 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [color4 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [color5 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [color6 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [color7 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [color8 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    
+    [self.view addSubview:color1];
+    [self.view addSubview:color2];
+    [self.view addSubview:color3];
+    [self.view addSubview:color4];
+    [self.view addSubview:color5];
+    [self.view addSubview:color6];
+    [self.view addSubview:color7];
+    [self.view addSubview:color8];
+    [self addColorKeyboardToolBar];
+    [self.view addSubview:colorKeyboardToolBar];
+    
+    colorKeyboardToolBar.hidden = YES;
+    color1.hidden = YES;
+    color2.hidden = YES;
+    color3.hidden = YES;
+    color4.hidden = YES;
+    color5.hidden = YES;
+    color6.hidden = YES;
+    color7.hidden = YES;
+    color8.hidden = YES;
+    
     // layout
     [self layoutView];
     
@@ -199,7 +252,7 @@
 - (void)layoutView{
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(categoryControl,composeTextView);
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, placeHolderLabel2, textButton, imageButton, deleteImage, postButton, cancelButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, placeHolderLabel2, textButton, imageButton, deleteImage, postButton, cancelButton, colorKeyboardToolBar, color1, color2, color3, color4, color5, color6, color7, color8);
     
     // buttons
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -223,7 +276,6 @@
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cameraOptionsButton(50)]-20-[composeTextView]"
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    
     [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-4-[composeTextView(200)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
@@ -235,12 +287,22 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[cancelButton(40)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentImageView(320)]|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentImageView]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[postButton(40)]-[contentImageView(320)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[postButton(40)]-[contentImageView]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cancelButton(40)]-[contentImageView(320)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cancelButton(40)]-[contentImageView]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
+    
+    // content image view height
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentImageView
+                                                      attribute:NSLayoutAttributeHeight
+                                                      relatedBy:NSLayoutRelationEqual
+                                                         toItem:contentImageView
+                                                      attribute:NSLayoutAttributeWidth
+                                                     multiplier:1.0
+                                                       constant:0.0]];
+    
 
     // place holder label
     [composeTextView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[placeHolderLabel(240)]"
@@ -258,6 +320,19 @@
                                                                                     options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[imageButton(57)]-40-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
+    
+    // Color constraints
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-6-[color1(71)]-11-[color5(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-6-[color2(71)]-11-[color6(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-6-[color3(71)]-11-[color7(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-6-[color4(71)]-11-[color8(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[colorKeyboardToolBar]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    // color buttons
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-3-[color1(71)]-10-[color2(71)]-10-[color3(71)]-10-[color4(71)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-3-[color5(71)]-10-[color6(71)]-10-[color7(71)]-10-[color8(71)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     //[super layoutSubviews];
 }
 
@@ -379,8 +454,6 @@
 
 #pragma mark - Bottom ToolBar Buttons
 - (void)setToolBar {
-  //  float screenW = [CommonUtility getScreenWidth];
-  // composeToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenW, 50)];
     composeToolBar = [[UIToolbar alloc] init];
     
     composeToolBar.backgroundColor = [UIColor clearColor];
@@ -434,20 +507,7 @@
 }
 
 #pragma mark - Keyboard Toolbar Options
-- (void)addKeyboardToolBar{
-    keyboardToolBar = [[UIToolbar alloc] init];
-    
-   
-    keyboardToolBar.translucent = YES;
-    // Make toolbar clear
-    [keyboardToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [keyboardToolBar setBackgroundImage:[UIImage new]
-                     forToolbarPosition:UIBarPositionAny
-                             barMetrics:UIBarMetricsDefault];
-    [keyboardToolBar setShadowImage:[UIImage new]
-                 forToolbarPosition:UIToolbarPositionAny];
-     keyboardToolBar.backgroundColor = [UIColor whiteColor];
-     keyboardToolBar.tintColor = [[UIColor clearColor] colorWithAlphaComponent:0.6];
+- (void)defaultToolBar{
     xButton = [ComposeViewHelper getXButton];
     [xButton addTarget:self action:@selector(cancelText:) forControlEvents:UIControlEventTouchUpInside];
     checkButton = [ComposeViewHelper getCheckButton];
@@ -464,6 +524,22 @@
     
     UIBarButtonItem *flexibleSpace =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     buttonItems = [NSArray arrayWithObjects:xBarButton, flexibleSpace, backgroundBarButton, flexibleSpace, keyboardBarButton, flexibleSpace, checkBarButton, nil];
+    
+}
+- (void)addKeyboardToolBar{
+    [self defaultToolBar];
+    keyboardToolBar = [[UIToolbar alloc] init];
+    keyboardToolBar.translucent = YES;
+    // Make toolbar clear
+    [keyboardToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [keyboardToolBar setBackgroundImage:[UIImage new]
+                     forToolbarPosition:UIBarPositionAny
+                             barMetrics:UIBarMetricsDefault];
+    [keyboardToolBar setShadowImage:[UIImage new]
+                 forToolbarPosition:UIToolbarPositionAny];
+     keyboardToolBar.backgroundColor = [UIColor whiteColor];
+     keyboardToolBar.tintColor = [[UIColor clearColor] colorWithAlphaComponent:0.6];
+  
     [keyboardToolBar setItems:buttonItems];
 }
 
@@ -473,6 +549,7 @@
     [composeTextView becomeFirstResponder];
 }
 - (void)addColorKeyboardToolBar{
+    [self defaultToolBar];
     colorKeyboardToolBar = [[UIToolbar alloc] init];
     
     colorKeyboardToolBar.backgroundColor = [UIColor whiteColor];
@@ -489,57 +566,7 @@
 }
 - (void)getTextColor:(id)sender {
     [composeTextView endEditing:YES];
-    color1 = [ComposeViewHelper getColor1];
-    [color1 addTarget:self action:@selector(color1Pressed:) forControlEvents:UIControlEventTouchUpInside];
-    color2 = [ComposeViewHelper getColor2];
-    [color2 addTarget:self action:@selector(color2Pressed:) forControlEvents:UIControlEventTouchUpInside];
-    color3 = [ComposeViewHelper getColor3];
-    [color3 addTarget:self action:@selector(color3Pressed:) forControlEvents:UIControlEventTouchUpInside];
-    color4 = [ComposeViewHelper getColor4];
-    [color4 addTarget:self action:@selector(color4Pressed:) forControlEvents:UIControlEventTouchUpInside];
-    color5 = [ComposeViewHelper getColor5];
-    [color5 addTarget:self action:@selector(color5Pressed:) forControlEvents:UIControlEventTouchUpInside];
-    color6 = [ComposeViewHelper getColor6];
-    [color6 addTarget:self action:@selector(color6Pressed:) forControlEvents:UIControlEventTouchUpInside];
-    color7 = [ComposeViewHelper getColor7];
-    [color7 addTarget:self action:@selector(color7Pressed:) forControlEvents:UIControlEventTouchUpInside];
-    color8 = [ComposeViewHelper getColor8];
-    [color8 addTarget:self action:@selector(color8Pressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    [color1 setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [color2 setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [color3 setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [color4 setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [color5 setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [color6 setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [color7 setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [color8 setTranslatesAutoresizingMaskIntoConstraints:NO];
-
-    
-    [self.view addSubview:color1];
-    [self.view addSubview:color2];
-    [self.view addSubview:color3];
-    [self.view addSubview:color4];
-    [self.view addSubview:color5];
-    [self.view addSubview:color6];
-    [self.view addSubview:color7];
-    [self.view addSubview:color8];
-    [self addColorKeyboardToolBar];
-    [self.view addSubview:colorKeyboardToolBar];
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(colorKeyboardToolBar, color1, color2, color3, color4, color5, color6, color7, color8);
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-6-[color1(71)]-11-[color5(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-6-[color2(71)]-11-[color6(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-6-[color3(71)]-11-[color7(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[colorKeyboardToolBar(43)]-6-[color4(71)]-11-[color8(71)]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-  
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[colorKeyboardToolBar]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    // color buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-3-[color1(71)]-10-[color2(71)]-10-[color3(71)]-10-[color4(71)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-3-[color5(71)]-10-[color6(71)]-10-[color7(71)]-10-[color8(71)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-
     colorKeyboardToolBar.hidden = NO;
     color1.hidden = NO;
     color2.hidden = NO;
@@ -714,7 +741,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView{
     
-    long  textLength =[textView.text length];
+    textLength =[textView.text length];
     long charLeft = kAPIValidationContentMaxLength - [textView.text length];
 //    NSString *substring = [NSString stringWithString:composeTextView];
     
@@ -856,14 +883,23 @@
     if (UIGestureRecognizerStateChanged == sender.state) {
         // Use translation offset
         CGPoint translation = [sender translationInView:composeTextView];
-        composeTextView.center = CGPointMake(composeTextView.center.x + translation.x,
-                                         composeTextView.center.y + translation.y);
+        [self moveTextWithWithContraints:translation];
         // Clear translation
         [sender setTranslation:CGPointZero inView:sender.view];
         [sender cancelsTouchesInView];
     }
 }
-
+- (void)moveTextWithWithContraints:(CGPoint)translation{
+    double pointX =composeTextView.center.x + translation.x;
+    double pointY =composeTextView.center.y + translation.y;
+    pointX = fmax(contentImageView.bounds.origin.x, pointX);
+    pointX = fmin(contentImageView.bounds.origin.x+contentImageView.frame.size.width, pointX);
+    pointY = fmax(contentImageView.bounds.origin.y, pointY);
+    pointY = fmin(contentImageView.bounds.origin.y+contentImageView.frame.size.width+68, pointY);
+   // [CommonUtility printRect:contentImageView.bounds];
+    
+    composeTextView.center = CGPointMake(pointX,pointY);
+}
 #pragma mark - Button Action Methods
 - (void)postContent:(id)sender {
     
@@ -902,7 +938,9 @@
                                                          // Analytics: Flurry
                                                          [Flurry logEvent:[FlurryManager getEventName:kFAComposePostFailure] withParameters:@{@"Error":error}];
                                                          [activityIndicator stopAnimating];
-                                                         [ApiErrorManager displayAlertWithError:error withDelegate:self];
+                                                         //[ApiErrorManager displayAlertWithError:error withDelegate:self];
+                                                             [self displayCustomAlertWithImageFile:kAUCPostFailureImage];
+                                                         postButton.enabled = YES;
                                                      }];
     
 }
@@ -925,21 +963,42 @@
     // display sucess
     //[CommonUtility displayAlertWithTitle:@"Post Successful"
     //                           message:@"Your content was posted sucessfully!" delegate:self];
+    
+    [self displayCustomAlertWithImageFile:kAUCPostSuccessImage];
+//    successAlertView = [[CustomIOS7AlertView alloc] init];
+//    UIImage *image = [UIImage imageNamed:kAUCPostSuccessImage];
+//    UIImageView *successImage = [[UIImageView alloc] initWithImage:image];
+//    [successAlertView setContainerView:successImage];
+////    UIAlertView *alertView  = [[UIAlertView alloc] initWithTitle:@"Post Successful"
+////                                                          message:@""
+////                                                         delegate:self
+////                                                cancelButtonTitle:nil
+////                                                otherButtonTitles:nil];
+//    
+//    [successAlertView show];
+//    
+//    // dismiss autometically
+//    [self performSelector:@selector(dismissAlertView:) withObject:successAlertView afterDelay:1.0];
+    
+}
+- (void)displayCustomAlertWithImageFile:(NSString *)fileName{
+    if(successAlertView==nil){
     successAlertView = [[CustomIOS7AlertView alloc] init];
-    UIImage *image = [UIImage imageNamed:kAUCPostSuccessImage];
+    }
+    UIImage *image = [UIImage imageNamed:fileName];
     UIImageView *successImage = [[UIImageView alloc] initWithImage:image];
+    [successAlertView setContainerView:nil];
     [successAlertView setContainerView:successImage];
-//    UIAlertView *alertView  = [[UIAlertView alloc] initWithTitle:@"Post Successful"
-//                                                          message:@""
-//                                                         delegate:self
-//                                                cancelButtonTitle:nil
-//                                                otherButtonTitles:nil];
+    //    UIAlertView *alertView  = [[UIAlertView alloc] initWithTitle:@"Post Successful"
+    //                                                          message:@""
+    //                                                         delegate:self
+    //                                                cancelButtonTitle:nil
+    //                                                otherButtonTitles:nil];
     
     [successAlertView show];
     
     // dismiss autometically
     [self performSelector:@selector(dismissAlertView:) withObject:successAlertView afterDelay:1.0];
-    
 }
 -(void)dismissAlertView:(UIAlertView *)alertView{
    // [alertView dismissWithClickedButtonIndex:0 animated:YES];
@@ -966,7 +1025,9 @@
 - (void)removeImage:(id)sender {
     contentImageView.image = nil;
     deleteImage.hidden = YES;
+    if (textLength==0) {
     postButton.enabled = NO;
+    }
 }
 #pragma mark - control events methods
 - (void)selectedCategoryChanged:(id)sender{
@@ -1111,7 +1172,7 @@
     //[photoManager performSelector:@selector(displayPhotoLibrary) withObject:nil afterDelay:0.3];
     [photoManager displayPhotoLibrary];
     deleteImage.hidden = NO;
-//    postButton.enabled = YES;
+    [CommonUtility printRect:contentImageView.bounds];
 }
 
 
@@ -1129,10 +1190,27 @@
 }
 - (void)photoCaptureDoneWithImage:(UIImage *)image {
     // set image view
+    [self cropImageToSquare:image];
     contentImageView.image = image;
 //    postButton.enabled = YES;
     placeHolderLabel.hidden = YES;
     placeHolderLabel2.hidden = YES;
+    [CommonUtility printRect:contentImageView.bounds];
 }
-
+- (void)cropImageToSquare:(UIImage *)image{
+    CGSize imageSize = image.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    if (width != height) {
+        CGFloat newDimension = MIN(width, height);
+        CGFloat widthOffset = (width - newDimension) / 2;
+        CGFloat heightOffset = (height - newDimension) / 2;
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(newDimension, newDimension), NO, 0.);
+        [image drawAtPoint:CGPointMake(-widthOffset, -heightOffset)
+                 blendMode:kCGBlendModeCopy
+                     alpha:1.];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+}
 @end

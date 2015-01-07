@@ -135,9 +135,9 @@
     [signInAsGuestButton addTarget:self action:@selector(signInAsGuestButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signInAsGuestButton];
     
-    termsButton = [SignInViewHelper getTermsButton];
-    [termsButton addTarget:self action:@selector(termsButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:termsButton];
+//    termsButton = [SignInViewHelper getTermsButton];
+//    [termsButton addTarget:self action:@selector(termsButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:termsButton];
     
     //activity indicator view
     activityIndicator =[[UIActivityIndicatorView alloc] init];
@@ -153,7 +153,7 @@
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(appLogoView,buttonsView,signInButton,signUpButton,signInAsGuestButton,activityIndicator);
     
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(signInButton,signInAsGuestButton,activityIndicator,termsButton,pageViewControllerView);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(signInButton,signInAsGuestButton,activityIndicator,pageViewControllerView);
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[pageViewControllerView]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
@@ -168,8 +168,8 @@
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:signInAsGuestButton inView:self.view];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[termsButton(34)]-5-|"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[termsButton(34)]-5-|"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
@@ -184,8 +184,10 @@
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[loginLabel(30)]-10-|"
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[termsButton(100)]" options:0 metrics:nil views:viewsDictionary]];
-    [AppUIManager horizontallyCenterElement:termsButton inView:self.view];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[termsButton(100)]" options:0 metrics:nil views:viewsDictionary]];
+//    [AppUIManager horizontallyCenterElement:termsButton inView:self.view];
+    
+    
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signInButton]-40-[termsButton(40)]" options:0 metrics:nil views:viewsDictionary]];
     // page controller
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[pageController]-10-|"
