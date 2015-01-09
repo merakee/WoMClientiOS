@@ -151,8 +151,11 @@ long  textLength;
     composeTextView = [ComposeViewHelper getComposeTextViewWithDelegate:self];
     [contentImageView addSubview:composeTextView];
     //composeTextView.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    [composeTextView addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
+    //[composeTextView addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
+    
+    
     // place holder label
+//    composeTextView.backgroundColor = [UIColor redColor];
     placeHolderLabel = [ComposeViewHelper getPlaceHolderLabel];
     [composeTextView addSubview:placeHolderLabel];
     placeHolderLabel2 = [ComposeViewHelper getPlaceHolderLabel2];
@@ -275,10 +278,12 @@ long  textLength;
 //    [AppUIManager horizontallyCenterElement:cameraOptionsButton inView:self.view];
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cameraOptionsButton(50)]-20-[composeTextView]"
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-4-[composeTextView(200)]"
+  
+    [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[composeTextView(150)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
+    [AppUIManager verticallyCenterElement:composeTextView inView:contentImageView];
+
     [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-24-[composeTextView]-24-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
@@ -740,7 +745,7 @@ long  textLength;
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
-    
+
     textLength =[textView.text length];
     long charLeft = kAPIValidationContentMaxLength - [textView.text length];
 //    NSString *substring = [NSString stringWithString:composeTextView];
@@ -772,12 +777,17 @@ long  textLength;
         postButton.enabled=YES;
         }
 }
-
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    [self adjustFrames];
+}
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+   [self adjustFrames];
     // return key
    if([text isEqualToString:@"\n"]) {
 //        [self postContent:nil];
 //       [composeTextView resignFirstResponder];
+       
         return YES;
     }
     
@@ -788,17 +798,15 @@ long  textLength;
     }
     return YES;
 }
-
+-(void) adjustFrames
+{
+    CGRect textFrame = composeTextView.frame;
+    textFrame.size.height = composeTextView.contentSize.height;
+    composeTextView.frame = textFrame;
+}
 // Vertically center text
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     UITextView *tv = object;
-//    CGFloat height = [tv bounds].size.height;
-//    CGFloat contentheight;
-//    contentheight = [tv sizeThatFits:CGSizeMake(tv.frame.size.width, FLT_MAX)].height;
-//    CGFloat topCorrect = height - contentheight;
-//    topCorrect = (topCorrect <0.0 ? 0.0 : topCorrect);
-//    tv.contentOffset = (CGPoint){.x = 0, .y = -topCorrect};
-
     CGFloat topCorrect = ([tv bounds].size.height - [tv contentSize].height * [tv zoomScale])/2.0;
     topCorrect = ( topCorrect < 0.0 ? 0.0 : topCorrect );
     tv.contentOffset = (CGPoint){.x = 0, .y = -topCorrect};
@@ -890,14 +898,15 @@ long  textLength;
     }
 }
 - (void)moveTextWithWithContraints:(CGPoint)translation{
+  
     double pointX =composeTextView.center.x + translation.x;
     double pointY =composeTextView.center.y + translation.y;
+    
     pointX = fmax(contentImageView.bounds.origin.x, pointX);
     pointX = fmin(contentImageView.bounds.origin.x+contentImageView.frame.size.width, pointX);
     pointY = fmax(contentImageView.bounds.origin.y, pointY);
-    pointY = fmin(contentImageView.bounds.origin.y+contentImageView.frame.size.width+68, pointY);
-   // [CommonUtility printRect:contentImageView.bounds];
-    
+    pointY = fmin(contentImageView.bounds.origin.y+contentImageView.frame.size.height, pointY);
+
     composeTextView.center = CGPointMake(pointX,pointY);
 }
 #pragma mark - Button Action Methods
@@ -1172,7 +1181,6 @@ long  textLength;
     //[photoManager performSelector:@selector(displayPhotoLibrary) withObject:nil afterDelay:0.3];
     [photoManager displayPhotoLibrary];
     deleteImage.hidden = NO;
-    [CommonUtility printRect:contentImageView.bounds];
 }
 
 
@@ -1195,7 +1203,6 @@ long  textLength;
 //    postButton.enabled = YES;
     placeHolderLabel.hidden = YES;
     placeHolderLabel2.hidden = YES;
-    [CommonUtility printRect:contentImageView.bounds];
 }
 - (void)cropImageToSquare:(UIImage *)image{
     CGSize imageSize = image.size;
