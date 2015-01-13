@@ -49,8 +49,9 @@
     label.textColor =[CommonUtility getColorFromHSBACVec:kAUCColorSecondary];
     label.textAlignment = NSTextAlignmentLeft;
 
-    label.numberOfLines = 0;
+  //  label.numberOfLines = 0;
    
+    [label setNumberOfLines:0];
     label.lineBreakMode = NSLineBreakByWordWrapping;
     [label setTranslatesAutoresizingMaskIntoConstraints:NO];
     // accessibilty
@@ -70,7 +71,12 @@
     [likeLabel setAccessibilityIdentifier:@"Like Count Label"];
     return likeLabel;
 }
-
++ (UIButton *)getTouchLike{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
+ //   [button setBackgroundColor:[UIColor redColor]];
+    return button;
+}
 + (UITextView *)getCommentText:(id)delegate{
     UITextView *textView =[[UITextView alloc] init];
     textView.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCommentTextColor];

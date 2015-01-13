@@ -24,8 +24,8 @@ static NSString *kAURCloseButtonImage = @"close-btn.png";
 + (UILabel *)       getCellText;
 + (UILabel *)       getLikeCount;
 + (UITextView *)    getCommentText:(id)delegate;
-
 + (UIButton *)      getCancelButton;
++ (UIButton *)      getTouchLike;
 
 @property (nonatomic, strong) UILabel *getDescriptionLabel;
 @end

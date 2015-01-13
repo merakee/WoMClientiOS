@@ -318,6 +318,7 @@ long  textLength;
                                                                             options:0 metrics:nil views:viewsDictionary]];
   
     [AppUIManager horizontallyCenterElement:placeHolderLabel inView:composeTextView];
+    [AppUIManager horizontallyCenterElement:placeHolderLabel2 inView:composeTextView];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[textButton(56)]-43-[imageButton(56)]-78-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];

@@ -13,6 +13,7 @@
 @synthesize likeButton;
 @synthesize commentCellLabel;
 @synthesize likeCount;
+@synthesize touchLike;
 - (id)init {
     if (self = [super init]) {
         [self setView];
@@ -24,25 +25,30 @@
     self.commentCellLabel = [CommentViewHelper getCellText];
     self.likeButton = [CommentViewHelper getCellButton];
     self.likeCount = [CommentViewHelper getLikeCount];
+    self.touchLike = [CommentViewHelper getTouchLike];
     //    [self.likeButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addSubview:self.commentCellLabel];
     [self addSubview:self.likeCount];
     [self addSubview:self.likeButton];
+    [self addSubview:self.touchLike];
 
     // layout
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(likeButton,commentCellLabel, likeCount);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(likeButton,commentCellLabel, likeCount, touchLike);
     
     // like Button
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-13-[likeButton(15)]-2-[likeCount(10)]"
                                                                  options:0 metrics:nil views:viewsDictionary]];
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-13-[commentCellLabel]-13-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-13-[touchLike(30)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
 //    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[likeButton(15)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
 //   [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[likeCount(15)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     // Comment label
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[commentCellLabel]-5-[likeCount(15)]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[commentCellLabel]-5-[likeButton(15)]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[touchLike(25)]-10-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
 
     
     

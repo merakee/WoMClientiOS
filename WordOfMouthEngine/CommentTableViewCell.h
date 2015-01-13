@@ -14,4 +14,5 @@
 @property (nonatomic, retain) UILabel *commentCellLabel;
 @property (nonatomic, retain) CustomLilkeButton *likeButton;
 @property (nonatomic, retain) UILabel *likeCount;
+@property (nonatomic, retain) UIButton *touchLike;
 @end

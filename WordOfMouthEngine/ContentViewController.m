@@ -477,7 +477,6 @@
     //    [contentTextView addGestureRecognizer:touchRecognized];
     
     //        [[self view] addGestureRecognizer:panRecognized];
-    
 }
 //- (void)addGestures{
 //    // Add swipeGestures
@@ -554,8 +553,11 @@
 
 - (void)panRecognized:(UIPanGestureRecognizer *)sender
 {
-  //  NSLog(@"is refreshing: %d", isRefreshingContent);
+   // NSLog(@"is refreshing: %d", isRefreshingContent);
     if (isRefreshingContent){
+        return;
+    }
+    if (![ApiContent isValidContent:currentContent]){
         return;
     }
     CustomContentView *tcv = [self getViewOnTop];
@@ -578,23 +580,17 @@
     //    translatedPoint = CGPointMake(_originX+translatedPoint.x, _originY+translatedPoint.y);
     translatedPoint = CGPointMake(_originX+translatedPoint.x, _originY);
     if (UIGestureRecognizerStateChanged == sender.state) {
-        
         // Use translation offset
         CGPoint translation = [sender translationInView:sender.view];
         sender.view.center = CGPointMake(sender.view.center.x + translation.x,
                                          sender.view.center.y);
-        
         // Clear translation
         [sender setTranslation:CGPointZero inView:sender.view];
         [sender cancelsTouchesInView];
     }
-    
-    
     // Use this if you need to move an object at a speed that matches the users swipe speed
     //   float usersSwipeSpeed = abs(velocity.x);
-    
     if (sender.state == UIGestureRecognizerStateEnded) {
-        //       NSLog(@"%f", velocity.x);
         float screenW = [CommonUtility getScreenWidth];
         //   float screenH = [CommonUtility getScreenHeight];
         
@@ -732,6 +728,9 @@
 
 -(void)goToCommentView:(id)sender{
     if (isRefreshingContent) {
+        return;
+    }
+    if (![ApiContent isValidContent:currentContent]){
         return;
     }
     CommentViewController *cvc = [[CommentViewController alloc] init];
@@ -1005,7 +1004,6 @@
     //                                     withFinalAction:^(){
     //                                         isAnimationActive=NO;
     //                                     }];
-    
 }
 - (void)performUserResponseAnimationWithResponse:(BOOL)response{
     //isAnimationActive=YES;

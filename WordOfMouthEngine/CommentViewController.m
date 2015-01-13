@@ -161,11 +161,13 @@
         cell = [[CommentTableViewCell alloc] init];
         //   cellButton.tag = kCellButtonTag;
     }
-    [cell.likeButton addTarget:self action:@selector(likeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.touchLike addTarget:self action:@selector(likeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+   // [cell.likeButton addTarget:self action:@selector(likeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     ApiComment *apiComment =(ApiComment*) [activeArray objectAtIndex:indexPath.row];
     cell.likeButton.didLike =[apiComment.didLike boolValue];
     cell.likeCount.text = [apiComment.likeCount stringValue];
     cell.commentCellLabel.text = apiComment.commentText;
+    
     
  //   NSLog(@"comment text: %@", apiComment.commentText);
     
@@ -195,10 +197,11 @@
 }
 
 -(void)likeButtonPressed:(CustomLilkeButton *)sender{
-    if(sender.didLike==true){
+    CommentTableViewCell *cell = (CommentTableViewCell*) sender.superview;
+    if(cell.likeButton.didLike==true){
         return;
     }
-    UITableViewCell *cell = (UITableViewCell *) sender.superview;
+
     NSIndexPath *indexPath = [commentsTableView indexPathForCell:cell];
     [self postCommentLikeWithIndexPath:(NSIndexPath *)indexPath];
 }
