@@ -58,6 +58,10 @@ const static float kAUCColorTertiary[4] = {179.0/360.0, 0.94 , 0.91, 1.0};//{kAU
 const static float kAUCColorQuaternary[4] = {0.0/360.0, 0.0, 0.94, 1.0};
 const static float kAUCColorQuinary[4] = {0.0/360.0, 0.0, 0.89, 1.0};
 
+const static float kAUCColorLoginBackground[4] = {176.0/360.0, 0.86, 0.84, 1.0};
+const static float kAUCColorLoginTextField[4] = {176.0/360.0, 0.86, 0.53, 1.0};
+const static float kAUCColorLoginField[4] = {13.0/360.0, 0.81, 0.81, 1.0};
+
 const static float kAUCColorTextPrimary[4] = {176.0/360.0, 0.86, 0.77, 1.0};//{kAUCHuePrimary,0.8,1.0,1.0};
 const static float kAUCColorTextSecondary[4] ={0.0/360.0, 0.0, 1.00, 1.0} ;//{kAUCHueSecondary,0.8,1.0,1.0};
 const static float kAUCColorTextTertiary[4] = {0.0/360.0, 0.0, 0.80, 1.0};//{kAUCHueTertiary,1.0,0.8,1.0};
@@ -150,8 +154,9 @@ const static CGFloat kAUCFontSizeRepliesText = 16.0;
 
 const static CGFloat kAUCFontSizeLikeLabel = 12.0;
 
-const static CGFloat kAUCFontSizeCommentCount = 17.0;
+const static CGFloat kAUCFontSizeCommentCount = 12.0;
 const static CGFloat kAUCFontSizeSpreadCount = 14.0;
+const static CGFloat kAUCFontSizeNicknameText = 16.0;
 // Other style
 const static float kAUCRectCornerRadius = 4.0;
 const static float kAUCRectBorderWidth = 1.0;
@@ -234,7 +239,7 @@ const static float kAUCAppContentTimerWarning = 5.0;
 // Commom images
 
 // SignIn Images
-static NSString *kAUCCancelButtonImage =@"cancel.png";
+static NSString *kAUCCancelButtonImage =@"close-btn.png";
 static NSString *kAUCLogInButtonImage =@"Login.png";
 static NSString *kAUCSignupButtonImaghe =@"signup.png";
 static NSString *kAUCTermsButtonImage =@"Privacy-policy-Terms.png";

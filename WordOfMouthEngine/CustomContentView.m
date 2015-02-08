@@ -8,14 +8,21 @@
 
 #import "CustomContentView.h"
 #import "ContentViewHelper.h"
+#import "CommonUtility.h"
+#import "CommentViewController.h"
 
 @implementation CustomContentView
 
 @synthesize contentImageView;
-
+@synthesize spreadsCount;
+@synthesize contentData;
+@synthesize nicknameButton;
+@synthesize profilePic;
+@synthesize spreadIcon;
 - (void)loadView {
     //[super loadView];
     // view customization code
+  //  currentContent =[[ApiContent  alloc] init];
     [self setView];
 }
 
@@ -33,7 +40,30 @@
     contentImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.clipsToBounds = YES;
     [contentView addSubview:contentImageView];
-//    [contentView addSubview:contentTextView];
+    
+    contentData = [[UIView alloc] init];
+    [contentData setTranslatesAutoresizingMaskIntoConstraints:NO];
+   // contentData.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
+    contentData.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
+    [contentView addSubview:contentData];
+    
+    nicknameButton = [ContentViewHelper getNicknameButton];
+    [nicknameButton addTarget:self action:@selector(goToNicknameView:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    profilePic = [ContentViewHelper getProfilePic];
+    [profilePic addTarget:self action:@selector(goToNicknameView:) forControlEvents:UIControlEventTouchUpInside];
+    
+   
+    
+    spreadsCount = [ContentViewHelper getSpreadsCount];
+    [contentData addSubview:spreadsCount];
+    
+    spreadIcon = [ContentViewHelper getSpreadIcon];
+    [contentData addSubview:spreadIcon];
+    
+    [contentData addSubview:nicknameButton];
+    [contentData addSubview:profilePic];
     
     self.layer.shadowColor = [UIColor blackColor].CGColor;
     self.layer.shadowOffset = CGSizeMake(0, 3);
@@ -47,16 +77,25 @@
 - (void)layoutView{
     // Constraints
     
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentView, contentImageView);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentView, contentImageView, spreadsCount, contentData, nicknameButton, profilePic, spreadIcon);
        //image view
-        [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentImageView]|"
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentImageView]|"
                                                                           options:0 metrics:nil views:viewsDictionary]];
     
-        [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentImageView]|"
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentImageView]|"
                                                                           options:0 metrics:nil views:viewsDictionary]];
-
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentData]|" options:0 metrics:nil views:viewsDictionary]];
+     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[contentData(50)]|" options:0 metrics:nil views:viewsDictionary]];
     
+    // Spread Count
+    [contentData addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-8-[profilePic(35)]-4-[nicknameButton(146)]-8-[spreadIcon(13)]-3-[spreadsCount(110)]" options:0 metrics:nil views:viewsDictionary]];
+    [AppUIManager verticallyCenterElement:spreadsCount inView:contentData];
+    [AppUIManager verticallyCenterElement:nicknameButton inView:contentData];
+    [AppUIManager verticallyCenterElement:profilePic inView:contentData];
     
+//    [contentData addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[spreadIcon(15)]|"
+//                                                                 options:0 metrics:nil views:viewsDictionary]];
+    [AppUIManager verticallyCenterElement:spreadIcon inView:contentData];
     
         // text view placement
 //        [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[contentTextView]-16-|"
@@ -70,11 +109,11 @@
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentView]|"
                                                                         options:0 metrics:nil views:viewsDictionary]];
-   
 }
 
-
-
+-(void)goToNicknameView:(id)sender{
+    NSLog(@"blah");
+}
 - (void)setImage:(UIImage *)image{
     contentImageView.image = image;
 }

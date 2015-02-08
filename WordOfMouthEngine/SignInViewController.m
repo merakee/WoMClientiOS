@@ -9,16 +9,16 @@
 #import "SignInViewController.h"
 #import "SignInViewHelper.h"
 #import "WomSignInViewController.h"
-#import "WomSignUpViewController.h"
 #import "AppDelegate.h"
 #import "FlurryManager.h"
 #import "ForgotPasswordViewController.h"
 #import "TutorialViewController.h"
 #import "TermsViewController.h"
+#import "AppAnimationManager.h"
 
 @interface SignInViewController ()  <UIPageViewControllerDataSource>
-
 @end
+
 @implementation SignInViewController
 //@synthesize tutorialImages;
 
@@ -57,7 +57,6 @@
     // hide navigation bar
     [self.navigationController.navigationBar setTranslucent:NO],
     [self.navigationController setNavigationBarHidden:YES];
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -91,6 +90,7 @@
     // page controller
     [self setPageView];
     [self setupPageControl];
+    
     //    // set buttons
     //    googleButton = [SignInViewHelper getGoogleButton];
     //    [googleButton addTarget:self action:@selector(googleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -100,7 +100,7 @@
     //    facebookButton = [SignInViewHelper getFacebookButton];
     //    [facebookButton addTarget:self action:@selector(facebookButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     //    [self.view addSubview:facebookButton];
-    //
+
     //    // set buttons
     //    twitterButton = [SignInViewHelper getTwitterButton];
     //    [twitterButton addTarget:self action:@selector(twitterButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -129,11 +129,11 @@
     // set buttons
     signInButton = [SignInViewHelper getSignInButton];
     [signInButton addTarget:self action:@selector(signInLoginButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:signInButton];
+   // [self.view addSubview:signInButton];
     
     signInAsGuestButton = [SignInViewHelper getSignInAsGuestButton];
     [signInAsGuestButton addTarget:self action:@selector(signInAsGuestButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:signInAsGuestButton];
+  //  [self.view addSubview:signInAsGuestButton];
     
 //    termsButton = [SignInViewHelper getTermsButton];
 //    [termsButton addTarget:self action:@selector(termsButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -153,7 +153,7 @@
     // all view elements
     //NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(appLogoView,buttonsView,signInButton,signUpButton,signInAsGuestButton,activityIndicator);
     
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(signInButton,signInAsGuestButton,activityIndicator,pageViewControllerView);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(activityIndicator,pageViewControllerView);
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[pageViewControllerView]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
@@ -162,18 +162,20 @@
 
     // buttons
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInAsGuestButton]"
-                                                                     options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[pageViewControllerView(340)]-11-[signInButton(40)]-12-[signInAsGuestButton(40)]"
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInAsGuestButton]"
+//                                                                     options:0 metrics:nil views:viewsDictionary]];
+//    [AppUIManager horizontallyCenterElement:signInAsGuestButton inView:self.view];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[pageViewControllerView]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [AppUIManager horizontallyCenterElement:signInAsGuestButton inView:self.view];
+   
     
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[termsButton(34)]-5-|"
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInButton]"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-     [AppUIManager horizontallyCenterElement:signInButton inView:self.view];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signInButton]"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+//     [AppUIManager horizontallyCenterElement:signInButton inView:self.view];
     
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signInButton(30)]-10-|"
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -187,12 +189,9 @@
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[termsButton(100)]" options:0 metrics:nil views:viewsDictionary]];
 //    [AppUIManager horizontallyCenterElement:termsButton inView:self.view];
     
-    
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[signInButton]-40-[termsButton(40)]" options:0 metrics:nil views:viewsDictionary]];
     // page controller
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[pageController]-10-|"
-//                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[pageController]-30-[descriptionLabel]"
 //                                                                      options:0 metrics:nil views:viewsDictionary]];
 }
 
@@ -219,8 +218,6 @@
     //                                              style:UIBarButtonItemStylePlain
     //                                              target:nil
     //                                              action:nil];
-    
-    
 }
 
 
@@ -284,7 +281,8 @@
     tutorialImages = @[@"slide-1.png",
                        @"slide-2.png",
                        @"slide-3.png",
-                       @"slide-4.png"];
+                       @"slide-4.png",
+                       @"aff.png"];
 
 //    UIPageViewController *pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     
@@ -316,34 +314,6 @@
     [self.view addSubview:pageViewControllerView];
     [pageViewController didMoveToParentViewController:self];
 }
-//- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-//    
-//    NSUInteger index = [(TutorialViewController *)viewController index];
-//    
-//    if (index == 0) {
-//        return nil;
-//    }
-//    
-//    index--;
-//    
-//    return [self viewControllerAtIndex:index];
-//    
-//}
-//
-//- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
-//    
-//    NSUInteger index = [(TutorialViewController *)viewController index];
-//    
-//    
-//    index++;
-//    
-//    if (index == 3) {
-//        return nil;
-//    }
-//    
-//    return [self viewControllerAtIndex:index];
-//    
-//}
 //- (TutorialViewController *)viewControllerAtIndex:(NSUInteger)index {
 //    
 ////    TutorialViewController *tvc = [[TutorialViewController alloc] initWithNibName:@"TutorialViewController" bundle:nil];
@@ -359,7 +329,7 @@
     pageControl = [UIPageControl appearance];
     [[UIPageControl appearance] setPageIndicatorTintColor: [UIColor lightGrayColor]];
     [[UIPageControl appearance] setCurrentPageIndicatorTintColor: [UIColor darkGrayColor]];
-    [[UIPageControl appearance] setFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+   //  [[UIPageControl appearance] setFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
 }
 
 - (UIViewController *)pageViewController: (UIPageViewController *) pageViewController viewControllerBeforeViewController:(UIViewController *) viewController
@@ -387,12 +357,31 @@
         return [self itemControllerForIndex: itemController.index+1];
        
     }
-    if (itemController.index > 3)
+    if (itemController.index == 4)
     {
+        // Analytics: Flurry
+        [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionGuestSignIn]];
+        
+        // sign in anonymous user
+        [activityIndicator startAnimating];
+        [[ApiManager sharedApiManager] signInUserWithUserTypeId:kAPIUserTypeAnonymous
+                                                          email:nil
+                                                       password:nil
+                                                        success:^(void){
+                                                            [activityIndicator stopAnimating];
+                                                            [self actionsForSuccessfulAnonymusUserSignIn];
+                                                        }failure:^(NSError * error){
+                                                            // Analytics: Flurry
+                                                            [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionGuestSignInFailure] withParameters:@{@"Error": error}];
+                                                            [activityIndicator stopAnimating];
+                                                            [ApiErrorManager displayAlertWithError:error withDelegate:self];
+                                                        }];
         return [self itemControllerForIndex:itemController.index];
     }
-    return [self itemControllerForIndex:0];
- //   return nil;
+        // Loop pageviewcontroller
+ //   return [self itemControllerForIndex:0];
+    
+    return nil;
 }
 
 - (TutorialViewController *) itemControllerForIndex: (NSUInteger) itemIndex

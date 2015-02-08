@@ -18,15 +18,18 @@ static NSString *kAUCSpreadButtonImage =@"spread-btn.png";
 static NSString *kAUCSpreadButtonFilledImage= @"spread-btn-full.png";
 static NSString *kAUCKillButtonImage =@"kill-btn.png";
 static NSString *kAUCKillButtonFilledImage= @"kill-btn-full.png";
-static NSString *kAUCComposeButtonImage =@"compose-icon.png";
+static NSString *kAUCComposeButtonImage =@"compose.png";
 static NSString *kAUCSignOutButtonImage =@"logout-menu.png";
 static NSString *kAUCLogInMenuButtonImage =@"signup-menu.png";
 static NSString *kAUCPageLogoImage =@"logo-nav.png";
 static NSString *kAUCShareButtonImage =@"share-btn.png";
 static NSString *kAUCReplyButtonImage =@"reply-btn.png";
 static NSString *kAUCReportButtonImage =@"flag-btn.png";
-static NSString *kAUCSettingsButtonImage =@"more-icon.png";
+static NSString *kAUCSettingsButtonImage =@"profile-btn.png";
 static NSString *kAUCContentLoadingImage =@"content-loading";
+static NSString *kAUCAlertOnImage = @"alert-on.png";
+static NSString *kAUCSpreadIcon = @"spread-icon.png";
+
 //static NSString *  kAUCContentBackgroundImage = @"content";
 
 @interface ContentViewHelper : NSObject
@@ -43,6 +46,8 @@ static NSString *kAUCContentLoadingImage =@"content-loading";
 #pragma mark - View Helper Methods: Image Views
 + (UIImageView *)getUserImageView;
 + (UIImageView *)getPageLogoImageView;
++ (UIImageView *)getSpreadIcon;
++ (UIImageView *)getBlurredImage;
 
 #pragma mark -  View Helper Methods: TextViews
 + (UITextView *)getContentTextViewWithDelegate:(id)delegate;
@@ -58,10 +63,15 @@ static NSString *kAUCContentLoadingImage =@"content-loading";
 + (UIButton *)getRepliesButton;
 + (UIButton *)getMapButton;
 + (UIButton *)getShareButton;
++ (UIButton *)getProfilePic;
++ (UIButton *)getNicknameButton;
++ (UIButton *)getNotificationButton;
+
 
 #pragma mark - Text label mathods
 //+ (UILabel *)getTextLabelForSpreadCount;
 //+ (UILabel *)getTextLabelForTimeCount;
++ (UILabel *)getNicknameLabel;
 
 #pragma mark -  View Helper Methods: ProgressView
 + (CVCircleCounterView *)getCounterViewWithDelegate:(id)delegate;
@@ -83,4 +93,8 @@ static NSString *kAUCContentLoadingImage =@"content-loading";
 #pragma mark - Navigation Buttons
 + (UIButton *)getSettingsButton;
 + (UIButton *)getComposeButton;
+
+#pragma mark - Utility Method
++ (NSString *)convertCommentCount:(NSNumber *)count;
++ (NSString *)convertSpreadCount:(NSNumber *)count;
 @end

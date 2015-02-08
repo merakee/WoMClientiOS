@@ -20,6 +20,13 @@
     // view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:[CommonUtility adjustImageFileName:kAUCContentBackgroundImage]]];
     view.backgroundColor = [UIColor whiteColor];
 }
++ (UIImageView *)getBlurredImage{
+    UIImageView *blurredImage = [[UIImageView alloc] init];
+    blurredImage.contentMode = UIViewContentModeScaleAspectFill;
+    [blurredImage setTranslatesAutoresizingMaskIntoConstraints:NO];
+    blurredImage.contentMode = UIViewContentModeScaleAspectFill;
+    return blurredImage;
+}
 + (UIImageView *)getContentBackGroundView{
     UIImageView *contentBackGround = [[UIImageView alloc] init];
     
@@ -79,6 +86,12 @@
     killView.animationImages=[AppAnimationManager getKillAnimationImages];
 }
 #pragma mark - View Helper Methods: Image Views
++ (UIImageView *)getSpreadIcon{
+    UIImageView *si = [[UIImageView alloc] init];
+    si.image = [UIImage imageNamed:kAUCSpreadIcon];
+    [si setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return si;
+}
 + (UIImageView *)getUserImageView{
     UIImageView *iv =[[UIImageView alloc] init];
     // set app defaults
@@ -164,8 +177,40 @@
     
     return atext;
 }
-
+#pragma mark - View Helper Methods: Labels
++ (UILabel *) getNicknameLabel{
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeSpreadCount]];
+    label.textColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(1, 1);
+    label.textAlignment = NSTextAlignmentCenter;
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return label;
+}
 #pragma mark -  View Helper Methods: Buttons
++ (UIButton *)getNotificationButton{
+    UIButton *button = [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCAlertOnImage] forState:UIControlStateNormal];
+     [button setAccessibilityIdentifier:@"Nickname"];
+    return button;
+}
++ (UIButton *)getNicknameButton{
+    UIButton *button = [AppUIManager getTransparentUIButton];
+  //  [button setBackgroundColor:[UIColor blueColor]];
+    [button setTitle:@"Mi12345670984aaly" forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeNicknameText];
+   // [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeCommentCount]];
+
+    [button setAccessibilityIdentifier:@"Nickname"];
+    return button;
+}
++ (UIButton *)getProfilePic{
+    UIButton *button = [AppUIManager getTransparentUIButton];
+  //  [button setImage:[UIImage imageNamed:;] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"ProfilePic"];
+    button.backgroundColor = [UIColor redColor];
+    return button;
+}
 + (UIButton *)getRepliesButton{
     //return [AppUIManager setButtonWithTitle:@"spread" ofType:kAUCPriorityTypeTertiary];
     UIButton *button =  [AppUIManager getTransparentUIButton];
@@ -323,28 +368,47 @@
     [button setAccessibilityIdentifier:@"SpreadImage"];
     return button;
 }
++ (NSString *)convertSpreadCount:(NSNumber *)num_count
+{
+    long count = [num_count integerValue];
+    
+    if (count < 1000000){
+        return [NSString stringWithFormat:@"%ld Spreads", count];
+    }
+    else {
+        return [NSString stringWithFormat:@"%.1fM Spreads", ((float) count)/1000000.0];
+    }
+}
++ (NSString *)convertCommentCount:(NSNumber *)num_count{
+    long count =[num_count integerValue];
+    
+    if (count < 1000){
+        return [NSString stringWithFormat:@"%ld", count];
+    }
+    else if (count < 1000000){
+        return [NSString stringWithFormat:@"%.1fK",((float) count)/1000.0];
+    }
+    else {
+        return [NSString stringWithFormat:@"%.1fM",((float) count)/1000000.0];
+    }
+}
 + (UILabel *)getSpreadsCount{
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     UILabel *label = [[UILabel alloc] init];
- //   label.backgroundColor = [UIColor purpleColor];
     [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeSpreadCount]];
     label.textColor = [UIColor whiteColor];
     label.shadowOffset = CGSizeMake(1, 1);
-    label.textAlignment = NSTextAlignmentCenter;
-//    label.text = @"2";
+    label.textAlignment = NSTextAlignmentLeft;
     [label setTranslatesAutoresizingMaskIntoConstraints:NO];
     return label;
 }
 + (UILabel *)getCommentsCount{
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     UILabel *label = [[UILabel alloc] init];
    // label.backgroundColor = [UIColor greenColor];
-//    label.text = @"3";
-    label.textColor = [UIColor whiteColor];
+    label.textColor = [CommonUtility getColorFromHSBACVec:kAUCColorPrimary];
     label.textAlignment = NSTextAlignmentCenter;
     label.shadowOffset = CGSizeMake(1, 1);
     [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeCommentCount]];
-
+[label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeCommentCount]];
     [label setTranslatesAutoresizingMaskIntoConstraints:NO];
     return label;
 }

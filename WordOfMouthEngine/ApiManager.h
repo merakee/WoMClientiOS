@@ -28,9 +28,9 @@
 // Local
 //static NSString *kAMAPI_HOST_PATH   =   @"http://localhost:3000/api/v0";
 // Development
-//static NSString *kAMAPI_HOST_PATH   =   @"http://wom-dev.freelogue.net/api/v0";
+static NSString *kAMAPI_HOST_PATH   =   @"http://wom-dev.freelogue.net/api/v0";
 // Production
-static NSString *kAMAPI_HOST_PATH   =   @"http://wom-v2.freelogue.net/api/v0";
+//static NSString *kAMAPI_HOST_PATH   =   @"http://wom-v2.freelogue.net/api/v0";
 
 
 

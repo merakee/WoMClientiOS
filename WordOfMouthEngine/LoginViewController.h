@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ApiManager.h"
 
-@interface WomSignUpViewController : UIViewController<UITextFieldDelegate>{
+@interface LoginViewController : UIViewController<UITextFieldDelegate>{
     UILabel            *pageLabel;
     UITextField        *emailField;
     UITextField        *passwordField;

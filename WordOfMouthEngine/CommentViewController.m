@@ -82,9 +82,6 @@
     
     // set app defaults
     [AppUIManager setUIView:self.view ofType:kAUCPriorityTypePrimary];
-    self.view.backgroundColor = [UIColor whiteColor];
-
-    
 
     [self onSegmentedControlChanged:segmentedControl];
     [self addSegmentedControl];
@@ -95,7 +92,6 @@
     //activity indicator view
     activityIndicator =[[UIActivityIndicatorView alloc] init];
     [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
-    
     
     [self addToolbar];
     [self layoutView];
@@ -137,7 +133,6 @@
     
     [self.view addConstraint:layoutConstraintSendButtonYPosition];
     [self.view addConstraint:layoutConstraintTextFieldYPosition];
-
 }
 #pragma mark - Table view data source
 
@@ -167,7 +162,6 @@
     cell.likeButton.didLike =[apiComment.didLike boolValue];
     cell.likeCount.text = [apiComment.likeCount stringValue];
     cell.commentCellLabel.text = apiComment.commentText;
-    
     
  //   NSLog(@"comment text: %@", apiComment.commentText);
     
@@ -272,8 +266,6 @@
     
     // reload data based on the new index
     //    [self.tableView reloadData];
-    //
-    
 }
 
 #pragma mark - Toolbar at bottom
@@ -285,7 +277,6 @@
     
     commentText = [CommentViewHelper getCommentText:self];
     [self.view addSubview:commentText];
-    
     
     //    replyToolBar = [[UIToolbar alloc] init];
     //    replyToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenW, 50)];
@@ -299,8 +290,8 @@
     //  [self setToolbarItems:buttonItems animated:NO];
     //  self.navigationController.toolbarHidden = NO;
     //    [replyToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
 }
+
 #pragma mark - Navigation bar
 - (void) setNavigationBar{
     UIButton *cancelBtn = [CommentViewHelper getCancelButton];
@@ -324,14 +315,13 @@
     
     commentsTableView.delegate = self;
     commentsTableView.dataSource = self;
-    
     commentsTableView.backgroundColor = [UIColor whiteColor];
     
     //make sure our table view resizes correctly
     commentsTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
-    
 }
+
 #pragma mark - Touch gesture
 - (void)addGesture{
     touchRecognized = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchRecognized:)];
@@ -382,7 +372,6 @@
     layoutConstraintTextFieldYPosition.constant = -(heightWithoutKeyboard +keyboardHeight);
     [self.view layoutIfNeeded];
     
-   // NSLog(@"keyboardConstraints, %f", totalHeight);
 //    [commentsTableView setContentOffset:
 //    CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
 //    [self.view setFrame:CGRectMake(0,0-keyboardHeight,screenW, screenH)];
@@ -391,8 +380,6 @@
 -(void)updateConstraints{
     [self layoutView];
 }
-
-
 
 - (void)keyboardWillBeHidden:(NSNotification *)notification {
     layoutConstraintSendButtonYPosition.constant = -heightWithoutKeyboard;
@@ -423,7 +410,6 @@
     else if(textLength >= kAPIValidationContentMinLength){
         sendButton.enabled=YES;
     }
-    
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
@@ -459,7 +445,6 @@
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFACommentPost]];
     
-    
     // post content
     [activityIndicator startAnimating];
     
@@ -477,8 +462,6 @@
                                                         [activityIndicator stopAnimating];
                                                         [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                     }];
-    
-    
 }
 
 #pragma mark - Api Manager Post actions methods
@@ -500,11 +483,9 @@
     //
     //    // dismiss autometically
     //    [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:1.0];
-    
     [self updateCommentArrayWithMode:kAPICommentRefreshModeRefresh];
-   
-    
 }
+
 -(void)dismissAlertView:(UIAlertView *)alertView{
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
 }
@@ -564,7 +545,6 @@
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFACommentGetPopular]];
     
-    
     // post content
     [activityIndicator startAnimating];
     
@@ -604,11 +584,8 @@
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFACommentGetPopular]];
     
-    
     // post content
     [activityIndicator startAnimating];
-    
-    
     
     // get comment id
    // NSLog(@"index path row: %ld ", (long)indexPath.row);
@@ -634,17 +611,13 @@
                                                                 [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                             } ];
    
-   
 }
 - (void)updateLikeButtonWithIndexPath:(NSIndexPath *)indexPath{
     CommentTableViewCell *cell = (CommentTableViewCell *)[commentsTableView cellForRowAtIndexPath:indexPath];
     
     cell.likeButton.didLike=true;
-    
-    // comment count tag
-    // .text = [CommonUtility getFixedLengthStringForNumber:currentContent.commentCount];
-    
 }
+
 #pragma mark - temp code
 //- (void) createAllDummyLists{
 //    recentArray = @[@"1. Ninety-nine percent of lawyers give the rest a bad name. I AM GOING TO WRITE LONG TEST TEXT TO TEST HOW MANY LONG BLAH BLAH BLAH BLAH BAF;ASDJFK;LJ;",

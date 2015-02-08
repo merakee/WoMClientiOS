@@ -7,15 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ContentManager.h"
 @interface CustomContentView : UIView {
 
 UIView                  *contentView;
 UITextView              *contentTextView;
+UILabel                 *spreadsCount;
 
 }
-
 @property (atomic) UIImageView             *contentImageView;
+@property (atomic) UILabel                  *spreadsCount;
+@property (atomic) UIView                   *contentData;
+@property (atomic) UIButton                 *nicknameButton;
+@property (atomic) UIButton                 *profilePic;
+@property (atomic) UIImageView              *spreadIcon;
 
 - (void)setView;
 - (void)setAttributedText:(NSAttributedString *)text;

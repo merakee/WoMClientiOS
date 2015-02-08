@@ -6,17 +6,16 @@
 //  Copyright (c) 2014 Bijit Halder. All rights reserved.
 //
 
-#import "WomSignUpViewHelper.h"
+#import "LoginViewHelper.h"
 
-@implementation WomSignUpViewHelper
+@implementation LoginViewHelper
 
 #pragma mark -  View Helper Methods: Views
 + (void)setView:(UIView *)view{
     // set app defaults
     [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
-    view.backgroundColor = [UIColor whiteColor];
+    view.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorLoginBackground];
     //[UIColor colorWithPatternImage:[UIImage imageNamed:[CommonUtility adjustImageFileName:kAUCSignUpInBackgroundImage]]];
-    
     
     // set custom textview properties
     
@@ -26,9 +25,7 @@
 + (UILabel *)getPageLabel{
     // Label at top of the page
     return [AppUIManager getUILabelWithText:@"Signup" font:kAUCFontFamilyPrimary ofSize:kAUCFontSizePageLabel color:kAUCColorTypeTextPrimary];
-    
 }
-
 
 #pragma mark -  View Helper Methods: TextField
 + (void)setEmailTextFiled:(UITextField *)textField withDelegate:(id)delegate{
@@ -36,10 +33,12 @@
     [AppUIManager setTextField:textField placeholder:@"email"];
     textField.delegate=delegate;
     
+    textField.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorLoginField];
     // set up key board
     textField.returnKeyType = UIReturnKeyDone;//UIReturnKeyJoin;
     textField.keyboardType = UIKeyboardTypeEmailAddress;
-    
+    textField.textAlignment= NSTextAlignmentCenter;
+    textField.textColor = [CommonUtility getColorFromHSBACVec:kAUCColorLoginTextField];
     // accessibilty
     [textField setAccessibilityIdentifier:@"Email"];
 }
@@ -48,11 +47,13 @@
     [AppUIManager setTextField:textField placeholder:@"password"];
     textField.delegate=delegate;
     textField.secureTextEntry = YES;
-
+    textField.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorLoginField];
     
     // set up key board
     textField.returnKeyType = UIReturnKeyDone;//UIReturnKeyJoin;
     textField.keyboardType = UIKeyboardTypeEmailAddress;
+    textField.textAlignment= NSTextAlignmentCenter;
+    textField.textColor = [CommonUtility getColorFromHSBACVec:kAUCColorLoginTextField];
     
     // accessibilty
     [textField setAccessibilityIdentifier:@"Password"];
@@ -74,21 +75,16 @@
 
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getSignUpButton{
-//    UIButton *button =  [AppUIManager getTransparentUIButtonWithTitle:@"Signup"
-//                                                                color:kAUCColorTypeTextSecondary
-//                                                                 font:kAUCFontFamilyPrimary
-//                                                                 size:kAUCFontSizeButtonSmall];
-    
     UIButton *button =  [AppUIManager getTransparentUIButton];
-    [button setImage:[UIImage imageNamed:kAUCSignupButtonImage] forState:UIControlStateNormal];
-    [button setAccessibilityIdentifier:@"complete signup"];
+    [button setImage:[UIImage imageNamed:kAUCGoButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Signup"];
     return button;
 }
+
 + (UIButton *)getCancelButton{
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Cancel"];
     return button;
 }
-
 @end

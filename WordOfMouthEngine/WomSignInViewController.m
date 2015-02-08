@@ -8,7 +8,7 @@
 
 #import "WomSignInViewController.h"
 #import "WomSignInViewHelper.h"
-#import "WomSignUpViewController.h"
+#import "LoginViewController.h"
 #import "AppDelegate.h"
 #import "FlurryManager.h"
 #import "ForgotPasswordViewController.h"
@@ -65,14 +65,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 #pragma mark -  Local Methods Implememtation
 - (void)setView {
     // set view
     [WomSignInViewHelper setView:self.view];
     
     // set navigation bar
-    [[self navigationController] setNavigationBarHidden:NO animated:YES];
-    [self setNavigationBar];
+   // [[self navigationController] setNavigationBarHidden:NO animated:YES];
+   // [self setNavigationBar];
     
     // set lables
 //    pageLabel = [WomSignInViewHelper getPageLabel];
@@ -87,13 +90,18 @@
     [signUpButton addTarget:self action:@selector(signUpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signUpButton];
     
+    // go back
+    cancelButton = [WomSignInViewHelper getCancelButton];
+    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:cancelButton];
+    
 //    resetPasswordButton = [WomSignInViewHelper getResetPasswordButton];
 //    [resetPasswordButton addTarget:self action:@selector(resetPasswordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 //    [self.view addSubview:resetPasswordButton];
     
 
     
-    //text Fileds
+    //text Fields
     emailField =[[UITextField alloc] init];
     [WomSignInViewHelper setEmailTextFiled:emailField withDelegate:self];
     [self.view addSubview:emailField];
@@ -114,10 +122,13 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,signInButton, signUpButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,signInButton, signUpButton, cancelButton);
     // buttons
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[resetPasswordButton(40)]-10-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[resetPasswordButton(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[signUpButton(183)]-12-[signInButton(81)]" options:0 metrics:nil views:viewsDictionary]];
     
@@ -125,9 +136,9 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[emailField]-25-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[passwordField]-25-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-6-[emailField(40)]-8-[passwordField(emailField)]-28-[signUpButton]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-106-[emailField(60)]-8-[passwordField(emailField)]-28-[signUpButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]]; // key board 216
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-6-[emailField(40)]-8-[passwordField(emailField)]-28-[signInButton]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-106-[emailField(60)]-8-[passwordField(emailField)]-28-[signInButton]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
 }
 
@@ -141,13 +152,12 @@
      action:@selector(goToAddContentView:)];
      
      */
+
+   // UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
+  //  self.navigationItem.leftBarButtonItem = leftBarButton;
     
+  //  self.navigationItem.title = @"Sign Up";
     
-    // go back
-    cancelButton = [WomSignInViewHelper getCancelButton];
-    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
-    self.navigationItem.leftBarButtonItem = leftBarButton;
 //    [[UINavigationBar appearance] setTranslucent:NO];
 //    
 //    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
@@ -180,21 +190,25 @@
     [self.navigationController popViewControllerAnimated:NO];
 }
 - (void)signInButtonPressed:(id)sender {
+    // push wom Sign up controller
+        LoginViewController *womsuvc =[[LoginViewController   alloc] init];
+        [self.navigationController pushViewController:womsuvc animated:NO];
+    
     // sign in user
-    [activityIndicator startAnimating];
-    [[ApiManager sharedApiManager] signInUserWithUserTypeId:kAPIUserTypeWom
-                                                      email:emailField.text
-                                                   password:passwordField.text
-                                                    success:^(void){
-                                                        [activityIndicator stopAnimating];
-                                                        [self actionsForSuccessfulUserSignIn];
-                                                    }
-                                                    failure:^(NSError * error){
-                                                        // Analytics: Flurry
-                                                        [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignInFailure] withParameters:@{@"Error": error}];
-                                                        [activityIndicator stopAnimating];
-                                                        [ApiErrorManager displayAlertWithError:error withDelegate:self];
-                                                    }];
+//    [activityIndicator startAnimating];
+//    [[ApiManager sharedApiManager] signInUserWithUserTypeId:kAPIUserTypeWom
+//                                                      email:emailField.text
+//                                                   password:passwordField.text
+//                                                    success:^(void){
+//                                                        [activityIndicator stopAnimating];
+//                                                        [self actionsForSuccessfulUserSignIn];
+//                                                    }
+//                                                    failure:^(NSError * error){
+//                                                        // Analytics: Flurry
+//                                                        [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignInFailure] withParameters:@{@"Error": error}];
+//                                                        [activityIndicator stopAnimating];
+//                                                        [ApiErrorManager displayAlertWithError:error withDelegate:self];
+//                                                    }];
 }
 - (void)signUpButtonPressed:(id)sender {
     // sign up user

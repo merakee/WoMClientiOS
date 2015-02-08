@@ -13,6 +13,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "CustomActivityIndicator.h"
 #import "CustomContentView.h"
+#import "ContentOverlayView.h"
 
 //@interface ContentViewController : UIViewController <CVCircleCounterViewDelegate>{
 @interface ContentViewController : UIViewController <UIAlertViewDelegate, UIPopoverControllerDelegate>{
@@ -28,7 +29,7 @@
     
     // navigation buttons
     UIButton           *composeButton;
-    UIButton            *moreButton;
+    UIButton            *profileButton;
     
     // animation
     //UIActivityIndicatorView *activityIndicator;
@@ -48,19 +49,22 @@
     CustomContentView  *customContentView1;
     CustomContentView  *customContentView2;
     CustomContentView   *ccv;
-    
     CustomContentView   *scv;
+    
+    UIImageView         *blurredImage;
+    
     //UIImageView         *pageLogo;
     
     //UIImageView         *userImage;
     //UILabel             *spreadCount;
     
-    UIToolbar            *infoToolBar;
+    //UIToolbar            *infoToolBar;
     
     UIButton                *viewsImage;
     UIButton                *commentImage;
     UIButton                *reportButton;
-    UILabel                *spreadsCount;
+    UIButton                *notificationButton;
+    
     UILabel                *commentCount;
     
     UIBarButtonItem *rButton;
@@ -76,8 +80,6 @@
     //CVCircleCounterView         *progressCounter;
     //NSTimer                     *progressTimer;
     //float                       timeRemaining;
-    
-    
     ContentManager     *contentManager;
     ApiContent        *currentContent;
     
@@ -86,7 +88,8 @@
     //    UISwipeGestureRecognizer *oneFingerSwipeRight;
     UIPanGestureRecognizer *panRecognized;
     UIPanGestureRecognizer *panRecognized2;
-    //    UITapGestureRecognizer *touchRecognized;
+    UITapGestureRecognizer *touchRecognized;
+    UITapGestureRecognizer *touchRecognized2;
     
     //    CGFloat                 *xCoord;
     
@@ -108,6 +111,7 @@
 @property CGPoint endPoint;
 @property (nonatomic) CGFloat xCoord;
 
+@property(nonatomic, strong) ContentOverlayView *overlayView;
 #pragma mark - Utility methods
 - (void)clearContents;
 - (void)refreshContentOnlyForTopView:(bool)onlyTop;

@@ -10,8 +10,9 @@
 #import "AppUIManager.h"
 
 static NSString *kAUCSignupButtonImage =@"signup-nav-btn.png";
+static NSString *kAUCGoButtonImage = @"go.png";
 
-@interface WomSignUpViewHelper : NSObject
+@interface LoginViewHelper : NSObject
 
 
 #pragma mark -  View Helper Methods: Views

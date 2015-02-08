@@ -10,7 +10,7 @@
 #import "ComposeViewHelper.h"
 #import "ApiManager.h"
 #import "FlurryManager.h"
-
+#import "AppDelegate.h"
 @implementation ComposeViewController
 long  textLength;
 
@@ -814,7 +814,9 @@ long  textLength;
 }
 #pragma mark - Image options
 - (void)imageOptions{
-    [self showPhotoOptions:self];
+    [self imageSearch];
+  //  [self showPhotoOptions:self];
+    
 //    filterToolBar = [[UIToolbar alloc] init];
 //    [filterToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
 //    filterToolBar.backgroundColor = [UIColor redColor];
@@ -834,11 +836,34 @@ long  textLength;
 }
 
 #pragma mark - Google Image Search
-//- (void)imageSearch{
-//    NSString * yourImageURL = 0;//...//;
+- (void)imageSearch{
+//    NSString *yourImageURL = 0;//...//;
 //    NSString *searchURL = @"https://www.google.com/searchbyimage?&image_url=";
-//    NSString * completeURL = [NSString stringWithFormat:@"%@%@", searchURL, yourImageURL];
-//}
+//    NSString *completeURL = [NSString stringWithFormat:@"%@%@", searchURL, yourImageURL];
+    searchTextField.text = [NSString stringWithFormat:@"rabbit"];
+ //   NSLog(@"%@", searchTextField.text);
+  //  NSString *searchString = searchTextField.text;
+    NSString *searchString = @"rabbit";
+    NSLog(@"%@", searchString);
+    NSString *URLAddress = [NSString stringWithFormat:@"https://www.google.nl/search?tbm=isch&q=%@", searchString];
+    
+    
+    
+   // imageSearchView = [[ImageSearchViewController alloc] init];
+    imageSearchView = [[UIImageView alloc] init];
+    [self.view addSubview:imageSearchView];
+    [imageSearchView setTranslatesAutoresizingMaskIntoConstraints:NO];
+ //   imageSearchView.backgroundColor = [UIColor redColor];
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(imageSearchView);
+ //   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URLAddress]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[imageSearchView(100)]-50-|"
+                                                                            options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-50-[imageSearchView(100)]"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    UIImage *bgImage = [UIImage imageNamed:@"freelogue-web1.png"];
+    [imageSearchView setImageWithURL:[NSURL URLWithString:URLAddress] placeholderImage:bgImage];
+    
+}
 
 #pragma mark - Filter options
 - (void)filterOptions{
@@ -861,7 +886,6 @@ long  textLength;
     
     touchRecognized = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchRecognized:)];
     [touchRecognized setNumberOfTapsRequired:1];
-    
     
     [panRecognized setMinimumNumberOfTouches:1];
     [panRecognized setMaximumNumberOfTouches:1];
@@ -1195,13 +1219,11 @@ long  textLength;
 - (void)photoCaptureCancelled {
     deleteImage.hidden = YES;
     //[self photoDialogCancelAction];
-   // postButton.enabled = NO;
 }
 - (void)photoCaptureDoneWithImage:(UIImage *)image {
     // set image view
     [self cropImageToSquare:image];
     contentImageView.image = image;
-//    postButton.enabled = YES;
     placeHolderLabel.hidden = YES;
     placeHolderLabel2.hidden = YES;
 }

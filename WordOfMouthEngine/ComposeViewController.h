@@ -10,6 +10,7 @@
 #import "ImageProcessingManager.h"
 #import "ContentViewController.h"
 #import "CustomIOS7AlertView.h"
+#import "ImageSearchViewController.h"
 
 @interface ComposeViewController : UIViewController<UITextViewDelegate,ImageProcessingManagerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>{
     // UISegmentedControl *categoryControl;
@@ -84,6 +85,10 @@
     NSMutableParagraphStyle *paraStyle;
     CustomIOS7AlertView *successAlertView;
     
+    UITextView *searchTextField;
+    
+    //ImageSearchViewController *imageSearchView;
+    UIImageView         *imageSearchView;
 }
 
 

@@ -16,11 +16,7 @@
 + (void)setView:(UIView *)view{
     // set app defaults
     [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
-    view.backgroundColor = [UIColor whiteColor];
-    // view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:[CommonUtility adjustImageFileName:kAUCSignUpInBackgroundImage]]];
-    
-    // set custom textview properties
-    
+    view.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorLoginBackground];
 }
 
 #pragma mark -  View Helper Methods: TextLabel
@@ -33,12 +29,14 @@
     // set app defaults
     [AppUIManager setTextField:textField placeholder:@"email"];
     textField.delegate=delegate;
+    textField.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorLoginField];
     
+    textField.textAlignment= NSTextAlignmentCenter;
     // set up key board
     textField.returnKeyType = UIReturnKeyNext;
   //  textField.returnKeyType = UIReturnKeyDone;//UIReturnKeyGo;
     textField.keyboardType = UIKeyboardTypeEmailAddress;
-    
+    textField.textColor = [CommonUtility getColorFromHSBACVec:kAUCColorLoginTextField];
     // accessibilty
     [textField setAccessibilityIdentifier:@"Email"];
 }
@@ -46,13 +44,14 @@
     // set app defaults
     [AppUIManager setTextField:textField placeholder:@"password"];
     textField.delegate=delegate;
+    textField.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorLoginField];
     textField.secureTextEntry = YES;
-    
+    textField.textAlignment= NSTextAlignmentCenter;
     
     // set up key board
     textField.returnKeyType = UIReturnKeyDone;// UIReturnKeyGo;
    // textField.keyboardType = UIKeyboardTypeEmailAddress;
-    
+    textField.textColor = [CommonUtility getColorFromHSBACVec:kAUCColorLoginTextField];
     // accessibilty
     [textField setAccessibilityIdentifier:@"Password"];
 }
