@@ -97,6 +97,9 @@ static NSString * kDateFormatDefault              = @"yyyyMMddHHmmss";
 #pragma mark -  String functions
 + (BOOL)isEmptyString:(NSString *)string;
 + (NSString *)trimString:(NSString *)string;
++ (BOOL)isAlphaNumeric:(NSString *)text;
++ (BOOL)isString:(NSString *)text inCharecterSet:(NSCharacterSet *)cset;
++ (NSCharacterSet *)addChatectersToAlphaNumric:(NSString *)text;
 
 #pragma mark -  Vec functions
 + (float)vecMax:(float *)vec ofSize:(int)aSize maxIndex:(int *)maxInd;

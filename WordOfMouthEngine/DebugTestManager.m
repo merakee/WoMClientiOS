@@ -11,7 +11,7 @@
 
 #import "ApiManager.h"
 #import "ApiContentDatabase.h"
-#import "ApiUserDatabase.h"
+//#import "ApiUserDatabase.h"
 #import "ApiManager.h"
 
 @implementation DebugTestManager
@@ -28,9 +28,9 @@
 
 
 #pragma mark -  individual test methods
-+ (void)testApiUserDatabase{
-    [ApiUserDatabase test];
-}
+//+ (void)testApiUserDatabase{
+//    [ApiUserDatabase test];
+//}
 
 + (void)testApiManager{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){

@@ -102,6 +102,11 @@
     ApiUser *user =[[ApiUser alloc] initWithUserId:results[0]
                                         userTypeId:results[1]
                                              email:results[2]
+                                          nickname:@" "
+                                         avatarURL:@" "
+                                               bio:@" "
+                                          hometown:@" "
+                                        socialTags:nil
                                authenticationToken:results[3]
                                           signedIn:[NSNumber numberWithBool:[results[4] intValue]==1]];
     return user;
@@ -164,83 +169,83 @@
 #pragma mark -  Test Code
 + (void)test {
     /*
-    DBLog(@"Test results---------------------------------Start");
-    int count=1;
-    ApiUserDatabase *uid =[[ApiUserDatabase alloc] init];
-    NSLog(@"Test starting....%d",count);
-    // test regular user
-    ApiUser *user= [[ApiUser alloc] initWithUserId:nil
-                                        userTypeId:@2
-                                             email:@"user@example.com"
-                               authenticationToken:@"dfsr543jdfs9uhffaf4R"
-                                          signedIn:@YES];
-    if(![uid saveUserInfo:user]){
-        DBLog(@"Error:User should be saved");
-        [ApiUser printApiUser:user];
-    }
-    else{
-        DBLog(@"%d...",count++);
-    }
-    
-    ApiUser *user1=[uid getUser];
-    if(!((user.userTypeId.intValue ==user1.userTypeId.intValue)&&
-         [user.email isEqualToString:user1.email]&&
-         [user.authenticationToken isEqualToString:user1.authenticationToken]&&
-         (user.signedIn.boolValue==user1.signedIn.boolValue)
-         )){
-        DBLog(@"Error:Users must be same");
-        [ApiUser printApiUser:user];
-        [ApiUser printApiUser:user1];
-        [ApiUser printApiUser:[uid getUser]];
-    }
-    else{
-        DBLog(@"%d...",count++);
-    }
-    
-    if(![uid deleteUserInfo]){
-        DBLog(@"Error:User should be deleted");
-        [ApiUser printApiUser:user];
-    }
-    else{
-        DBLog(@"%d...",count++);
-    }
-    if([uid getUser]!=nil){
-        DBLog(@"Error: User must be nil");
-    }
-    else{
-        DBLog(@"%d...",count++);
-    }
-    
-    
-    // test anomymous regular user
-    ApiUser *auser= [[ApiUser alloc] initWithUserId:nil
-                                         userTypeId:@1
-                                              email:@"anon@example.com"
-                                authenticationToken:@"dfsr543jdfs9uhffaf4R"
-                                           signedIn:@YES];
-    if(![uid saveAnonymousUserInfo:auser]){
-        DBLog(@"Error:User should be saved");
-        [ApiUser printApiUser:auser];
-    }
-    else{
-        DBLog(@"%d...",count++);
-    }
-    
-    ApiUser *auser1=[uid getAnonymousUser];
-    if(!((auser.userTypeId.intValue ==auser1.userTypeId.intValue)&&
-         [auser.email isEqualToString:auser1.email]&&
-         [auser.authenticationToken isEqualToString:auser1.authenticationToken]&&
-         (auser.signedIn.boolValue==auser1.signedIn.boolValue)
-         )){
-        DBLog(@"Error:Users must be same");
-        [ApiUser printApiUser:auser];
-        [ApiUser printApiUser:auser1];
-    }
-    else{
-        DBLog(@"%d...",count++);
-    }
-    
-    DBLog(@"Test results---------------------------------End");
- */
+     DBLog(@"Test results---------------------------------Start");
+     int count=1;
+     ApiUserDatabase *uid =[[ApiUserDatabase alloc] init];
+     NSLog(@"Test starting....%d",count);
+     // test regular user
+     ApiUser *user= [[ApiUser alloc] initWithUserId:nil
+     userTypeId:@2
+     email:@"user@example.com"
+     authenticationToken:@"dfsr543jdfs9uhffaf4R"
+     signedIn:@YES];
+     if(![uid saveUserInfo:user]){
+     DBLog(@"Error:User should be saved");
+     [ApiUser printApiUser:user];
+     }
+     else{
+     DBLog(@"%d...",count++);
+     }
+     
+     ApiUser *user1=[uid getUser];
+     if(!((user.userTypeId.intValue ==user1.userTypeId.intValue)&&
+     [user.email isEqualToString:user1.email]&&
+     [user.authenticationToken isEqualToString:user1.authenticationToken]&&
+     (user.signedIn.boolValue==user1.signedIn.boolValue)
+     )){
+     DBLog(@"Error:Users must be same");
+     [ApiUser printApiUser:user];
+     [ApiUser printApiUser:user1];
+     [ApiUser printApiUser:[uid getUser]];
+     }
+     else{
+     DBLog(@"%d...",count++);
+     }
+     
+     if(![uid deleteUserInfo]){
+     DBLog(@"Error:User should be deleted");
+     [ApiUser printApiUser:user];
+     }
+     else{
+     DBLog(@"%d...",count++);
+     }
+     if([uid getUser]!=nil){
+     DBLog(@"Error: User must be nil");
+     }
+     else{
+     DBLog(@"%d...",count++);
+     }
+     
+     
+     // test anomymous regular user
+     ApiUser *auser= [[ApiUser alloc] initWithUserId:nil
+     userTypeId:@1
+     email:@"anon@example.com"
+     authenticationToken:@"dfsr543jdfs9uhffaf4R"
+     signedIn:@YES];
+     if(![uid saveAnonymousUserInfo:auser]){
+     DBLog(@"Error:User should be saved");
+     [ApiUser printApiUser:auser];
+     }
+     else{
+     DBLog(@"%d...",count++);
+     }
+     
+     ApiUser *auser1=[uid getAnonymousUser];
+     if(!((auser.userTypeId.intValue ==auser1.userTypeId.intValue)&&
+     [auser.email isEqualToString:auser1.email]&&
+     [auser.authenticationToken isEqualToString:auser1.authenticationToken]&&
+     (auser.signedIn.boolValue==auser1.signedIn.boolValue)
+     )){
+     DBLog(@"Error:Users must be same");
+     [ApiUser printApiUser:auser];
+     [ApiUser printApiUser:auser1];
+     }
+     else{
+     DBLog(@"%d...",count++);
+     }
+     
+     DBLog(@"Test results---------------------------------End");
+     */
 }
 @end

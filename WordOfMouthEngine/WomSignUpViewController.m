@@ -183,6 +183,10 @@
                                                       email:emailField.text
                                                    password:passwordField.text
                                        passwordConfirmation:passwordConfirmationField.text
+                                                   nickname:@" "
+                                                     avatar:nil 
+                                                        bio:@" "
+                                                   hometown:@" "
                                                     success:^(void){
                                                         [activityIndicator stopAnimating];
                                                         [self actionsForSuccessfulUserSignUp];

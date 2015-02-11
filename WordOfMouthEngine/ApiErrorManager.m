@@ -242,6 +242,29 @@
                                     suggestion:@"Please try again"];
 }
 
+#pragma mark - Error Handling methods - Favorite Content
++ (NSError *)processGetFavoriteContentError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Get Favorite Content List Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
++ (NSError *)processFavoriteContentError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Favorite Content Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
++ (NSError *)processUnFavoriteContentError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Unfavorite Content Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
+
 #pragma mark - Error Handling methods - Display Method
 + (void)displayAlertWithError:(NSError *)error withDelegate:(id)delegate{
     [CommonUtility displayAlertWithTitle:error.localizedDescription

@@ -518,7 +518,18 @@
             [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
 }
-
++ (NSCharacterSet *)addChatectersToAlphaNumric:(NSString *)text{
+    NSMutableCharacterSet *cset = [NSMutableCharacterSet alphanumericCharacterSet];
+    [cset addCharactersInString:text];
+    return (NSCharacterSet *)cset;
+}
++ (BOOL)isAlphaNumeric:(NSString *)text{
+    NSCharacterSet *alphaSet = [NSCharacterSet alphanumericCharacterSet];
+    return [[text stringByTrimmingCharactersInSet:alphaSet] isEqualToString:@""];
+}
++ (BOOL)isString:(NSString *)text inCharecterSet:(NSCharacterSet *)cset{
+    return [[text stringByTrimmingCharactersInSet:cset] isEqualToString:@""];
+}
 #pragma mark -  Randomizarion and vector Methods
 + (void)normalizeArray:(float *)array withSize:(int)size {
     float sum=0.0;

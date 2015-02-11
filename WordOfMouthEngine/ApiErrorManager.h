@@ -85,5 +85,10 @@ static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
 + (NSError *)processResetNotificationContentError:(NSError *)error;
 + (NSError *)processResetNotificationCommentError:(NSError *)error;
 
+#pragma mark - Error Handling methods - Favorite Content
++ (NSError *)processGetFavoriteContentError:(NSError *)error;
++ (NSError *)processFavoriteContentError:(NSError *)error;
++ (NSError *)processUnFavoriteContentError:(NSError *)error;
+
 
 @end
