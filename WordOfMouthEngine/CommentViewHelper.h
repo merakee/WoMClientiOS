@@ -10,6 +10,7 @@
 #import "AppUIManager.h"
 #import "ApiContent.h"
 #import "CustomLilkeButton.h"
+#import "CustomContentView.h"
 
 static NSString *kAURSendButtonImage = @"send-btn.png";
 static NSString *kAUREmptyLikeImage = @"reply-heart-empty.png";
@@ -26,6 +27,7 @@ static NSString *kAURCloseButtonImage = @"close-btn.png";
 + (UITextView *)    getCommentText:(id)delegate;
 + (UIButton *)      getCancelButton;
 + (UIButton *)      getTouchLike;
++ (CustomContentView *)     getContentView;
 
 @property (nonatomic, strong) UILabel *getDescriptionLabel;
 @end

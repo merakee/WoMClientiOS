@@ -16,7 +16,7 @@
 static NSString *kAUCPostButtonImage =@"post-active-btn.png";
 static NSString *kAUCPostInactiveButtonImage =@"post-inactive-btn.png";
 static NSString *kAUCCameraOptionsButtonImage =@"cam-btn.png";
-static NSString *kAUCComposeSpreadButtonImage = @"compose-spread-btn.png";
+static NSString *kAUCComposeSpreadButtonImage = @"spread-a.png";
 static NSString *kAUCDeleteImageButtonImage = @"delete-img-btn.png";
 static NSString *kAUCBackButtonImage =@"back-btn.png";
 static NSString *kAUCKeyboardButtonImage =@"keyboard-icon.png";
@@ -27,8 +27,9 @@ static NSString *kAUCCheckIconButtonImage = @"check-icon.png";
 static NSString *kAUCClearIconButtonImage = @"clear-icon.png";
 static NSString *kAUCPostSuccessImage = @"success.png";
 static NSString *kAUCPostFailureImage = @"error.png";
+static NSString *kAUCComposeBackgroundImage = @"compose-empty-bg.png";
+//static NSString *kAUCDoneButtonImage = @"done-a.png";
 
-//static NSString *kAUCCancelButtonImage =@"";
 static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 
 @interface ComposeViewHelper : NSObject

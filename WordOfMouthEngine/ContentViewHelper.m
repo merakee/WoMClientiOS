@@ -24,7 +24,6 @@
     UIImageView *blurredImage = [[UIImageView alloc] init];
     blurredImage.contentMode = UIViewContentModeScaleAspectFill;
     [blurredImage setTranslatesAutoresizingMaskIntoConstraints:NO];
-    blurredImage.contentMode = UIViewContentModeScaleAspectFill;
     return blurredImage;
 }
 + (UIImageView *)getContentBackGroundView{
@@ -374,22 +373,24 @@
     
     if (count < 1000000){
         return [NSString stringWithFormat:@"%ld Spreads", count];
+        return [NSString stringWithFormat:@"1M+ Spreads"];
     }
     else {
-        return [NSString stringWithFormat:@"%.1fM Spreads", ((float) count)/1000000.0];
+        return [NSString stringWithFormat:@"1M+ Spreads"];
+     //   return [NSString stringWithFormat:@"%.1fM Spreads", ((float) count)/1000000.0];
     }
 }
 + (NSString *)convertCommentCount:(NSNumber *)num_count{
     long count =[num_count integerValue];
     
-    if (count < 1000){
+    if (count < 10000){
         return [NSString stringWithFormat:@"%ld", count];
     }
-    else if (count < 1000000){
-        return [NSString stringWithFormat:@"%.1fK",((float) count)/1000.0];
-    }
+//    else if (count < 1000000){
+//        return [NSString stringWithFormat:@"%.1fK",((float) count)/1000.0];
+//    }
     else {
-        return [NSString stringWithFormat:@"%.1fM",((float) count)/1000000.0];
+        return [NSString stringWithFormat:@"10K+"];
     }
 }
 + (UILabel *)getSpreadsCount{

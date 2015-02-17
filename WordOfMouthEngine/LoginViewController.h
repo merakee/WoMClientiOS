@@ -17,6 +17,11 @@
     UIButton           *signUpButton;
     UIButton           *cancelButton;
     UIActivityIndicatorView *activityIndicator;
+    UIButton            *forgotPasswordButton;
+    
+    UIView              *lineView;
+    
+    UIImageView         *titleImage;
 }
 
 @end

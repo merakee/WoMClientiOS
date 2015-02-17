@@ -7,6 +7,7 @@
 //
 
 #import "SignInViewHelper.h"
+#import "AppUIConstants.h"
 
 @implementation SignInViewHelper
 
@@ -114,7 +115,7 @@
 //                                                               size:kAUCFontSizeButtonLarge];
 //    
     UIButton *button =  [AppUIManager getTransparentUIButton];
-    [button setImage:[UIImage imageNamed:kAUCSignUpButtonImage] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:kAUCSignupButtonImage] forState:UIControlStateNormal];
     
     [button setAccessibilityIdentifier:@"Sign up"];
     return button;

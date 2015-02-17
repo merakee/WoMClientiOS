@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TermsViewController : UIViewController <UIWebViewDelegate>{
-        UIWebView *termsWebView;
+@interface TermsViewController : UIViewController {
+    UITextView   *textView;
 }
 @end

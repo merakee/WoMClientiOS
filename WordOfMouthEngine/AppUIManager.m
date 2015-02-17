@@ -486,7 +486,7 @@
     textField.textAlignment = NSTextAlignmentLeft;
     
     // set border
-    [AppUIManager setBottomBorder:textField withColor:[AppUIManager getColorOfType:kAUCColorTypeTertiary]];
+   // [AppUIManager setBottomBorder:textField withColor:[AppUIManager getColorOfType:kAUCColorTypeTertiary]];
     
     // for auto layout
     [textField setTranslatesAutoresizingMaskIntoConstraints:NO];

@@ -10,6 +10,7 @@
 #import "CommentTableViewCell.h"
 #import "AppUIManager.h"
 #import "FlurryManager.h"
+#import "ContentTableViewCell.h"
 
 @implementation CommentViewController
 @synthesize segmentedControl;
@@ -50,7 +51,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForKeyboardNotifications];
-    [self.navigationController setNavigationBarHidden:NO];
+   // [self.navigationController setNavigationBarHidden:NO];
     //    [self onSegmentedControlChanged:segmentedControl];
     //    [self textViewDidChange:commentText];
     //    [commentText becomeFirstResponder];
@@ -77,6 +78,9 @@
 //- (void)updateViewConstraints{
 //  //  [self updateViewConstraints];
 //}
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 #pragma mark -  Local Methods Implememtation
 - (void)setView {
     
@@ -85,7 +89,9 @@
 
     [self onSegmentedControlChanged:segmentedControl];
     [self addSegmentedControl];
-    [self setNavigationBar];
+    
+    
+    
     [self setupTableView];
     [self.view addSubview:commentsTableView];
     
@@ -94,14 +100,23 @@
     [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
     
     [self addToolbar];
+    
+    // Cancel Button
+    cancelButton = [CommentViewHelper getCancelButton];
+    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:cancelButton];
+    
     [self layoutView];
     [self addGesture];
 }
 
 - (void)layoutView{
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText, segmentedControl);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText, segmentedControl, cancelButton);
     // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[commentsTableView]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[commentsTableView]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView]-60-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
@@ -109,9 +124,6 @@
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[sendButton(39)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[commentText(39)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[segmentedControl]-20-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[segmentedControl(40)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     heightWithoutKeyboard=10.0;
     
@@ -144,26 +156,51 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section. should be returning the number of comments
   //  NSLog(@"Update: %ld", (unsigned long)activeArray.count);
-    return [activeArray count];
+    return [activeArray count]+1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
-    CommentTableViewCell *cell = (CommentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell= [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (!cell) {
         //         cell = [[CommentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell = [[CommentTableViewCell alloc] init];
+        if (indexPath.row == 0){
+            // Get content cell
+            cell = (ContentTableViewCell *)[[ContentTableViewCell alloc] init];
+        }
+        else {
+        cell = (CommentTableViewCell *)[[CommentTableViewCell alloc] init];
         //   cellButton.tag = kCellButtonTag;
+        }
     }
+    if ([cell isKindOfClass:[ContentTableViewCell class]]){
+            [self setupContentCell:(ContentTableViewCell *)cell indexPath:indexPath];
+    }
+    else {
+        [self setupCommentCell:(CommentTableViewCell *)cell indexPath:indexPath];
+    }
+    return cell;
+}
+- (void)setupContentCell:(ContentTableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
+    [cell.contentImage.contentImageView setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]] placeholderImage:nil];
+    [cell sizeToFit];
+    
+    if ([cell respondsToSelector:@selector(layoutMargins)]) {
+        cell.layoutMargins = UIEdgeInsetsZero;
+    }
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+}
+
+- (void)setupCommentCell:(CommentTableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
     [cell.touchLike addTarget:self action:@selector(likeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-   // [cell.likeButton addTarget:self action:@selector(likeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    ApiComment *apiComment =(ApiComment*) [activeArray objectAtIndex:indexPath.row];
+    // [cell.likeButton addTarget:self action:@selector(likeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    ApiComment *apiComment =(ApiComment*) [activeArray objectAtIndex:indexPath.row-1];
     cell.likeButton.didLike =[apiComment.didLike boolValue];
     cell.likeCount.text = [apiComment.likeCount stringValue];
     cell.commentCellLabel.text = apiComment.commentText;
     
- //   NSLog(@"comment text: %@", apiComment.commentText);
+    //   NSLog(@"comment text: %@", apiComment.commentText);
     
     [cell sizeToFit];
     //cell.likeButton.tag = indexPath.row;
@@ -178,9 +215,7 @@
         cell.layoutMargins = UIEdgeInsetsZero;
     }
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    return cell;
 }
-
 #pragma mark - Customize cell
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12.0f];
@@ -215,9 +250,14 @@
 //    CommentTableViewCell *cell = (CommentTableViewCell *)[commentsTableView cellForRowAtIndexPath:indexPath];
 //    [cell.likeButton setImage:heartFull forState:UIControlStateNormal];
 //}
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return UITableViewAutomaticDimension;
-//}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 0)
+    {
+              return 350;
+    }
+    return UITableViewAutomaticDimension;
+}
 
 #pragma mark - Segmented Control
 - (void) addSegmentedControl {
@@ -270,36 +310,13 @@
 
 #pragma mark - Toolbar at bottom
 - (void) addToolbar{
-    
     sendButton = [CommentViewHelper getSendButton];
     [sendButton addTarget:self action:@selector(postComment:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:sendButton];
-    
     commentText = [CommentViewHelper getCommentText:self];
     [self.view addSubview:commentText];
-    
-    //    replyToolBar = [[UIToolbar alloc] init];
-    //    replyToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenW, 50)];
-    //    replyToolBar.backgroundColor = [UIColor greenColor];
-    //commentText.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    //    barItem = [[UIBarButtonItem alloc] initWithCustomView:commentText];
-    //    sButton = [[UIBarButtonItem alloc] initWithCustomView:sendButton];
-    //    commentText.backgroundColor = [UIColor redColor];
-    //    NSArray *buttonItems = [NSArray arrayWithObjects:barItem, sButton, nil];
-    //    [replyToolBar setItems:buttonItems];
-    //  [self setToolbarItems:buttonItems animated:NO];
-    //  self.navigationController.toolbarHidden = NO;
-    //    [replyToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
 }
 
-#pragma mark - Navigation bar
-- (void) setNavigationBar{
-    UIButton *cancelBtn = [CommentViewHelper getCancelButton];
-    [cancelBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithCustomView:cancelBtn];
-    self.navigationItem.leftBarButtonItem = cancelButton;
-    //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(goBack:)];
-}
 - (void) setupTableView{
     commentsTableView = [[UITableView alloc] init];
     [commentsTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -335,9 +352,9 @@
 
 - (void)textButtonPressed:(id)sender {
     commentText.text = @"";
-
     [self disableKeyBoard];
 }
+
 #pragma mark - Keyboard notifications
 - (void)registerForKeyboardNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -436,7 +453,6 @@
     [self disableKeyBoard];
     commentText.text = @"";
 }
-
 
 - (void)postComment:(id)sender {
     
@@ -588,8 +604,7 @@
     [activityIndicator startAnimating];
     
     // get comment id
-   // NSLog(@"index path row: %ld ", (long)indexPath.row);
-    ApiComment *comment =(ApiComment *)[activeArray objectAtIndex:indexPath.row];
+    ApiComment *comment =(ApiComment *)[activeArray objectAtIndex:indexPath.row-1];
     int commentId =(int)[comment.commentId  integerValue];
     
     // post content user

@@ -21,6 +21,7 @@
 #import "AppUIConstants.h"
 #import "HistoryViewController.h"
 #import "WomSignInViewController.h"
+#import <CoreImage/CoreImage.h>
 
 @implementation ContentViewController
 @synthesize overlayView;
@@ -169,20 +170,7 @@
    // [killButton addTarget:self action:@selector(killButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     blurredImage = [ContentViewHelper getBlurredImage];
-//    CIContext *context = [CIContext contextWithOptions:nil];
-//    CIImage *ciImage = [UIImage imageNamed:kAUCSignOutButtonImage].CIImage;
-//    UIImage *uiImage = [[UIImage alloc] initWithCIImage:ciImage];
-    //[blurredImage setImage:[UIImage imageNamed:uiImage].CIImage];
-  //  CIImage *beginImage = [CIImage imageWithCGImage:kAUCSignOut];
-//    CIFilter *blurFilter = [CIFilter filterWithName:@"CISepiaTone"
-//                                      keysAndValues: kCIInputImageKey,
-//                            @"inputIntensity", @0.8, nil];
-//    //CIFilter *blurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
-//    CIImage *outputImage = [blurFilter outputImage];
-//    UIImage *newImgWithFilter = [UIImage imageWithCIImage:outputImage];
-//    [customContentView1.contentImageView setImage:newImgWithFilter];
-    
-    
+    blurredImage.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:blurredImage];
     
     repliesButton = [ContentViewHelper getRepliesButton];
@@ -242,9 +230,6 @@
     [overlayView setTranslatesAutoresizingMaskIntoConstraints:NO];
     //    overlayView.backgroundColor = [UIColor redColor];
     [self.view addSubview:overlayView];
-    
-
-    
     
     // layout
     [self layoutView];
@@ -736,26 +721,35 @@
 }
 - (void)updateContentForTopView:(bool)isTop{
     isRefreshingContent = true;
+    NSLog(@"blah1");
+    if([currentContent.photoToken isKindOfClass:[NSDictionary class]]
+       && currentContent.photoToken[@"url"] &&
+       (![currentContent.photoToken[@"url"] isEqual:[NSNull null]])){
     // Blurred image behind
-//    [blurredImage setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]]
-//                 placeholderImage:bgImage];
-//    UIVisualEffect *blurEffect;
-//    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-//    
-//    UIVisualEffectView *visualEffectView;
-//    visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-//    
-//    visualEffectView.frame = blurredImage.bounds;
-//    [blurredImage addSubview:visualEffectView];
+        NSLog(@"blah2");
+    [blurredImage setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]]
+                         placeholderImage:bgImage];
 
+    CIFilter *gaussianBlurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];   
+    [gaussianBlurFilter setDefaults];
+    [gaussianBlurFilter setValue:[CIImage imageWithCGImage:[blurredImage.image CGImage]] forKey:kCIInputImageKey];
+    [gaussianBlurFilter setValue:@10 forKey:kCIInputRadiusKey];
 
+    CIImage *outputImage = [gaussianBlurFilter outputImage];
+    CIContext *context   = [CIContext contextWithOptions:nil];
+    CGRect rect          = [outputImage extent];
+    rect.origin.x        += (rect.size.width  - blurredImage.image.size.width ) / 2;
+    rect.origin.y        += (rect.size.height - blurredImage.image.size.height) / 2;
+    rect.size            = blurredImage.image.size;
     
-//   // CIImage *outputImage = [filter outputImage];
-//     CIImage *filteredImageData = [filter valueForKey:@"outputImage"];
-//    UIImage *filteredImage = [UIImage imageWithCIImage:filteredImageData];
-//    [filter setValue:beginImage forKey:kCIInputImageKey];
-//    blurredImage.image = filteredImage;
+    CGImageRef cgimg     = [context createCGImage:outputImage fromRect:rect];
+    UIImage *image       = [UIImage imageWithCGImage:cgimg];
+    blurredImage.image = image;
+    }
     
+    else {
+    ccv.contentImageView.image = bgImage;
+    }
     
     
     // set content image to nil
@@ -820,6 +814,7 @@
         //                          placeholderImage:bgImage];
         [ccv.contentImageView setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]]
                              placeholderImage:bgImage];
+        
         [self performContentDisplayAnimation];
         
     }
@@ -866,12 +861,12 @@
     // comment count tag
     
     commentCount.text = [CommonUtility getFixedLengthStringForNumber:currentContent.commentCount];
-    commentCount.text = [ContentViewHelper convertCommentCount:@150];//currentContent.commentCount];
+   // commentCount.text = [ContentViewHelper convertCommentCount:@150];//currentContent.commentCount];
     //customContentView1
     //spreadsCount.text = [CommonUtility getFixedLengthStringForNumber:currentContent.spreadCount];
     ccv.spreadsCount.text = [CommonUtility getFixedLengthStringForNumber:currentContent.spreadCount];
     
-    ccv.spreadsCount.text = [ContentViewHelper convertSpreadCount:@1450001];
+    //ccv.spreadsCount.text = [ContentViewHelper convertSpreadCount:@1450001];
     shareButton.enabled = YES;
     isRefreshingContent = false;
 }

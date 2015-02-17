@@ -27,6 +27,16 @@
     return [AppUIManager getUILabelWithText:@"Signup" font:kAUCFontFamilyPrimary ofSize:kAUCFontSizePageLabel color:kAUCColorTypeTextPrimary];
 }
 
+#pragma mark - View Helper Methods: ImageViews
++ (UIImageView *)getTitleImage{
+    UIImageView *imageView =[[UIImageView alloc] init];
+    // set app defaults
+    [imageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    imageView.image = [UIImage imageNamed:kAUCLoginTitleImage];
+    return imageView;
+
+}
+
 #pragma mark -  View Helper Methods: TextField
 + (void)setEmailTextFiled:(UITextField *)textField withDelegate:(id)delegate{
     // set app defaults
@@ -85,6 +95,13 @@
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Cancel"];
+    return button;
+}
+
++ (UIButton *)getForgotPasswordButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCForgotPasswordImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Forgot Password"];
     return button;
 }
 @end

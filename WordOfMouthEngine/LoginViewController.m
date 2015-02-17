@@ -9,6 +9,7 @@
 #import "LoginViewHelper.h"
 #import "AppDelegate.h"
 #import "FlurryManager.h"
+#import "TermsViewController.h"
 
 @implementation LoginViewController
 
@@ -96,9 +97,20 @@
     [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:cancelButton];
     
+    forgotPasswordButton = [LoginViewHelper getForgotPasswordButton];
+    [forgotPasswordButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:forgotPasswordButton];
+    
     //activity indicator view
     activityIndicator =[[UIActivityIndicatorView alloc] init];
     [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
+    
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, 1)];
+    lineView.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorLineView];
+    [self.view addSubview:lineView];
+    
+    titleImage = [LoginViewHelper getTitleImage];
+    [self.view addSubview:titleImage];
     
     // layout
     [self layoutView];
@@ -106,25 +118,27 @@
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,signUpButton,cancelButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,signUpButton,cancelButton, forgotPasswordButton, titleImage);
     
     //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pageLabel(60)]-26-[emailField]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     
     // buttons
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[signUpButton(27)]-15-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[signUpButton(13)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[signUpButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[titleImage(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[titleImage(37)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [AppUIManager horizontallyCenterElement:titleImage inView:self.view];
     
     // text fields
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[emailField]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[passwordField]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[emailField(60)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-200-[passwordField(60)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[emailField]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[passwordField]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[emailField(60)]-8-[passwordField(60)]-26-[forgotPasswordButton]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [AppUIManager horizontallyCenterElement:forgotPasswordButton inView:self.view];
     
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[passwordConfirmationField]-14-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
@@ -170,10 +184,14 @@
 
 #pragma mark - Button Action Methods
 - (void)goBack:(id)sender {
-    NSLog(@"blah");
     // go back
     [self.navigationController popViewControllerAnimated:NO];
-  //  [self.navigationController popViewControllerAnimated:TRUE];
+  
+//        [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionTerms]];
+//        //Go to terms view controller
+//        TermsViewController *tvc = [[TermsViewController alloc] init];
+//        [self.navigationController pushViewController:tvc animated:NO];
+    
 }
 - (void)signUpButtonPressed:(id)sender {
     // sign up user

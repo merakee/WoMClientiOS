@@ -121,15 +121,19 @@ long  textLength;
 
     // set view
     [ComposeViewHelper setView:self.view];
-    
-    // set navigation bar
-    [self setNavigationBar];
-    self.navigationController.navigationBar.hidden = NO;
-//    self.navigationController.toolbarHidden = YES;
-   // [self.view addSubview:scrollView];
-    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kAUCComposeBackgroundImage]];
 
+    postButton = [ComposeViewHelper getPostButton];
+    [postButton addTarget:self action:@selector(postContent:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:postButton];
+    postButton.enabled = NO;
     
+    cancelButton = [ComposeViewHelper getCancelButton];
+    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:cancelButton];
+    
+    
+//    self.navigationController.toolbarHidden = YES;
     // image view
     contentImageView = [ComposeViewHelper getContentImageView];
    [self.view addSubview:contentImageView];
@@ -287,16 +291,16 @@ long  textLength;
     [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-24-[composeTextView]-24-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(61)]-15-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[postButton(76)]-10-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[cancelButton(40)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentImageView]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[postButton(40)]-[contentImageView]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[postButton(44)]-[contentImageView]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cancelButton(40)]-[contentImageView]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cancelButton(44)]-[contentImageView]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
     // content image view height
@@ -340,50 +344,6 @@ long  textLength;
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-3-[color1(71)]-10-[color2(71)]-10-[color3(71)]-10-[color4(71)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-3-[color5(71)]-10-[color6(71)]-10-[color7(71)]-10-[color8(71)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     //[super layoutSubviews];
-}
-
-- (void)setNavigationBar {
-    
-    postButton = [ComposeViewHelper getPostButton];
-    [postButton addTarget:self action:@selector(postContent:) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:postButton];
-//    self.navigationItem.rightBarButtonItem = rightBarButton;
-    [self.view addSubview:postButton];
-    postButton.enabled = NO;
-    
-    cancelButton = [ComposeViewHelper getCancelButton];
-    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:cancelButton];
-//    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
-//    self.navigationItem.leftBarButtonItem = leftBarButton;
-//    
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    
-    // character count label
-//    characterCount = [ComposeViewHelper getCharacterCountLabel]; 
-//    
-//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [button addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-//    [button setFrame:CGRectMake(0, 0, 40, 40)];
-//    [button addSubview:characterCount];
-//    
-//    UIBarButtonItem *characterButton = [[UIBarButtonItem alloc]initWithCustomView:button];
-// 
-//    
-//    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc]
-//                                                 initWithTitle:@"Post"
-//                                                 style:UIBarButtonItemStyleDone
-//                                                 target:self
-//                                                 action:@selector(postContent:)],
-//                                                characterButton];
-//
-//
-//    [self.navigationItem.rightBarButtonItems[0] setAccessibilityIdentifier:@"Add Picture"];
-    
-//    self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc]
-//                                              initWithBarButtonSystemItem:UIBarButtonSystemItemStop
-//                                              target:self
-//                                              action:@selector(goBack:)];
 }
 //- (void)registerForKeyboardNotifications {
 //    [[NSNotificationCenter defaultCenter] addObserver:self
@@ -463,8 +423,8 @@ long  textLength;
     composeToolBar = [[UIToolbar alloc] init];
     
     composeToolBar.backgroundColor = [UIColor clearColor];
-    composeToolBar.tintColor = [UIColor orangeColor];
     composeToolBar.translucent = YES;
+    
     // Make toolbar clear
     [composeToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
     [composeToolBar setBackgroundImage:[UIImage new]
@@ -814,8 +774,8 @@ long  textLength;
 }
 #pragma mark - Image options
 - (void)imageOptions{
-    [self imageSearch];
-  //  [self showPhotoOptions:self];
+  //  [self imageSearch];
+    [self showPhotoOptions:self];
     
 //    filterToolBar = [[UIToolbar alloc] init];
 //    [filterToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -1205,6 +1165,7 @@ long  textLength;
     //[AppUIManager dispatchBlock:^{[photoManager displayPhotoLibrary]; } afterDelay:0.5];
     //[photoManager performSelector:@selector(displayPhotoLibrary) withObject:nil afterDelay:0.3];
     [photoManager displayPhotoLibrary];
+    
     deleteImage.hidden = NO;
 }
 

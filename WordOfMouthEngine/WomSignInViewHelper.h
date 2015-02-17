@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "AppUIManager.h"
-static NSString *kAUCSignupButtonImage =@"signup.png";
 
 @interface WomSignInViewHelper : NSObject
 
@@ -19,13 +18,22 @@ static NSString *kAUCSignupButtonImage =@"signup.png";
 #pragma mark -  View Helper Methods: TextLabel 
 + (UILabel *)getPageLabel;
 
+#pragma mark - View Helper Methods: ImageViews
++ (UIImageView *)getTitleImage;
++ (UIImageView *)getFullExperienceImage;
++ (UIImageView *)getProfileImageView;
+
 #pragma mark -  View Helper Methods: TextField
 + (void)setEmailTextFiled:(UITextField *)textField withDelegate:(id)delegate;
 + (void)setPasswordTextFiled:(UITextField *)textField withDelegate:(id)delegate;
++ (void)setNicknameTextFiled:(UITextField *)textField withDelegate:(id)delegate;
 
 #pragma mark -  View Helper Methods: Buttons
-+ (UIButton *)getSignUpButton;
++ (UIButton *)getNextButton;
 + (UIButton *)getSignInButton;
 + (UIButton *)getCancelButton;
 + (UIButton *)getResetPasswordButton;
++ (UIButton *)getDoneButton;
++ (UIButton *)getCameraButton;
+
 @end

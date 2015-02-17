@@ -22,6 +22,15 @@
     return self;
 }
 
+#pragma mark - Image Views
++ (CustomContentView *)getContentView{
+    CustomContentView *view = [[CustomContentView alloc] init];
+//    contentImageView.contentMode = UIViewContentModeScaleAspectFill;
+//    [contentImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    contentImageView.clipsToBounds = YES;
+    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return view;
+}
 #pragma mark - Buttons
 + (UIButton *)getSendButton{
     UIImage *buttonImage = [UIImage imageNamed:kAURSendButtonImage];

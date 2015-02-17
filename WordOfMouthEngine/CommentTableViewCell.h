@@ -15,4 +15,7 @@
 @property (nonatomic, retain) CustomLilkeButton *likeButton;
 @property (nonatomic, retain) UILabel *likeCount;
 @property (nonatomic, retain) UIButton *touchLike;
+@property (nonatomic, retain) UILabel *nickname;
+@property (nonatomic, retain) UIImage *profilePic;
+
 @end

@@ -44,6 +44,10 @@ static const int kCellButtonTag = 10;
     NSLayoutConstraint      *layoutConstraintSendButtonYPosition;
     NSLayoutConstraint      *layoutConstraintTextFieldYPosition;
     float heightWithoutKeyboard;
+    
+    // Buttons
+    UIButton                *cancelButton;
+    
 }
 @property (nonatomic) ApiContent *currentContent;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;

@@ -67,12 +67,6 @@
     
     UILabel                *commentCount;
     
-    UIBarButtonItem *rButton;
-    UIBarButtonItem *vImage;
-    UIBarButtonItem *cImage;
-    UIBarButtonItem *vCount;
-    UIBarButtonItem *cCount;
-    
     UIButton        *shareButton;
     UIImage         *bgImage;
     // circular timer

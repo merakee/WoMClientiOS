@@ -9,9 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "AppUIManager.h"
 
-static NSString *kAUCSignupButtonImage =@"signup-nav-btn.png";
-static NSString *kAUCGoButtonImage = @"go.png";
-
 @interface LoginViewHelper : NSObject
 
 
@@ -21,6 +18,9 @@ static NSString *kAUCGoButtonImage = @"go.png";
 #pragma mark -  View Helper Methods: TextLabel
 + (UILabel *)getPageLabel;
 
+#pragma mark - View Helper Methods: ImageViews
++ (UIImageView *)getTitleImage;
+
 #pragma mark -  View Helper Methods: TextField
 + (void)setEmailTextFiled:(UITextField *)textField withDelegate:(id)delegate;
 + (void)setPasswordTextFiled:(UITextField *)textField withDelegate:(id)delegate;
@@ -29,4 +29,6 @@ static NSString *kAUCGoButtonImage = @"go.png";
 #pragma mark -  View Helper Methods: Buttons
 + (UIButton *)getSignUpButton;
 + (UIButton *)getCancelButton;
++ (UIButton *)getForgotPasswordButton;
+
 @end

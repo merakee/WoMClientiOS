@@ -60,7 +60,8 @@ const static float kAUCColorQuinary[4] = {0.0/360.0, 0.0, 0.89, 1.0};
 
 const static float kAUCColorLoginBackground[4] = {176.0/360.0, 0.86, 0.84, 1.0};
 const static float kAUCColorLoginTextField[4] = {176.0/360.0, 0.86, 0.53, 1.0};
-const static float kAUCColorLoginField[4] = {13.0/360.0, 0.81, 0.81, 1.0};
+const static float kAUCColorLoginField[4] = {176.0/360.0, 0.86, 0.77, 1.0};
+const static float kAUCColorLineView[4] = {176.0/360.0, 0.86, 0.53, 1.0};
 
 const static float kAUCColorTextPrimary[4] = {176.0/360.0, 0.86, 0.77, 1.0};//{kAUCHuePrimary,0.8,1.0,1.0};
 const static float kAUCColorTextSecondary[4] ={0.0/360.0, 0.0, 1.00, 1.0} ;//{kAUCHueSecondary,0.8,1.0,1.0};
@@ -240,9 +241,15 @@ const static float kAUCAppContentTimerWarning = 5.0;
 
 // SignIn Images
 static NSString *kAUCCancelButtonImage =@"close-btn.png";
-static NSString *kAUCLogInButtonImage =@"Login.png";
-static NSString *kAUCSignupButtonImaghe =@"signup.png";
+static NSString *kAUCLogInButtonImage =@"signedup.png";
+static NSString *kAUCSignupButtonImage =@"signup.png";
+static NSString *kAUCNextButtonImage = @"next-a.png";
 static NSString *kAUCTermsButtonImage =@"Privacy-policy-Terms.png";
-
-
+static NSString *kAUCForgotPasswordImage =@"forgot password.png";
+static NSString *kAUCGoButtonImage = @"go.png";
+static NSString *kAUCLoginTitleImage = @"login-header.png";
+static NSString *kAUCSignupTitleImage = @"signup-header";
+static NSString *kAUCFullExperienceImage = @"experience.png";
+static NSString *kAUCDoneButtonImage = @"go.png";
+static NSString *kAUCCameraButtonImage = @"camera-btn.png";
 
