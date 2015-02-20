@@ -10,6 +10,7 @@
 
 #import "Specta.h"
 #import "Expecta.h"
+#import "PlaceHolderFactory.h"
 
 @interface SpectaSetUp : NSObject
 

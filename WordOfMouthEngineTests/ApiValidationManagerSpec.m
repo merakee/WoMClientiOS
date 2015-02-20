@@ -55,7 +55,11 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeAnonymous
                                                                  email:nil
                                                               password:nil
-                                                  passwordConfirmation:nil];
+                                                  passwordConfirmation:nil
+                                                              nickname:nil
+                                                                avatar:nil
+                                                                   bio:nil
+                                                              hometown:nil];
             expect(error).to.beFalsy();
         });
         
@@ -63,7 +67,11 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeOthers
                                                                  email:@"me@me.com"
                                                               password:@"password"
-                                                  passwordConfirmation:@"password"];
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
             expect(error.localizedFailureReason).to.equal(@"Unknown User Type");
             expect(error.localizedDescription).to.equal(@"Invalid Input");
             expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
@@ -76,7 +84,11 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me@me.com"
                                                               password:@"password"
-                                                  passwordConfirmation:@"password"];
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
             
             expect(error).to.beFalsy();
         });
@@ -85,7 +97,11 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me.me@me.com"
                                                               password:@"password"
-                                                  passwordConfirmation:@"password"];
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
             
             expect(error).to.beFalsy();
         });
@@ -94,7 +110,11 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me_me@me.com"
                                                               password:@"password"
-                                                  passwordConfirmation:@"password"];
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
             
             expect(error).to.beFalsy();
         });
@@ -103,7 +123,11 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"1me123@me.com"
                                                               password:@"password"
-                                                  passwordConfirmation:@"password"];
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
             
             expect(error).to.beFalsy();
         });
@@ -112,7 +136,11 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me_123.dfdg@me.com"
                                                               password:@"password"
-                                                  passwordConfirmation:@"password"];
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
             
             expect(error).to.beFalsy();
         });
@@ -121,7 +149,11 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me.fsd_1234@23me.com"
                                                               password:@"password"
-                                                  passwordConfirmation:@"password"];
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
             
             expect(error).to.beFalsy();
         });
@@ -130,7 +162,11 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me_dfjd.453.345.345@me.comy"
                                                               password:@"password"
-                                                  passwordConfirmation:@"password"];
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
             
             expect(error).to.beFalsy();
         });
@@ -140,7 +176,11 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me@me.com"
                                                               password:@"password"
-                                                  passwordConfirmation:@"password1"];
+                                                  passwordConfirmation:@"password1"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
             
             expect(error.localizedFailureReason).to.equal(@"Password confirmation must match password");
             expect(error.localizedDescription).to.equal(@"Invalid Input");
@@ -151,7 +191,11 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me@me.com"
                                                               password:@"password"
-                                                  passwordConfirmation:@""];
+                                                  passwordConfirmation:@""
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
             
             expect(error.localizedFailureReason).to.equal(@"Password confirmation must match password");
             expect(error.localizedDescription).to.equal(@"Invalid Input");
@@ -162,7 +206,11 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me@me.com"
                                                               password:@""
-                                                  passwordConfirmation:@"password"];
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
             
             expect(error.localizedFailureReason).to.equal(@"Password must be at least 8 charecter long\nPassword confirmation must match password");
             expect(error.localizedDescription).to.equal(@"Invalid Input");
@@ -173,7 +221,11 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me@me.com"
                                                               password:@""
-                                                  passwordConfirmation:@""];
+                                                  passwordConfirmation:@""
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
             
             expect(error.localizedFailureReason).to.equal(@"Password must be at least 8 charecter long");
             expect(error.localizedDescription).to.equal(@"Invalid Input");
@@ -185,7 +237,11 @@ describe(@"ApiValidationManager", ^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
                                                                  email:@"me.fd@me..fsdfcom"
                                                               password:@""
-                                                  passwordConfirmation:@"password"];
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
             
             expect(error.localizedFailureReason).to.equal(@"Email is not valid\nPassword must be at least 8 charecter long\nPassword confirmation must match password");
             expect(error.localizedDescription).to.equal(@"Invalid Input");
@@ -194,14 +250,171 @@ describe(@"ApiValidationManager", ^{
         
         it(@"should fail sign up validation with short password and mistmatched password confirmation",^{
             error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
-                                                                 email:@""
+                                                                 email:@"me@me.com"
                                                               password:@"dfsdsf"
-                                                  passwordConfirmation:@"password"];
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
             
-            expect(error.localizedFailureReason).to.equal(@"Email is empty\nPassword must be at least 8 charecter long\nPassword confirmation must match password");
+            expect(error.localizedFailureReason).to.equal(@"Password must be at least 8 charecter long\nPassword confirmation must match password");
             expect(error.localizedDescription).to.equal(@"Invalid Input");
             expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
         });
+        
+        it(@"should fail sign up validation with empty nickname",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"
+                                                              nickname:@""
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
+            
+            expect(error.localizedFailureReason).to.equal(@"Nickname must be between 2 and 17 charecter long");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should fail sign up validation with nil nickname",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"
+                                                              nickname:nil
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
+            
+            expect(error.localizedFailureReason).to.equal(@"Nickname must be between 2 and 17 charecter long\nNickname can only contain letters and numbers");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should fail sign up validation with too long nickname",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"
+                                                              nickname:@"thisisnofunatallreally"
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
+            
+            expect(error.localizedFailureReason).to.equal(@"Nickname must be between 2 and 17 charecter long");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should fail sign up validation with non-alphanumeric nickname",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"
+                                                              nickname:@"fdgfg#dfgfd"
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
+            
+            expect(error.localizedFailureReason).to.equal(@"Nickname can only contain letters and numbers");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should fail sign up validation with nil avatar",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:nil
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:[PlaceHolderFactory word]];
+            
+            expect(error.localizedFailureReason).to.equal(@"Avatar cannot be empty");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        
+        it(@"should pass sign up validation with nil bio",^{
+            
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me_dfjd.453.345.345@me.comy"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:nil
+                                                              hometown:[PlaceHolderFactory word]];
+            
+            expect(error).to.beFalsy();
+        });
+        
+        
+        it(@"should pass sign up validation with nil hometown",^{
+            
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me_dfjd.453.345.345@me.comy"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:nil];
+            
+            expect(error).to.beFalsy();
+        });
+        
+        
+        it(@"should fail sign up validation with emapty bio",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:@""
+                                                              hometown:[PlaceHolderFactory word]];
+            
+            expect(error.localizedFailureReason).to.equal(@"Bio must be between 1 and 100 charecter long");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        it(@"should fail sign up validation with empty hometown",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:@""];
+            
+            expect(error.localizedFailureReason).to.equal(@"Hometown must be between 1 and 40 charecter long");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
+        
+        it(@"should fail sign up validation with non-alphanumeric nickname",^{
+            error = [ApiValidationManager validateSignUpWithUserTypeId:kAPIUserTypeWom
+                                                                 email:@"me@me.com"
+                                                              password:@"password"
+                                                  passwordConfirmation:@"password"
+                                                              nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                                avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                                   bio:[PlaceHolderFactory word]
+                                                              hometown:@"dfasf#dsfsdf"];
+            
+            expect(error.localizedFailureReason).to.equal(@"Hometown can only contain letters and numbers, space, and comma");
+            expect(error.localizedDescription).to.equal(@"Invalid Input");
+            expect(error.localizedRecoverySuggestion).to.equal(@"Please check and try again");
+        });
+        
         
     });
     

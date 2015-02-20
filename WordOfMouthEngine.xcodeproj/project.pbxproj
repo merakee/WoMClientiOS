@@ -84,7 +84,6 @@
 		111FE18D199BD51E005143E0 /* FlurryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 111FE18C199BD51E005143E0 /* FlurryManager.m */; };
 		112146DF19CBBB2100346B85 /* SignInAndOutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 112146DE19CBBB2100346B85 /* SignInAndOutViewController.m */; };
 		112146E019CBBB2100346B85 /* SignInAndOutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 112146DE19CBBB2100346B85 /* SignInAndOutViewController.m */; };
-		1127D630197744B1004BA5B8 /* ApiManagerContentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1127D62F197744B1004BA5B8 /* ApiManagerContentTests.m */; };
 		1131DA6718B5584300EFDB34 /* SignInViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA6518B5584300EFDB34 /* SignInViewHelper.m */; };
 		1131DA7618B5657C00EFDB34 /* WomSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7218B5657C00EFDB34 /* WomSignInViewController.m */; };
 		1131DA7718B5657C00EFDB34 /* WomSignInViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131DA7318B5657C00EFDB34 /* WomSignInViewHelper.m */; };
@@ -111,7 +110,6 @@
 		116EE32D18ADA10B00C66D86 /* AppAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32C18ADA10B00C66D86 /* AppAudioManager.m */; };
 		116EE33018ADA1AC00C66D86 /* AppAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE32F18ADA1AC00C66D86 /* AppAnimationManager.m */; };
 		116EE33618ADB58500C66D86 /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 116EE33318ADB58500C66D86 /* CommonUtility.m */; };
-		1170EB01196B83A600802D4D /* ApiUserDatabaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1170EB00196B83A600802D4D /* ApiUserDatabaseTests.m */; };
 		1170EB04196C70B700802D4D /* ApiUserManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1170EB03196C70B700802D4D /* ApiUserManagerSpec.m */; };
 		1170EB0A196DCAF600802D4D /* JSONResponseSerializerWithData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1170EB09196DCAF600802D4D /* JSONResponseSerializerWithData.m */; };
 		1171594C1A2EC1C8000CA6BC /* ApiManagerNotificationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171594B1A2EC1C8000CA6BC /* ApiManagerNotificationSpec.m */; };
@@ -153,7 +151,6 @@
 		11CB8FD818B0476A00396418 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FD718B0476A00396418 /* SettingsViewController.m */; };
 		11CB8FDB18B049B700396418 /* ContentViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FDA18B049B700396418 /* ContentViewHelper.m */; };
 		11CB8FEB18B0886600396418 /* ApiContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CB8FEA18B0886600396418 /* ApiContent.m */; };
-		11D1B6F0183AB0690022AF62 /* ApiManagerUserSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1B6EF183AB0690022AF62 /* ApiManagerUserSessionTests.m */; };
 		11D3700C19D0AC8A00AEF362 /* login-menu@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 11D3700819D0AC8A00AEF362 /* login-menu@2x~iphone.png */; };
 		11D3700D19D0AC8A00AEF362 /* login-menu~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 11D3700919D0AC8A00AEF362 /* login-menu~iphone.png */; };
 		11D3700E19D0AC8A00AEF362 /* signout-menu@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 11D3700A19D0AC8A00AEF362 /* signout-menu@2x~iphone.png */; };
@@ -1829,18 +1826,15 @@
 				111E597E18309A6700B7FD49 /* ApiUser.m in Sources */,
 				11FAEA941A2E41A300B8A111 /* ApiManagerCommentSpec.m in Sources */,
 				110B67521A2A781800FB7DC5 /* ApiNotificationCount.m in Sources */,
-				1170EB01196B83A600802D4D /* ApiUserDatabaseTests.m in Sources */,
 				1166AD7F19759ED30010BFEA /* ApiValidationManager.m in Sources */,
 				11BDC0E81A23D877002131DA /* ApiComment.m in Sources */,
 				117B61541A2E4EF100FA2532 /* TestHelperSpec.m in Sources */,
 				1166AD911976F5C90010BFEA /* PlaceHolderFactory.m in Sources */,
 				11B755BF19708BA000410604 /* ApiErrorManager.m in Sources */,
-				11D1B6F0183AB0690022AF62 /* ApiManagerUserSessionTests.m in Sources */,
 				112146E019CBBB2100346B85 /* SignInAndOutViewController.m in Sources */,
 				11F1C98E1979AB6C006DA90D /* ContentManager.m in Sources */,
 				111E5971182EC53F00B7FD49 /* ApiManager.m in Sources */,
 				1171CAC31969E30500B40A0E /* ApiUserDatabase.m in Sources */,
-				1127D630197744B1004BA5B8 /* ApiManagerContentTests.m in Sources */,
 				1171594C1A2EC1C8000CA6BC /* ApiManagerNotificationSpec.m in Sources */,
 				1166AD811975AD4C0010BFEA /* ApiValidationManagerSpec.m in Sources */,
 			);

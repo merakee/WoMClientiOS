@@ -74,13 +74,13 @@
 
 + (NSString *)isHometownLengthValid:(NSString *)hometown{
     if(([hometown length]<kAPIValidationHometownMinLentgh)||([hometown length]>kAPIValidationHometownMaxLentgh)){
-        return [NSString stringWithFormat:@"Home Town must be between %d and %d charecter long",kAPIValidationHometownMinLentgh,kAPIValidationHometownMaxLentgh];
+        return [NSString stringWithFormat:@"Hometown must be between %d and %d charecter long",kAPIValidationHometownMinLentgh,kAPIValidationHometownMaxLentgh];
     }
     return nil;
 }
 
 + (NSString *)isHometownValid:(NSString *)hometown{
-    if([CommonUtility isString:hometown inCharecterSet:[CommonUtility addChatectersToAlphaNumric:@" ,"]]){
+    if(![CommonUtility isString:hometown inCharecterSet:[CommonUtility addChatectersToAlphaNumric:@" ,"]]){
         return [NSString stringWithFormat:@"Hometown can only contain letters and numbers, space, and comma"];
     }
     return nil;
@@ -167,27 +167,30 @@
     if(msg){
         [reason appendFormat:@"%@\n",msg];
     }
-
+    
     msg = [ApiValidationManager isNicknameValid:nickname];
     if(msg){
         [reason appendFormat:@"%@\n",msg];
     }
     
-    msg = [ApiValidationManager  isBioLengthValid:bio];
-    if(msg){
-        [reason appendFormat:@"%@\n",msg];
-    }
-
-    msg = [ApiValidationManager  isHometownLengthValid:hometown];
-    if(msg){
-        [reason appendFormat:@"%@\n",msg];
+    if(bio){
+        msg = [ApiValidationManager  isBioLengthValid:bio];
+        if(msg){
+            [reason appendFormat:@"%@\n",msg];
+        }
     }
     
-    msg = [ApiValidationManager  isHometownValid:hometown];
-    if(msg){
-        [reason appendFormat:@"%@\n",msg];
+    if(hometown){
+        msg = [ApiValidationManager  isHometownLengthValid:hometown];
+        if(msg){
+            [reason appendFormat:@"%@\n",msg];
+        }
+        
+        msg = [ApiValidationManager  isHometownValid:hometown];
+        if(msg){
+            [reason appendFormat:@"%@\n",msg];
+        }
     }
-    
     msg = [ApiValidationManager isAvatarValid:avatar];
     if(msg){
         [reason appendFormat:@"%@\n",msg];
