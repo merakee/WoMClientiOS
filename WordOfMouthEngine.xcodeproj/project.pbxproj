@@ -118,6 +118,8 @@
 		1171CAC31969E30500B40A0E /* ApiUserDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1171CAC01969E30400B40A0E /* ApiUserDatabase.m */; };
 		11720F5118B6A83500124C9F /* ProfileViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11720F4F18B6A83500124C9F /* ProfileViewHelper.m */; };
 		1174E0AE1991977E003251C7 /* SpectaSetUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 1174E0AD1991977E003251C7 /* SpectaSetUp.m */; };
+		1178E6FD1A9D228000A567FB /* CommonUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1178E6FC1A9D228000A567FB /* CommonUtility.swift */; };
+		1178E6FE1A9D228000A567FB /* CommonUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1178E6FC1A9D228000A567FB /* CommonUtility.swift */; };
 		117A269219A55EE100C9B58D /* UTILITY.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 117A269119A55EE100C9B58D /* UTILITY.ttf */; };
 		117A269319A55EE100C9B58D /* UTILITY.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 117A269119A55EE100C9B58D /* UTILITY.ttf */; };
 		117A269519A55F0600C9B58D /* FiraSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 117A269419A55F0600C9B58D /* FiraSans-Bold.otf */; };
@@ -417,6 +419,8 @@
 		11720F5018B6A83500124C9F /* ProfileViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewHelper.h; sourceTree = "<group>"; };
 		1174E0AC1991977E003251C7 /* SpectaSetUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectaSetUp.h; sourceTree = "<group>"; };
 		1174E0AD1991977E003251C7 /* SpectaSetUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectaSetUp.m; sourceTree = "<group>"; };
+		1178E6FB1A9D228000A567FB /* WordOfMouthEngine-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WordOfMouthEngine-Bridging-Header.h"; sourceTree = "<group>"; };
+		1178E6FC1A9D228000A567FB /* CommonUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUtility.swift; sourceTree = "<group>"; };
 		117A269119A55EE100C9B58D /* UTILITY.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = UTILITY.ttf; sourceTree = "<group>"; };
 		117A269419A55F0600C9B58D /* FiraSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-Bold.otf"; sourceTree = "<group>"; };
 		117B61531A2E4EF100FA2532 /* TestHelperSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TestHelperSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -677,6 +681,7 @@
 		1114A7FC182D8B3300089669 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1178E6FB1A9D228000A567FB /* WordOfMouthEngine-Bridging-Header.h */,
 				1114A7FD182D8B3300089669 /* WordOfMouthEngine-Info.plist */,
 				1114A7FE182D8B3300089669 /* InfoPlist.strings */,
 				1114A801182D8B3300089669 /* main.m */,
@@ -770,6 +775,7 @@
 				116EE33318ADB58500C66D86 /* CommonUtility.m */,
 				116EE33418ADB58500C66D86 /* CoreSizeDefintions.h */,
 				116EE33518ADB58500C66D86 /* LocalMacros.h */,
+				1178E6FC1A9D228000A567FB /* CommonUtility.swift */,
 			);
 			name = CommonUtility;
 			sourceTree = "<group>";
@@ -1771,6 +1777,7 @@
 				11FD6CF018B3DCB9007D318E /* ComposeViewHelper.m in Sources */,
 				1171CABF196917DF00B40A0E /* ApiUserManager.m in Sources */,
 				11F1C98D1979AB6C006DA90D /* ContentManager.m in Sources */,
+				1178E6FD1A9D228000A567FB /* CommonUtility.swift in Sources */,
 				11B755BE19708BA000410604 /* ApiErrorManager.m in Sources */,
 				1114A806182D8B3300089669 /* AppDelegate.m in Sources */,
 				111E5970182EC53F00B7FD49 /* ApiManager.m in Sources */,
@@ -1817,6 +1824,7 @@
 				1166AD8C1975ECDB0010BFEA /* WomSignUpViewHelper.m in Sources */,
 				11BDC0EC1A23DB0F002131DA /* ApiCommentResponse.m in Sources */,
 				1166AD881975EC640010BFEA /* WomSignUpViewController.m in Sources */,
+				1178E6FE1A9D228000A567FB /* CommonUtility.swift in Sources */,
 				116843211A2CFCF600B42B97 /* ApiRequestHelperSpec.m in Sources */,
 				117B61561A2E522800FA2532 /* ApiManagerHisotrySpec.m in Sources */,
 				111C65A419777D530073D605 /* ApiUserResponse.m in Sources */,
@@ -1902,10 +1910,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "";
-				PROVISIONING_PROFILE = "cae4d9ab-92e1-49b1-b074-c900904e2cc4";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -1937,10 +1945,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "";
-				PROVISIONING_PROFILE = "ff6d0411-2d06-4538-ba91-9513a55bc872";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -1960,7 +1968,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngine/WordOfMouthEngine-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = WordOfMouthEngine;
@@ -1981,12 +1989,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngine/WordOfMouthEngine-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = WordOfMouthEngine;
@@ -2003,6 +2011,7 @@
 			baseConfigurationReference = 8CC22BBA1AA7F6E71023CB33 /* Pods-WordOfMouthEngineTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMouthEngine.app/WordOfMouthEngine";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Bijit Halder (GY48ET8D49)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -2018,10 +2027,13 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "WordOfMouthEngineTests/WordOfMouthEngineTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = WordOfMouthEngine;
 				PROVISIONING_PROFILE = "cae4d9ab-92e1-49b1-b074-c900904e2cc4";
+				SWIFT_OBJC_BRIDGING_HEADER = "WordOfMouthEngine/WordOfMouthEngineTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				VALID_ARCHS = "armv7 arm64 armv7s";
 				WRAPPER_EXTENSION = xctest;
@@ -2033,6 +2045,7 @@
 			baseConfigurationReference = 148F2EC1F0C60D40F8E6A9B1 /* Pods-WordOfMouthEngineTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WordOfMouthEngine.app/WordOfMouthEngine";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Freelogue Inc. (MC9NUR3CUR)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -2044,10 +2057,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordOfMouthEngine/WordOfMouthEngine-Prefix.pch";
 				INFOPLIST_FILE = "WordOfMouthEngineTests/WordOfMouthEngineTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = WordOfMouthEngine;
 				PROVISIONING_PROFILE = "ff6d0411-2d06-4538-ba91-9513a55bc872";
+				SWIFT_OBJC_BRIDGING_HEADER = "WordOfMouthEngine/WordOfMouthEngineTests-Bridging-Header.h";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				VALID_ARCHS = "armv7 arm64 armv7s";
 				WRAPPER_EXTENSION = xctest;

@@ -13,6 +13,7 @@
 #import "ApiContentDatabase.h"
 //#import "ApiUserDatabase.h"
 #import "ApiManager.h"
+#import "WordOfMouthEngine-Swift.h"
 
 @implementation DebugTestManager
 
@@ -24,6 +25,7 @@
     //[self testApiUserDatabase];
     //[self testApiManager];
     //[self showAllFonts];
+    [self testSwift];
 }
 
 
@@ -53,5 +55,9 @@
             NSLog(@"  %@", name);
             }
         }
+}
+
++ (void)testSwift{
+    NSLog(@"Test Swift: %d",(int)[CommonUtility getCurrentYear]);
 }
 @end

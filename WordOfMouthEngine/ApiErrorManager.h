@@ -69,9 +69,10 @@ static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
 #pragma mark - Error Handling methods - History
 + (NSError *)processGetHistoryError:(NSError *)error;
 
-#pragma mark - Error Handling methods - User Info
+#pragma mark - Error Handling methods - User Profile
 + (NSError *)processGetProfileError:(NSError *)error;
 + (NSError *)processUpdateProfileError:(NSError *)error;
++ (NSError *)getErrorForEmptyUpdateProfile;
 
 #pragma mark - Error Handling methods - Display Method
 + (void)displayAlertWithError:(NSError *)error withDelegate:(id)delegate;

@@ -94,6 +94,11 @@
     if (userUpdate.bio){
         [paramsDic setValue:userUpdate.bio forKey:@"bio"];
     }
+    
+    if (userUpdate.hometown){
+        [paramsDic setValue:userUpdate.hometown forKey:@"hometown"];
+    }
+    
     if (userUpdate.socialTags){
         [paramsDic setValue:userUpdate.socialTags forKey:@"social_tags"];
     }
@@ -105,7 +110,10 @@
         [paramsDic setValue:avatarDic forKey:@"avatar"];
     }
     
-    return [self addUserAuth:user toDictionary:paramsDic];
+    if([paramsDic count]==0){
+        return nil;
+    }
+    return [self addUserAuth:user toDictionary:@{@"params":paramsDic}];
 }
 
 #pragma mark -  Utility Methods: JSON Request - Content

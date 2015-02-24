@@ -205,8 +205,16 @@
 + (NSError *)processUpdateProfileError:(NSError *)error{
     return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
                                           code:kAPIManagerErrorApi
-                                   description:@"Get Profile Error"
+                                   description:@"Update Profile Error"
                                         reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
+
++ (NSError *)getErrorForEmptyUpdateProfile{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Update Profile Error"
+                                        reason:@"There is nothing to update"
                                     suggestion:@"Please try again"];
 }
 

@@ -134,7 +134,7 @@
     NSString * password = [CommonUtility trimString:password_];
     NSString * passwordConfirmation = [CommonUtility trimString:passwordConfirmation_];
     NSString * nickname = [CommonUtility trimString:nickname_];
-    NSError *verror =[ApiValidationManager validateSignUpWithUserTypeId:userTypeId
+    NSError *error =[ApiValidationManager validateSignUpWithUserTypeId:userTypeId
                                                                   email:email
                                                                password:password
                                                    passwordConfirmation:passwordConfirmation
@@ -142,8 +142,8 @@
                                                                  avatar:avatar
                                                                     bio:bio
                                                                hometown:hometown];
-    if(verror){
-        failure(verror);
+    if(error){
+        failure(error);
         return;
     }
     
@@ -210,11 +210,11 @@
     // process and validate
     NSString * email = [CommonUtility trimString:email_];
     NSString * password = [CommonUtility trimString:password_];
-    NSError *verror =[ApiValidationManager validateSignInWithUserTypeId:userTypeId
+    NSError *error =[ApiValidationManager validateSignInWithUserTypeId:userTypeId
                                                                   email:email
                                                                password:password];
-    if(verror){
-        failure(verror);
+    if(error){
+        failure(error);
         return;
     }
     
@@ -247,6 +247,7 @@
     // sign in and save
     if(![self.apiUserManager signInAndSaveUserInfo:user]){
         error =  [ApiErrorManager getErrorForSignInSaveUser];
+        return error;
     }
     return error;
     
@@ -286,6 +287,7 @@
     NSError *error=nil;
     if(![self.apiUserManager signOutUser]){
         error =  [ApiErrorManager getErrorForInternalError];
+        return error;
     }
     return error;
 }
@@ -302,7 +304,12 @@
        success:^(NSURLSessionDataTask *task, id responseObject) {
            NSError *error;
            ApiUser *user = [self actionsForSuccessfulGetUserProfileWithResponse:responseObject withError:&error];
-           success(user);
+           if(error){
+               failure(error);
+           }
+           else{
+               success(user);
+           }
        }
        failure:^(NSURLSessionDataTask *task, NSError *error) {
            failure([self actionsForFailedGetUserProfileWithError:error]);
@@ -315,12 +322,10 @@
     ApiUser *user= [ApiRequestHelper getUserFromDictionary:responseObject];
     
     // check validity of the content
-    if(![ApiUser isValidUser:user]){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
-        return nil;
-    }
+    //    if(![ApiUser isValidUser:user]){
+    //            *error = [ApiErrorManager getErrorForInvalidApiResponse];
+    //        return nil;
+    //    }
     
     return user;
 }
@@ -332,11 +337,23 @@
                   success:(void (^)(ApiUser *user))success
                   failure:(void (^)(NSError *error))failure{
     
-    [self POST:kAMAPI_PROFILE_UPDATE_PATH parameters:[ApiRequestHelper updateUserProfileParamsWithUser:self.apiUserManager.currentUser updateUser:user]
+    NSDictionary *params  =[ApiRequestHelper updateUserProfileParamsWithUser:self.apiUserManager.currentUser updateUser:user];
+    // check if params dictionary is nil or empty.
+    if(!params || [params count]==0){
+        failure([ApiErrorManager getErrorForEmptyUpdateProfile]);
+        return;
+    }
+    
+    [self POST:kAMAPI_PROFILE_UPDATE_PATH parameters:params
        success:^(NSURLSessionDataTask *task, id responseObject) {
            NSError *error;
            ApiUser *user = [self actionsForSuccessfulUpdateUserProfileWithResponse:responseObject withError:&error];
-           success(user);
+           if(error){
+               failure(error);
+           }
+           else{
+               success(user);
+           }
        }
        failure:^(NSURLSessionDataTask *task, NSError *error) {
            failure([self actionsForFailedUpdateUserProfileWithError:error]);
@@ -349,10 +366,20 @@
     
     // check validity of the content
     if(![ApiUser isValidUser:user]){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
         return nil;
+    }
+    
+    if(![self.apiUserManager.currentUser.email isEqual:user.email]){
+        // update database
+        if(![self.apiUserManager signInAndSaveUserInfo:user]){
+            *error =  [ApiErrorManager getErrorForSignInSaveUser];
+            return nil;
+        }
+    }
+    else{
+        // just update current user
+        self.apiUserManager.currentUser=user;
     }
     
     return user;
@@ -392,8 +419,7 @@
            ApiContent *content = [self actionsForSuccessfulGetContentWithResponse:responseObject withError:&error];
            if(error){
                failure(error);
-           }
-           else{
+           }else{
                success(content);
            }
        }
@@ -407,9 +433,8 @@
     NSArray *contentArray = [ApiRequestHelper getContentArrayFromDictionary:responseObject];
     // check validity of the userResponse
     if(!contentArray){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
+        return nil;
     }
     return contentArray;
 }
@@ -420,9 +445,7 @@
     
     // check validity of the content
     if(![ApiContent isValidContent:content]){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
         return nil;
     }
     
@@ -443,9 +466,9 @@
                           failure:(void (^)(NSError *error))failure{
     // process and validate
     NSString * text = [CommonUtility trimString:text_];
-    NSError *verror =[ApiValidationManager validatePostContentWithCategoryId:categoryId text:text andPhoto:photo];
-    if(verror){
-        failure(verror);
+    NSError *error =[ApiValidationManager validatePostContentWithCategoryId:categoryId text:text andPhoto:photo];
+    if(error){
+        failure(error);
         return;
     }
     
@@ -470,9 +493,7 @@
     
     // check validity of the content
     if(![ApiContent isValidContent:content]){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
         return nil;
     }
     
@@ -517,9 +538,7 @@
     
     // check validity of the userResponse
     if(![ApiUserResponse isValidUserResponse:userResponse]){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
         return nil;
     }
     
@@ -558,9 +577,7 @@
     
     // check validity of the ContentFlag
     if(![ApiContentFlag isValidContentFlag:contentFlag]){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
         return nil;
     }
     
@@ -605,9 +622,8 @@
     NSArray *commentArray = [ApiRequestHelper getCommentArrayFromDictionary:responseObject];
     // check validity of the Response
     if(!commentArray){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
+        return nil;
     }
     return commentArray;
 }
@@ -625,9 +641,9 @@
                          failure:(void (^)(NSError *error))failure{
     // process and validate
     NSString * text = [CommonUtility trimString:text_];
-    NSError *verror =[ApiValidationManager validatePostCommentWithText:text];
-    if(verror){
-        failure(verror);
+    NSError *error =[ApiValidationManager validatePostCommentWithText:text];
+    if(error){
+        failure(error);
         return;
     }
     
@@ -652,9 +668,7 @@
     
     // check validity of the comment
     if(![ApiComment isValidComment:comment]){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
         return nil;
     }
     
@@ -718,9 +732,7 @@
     
     // check validity of the commentResponse
     if(![ApiCommentResponse isValidCommentResponse:commentResponse]){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
         return nil;
     }
     
@@ -767,9 +779,8 @@
     NSArray *contentArray = [ApiRequestHelper getContentArrayFromDictionary:responseObject];
     // check validity of the Response
     if(!contentArray){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
+        return nil;
     }
     return contentArray;
 }
@@ -808,9 +819,8 @@
     NSArray *commentArray = [ApiRequestHelper getCommentArrayFromDictionary:responseObject];
     // check validity of the Response
     if(!commentArray){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
+        return nil;
     }
     return commentArray;
 }
@@ -852,9 +862,7 @@
     
     // check validity of the content
     if(![ApiNotificationCount isValidNotificationCount:notificationCount]){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
         return nil;
     }
     
@@ -896,9 +904,8 @@
     NSArray *notificationArray = [ApiRequestHelper getNotificationArrayFromDictionary:responseObject];
     // check validity of the userResponse
     if(!notificationArray){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
+        return nil;
     }
     return notificationArray;
 }
@@ -944,9 +951,7 @@
     
     // check validity of the content
     if(![ApiContent isValidContent:content]){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
         return nil;
     }
     return content;
@@ -993,9 +998,7 @@
     
     // check validity of the comment
     if(![ApiComment isValidComment:comment]){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
         return nil;
     }
     return comment;
@@ -1019,7 +1022,7 @@
     
     [self POST:kAMAPI_FAVORITE_CONTENT_PATH parameters:[ApiRequestHelper favoriteContentParamsWithUser:self.apiUserManager.currentUser contentId:contentId]
        success:^(NSURLSessionDataTask *task, id responseObject) {
-               success();
+           success();
        }
        failure:^(NSURLSessionDataTask *task, NSError *error) {
            failure([self actionsForFailedFavoriteContentWithError:error]);
@@ -1081,9 +1084,8 @@
     NSArray *contentArray = [ApiRequestHelper getContentArrayFromDictionary:responseObject];
     // check validity of the userResponse
     if(!contentArray){
-        if(error){
-            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
-        }
+        *error = [ApiErrorManager getErrorForInvalidApiResponse];
+        return nil;
     }
     return contentArray;
 }
