@@ -12,11 +12,6 @@
 #import "CustomLilkeButton.h"
 #import "CustomContentView.h"
 
-static NSString *kAURSendButtonImage = @"send-btn.png";
-static NSString *kAUREmptyLikeImage = @"reply-heart-empty.png";
-static NSString *kAURFilledLikeImage = @"reply-heart-full.png";
-static NSString *kAURCloseButtonImage = @"close-btn.png";
-
 @interface CommentViewHelper : NSObject
 
 + (void)setView:(UIView *)view;

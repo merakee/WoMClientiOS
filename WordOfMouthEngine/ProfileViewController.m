@@ -278,7 +278,6 @@
     [(AppDelegate *)[UIApplication sharedApplication].delegate  setSignInViewAsRootView];
 }
 
-
 #pragma mark - Local Uitilty Methods
 - (NSString *)getTextForIndexPath:(NSIndexPath *)indexPath {
     NSString *text = profileInfo[indexPath.section][@"rows"][indexPath.row];

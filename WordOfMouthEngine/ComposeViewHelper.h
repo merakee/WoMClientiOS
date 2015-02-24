@@ -9,26 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "AppUIManager.h"
 #import "ApiContent.h"
+#import "RoundRobinButton.h"
 
 //static const float kPhotoOptionsViewLayout[4]={150,60,120,60};
-
-// images
-static NSString *kAUCPostButtonImage =@"post-active-btn.png";
-static NSString *kAUCPostInactiveButtonImage =@"post-inactive-btn.png";
-static NSString *kAUCCameraOptionsButtonImage =@"cam-btn.png";
-static NSString *kAUCComposeSpreadButtonImage = @"spread-a.png";
-static NSString *kAUCDeleteImageButtonImage = @"delete-img-btn.png";
-static NSString *kAUCBackButtonImage =@"back-btn.png";
-static NSString *kAUCKeyboardButtonImage =@"keyboard-icon.png";
-static NSString *kAUCKeyboardActiveButtonImage = @"keyboard-active-icon.png";
-static NSString *kAUCTextColorButtonImage = @"text-color-icon.png";
-static NSString *kAUCTextColorActiveButtonImage = @"text-color-icon-active.png";
-static NSString *kAUCCheckIconButtonImage = @"check-icon.png";
-static NSString *kAUCClearIconButtonImage = @"clear-icon.png";
-static NSString *kAUCPostSuccessImage = @"success.png";
-static NSString *kAUCPostFailureImage = @"error.png";
-static NSString *kAUCComposeBackgroundImage = @"compose-empty-bg.png";
-//static NSString *kAUCDoneButtonImage = @"done-a.png";
 
 static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 
@@ -54,7 +37,6 @@ static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 
 #pragma mark -  View Helper Methods: Labels
 + (UILabel *)getPlaceHolderLabel;
-+ (UILabel *)getPlaceHolderLabel2;
 + (UILabel *)getCharacterCountLabel;
 
 #pragma mark -  View Helper Methods: TextViews
@@ -67,7 +49,7 @@ static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 
 #pragma mark - toolbar buttons
 + (UIButton *)getImageButton;
-+ (UIButton *)getTextButton;
++ (RoundRobinButton *)getTextButton;
 + (UIButton *)getFilterButton;
 
 #pragma mark - input accessory buttons
@@ -82,10 +64,6 @@ static const NSInteger kAUCComposePhotoOptionsActionSheetTag = 231;
 + (UIButton *)getColor3;
 + (UIButton *)getColor4;
 + (UIButton *)getColor5;
-+ (UIButton *)getColor6;
-+ (UIButton *)getColor7;
-+ (UIButton *)getColor8;
-
 
 #pragma mark - Toolbars
 //+ (UIToolbar *)getKeyboardToolbar;

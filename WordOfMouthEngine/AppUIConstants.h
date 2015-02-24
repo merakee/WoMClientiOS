@@ -72,14 +72,25 @@ const static float kAUCColorTextStroke[4] = {176.0/360.0, 1.0, 0.22, 1.0};
 
 const static float kAUCPlaceHolderColor[4] = {176.0/360.0, 0.0, 0.57, 1.0};
 
-const static float kAUTextColor1[4] = {32.0/360.0, 0.32 , 0.16, 0};
+const static float kAUTextColorDefault[4] = {0.0/360.0, 0.0 , 0.24, 0};
+const static float kAUTextColor1[4] = {146.0/360.0, 0.06, 1.0, 1.0};
 const static float kAUTextColor2[4] = {32.0/360.0, 0.32 , 0.16, 1.0};
-const static float kAUTextColor3[4] = {176.0/360.0, 0.09, 0.72, 1.0};
-const static float kAUTextColor4[4] = {179.0/360.0, 1.0, 0.89, 1.0};
-const static float kAUTextColor5[4] = {13.0/360.0, 1.0, .83, 1.0};
-const static float kAUTextColor6[4] = {240.0/360.0, 1.0, 0.50, 1.0};
-const static float kAUTextColor7[4] = {294.0/360.0, 0.75, 0.62, 1.0};
-const static float kAUTextColor8[4] = {58.0/360.0, 0.99, 1.0, 1.0};
+const static float kAUTextColor3[4] = {325.0/360.0, 0.96, 0.11, 1.0};
+const static float kAUTextColor4[4] = {180.0/360.0, .07, 0.12, 1.0};
+
+const static float kAUShadowColorDefault[4] = {0.0/360.0, 0.0 , 0.24, 1};
+const static float kAUShadowColor1[4] = {0.0/360.0, 0.0 , 0.44, 1};
+
+const static float kAUTextFieldColor[4] = {0.0/360.0, 0.0, 0.39, 1};
+
+const static float kAUBackgroundColor1[4] = {156.0/360.0, .21, 1.0, 1.0};
+const static float kAUBackgroundColor2[4] = {21.0/360.0, .59, .99, 1.0};
+const static float kAUBackgroundColor3[4] = {68.0/360.0, .03, 1.0, 1.0};
+const static float kAUBackgroundColor4[4] = {49.0/360.0, .80, 1.00, 1.0};
+const static float kAUBackgroundColor5[4] = {200.0/360.0, .08, 1.0, 1.0};
+const static float kAUBackgroundColor6[4] = {347.0/360.0, 0.62, .99, 1.0};
+const static float kAUBackgroundColor7[4] = {182.0/360.0, .97, 1.0, 1.0};
+const static float kAUBackgroundColor8[4] = {235.0/360.0, .28, .99, 1.0};
 
 const static float kAUTextStrokeColor[4] = {32.0/360.0, 0.32, 0.16, 1.0};
 
@@ -250,6 +261,30 @@ static NSString *kAUCGoButtonImage = @"go.png";
 static NSString *kAUCLoginTitleImage = @"login-header.png";
 static NSString *kAUCSignupTitleImage = @"signup-header";
 static NSString *kAUCFullExperienceImage = @"experience.png";
-static NSString *kAUCDoneButtonImage = @"go.png";
-static NSString *kAUCCameraButtonImage = @"camera-btn.png";
+static NSString *kAUCDoneButtonImage = @"done-a.png";
 
+// Compose Images
+static NSString *kAUCPostButtonImage =@"post-active-btn.png";
+static NSString *kAUCPostInactiveButtonImage =@"post-inactive-btn.png";
+static NSString *kAUCCameraOptionsButtonImage =@"cam-btn.png";
+static NSString *kAUCComposeSpreadButtonImage = @"spread-a.png";
+static NSString *kAUCDeleteImageButtonImage = @"delete-img-btn.png";
+static NSString *kAUCBackButtonImage =@"back-btn.png";
+static NSString *kAUCKeyboardButtonImage =@"keyboard-icon.png";
+static NSString *kAUCKeyboardActiveButtonImage = @"keyboard-active-icon.png";
+static NSString *kAUCTextColorButtonImage = @"txt-color.png";
+static NSString *kAUCTextColorActiveButtonImage = @"text-color-icon-active.png";
+static NSString *kAUCCheckIconButtonImage = @"check-icon.png";
+static NSString *kAUCClearIconButtonImage = @"clear-icon.png";
+static NSString *kAUCPostSuccessImage = @"spreadsuccess.png";
+static NSString *kAUCPostFailureImage = @"error-spreading.png";
+static NSString *kAUCComposeBackgroundImage = @"compose-empty-bg.png";
+static NSString *kAUCCameraButtonImage = @"camera-sm-btn.png";
+static NSString *kAUCSystemImageButtonImage = @"bg-bt.png";
+static NSString *kAUCFilterButtonImage = @"filter-btn.png";
+
+// Comment Images
+static NSString *kAURSendButtonImage = @"send-btn.png";
+static NSString *kAUREmptyLikeImage = @"reply-heart-empty.png";
+static NSString *kAURFilledLikeImage = @"reply-heart-full.png";
+static NSString *kAURCloseButtonImage = @"close-btn.png";

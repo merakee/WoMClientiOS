@@ -11,7 +11,7 @@
 #import "AppUIManager.h"
 #import "FlurryManager.h"
 #import "ContentTableViewCell.h"
-
+#import "ContentViewController.h"
 @implementation CommentViewController
 @synthesize segmentedControl;
 @synthesize currentContent;
@@ -183,7 +183,9 @@
     return cell;
 }
 - (void)setupContentCell:(ContentTableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
-    [cell.contentImage.contentImageView setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]] placeholderImage:nil];
+//    [cell.contentImage.contentImageView setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]] placeholderImage:nil];
+   // cell.contentImage.contentImageView = [ContentViewController co
+    //contentImage
     [cell sizeToFit];
     
     if ([cell respondsToSelector:@selector(layoutMargins)]) {

@@ -47,7 +47,7 @@ static const int kCellButtonTag = 10;
     
     // Buttons
     UIButton                *cancelButton;
-    
+    UIImage                 *contentImage;
 }
 @property (nonatomic) ApiContent *currentContent;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;

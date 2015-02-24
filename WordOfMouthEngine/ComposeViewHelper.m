@@ -75,20 +75,6 @@
     [phLabel setAccessibilityIdentifier:@"Place Holder Label"];
     return phLabel;
 }
-+ (UILabel *)getPlaceHolderLabel2{
-    UILabel *phLabel =[[UILabel alloc] init];
-    phLabel.backgroundColor = [UIColor clearColor];
-    phLabel.text=@"*Drag to move text";
-    phLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizePlaceholder2];
-    phLabel.textColor =[CommonUtility getColorFromHSBACVec:kAUCPlaceHolderColor];
-    phLabel.textAlignment = NSTextAlignmentCenter;
-    phLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];
-    phLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-    phLabel.numberOfLines = 0;
-    [phLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [phLabel setAccessibilityIdentifier:@"Place Holder Label 2"];
-    return phLabel;
-}
 
 + (UILabel *)getCharacterCountLabel{
     UILabel *ccLabel =[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
@@ -153,22 +139,17 @@
     
     //paraStyle.lineSpacing = 10;// -kAUCFontSizeContentText/2.0 + 9.0;
     
-    NSShadow *shadow = [[NSShadow alloc] init];
-//    shadow.shadowOffset = CGSizeMake(0.0,1.0);
-//    shadow.shadowBlurRadius = (CGFloat) 2.0;
-//    shadow.shadowColor = [UIColor colorWithWhite:0.1 alpha:1.0];
-    
+    NSShadow *shadow = [NSShadow new];
+    [shadow setShadowColor:[CommonUtility getColorFromHSBACVec:kAUShadowColorDefault]];
+    [shadow setShadowOffset: CGSizeMake(0.0f, 1.0f)];
     textView.typingAttributes = @{
-                                  NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
-                                  NSForegroundColorAttributeName:[UIColor whiteColor],
-                                  NSParagraphStyleAttributeName:paraStyle,
-                                  NSStrokeColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUTextStrokeColor],
-                                  NSStrokeWidthAttributeName:@-4.0,
-                                  NSShadowAttributeName:shadow,
-                                  NSKernAttributeName:@1.0 // inter letter spacing
-                                  };
-    
-    
+                                       NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
+                                       NSForegroundColorAttributeName:[UIColor whiteColor],
+                                       NSParagraphStyleAttributeName:paraStyle,
+                                       NSShadowAttributeName:shadow,
+                                       NSKernAttributeName:@1.0
+                                       };
+  
     textView.delegate=delegate;
     
     [textView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -224,7 +205,7 @@
 }
 + (UIButton *)getCameraOptionsButton{
     UIButton *button =  [AppUIManager getTransparentUIButton];
-    [button setImage:[UIImage imageNamed:kAUCCameraOptionsButtonImage] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:kAUCCameraButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Camera Options"];
     return button;
 }
@@ -239,6 +220,7 @@
 
 + (UIButton *)getDoneButton{
     UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCDoneButtonImage] forState:UIControlStateNormal];
     [button setTitle:@"Done" forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Done"];
     return button;
@@ -252,34 +234,33 @@
 }
 
 #pragma mark - Toolbar Buttons
-+ (UIButton *)getTextButton{
-    UIImage *buttonImage = [UIImage imageNamed:@"text-btn.png"];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
++ (RoundRobinButton *)getTextButton{
+    UIImage *buttonImage = [UIImage imageNamed:kAUCTextColorButtonImage];
+    RoundRobinButton *button =[[RoundRobinButton alloc] init];
+    //button.buttonType =UIButtonTypeCustom;
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
- //   button.frame = CGRectMake(0, 0, 56, 57);
     [button setTranslatesAutoresizingMaskIntoConstraints:NO];
     [button setAccessibilityIdentifier:@"TextButton"];
     return button;
 }
 
-+ (UIButton *)getImageButton{
-    UIImage *buttonImage = [UIImage imageNamed:@"photo-btn.png"];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
++ (RoundRobinButton *)getImageButton{
+    UIImage *buttonImage = [UIImage imageNamed:kAUCSystemImageButtonImage];
+    RoundRobinButton *button = [[RoundRobinButton alloc] init];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
- //   button.frame = CGRectMake(0, 0, 56, 57);
     [button setTranslatesAutoresizingMaskIntoConstraints:NO];
     [button setAccessibilityIdentifier:@"ImageButton"];
     return button;
 }
 
-+ (UIButton *)getFilterButton{
-    UIImage *buttonImage = [UIImage imageNamed:@"mapicon.jpeg"];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
++ (RoundRobinButton *)getFilterButton{
+    UIImage *buttonImage = [UIImage imageNamed:kAUCFilterButtonImage];
+    RoundRobinButton *button = [[RoundRobinButton alloc] init];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    button.frame = CGRectMake(0, 0, 20, 20);
+    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
     [button setAccessibilityIdentifier:@"FilterButton"];
     return button;
 }
@@ -327,7 +308,7 @@
 
 + (UIButton *)getColor1{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-   // [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor1]];
+    [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColorDefault]];
     [button setBackgroundColor:[UIColor whiteColor]];
     button.layer.cornerRadius = 4;
     [[button layer] setBorderWidth:3.0f];
@@ -361,31 +342,9 @@
 
 + (UIButton *)getColor5{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor5]];
+    [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor1]];
     button.layer.cornerRadius = 4;
     [button setAccessibilityIdentifier:@"Color5"];
-    return button;
-}
-+ (UIButton *)getColor6{
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor6]];
-    button.layer.cornerRadius = 4;
-    [button setAccessibilityIdentifier:@"Color6"];
-    return button;
-}
-+ (UIButton *)getColor7{
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor7]];
-    button.layer.cornerRadius = 4;
-    [button setAccessibilityIdentifier:@"Color7"];
-    return button;
-}
-+ (UIButton *)getColor8{
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextColor8]];
-    button.layer.cornerRadius = 4;
-    [[button layer] setBorderWidth:3.0f];
-    [button setAccessibilityIdentifier:@"Color8"];
     return button;
 }
 @end

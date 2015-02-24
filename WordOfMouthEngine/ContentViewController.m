@@ -680,6 +680,12 @@
 }
 
 #pragma mark - Custom Content View Methods
+//+ (CustomContentView *)contentOnTop{
+//     CustomContentView *view = [[CustomContentView alloc] init];
+//    view = [self getViewOnTop];
+//    //return contentOnTop;
+//    return view;
+//}
 - (CustomContentView *)getViewInBottom{
     NSInteger index1 = [[[customContentView1 superview] subviews] indexOfObject: customContentView1];
     NSInteger index2 = [[[customContentView2 superview] subviews] indexOfObject: customContentView2];
@@ -726,7 +732,6 @@
        && currentContent.photoToken[@"url"] &&
        (![currentContent.photoToken[@"url"] isEqual:[NSNull null]])){
     // Blurred image behind
-        NSLog(@"blah2");
     [blurredImage setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]]
                          placeholderImage:bgImage];
 

@@ -52,7 +52,7 @@
     CustomContentView   *scv;
     
     UIImageView         *blurredImage;
-    
+    CustomContentView   *imageBlur;
     //UIImageView         *pageLogo;
     
     //UIImageView         *userImage;
@@ -89,8 +89,8 @@
     
     // dummy content index
     int pic_index;
-    
 }
+
 @property (nonatomic) CGFloat originX;
 @property (nonatomic) CGFloat originY;
 @property (nonatomic) CGFloat startingTap;
@@ -106,6 +106,7 @@
 @property (nonatomic) CGFloat xCoord;
 
 @property(nonatomic, strong) ContentOverlayView *overlayView;
+//+ (CustomContentView *) contentOnTop;
 #pragma mark - Utility methods
 - (void)clearContents;
 - (void)refreshContentOnlyForTopView:(bool)onlyTop;

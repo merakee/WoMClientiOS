@@ -11,6 +11,8 @@
 #import "ContentViewController.h"
 #import "CustomIOS7AlertView.h"
 #import "ImageSearchViewController.h"
+#import "RoundRobinButton.h"
+#import <CoreImage/CoreImage.h>
 
 @interface ComposeViewController : UIViewController<UITextViewDelegate,ImageProcessingManagerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>{
     // UISegmentedControl *categoryControl;
@@ -18,7 +20,6 @@
     UIImageView        *contentImageView;
     UIImage             *finalContentImage;
     UILabel            *placeHolderLabel;
-    UILabel             *placeHolderLabel2;
     UILabel             *characterCount;
     ImageProcessingManager   *photoManager;
     //UIView                   *photoOptionsView;
@@ -26,9 +27,9 @@
     //UIButton                 *albumButton;
     
     UIButton                 *postButton;
+    UIButton                *doneButton;
     UIButton                 *cameraOptionsButton;
     UIButton                 *cancelButton;
-    
     UIActivityIndicatorView *activityIndicator;
     UIPanGestureRecognizer *panRecognized;
     UITapGestureRecognizer *touchRecognized;
@@ -36,8 +37,7 @@
     //UIScrollView            *scrollView;
     
     UIView                  *inputAccView;
-    UIButton                *backButton;
-    UIButton                *doneButton;
+   
     UIButton                *deleteImage;
     
     // Toolbar buttons
@@ -45,9 +45,9 @@
     UIBarButtonItem     *textBarButton;
     UIBarButtonItem     *imageBarButton;
     UIBarButtonItem     *filterBarButton;
-    UIButton            *textButton;
-    UIButton            *imageButton;
-    UIButton            *filterButton;
+    RoundRobinButton    *textButton;
+    RoundRobinButton    *imageButton;
+    RoundRobinButton    *filterButton;
 
     // Keyboard Accessory Buttons
     UIToolbar           *keyboardToolBar;
@@ -72,14 +72,6 @@
     UIToolbar           *filterToolBar;
     
     // Color text
-    UIButton            *color1;
-    UIButton            *color2;
-    UIButton            *color3;
-    UIButton            *color4;
-    UIButton            *color5;
-    UIButton            *color6;
-    UIButton            *color7;
-    UIButton            *color8;
     NSArray             *buttonItems;
     
     NSMutableParagraphStyle *paraStyle;
@@ -87,8 +79,14 @@
     
     UITextView *searchTextField;
     
-    //ImageSearchViewController *imageSearchView;
     UIImageView         *imageSearchView;
+    
+    // Filters
+    CIFilter            *imageFilter;
+    CIContext           *context;
+    CIImage             *outputImage;
+    UIImage             *imageWithFilter;
+    UIImageView         *defaultContentImage;
 }
 
 
