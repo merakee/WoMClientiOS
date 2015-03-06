@@ -48,6 +48,9 @@ static const int kCellButtonTag = 10;
     // Buttons
     UIButton                *cancelButton;
     UIImage                 *contentImage;
+    UIButton                *shareButton;
+    UIButton                *reportButton;
+    CustomContentView       *scv;
 }
 @property (nonatomic) ApiContent *currentContent;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
@@ -55,4 +58,5 @@ static const int kCellButtonTag = 10;
 @property NSLayoutConstraint *horizontalContraint;
 extern NSArray const *testArray;
 @property NSMutableArray *keyboardConstraints;
+@property (nonatomic) UIImage *contentImage;
 @end

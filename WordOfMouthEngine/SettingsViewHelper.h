@@ -19,5 +19,9 @@
 //@property (nonatomic, strong) UILabel *getHistoryLabel;
 
 @property (nonatomic, strong) UILabel *getDescriptionLabel;
+#pragma mark - Navigation Bar
++ (UIView *)getNavigationView;
++ (UIButton *)getCancelButton;
++ (UILabel *)getSettingsTitle;
 
 @end

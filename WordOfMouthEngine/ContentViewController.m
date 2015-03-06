@@ -13,16 +13,14 @@
 #import "AppDelegate.h"
 #import "FlurryManager.h"
 #import "SignInAndOutViewController.h"
-#import "SettingsViewController.h"
 #import "CommentViewController.h"
 #import "ProfileViewController.h"
-#import <Social/Social.h>
 #import "NotificationViewController.h"
 #import "AppUIConstants.h"
 #import "HistoryViewController.h"
 #import "WomSignInViewController.h"
 #import <CoreImage/CoreImage.h>
-
+#import "PublicProfileViewController.h"
 @implementation ContentViewController
 @synthesize overlayView;
 - (id)init
@@ -59,7 +57,8 @@
     // init content manager
     contentManager = [[ContentManager alloc] init];
     // init content
-    currentContent =[[ApiContent  alloc] init];
+    topContent =[[ApiContent  alloc] init];
+    storedContent = [[ApiContent alloc] init];
 }
 
 - (void)viewDidLoad{
@@ -171,6 +170,7 @@
     
     blurredImage = [ContentViewHelper getBlurredImage];
     blurredImage.backgroundColor = [UIColor lightGrayColor];
+    
     [self.view addSubview:blurredImage];
     
     repliesButton = [ContentViewHelper getRepliesButton];
@@ -189,7 +189,7 @@
     
     notificationButton = [ContentViewHelper getNotificationButton];
     [notificationButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [notificationButton addTarget:self action:@selector(goToCommentView:) forControlEvents:UIControlEventTouchUpInside];
+    [notificationButton addTarget:self action:@selector(goToProfileView:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:notificationButton];
     
     //    mapButton = [ContentViewHelper getMapButton];
@@ -207,9 +207,7 @@
     
    // self.view.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUContentBackgroundColor];
     self.view.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorPrimary];
-    //  [self.view addSubview:shareButton];
   //  [self.view addSubview:reportButton];
-    shareButton.enabled = NO;
     
     //    // set Textlabels and progress view
     //    spreadCount = [ContentViewHelper getTextLabelForSpreadCount];
@@ -468,7 +466,7 @@
     if (isRefreshingContent){
         return;
     }
-    if (![ApiContent isValidContent:currentContent]){
+    if (![ApiContent isValidContent:topContent]){
         return;
     }
     CustomContentView *tcv = [self getViewOnTop];
@@ -512,11 +510,9 @@
         // right
         if (_endingTap - _startingTap > (screenW / 3) || _endingTap2 - _startingTap2 > (screenW / 3)) {
             [self completeGestureAnimationWithSpread:true];
-            //[self spreadButtonPressed:nil];
         // left
         } else if (_startingTap - _endingTap > (screenW / 3) || _startingTap2 - _endingTap2 > (screenW / 3)) {
             [self completeGestureAnimationWithSpread:false];
-            // [self killButtonPressed:nil];
         }
         //        if (_startVerticalTap - _endVerticalTap > (screenH / 4)){
         //            [self goToCommentView:self];
@@ -529,13 +525,6 @@
                                 [tcv setCenter:translatedPoint];
                              }];
         }
-                        // Use translation offset
-        //                CGPoint translation = [sender translationInView:sender.view];
-        //                sender.view.center = CGPointMake(sender.view.center.x + translation.x,
-        //                                                 sender.view.center.y + translation.y);
-        // Clear translation
-        // //       [sender setTranslation:CGPointZero inView:sender.view];
-        //         [sender cancelsTouchesInView];
         //        // down
         //        if (distance.y > 0) {
         //            NSLog(@"user swiped down");
@@ -593,10 +582,6 @@
     [[self parentViewController] presentViewController:activityVC animated:YES completion:nil];
 }
 
-- (void)signInLoginButtonPressed:(id)sender {
-  
-}
-
 - (void)goToAddContentView:(id)sender {
     // set add content view
     ComposeViewController *acvc =[[ComposeViewController alloc] init];
@@ -615,10 +600,6 @@
 //    SignInAndOutViewController *siovc =[[SignInAndOutViewController alloc] init];
 //    siovc.hidesBottomBarWhenPushed=YES;
 //    [self presentViewController:siovc    animated:YES completion:nil];
-    
-    //    SettingsViewController *svc = [[SettingsViewController alloc] init];
-    //    svc.hidesBottomBarWhenPushed=YES;
-    //    [self.navigationController pushViewController:svc animated:NO];
 }
 
 -(void)goToReportMessage:(id)sender {
@@ -630,17 +611,23 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Content offensive?" message:@"Want to report this content?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     [alert show];
 }
-
+-(void)goToProfileView:(id)sender{
+    PublicProfileViewController *pvc = [[PublicProfileViewController alloc] init];
+    pvc.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:pvc animated:NO];
+}
 -(void)goToCommentView:(id)sender{
     if (isRefreshingContent) {
         return;
     }
-    if (![ApiContent isValidContent:currentContent]){
+    if (![ApiContent isValidContent:topContent]){
         return;
     }
     CommentViewController *cvc = [[CommentViewController alloc] init];
     cvc.hidesBottomBarWhenPushed=YES;
-    cvc.currentContent = currentContent;
+  //  cvc.currentContent = storedContent;
+    cvc.contentImage = [self getViewOnTop].contentImageView.image;
+    NSLog(@"image: %@", cvc.contentImage);
     [self.navigationController pushViewController:cvc animated:NO];
 }
 - (void)goToHistoryView:(id)sender{
@@ -657,7 +644,7 @@
     else if (buttonIndex == 1)
     {
         [activityIndicator startAnimating];
-        [[ApiManager sharedApiManager] flagContentWithId:currentContent.contentId.intValue
+        [[ApiManager sharedApiManager] flagContentWithId:topContent.contentId.intValue
                                                  success:^(ApiContentFlag *contentFlag) {
                                                      [activityIndicator stopAnimating];
                                                      [self actionsForSuccessfulFlagContent];
@@ -715,7 +702,7 @@
 
 -(void)updateCustomContentView:(CustomContentView *)customContentView withText:(NSString *)text andImage:(UIImage *)image{
     //    [customContentView customTextView] = text;
-    //      contentView.attributedText = [ContentViewHelper getAttributedText:currentContent.customContentView];
+    //      contentView.attributedText = [ContentViewHelper getAttributedText:topContent.customContentView];
     //    customContentView.textInputMode = text;
     //          customContentView.image= image;
     customContentView.hidden = NO;
@@ -727,35 +714,6 @@
 }
 - (void)updateContentForTopView:(bool)isTop{
     isRefreshingContent = true;
-    NSLog(@"blah1");
-    if([currentContent.photoToken isKindOfClass:[NSDictionary class]]
-       && currentContent.photoToken[@"url"] &&
-       (![currentContent.photoToken[@"url"] isEqual:[NSNull null]])){
-    // Blurred image behind
-    [blurredImage setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]]
-                         placeholderImage:bgImage];
-
-    CIFilter *gaussianBlurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];   
-    [gaussianBlurFilter setDefaults];
-    [gaussianBlurFilter setValue:[CIImage imageWithCGImage:[blurredImage.image CGImage]] forKey:kCIInputImageKey];
-    [gaussianBlurFilter setValue:@10 forKey:kCIInputRadiusKey];
-
-    CIImage *outputImage = [gaussianBlurFilter outputImage];
-    CIContext *context   = [CIContext contextWithOptions:nil];
-    CGRect rect          = [outputImage extent];
-    rect.origin.x        += (rect.size.width  - blurredImage.image.size.width ) / 2;
-    rect.origin.y        += (rect.size.height - blurredImage.image.size.height) / 2;
-    rect.size            = blurredImage.image.size;
-    
-    CGImageRef cgimg     = [context createCGImage:outputImage fromRect:rect];
-    UIImage *image       = [UIImage imageWithCGImage:cgimg];
-    blurredImage.image = image;
-    }
-    
-    else {
-    ccv.contentImageView.image = bgImage;
-    }
-    
     
     // set content image to nil
     if(isTop){
@@ -772,29 +730,59 @@
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:nil timed:YES];
     
+    storedContent = topContent;
+    
+    blurredImage.image = [self getViewOnTop].contentImageView.image;
+    NSLog(@"blurred image: %@", blurredImage.image);
     // update content
     [contentManager getContentWithActivityIndicator:nil//(UIActivityIndicatorView *)activityIndicator
                                             success:^(ApiContent *content) {
                                                 // Analytics: Flurry
                                                 [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:nil];
-                                                currentContent=content;
+                                                topContent=content;
+                                              //  [self storeContentIfNeeded];
                                                 [self updateViewWithNewContentForTopView:isTop];
                                             }
                                             failure:^(ApiContent *content) {
                                                 // Analytics: Flurry
                                                 [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:@{@"Error":@"No Content"}];
-                                                currentContent= content;
+                                                topContent= content;
+                                                 blurredImage.image = [self getViewOnTop].contentImageView.image;
+                                             //   [self storeContentIfNeeded];
                                                 [self updateViewWithNewContentForTopView:isTop];
                                             }];
-    
+    // Blurred image behind
+    //    NSLog(@"*************");
+//        CIFilter *gaussianBlurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
+//        [gaussianBlurFilter setDefaults];
+//        [gaussianBlurFilter setValue:[CIImage imageWithCGImage:[blurredImage.image CGImage]] forKey:kCIInputImageKey];
+//        [gaussianBlurFilter setValue:@10 forKey:kCIInputRadiusKey];
+//        
+//        CIImage *outputImage = [gaussianBlurFilter outputImage];
+//        CIContext *context   = [CIContext contextWithOptions:nil];
+//        CGRect rect          = [outputImage extent];
+//        rect.origin.x        += (rect.size.width  - blurredImage.image.size.width ) / 2;
+//        rect.origin.y        += (rect.size.height - blurredImage.image.size.height) / 2;
+//        rect.size            = blurredImage.image.size;
+//        
+//        CGImageRef cgimg     = [context createCGImage:outputImage fromRect:rect];
+//        UIImage *image       = [UIImage imageWithCGImage:cgimg];
+//        blurredImage.image = image;
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAContentEach] withParameters:nil timed:YES];
     
 }
+-(void)storeContentIfNeeded{
+    if (![ApiContent isValidContent:storedContent])
+    {
+        storedContent = topContent;
+       // [ApiContent printContentInfo:storedContent];
+    }
+}
 //- (void)updateView:(CustomContentView *)customContentView WithNewContent:newContent{
 - (void)updateViewWithNewContentForTopView:(bool)isTop{
     
-    isEmptyContent = currentContent.categoryId.integerValue==kAPIContentCategoryEmpty;
+    isEmptyContent = topContent.categoryId.integerValue==kAPIContentCategoryEmpty;
     //    [spreadButton setImage:[UIImage imageNamed:kAUCSpreadButtonImage] forState:UIControlStateNormal];
     [self startContentLoadAnimation];
     
@@ -810,14 +798,14 @@
     }
     ccv.contentMode = UIViewContentModeScaleAspectFill;
     
-    //   [ApiContent printContentInfo:currentContent];
+    //   [ApiContent printContentInfo:topContent];
     
-    if([currentContent.photoToken isKindOfClass:[NSDictionary class]]
-       && currentContent.photoToken[@"url"] &&
-       (![currentContent.photoToken[@"url"] isEqual:[NSNull null]])){
-        //        [contentBackGround setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]]
+    if([topContent.photoToken isKindOfClass:[NSDictionary class]]
+       && topContent.photoToken[@"url"] &&
+       (![topContent.photoToken[@"url"] isEqual:[NSNull null]])){
+        //        [contentBackGround setImageWithURL:[NSURL URLWithString:topContent.photoToken[@"url"]]
         //                          placeholderImage:bgImage];
-        [ccv.contentImageView setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]]
+        [ccv.contentImageView setImageWithURL:[NSURL URLWithString:topContent.photoToken[@"url"]]
                              placeholderImage:bgImage];
         
         [self performContentDisplayAnimation];
@@ -833,31 +821,31 @@
         [self performContentDisplayAnimation];
     }
     
-    //[ApiContent printContentInfo:currentContent];
+    //[ApiContent printContentInfo:topContent];
     // change category color
-    //[ContentViewHelper updateContentBackGroundView:contentBackGround forCategory:(kAPIContentCategory)currentContent.categoryId];
+    //[ContentViewHelper updateContentBackGroundView:contentBackGround forCategory:(kAPIContentCategory)topContent.categoryId];
     
     //    // set text
-    //    contentTextView.text = currentContent.contentText;
+    //    contentTextView.text = topContent.contentText;
     //
     //    // get text
-    //    [ccv setAttributedText:[ContentViewHelper getAttributedText:currentContent.contentText]];
+    //    [ccv setAttributedText:[ContentViewHelper getAttributedText:topContent.contentText]];
     
-    //    customContentView1.attributedText = [ContentViewHelper getAttributedText:currentContent.contentText];
+    //    customContentView1.attributedText = [ContentViewHelper getAttributedText:topContent.contentText];
     
-    //            contentView.attributedText = [ContentViewHelper getAttributedText:currentContent.contentView];
+    //            contentView.attributedText = [ContentViewHelper getAttributedText:topContent.contentView];
     
     // contentTextView.attributedText = [ContentViewHelper getAttributedText:[self dummyText]];
     
-    //NSAttributedString *str = [[NSAttributedString alloc] initWithString:currentContent.contentText];
+    //NSAttributedString *str = [[NSAttributedString alloc] initWithString:topContent.contentText];
     //contentTextView.attributedText =str ;
     // center virtically
     //[AppUIManager  verticallyAlignTextView:contentTextView];
     //[self.view  updateConstraintsIfNeeded];
     
     // update counts
-    //spreadCount.text = [NSString stringWithFormat:@"%ld", (long)currentContent.totalSpread.integerValue];
-    ///timeCount.text = currentContent.timeStamp;
+    //spreadCount.text = [NSString stringWithFormat:@"%ld", (long)topContent.totalSpread.integerValue];
+    ///timeCount.text = topContent.timeStamp;
     //[self resetContentTimer];
     
     pic_index +=1;
@@ -865,11 +853,11 @@
     
     // comment count tag
     
-    commentCount.text = [CommonUtility getFixedLengthStringForNumber:currentContent.commentCount];
-   // commentCount.text = [ContentViewHelper convertCommentCount:@150];//currentContent.commentCount];
+    commentCount.text = [CommonUtility getFixedLengthStringForNumber:topContent.commentCount];
+   // commentCount.text = [ContentViewHelper convertCommentCount:@150];//topContent.commentCount];
     //customContentView1
-    //spreadsCount.text = [CommonUtility getFixedLengthStringForNumber:currentContent.spreadCount];
-    ccv.spreadsCount.text = [CommonUtility getFixedLengthStringForNumber:currentContent.spreadCount];
+    //spreadsCount.text = [CommonUtility getFixedLengthStringForNumber:topContent.spreadCount];
+    ccv.spreadsCount.text = [CommonUtility getFixedLengthStringForNumber:topContent.spreadCount];
     
     //ccv.spreadsCount.text = [ContentViewHelper convertSpreadCount:@1450001];
     shareButton.enabled = YES;
@@ -878,11 +866,12 @@
 
 - (void)clearContents{
     [contentManager clearContents];
-    currentContent.contentId = nil;
+    topContent.contentId = nil;
+    topContent.contentId = nil;
 }
 
 - (void)refreshContentOnlyForTopView:(bool)onlyTop{
-    if((currentContent.contentId==nil)&&([[ApiManager sharedApiManager] currentUser]!=nil)){
+    if((topContent.contentId==nil)&&([[ApiManager sharedApiManager] currentUser]!=nil)){
         // update the top view
         [self updateContentForTopView:true];
         if(!onlyTop){
@@ -1125,7 +1114,7 @@
     // post content user
     //[activityIndicator startAnimating];
     [self performUserResponseAnimationWithResponse:response];
-    [[ApiManager sharedApiManager] postResponseWithContentId:currentContent.contentId.intValue
+    [[ApiManager sharedApiManager] postResponseWithContentId:topContent.contentId.intValue
                                                     response:[NSNumber numberWithBool:response]
                                                      success:^(ApiUserResponse *response){
                                                          //[activityIndicator stopAnimating];

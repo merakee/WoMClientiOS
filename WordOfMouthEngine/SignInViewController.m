@@ -90,7 +90,7 @@
     // page controller
     [self setPageView];
     [self setupPageControl];
-    
+    counter = 0;
     //    // set buttons
     //    googleButton = [SignInViewHelper getGoogleButton];
     //    [googleButton addTarget:self action:@selector(googleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -105,26 +105,6 @@
     //    twitterButton = [SignInViewHelper getTwitterButton];
     //    [twitterButton addTarget:self action:@selector(twitterButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     //    [self.view addSubview:twitterButton];
-    
-    // set lables
-//    pageLabel = [SignInViewHelper getPageLabel];
-//    [self.view addSubview:pageLabel];
-    
-    // set app logo view
-//    appLogoView = [SignInViewHelper getLogoView];
-//    [self.view addSubview:appLogoView];
-
-    // description label
-//    descriptionLabel = [SignInViewHelper getDescriptionLabel];
-//    [self.view addSubview:descriptionLabel];
-    
-    // login label
-//    loginLabel = [SignInViewHelper getLoginLabel];
-//    [self.view addSubview:loginLabel];
-    
-//    // set buttons view
-//    buttonsView = [SignInViewHelper getButtonsView];
-//    [self.view addSubview:buttonsView];
     
     // set buttons
     signInButton = [SignInViewHelper getSignInButton];
@@ -281,8 +261,7 @@
     tutorialImages = @[@"slide-1.png",
                        @"slide-2.png",
                        @"slide-3.png",
-                       @"slide-4.png",
-                       @"aff.png"];
+                       @"slide-4.png"];
 
 //    UIPageViewController *pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     
@@ -349,15 +328,12 @@
 - (UIViewController *)pageViewController: (UIPageViewController *) pageViewController viewControllerAfterViewController:(UIViewController *) viewController
 {
     TutorialViewController *itemController = (TutorialViewController *) viewController;
-    
-    if (itemController.index+1 < [tutorialImages count])
+    if (itemController.index == 0 && counter == 0)
     {
-    //    NSLog(@"%lu",(long)itemController.index);
-    //    NSLog(@"%lu",(long)tutorialImages.count);
+        counter = 1;
         return [self itemControllerForIndex: itemController.index+1];
-       
     }
-    if (itemController.index == 4)
+    if (itemController.index == 0 && counter != 0)
     {
         // Analytics: Flurry
         [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionGuestSignIn]];
@@ -368,6 +344,7 @@
                                                           email:nil
                                                        password:nil
                                                         success:^(void){
+                                                            // return [self itemControllerForIndex:itemController.index+1];
                                                             [activityIndicator stopAnimating];
                                                             [self actionsForSuccessfulAnonymusUserSignIn];
                                                         }failure:^(NSError * error){
@@ -376,12 +353,21 @@
                                                             [activityIndicator stopAnimating];
                                                             [ApiErrorManager displayAlertWithError:error withDelegate:self];
                                                         }];
-        return [self itemControllerForIndex:itemController.index];
+        
+       // return [self itemControllerForIndex: itemController.index+1];
     }
-        // Loop pageviewcontroller
- //   return [self itemControllerForIndex:0];
+
+    if (itemController.index+1 < [tutorialImages count])
+    {
+        NSLog(@"%lu",(long)itemController.index);
+    //    NSLog(@"%lu",(long)tutorialImages.count);
+        return [self itemControllerForIndex: itemController.index+1];
+       
+    }
+           // Loop pageviewcontroller
+    return [self itemControllerForIndex:0];
     
-    return nil;
+   // return nil;
 }
 
 - (TutorialViewController *) itemControllerForIndex: (NSUInteger) itemIndex

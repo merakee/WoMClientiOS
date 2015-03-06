@@ -12,10 +12,13 @@
 #import "FlurryManager.h"
 #import "ContentTableViewCell.h"
 #import "ContentViewController.h"
+#import "CustomContentView.h"
+
 @implementation CommentViewController
 @synthesize segmentedControl;
 @synthesize currentContent;
 @synthesize keyboardConstraints;
+@synthesize contentImage;
 #pragma mark -  init methods
 - (id)init {
     if (self = [super init]) {
@@ -27,27 +30,22 @@
     }
     return self;
 }
-
 - (void)loadView {
     [super loadView];
     [self setView];
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     commentsTableView.estimatedRowHeight = 44.0;
     commentsTableView.rowHeight = UITableViewAutomaticDimension;
     commentsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
 - (void)viewDidUnload{
     [super viewDidUnload];
 }
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForKeyboardNotifications];
@@ -59,25 +57,19 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self updateCommentArrayWithMode:kAPICommentRefreshModeGetMore];
-    
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [self deregisterFromKeyboardNotifications];
     [super viewWillDisappear:animated];
-    
     // Analytics: Flurry
     [Flurry endTimedEvent:[FlurryManager getEventName:kFAComposeSession] withParameters:nil];
 }
-
 - (BOOL)shouldAutorotate{
     return  YES;
 }
 - (NSUInteger)supportedInterfaceOrientations{
     return [AppUIManager getSupportedOrentation];
 }
-//- (void)updateViewConstraints{
-//  //  [self updateViewConstraints];
-//}
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
@@ -89,9 +81,6 @@
 
     [self onSegmentedControlChanged:segmentedControl];
     [self addSegmentedControl];
-    
-    
-    
     [self setupTableView];
     [self.view addSubview:commentsTableView];
     
@@ -99,22 +88,41 @@
     activityIndicator =[[UIActivityIndicatorView alloc] init];
     [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
     
-    [self addToolbar];
+    // Send Button
+    sendButton = [CommentViewHelper getSendButton];
+    [sendButton addTarget:self action:@selector(postComment:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:sendButton];
+    
+    // Comment Textbox
+    commentText = [CommentViewHelper getCommentText:self];
+    [self.view addSubview:commentText];
     
     // Cancel Button
     cancelButton = [CommentViewHelper getCancelButton];
     [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:cancelButton];
     
+    // Share Button
+    shareButton = [CommentViewHelper getShareButton];
+    [shareButton addTarget:self action:@selector(shareButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:shareButton];
+    
+    // Report Button
+    reportButton = [ContentViewHelper getReportButton];
+    [reportButton addTarget:self action:@selector(goToReportMessage:) forControlEvents:UIControlEventTouchUpInside];
+    
     [self layoutView];
     [self addGesture];
 }
 
 - (void)layoutView{
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText, segmentedControl, cancelButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText, segmentedControl, cancelButton, shareButton);
     // buttons
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[shareButton(28)]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[shareButton(38)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[commentsTableView]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
@@ -155,7 +163,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section. should be returning the number of comments
-  //  NSLog(@"Update: %ld", (unsigned long)activeArray.count);
     return [activeArray count]+1;
 }
 
@@ -184,6 +191,7 @@
 }
 - (void)setupContentCell:(ContentTableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
 //    [cell.contentImage.contentImageView setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]] placeholderImage:nil];
+    cell.contentImage.contentImageView.image = self.contentImage;
    // cell.contentImage.contentImageView = [ContentViewController co
     //contentImage
     [cell sizeToFit];
@@ -201,10 +209,8 @@
     cell.likeButton.didLike =[apiComment.didLike boolValue];
     cell.likeCount.text = [apiComment.likeCount stringValue];
     cell.commentCellLabel.text = apiComment.commentText;
-    
-    //   NSLog(@"comment text: %@", apiComment.commentText);
-    
     [cell sizeToFit];
+    //   NSLog(@"comment text: %@", apiComment.commentText);
     //cell.likeButton.tag = indexPath.row;
     //    if (segmentedControl.selectedSegmentIndex == 0) {
     //        // Update the comments to top/most recent
@@ -282,9 +288,7 @@
 }
 
 - (void) onSegmentedControlChanged:(UISegmentedControl *) sender {
-    
     [self updateCommentArrayWithMode:kAPICommentRefreshModeRefresh];
-    
     //    if (sender.selectedSegmentIndex == 0) {
     //        segmentedControl.selectedSegmentIndex = 0;
     //        // switch active array pointer to popular array
@@ -310,16 +314,7 @@
     //    [self.tableView reloadData];
 }
 
-#pragma mark - Toolbar at bottom
-- (void) addToolbar{
-    sendButton = [CommentViewHelper getSendButton];
-    [sendButton addTarget:self action:@selector(postComment:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:sendButton];
-    commentText = [CommentViewHelper getCommentText:self];
-    [self.view addSubview:commentText];
-}
-
-- (void) setupTableView{
+- (void)setupTableView{
     commentsTableView = [[UITableView alloc] init];
     [commentsTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
     
@@ -390,11 +385,12 @@
     layoutConstraintSendButtonYPosition.constant = -(heightWithoutKeyboard +keyboardHeight);
     layoutConstraintTextFieldYPosition.constant = -(heightWithoutKeyboard +keyboardHeight);
     [self.view layoutIfNeeded];
-    
+    commentText.text = @"";
 //    [commentsTableView setContentOffset:
 //    CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
 //    [self.view setFrame:CGRectMake(0,0-keyboardHeight,screenW, screenH)];
 //    [commentsTableView setContentOffset: CGPointMake(0, -commentsTableView.contentInset.top) animated:YES];
+    
 }
 -(void)updateConstraints{
     [self layoutView];
@@ -442,9 +438,45 @@
 - (void)disableKeyBoard{
     // disable keyboard
     [commentText resignFirstResponder];
+    
 }
 
 #pragma mark - Button Action Methods
+- (void)shareButtonPressed:(id)sender {
+    NSString *message = @"Found in Spark http://www.sparkapp.social/";
+    
+    UIImage *imageToShare = self.contentImage;
+    NSArray *postItems = [[NSArray alloc] initWithObjects:imageToShare, message, nil];
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc]
+                                            initWithActivityItems:postItems
+                                            applicationActivities:nil];
+    [activityVC setTitle:message];
+    
+    activityVC.excludedActivityTypes = @[UIActivityTypePostToWeibo,
+                                         // UIActivityTypeMessage,
+                                         //   UIActivityTypeMail,
+                                         UIActivityTypePrint,
+                                         UIActivityTypeCopyToPasteboard,
+                                         UIActivityTypeAssignToContact,
+                                         // UIActivityTypeSaveToCameraRoll,
+                                         UIActivityTypeAddToReadingList,
+                                         UIActivityTypePostToFlickr,
+                                         UIActivityTypePostToVimeo,
+                                         UIActivityTypePostToTencentWeibo,
+                                         UIActivityTypeAirDrop];
+    // activityVC.popoverPresentationController.sourceView = self.view;
+       [self presentViewController:activityVC animated:YES completion:nil];
+    //[[self parentViewController] presentViewController:activityVC animated:YES completion:nil];
+}
+-(void)goToReportMessage:(id)sender {
+    // Display report message, report it to backend
+//    scv = [self getViewOnTop];
+//    if (scv.contentImageView.image==nil){
+//        return;
+//    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Content offensive?" message:@"Want to report this content?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [alert show];
+}
 - (void)goBack:(id)sender {
     // go back
     [self.navigationController popViewControllerAnimated:NO];
@@ -706,5 +738,4 @@
 //                    ];
 //
 //}
-
 @end

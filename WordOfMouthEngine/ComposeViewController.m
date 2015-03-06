@@ -13,7 +13,7 @@
 #import "AppDelegate.h"
 @implementation ComposeViewController
 long  textLength;
-
+int   doneCounter;
 - (id)init
 {
     if (self = [super init]) {
@@ -109,8 +109,7 @@ long  textLength;
 
     // set view
     [ComposeViewHelper setView:self.view];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kAUCComposeBackgroundImage]];
-    
+
     doneButton = [ComposeViewHelper getDoneButton];
     [doneButton addTarget:self action:@selector(doneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:doneButton];
@@ -128,10 +127,8 @@ long  textLength;
     // image view
     contentImageView = [ComposeViewHelper getContentImageView];
    [self.view addSubview:contentImageView];
-    contentImageView.backgroundColor = [UIColor whiteColor];
     
     defaultContentImage = [ComposeViewHelper getContentImageView];
-      //  contentImageView.backgroundColor = [UIColor redColor];
     // set Category control
     //    categoryControl = [ComposeViewHelper getCategoryControl];
     //    [categoryControl addTarget:self action:@selector(selectedCategoryChanged:) forControlEvents:UIControlEventValueChanged];
@@ -147,7 +144,7 @@ long  textLength;
  //   composeTextView.backgroundColor = [UIColor redColor];
     placeHolderLabel = [ComposeViewHelper getPlaceHolderLabel];
     [composeTextView addSubview:placeHolderLabel];
-//    contentImageView.backgroundColor = [UIColor redColor];
+     contentImageView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kAUCComposeBackgroundImage]];
     
     // buttons
     cameraOptionsButton = [ComposeViewHelper getCameraOptionsButton];
@@ -167,11 +164,16 @@ long  textLength;
     paraStyle.lineBreakMode = NSLineBreakByWordWrapping;
     paraStyle.alignment = NSTextAlignmentCenter;
     
+    borderLine = [[UIView alloc] init];
+    borderLine.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCBorderColor];
+    [borderLine setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:borderLine];
     // Set default toolbar
     //[self defaultToolBar];
 //    [self addColorKeyboardToolBar];
 //    [self.view addSubview:colorKeyboardToolBar];
     
+    doneCounter = 0;
     // layout
     [self layoutView];
     
@@ -185,7 +187,7 @@ long  textLength;
 }
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, textButton, imageButton, filterButton, postButton, doneButton, cancelButton, cameraOptionsButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(contentImageView, composeTextView,placeHolderLabel, textButton, imageButton, filterButton, postButton, doneButton, cancelButton, cameraOptionsButton, borderLine);
     
     // buttons
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -200,7 +202,7 @@ long  textLength;
 //    [self.view addConstraints:              [NSLayoutConstraint constraintsWithVisualFormat:@"V:[postButton(66)]-214-|"
 //                                                                                    options:0 metrics:nil views:viewsDictionary]];
     
-    [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[composeTextView(100)]"
+    [contentImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[composeTextView(340)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
     //[AppUIManager verticallyCenterElement:composeTextView inView:contentImageView];
@@ -220,26 +222,26 @@ long  textLength;
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:cameraOptionsButton inView:self.view];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[doneButton(44)]-[contentImageView]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[doneButton(44)]-5-[contentImageView]-126-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[postButton(44)]-[contentImageView]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[postButton(44)]-5-[contentImageView]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cancelButton(44)]-[contentImageView]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[cancelButton(44)]-5-[contentImageView]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[cameraOptionsButton(44)]-[contentImageView]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[cameraOptionsButton(44)]-5-[contentImageView]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentImageView]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     
     
     // content image view height
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentImageView
-                                                      attribute:NSLayoutAttributeHeight
-                                                      relatedBy:NSLayoutRelationEqual
-                                                         toItem:contentImageView
-                                                      attribute:NSLayoutAttributeWidth
-                                                     multiplier:1.0
-                                                       constant:0.0]];
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentImageView
+//                                                      attribute:NSLayoutAttributeHeight
+//                                                      relatedBy:NSLayoutRelationEqual
+//                                                         toItem:contentImageView
+//                                                      attribute:NSLayoutAttributeWidth
+//                                                     multiplier:1.0
+//                                                       constant:0.0]];
     
 
     // place holder label
@@ -249,14 +251,17 @@ long  textLength;
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:placeHolderLabel inView:composeTextView];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[textButton(66)]-43-[imageButton(66)]-43-[filterButton(66)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[imageButton(66)]-43-[filterButton(66)]-43-[textButton(66)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [AppUIManager horizontallyCenterElement:imageButton inView:self.view];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[textButton(66)]-40-|"
+    [AppUIManager horizontallyCenterElement:filterButton inView:self.view];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[borderLine]|"
+                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[borderLine(5)]-25-[textButton(66)]-30-|"
                                                                                     options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[imageButton(66)]-40-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[imageButton(66)]-30-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[filterButton(66)]-40-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[filterButton(66)]-30-|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
     //[super layoutSubviews];
 }
@@ -349,7 +354,7 @@ long  textLength;
     
     textButton = (RoundRobinButton *)[ComposeViewHelper getTextButton];
     textButton.delegate = self;
-    textButton.actionList = @[@"textStyle1", @"textStyle2", @"textStyle3", @"textStyle4", @"textStyleDefault"];
+    textButton.actionList = @[@"textStyle1", @"textStyle2", @"textStyle3", @"textStyle4", @"textStyle5"];
     [self.view addSubview:textButton];
     imageButton = (RoundRobinButton *)[ComposeViewHelper getImageButton];
     imageButton.delegate = self;
@@ -358,7 +363,7 @@ long  textLength;
     
     filterButton = (RoundRobinButton *)[ComposeViewHelper getFilterButton];
     filterButton.delegate = self;
-    filterButton.actionList = @[@"filter1", @"filter2", @"filter3", @"filter4", @"filter5", @"filter6", @"filter7", @"filter8"];
+    filterButton.actionList = @[@"filter1", @"filter2", @"filter3", @"filter4", @"filter5", @"filter6", @"filter7", @"filter8", @"noFilter"];
     [self.view addSubview:filterButton];
 }
 #pragma mark - Text Button Actions
@@ -399,6 +404,7 @@ long  textLength;
     composeTextView.attributedText = str;
      [composeTextView setBackgroundColor:[CommonUtility getColorFromHSBACVec:kAUTextFieldColor]];
     [composeTextView.layer setCornerRadius:10.0f];
+    composeTextView.alpha = 0.8;
 }
 - (void)textStyle3{
     if (textLength == 0)
@@ -417,8 +423,25 @@ long  textLength;
     [composeTextView.layer setCornerRadius:0.0f];
     composeTextView.alpha = 0.8;
 }
-
 - (void)textStyle4{
+    if (textLength == 0)
+    {
+        return;
+    }
+    NSShadow *shadow = [NSShadow new];
+    [shadow setShadowColor:[CommonUtility getColorFromHSBACVec:kAUShadowColorDefault]];
+    [shadow setShadowOffset: CGSizeMake(0.0f, 1.0f)];
+    NSDictionary *typingAttributes = @{
+                                       NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
+                                       NSForegroundColorAttributeName:[UIColor whiteColor],
+                                       NSParagraphStyleAttributeName:paraStyle,
+                                       NSShadowAttributeName:shadow,
+                                       NSKernAttributeName:@1.0
+                                       };
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:composeTextView.text attributes:typingAttributes];
+    composeTextView.attributedText = str;
+}
+- (void)textStyle5{
     if (textLength == 0)
     {
         return;
@@ -438,25 +461,6 @@ long  textLength;
     [composeTextView setBackgroundColor:[UIColor clearColor]];
     composeTextView.alpha = 1.0;
 }
-- (void)textStyleDefault{
-    if (textLength == 0)
-    {
-        return;
-    }
-    NSShadow *shadow = [NSShadow new];
-    [shadow setShadowColor:[CommonUtility getColorFromHSBACVec:kAUShadowColorDefault]];
-    [shadow setShadowOffset: CGSizeMake(0.0f, 1.0f)];
-    NSDictionary *typingAttributes = @{
-                                       NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
-                                       NSForegroundColorAttributeName:[UIColor whiteColor],
-                                       NSParagraphStyleAttributeName:paraStyle,
-                                       NSShadowAttributeName:shadow,
-                                       NSKernAttributeName:@1.0
-                                       };
-    NSAttributedString *str = [[NSAttributedString alloc] initWithString:composeTextView.text attributes:typingAttributes];
-    composeTextView.attributedText = str;
-}
-
 #pragma mark - Image Button options
 - (void)backgroundImage1{
     contentImageView.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUBackgroundColor1];
@@ -484,7 +488,11 @@ long  textLength;
 }
 #pragma mark - Filter Button options
 - (void)filter1{
-     NSLog(@"filter1");
+    if (contentImageView.image == nil)
+    {
+        return;
+    }
+   //  NSLog(@"color monochrome");
     imageFilter = [CIFilter filterWithName:@"CIColorMonochrome"];
     [imageFilter setDefaults];
     [imageFilter setValue:[CIImage imageWithCGImage:[defaultContentImage.image CGImage]] forKey:kCIInputImageKey];
@@ -497,10 +505,13 @@ long  textLength;
     CGImageRef cgimg     = [context createCGImage:outputImage fromRect:rect];
     imageWithFilter      = [UIImage imageWithCGImage:cgimg];
     contentImageView.image = imageWithFilter;
-    
 }
 - (void)filter2{
-    NSLog(@"filter2");
+    if (contentImageView.image == nil)
+    {
+        return;
+    }
+  //  NSLog(@"photo effect instant");
     imageFilter = [CIFilter filterWithName:@"CIPhotoEffectInstant"];
     [imageFilter setDefaults];
     [imageFilter setValue:[CIImage imageWithCGImage:[defaultContentImage.image CGImage]] forKey:kCIInputImageKey];
@@ -515,7 +526,11 @@ long  textLength;
     contentImageView.image = imageWithFilter;
 }
 - (void)filter3{
-    NSLog(@"filter3");
+    if (contentImageView.image == nil)
+    {
+        return;
+    }
+  //  NSLog(@"color cube");
     imageFilter = [CIFilter filterWithName:@"CIColorCube"];
     [imageFilter setDefaults];
     [imageFilter setValue:[CIImage imageWithCGImage:[defaultContentImage.image CGImage]] forKey:kCIInputImageKey];
@@ -530,7 +545,11 @@ long  textLength;
     contentImageView.image = imageWithFilter;
 }
 - (void)filter4{
-    NSLog(@"filter4");
+    if (contentImageView.image == nil)
+    {
+        return;
+    }
+  //  NSLog(@"photo effect mono");
     imageFilter = [CIFilter filterWithName:@"CIPhotoEffectMono"];
     [imageFilter setDefaults];
     [imageFilter setValue:[CIImage imageWithCGImage:[defaultContentImage.image CGImage]] forKey:kCIInputImageKey];
@@ -545,7 +564,11 @@ long  textLength;
     contentImageView.image = imageWithFilter;
 }
 - (void)filter5{
-    NSLog(@"filter5");
+    if (contentImageView.image == nil)
+    {
+        return;
+    }
+  //  NSLog(@"photo effect fade");
     imageFilter = [CIFilter filterWithName:@"CIPhotoEffectFade"];
     [imageFilter setDefaults];
     [imageFilter setValue:[CIImage imageWithCGImage:[defaultContentImage.image CGImage]] forKey:kCIInputImageKey];
@@ -560,7 +583,11 @@ long  textLength;
     contentImageView.image = imageWithFilter;
 }
 - (void)filter6{
-    NSLog(@"filter6");
+    if (contentImageView.image == nil)
+    {
+        return;
+    }
+  //  NSLog(@"bloom");
     imageFilter = [CIFilter filterWithName:@"CIBloom"];
     [imageFilter setDefaults];
     [imageFilter setValue:[CIImage imageWithCGImage:[defaultContentImage.image CGImage]] forKey:kCIInputImageKey];
@@ -575,11 +602,18 @@ long  textLength;
     contentImageView.image = imageWithFilter;
 }
 - (void)filter7{
-    NSLog(@"filter7");
-    imageFilter = [CIFilter filterWithName:@"CIColorCrossPolynomial"];
+    if (contentImageView.image == nil)
+    {
+        return;
+    }
+ //   NSLog(@"color matrix");
+    imageFilter = [CIFilter filterWithName:@"CIColorMatrix"];
     [imageFilter setDefaults];
     [imageFilter setValue:[CIImage imageWithCGImage:[defaultContentImage.image CGImage]] forKey:kCIInputImageKey];
-    
+    [imageFilter setValue:[CIVector vectorWithX:1 Y:1 Z:1 W:0] forKey:@"inputRVector"];
+    [imageFilter setValue:[CIVector vectorWithX:0 Y:1 Z:0 W:0] forKey:@"inputGVector"];
+    [imageFilter setValue:[CIVector vectorWithX:0 Y:0 Z:1 W:0] forKey:@"inputBVector"];
+    [imageFilter setValue:[CIVector vectorWithX:0 Y:0 Z:0 W:1] forKey:@"inputAVector"];
     outputImage = [imageFilter outputImage];
     context   = [CIContext contextWithOptions:nil];
     CGRect rect          = [outputImage extent];
@@ -591,10 +625,19 @@ long  textLength;
     contentImageView.image = imageWithFilter;
 }
 - (void)filter8{
-    NSLog(@"filter8");
-    imageFilter = [CIFilter filterWithName:@"CISpotColor"];
+    if (contentImageView.image == nil)
+    {
+        return;
+    }
+  //  NSLog(@"tone curve");
+    imageFilter = [CIFilter filterWithName:@"CIToneCurve"];
     [imageFilter setDefaults];
     [imageFilter setValue:[CIImage imageWithCGImage:[defaultContentImage.image CGImage]] forKey:kCIInputImageKey];
+    [imageFilter setValue:[CIVector vectorWithX:0.0  Y:0.0] forKey:@"inputPoint0"]; // default
+    [imageFilter setValue:[CIVector vectorWithX:0.27 Y:0.26] forKey:@"inputPoint1"];
+    [imageFilter setValue:[CIVector vectorWithX:0.5  Y:0.80] forKey:@"inputPoint2"];
+    [imageFilter setValue:[CIVector vectorWithX:0.7  Y:1.0] forKey:@"inputPoint3"];
+    [imageFilter setValue:[CIVector vectorWithX:1.0  Y:1.0] forKey:@"inputPoint4"];
     outputImage = [imageFilter outputImage];
     context   = [CIContext contextWithOptions:nil];
     CGRect rect          = [outputImage extent];
@@ -604,6 +647,14 @@ long  textLength;
     CGImageRef cgimg     = [context createCGImage:outputImage fromRect:rect];
     imageWithFilter      = [UIImage imageWithCGImage:cgimg];
     contentImageView.image = imageWithFilter;
+}
+- (void)noFilter{
+    if (contentImageView.image == nil)
+    {
+        return;
+    }
+  //   NSLog(@"default image");
+    contentImageView.image = defaultContentImage.image;
 }
 
 #pragma mark - Keyboard Toolbar Options
@@ -664,6 +715,7 @@ long  textLength;
     //composeTextView.inputAccessoryView = nil;
 }
 - (void)keyboardOptions{
+    
     [composeTextView becomeFirstResponder];
 }
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
@@ -704,6 +756,9 @@ long  textLength;
 }
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
+    if (textLength == 0){
+        return;
+    }
     [self adjustFrames];
 }
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
@@ -724,7 +779,7 @@ long  textLength;
     }
     return YES;
 }
--(void) adjustFrames
+-(void)adjustFrames
 {
     CGRect textFrame = composeTextView.frame;
     textFrame.size.height = composeTextView.contentSize.height;
@@ -744,7 +799,7 @@ long  textLength;
     
 //    filterToolBar = [[UIToolbar alloc] init];
 //    [filterToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    filterToolBar.backgroundColor = [UIColor redColor];
+    filterToolBar.backgroundColor = [UIColor redColor];
 //    
 //    keyboardToolBar = [[UIToolbar alloc] init];
 //    [keyboardToolBar setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -788,26 +843,17 @@ long  textLength;
     UIImage *bgImage = [UIImage imageNamed:@"freelogue-web1.png"];
     [imageSearchView setImageWithURL:[NSURL URLWithString:URLAddress] placeholderImage:bgImage];
 }
-
-#pragma mark - Filter options
-- (void)filterOptions{
-    
-}
-
 #pragma mark - Gesture recognizes
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGesture {
-//    return YES;
-//}
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
     return YES;
 }
 - (void)addGesture{
     //   Add swipe gesture
-    
     panRecognized = [[UIPanGestureRecognizer alloc]
                      initWithTarget:self
                      action:@selector(panRecognized:)];
     
+    // Add touch for the textBox
     touchRecognized = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchRecognized:)];
     [touchRecognized setNumberOfTapsRequired:1];
     
@@ -825,7 +871,7 @@ long  textLength;
     [composeTextView addGestureRecognizer:touchRecognized];
 }
 - (void)touchRecognized:(UITapGestureRecognizer *)sender{
-    //[self textButtonPressed:self];
+    // When textField is touched, show keyboard
     [self keyboardOptions];
 }
 - (void)panRecognized:(UIPanGestureRecognizer *)sender
@@ -835,8 +881,6 @@ long  textLength;
     if (sender.state == UIGestureRecognizerStateBegan) {
     }
    
-   // CGPoint translatedPoint = [(UIPanGestureRecognizer*)sender translationInView:composeTextView];
-   // translatedPoint = CGPointMake(translatedPoint.x, translatedPoint.y);
     
     if (UIGestureRecognizerStateChanged == sender.state) {
         // Use translation offset
@@ -849,11 +893,11 @@ long  textLength;
 }
 - (void)moveTextWithWithContraints:(CGPoint)translation{
   
-    double pointX =composeTextView.center.x + translation.x;
+    double pointX =composeTextView.center.x;
     double pointY =composeTextView.center.y + translation.y;
     
-    pointX = fmax(contentImageView.bounds.origin.x, pointX);
-    pointX = fmin(contentImageView.bounds.origin.x+contentImageView.frame.size.width, pointX);
+//    pointX = fmax(contentImageView.bounds.origin.x, pointX);
+//    pointX = fmin(contentImageView.bounds.origin.x+contentImageView.frame.size.width, pointX);
     pointY = fmax(contentImageView.bounds.origin.y, pointY);
     pointY = fmin(contentImageView.bounds.origin.y+contentImageView.frame.size.height, pointY);
 
@@ -865,6 +909,10 @@ long  textLength;
     postButton.hidden = NO;
     placeHolderLabel.hidden = YES;
     [self disableKeyBoard];
+    if (doneCounter == 0){
+    contentImageView.backgroundColor = [UIColor whiteColor];
+        doneCounter++;
+    }
 }
 - (void)postContent:(id)sender {
     
@@ -1065,7 +1113,6 @@ long  textLength;
     //    }
     
 }
-#pragma mark - Photo buttons
 #pragma mark - popover controller method
 - (void)showPhotoOptions:(id)sender{
     // Analytics: Flurry

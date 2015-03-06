@@ -139,11 +139,12 @@
                                                                       options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[profileImageView]|"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-    [imageScrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cameraButton(100)]|"
+    [imageScrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[cameraButton(110)]"
                                                                             options:0 metrics:nil views:viewsDictionary]];
-    [imageScrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-50-[cameraButton]"
+    [AppUIManager horizontallyCenterElement:cameraButton inView:imageScrollview];
+    [imageScrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[cameraButton(110)]"
                                                                             options:0 metrics:nil views:viewsDictionary]];
-    //[AppUIManager horizontallyCenterElement:cameraButton inView:imageScrollview];
+    [AppUIManager verticallyCenterElement:cameraButton inView:imageScrollview];
 }
 
 - (void)setupHorizontalScrollView{

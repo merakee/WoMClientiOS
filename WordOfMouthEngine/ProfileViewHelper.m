@@ -14,9 +14,8 @@
 + (void)setView:(UIView *)view{
     // set app defaults
     [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
-    
+    view.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCColorLoginBackground];
     // set custom textview properties
-    
 }
 
 #pragma mark - Table view
@@ -65,9 +64,13 @@
     
     return textLabel;
 }
-
-
-#pragma mark -  View Helper Methods: Buttons
+#pragma mark -  View Helper Methods: Navigation bar
++ (UIView *)getNavigationView{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCBorderColor];
+    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return view;
+}
 + (UIButton *)getButton{
     //UIImage *image = [UIImage imageNamed:@"reply-heart-empty.png"];
     //  UIImageView *cellImageView = [[UIImageView alloc] initWithImage:image];
@@ -75,11 +78,220 @@
     //[button setImage:image forState:UIControlStateNormal];
     button.backgroundColor = [UIColor redColor];
     [button setFrame:CGRectMake(30, 10, 18.0, 18.0)];
-    
     // custom settings
     button.tag=kPVHCellViewTagsButton;
-
     return button;
 }
++ (UIButton *)getCancelButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Cancel"];
+    return button;
+}
++ (UIButton *)getSettingsButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUPSettingsButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Settings"];
+    return button;
+}
++ (UIButton *)getLikesButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUPSettingsButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Likes"];
+    return button;
+}
+#pragma mark - View Helper Methods: Profile Information
++ (UIView *)getProfileBackground{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor grayColor];
+    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return view;
+}
++ (UIImageView *)getSpreadsIcon{
+    UIImageView *si = [[UIImageView alloc] init];
+    si.image = [UIImage imageNamed:kAURFilledLikeImage];
+    [si setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return si;
+}
++ (UIImageView *)getLikesIcon{
+    UIImageView *li = [[UIImageView alloc] init];
+    li.image = [UIImage imageNamed:kAUPLikesCountIcon];
+    [li setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return li;
+}
++ (UILabel *)getSpreadsCount{
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeSpreadCount]];
+    label.textColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(1, 1);
+    label.textAlignment = NSTextAlignmentLeft;
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return label;
+}
++ (UILabel *)getLikesCount{
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUPFontSizeLikeCountText]];
+    label.textColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(1, 1);
+    label.textAlignment = NSTextAlignmentLeft;
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    label.text = @"999";
 
+    return label;
+}
++ (UIButton *)getProfilePic{
+    UIButton *button = [AppUIManager getTransparentUIButton];
+    //  [button setImage:[UIImage imageNamed:;] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"ProfilePic"];
+    button.backgroundColor = [UIColor redColor];
+    return button;
+}
++ (UILabel *)getProfileName{
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUPFontSizeNicknameText]];
+    label.textColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(1, 1);
+    label.textAlignment = NSTextAlignmentLeft;
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    label.text = @"Username";
+    return label;
+}
++ (UIButton *)getProfilePicBlur{
+    UIButton *button = [AppUIManager getTransparentUIButton];
+    //  [button setImage:[UIImage imageNamed:;] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"ProfilePic"];
+    button.backgroundColor = [UIColor redColor];
+    return button;
+}
+#pragma mark - Profile Location/Bio
++ (UIView *)getUserInformation{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor blueColor];
+    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return view;
+}
++ (UILabel *)getUserBio{
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUPFontSizeBioText]];
+    label.textColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(1, 1);
+    label.textAlignment = NSTextAlignmentLeft;
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    label.text = @"User Bio";
+    return label;
+}
++ (UILabel *)getUserLocation{
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUPFontSizeLocationText]];
+    label.textColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(1, 1);
+    label.textAlignment = NSTextAlignmentLeft;
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    label.text = @"User Location";
+    return label;
+}
+#pragma mark - Social View
++ (UIView *)getProfileSocial{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor greenColor];
+    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return view;
+}
++ (UIImageView *)getSocialTitle{
+    UIImageView *imageview = [[UIImageView alloc] init];
+    imageview.image = [UIImage imageNamed:kAUPSocialTitleImage];
+    [imageview setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return imageview;
+}
++ (UIImageView *)getInstagramIcon{
+    UIImageView *imageview = [[UIImageView alloc] init];
+    imageview.image = [UIImage imageNamed:kAUPInstagramImage];
+    [imageview setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return imageview;
+}
++ (UIImageView *)getTumblrIcon{
+    UIImageView *imageview = [[UIImageView alloc] init];
+    imageview.image = [UIImage imageNamed:kAUPTumblrImage];
+    [imageview setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return imageview;
+}
++ (UIImageView *)getSnapchatIcon{
+    UIImageView *imageview = [[UIImageView alloc] init];
+    imageview.image = [UIImage imageNamed:kAUPSnapchatImage];
+    [imageview setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return imageview;
+}
++ (UIImageView *)getTwitterIcon{
+    UIImageView *imageview = [[UIImageView alloc] init];
+    imageview.image = [UIImage imageNamed:kAUPTwitterImage];
+    [imageview setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return imageview;
+}
++ (UILabel *)getInstagramName{
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUPFontSizeSocialText]];
+    label.textColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(1, 1);
+    label.textAlignment = NSTextAlignmentLeft;
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    label.text = @"Instagram";
+    return label;
+}
++ (UILabel *)getTumblrName{
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUPFontSizeSocialText]];
+    label.textColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(1, 1);
+    label.textAlignment = NSTextAlignmentLeft;
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    label.text = @"Tumblr";
+    return label;
+}
++ (UILabel *)getSnapchatName{
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUPFontSizeSocialText]];
+    label.textColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(1, 1);
+    label.textAlignment = NSTextAlignmentLeft;
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    label.text = @"Snapchat";
+    return label;
+}
++ (UILabel *)getTwitterName{
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUPFontSizeSocialText]];
+    label.textColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(1, 1);
+    label.textAlignment = NSTextAlignmentLeft;
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    label.text = @"Twitter";
+    return label;
+}
+
+#pragma mark - Favorite View
++ (UIView *)getFavoriteView{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor blueColor];
+    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return view;
+}
++ (UIImageView *)getFavoriteTitle{
+    UIImageView *imageview = [[UIImageView alloc] init];
+    imageview.image = [UIImage imageNamed:kAUPSocialTitleImage];
+    [imageview setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return imageview;
+}
+#pragma mark - History View
++ (UIView *)getHistoryView{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor blueColor];
+    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return view;
+}
++ (UIImageView *)getHistoryTitle{
+    UIImageView *imageview = [[UIImageView alloc] init];
+    imageview.image = [UIImage imageNamed:kAUPSocialTitleImage];
+    [imageview setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return imageview;
+}
 @end

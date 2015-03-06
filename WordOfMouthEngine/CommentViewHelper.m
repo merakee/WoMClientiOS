@@ -51,6 +51,19 @@
     return button;
 }
 
++ (UIButton *)getShareButton{
+    UIButton *button = [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCShareButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Share"];
+    return button;
+}
++ (UIButton *)getReportButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCReportButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"ReportButton"];
+    return button;
+}
+#pragma mark - Content Data
 + (UILabel *)getCellText{
     UILabel *label = [[UILabel alloc] init];
     label.backgroundColor = [UIColor clearColor];
@@ -92,7 +105,6 @@
     textView.allowsEditingTextAttributes = NO;
     textView.dataDetectorTypes = UIDataDetectorTypeAll ;
     
-    
     textView.returnKeyType = UIReturnKeyDefault;
     // inset for text
     //textView.textContainerInset = UIEdgeInsetsMake(0, 0, 5.0, 0.0);
@@ -101,13 +113,6 @@
     NSMutableParagraphStyle *paraStyle = [NSMutableParagraphStyle new];
     paraStyle.lineBreakMode = NSLineBreakByWordWrapping;
     paraStyle.alignment = NSTextAlignmentLeft;
-    //    paraStyle.alignment = NSTextAlignmentCenter;
-    //paraStyle.lineSpacing = 10;// -kAUCFontSizeContentText/2.0 + 9.0;
-    
-//    NSShadow *shadow = [[NSShadow alloc] init];
-//    shadow.shadowOffset = CGSizeMake(0.0,1.0);
-//    shadow.shadowBlurRadius = (CGFloat) 2.0;
-//    shadow.shadowColor = [UIColor colorWithWhite:0.1 alpha:1.0];
     
     textView.typingAttributes = @{
                                   NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
@@ -120,20 +125,35 @@
                                   };
     textView.layer.cornerRadius = 6;
     textView.delegate=delegate;
-    
+    textView.text = @"add your reply";
     [textView setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     // accessibilty
     [textView setAccessibilityIdentifier:@"Add Text"];
     return textView;
 }
-
 + (UIButton *)getCancelButton{
     UIButton *button = [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAURCloseButtonImage] forState:UIControlStateNormal];
     [button setFrame:CGRectMake(0, 0, 40, 40)];
     [button setAccessibilityIdentifier:@"Cancel"];
     return button;
+}
+#pragma mark - User Data
++ (UILabel *)getNickname{
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeSpreadCount]];
+    label.textColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(1, 1);
+    label.textAlignment = NSTextAlignmentLeft;
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return label;
+}
++ (UIImageView *)getProfilePic{
+    UIImageView *image = [[UIImageView alloc] init];
+    image.contentMode = UIViewContentModeScaleAspectFill;
+    [image setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return image;
 }
 
 @end

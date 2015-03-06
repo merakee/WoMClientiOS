@@ -41,15 +41,13 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 - (void)viewDidUnload{
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
-// Implement viewWillAppear method for setting up the display
 - (void)viewWillAppear:(BOOL)animated {
             [super viewWillAppear:animated];
     
@@ -66,8 +64,7 @@
     return [AppUIManager getSupportedOrentation];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -77,24 +74,37 @@
     
     self.navigationController.toolbarHidden = YES;
     self.title = @"Settings";
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCBorderColor];
     
     [self setupTableView];
+    
+    navigationView = [SettingsViewHelper getNavigationView];
+    [self.view addSubview:navigationView];
+    cancelButton = [SettingsViewHelper getCancelButton];
+    [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    [navigationView addSubview:cancelButton];
+    settingsTitle = [SettingsViewHelper getSettingsTitle];
+    [navigationView addSubview:settingsTitle];
     [self.view addSubview:settingsTableView];
     [self layoutView];
 }
 - (void)layoutView{
     
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(settingsTableView);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(settingsTableView, navigationView, cancelButton, settingsTitle);
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[settingsTableView(320)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[navigationView(44)]-0-[settingsTableView]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[navigationView(320)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[settingsTableView]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-
+    [navigationView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[cancelButton(22)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [navigationView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[cancelButton(22)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [navigationView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[settingsTitle(22)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [AppUIManager horizontallyCenterElement:settingsTitle inView:navigationView];
+    [AppUIManager verticallyCenterElement:settingsTitle inView:navigationView];
+    [AppUIManager verticallyCenterElement:cancelButton inView:navigationView];
 }
 
 - (void) setupTableView{
-//    settingsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
     settingsTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
    // settingsTableView.style = UITableViewStyleGrouped;
     settingsTableView.delegate = self;
@@ -112,18 +122,21 @@
     }
 
     // [self.settingsTableView setSeparatorColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"mapicon.jpeg"]]];
-    [settingsTableView setSeparatorColor:[UIColor greenColor]];
+    [settingsTableView setSeparatorColor:[CommonUtility getColorFromHSBACVec:kAUCBorderColor]];
 
     settingsTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
 
 }
-
+#pragma mark - Button Action Methods
+- (void)goBack:(id)sender {
+    // go back to previous view
+    [self.navigationController popViewControllerAnimated:NO];
+}
 - (void)LoginOutButtonPressed{
     SignInAndOutViewController *siovc =[[SignInAndOutViewController alloc] init];
     //siovc.view.bounds = self.view.bounds;
     [self presentViewController:siovc    animated:YES completion:nil];
-
 }
 
 - (void)HistoryButtonPressed {
@@ -131,7 +144,6 @@
     HistoryViewController *hvc =[[HistoryViewController alloc] init];
     hvc.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:hvc animated:NO];
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -148,19 +160,19 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    if (section == 0){
-        return 1;
-    }
-    else if (section == 1){
-    return 4;
-    }
-    return 0;
+//    if (section == 0){
+//        return 1;
+//    }
+//    else if (section == 1){
+//    return 4;
+//    }
+    return 8;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -169,30 +181,40 @@
     SettingsTableViewCell *cell = (SettingsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     if (!cell) {
-//        cell = [[SettingsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell = [[SettingsTableViewCell alloc] init];
+        cell = [[SettingsTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+//        cell = [[SettingsTableViewCell alloc] init];
         }
-  
-    if (indexPath.section == 0){
-        cell.textLabel.text = @"History";
-    }
-    else
     switch (indexPath.row) {
         case 0:
-            
-            cell.textLabel.text = @"Sign in";
+            cell.textLabel.text = @"Nickname";
+            cell.detailTextLabel.text = @"Name";
             break;
         case 1:
-            cell.textLabel.text = @"Contact";
+            cell.textLabel.text = @"Current City";
+            cell.detailTextLabel.text = @"Current City";
             break;
         case 2:
+            cell.textLabel.text = @"Email";
+            cell.detailTextLabel.text = @"jake@gmail.com";
+            break;
+        case 3:
+            cell.textLabel.text = @"Change Password";
+            break;
+        case 4:
+            cell.textLabel.text = @"Help";
+            break;
+        case 5:
+            cell.textLabel.text = @"Share";
+            break;
+        case 6:
             cell.textLabel.text = @"Rate";
+            break;
+        case 7:
+            cell.textLabel.text = @"Log out";
             break;
         default:
             break;
-        case 3:
-            cell.textLabel.text = @"Share";
-            break;
+        
     }
     if ([cell respondsToSelector:@selector(layoutMargins)]) {
         cell.layoutMargins = UIEdgeInsetsZero;
@@ -210,7 +232,7 @@
     cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12.0f];
  //   cell.backgroundColor = [UIColor greenColor]; //must do here in willDisplayCell
  //   cell.textLabel.backgroundColor = [UIColor redColor]; //must do here in willDisplayCell
-    cell.textLabel.textColor = [UIColor blueColor]; //can do here OR in cellForRowAtIndexPath
+    cell.textLabel.textColor = [CommonUtility getColorFromHSBACVec:kAUSSettingColor]; //can do here OR in cellForRowAtIndexPath
     // Arrow on right side of tableview
 //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 //    cell.accessoryView.backgroundColor = [UIColor purpleColor];
@@ -264,12 +286,14 @@
     else
     switch (indexPath.row) {
         case 0:
-            [self LoginOutButtonPressed];
+           // [self LoginOutButtonPressed];
             break;
             
         case 1:
-            [self HistoryButtonPressed];
+         //   [self HistoryButtonPressed];
             break;
+        case 8:
+            //[self ]
             
         default:
             break;

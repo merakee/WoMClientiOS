@@ -12,23 +12,7 @@
 #import "ContentManager.h"
 #import "AppAnimationManager.h"
 
-// images
-static NSString *kAUCMapButtonImage =@"mapicon.jpeg";
-static NSString *kAUCSpreadButtonImage =@"spread-btn.png";
-static NSString *kAUCSpreadButtonFilledImage= @"spread-btn-full.png";
-static NSString *kAUCKillButtonImage =@"kill-btn.png";
-static NSString *kAUCKillButtonFilledImage= @"kill-btn-full.png";
-static NSString *kAUCComposeButtonImage =@"compose.png";
-static NSString *kAUCSignOutButtonImage =@"logout-menu.png";
-static NSString *kAUCLogInMenuButtonImage =@"signup-menu.png";
-static NSString *kAUCPageLogoImage =@"logo-nav.png";
-static NSString *kAUCShareButtonImage =@"share-btn.png";
-static NSString *kAUCReplyButtonImage =@"reply-btn.png";
-static NSString *kAUCReportButtonImage =@"flag-btn.png";
-static NSString *kAUCSettingsButtonImage =@"profile-btn.png";
-static NSString *kAUCContentLoadingImage =@"content-loading";
-static NSString *kAUCAlertOnImage = @"alert-on.png";
-static NSString *kAUCSpreadIcon = @"spread-icon.png";
+
 
 //static NSString *  kAUCContentBackgroundImage = @"content";
 
@@ -61,7 +45,6 @@ static NSString *kAUCSpreadIcon = @"spread-icon.png";
 + (UIButton *)getSignInOutButton;
 + (UIButton *)getDismissButton;
 + (UIButton *)getRepliesButton;
-+ (UIButton *)getMapButton;
 + (UIButton *)getShareButton;
 + (UIButton *)getProfilePic;
 + (UIButton *)getNicknameButton;

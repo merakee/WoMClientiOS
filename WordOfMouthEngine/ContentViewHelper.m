@@ -217,12 +217,6 @@
     [button setAccessibilityIdentifier:@"Replies"];
     return button;
 }
-+ (UIButton *)getMapButton {
-     UIButton *button = [AppUIManager getTransparentUIButton];
-    [button setImage:[UIImage imageNamed:kAUCMapButtonImage] forState:UIControlStateNormal];
-    [button setAccessibilityIdentifier:@"Map"];
-    return button;
-}
 + (UIButton *)getSpreadButton{
     //return [AppUIManager setButtonWithTitle:@"spread" ofType:kAUCPriorityTypeTertiary];
     UIButton *button =  [AppUIManager getTransparentUIButton];
@@ -409,7 +403,7 @@
     label.textAlignment = NSTextAlignmentCenter;
     label.shadowOffset = CGSizeMake(1, 1);
     [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeCommentCount]];
-[label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeCommentCount]];
+    [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeCommentCount]];
     [label setTranslatesAutoresizingMaskIntoConstraints:NO];
     return label;
 }
@@ -549,7 +543,6 @@
                          view3.center = final3;
                          view4.center = final4;
                          view5.center = final5;
-                         
                          // perform spread or kill animation
                          view5.hidden=NO;
                          view6.hidden=NO;

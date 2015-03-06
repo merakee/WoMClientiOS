@@ -11,6 +11,11 @@
 @interface SettingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
 
     UITableView             *settingsTableView;
+    
+    // Navigation bar
+    UIView      *navigationView;
+    UIButton    *cancelButton;
+    UILabel     *settingsTitle;
 }
 
 @end

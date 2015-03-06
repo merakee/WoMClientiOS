@@ -50,6 +50,7 @@
     RoundRobinButton    *filterButton;
 
     // Keyboard Accessory Buttons
+    
     UIToolbar           *keyboardToolBar;
     UIView              *accView;
     UIButton            *xButton;
@@ -73,12 +74,9 @@
     
     // Color text
     NSArray             *buttonItems;
-    
     NSMutableParagraphStyle *paraStyle;
     CustomIOS7AlertView *successAlertView;
-    
     UITextView *searchTextField;
-    
     UIImageView         *imageSearchView;
     
     // Filters
@@ -87,6 +85,9 @@
     CIImage             *outputImage;
     UIImage             *imageWithFilter;
     UIImageView         *defaultContentImage;
+    
+    // Border View
+    UIView              *borderLine;
 }
 
 

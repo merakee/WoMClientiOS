@@ -144,7 +144,7 @@
     [shadow setShadowOffset: CGSizeMake(0.0f, 1.0f)];
     textView.typingAttributes = @{
                                        NSFontAttributeName: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeComposeText],
-                                       NSForegroundColorAttributeName:[UIColor whiteColor],
+                                       NSForegroundColorAttributeName:[CommonUtility getColorFromHSBACVec:kAUTextColor4],
                                        NSParagraphStyleAttributeName:paraStyle,
                                        NSShadowAttributeName:shadow,
                                        NSKernAttributeName:@1.0

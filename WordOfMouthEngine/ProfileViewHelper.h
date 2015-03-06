@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "AppUIManager.h"
 
-
-
 // app states
 typedef enum {
     kPVHCellViewTagsLabel=1,
@@ -33,8 +31,46 @@ static const int kPVHLabelHeight = 36;
 #pragma mark - Text label mathods
 + (UILabel *)getTextLabelForIndexPath:(NSIndexPath *)indexPath;
     
-#pragma mark -  View Helper Methods: Buttons
+#pragma mark -  View Helper Methods: Navigation View
++ (UIView *)getNavigationView;
 + (UIButton *)getButton;
++ (UIButton *)getCancelButton;
++ (UIButton *)getSettingsButton;
++ (UIButton *)getLikesButton;
 
+#pragma mark - Profile Information
++ (UIView *)getProfileBackground;
++ (UIImageView *)getSpreadsIcon;
++ (UIImageView *)getLikesIcon;
++ (UILabel *)getSpreadsCount;
++ (UILabel *)getLikesCount;
++ (UIImageView *)getProfilePic;
++ (UILabel *)getProfileName;
++ (UIImageView *)getProfilePicBlur;
+
+#pragma mark - Profile City/Bio
++ (UIView *)getUserInformation;
++ (UILabel *)getUserBio;
++ (UILabel *)getUserLocation;
+
+#pragma mark - Profile Social
++ (UIView *)getProfileSocial;
++ (UIImageView *)getSocialTitle;
++ (UIImageView *)getInstagramIcon;
++ (UIImageView *)getTumblrIcon;
++ (UIImageView *)getSnapchatIcon;
++ (UIImageView *)getTwitterIcon;
++ (UILabel  *)getInstagramName;
++ (UILabel  *)getTumblrName;
++ (UILabel  *)getSnapchatName;
++ (UILabel  *)getTwitterName;
+
+#pragma mark - Favorite View
++ (UIView *)getFavoriteView;
++ (UIImageView *)getFavoriteTitle;
+
+#pragma mark - History View
++ (UIView *)getHistoryView;
++ (UIImageView *)getHistoryTitle;
 
 @end

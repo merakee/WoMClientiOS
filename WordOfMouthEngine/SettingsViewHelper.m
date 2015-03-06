@@ -15,6 +15,36 @@
 //@synthesize getLoginOutLabel = _getLoginOutLabel;
 @synthesize getDescriptionLabel = _getDescriptioinLabel;
 
+#pragma mark - Navigation Bar
++ (UIView *)getNavigationView{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCBorderColor];
+    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return view;
+}
++ (UIButton *)getCancelButton{
+    UIButton *button =  [AppUIManager getTransparentUIButton];
+    [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
+    [button setAccessibilityIdentifier:@"Cancel"];
+    return button;
+}
++ (UILabel *)getSettingsTitle{
+    UILabel *label =[[UILabel alloc] init];
+    // phLabel.backgroundColor = [UIColor clearColor];
+    label.text=@"Settings";
+    label.font = [UIFont boldSystemFontOfSize:kAUAppleTitleDefault];
+    label.textColor =[CommonUtility getColorFromHSBACVec:kAUCPlaceHolderColor];//[AppUIManager getColorOfType:kAUCColorTypeTextQuinary];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];//[UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    //   phLabel.shadowRadius = 4.0f;
+    label.numberOfLines = 0;
+    
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    // accessibilty
+    [label setAccessibilityIdentifier:@"Settings label"];
+    return label;
+}
 #pragma mark -  View Helper Methods: Views
 //+ (void)setView:(UIView *)view{
 //    // set app defaults
@@ -51,8 +81,6 @@
 //    }
 //    return self;
 //}
-
-
 //#pragma mark - LoginOut Button
 //+ (UIButton *)getLoginOutButton{
 //    UIButton *button =  [AppUIManager getTransparentUIButton];

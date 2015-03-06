@@ -120,9 +120,6 @@
     // all view elements
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(emailField,passwordField,signUpButton,cancelButton, forgotPasswordButton, titleImage);
     
-    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pageLabel(60)]-26-[emailField]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
-    
     // buttons
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -184,7 +181,7 @@
 
 #pragma mark - Button Action Methods
 - (void)goBack:(id)sender {
-    // go back
+    // go back to previous view
     [self.navigationController popViewControllerAnimated:NO];
   
 //        [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionTerms]];

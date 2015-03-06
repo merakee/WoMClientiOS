@@ -53,12 +53,6 @@
     
     UIImageView         *blurredImage;
     CustomContentView   *imageBlur;
-    //UIImageView         *pageLogo;
-    
-    //UIImageView         *userImage;
-    //UILabel             *spreadCount;
-    
-    //UIToolbar            *infoToolBar;
     
     UIButton                *viewsImage;
     UIButton                *commentImage;
@@ -75,17 +69,14 @@
     //NSTimer                     *progressTimer;
     //float                       timeRemaining;
     ContentManager     *contentManager;
-    ApiContent        *currentContent;
+    ApiContent          *topContent;
+    ApiContent          *storedContent;
     
     // gestures
-    //    UISwipeGestureRecognizer *oneFingerSwipeLeft;
-    //    UISwipeGestureRecognizer *oneFingerSwipeRight;
     UIPanGestureRecognizer *panRecognized;
     UIPanGestureRecognizer *panRecognized2;
     UITapGestureRecognizer *touchRecognized;
     UITapGestureRecognizer *touchRecognized2;
-    
-    //    CGFloat                 *xCoord;
     
     // dummy content index
     int pic_index;

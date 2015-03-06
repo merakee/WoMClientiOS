@@ -14,15 +14,26 @@
 
 @interface CommentViewHelper : NSObject
 
+
 + (void)setView:(UIView *)view;
+
+#pragma mark - Buttons
 + (UIButton *)      getSendButton;
 + (CustomLilkeButton *)      getCellButton;
-+ (UILabel *)       getCellText;
++ (UIButton *)      getCancelButton;
++ (UIButton *)      getShareButton;
++ (UIButton *)      getReportButton;
+
+#pragma mark - Content Data
 + (UILabel *)       getLikeCount;
 + (UITextView *)    getCommentText:(id)delegate;
-+ (UIButton *)      getCancelButton;
++ (UILabel *)       getCellText;
 + (UIButton *)      getTouchLike;
 + (CustomContentView *)     getContentView;
+
+#pragma mark - User Data
++ (UILabel *)       getNickname;
++ (UIImageView *)   getProfilePic;
 
 @property (nonatomic, strong) UILabel *getDescriptionLabel;
 @end

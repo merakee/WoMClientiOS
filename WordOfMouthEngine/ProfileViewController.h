@@ -13,7 +13,6 @@
     NSArray        *profileInfo;
     
     UIActivityIndicatorView *activityIndicator;
-    
 }
 
 @end

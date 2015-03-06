@@ -81,7 +81,7 @@ const static float kAUTextColor4[4] = {180.0/360.0, .07, 0.12, 1.0};
 const static float kAUShadowColorDefault[4] = {0.0/360.0, 0.0 , 0.24, 1};
 const static float kAUShadowColor1[4] = {0.0/360.0, 0.0 , 0.44, 1};
 
-const static float kAUTextFieldColor[4] = {0.0/360.0, 0.0, 0.39, 1};
+const static float kAUTextFieldColor[4] = {0.0/360.0, 0.0, 0.59, 1};
 
 const static float kAUBackgroundColor1[4] = {156.0/360.0, .21, 1.0, 1.0};
 const static float kAUBackgroundColor2[4] = {21.0/360.0, .59, .99, 1.0};
@@ -97,7 +97,14 @@ const static float kAUTextStrokeColor[4] = {32.0/360.0, 0.32, 0.16, 1.0};
 const static float kAUCommentTextColor[4] = {0/360.0, 0, 0.90, 1.0};
 
 const static float kAUContentBackgroundColor[4] = {330.0/360.0, 0.01, 0.94, 1.0};
-////const static float kAUCColorGray[4] = {kAUCHueGray,0.1,0.9,1.0};
+
+// Compose View colors
+const static float kAUCBorderColor[4] = {176.0/360.0, 0.86, 0.84, 1.0};
+
+// Settings colors
+const static float kAUSSettingColor[4] = {179.0/360.0, 0.98, 0.36, 1.0};
+
+//const static float kAUCColorGray[4] = {kAUCHueGray,0.1,0.9,1.0};
 //
 //const static float kAUCColorBackground[4] = {kAUCHueGray,0.03,0.95,1.0};
 //
@@ -169,10 +176,18 @@ const static CGFloat kAUCFontSizeLikeLabel = 12.0;
 const static CGFloat kAUCFontSizeCommentCount = 12.0;
 const static CGFloat kAUCFontSizeSpreadCount = 14.0;
 const static CGFloat kAUCFontSizeNicknameText = 16.0;
+
+const static CGFloat kAUPFontSizeNicknameText = 15.0;
+const static CGFloat kAUPFontSizeLikeCountText = 10.0;
+const static CGFloat kAUPFontSizeBioText = 12.0;
+const static CGFloat kAUPFontSizeLocationText = 11.0;
+const static CGFloat kAUPFontSizeSocialText = 11.0;
 // Other style
 const static float kAUCRectCornerRadius = 4.0;
 const static float kAUCRectBorderWidth = 1.0;
 
+// Apple Default
+const static float kAUAppleTitleDefault = 20.0f;
 //----------------------------------
 // App Images
 /*
@@ -250,6 +265,22 @@ const static float kAUCAppContentTimerWarning = 5.0;
 
 // Commom images
 
+// Content View Images
+static NSString *kAUCSpreadButtonImage =@"spread-btn.png";
+static NSString *kAUCSpreadButtonFilledImage= @"spread-btn-full.png";
+static NSString *kAUCKillButtonImage =@"kill-btn.png";
+static NSString *kAUCKillButtonFilledImage= @"kill-btn-full.png";
+static NSString *kAUCComposeButtonImage =@"compose.png";
+static NSString *kAUCSignOutButtonImage =@"logout-menu.png";
+static NSString *kAUCLogInMenuButtonImage =@"signup-menu.png";
+static NSString *kAUCPageLogoImage =@"logo-nav.png";
+static NSString *kAUCReplyButtonImage =@"reply-btn.png";
+static NSString *kAUCReportButtonImage =@"flag-btn.png";
+static NSString *kAUCSettingsButtonImage =@"profile-btn.png";
+static NSString *kAUCContentLoadingImage =@"content-loading";
+static NSString *kAUCAlertOnImage = @"alert-on.png";
+static NSString *kAUCSpreadIcon = @"spread-icon.png";
+
 // SignIn Images
 static NSString *kAUCCancelButtonImage =@"close-btn.png";
 static NSString *kAUCLogInButtonImage =@"signedup.png";
@@ -282,9 +313,20 @@ static NSString *kAUCComposeBackgroundImage = @"compose-empty-bg.png";
 static NSString *kAUCCameraButtonImage = @"camera-sm-btn.png";
 static NSString *kAUCSystemImageButtonImage = @"bg-bt.png";
 static NSString *kAUCFilterButtonImage = @"filter-btn.png";
+static NSString *kAUCShareButtonImage =@"share.png";
 
 // Comment Images
 static NSString *kAURSendButtonImage = @"send-btn.png";
 static NSString *kAUREmptyLikeImage = @"reply-heart-empty.png";
 static NSString *kAURFilledLikeImage = @"reply-heart-full.png";
 static NSString *kAURCloseButtonImage = @"close-btn.png";
+
+// Profile Images
+static NSString *kAUPSettingsButtonImage = @"settings.png";
+static NSString *kAUPSocialTitleImage = @"Findme-label.png";
+static NSString *kAUPLikesCountIcon = @"heart-count-icon.png";
+static NSString *kAUPHistroyLabel = @"history-label.png";
+static NSString *kAUPInstagramImage = @"insta-icon.png";
+static NSString *kAUPSnapchatImage = @"snap-icon.png";
+static NSString *kAUPTumblrImage = @"tumblr-icon.png";
+static NSString *kAUPTwitterImage = @"twitter-icon.png";
