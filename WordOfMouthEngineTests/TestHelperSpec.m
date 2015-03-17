@@ -41,6 +41,10 @@
                                                           email:email
                                                        password:password
                                            passwordConfirmation:password
+                                                       nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                                         avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                                            bio:[PlaceHolderFactory word]
+                                                       hometown:[PlaceHolderFactory word]
                                                         success:^(){
                                                             isSuccess=true;
                                                             done();

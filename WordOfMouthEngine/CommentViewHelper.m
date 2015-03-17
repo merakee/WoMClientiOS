@@ -10,13 +10,21 @@
 #import "ContentManager.h"
 
 @implementation CommentViewHelper
-
+#pragma mark - Views
 + (void)setView:(UIView *)view{
     // set app defaults
     [AppUIManager setUIView:view ofType:kAUCPriorityTypePrimary];
     //view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:[CommonUtility adjustImageFileName:kAUCComposeBackgroundImage]]];
     view.backgroundColor = [AppUIManager getColorOfType:kAUCColorTypeTextQuaternary];//[UIColor whiteColor];
 }
++ (UIView *)getNavigationShadow{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kAURNavigationViewImage]];
+
+    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return view;
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     return self;
@@ -42,9 +50,14 @@
     [button setAccessibilityIdentifier:@"SendButton"];
     return button;
 }
-
-+ (CustomLilkeButton *)getCellButton{
-    CustomLilkeButton *button = [CustomLilkeButton buttonWithType:UIButtonTypeCustom];
++ (CustomFavoriteButton *)getFavoriteButton{
+    CustomFavoriteButton *button = [CustomFavoriteButton buttonWithType:UIButtonTypeCustom];
+    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
+    button.didFavorite = false;
+    return button;
+}
++ (CustomLikeButton *)getCellButton{
+    CustomLikeButton *button = [CustomLikeButton buttonWithType:UIButtonTypeCustom];
     [button setTranslatesAutoresizingMaskIntoConstraints:NO];
     button.didLike = false;
  //   [button setImage:[UIImage imageNamed:kAURFilledLikeImage] forState:UIControlStateNormal];
@@ -70,9 +83,7 @@
     label.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeRepliesText];
     label.textColor =[CommonUtility getColorFromHSBACVec:kAUCColorSecondary];
     label.textAlignment = NSTextAlignmentLeft;
-
   //  label.numberOfLines = 0;
-   
     [label setNumberOfLines:0];
     label.lineBreakMode = NSLineBreakByWordWrapping;
     [label setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -86,8 +97,6 @@
     likeLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeLikeLabel];
     likeLabel.textColor =[CommonUtility getColorFromHSBACVec:kAUCColorPrimary];
     likeLabel.textAlignment = NSTextAlignmentCenter;
-//    likeLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.45];//[UIColor whiteColor];
-//    likeLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
     [likeLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     // accessibilty
     [likeLabel setAccessibilityIdentifier:@"Like Count Label"];
@@ -155,5 +164,20 @@
     [image setTranslatesAutoresizingMaskIntoConstraints:NO];
     return image;
 }
-
+#pragma mark - Content Table View
++ (UIView *)getCommentCountView{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor lightGrayColor];
+    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return view;
+}
++ (UILabel *)getCommentCount{
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeSpreadCount]];
+    label.textColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(1, 1);
+   // label.textAlignment = NSTextAlignmentLeft;
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return label;
+}
 @end

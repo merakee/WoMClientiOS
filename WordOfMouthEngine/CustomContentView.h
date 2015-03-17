@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "ContentManager.h"
+
+
+@protocol CustomContentViewDelegate <NSObject>
+@required
+- (void)contentViewUserButton:(id)sender;
+@end
+
 @interface CustomContentView : UIView {
 
 UIView                  *contentView;
@@ -21,6 +28,9 @@ UILabel                 *spreadsCount;
 @property (atomic) UIButton                 *nicknameButton;
 @property (atomic) UIButton                 *profilePic;
 @property (atomic) UIImageView              *spreadIcon;
+
+@property (assign) id<CustomContentViewDelegate> delegate;
+
 
 - (void)setView;
 - (void)setAttributedText:(NSAttributedString *)text;

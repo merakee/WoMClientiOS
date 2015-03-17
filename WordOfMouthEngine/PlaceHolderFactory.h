@@ -28,6 +28,12 @@ typedef NS_ENUM(NSInteger, PHFPlaceholderImageService)
 + (NSString *)word;
 
 /**
+ * Generates a random single word of length no larger than size.
+ */
++ (NSString *)wordOfMaxLength:(int)size;
+
+
+/**
  * Generates random words separated by a space character.
  *
  * @param numberOfWords The number of generated words.

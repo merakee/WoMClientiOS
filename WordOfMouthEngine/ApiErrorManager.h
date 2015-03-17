@@ -22,7 +22,6 @@ typedef enum {
     kAPIManagerErrorValidation,
     kAPIManagerErrorInvalidParameters,
     kAPIManagerErrorInvalidChoice,
-    kAPIManagerErrorGetContentError,
 } kAPIManagerErrorCode;
 
 // Error domain
@@ -86,6 +85,11 @@ static NSString *kAppErrorDomainApi =  @"AppErrorDomainApi";
 #pragma mark - Error Handling methods - Notification Reset
 + (NSError *)processResetNotificationContentError:(NSError *)error;
 + (NSError *)processResetNotificationCommentError:(NSError *)error;
+
+#pragma mark - Error Handling methods - Favorite Content
++ (NSError *)processGetFavoriteContentError:(NSError *)error;
++ (NSError *)processFavoriteContentError:(NSError *)error;
++ (NSError *)processUnFavoriteContentError:(NSError *)error;
 
 
 @end

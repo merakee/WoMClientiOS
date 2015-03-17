@@ -11,6 +11,7 @@
 #import "PublicProfileViewHelper.h"
 #import "SettingsViewController.h"
 #import "FlurryManager.h"
+#import "CustomContentView.h"
 @interface PublicProfileViewController ()
 
 @end
@@ -20,6 +21,9 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
     [super loadView];
+//    CustomContentView *view = [[CustomContentView alloc]initWithFrame:self.view.bounds];
+//    view.delegate = self;
+//    [self.view addSubview:view];
     [self setView];
 }
 - (void)viewDidLoad {
@@ -109,8 +113,29 @@
     twitterName = [ProfileViewHelper getTwitterName];
     [profileSocial addSubview:twitterName];
     
+    // Favorites View
+    favoritesView = [ProfileViewHelper getFavoriteView];
+    [mainScrollView addSubview:favoritesView];
+    [favoritesView sizeToFit];
+    favoritesTitle = [ProfileViewHelper getFavoriteTitle];
+    [favoritesView addSubview:favoritesTitle];
+    
     // layout
     [self layoutView];
+    
+//    CGRect contentRect = CGRectZero;
+//    for (UIView *view in mainScrollView.subviews) {
+//        contentRect = CGRectUnion(contentRect, view.frame);
+//    }
+//    mainScrollView.contentSize = contentRect.size;
+    CGFloat scrollViewHeight = 0.0f;
+    for (UIView* view in mainScrollView.subviews)
+    {
+        scrollViewHeight += view.frame.size.height;
+    }
+    
+    [mainScrollView setContentSize:(CGSizeMake(320, scrollViewHeight))];
+
 }
 - (void)setupScrollView{
     mainScrollView = [[UIScrollView alloc] init];
@@ -124,7 +149,7 @@
 }
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(mainScrollView, navigationView,cancelButton, likesButton, profileTitle, profilePic, profilePicBlur, profileBackground, nicknameLabel, likesCount, likesIcon, userInformation, userBio, userLocation, divider, profileSocial, socialTitle, instagramIcon, tumblrIcon, snapchatIcon, twitterIcon, instagramName, tumblrName, snapchatName, twitterName);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(mainScrollView, navigationView,cancelButton, likesButton, profileTitle, profilePic, profilePicBlur, profileBackground, nicknameLabel, likesCount, likesIcon, userInformation, userBio, userLocation, divider, profileSocial, socialTitle, instagramIcon, tumblrIcon, snapchatIcon, twitterIcon, instagramName, tumblrName, snapchatName, twitterName, favoritesView, favoritesTitle);
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[navigationView(44)]-0-[mainScrollView]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[mainScrollView]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -140,8 +165,9 @@
     [AppUIManager verticallyCenterElement:profileTitle inView:navigationView];
     [AppUIManager horizontallyCenterElement:profileTitle inView:navigationView];
     
-    // Profile Information
-    [mainScrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[profilePic(260)]-0-[profileBackground(42)]-0-[userInformation(65)]-0-[divider(2)]-0-[profileSocial(130)]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [mainScrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[profilePic(260)]-0-[profileBackground(42)]-0-[userInformation(65)]-0-[divider(2)]-0-[profileSocial(130)]-0-[favoritesView]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+     // Profile Information
     [AppUIManager horizontallyCenterElement:profilePic inView:mainScrollView];
     [mainScrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[profilePic]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [profilePic addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[profilePicBlur(176)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -164,7 +190,7 @@
     // Social Constraints
     [mainScrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[profileSocial]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [profileSocial addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-3-[socialTitle(6)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [profileSocial addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[socialTitle(41)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [profileSocial addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[socialTitle]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager verticallyCenterElement:socialTitle inView:profileSocial];
     [profileSocial addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[instagramIcon]-3-[instagramName]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [profileSocial addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[tumblrIcon]-3-[tumblrName]"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -172,6 +198,12 @@
     [profileSocial addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[twitterIcon]-3-[twitterName]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [profileSocial addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[twitterIcon]-6-[instagramIcon]-6-[snapchatIcon]-6-[tumblrIcon]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [profileSocial addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[twitterName]-6-[instagramName]-6-[snapchatName]-6-[tumblrName]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    
+    // Favorite View
+    [mainScrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[favoritesView]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [favoritesView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[favoritesTitle]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [favoritesView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[favoritesTitle]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [AppUIManager horizontallyCenterElement:favoritesTitle inView:favoritesView];
 }
 #pragma mark - Button Actions
 - (void)goBack:(id)sender {

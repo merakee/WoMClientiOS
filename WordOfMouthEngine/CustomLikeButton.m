@@ -1,15 +1,15 @@
 //
-//  CustomLilkeButton.m
+//  CustomLikeButton.m
 //  WordOfMouthEngine
 //
 //  Created by Kevin Moy on 12/4/14.
 //  Copyright (c) 2014 Bijit Halder. All rights reserved.
 //
 
-#import "CustomLilkeButton.h"
+#import "CustomLikeButton.h"
 #import "CommentViewHelper.h"
 
-@implementation CustomLilkeButton
+@implementation CustomLikeButton
 
 @synthesize didLike = _didLike;
 
@@ -22,5 +22,4 @@
         [self setImage:[UIImage imageNamed:kAUREmptyLikeImage] forState:UIControlStateNormal];
     }
 }
-
 @end

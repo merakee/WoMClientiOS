@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CustomLilkeButton.h"
-
+#import "CustomLikeButton.h"
 @interface CommentTableViewCell : UITableViewCell
 
 @property (nonatomic, retain) UILabel *commentCellLabel;
-@property (nonatomic, retain) CustomLilkeButton *likeButton;
+@property (nonatomic, retain) CustomLikeButton *likeButton;
 @property (nonatomic, retain) UILabel *likeCount;
 @property (nonatomic, retain) UIButton *touchLike;
 @property (nonatomic, retain) UILabel *nickname;

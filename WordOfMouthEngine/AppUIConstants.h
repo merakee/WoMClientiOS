@@ -148,6 +148,7 @@ const static float kAUSSettingColor[4] = {179.0/360.0, 0.98, 0.36, 1.0};
 
 static NSString * kAUCFontFamilyPrimary = @"Utility";//@"FiraSans-Bold";   //@"HelveticaNeue-Light";
 static NSString * kAUCFontFamilySecondary  = @"GillSans";//@"UtilityBoldCondensed";   //@"HelveticaNeue-Light";
+static NSString * kAUCFontFamilySecondaryBold = @"GillSans-Bold";
 static NSString * kAUCFontFamilyThird = @"GillSansLight";
 //static NSString * kAUCFontFamilyTertiary  = @"GillSans";//@"UtilityBoldCondensed"; //@"HelveticaNeue-Light";
 
@@ -177,11 +178,13 @@ const static CGFloat kAUCFontSizeCommentCount = 12.0;
 const static CGFloat kAUCFontSizeSpreadCount = 14.0;
 const static CGFloat kAUCFontSizeNicknameText = 16.0;
 
-const static CGFloat kAUPFontSizeNicknameText = 15.0;
-const static CGFloat kAUPFontSizeLikeCountText = 10.0;
-const static CGFloat kAUPFontSizeBioText = 12.0;
-const static CGFloat kAUPFontSizeLocationText = 11.0;
-const static CGFloat kAUPFontSizeSocialText = 11.0;
+const static CGFloat kAUPFontSizeNicknameText = 19.0;
+const static CGFloat kAUPFontSizeLikeCountText = 14.0;
+const static CGFloat kAUPFontSizeBioText = 16.0;
+const static CGFloat kAUPFontSizeLocationText = 14.0;
+const static CGFloat kAUPFontSizeSocialText = 17.0;
+const static CGFloat kAUSSettingsSizeText = 17.0;
+
 // Other style
 const static float kAUCRectCornerRadius = 4.0;
 const static float kAUCRectBorderWidth = 1.0;
@@ -275,7 +278,7 @@ static NSString *kAUCSignOutButtonImage =@"logout-menu.png";
 static NSString *kAUCLogInMenuButtonImage =@"signup-menu.png";
 static NSString *kAUCPageLogoImage =@"logo-nav.png";
 static NSString *kAUCReplyButtonImage =@"reply-btn.png";
-static NSString *kAUCReportButtonImage =@"flag-btn.png";
+static NSString *kAUCReportButtonImage =@"more.png";
 static NSString *kAUCSettingsButtonImage =@"profile-btn.png";
 static NSString *kAUCContentLoadingImage =@"content-loading";
 static NSString *kAUCAlertOnImage = @"alert-on.png";
@@ -310,23 +313,27 @@ static NSString *kAUCClearIconButtonImage = @"clear-icon.png";
 static NSString *kAUCPostSuccessImage = @"spreadsuccess.png";
 static NSString *kAUCPostFailureImage = @"error-spreading.png";
 static NSString *kAUCComposeBackgroundImage = @"compose-empty-bg.png";
-static NSString *kAUCCameraButtonImage = @"camera-sm-btn.png";
+static NSString *kAUCCameraButtonImage = @"camera-btn.png";
 static NSString *kAUCSystemImageButtonImage = @"bg-bt.png";
 static NSString *kAUCFilterButtonImage = @"filter-btn.png";
 static NSString *kAUCShareButtonImage =@"share.png";
 
 // Comment Images
+static NSString *kAURNavigationViewImage = @"header-shadow.png";
 static NSString *kAURSendButtonImage = @"send-btn.png";
 static NSString *kAUREmptyLikeImage = @"reply-heart-empty.png";
 static NSString *kAURFilledLikeImage = @"reply-heart-full.png";
 static NSString *kAURCloseButtonImage = @"close-btn.png";
+static NSString *kAURFilledFavoriteImage = @"star-full.png";
+static NSString *kAUREmptyFavoriteImage = @"star-empty.png";
 
 // Profile Images
 static NSString *kAUPSettingsButtonImage = @"settings.png";
-static NSString *kAUPSocialTitleImage = @"Findme-label.png";
+static NSString *kAUPSocialTitleImage = @"Find-me-on.png";
 static NSString *kAUPLikesCountIcon = @"heart-count-icon.png";
 static NSString *kAUPHistroyLabel = @"history-label.png";
-static NSString *kAUPInstagramImage = @"insta-icon.png";
-static NSString *kAUPSnapchatImage = @"snap-icon.png";
-static NSString *kAUPTumblrImage = @"tumblr-icon.png";
-static NSString *kAUPTwitterImage = @"twitter-icon.png";
+static NSString *kAUPInstagramImage = @"instagram.png";
+static NSString *kAUPSnapchatImage = @"snapchat.png";
+static NSString *kAUPTumblrImage = @"tumblr.png";
+static NSString *kAUPTwitterImage = @"twitter.png";
+static NSString *kAUPFavoritesTitleImage = @"fav-label-selected.png";

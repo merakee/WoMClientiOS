@@ -41,9 +41,6 @@ static NSString *  kAUCTermsAndPrivacyText = @"Terms of Service \n\nThese Terms 
 + (UILabel *)getLoginLabel;
 
 #pragma mark -  View Helper Methods: Buttons
-//+ (UIButton *)getGoogleButton;
-//+ (UIButton *)getFacebookButton;
-//+ (UIButton *)getTwitterButton;
 + (UIButton *)getSignInButton;
 + (UIButton *)getSignUpButton;
 + (UIButton *)getSignInAsGuestButton;

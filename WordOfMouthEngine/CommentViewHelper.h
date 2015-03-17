@@ -9,20 +9,22 @@
 #import <UIKit/UIKit.h>
 #import "AppUIManager.h"
 #import "ApiContent.h"
-#import "CustomLilkeButton.h"
+#import "CustomLikeButton.h"
 #import "CustomContentView.h"
-
+#import "CustomFavoriteButton.h"
 @interface CommentViewHelper : NSObject
 
 
 + (void)setView:(UIView *)view;
++ (UIView *)getNavigationShadow;
 
 #pragma mark - Buttons
 + (UIButton *)      getSendButton;
-+ (CustomLilkeButton *)      getCellButton;
++ (CustomLikeButton *)      getCellButton;
 + (UIButton *)      getCancelButton;
 + (UIButton *)      getShareButton;
 + (UIButton *)      getReportButton;
++ (CustomFavoriteButton *) getFavoriteButton;
 
 #pragma mark - Content Data
 + (UILabel *)       getLikeCount;
@@ -35,5 +37,8 @@
 + (UILabel *)       getNickname;
 + (UIImageView *)   getProfilePic;
 
+#pragma mark - Custom Content Table Cell
++ (UIView *)        getCommentCountView;
++ (UILabel *)       getCommentCount;
 @property (nonatomic, strong) UILabel *getDescriptionLabel;
 @end

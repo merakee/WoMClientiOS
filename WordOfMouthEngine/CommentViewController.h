@@ -21,7 +21,7 @@ typedef enum {
 
 static const int kCellButtonTag = 10;
 
-@interface CommentViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UIScrollViewDelegate>{
+@interface CommentViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UIScrollViewDelegate,CustomContentViewDelegate>{
     UIButton                *sendButton;
     UITableView             *commentsTableView;
     UIToolbar               *replyToolBar;
@@ -32,7 +32,6 @@ static const int kCellButtonTag = 10;
     UIActivityIndicatorView *activityIndicator;
     UITapGestureRecognizer *touchRecognized;
     
-    //CustomLilkeButton       *likeButton;
     UILabel                 *cellText;
     NSMutableArray          *recentArray;
     NSMutableArray          *popularArray;
@@ -47,16 +46,20 @@ static const int kCellButtonTag = 10;
     
     // Buttons
     UIButton                *cancelButton;
-    UIImage                 *contentImage;
+ //   UIImage                 *currentImage;
     UIButton                *shareButton;
     UIButton                *reportButton;
-    CustomContentView       *scv;
+    
+    // Views
+    UIView                  *navigationShadow;
+    // Current Content
 }
+@property (nonatomic, retain) CustomFavoriteButton *favoriteButton;
 @property (nonatomic) ApiContent *currentContent;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property NSIndexPath *editingIndexPath;
 @property NSLayoutConstraint *horizontalContraint;
 extern NSArray const *testArray;
 @property NSMutableArray *keyboardConstraints;
-@property (nonatomic) UIImage *contentImage;
+@property (nonatomic) UIImage *currentImage;
 @end

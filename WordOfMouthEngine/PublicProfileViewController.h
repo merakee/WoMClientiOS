@@ -45,7 +45,8 @@
     UILabel         *snapchatName;
     UILabel         *twitterName;
     
-    UILabel         *historyTitle;
+    UIView          *favoritesView;
+    UIImageView         *favoritesTitle;
     
 }
 

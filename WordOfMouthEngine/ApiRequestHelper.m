@@ -11,15 +11,40 @@
 @implementation ApiRequestHelper
 
 #pragma mark -  Utility Methods: JSON Request - Session
-+(NSDictionary *)userSignUpParamsWithUserTypeId:(int)userTypeId email:(NSString *)email password:(NSString *)password andPasswordConfirmation:(NSString *)passwordConfirmation{
++(NSDictionary *)userSignUpParamsWithUserTypeId:(int)userTypeId
+                                          email:(NSString *)email
+                                       password:(NSString *)password
+                           passwordConfirmation:(NSString *)passwordConfirmation
+                                       nickname:(NSString *)nickname
+                                         avatar:(UIImage *)avatar
+                                            bio:(NSString *)bio{
     if (email==nil){email=@"";}
     if(password==nil){password=@"";}
     if(passwordConfirmation==nil){passwordConfirmation=@"";}
-    return @{@"user":@{
-                     @"user_type_id": [NSNumber numberWithInt:userTypeId],
-                     @"email":email,
-                     @"password":password,
-                     @"password_confirmation":passwordConfirmation}};
+    if (avatar) {
+        NSString *avatarFile = [UIImageJPEGRepresentation(avatar,kAMAPI_CONTENT_PHOTO_COMPRESSION) base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
+        NSDictionary *avatarDic = @{@"filename": @"image.jpg",
+                                    @"file":avatarFile,
+                                    @"content_type":@"image/jpeg"};
+        
+        return @{@"user":@{
+                         @"user_type_id": [NSNumber numberWithInt:userTypeId],
+                         @"email":email,
+                         @"password":password,
+                         @"password_confirmation":passwordConfirmation,
+                         @"nickname":nickname,
+                         @"avatar":avatarDic,
+                         @"bio":bio}};
+    }
+    else{
+        return @{@"user":@{
+                         @"user_type_id": [NSNumber numberWithInt:userTypeId],
+                         @"email":email,
+                         @"password":password,
+                         @"password_confirmation":passwordConfirmation,
+                         @"nickname":nickname,
+                         @"bio":bio}};
+    }
 }
 +(NSDictionary *)userSignInParamsWithEmail:(NSString *)email andPassword:(NSString *)password{
     if (email==nil){email=@"";}
@@ -43,6 +68,44 @@
     NSMutableDictionary *dictionaryWithUserAuth = [[NSMutableDictionary alloc] initWithDictionary:infoDictionary];
     [dictionaryWithUserAuth addEntriesFromDictionary:[ApiRequestHelper userAuthenticationParams:user]];
     return (NSDictionary *)dictionaryWithUserAuth;
+}
+
+#pragma mark -  Utility Methods: JSON Request - User Profile
++(NSDictionary *)getUserProfileParamsWithUser:(ApiUser *)user userId:(int)userId{
+    return [self addUserAuth:user  toDictionary:@{@"params":@{@"user_id": [NSNumber numberWithInt:userId]}}];
+}
++(NSDictionary *)updateUserProfileParamsWithUser:(ApiUser *)user updateUser:(ApiUser *)userUpdate{
+    // :nickname,:email,:password,:password_confirmation,:avatar,:bio,:social_tags
+    NSMutableDictionary *paramsDic = [[NSMutableDictionary alloc] init];
+    
+    if (userUpdate.email){
+        [paramsDic setValue:userUpdate.email forKey:@"email"];
+    }
+    if (userUpdate.password){
+        [paramsDic setValue:userUpdate.password forKey:@"password"];
+    }
+    if (userUpdate.passwordConfirmation){
+        [paramsDic setValue:userUpdate.passwordConfirmation forKey:@"password_confirmation"];
+    }
+    
+    if (userUpdate.nickname){
+        [paramsDic setValue:userUpdate.nickname forKey:@"nickname"];
+    }
+    if (userUpdate.bio){
+        [paramsDic setValue:userUpdate.bio forKey:@"bio"];
+    }
+    if (userUpdate.socialTags){
+        [paramsDic setValue:userUpdate.socialTags forKey:@"social_tags"];
+    }
+    if (userUpdate.avatar){
+        NSString *avatarFile = [UIImageJPEGRepresentation(userUpdate.avatar,kAMAPI_CONTENT_PHOTO_COMPRESSION) base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
+        NSDictionary *avatarDic = @{@"filename": @"image.jpg",
+                                    @"file":avatarFile,
+                                    @"content_type":@"image/jpeg"};
+        [paramsDic setValue:avatarDic forKey:@"avatar"];
+    }
+    
+    return [self addUserAuth:user toDictionary:paramsDic];
 }
 
 #pragma mark -  Utility Methods: JSON Request - Content
@@ -136,13 +199,26 @@
                                                           @"count": [NSNumber numberWithInt:count]}}];
     
 }
+#pragma mark -  Utility Methods: JSON Request - Favorite Content
++(NSDictionary *)favoriteContentParamsWithUser:(ApiUser *)user contentId:(int)contentId{
+    return [self addUserAuth:user  toDictionary:@{@"params":@{@"content_id": [NSNumber numberWithInt:contentId]}}];
+}
++(NSDictionary *)getFavoriteContentParamsWithUser:(ApiUser *)user userId:(int)userId{
+    return [self addUserAuth:user  toDictionary:@{@"params":@{@"user_id": [NSNumber numberWithInt:userId]}}];
+}
 #pragma mark - user info from response
 + (ApiUser *)getUserFromDictionary:(NSDictionary *)userDic{
-    return [[ApiUser alloc] initWithUserId:userDic[@"user"][@"id"]
+    ApiUser *user =  [[ApiUser alloc] initWithUserId:userDic[@"user"][@"id"]
                                 userTypeId:userDic[@"user"][@"user_type_id"]
                                      email:userDic[@"user"][@"email"]
+                                  nickname:userDic[@"user"][@"nickname"]
+                                 avatarURL:userDic[@"user"][@"avatar"]
+                                       bio:userDic[@"user"][@"bio"]
+                                  hometown:userDic[@"user"][@"hometown"]
+                                socialTags:userDic[@"user"][@"social_tags"]
                        authenticationToken:userDic[@"user"][@"authentication_token"]
                                   signedIn:@YES];
+    return user;
 }
 
 #pragma mark - content info from response

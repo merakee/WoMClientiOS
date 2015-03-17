@@ -13,12 +13,12 @@
 #import "ContentTableViewCell.h"
 #import "ContentViewController.h"
 #import "CustomContentView.h"
-
+#import "PublicProfileViewController.h"
 @implementation CommentViewController
 @synthesize segmentedControl;
 @synthesize currentContent;
 @synthesize keyboardConstraints;
-@synthesize contentImage;
+@synthesize favoriteButton;
 #pragma mark -  init methods
 - (id)init {
     if (self = [super init]) {
@@ -97,33 +97,48 @@
     commentText = [CommentViewHelper getCommentText:self];
     [self.view addSubview:commentText];
     
+    // Navigation Buttons and View
+    navigationShadow = [CommentViewHelper getNavigationShadow];
+    [self.view addSubview:navigationShadow];
+    
     // Cancel Button
     cancelButton = [CommentViewHelper getCancelButton];
     [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:cancelButton];
+    [navigationShadow addSubview:cancelButton];
     
     // Share Button
     shareButton = [CommentViewHelper getShareButton];
     [shareButton addTarget:self action:@selector(shareButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:shareButton];
+    [navigationShadow addSubview:shareButton];
     
     // Report Button
-    reportButton = [ContentViewHelper getReportButton];
+    reportButton = [CommentViewHelper getReportButton];
     [reportButton addTarget:self action:@selector(goToReportMessage:) forControlEvents:UIControlEventTouchUpInside];
+    [navigationShadow addSubview:reportButton];
+    
+    // Favorite Button
+    favoriteButton = [CommentViewHelper getFavoriteButton];
+    [favoriteButton addTarget:self action:@selector(favoriteButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [navigationShadow addSubview:favoriteButton];
     
     [self layoutView];
+    [ApiContent printContentInfo:currentContent];
     [self addGesture];
 }
 
 - (void)layoutView{
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText, segmentedControl, cancelButton, shareButton);
-    // buttons
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(commentsTableView, sendButton, commentText, segmentedControl, cancelButton, shareButton, reportButton, navigationShadow, favoriteButton);
+    // Navigation Bar
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[navigationShadow]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[navigationShadow(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [navigationShadow addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [navigationShadow addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cancelButton(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [navigationShadow addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[reportButton(21)]-5-[favoriteButton(28)]-5-[shareButton(28)]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [navigationShadow addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[shareButton(38)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [navigationShadow addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[reportButton(28)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
+    [navigationShadow addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[favoriteButton(42)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[shareButton(28)]-5-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[shareButton(38)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
-    
+    // Table View
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[commentsTableView]|"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[commentsTableView]-60-|"                                                                      options:0 metrics:nil views:viewsDictionary]];
@@ -134,7 +149,6 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[commentText(39)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     
     heightWithoutKeyboard=10.0;
-    
     layoutConstraintSendButtonYPosition = [NSLayoutConstraint constraintWithItem:sendButton
                                                                        attribute:NSLayoutAttributeBottom
                                                                        relatedBy:NSLayoutRelationEqual
@@ -191,9 +205,11 @@
 }
 - (void)setupContentCell:(ContentTableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
 //    [cell.contentImage.contentImageView setImageWithURL:[NSURL URLWithString:currentContent.photoToken[@"url"]] placeholderImage:nil];
-    cell.contentImage.contentImageView.image = self.contentImage;
+    cell.contentImage.contentImageView.image = self.currentImage;
+    cell.contentImage.delegate = self;
    // cell.contentImage.contentImageView = [ContentViewController co
     //contentImage
+    cell.commentCount.text = @"REPLIES ";
     [cell sizeToFit];
     
     if ([cell respondsToSelector:@selector(layoutMargins)]) {
@@ -233,7 +249,7 @@
     //   tableView.separatorColor = [UIColor orangeColor];
 }
 
--(void)likeButtonPressed:(CustomLilkeButton *)sender{
+-(void)likeButtonPressed:(CustomLikeButton *)sender{
     CommentTableViewCell *cell = (CommentTableViewCell*) sender.superview;
     if(cell.likeButton.didLike==true){
         return;
@@ -262,7 +278,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0)
     {
-              return 350;
+        return 350;
     }
     return UITableViewAutomaticDimension;
 }
@@ -441,11 +457,29 @@
     
 }
 
+#pragma mark - CustomContentView Delegate Methods
+- (void)contentViewUserButton:(id)sender{
+    PublicProfileViewController *pvc = [[PublicProfileViewController alloc] init];
+    pvc.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:pvc animated:NO];
+}
 #pragma mark - Button Action Methods
+-(void)favoriteButtonPressed:(CustomFavoriteButton *)sender{
+    if(favoriteButton.didFavorite==true){
+        return;
+    }
+    else{
+        favoriteButton.didFavorite = true;
+        // Send server info that content was favorited
+    }
+//
+//    NSIndexPath *indexPath = [commentsTableView indexPathForCell:cell];
+//    [self postCommentLikeWithIndexPath:(NSIndexPath *)indexPath];
+}
 - (void)shareButtonPressed:(id)sender {
     NSString *message = @"Found in Spark http://www.sparkapp.social/";
     
-    UIImage *imageToShare = self.contentImage;
+    UIImage *imageToShare = self.currentImage;
     NSArray *postItems = [[NSArray alloc] initWithObjects:imageToShare, message, nil];
     UIActivityViewController *activityVC = [[UIActivityViewController alloc]
                                             initWithActivityItems:postItems
@@ -470,22 +504,12 @@
 }
 -(void)goToReportMessage:(id)sender {
     // Display report message, report it to backend
-//    scv = [self getViewOnTop];
-//    if (scv.contentImageView.image==nil){
-//        return;
-//    }
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Content offensive?" message:@"Want to report this content?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     [alert show];
 }
 - (void)goBack:(id)sender {
     // go back
     [self.navigationController popViewControllerAnimated:NO];
-}
-- (void)sendButtonPressed:(id)sender {
-    // send Message and clear content
-    
-    [self disableKeyBoard];
-    commentText.text = @"";
 }
 
 - (void)postComment:(id)sender {
@@ -666,76 +690,4 @@
     
     cell.likeButton.didLike=true;
 }
-
-#pragma mark - temp code
-//- (void) createAllDummyLists{
-//    recentArray = @[@"1. Ninety-nine percent of lawyers give the rest a bad name. I AM GOING TO WRITE LONG TEST TEXT TO TEST HOW MANY LONG BLAH BLAH BLAH BLAH BAF;ASDJFK;LJ;",
-//                    @"2. Borrow money from a pessimist -- they don't expect it back.",
-//                    @"3. Time is what keeps things from happening all at once.",
-//                    @"4. Lottery: A tax on people who are bad at math.",
-//                    @"5. I didn't fight my way to the top of the food chain to be a vegetarian.",
-//                    @"6. Never answer an anonymous letter.",
-//                    @"7. It's lonely at the top; but you do eat better.",
-//                    @"8. I don't suffer from insanity; I enjoy every minute of it.",
-//                    @"9. Always go to other people's funerals, or they won't go to yours.",
-//                    @"10. Few women admit their age; few men act it.",
-//                    @"11. If we aren't supposed to eat animals, why are they made with meat?",
-//                    @"12. No one is listening until you make a mistake.",
-//                    @"13. Give me ambiguity or give me something else.",
-//                    @"14. We have enough youth. How about a fountain of Smart?",
-//                    @"15. He who laughs last thinks slowest.",
-//                    @"16. Campers: Nature's way of feeding mosquitoes.",
-//                    @"17. Always remember that you are unique; just like everyone else.",
-//                    @"18. Consciousness: That annoying time between naps.",
-//                    @"19. There are three kinds of people: Those who can count and those who can't.",
-//                    @"20. Why is abbreviation such a long word?",
-//                    @"21. Nuke the Whales.",
-//                    @"22. I started out with nothing and I still have most of it.",
-//                    @"23. Change is inevitable, except from a vending machine.",
-//                    @"24. Out of my mind. Back in five minutes.",
-//                    @"25. A clear conscience is usually the sign of a bad memory.",
-//                    @"26. As long as there are tests, there will be prayer in public schools.",
-//                    @"27. Laugh alone and the world thinks you're an idiot.",
-//                    @"28. Sometimes I wake up grumpy; other times I let her sleep.",
-//                    @"29. The severity of the itch is inversely proportional to the ability to reach it.",
-//                    @"30. You can't have everything; where would you put it?",
-//                    @"31. I took an IQ test and the results were negative.",
-//                    @"32. Okay, who stopped the payment on my reality check?"
-//                    ];
-//
-//    popularArray = @[@"Popular: 1. Ninety-nine percent of lawyers give the rest a bad name.",
-//                    @"Popular: 2. Borrow money from a pessimist -- they don't expect it back.",
-//                    @"Popular: 3. Time is what keeps things from happening all at once.",
-//                    @"Popular: 4. Lottery: A tax on people who are bad at math.",
-//                    @"Popular: 5. I didn't fight my way to the top of the food chain to be a vegetarian.",
-//                    @"Popular: 6. Never answer an anonymous letter.",
-//                    @"Popular: 7. It's lonely at the top; but you do eat better.",
-//                    @"Popular: 8. I don't suffer from insanity; I enjoy every minute of it.",
-//                    @"Popular: 9. Always go to other people's funerals, or they won't go to yours.",
-//                    @"Popular: 10. Few women admit their age; few men act it.",
-//                    @"Popular: 11. If we aren't supposed to eat animals, why are they made with meat?",
-//                    @"Popular: 12. No one is listening until you make a mistake.",
-//                    @"Popular: 13. Give me ambiguity or give me something else.",
-//                    @"Popular: 14. We have enough youth. How about a fountain of Smart?",
-//                    @"Popular: 15. He who laughs last thinks slowest.",
-//                    @"Popular: 16. Campers: Nature's way of feeding mosquitoes.",
-//                    @"Popular: 17. Always remember that you are unique; just like everyone else.",
-//                    @"Popular: 18. Consciousness: That annoying time between naps.",
-//                    @"Popular: 19. There are three kinds of people: Those who can count and those who can't.",
-//                    @"Popular: 20. Why is abbreviation such a long word?",
-//                    @"Popular: 21. Nuke the Whales.",
-//                    @"Popular: 22. I started out with nothing and I still have most of it.",
-//                    @"Popular: 23. Change is inevitable, except from a vending machine.",
-//                    @"Popular: 24. Out of my mind. Back in five minutes.",
-//                    @"Popular: 25. A clear conscience is usually the sign of a bad memory.",
-//                    @"Popular: 26. As long as there are tests, there will be prayer in public schools.",
-//                    @"Popular: 27. Laugh alone and the world thinks you're an idiot.",
-//                    @"Popular: 28. Sometimes I wake up grumpy; other times I let her sleep.",
-//                    @"Popular: 29. The severity of the itch is inversely proportional to the ability to reach it.",
-//                    @"Popular: 30. You can't have everything; where would you put it?",
-//                    @"Popular: 31. I took an IQ test and the results were negative.",
-//                    @"Popular: 32. Okay, who stopped the payment on my reality check?"
-//                    ];
-//
-//}
 @end

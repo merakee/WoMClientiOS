@@ -193,20 +193,23 @@
 - (void)signUpButtonPressed:(id)sender {
     // sign up user
     [activityIndicator startAnimating];
-    [[ApiManager sharedApiManager] signUpUserWithUserTypeId:kAPIUserTypeWom
-                                                      email:emailField.text
-                                                   password:passwordField.text
-                                       passwordConfirmation:passwordConfirmationField.text
-                                                    success:^(void){
-                                                        [activityIndicator stopAnimating];
-                                                        [self actionsForSuccessfulUserSignUp];
-                                                    }failure:^(NSError * error){
-                                                        // Analytics: Flurry
-                                                        [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignUpFailure] withParameters:@{@"Error": error}];
-                                                        [activityIndicator stopAnimating];
-                                                        [ApiErrorManager displayAlertWithError:error withDelegate:self];
-                                                    }];
-    
+        [[ApiManager sharedApiManager] signUpUserWithUserTypeId:kAPIUserTypeWom
+                                                          email:emailField.text
+                                                       password:passwordField.text
+                                           passwordConfirmation:passwordField.text
+                                                       nickname:@" "
+                                                         avatar:nil
+                                                            bio:@" "
+                                                       hometown:@" "
+                                                        success:^(void){
+                                                            [activityIndicator stopAnimating];
+                                                            [self actionsForSuccessfulUserSignUp];
+                                                        }failure:^(NSError * error){
+                                                            // Analytics: Flurry
+                                                            [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignUpFailure] withParameters:@{@"Error": error}];
+                                                            [activityIndicator stopAnimating];
+                                                            [ApiErrorManager displayAlertWithError:error withDelegate:self];
+                                                        }];
 }
 
 #pragma mark - Api Manager Post actions methods

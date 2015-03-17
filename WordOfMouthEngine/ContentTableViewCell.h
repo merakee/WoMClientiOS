@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CustomLilkeButton.h"
 #import "CustomContentView.h"
 #import "UIImageView+AFNetworking.h"
 
 @interface ContentTableViewCell : UITableViewCell{
 }
 @property (nonatomic, retain) CustomContentView *contentImage;
+@property (nonatomic, retain) UIView        *commentCountView;
+@property (nonatomic, retain) UILabel       *commentCount;
 @end

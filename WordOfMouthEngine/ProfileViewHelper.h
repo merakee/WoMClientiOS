@@ -37,6 +37,7 @@ static const int kPVHLabelHeight = 36;
 + (UIButton *)getCancelButton;
 + (UIButton *)getSettingsButton;
 + (UIButton *)getLikesButton;
++ (UILabel *)getPrivateProfileTitle;
 
 #pragma mark - Profile Information
 + (UIView *)getProfileBackground;
@@ -52,6 +53,7 @@ static const int kPVHLabelHeight = 36;
 + (UIView *)getUserInformation;
 + (UILabel *)getUserBio;
 + (UILabel *)getUserLocation;
++ (UITextField *)getEditableBio;
 
 #pragma mark - Profile Social
 + (UIView *)getProfileSocial;
@@ -64,6 +66,11 @@ static const int kPVHLabelHeight = 36;
 + (UILabel  *)getTumblrName;
 + (UILabel  *)getSnapchatName;
 + (UILabel  *)getTwitterName;
+
++ (UITextField *)getInstagramText;
++ (UITextField *)getTumblrText;
++ (UITextField *)getSnapchatText;
++ (UITextField *)getTwitterText;
 
 #pragma mark - Favorite View
 + (UIView *)getFavoriteView;

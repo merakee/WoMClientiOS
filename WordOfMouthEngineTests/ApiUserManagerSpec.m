@@ -42,11 +42,21 @@ describe(@"ApiUserManager", ^{
         user= [[ApiUser alloc] initWithUserId:nil
                                    userTypeId:@2
                                         email:@"user@example.com"
+                                     nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                    avatarURL:nil
+                                          bio:[PlaceHolderFactory word]
+                                     hometown:[PlaceHolderFactory word]
+                                   socialTags:nil
                           authenticationToken:@"dfsr543jdfs9uhffaf4R"
                                      signedIn:@YES];
         auser= [[ApiUser alloc] initWithUserId:nil
                                     userTypeId:@1
                                          email:@"huest@example.com"
+                                      nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                     avatarURL:nil
+                                           bio:[PlaceHolderFactory word]
+                                      hometown:[PlaceHolderFactory word]
+                                    socialTags:nil
                            authenticationToken:@"dfsr543jdfs9sfsdfaf4R"
                                       signedIn:@YES];
     });
@@ -183,7 +193,7 @@ describe(@"ApiUserManager", ^{
             
             expect([aum signOutUser]).to.beTruthy();
             // check if the user is nil
-            expect(aum.currentUser).to.beTruthy();
+            expect(aum.currentUser).to.beFalsy();
             expect([aum isUserSignedIn]).to.beFalsy();
         });
         it(@"should sign in user",^{

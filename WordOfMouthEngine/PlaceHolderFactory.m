@@ -96,6 +96,13 @@ NSUInteger LIRandomUnsignedInteger(NSUInteger lowerBound, NSUInteger upperBound)
     return [self wordsWithNumber:1];
 }
 
++ (NSString *)wordOfMaxLength:(int)size{
+    NSString *word = [self word];
+    if ([word length]>size){
+        return [word substringToIndex:size];
+    }
+    return word;
+}
 + (NSString *)wordsWithNumber:(NSInteger)numberOfWords
 {
     NSAssert(numberOfWords > 0, @"The number of words has to be greater than zero.");

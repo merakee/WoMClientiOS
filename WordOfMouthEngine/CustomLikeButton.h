@@ -1,5 +1,5 @@
 //
-//  CustomLilkeButton.h
+//  CustomLikeButton.h
 //  WordOfMouthEngine
 //
 //  Created by Kevin Moy on 12/4/14.
@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CustomLilkeButton : UIButton
+@interface CustomLikeButton : UIButton
 
 @property (nonatomic) bool didLike;
-
 @end
 

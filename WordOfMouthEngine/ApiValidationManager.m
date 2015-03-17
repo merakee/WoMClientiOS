@@ -7,6 +7,7 @@
 //
 
 #import "ApiValidationManager.h"
+#import "CommonUtility.h"
 
 @implementation ApiValidationManager
 
@@ -49,6 +50,49 @@
     }
     return nil;
 }
+
++ (NSString *)isNicknameLengthValid:(NSString *)nickname{
+    if(([nickname length]<kAPIValidationNicknameMinLentgh)||([nickname length]>kAPIValidationNicknameMaxLentgh)){
+        return [NSString stringWithFormat:@"Nickname must be between %d and %d charecter long",kAPIValidationNicknameMinLentgh,kAPIValidationNicknameMaxLentgh];
+    }
+    return nil;
+}
+
++ (NSString *)isNicknameValid:(NSString *)nickname{
+    if(![CommonUtility isAlphaNumeric:nickname]){
+        return [NSString stringWithFormat:@"Nickname can only contain letters and numbers"];
+    }
+    return nil;
+}
+
++ (NSString *)isBioLengthValid:(NSString *)bio{
+    if(([bio length]<kAPIValidationBioMinLentgh)||([bio length]>kAPIValidationBioMaxLentgh)){
+        return [NSString stringWithFormat:@"Bio must be between %d and %d charecter long",kAPIValidationBioMinLentgh,kAPIValidationBioMaxLentgh];
+    }
+    return nil;
+}
+
++ (NSString *)isHometownLengthValid:(NSString *)hometown{
+    if(([hometown length]<kAPIValidationHometownMinLentgh)||([hometown length]>kAPIValidationHometownMaxLentgh)){
+        return [NSString stringWithFormat:@"Hometown must be between %d and %d charecter long",kAPIValidationHometownMinLentgh,kAPIValidationHometownMaxLentgh];
+    }
+    return nil;
+}
+
++ (NSString *)isHometownValid:(NSString *)hometown{
+    if(![CommonUtility isString:hometown inCharecterSet:[CommonUtility addChatectersToAlphaNumric:@" ,"]]){
+        return [NSString stringWithFormat:@"Hometown can only contain letters and numbers, space, and comma"];
+    }
+    return nil;
+}
+
++ (NSString *)isAvatarValid:(UIImage *)avatar{
+    if(!avatar){
+        return @"Avatar cannot be empty";
+    }
+    return nil;
+}
+
 + (NSString *)isContentTextValid:(NSString *)text{
     if([text length]<kAPIValidationContentMinLength){
         return [NSString stringWithFormat:@"Text must be at least %d charecter long",kAPIValidationContentMinLength];
@@ -85,7 +129,11 @@
 + (NSError *)validateSignUpWithUserTypeId:(int)userTypeId
                                     email:(NSString *)email
                                  password:(NSString *)password
-                     passwordConfirmation:(NSString *)passwordConfirmation{
+                     passwordConfirmation:(NSString *)passwordConfirmation
+                                 nickname:(NSString *)nickname
+                                   avatar:(UIImage *)avatar
+                                      bio:(NSString *)bio
+                                 hometown:(NSString *)hometown{
     
     
     // check if anomymou user
@@ -115,6 +163,39 @@
         [reason appendFormat:@"%@\n",msg];
     }
     
+    msg = [ApiValidationManager isNicknameLengthValid:nickname];
+    if(msg){
+        [reason appendFormat:@"%@\n",msg];
+    }
+    
+    msg = [ApiValidationManager isNicknameValid:nickname];
+    if(msg){
+        [reason appendFormat:@"%@\n",msg];
+    }
+    
+    if(bio){
+        msg = [ApiValidationManager  isBioLengthValid:bio];
+        if(msg){
+            [reason appendFormat:@"%@\n",msg];
+        }
+    }
+    
+    if(hometown){
+        msg = [ApiValidationManager  isHometownLengthValid:hometown];
+        if(msg){
+            [reason appendFormat:@"%@\n",msg];
+        }
+        
+        msg = [ApiValidationManager  isHometownValid:hometown];
+        if(msg){
+            [reason appendFormat:@"%@\n",msg];
+        }
+    }
+    msg = [ApiValidationManager isAvatarValid:avatar];
+    if(msg){
+        [reason appendFormat:@"%@\n",msg];
+    }
+    
     if([reason length]==0){
         return nil;
     }
@@ -139,7 +220,7 @@
     NSMutableString * reason = [[NSMutableString alloc] initWithString:@""];
     NSString *msg = [ApiValidationManager isUserTypeIdValid:userTypeId];
     if(msg){
-       [reason appendFormat:@"%@\n",msg];
+        [reason appendFormat:@"%@\n",msg];
     }
     if(userTypeId==kAPIUserTypeAnonymous){
         return nil;
@@ -169,12 +250,12 @@
 + (NSError *)validatePostContentWithCategoryId:(int)categoryId
                                           text:(NSString *)text andPhoto:(UIImage *)photo{
     if(photo){
-        return nil; 
+        return nil;
     }
     NSMutableString * reason = [[NSMutableString alloc] initWithString:@""];
     NSString *msg = [ApiValidationManager isContentCategoryValid:categoryId];
     if(msg){
-         [reason appendFormat:@"%@\n",msg];
+        [reason appendFormat:@"%@\n",msg];
     }
     msg = [ApiValidationManager isContentTextValid:text];
     if(msg){

@@ -81,20 +81,33 @@
 //    }
 //    return self;
 //}
-//#pragma mark - LoginOut Button
-//+ (UIButton *)getLoginOutButton{
-//    UIButton *button =  [AppUIManager getTransparentUIButton];
-//    [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
-//    [button setAccessibilityIdentifier:@"LoginOut"];
-//    return button;
-//}
-//
-//#pragma mark - History Button
-//+ (UIButton *)getHistoryButton{
-//    UIButton *button = [AppUIManager getTransparentUIButton];
-//    [button setImage:[UIImage imageNamed:kAUCCancelButtonImage] forState:UIControlStateNormal];
-//    [button setAccessibilityIdentifier:@"History"];
-//    return button;
-//}
-
+#pragma mark - TextFields
++(UITextField *)getNicknameField{
+    UITextField *textField = [[UITextField alloc] init];
+    textField = [[UITextField alloc] init];
+    textField.adjustsFontSizeToFitWidth = YES;
+    textField.placeholder = @"nickname";
+    textField.returnKeyType = UIReturnKeyDone;
+    [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return textField;
+}
++(UITextField *)getCurrentCityField{
+    UITextField *textField = [[UITextField alloc] init];
+    textField = [[UITextField alloc] init];
+    textField.adjustsFontSizeToFitWidth = YES;
+    textField.placeholder = @"current city";
+    textField.returnKeyType = UIReturnKeyDone;
+    [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return textField;
+}
++(UITextField *)getEmailField{
+    UITextField *textField = [[UITextField alloc] init];
+    textField = [[UITextField alloc] init];
+    textField.adjustsFontSizeToFitWidth = YES;
+    textField.placeholder = @"jake@gmail.com";
+    textField.keyboardType = UIKeyboardTypeEmailAddress;
+    textField.returnKeyType = UIReturnKeyDone;
+    [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return textField;
+}
 @end

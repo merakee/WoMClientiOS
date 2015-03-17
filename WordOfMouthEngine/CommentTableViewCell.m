@@ -25,6 +25,7 @@
     self.commentCellLabel = [CommentViewHelper getCellText];
     self.likeButton = [CommentViewHelper getCellButton];
     self.likeCount = [CommentViewHelper getLikeCount];
+    // Make touch area bigger
     self.touchLike = [CommentViewHelper getTouchLike];
     //    [self.likeButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addSubview:self.commentCellLabel];

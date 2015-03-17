@@ -35,21 +35,21 @@
                                           code:kAPIManagerErrorInvalidSignUp
                                    description:@"Something Went Wrong"
                                         reason:@"Invalid Api Response"
-                                    suggestion:@"Please try again"];
+                                    suggestion:@"Please try again."];
 }
 + (NSError *)getErrorForInternalError{
     return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
                                           code:kAPIManagerErrorInvalidSignUp
                                    description:@"Something Went Wrong"
                                         reason:@"Internal Error in the iOS client"
-                                    suggestion:@"Please try again"];
+                                    suggestion:@"Please try again."];
 }
 + (NSError *)getErrorForInvalidParameters{
     return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
                                           code:kAPIManagerErrorInvalidParameters
                                    description:@"Invalid Parameters"
                                         reason:@"Internal Error in the iOS client"
-                                    suggestion:@"Please try again"];
+                                    suggestion:@"Please try again."];
 }
 
 + (NSError *)getErrorForSignInSaveUser{
@@ -67,7 +67,6 @@
                                         reason:@"User must be singed in for this action"
                                     suggestion:@"Please try after user is signed in."];
 }
-
 + (NSError *)getErrorForGetContentError{
     return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
                                           code:kAPIManagerErrorInvalidParameters
@@ -245,6 +244,29 @@
     return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
                                           code:kAPIManagerErrorApi
                                    description:@"Reset Notification Comment Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
+
+#pragma mark - Error Handling methods - Favorite Content
++ (NSError *)processGetFavoriteContentError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Get Favorite Content List Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
++ (NSError *)processFavoriteContentError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Favorite Content Error"
+                                        reason:[ApiErrorManager getErrorReasonFromError:error]
+                                    suggestion:@"Please try again"];
+}
++ (NSError *)processUnFavoriteContentError:(NSError *)error{
+    return [ApiErrorManager getErrorWithDomain:kAppErrorDomainApi
+                                          code:kAPIManagerErrorApi
+                                   description:@"Unfavorite Content Error"
                                         reason:[ApiErrorManager getErrorReasonFromError:error]
                                     suggestion:@"Please try again"];
 }

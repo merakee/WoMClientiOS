@@ -123,23 +123,37 @@
                            email:(NSString *)email_
                         password:(NSString *)password_
             passwordConfirmation:(NSString *)passwordConfirmation_
+                        nickname:(NSString *)nickname_
+                          avatar:(UIImage *)avatar
+                             bio:(NSString *)bio
+                        hometown:(NSString *)hometown
                          success:(void (^)())success
                          failure:(void (^)(NSError *error))failure{
     // process and validate
     NSString * email = [CommonUtility trimString:email_];
     NSString * password = [CommonUtility trimString:password_];
     NSString * passwordConfirmation = [CommonUtility trimString:passwordConfirmation_];
+    NSString * nickname = [CommonUtility trimString:nickname_];
     NSError *verror =[ApiValidationManager validateSignUpWithUserTypeId:userTypeId
                                                                   email:email
                                                                password:password
-                                                   passwordConfirmation:passwordConfirmation];
+                                                   passwordConfirmation:passwordConfirmation
+                                                               nickname:nickname
+                                                                 avatar:avatar
+                                                                    bio:bio
+                                                               hometown:hometown];
     if(verror){
         failure(verror);
         return;
     }
     
     // Sign up
-    [self POST:kAMAPI_SIGNUP_PATH parameters:[ApiRequestHelper userSignUpParamsWithUserTypeId:userTypeId email:email password:password  andPasswordConfirmation:passwordConfirmation]
+    [self POST:kAMAPI_SIGNUP_PATH parameters:[ApiRequestHelper userSignUpParamsWithUserTypeId:userTypeId
+                                                                                        email:email
+                                                                                     password:password  passwordConfirmation:passwordConfirmation
+                                                                                     nickname:nickname
+                                                                                       avatar:avatar
+                                                                                          bio:bio]
        success:^(NSURLSessionDataTask *task, id responseObject) {
            NSError *error = [self actionsForSuccessfulSignUpWithResponse:responseObject];
            if(error){
@@ -179,6 +193,10 @@
                                      email:nil
                                   password:nil
                       passwordConfirmation:nil
+                                  nickname:@" "
+                                    avatar:nil
+                                       bio:@" "
+                                  hometown:@" "
                                    success:^(){
                                        success();
                                    }
@@ -275,47 +293,74 @@
     return [ApiErrorManager processSignOutError:error];
 }
 #pragma mark -  API Calls: User Profile
-//- (void)getUserProfileSuccess:(void (^)())success
-//                      failure:(void (^)(NSError *error))failure;{
-//
-//
-//    [self GET:kAMAPI_PROFILE_PATH parameters:[ApiRequestHelper userAuthenticationParams:self.apiUserManager.currentUser]
-//      success:^(NSURLSessionDataTask *task, id responseObject) {
-//          [self actionsForSuccessfulGetUserProfileWithResponse:responseObject];
-//          success();
-//      }
-//      failure:^(NSURLSessionDataTask *task, NSError *error) {
-//          failure([self actionsForFailedGetUserProfileWithError:error]);
-//      }];
-//
-//}
+- (void)getUserProfileForId:(int)userId
+                    success:(void (^)(ApiUser *user))success
+                    failure:(void (^)(NSError *error))failure{
+    
+    
+    [self POST:kAMAPI_PROFILE_PATH parameters:[ApiRequestHelper getUserProfileParamsWithUser:self.apiUserManager.currentUser userId:userId]
+       success:^(NSURLSessionDataTask *task, id responseObject) {
+           NSError *error;
+           ApiUser *user = [self actionsForSuccessfulGetUserProfileWithResponse:responseObject withError:&error];
+           success(user);
+       }
+       failure:^(NSURLSessionDataTask *task, NSError *error) {
+           failure([self actionsForFailedGetUserProfileWithError:error]);
+       }];
+    
+}
 
-//- (void)actionsForSuccessfulGetUserProfileWithResponse:(id)responseObject{
-//
-//}
-//- (NSError *)actionsForFailedGetUserProfileWithError:(NSError *)error{
-//    return [ApiErrorManager processGetProfileError:error];
-//}
-//
-//- (void)updateUserProfileSuccess:(void (^)())success
-//                         failure:(void (^)(NSError *error))failure{
-//
-//    [self PUT:kAMAPI_PROFILE_PATH parameters:[ApiRequestHelper userAuthenticationParams:self.apiUserManager.currentUser]
-//      success:^(NSURLSessionDataTask *task, id responseObject) {
-//          [self actionsForSuccessfulUpdateUserProfileWithResponse:responseObject];
-//          success();
-//      }
-//      failure:^(NSURLSessionDataTask *task, NSError *error) {
-//          failure([self actionsForFailedUpdateUserProfileWithError:error]);
-//      }];
-//}
-//
-//- (void)actionsForSuccessfulUpdateUserProfileWithResponse:(id)responseObject{
-//
-//}
-//- (NSError *)actionsForFailedUpdateUserProfileWithError:(NSError *)error{
-//    return [ApiErrorManager processUpdateProfileError:error];
-//}
+- (ApiUser *)actionsForSuccessfulGetUserProfileWithResponse:(id)responseObject withError:(NSError **)error{
+    // get user info
+    ApiUser *user= [ApiRequestHelper getUserFromDictionary:responseObject];
+
+    
+    // check validity of the content
+//    if(![ApiUser isValidUser:user]){
+//        if(error){
+//            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
+//        }
+//        return nil;
+//    }
+    
+    return user;
+}
+- (NSError *)actionsForFailedGetUserProfileWithError:(NSError *)error{
+    return [ApiErrorManager processGetProfileError:error];
+}
+
+- (void)updateUserProfile:(ApiUser *)user
+                  success:(void (^)(ApiUser *user))success
+                  failure:(void (^)(NSError *error))failure{
+    
+    [self POST:kAMAPI_PROFILE_UPDATE_PATH parameters:[ApiRequestHelper updateUserProfileParamsWithUser:self.apiUserManager.currentUser updateUser:user]
+       success:^(NSURLSessionDataTask *task, id responseObject) {
+           NSError *error;
+           ApiUser *user = [self actionsForSuccessfulUpdateUserProfileWithResponse:responseObject withError:&error];
+           success(user);
+       }
+       failure:^(NSURLSessionDataTask *task, NSError *error) {
+           failure([self actionsForFailedUpdateUserProfileWithError:error]);
+       }];
+}
+
+- (ApiUser *)actionsForSuccessfulUpdateUserProfileWithResponse:(id)responseObject withError:(NSError **)error{
+    // get user info
+    ApiUser *user= [ApiRequestHelper getUserFromDictionary:responseObject];
+    
+    // check validity of the content
+    if(![ApiUser isValidUser:user]){
+        if(error){
+            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
+        }
+        return nil;
+    }
+    
+    return user;
+}
+- (NSError *)actionsForFailedUpdateUserProfileWithError:(NSError *)error{
+    return [ApiErrorManager processUpdateProfileError:error];
+}
 
 
 #pragma mark -  API Calls: Content
@@ -876,7 +921,7 @@
     }
     
     [self POST:kAMAPI_RESET_NOTIFICATION_CONTENT_PATH parameters:[ApiRequestHelper getResetNotificationContentParamsWithUser:self.apiUserManager.currentUser
-                                                                                                                  contentId:contentId
+                                                                                                                   contentId:contentId
                                                                                                                        count:count]
        success:^(NSURLSessionDataTask *task, id responseObject) {
            NSError *error;
@@ -961,6 +1006,95 @@
 - (NSError *)actionsForFailedResetNotificationCommentWithError:(NSError *)error{
     return [ApiErrorManager processResetNotificationCommentError:error];
 }
+
+#pragma mark -  API Calls: Favorite Contents
+/*!
+ *  Favorite a content for singed in user
+ *  @param contentId An Int for content Id
+ *  @param success   If the action is successful, returns void
+ *  @param failure   Returns error
+ */
+- (void)favoriteContentId:(int)contentId
+                  success:(void (^)())success
+                  failure:(void (^)(NSError *error))failure{
+    
+    [self POST:kAMAPI_FAVORITE_CONTENT_PATH parameters:[ApiRequestHelper favoriteContentParamsWithUser:self.apiUserManager.currentUser contentId:contentId]
+       success:^(NSURLSessionDataTask *task, id responseObject) {
+               success();
+       }
+       failure:^(NSURLSessionDataTask *task, NSError *error) {
+           failure([self actionsForFailedFavoriteContentWithError:error]);
+       }];
+}
+- (NSError *)actionsForFailedFavoriteContentWithError:(NSError *)error{
+    //DBLog(@"Post Response Error: %@",error);
+    return [ApiErrorManager processFavoriteContentError:error];
+}
+
+/*!
+ *  Un-favorite a content for singed in user
+ *  @param contentId An Int for content Id
+ *  @param success   If the action is successful, returns void
+ *  @param failure   Returns error
+ */
+- (void)unfavoriteContentId:(int)contentId
+                    success:(void (^)())success
+                    failure:(void (^)(NSError *error))failure{
+    
+    [self POST:kAMAPI_FAVORITE_CONTENT_PATH parameters:[ApiRequestHelper favoriteContentParamsWithUser:self.apiUserManager.currentUser contentId:contentId]
+       success:^(NSURLSessionDataTask *task, id responseObject) {
+           success();
+       }
+       failure:^(NSURLSessionDataTask *task, NSError *error) {
+           failure([self actionsForFailedUnFavoriteContentWithError:error]);
+       }];
+}
+- (NSError *)actionsForFailedUnFavoriteContentWithError:(NSError *)error{
+    //DBLog(@"Post Response Error: %@",error);
+    return [ApiErrorManager processUnFavoriteContentError:error];
+}
+/*!
+ *  Gets List favotire contents for given user.
+ *  @param success Returns an array of contents: contentArray
+ *  @param failure Returns NSError error
+ */
+- (void)getFavoriteContentListForUserId:(int)userId
+                                success:(void (^)(NSArray * contentArray))success
+                                failure:(void (^)(NSError *error))failure{
+    [self POST:kAMAPI_FAVORITE_CONTENT_GETLIST_PATH parameters:[ApiRequestHelper getFavoriteContentParamsWithUser:self.apiUserManager.currentUser userId:userId]
+       success:^(NSURLSessionDataTask *task, id responseObject) {
+           NSError *error;
+           NSArray *contentArray = [self actionsForSuccessfulGetFavoriteContentListWithResponse:responseObject withError:&error];
+           if(error){
+               failure(error);
+           }
+           else{
+               success(contentArray);
+           }
+       }
+       failure:^(NSURLSessionDataTask *task, NSError *error) {
+           failure([self actionsForFailedGetFavoriteContentWithError:error]);
+       }];
+}
+
+- (NSArray *)actionsForSuccessfulGetFavoriteContentListWithResponse:(id)responseObject withError:(NSError **)error{
+    // get userResponse info
+    NSArray *contentArray = [ApiRequestHelper getContentArrayFromDictionary:responseObject];
+    // check validity of the userResponse
+    if(!contentArray){
+        if(error){
+            *error = [ApiErrorManager getErrorForInvalidApiResponse];;
+        }
+    }
+    return contentArray;
+}
+
+- (NSError *)actionsForFailedGetFavoriteContentWithError:(NSError *)error{
+    // check for anonymous user
+    [self anonymousUserSignInErrorAction:error];
+    return [ApiErrorManager processGetFavoriteContentError:error];
+}
+
 
 #pragma mark -  Test Code
 + (void)test {

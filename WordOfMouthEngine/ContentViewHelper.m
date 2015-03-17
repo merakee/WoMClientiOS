@@ -199,7 +199,7 @@
     [button setTitle:@"Mi12345670984aaly" forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeNicknameText];
    // [label setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUCFontSizeCommentCount]];
-
+    
     [button setAccessibilityIdentifier:@"Nickname"];
     return button;
 }

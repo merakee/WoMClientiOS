@@ -98,7 +98,7 @@ describe(@"Content", ^{
             });
         });
         
-        it(@"should be able to post content with text",^{
+        it(@"should not be able to post content with text",^{
             waitUntil(^(DoneCallback done) {
                 text =[PlaceHolderFactory  sentence];
                 [apiManager postContentWithCategoryId:kAPIContentCategoryNews
@@ -112,7 +112,8 @@ describe(@"Content", ^{
                                               }
                                               failure:^(NSError *error) {
                                                   NSLog(@"Error: %@",error);
-                                                  expect(error).to.beNil();
+                                                  //expect(error).to.beNil();
+                                                  expect(error.localizedFailureReason).to.equal(@"Not a valid action for this user");
                                                   done();
                                               }];
             });
@@ -138,7 +139,7 @@ describe(@"Content", ^{
             });
         });
         
-        it(@"should be able to flag content with id",^{
+        it(@"should not be able to flag content with id",^{
             waitUntil(^(DoneCallback done) {
                 [apiManager flagContentWithId:newContentId
                                       success:^(ApiContentFlag *contentFlag) {
@@ -149,7 +150,8 @@ describe(@"Content", ^{
                                       }
                                       failure:^(NSError *error) {
                                           NSLog(@"Error: %@",error);
-                                          expect(error).to.beNil();
+                                          //expect(error).to.beNil();
+                                          expect(error.localizedDescription).to.equal(@"Invalid request for anonymous user");
                                           done();
                                       }];
             });

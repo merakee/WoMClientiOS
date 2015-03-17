@@ -97,6 +97,9 @@ static NSString * kDateFormatDefault              = @"yyyyMMddHHmmss";
 #pragma mark -  String functions
 + (BOOL)isEmptyString:(NSString *)string;
 + (NSString *)trimString:(NSString *)string;
++ (BOOL)isAlphaNumeric:(NSString *)text;
++ (BOOL)isString:(NSString *)text inCharecterSet:(NSCharacterSet *)cset;
++ (NSCharacterSet *)addChatectersToAlphaNumric:(NSString *)text;
 
 #pragma mark -  Vec functions
 + (float)vecMax:(float *)vec ofSize:(int)aSize maxIndex:(int *)maxInd;
@@ -170,8 +173,6 @@ static NSString * kDateFormatDefault              = @"yyyyMMddHHmmss";
 +(NSString *)wordsForInt:(NSInteger)val;
 +(NSString *)wordsForFloat:(float)val;
 +(NSString *)wordsForNumber:(NSNumber *)val;
-+(NSString *)getFixedLengthStringForNumber:(NSNumber *)val;
-
 /*!
  *  Converts NSString to NSNumber using NSNumberFormatter with no style
  *  @param string The NSString containing the Number
@@ -289,7 +290,7 @@ static NSString * kDateFormatDefault              = @"yyyyMMddHHmmss";
 + (CGFloat)getScreenHeight;
 + (CGFloat)getScreenWidth;
 + (NSString *)adjustImageFileName:(NSString *)fileName;
-
++(NSString *)getFixedLengthStringForNumber:(NSNumber *)val;
 #pragma mark - C Functions
 double deg2rad (double degrees);
 @end

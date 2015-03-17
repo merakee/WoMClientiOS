@@ -10,6 +10,7 @@
 #import "ContentViewHelper.h"
 #import "CommonUtility.h"
 #import "CommentViewController.h"
+#import "PublicProfileViewController.h"
 
 @implementation CustomContentView
 
@@ -19,11 +20,13 @@
 @synthesize nicknameButton;
 @synthesize profilePic;
 @synthesize spreadIcon;
+@synthesize delegate;
+
 - (void)loadView {
     //[super loadView];
     // view customization code
   //  currentContent =[[ApiContent  alloc] init];
-    [self setView];
+    //[self setViewWithDelegate:nil];
 }
 
 - (void)setView{
@@ -48,13 +51,9 @@
     [contentView addSubview:contentData];
     
     nicknameButton = [ContentViewHelper getNicknameButton];
-    [nicknameButton addTarget:self action:@selector(goToNicknameView:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
+    [nicknameButton addTarget:self action:@selector(contentViewUserButton:) forControlEvents:UIControlEventTouchUpInside];
     profilePic = [ContentViewHelper getProfilePic];
-    [profilePic addTarget:self action:@selector(goToNicknameView:) forControlEvents:UIControlEventTouchUpInside];
-    
-   
+    [profilePic addTarget:self action:@selector(contentViewUserButton:) forControlEvents:UIControlEventTouchUpInside];
     
     spreadsCount = [ContentViewHelper getSpreadsCount];
     [contentData addSubview:spreadsCount];
@@ -112,7 +111,9 @@
 }
 
 -(void)goToNicknameView:(id)sender{
-    NSLog(@"blah");
+    PublicProfileViewController *pvc = [[PublicProfileViewController alloc] init];
+    pvc.hidesBottomBarWhenPushed=YES;
+  //  [self.navigationController pushViewController:pvc animated:NO];
 }
 - (void)setImage:(UIImage *)image{
     contentImageView.image = image;
@@ -120,5 +121,12 @@
 
 - (void)setAttributedText:(NSAttributedString *)text{
     contentTextView.attributedText = text;
+}
+
+#pragma mark - Delegate methods
+- (void)contentViewUserButton:(id)sender{
+       if([self.delegate respondsToSelector:@selector(contentViewUserButton:)]){
+        [self.delegate contentViewUserButton:sender];
+    }
 }
 @end

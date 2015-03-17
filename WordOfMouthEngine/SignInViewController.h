@@ -32,8 +32,8 @@
     UIView                  *pageViewControllerView;
     NSArray *tutorialImages;
     UIPageControl *pageControl;
-    int counter;
+//    int counter;
 }
 //@property (nonatomic, strong) NSArray *tutorialImages;
-
+@property (nonatomic) int counter;
 @end

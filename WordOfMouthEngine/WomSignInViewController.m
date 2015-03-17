@@ -90,25 +90,23 @@
     nextButton = [WomSignInViewHelper getNextButton];
     [nextButton addTarget:self action:@selector(signUpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:nextButton];
-   //nextButton.enabled = NO;
+    nextButton.enabled = NO;
    
     // go back
     cancelButton = [WomSignInViewHelper getCancelButton];
     [cancelButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:cancelButton];
-    
-//    resetPasswordButton = [WomSignInViewHelper getResetPasswordButton];
-//    [resetPasswordButton addTarget:self action:@selector(resetPasswordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:resetPasswordButton];
 
     
     //text Fields
     emailField =[[UITextField alloc] init];
     [WomSignInViewHelper setEmailTextFiled:emailField withDelegate:self];
+    [emailField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:emailField];
     
     passwordField =[[UITextField alloc] init];
     [WomSignInViewHelper setPasswordTextFiled:passwordField withDelegate:self];
+    [passwordField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:passwordField];
     
     
@@ -226,8 +224,10 @@
 }
 - (void)signUpButtonPressed:(id)sender {
     // sign up user
-    [activityIndicator startAnimating];
+   // [activityIndicator startAnimating];
     Signup2ViewController *su2vc =[[Signup2ViewController alloc] init];
+    su2vc.emailField = emailField;
+    su2vc.passwordField = passwordField;
     [self.navigationController pushViewController:su2vc animated:NO];
     
     
@@ -235,6 +235,10 @@
 //                                                      email:emailField.text
 //                                                   password:passwordField.text
 //                                       passwordConfirmation:passwordField.text
+//                                                   nickname:@" "
+//                                                     avatar:nil
+//                                                        bio:@" "
+//                                                   hometown:@" "
 //                                                    success:^(void){
 //                                                        [activityIndicator stopAnimating];
 //                                                        [self actionsForSuccessfulUserSignUp];
@@ -249,6 +253,15 @@
 - (void)resetPasswordButtonPressed:(id)sender {
     ForgotPasswordViewController *passvc = [[ForgotPasswordViewController alloc] init];
     [self.navigationController pushViewController:passvc animated:NO];
+}
+#pragma mark - Text Field methods
+- (void)textFieldDidChange:(id)sender{
+    if ([emailField hasText] && [passwordField hasText]){
+        nextButton.enabled = YES;
+    }
+    else{
+        nextButton.enabled = NO;
+    }
 }
 
 #pragma mark - Api Manager Post actions methods

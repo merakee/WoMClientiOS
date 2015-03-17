@@ -131,6 +131,7 @@
     UIButton *button =  [AppUIManager getTransparentUIButton];
     [button setImage:[UIImage imageNamed:kAUCCameraButtonImage] forState:UIControlStateNormal];
     [button setAccessibilityIdentifier:@"Camera"];
+    button.clipsToBounds = YES;
     [button setTranslatesAutoresizingMaskIntoConstraints:NO];
     return button;
 }

@@ -21,6 +21,8 @@
 #import "WomSignInViewController.h"
 #import <CoreImage/CoreImage.h>
 #import "PublicProfileViewController.h"
+#import "PrivateProfileViewController.h"
+
 @implementation ContentViewController
 @synthesize overlayView;
 - (id)init
@@ -198,6 +200,8 @@
     
     customContentView1 = [[CustomContentView alloc] init];
     customContentView2 = [[CustomContentView alloc] init];
+    customContentView1.delegate=self;
+    customContentView2.delegate=self;
     [customContentView2 setView];
     [customContentView1 setView];
     customContentView1.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kAUCContentLoadingImage]];
@@ -551,6 +555,11 @@
 }
 
 #pragma mark - Button Action Methods
+- (void)contentViewUserButton:(id)sender{
+    PublicProfileViewController *pvc = [[PublicProfileViewController alloc] init];
+    pvc.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:pvc animated:NO];
+}
 - (void)shareButtonPressed:(id)sender {
     NSString *message = @"Found in Spark http://www.sparkapp.social/";
     scv = [self getViewOnTop];
@@ -592,6 +601,14 @@
 - (void)goToSettingsView:(id)sender {
     // Analytics: Flurry
     [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignIn]];
+    
+    if (isRefreshingContent) {
+        return;
+    }
+    if (![ApiContent isValidContent:topContent]){
+        return;
+    }
+    
     // push wom Sign in controller
     WomSignInViewController *womsivc =[[WomSignInViewController alloc] init];
     [self.navigationController pushViewController:womsivc animated:NO];
@@ -612,7 +629,14 @@
     [alert show];
 }
 -(void)goToProfileView:(id)sender{
-    PublicProfileViewController *pvc = [[PublicProfileViewController alloc] init];
+    if (isRefreshingContent) {
+        return;
+    }
+    if (![ApiContent isValidContent:topContent]){
+        return;
+    }
+    PrivateProfileViewController *pvc = [[PrivateProfileViewController alloc] init];
+    pvc.profilePic.image = [self getViewOnTop].contentImageView.image;
     pvc.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:pvc animated:NO];
 }
@@ -626,8 +650,8 @@
     CommentViewController *cvc = [[CommentViewController alloc] init];
     cvc.hidesBottomBarWhenPushed=YES;
   //  cvc.currentContent = storedContent;
-    cvc.contentImage = [self getViewOnTop].contentImageView.image;
-    NSLog(@"image: %@", cvc.contentImage);
+    cvc.currentImage = [self getViewOnTop].contentImageView.image;
+  //  NSLog(@"image: %@", cvc.contentImage);
     [self.navigationController pushViewController:cvc animated:NO];
 }
 - (void)goToHistoryView:(id)sender{
@@ -732,7 +756,7 @@
     
     storedContent = topContent;
     
-    blurredImage.image = [self getViewOnTop].contentImageView.image;
+    blurredImage.image = [self getViewInBottom].contentImageView.image;
     NSLog(@"blurred image: %@", blurredImage.image);
     // update content
     [contentManager getContentWithActivityIndicator:nil//(UIActivityIndicatorView *)activityIndicator
@@ -747,12 +771,18 @@
                                                 // Analytics: Flurry
                                                 [Flurry endTimedEvent:[FlurryManager getEventName:kFAContentFetch] withParameters:@{@"Error":@"No Content"}];
                                                 topContent= content;
-                                                 blurredImage.image = [self getViewOnTop].contentImageView.image;
                                              //   [self storeContentIfNeeded];
                                                 [self updateViewWithNewContentForTopView:isTop];
                                             }];
+    
+    
+//    blurredImage.image = [self getViewInBottom].contentImageView.image;
+//    NSLog(@"blurred image after content: %@", blurredImage.image);
+
+    
+    
+    
     // Blurred image behind
-    //    NSLog(@"*************");
 //        CIFilter *gaussianBlurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
 //        [gaussianBlurFilter setDefaults];
 //        [gaussianBlurFilter setValue:[CIImage imageWithCGImage:[blurredImage.image CGImage]] forKey:kCIInputImageKey];
@@ -848,6 +878,10 @@
     ///timeCount.text = topContent.timeStamp;
     //[self resetContentTimer];
     
+    // User nickname update
+    //ccv.nicknameButton.titleLabel =
+    [self getUserProfileWithId:(int)topContent.userId];
+    
     pic_index +=1;
     pic_index = (int) fmodf(pic_index,4.0);
     
@@ -881,14 +915,21 @@
     }
 }
 
+#pragma mark -
+- (void)getUserProfileWithId:(int)userId{
+    [[ApiManager sharedApiManager] getUserProfileForId:userId
+                                               success:^(ApiUser *user) {
+//                                                   NSLog(@"nickname %@", user.nickname);
+//                                                   NSLog(@"bio %@", user.bio);
+                                                   [ccv.nicknameButton setTitle:user.nickname forState:UIControlStateNormal];
+                                                   [ccv.profilePic setImage:[UIImage imageNamed:user.avatarURL] forState:UIControlStateNormal];
+                                                   [ApiUser printApiUser:user];
+                                               }
+                                               failure:^(NSError *error) {
+                                                   NSLog(@"%@", error);
+                                               }];
+}
 #pragma mark - Dummy content
-//- (UIImage *)dummyImage{
-//
-//    NSString *fileName =[[@"ScreenShot" stringByAppendingFormat:@"%d",pic_index+1 ]stringByAppendingString:@".png"];
-//
-//    return [UIImage imageNamed:fileName];
-//}
-//
 //-(NSString *)dummyText{
 //    NSArray *textArray=@[
 //                         @"Awesome concert tonight!",

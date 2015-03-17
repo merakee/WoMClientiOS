@@ -43,11 +43,21 @@ describe(@"ApiUserDatabase", ^{
         user= [[ApiUser alloc] initWithUserId:@2342
                                    userTypeId:[NSNumber numberWithInt:kAPIUserTypeWom]
                                         email:@"user@example.com"
+                                     nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                    avatarURL:nil
+                                          bio:[PlaceHolderFactory word]
+                                     hometown:[PlaceHolderFactory word]
+                                   socialTags:nil
                           authenticationToken:@"dfsr543jdfs9uhffaf4R"
                                      signedIn:@YES];
         auser= [[ApiUser alloc] initWithUserId:@32671
                                     userTypeId:[NSNumber numberWithInt:kAPIUserTypeAnonymous]
                                          email:@"anon@example.com"
+                                      nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                     avatarURL:nil
+                                           bio:[PlaceHolderFactory word]
+                                      hometown:[PlaceHolderFactory word]
+                                    socialTags:nil
                            authenticationToken:@"dfsr543jdfs9uhffaf4R"
                                       signedIn:@YES];
     });

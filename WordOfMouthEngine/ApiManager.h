@@ -32,8 +32,6 @@ static NSString *kAMAPI_HOST_PATH   =   @"http://wom-dev.freelogue.net/api/v0";
 // Production
 //static NSString *kAMAPI_HOST_PATH   =   @"http://wom-v2.freelogue.net/api/v0";
 
-
-
 //static NSString *kAMAPI_BASE_PATH   =   @"api/v0";
 /*!
  *  @brief Relative path for SIGNUP_PATH
@@ -50,7 +48,11 @@ static NSString *kAMAPI_SIGNOUT_PATH  =  @"signout";
 /*!
  *  @brief Relative path for PROFILE_PATH
  */
-//static NSString *kAMAPI_PROFILE_PATH  =  @"profile";
+static NSString *kAMAPI_PROFILE_PATH  =  @"users/profile";
+/*!
+ *  @brief Relative path for PROFILE_UPDATE_PATH
+ */
+static NSString *kAMAPI_PROFILE_UPDATE_PATH  =  @"users/update";
 /*!
  *  @brief Relative path for GET_CONTENT_LIST
  */
@@ -107,6 +109,18 @@ static NSString *kAMAPI_RESET_NOTIFICATION_CONTENT_PATH =  @"notifications/reset
  *  @brief Relative path for RESET_NOTIFICATIONS_COMMENT_PATH
  */
 static NSString *kAMAPI_RESET_NOTIFICATION_COMMENT_PATH =  @"notifications/reset/comment";
+/*!
+ *  @brief Relative path for FAVORITE_CONTENT_PATH
+ */
+static NSString *kAMAPI_FAVORITE_CONTENT_PATH =  @"favorite_contents/favorite";
+/*!
+ *  @brief Relative path for UNFAVORITE_CONTENT_PATH
+ */
+static NSString *kAMAPI_UNFAVORITE_CONTENT_PATH =  @"favorite_contents/unfavorite";
+/*!
+ *  @brief Relative path for FAVORITE_CONTENT_GETLIST_PATH
+ */
+static NSString *kAMAPI_FAVORITE_CONTENT_GETLIST_PATH =  @"favorite_contents/getlist";
 
 @interface ApiManager : AFHTTPSessionManager{
 }
@@ -172,11 +186,20 @@ static NSString *kAMAPI_RESET_NOTIFICATION_COMMENT_PATH =  @"notifications/reset
  *  @param email                NSString containing user email
  *  @param password             NSString containing password
  *  @param passwordConfirmation NSString containing password confirmation
- *  @return A boolean value of success or failure.
+ *  @param nickname             NSString containing user nickname
+ *  @param avatar               UIImage containing user avatar
+ *  @param bio                  NSString containing user bio
+ *  @param success Returns void
+ *  @param failure Returns NSError error
  */
-- (void)signUpUserWithUserTypeId:(int)userTypeId email:(NSString *)email
+- (void)signUpUserWithUserTypeId:(int)userTypeId
+                           email:(NSString *)email
                         password:(NSString *)password
             passwordConfirmation:(NSString *)passwordConfirmation
+                        nickname:(NSString *)nickname
+                          avatar:(UIImage *)avatar
+                             bio:(NSString *)bio
+                        hometown:(NSString *)hometown
                          success:(void (^)())success
                          failure:(void (^)(NSError *error))failure;
 /*!
@@ -184,7 +207,8 @@ static NSString *kAMAPI_RESET_NOTIFICATION_COMMENT_PATH =  @"notifications/reset
  *  @param userTypeId           An integer
  *  @param email                NSString containing user email
  *  @param password             NSString containing the password
- *  @return A boolean value of success or failure.
+ *  @param success Returns void
+ *  @param failure Returns NSError error
  */
 - (void)signInUserWithUserTypeId:(int)userTypeId
                            email:(NSString *)email
@@ -199,35 +223,38 @@ static NSString *kAMAPI_RESET_NOTIFICATION_COMMENT_PATH =  @"notifications/reset
                    failure:(void (^)(NSError *error))failure;
 
 #pragma mark -  API Calls: User Profile
-///*!
-// *  Gets User Profile information.
-// *  @param success Returns void
-// *  @param failure Returns error
-// *  @deprecated Do not use this method
-// */
-//- (void)getUserProfileSuccess:(void (^)())success
-//                      failure:(void (^)(NSError *error))failure;
-///*!
-// *  Method to update User Profile
-// *  @param success Returns void
-// *  @param failure Returns error
-// *  @deprecated Do not use this method
-// */
-//- (void)updateUserProfileSuccess:(void (^)())success
-//                         failure:(void (^)(NSError *error))failure;
+/*!
+ *  Gets User Profile information for given user id
+ *  @param userId           An integer
+ *  @param success Returns ApiUser object
+ *  @param failure Returns NSError error
+ */
+- (void)getUserProfileForId:(int)userId
+                    success:(void (^)(ApiUser *user))success
+                    failure:(void (^)(NSError *error))failure;
+/*!
+ *  Method to update User Profile for singed in user
+ *  @param user         ApiUser an user object with only fileds that needs updating: :nickname,:email,:password,:password_confirmation,:avatar,:bio,:social_tags
+ *  @param success Returns ApiUser Object after update
+ *  @param failure Returns NSError error
+ *  @discussion If user email or password is updated, the client must update the local copy (both DB and @current_user) for subsequent Api call to have valid auth params
+ */
+- (void)updateUserProfile:(ApiUser *)user
+                  success:(void (^)(ApiUser *user))success
+                  failure:(void (^)(NSError *error))failure;
 
 #pragma mark -  API Calls: Content
 /*!
  *  Gets List contents for signed in user.
  *  @param success Returns an array of contents: contentArray
- *  @param failure Returns error
+ *  @param failure Returns NSError error
  */
 - (void)getContentListSuccess:(void (^)(NSArray * contentArray))success
                       failure:(void (^)(NSError *error))failure;
 /*!
  *  Gets content for given content id
  *  @param success Returns an array of contents: contentArray
- *  @param failure Returns error
+ *  @param failure Returns NSError error
  */
 - (void)getContentWithId:(int)contentId
                  success:(void (^)(ApiContent *))success
@@ -247,7 +274,7 @@ static NSString *kAMAPI_RESET_NOTIFICATION_COMMENT_PATH =  @"notifications/reset
 
 #pragma mark -  API Calls: Content Response
 /*!
- *  Posts response for user of viewd content
+ *  Posts response for user of viewed content
  *  @param contentId An Int for content Id
  *  @param response  NSNumber containing the boolean value (spread => yes, kill => No, no response => nil)
  *  @param success   Returns apiUserResponse object with all relevant parameter
@@ -263,11 +290,11 @@ static NSString *kAMAPI_RESET_NOTIFICATION_COMMENT_PATH =  @"notifications/reset
  *  Flags Content
  *  @param contentId The id for comment that is flagged
  *  @param success Returns an ApiContentFlag object
- *  @param failure Returns error
+ *  @param failure Returns NSError error
  */
 - (void)flagContentWithId:(int)contentId
-                                 success:(void (^)(ApiContentFlag * contentFlag))success
-                                 failure:(void (^)(NSError *error))failure;
+                  success:(void (^)(ApiContentFlag * contentFlag))success
+                  failure:(void (^)(NSError *error))failure;
 
 #pragma mark -  API Calls: Comment
 /*!
@@ -276,7 +303,7 @@ static NSString *kAMAPI_RESET_NOTIFICATION_COMMENT_PATH =  @"notifications/reset
  *  @param count number of comments
  *  @param offset the start count
  *  @param success Returns an array of comments: commentArray
- *  @param failure Returns error
+ *  @param failure Returns NSError error
  */
 
 - (void)getCommentsForContentId:(int)contentId
@@ -317,7 +344,7 @@ static NSString *kAMAPI_RESET_NOTIFICATION_COMMENT_PATH =  @"notifications/reset
  *  @param count number of contents
  *  @param offset the start count
  *  @param success Returns an array of contents: contentArray
- *  @param failure Returns error
+ *  @param failure Returns NSError error
  */
 - (void)getHistoryOfContentsWithCount:(int)count
                                offset:(int)offset
@@ -328,7 +355,7 @@ static NSString *kAMAPI_RESET_NOTIFICATION_COMMENT_PATH =  @"notifications/reset
  *  @param count number of comments
  *  @param offset the start count
  *  @param success Returns an array of comments: commentArray
- *  @param failure Returns error
+ *  @param failure Returns NSError error
  */
 - (void)getHistoryOfCommentsWithCount:(int)count
                                offset:(int)offset
@@ -339,14 +366,14 @@ static NSString *kAMAPI_RESET_NOTIFICATION_COMMENT_PATH =  @"notifications/reset
 /*!
  *  Gets List Notification Counts for signed in user.
  *  @param success Returns an ApiNotificationCount Object
- *  @param failure Returns error
+ *  @param failure Returns NSError error
  */
 - (void)getNotificationCountSuccess:(void (^)(ApiNotificationCount *))success
                             failure:(void (^)(NSError *error))failure;
 /*!
  *  Gets List Notifications for signed in user.
  *  @param success Returns an array of Notifications: each item is either an ApiContent or ApiComment object
- *  @param failure Returns error
+ *  @param failure Returns NSError error
  */
 - (void)getNotificationListSuccess:(void (^)(NSArray * notificationArray))success
                            failure:(void (^)(NSError *error))failure;
@@ -355,7 +382,7 @@ static NSString *kAMAPI_RESET_NOTIFICATION_COMMENT_PATH =  @"notifications/reset
  *  @param contentId The id for content whose like count are to be reset
  *  @param count the value the new like count would be decremented by. Must be >0 and less the current new like count
  *  @param success Returns an ApiContent object with modified values
- *  @param failure Returns error
+ *  @param failure Returns NSError error
  */
 - (void)resetNotificationCountForContent:(int)contentId
                                withCount:(int)count
@@ -367,7 +394,7 @@ static NSString *kAMAPI_RESET_NOTIFICATION_COMMENT_PATH =  @"notifications/reset
  *  @param commentId The id for comment whose like count are to be reset
  *  @param count the value the new like count would be decremented by. Must be >0 and less the current new like count
  *  @param success Returns an ApiComment object with modified values
- *  @param failure Returns error
+ *  @param failure Returns NSError error
  */
 - (void)resetNotificationCountForComment:(int)commentId
                                withCount:(int)count
@@ -375,6 +402,35 @@ static NSString *kAMAPI_RESET_NOTIFICATION_COMMENT_PATH =  @"notifications/reset
                                  failure:(void (^)(NSError *error))failure;
 
 
+#pragma mark -  API Calls: Favorite Contents
+/*!
+ *  Favorite a content for singed in user
+ *  @param contentId An Int for content Id
+ *  @param success   If the action is successful, returns void
+ *  @param failure   Returns error
+ */
+- (void)favoriteContentId:(int)contentId
+                  success:(void (^)())success
+                  failure:(void (^)(NSError *error))failure;
+
+/*!
+ *  Un-favorite a content for singed in user
+ *  @param contentId An Int for content Id
+ *  @param success   If the action is successful, returns void
+ *  @param failure   Returns error
+ */
+- (void)unfavoriteContentId:(int)contentId
+                    success:(void (^)())success
+                    failure:(void (^)(NSError *error))failure;
+
+/*!
+ *  Gets List favotire contents for given user.
+ *  @param success Returns an array of contents: contentArray
+ *  @param failure Returns NSError error
+ */
+- (void)getFavoriteContentListForUserId:(int)userId
+                                success:(void (^)(NSArray * contentArray))success
+                                failure:(void (^)(NSError *error))failure;
 
 #pragma mark -  Test Code
 + (void)test;

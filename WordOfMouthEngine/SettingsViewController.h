@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface SettingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
+#import <MessageUI/MessageUI.h>
+@interface SettingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, MFMailComposeViewControllerDelegate>{
 
     UITableView             *settingsTableView;
     
@@ -16,6 +16,16 @@
     UIView      *navigationView;
     UIButton    *cancelButton;
     UILabel     *settingsTitle;
+    
+    // Text Fields
+    UITextField *nicknameTextField;
+    UITextField *currentCityField;
+    UITextField *emailField;
+    UITextField *changePasswordField;
+
+    UITextField *currentPassword;
+    UITextField *newPassword;
+    MFMailComposeViewController *mail;
 }
 
 @end

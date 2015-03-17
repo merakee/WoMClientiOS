@@ -24,4 +24,8 @@
 + (UIButton *)getCancelButton;
 + (UILabel *)getSettingsTitle;
 
+#pragma mark - UITextFields
++ (UITextField *)getNicknameField;
++ (UITextField *)getCurrentCityField;
++ (UITextField *)getEmailField;
 @end

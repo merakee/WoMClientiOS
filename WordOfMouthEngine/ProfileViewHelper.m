@@ -64,13 +64,6 @@
     
     return textLabel;
 }
-#pragma mark -  View Helper Methods: Navigation bar
-+ (UIView *)getNavigationView{
-    UIView *view = [[UIView alloc] init];
-    view.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCBorderColor];
-    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
-    return view;
-}
 + (UIButton *)getButton{
     //UIImage *image = [UIImage imageNamed:@"reply-heart-empty.png"];
     //  UIImageView *cellImageView = [[UIImageView alloc] initWithImage:image];
@@ -81,6 +74,25 @@
     // custom settings
     button.tag=kPVHCellViewTagsButton;
     return button;
+}
+#pragma mark -  View Helper Methods: Navigation bar
++ (UIView *)getNavigationView{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [CommonUtility getColorFromHSBACVec:kAUCBorderColor];
+    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return view;
+}
++ (UILabel *)getPrivateProfileTitle{
+    UILabel *titleLabel =[[UILabel alloc] init];
+    titleLabel.text=@"My Profile";
+    titleLabel.font = [UIFont boldSystemFontOfSize:kAUAppleTitleDefault];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [titleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    // accessibilty
+    [titleLabel setAccessibilityIdentifier:@"Title label"];
+    return titleLabel;
 }
 + (UIButton *)getCancelButton{
     UIButton *button =  [AppUIManager getTransparentUIButton];
@@ -190,6 +202,15 @@
     label.text = @"User Location";
     return label;
 }
++ (UITextField *)getEditableBio{
+    UITextField *textField = [[UITextField alloc] init];
+    textField = [[UITextField alloc] init];
+    textField.adjustsFontSizeToFitWidth = YES;
+    textField.placeholder = @"introduce yourself...";
+    textField.returnKeyType = UIReturnKeyDone;
+    [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return textField;
+}
 #pragma mark - Social View
 + (UIView *)getProfileSocial{
     UIView *view = [[UIView alloc] init];
@@ -267,7 +288,42 @@
     label.text = @"Twitter";
     return label;
 }
-
++ (UITextField *)getInstagramText{
+    UITextField *textField = [[UITextField alloc] init];
+    [textField setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUPFontSizeSocialText]];
+    textField.adjustsFontSizeToFitWidth = YES;
+    textField.placeholder = @"Add your instagram username..";
+    textField.returnKeyType = UIReturnKeyDone;
+    [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return textField;
+}
++ (UITextField *)getTumblrText{
+    UITextField *textField = [[UITextField alloc] init];
+    [textField setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUPFontSizeSocialText]];
+    textField.adjustsFontSizeToFitWidth = YES;
+    textField.placeholder = @"Add your tumblr username..";
+    textField.returnKeyType = UIReturnKeyDone;
+    [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return textField;
+}
++ (UITextField *)getSnapchatText{
+    UITextField *textField = [[UITextField alloc] init];
+    [textField setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUPFontSizeSocialText]];
+    textField.adjustsFontSizeToFitWidth = YES;
+    textField.placeholder = @"Add your snapchat username..";
+    textField.returnKeyType = UIReturnKeyDone;
+    [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return textField;
+}
++ (UITextField *)getTwitterText{
+    UITextField *textField = [[UITextField alloc] init];
+    [textField setFont: [UIFont fontWithName:kAUCFontFamilySecondary size:kAUPFontSizeSocialText]];
+    textField.adjustsFontSizeToFitWidth = YES;
+    textField.placeholder = @"Add your twitter username..";
+    textField.returnKeyType = UIReturnKeyDone;
+    [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return textField;
+}
 #pragma mark - Favorite View
 + (UIView *)getFavoriteView{
     UIView *view = [[UIView alloc] init];
@@ -277,7 +333,7 @@
 }
 + (UIImageView *)getFavoriteTitle{
     UIImageView *imageview = [[UIImageView alloc] init];
-    imageview.image = [UIImage imageNamed:kAUPSocialTitleImage];
+    imageview.image = [UIImage imageNamed:kAUPFavoritesTitleImage];
     [imageview setTranslatesAutoresizingMaskIntoConstraints:NO];
     return imageview;
 }

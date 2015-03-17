@@ -29,6 +29,11 @@
     user= [[ApiUser alloc] initWithUserId:nil
                                userTypeId:[NSNumber numberWithInt:kAPIUserTypeWom]
                                     email:@"user@example.com"
+                                 nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                avatarURL:nil
+                                      bio:[PlaceHolderFactory word]
+                                 hometown:[PlaceHolderFactory word]
+                               socialTags:nil
                       authenticationToken:nil
                                  signedIn:@YES];
     apiManager=[ApiManager sharedApiManager];
@@ -59,6 +64,10 @@
                                    email:nil
                                 password:nil
                     passwordConfirmation:nil
+                                nickname:nil
+                                  avatar:nil
+                                     bio:nil
+                                hometown:nil
                                  success:^(){
                                      StopAsyncBlock();
                                  }
@@ -85,6 +94,10 @@
                                    email:nil
                                 password:nil
                     passwordConfirmation:nil
+                                nickname:nil
+                                  avatar:nil
+                                     bio:nil
+                                hometown:nil
                                  success:^(){
                                      StopAsyncBlock();
                                  }
@@ -107,12 +120,16 @@
 - (void)testApiManagerSignUpUserFirstTime{
     XCTAssertFalse([apiManager isUserSignedIn], @"User should not be signed in");
     
-    user.email = [PlaceHolderFactory email];    
+    user.email = [PlaceHolderFactory email];
     StartAsyncBlock();
     [apiManager signUpUserWithUserTypeId:user.userTypeId.intValue
                                    email:user.email
                                 password:@"password"
                     passwordConfirmation:@"password"
+                                nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                  avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                     bio:[PlaceHolderFactory word]
+                                hometown:[PlaceHolderFactory word]
                                  success:^(){
                                      XCTAssert([apiManager isUserSignedIn], @"User should  be signed in");
                                      XCTAssertEqual([apiManager currentUser].userTypeId.integerValue, user.userTypeId.integerValue);
@@ -142,6 +159,10 @@
                                    email:user.email
                                 password:@"password"
                     passwordConfirmation:@"password"
+                                nickname:[PlaceHolderFactory wordOfMaxLength:17]
+                                  avatar:[PlaceHolderFactory placeholderImageWithSize:CGSizeMake(100.0, 100.0)]
+                                     bio:[PlaceHolderFactory word]
+                                hometown:[PlaceHolderFactory word]
                                  success:^(){
                                      XCTAssert([apiManager isUserSignedIn], @"User should  be signed in");
                                      XCTAssertEqual([apiManager currentUser].userTypeId.integerValue, user.userTypeId.integerValue);
@@ -275,7 +296,7 @@
     
     // delete all info
     [[[ApiUserDatabase alloc] init] deleteAnonymousUserInfo];
-    [[[ApiUserDatabase alloc] init] deleteUserInfo];    
+    [[[ApiUserDatabase alloc] init] deleteUserInfo];
 }
 
 

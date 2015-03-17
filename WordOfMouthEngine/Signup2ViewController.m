@@ -11,10 +11,11 @@
 #import "WomSignInViewHelper.h"
 #import "FlurryManager.h"
 #import "ApiManager.h"
-
+#import "AppDelegate.h"
 
 @implementation Signup2ViewController
-
+@synthesize emailField;
+@synthesize passwordField;
 - (id)init
 {
     if (self = [super init]) {
@@ -110,15 +111,26 @@
     
     // profile picture
     profileImageView = [WomSignInViewHelper getProfileImageView];
-    [self.view addSubview:profileImageView];
-    
-    [self setupHorizontalScrollView];
+    //[self.view addSubview:profileImageView];
+    profileImageView.backgroundColor = [UIColor blueColor];
+    // camerea button
+    cameraButton = [WomSignInViewHelper getCameraButton];
+    [cameraButton addTarget:self action:@selector(showPhotoOptions:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:cameraButton];
+
+    // activity indictactor
+    activityIndicator =[[UIActivityIndicatorView alloc] init];
+    [AppUIManager addActivityIndicator:activityIndicator toView:self.view];
+
     [self layoutView];
+    NSLog(@"email: %@", emailField.text);
+    NSLog(@"password: %@", passwordField.text);
+
 }
 
 - (void)layoutView{
     // all view elements
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(cancelButton, nicknameField, titleImage, doneButton, imageScrollview, cameraButton, profileImageView);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(cancelButton, nicknameField, titleImage, doneButton, cameraButton);
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[titleImage(44)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[titleImage(46)]"                                                                      options:0 metrics:nil views:viewsDictionary]];
     [AppUIManager horizontallyCenterElement:titleImage inView:self.view];
@@ -132,19 +144,16 @@
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[nicknameField]|"
         options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[imageScrollview(110)]-25-[nicknameField(80)]-25-[profileImageView(50)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[cameraButton(80)]-25-[nicknameField(80)]"
                                                                       options:0 metrics:nil views:viewsDictionary]];
-                               
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[imageScrollview]|"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[profileImageView]|"
-                                                                      options:0 metrics:nil views:viewsDictionary]];
-    [imageScrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[cameraButton(110)]"
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[profileImageView(110)]"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[profileImageView(110)]"
+//                                                                      options:0 metrics:nil views:viewsDictionary]];
+//    [AppUIManager horizontallyCenterElement:profileImageView inView:self.view];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[cameraButton(80)]"
                                                                             options:0 metrics:nil views:viewsDictionary]];
-    [AppUIManager horizontallyCenterElement:cameraButton inView:imageScrollview];
-    [imageScrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[cameraButton(110)]"
-                                                                            options:0 metrics:nil views:viewsDictionary]];
-    [AppUIManager verticallyCenterElement:cameraButton inView:imageScrollview];
+    [AppUIManager horizontallyCenterElement:cameraButton inView:self.view];
 }
 
 - (void)setupHorizontalScrollView{
@@ -162,10 +171,6 @@
     imageScrollview.exclusiveTouch = YES;
     imageScrollview.delaysContentTouches = YES;
     [self.view addSubview:imageScrollview];
-    
-    cameraButton = [WomSignInViewHelper getCameraButton];
-    [cameraButton addTarget:self action:@selector(showPhotoOptions:) forControlEvents:UIControlEventTouchUpInside];
-    [imageScrollview addSubview:cameraButton];
 //    NSUInteger nimages = 0;
 //    for (; ; nimages++){
 //    //   NSString *imageName = [NSString stringWithFormat:@"image%d.png", (nimages+1)];
@@ -174,8 +179,6 @@
 //        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 //        [imageScrollview addSubview:imageView];
 //    }
-    
-    
 }
 
 #pragma mark - Button Action Methods
@@ -188,20 +191,48 @@
 - (void)signUpButtonPressed:(id)sender {
     // sign up user
    // [activityIndicator startAnimating];
-//    [[ApiManager sharedApiManager]
-//                                                      email:emailField.text
-//                                                   password:passwordField.text
-//                                       passwordConfirmation:passwordConfirmationField.text
-//                                                    success:^(void){
-//                                                        [activityIndicator stopAnimating];
-//                                                        [self actionsForSuccessfulUserSignUp];
-//                                                    }failure:^(NSError * error){
-//                                                        // Analytics: Flurry
-//                                                        [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignUpFailure] withParameters:@{@"Error": error}];
-//                                                        [activityIndicator stopAnimating];
-//                                                        [ApiErrorManager displayAlertWithError:error withDelegate:self];
-//                                                    }];
+    if (profileImageView.image == nil){
+        [self randomProfilePicture];
+    }
+        [[ApiManager sharedApiManager] signUpUserWithUserTypeId:kAPIUserTypeWom
+                                                          email:emailField.text
+                                                       password:passwordField.text
+                                           passwordConfirmation:passwordField.text
+                                                       nickname:nicknameField.text
+                                                         avatar:profileImageView.image
+                                                            bio:@" "
+                                                       hometown:@" "
+                                                        success:^(void){
+                                                            [activityIndicator stopAnimating];
+                                                            [self actionsForSuccessfulUserSignUp];
+                                                        }failure:^(NSError * error){
+                                                            // Analytics: Flurry
+                                                            [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignUpFailure] withParameters:@{@"Error": error}];
+                                                            [activityIndicator stopAnimating];
+                                                            [ApiErrorManager displayAlertWithError:error withDelegate:self];
+                                                        }];
     
+}
+-(void)randomProfilePicture{
+    NSArray *images = [NSArray arrayWithObjects:
+                       [UIImage imageNamed:@"bluebubble.png"],
+                       [UIImage imageNamed:@"redbubble.png"],
+                       [UIImage imageNamed:@"yellowbubble.png"],
+                       [UIImage imageNamed:@"greenbubble.png"],
+                       [UIImage imageNamed:@"orangebubble.png"],
+                       [UIImage imageNamed:@"pinkbubble.png"],
+                       [UIImage imageNamed:@"purplebubble.png"],
+                       nil];
+
+    int randomImages = arc4random()%20;
+    
+}
+#pragma mark - Api Manager Post actions methods
+- (void)actionsForSuccessfulUserSignUp{
+    // Analytics: Flurry
+    [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionSignUpSuccess]];
+    // switch to content view
+    [(AppDelegate *)[UIApplication sharedApplication].delegate setContentViewAsRootView];
 }
 - (void)showPhotoOptions:(id)sender{
     NSLog(@"pressed");
@@ -296,9 +327,7 @@
     // start image picker for camera
     //[AppUIManager dispatchBlock:^{[photoManager displayPhotoLibrary]; } afterDelay:0.5];
     //[photoManager performSelector:@selector(displayPhotoLibrary) withObject:nil afterDelay:0.3];
-    NSLog(@"1");
     [photoManager displayPhotoLibrary];
-     NSLog(@"2");
 }
 
 - (void)photoCaptureCancelled {
@@ -308,6 +337,8 @@
     // set image view
 //    [self cropImageToSquare:image];
     profileImageView.image = image;
+    [cameraButton setImage:profileImageView.image forState:UIControlStateNormal];
+    cameraButton.layer.cornerRadius = cameraButton.bounds.size.width/2.0;
 }
 
 @end

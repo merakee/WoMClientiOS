@@ -15,13 +15,15 @@
 #import "TutorialViewController.h"
 #import "TermsViewController.h"
 #import "AppAnimationManager.h"
+#import "SettingsViewController.h"
+#import "ContentViewController.h"
 
 @interface SignInViewController ()  <UIPageViewControllerDataSource>
 @end
 
 @implementation SignInViewController
 //@synthesize tutorialImages;
-
+@synthesize counter;
 #pragma mark -  View Life cycle Methods
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
@@ -328,13 +330,20 @@
 - (UIViewController *)pageViewController: (UIPageViewController *) pageViewController viewControllerAfterViewController:(UIViewController *) viewController
 {
     TutorialViewController *itemController = (TutorialViewController *) viewController;
+    NSLog(@"Item index: %lu",(long)itemController.index);
+    NSLog(@"Counter: %d", counter);
     if (itemController.index == 0 && counter == 0)
     {
         counter = 1;
         return [self itemControllerForIndex: itemController.index+1];
     }
-    if (itemController.index == 0 && counter != 0)
+    if (itemController.index == 0 && counter == 2){
+        SettingsViewController *svc =[[SettingsViewController alloc] init];
+        [self.navigationController pushViewController:svc animated:NO];
+    }
+    if (itemController.index == 0 && counter == 1)
     {
+        NSLog(@"guest");
         // Analytics: Flurry
         [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionGuestSignIn]];
         
@@ -356,15 +365,21 @@
         
        // return [self itemControllerForIndex: itemController.index+1];
     }
-
+    
+    if (itemController.index == 0 && counter == 1)
+    {
+    //    NSLog(@"settings");
+        counter = 2;
+        return [self itemControllerForIndex: itemController.index+1];
+    }
+   
     if (itemController.index+1 < [tutorialImages count])
     {
-        NSLog(@"%lu",(long)itemController.index);
     //    NSLog(@"%lu",(long)tutorialImages.count);
         return [self itemControllerForIndex: itemController.index+1];
        
     }
-           // Loop pageviewcontroller
+    // Loop pageviewcontroller
     return [self itemControllerForIndex:0];
     
    // return nil;
@@ -412,6 +427,8 @@
     [Flurry logEvent:[FlurryManager getEventName:kFAUserSessionGuestSignInSuccess]];
     // switch to content view
     [(AppDelegate *)[UIApplication sharedApplication].delegate setContentViewAsRootView];
+    //ContentViewController *cvc = [[ContentViewController alloc] init];
+    
 }
 
 @end

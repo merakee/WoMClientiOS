@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WomSignInViewController.h"
 #import "ImageProcessingManager.h"
-
+#import "ApiManager.h"
 static const NSInteger kAUCProfilePhotoOptionsActionSheetTag = 226;
 @interface Signup2ViewController : UIViewController<UIScrollViewDelegate, ImageProcessingManagerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>{
 
@@ -24,6 +24,11 @@ static const NSInteger kAUCProfilePhotoOptionsActionSheetTag = 226;
     UIButton            *cameraButton;
     UIImageView         *profileImageView;
     
+    UIActivityIndicatorView *activityIndicator;
     ImageProcessingManager   *photoManager;
+    
+    NSArray         *allSystemProfileImages;
 }
+@property (nonatomic)  UITextField        *emailField;
+@property (nonatomic)  UITextField        *passwordField;
 @end
