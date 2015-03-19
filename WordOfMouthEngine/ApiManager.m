@@ -1043,7 +1043,7 @@
                     success:(void (^)())success
                     failure:(void (^)(NSError *error))failure{
     
-    [self POST:kAMAPI_FAVORITE_CONTENT_PATH parameters:[ApiRequestHelper favoriteContentParamsWithUser:self.apiUserManager.currentUser contentId:contentId]
+    [self POST:kAMAPI_UNFAVORITE_CONTENT_PATH parameters:[ApiRequestHelper favoriteContentParamsWithUser:self.apiUserManager.currentUser contentId:contentId]
        success:^(NSURLSessionDataTask *task, id responseObject) {
            success();
        }
